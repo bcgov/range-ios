@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
 		293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
 		293C95C720335D4100BF1113 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* ViewController.swift */; };
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
@@ -22,6 +23,9 @@
 		293C95CB20335D4100BF1113 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		293C95CE20335D4100BF1113 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		293C95D020335D4100BF1113 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.release.xcconfig"; sourceTree = "<group>"; };
+		AC1A12ECD6EA7B0AF9754FFC /* Pods-Myra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.debug.xcconfig"; sourceTree = "<group>"; };
+		FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Myra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09987E9ABD6127653AAAF8B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		293C95B820335D4100BF1113 = {
 			isa = PBXGroup;
 			children = (
 				293C95C320335D4100BF1113 /* Myra */,
 				293C95C220335D4100BF1113 /* Products */,
+				2B403992E92ACF9C74893352 /* Pods */,
+				09987E9ABD6127653AAAF8B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = Myra;
 			sourceTree = "<group>";
 		};
+		2B403992E92ACF9C74893352 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AC1A12ECD6EA7B0AF9754FFC /* Pods-Myra.debug.xcconfig */,
+				9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 293C95D320335D4100BF1113 /* Build configuration list for PBXNativeTarget "Myra" */;
 			buildPhases = (
+				159E959BBAD146EF41FB0315 /* [CP] Check Pods Manifest.lock */,
 				293C95BD20335D4100BF1113 /* Sources */,
 				293C95BE20335D4100BF1113 /* Frameworks */,
 				293C95BF20335D4100BF1113 /* Resources */,
+				F7EC8CAC0FC2E436DDC3CD70 /* [CP] Embed Pods Frameworks */,
+				81DC737F79D558BFBD3F7045 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		159E959BBAD146EF41FB0315 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Myra-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81DC737F79D558BFBD3F7045 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Myra/Pods-Myra-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7EC8CAC0FC2E436DDC3CD70 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Myra/Pods-Myra-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		293C95BD20335D4100BF1113 /* Sources */ = {
@@ -272,11 +350,13 @@
 		};
 		293C95D420335D4100BF1113 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC1A12ECD6EA7B0AF9754FFC /* Pods-Myra.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YJY3GTSU5J;
 				INFOPLIST_FILE = Myra/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.range.mobile.Myra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -287,11 +367,13 @@
 		};
 		293C95D520335D4100BF1113 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YJY3GTSU5J;
 				INFOPLIST_FILE = Myra/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.range.mobile.Myra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
