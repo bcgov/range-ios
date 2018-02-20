@@ -24,10 +24,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>To get your position</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To get your position</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To get your position</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

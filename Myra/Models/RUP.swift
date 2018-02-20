@@ -12,6 +12,9 @@ class RUP {
     var id: String = ""
     var info: String = ""
 
+    var primaryAgreementHolderFirstName: String = ""
+    var primaryAgreementHolderLastName: String = ""
+
     var status: RUPStatus?
 
     init(id: String) {

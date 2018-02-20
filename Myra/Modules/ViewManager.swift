@@ -17,5 +17,13 @@ class ViewManager {
     lazy var rupDetails: RUPDetailsViewController = {
         return UIStoryboard(name: "RUPDetails", bundle: Bundle.main).instantiateViewController(withIdentifier: "RUPDetails") as! RUPDetailsViewController
     }()
+
+    lazy var create: CreateViewController = {
+        return UIStoryboard(name: "Create", bundle: Bundle.main).instantiateViewController(withIdentifier: "Create") as! CreateViewController
+    }()
+
+    lazy var createRUP: CreateNewRUPViewController = {
+        return UIStoryboard(name: "CreateNewRup", bundle: Bundle.main).instantiateViewController(withIdentifier: "CreateNewRup") as! CreateNewRUPViewController
+    }()
     
 }

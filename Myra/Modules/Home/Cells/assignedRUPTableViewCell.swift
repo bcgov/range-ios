@@ -38,7 +38,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
     @IBAction func ammendAction(_ sender: Any) {
         if rup == nil {return}
         let parent = self.parentViewController as! HomeViewController
-        parent.amendRUP(rup: rup!)
+        parent.ammendRUP(rup: rup!)
     }
 
     // MARK: Functions
@@ -49,6 +49,6 @@ class AssignedRUPTableViewCell: UITableViewCell {
 
     func setupView(rup: RUP) {
         self.idLabel.text = rup.id
-        self.infoLabel.text = rup.info
+        self.infoLabel.text = rup.info + ", Holder: " + rup.primaryAgreementHolderLastName
     }
 }
