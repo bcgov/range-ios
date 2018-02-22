@@ -30,6 +30,14 @@
 		293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */; };
 		29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */; };
 		29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */; };
+		29BF8029203CE97B0067B32B /* BasicInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8027203CE97B0067B32B /* BasicInformationTableViewCell.swift */; };
+		29BF802A203CE97B0067B32B /* BasicInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29BF8028203CE97B0067B32B /* BasicInformationTableViewCell.xib */; };
+		29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */; };
+		29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */; };
+		29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */; };
+		29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */; };
+		29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8449203E15D600D73F6B /* MapTableViewCell.swift */; };
+		29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB844A203E15D600D73F6B /* MapTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +65,14 @@
 		293C95D020335D4100BF1113 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateNewRup.storyboard; sourceTree = "<group>"; };
 		29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRUPViewController.swift; sourceTree = "<group>"; };
+		29BF8027203CE97B0067B32B /* BasicInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationTableViewCell.swift; sourceTree = "<group>"; };
+		29BF8028203CE97B0067B32B /* BasicInformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInformationTableViewCell.xib; sourceTree = "<group>"; };
+		29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUsageTableViewCell.swift; sourceTree = "<group>"; };
+		29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUsageTableViewCell.xib; sourceTree = "<group>"; };
+		29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUseageYearTableViewCell.swift; sourceTree = "<group>"; };
+		29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUseageYearTableViewCell.xib; sourceTree = "<group>"; };
+		29EB8449203E15D600D73F6B /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
+		29EB844A203E15D600D73F6B /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
 		9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.release.xcconfig"; sourceTree = "<group>"; };
 		AC1A12ECD6EA7B0AF9754FFC /* Pods-Myra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.debug.xcconfig"; sourceTree = "<group>"; };
 		FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Myra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,44 +98,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		291C4D9220364BC600390523 /* Create */ = {
-			isa = PBXGroup;
-			children = (
-				291C4D9320364BDF00390523 /* CreateViewController.swift */,
-				291C4D9520364BEF00390523 /* Create.storyboard */,
-			);
-			path = Create;
-			sourceTree = "<group>";
-		};
-		2920F8202034B98D0090E7B4 /* Modules */ = {
+		2920F8202034B98D0090E7B4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				2920F83B2034CF850090E7B4 /* ViewManager.swift */,
-				29BF801F203C8CB50067B32B /* createRUP */,
-				2920F8212034B9960090E7B4 /* Home */,
-				2920F8362034CA8E0090E7B4 /* RUP Details */,
-				291C4D9220364BC600390523 /* Create */,
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		2920F8212034B9960090E7B4 /* Home */ = {
-			isa = PBXGroup;
-			children = (
 				293C95C620335D4100BF1113 /* HomeViewController.swift */,
-				293C95C820335D4100BF1113 /* Main.storyboard */,
-				2920F8222034B9B80090E7B4 /* Cells */,
+				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
+				2920F8392034CADC0090E7B4 /* RUPDetailsViewController.swift */,
+				291C4D9320364BDF00390523 /* CreateViewController.swift */,
 			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		2920F8222034B9B80090E7B4 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
-				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
-			);
-			path = Cells;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		2920F82B2034BF9A0090E7B4 /* Models */ = {
@@ -148,15 +136,6 @@
 				2920F8342034C8540090E7B4 /* View.swift */,
 			);
 			path = Extentions;
-			sourceTree = "<group>";
-		};
-		2920F8362034CA8E0090E7B4 /* RUP Details */ = {
-			isa = PBXGroup;
-			children = (
-				2920F8372034CAB40090E7B4 /* RUPDetails.storyboard */,
-				2920F8392034CADC0090E7B4 /* RUPDetailsViewController.swift */,
-			);
-			path = "RUP Details";
 			sourceTree = "<group>";
 		};
 		2920F83F2034F37A0090E7B4 /* Base */ = {
@@ -191,8 +170,9 @@
 				2920F8312034C7870090E7B4 /* Extentions */,
 				2920F82E2034C0000090E7B4 /* Helpers */,
 				2920F82B2034BF9A0090E7B4 /* Models */,
+				29EB8442203DEE7A00D73F6B /* UI */,
 				2920F83F2034F37A0090E7B4 /* Base */,
-				2920F8202034B98D0090E7B4 /* Modules */,
+				2920F8202034B98D0090E7B4 /* ViewControllers */,
 				293C95C420335D4100BF1113 /* AppDelegate.swift */,
 				293C95CB20335D4100BF1113 /* Assets.xcassets */,
 				293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */,
@@ -201,13 +181,41 @@
 			path = Myra;
 			sourceTree = "<group>";
 		};
-		29BF801F203C8CB50067B32B /* createRUP */ = {
+		29EB8442203DEE7A00D73F6B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
-				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
+				29EB8444203DEEAE00D73F6B /* Storyboards */,
+				29EB8443203DEE8600D73F6B /* Cells */,
 			);
-			path = createRUP;
+			path = UI;
+			sourceTree = "<group>";
+		};
+		29EB8443203DEE8600D73F6B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
+				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
+				29BF8027203CE97B0067B32B /* BasicInformationTableViewCell.swift */,
+				29BF8028203CE97B0067B32B /* BasicInformationTableViewCell.xib */,
+				29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */,
+				29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */,
+				29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */,
+				29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */,
+				29EB8449203E15D600D73F6B /* MapTableViewCell.swift */,
+				29EB844A203E15D600D73F6B /* MapTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		29EB8444203DEEAE00D73F6B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				293C95C820335D4100BF1113 /* Main.storyboard */,
+				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
+				2920F8372034CAB40090E7B4 /* RUPDetails.storyboard */,
+				291C4D9520364BEF00390523 /* Create.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		2B403992E92ACF9C74893352 /* Pods */ = {
@@ -281,13 +289,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */,
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
 				2920F8382034CAB40090E7B4 /* RUPDetails.storyboard in Resources */,
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
 				29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */,
+				29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */,
 				291C4D9620364BEF00390523 /* Create.storyboard in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
+				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
+				29BF802A203CE97B0067B32B /* BasicInformationTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,14 +367,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */,
+				29BF8029203CE97B0067B32B /* BasicInformationTableViewCell.swift in Sources */,
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
 				2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				291C4D9B2037631400390523 /* Polygon.swift in Sources */,
+				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
+				29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
 				2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */,
 				2920F8302034C0140090E7B4 /* RUPGenerator.swift in Sources */,
+				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				2920F83A2034CADC0090E7B4 /* RUPDetailsViewController.swift in Sources */,
 				291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */,
 				2920F8352034C8540090E7B4 /* View.swift in Sources */,

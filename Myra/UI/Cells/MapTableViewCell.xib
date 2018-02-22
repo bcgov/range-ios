@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapTableViewCell" rowHeight="350" id="KGk-i7-Jjw" customClass="MapTableViewCell" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="352" height="350"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="352" height="349.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1W3-eN-rbp">
+                        <rect key="frame" x="0.0" y="0.0" width="352" height="350"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="H3o-Yh-b1O">
+                                <rect key="frame" x="0.0" y="0.0" width="312" height="350.5"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tcv-HN-oiG">
+                                <rect key="frame" x="312" y="0.0" width="40" height="350"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-aV-gXE">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="350"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dm9-Vz-o9W">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="87.5"/>
+                                                <state key="normal" title="1"/>
+                                                <connections>
+                                                    <action selector="layer1Action:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VdO-Zi-nTs"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WuJ-31-1An">
+                                                <rect key="frame" x="0.0" y="87.5" width="40" height="87.5"/>
+                                                <state key="normal" title="2"/>
+                                                <connections>
+                                                    <action selector="layer2Action:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EEa-pJ-xla"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiX-UW-VDp">
+                                                <rect key="frame" x="0.0" y="175" width="40" height="87.5"/>
+                                                <state key="normal" title="3"/>
+                                                <connections>
+                                                    <action selector="layer3Action:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Y4n-wi-ijR"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qy3-MW-RER">
+                                                <rect key="frame" x="0.0" y="262.5" width="40" height="87.5"/>
+                                                <state key="normal" title="4"/>
+                                                <connections>
+                                                    <action selector="findMeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fnb-pI-uMo"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="5xC-aV-gXE" secondAttribute="trailing" id="KCG-PS-gR5"/>
+                                    <constraint firstAttribute="width" constant="40" id="MaM-EA-1OD"/>
+                                    <constraint firstItem="5xC-aV-gXE" firstAttribute="top" secondItem="Tcv-HN-oiG" secondAttribute="top" id="e6f-uw-01E"/>
+                                    <constraint firstItem="5xC-aV-gXE" firstAttribute="leading" secondItem="Tcv-HN-oiG" secondAttribute="leading" id="iST-eu-jiw"/>
+                                    <constraint firstAttribute="bottom" secondItem="5xC-aV-gXE" secondAttribute="bottom" id="nfF-Dx-bjo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Tcv-HN-oiG" secondAttribute="trailing" id="ICP-BX-XAm"/>
+                            <constraint firstItem="Tcv-HN-oiG" firstAttribute="top" secondItem="1W3-eN-rbp" secondAttribute="top" id="TgO-NA-sYD"/>
+                            <constraint firstItem="H3o-Yh-b1O" firstAttribute="leading" secondItem="1W3-eN-rbp" secondAttribute="leading" id="XlD-nI-1dr"/>
+                            <constraint firstItem="H3o-Yh-b1O" firstAttribute="top" secondItem="1W3-eN-rbp" secondAttribute="top" id="ZBE-bY-4ix"/>
+                            <constraint firstAttribute="height" constant="350" id="cZj-HC-XOb"/>
+                            <constraint firstItem="Tcv-HN-oiG" firstAttribute="leading" secondItem="H3o-Yh-b1O" secondAttribute="trailing" id="ijn-UL-g6p"/>
+                            <constraint firstAttribute="bottom" secondItem="Tcv-HN-oiG" secondAttribute="bottom" id="pE9-AG-95B"/>
+                            <constraint firstAttribute="bottom" secondItem="H3o-Yh-b1O" secondAttribute="bottom" id="um3-8X-xJD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="1W3-eN-rbp" secondAttribute="bottom" id="0he-Ba-Ry1"/>
+                    <constraint firstItem="1W3-eN-rbp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PXP-Ua-XOy"/>
+                    <constraint firstItem="1W3-eN-rbp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="WDS-Rd-BIO"/>
+                    <constraint firstAttribute="trailing" secondItem="1W3-eN-rbp" secondAttribute="trailing" id="jDu-6A-rLv"/>
+                    <constraint firstAttribute="trailing" secondItem="1W3-eN-rbp" secondAttribute="trailing" id="oks-0D-yeG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="mapView" destination="H3o-Yh-b1O" id="Wr0-7f-pD8"/>
+            </connections>
+            <point key="canvasLocation" x="16" y="48"/>
+        </tableViewCell>
+    </objects>
+</document>

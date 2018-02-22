@@ -1,8 +1,8 @@
 //
-//  CreateViewController.swift
+//  MapTableViewCell.swift
 //  Myra
 //
-//  Created by Amir Shayegh on 2018-02-15.
+//  Created by Amir Shayegh on 2018-02-21.
 //  Copyright © 2018 Government of British Columbia. All rights reserved.
 //
 
@@ -10,8 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-// This currently used for exploration of map options only.
-class CreateViewController: BaseViewController {
+class MapTableViewCell: UITableViewCell {
 
     let regionRadius: CLLocationDistance = 200
 
@@ -32,7 +31,6 @@ class CreateViewController: BaseViewController {
 
     var tileRenderer: MKTileOverlayRenderer!
 
-
     // types of layers
     var grasses: [MKOverlay] = [MKOverlay]()
     var borders: [MKOverlay] = [MKOverlay]()
@@ -41,8 +39,16 @@ class CreateViewController: BaseViewController {
     var layer2Toggled = false
     var layer3Toggled = false
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setup()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+
+    func setup() {
         initLocation()
         setupTileRenderer()
         loadMap()
@@ -51,11 +57,6 @@ class CreateViewController: BaseViewController {
         others.append(makePolygonOverlay(coordinates: getDummys3(), color: .yellow))
         let RBCloc = CLLocation(latitude: 48.424402, longitude: -123.365155)
         dropPin(location: RBCloc, name: "COW!")
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
     @IBAction func layer1Action(_ sender: Any) {
@@ -97,14 +98,14 @@ class CreateViewController: BaseViewController {
         layer3Toggled = !layer3Toggled
     }
 
-    @IBAction func layer4Action(_ sender: Any) {
+    @IBAction func findMeAction(_ sender: Any) {
         focusOnCurrent()
     }
-
+    
 }
 
 // Map
-extension CreateViewController: MKMapViewDelegate{
+extension MapTableViewCell: MKMapViewDelegate{
     func loadMap() {
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -140,7 +141,7 @@ extension CreateViewController: MKMapViewDelegate{
         }
 
         return tileRenderer
-//        return MKOverlayRenderer()
+        //        return MKOverlayRenderer()
     }
 
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -279,11 +280,11 @@ extension CreateViewController: MKMapViewDelegate{
     }
 }
 
-extension CreateViewController {
-//    override func url(forTilePath path: MKTileOverlayPath) -> URL {
-//        let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
-//        return URL(string: tileUrl)!
-//    }
+extension MapTableViewCell {
+    //    override func url(forTilePath path: MKTileOverlayPath) -> URL {
+    //        let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
+    //        return URL(string: tileUrl)!
+    //    }
 
     func setupTileRenderer() {
         let overlay = OpenMapOverlay()
@@ -292,28 +293,11 @@ extension CreateViewController {
         mapView.add(overlay, level: .aboveLabels)
         tileRenderer = MKTileOverlayRenderer(tileOverlay: overlay)
     }
-
-//    func setupTileRenderer() {
-//        // 1
-//        let template = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-//
-//        // 2
-//        let overlay = MKTileOverlay(urlTemplate: template)
-//
-//        // 3
-//        overlay.canReplaceMapContent = true
-//
-//        // 4
-//        mapView.add(overlay, level: .aboveLabels)
-//
-//        //5
-//        tileRenderer = MKTileOverlayRenderer(tileOverlay: overlay)
-//    }
 }
 
 
 // Location
-extension CreateViewController: CLLocationManagerDelegate {
+extension MapTableViewCell: CLLocationManagerDelegate {
 
     func initLocation() {
         locationManager.delegate = self
@@ -362,7 +346,7 @@ extension CreateViewController: CLLocationManagerDelegate {
             }
         }
         alertController.addAction(openAction)
-
-        self.present(alertController, animated: true, completion: nil)
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.present(alertController, animated: true, completion: nil)
     }
 }
