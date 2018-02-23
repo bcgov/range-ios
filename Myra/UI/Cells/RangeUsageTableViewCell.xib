@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,52 +22,55 @@
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rbe-St-K3f" userLabel="Head">
                         <rect key="frame" x="0.0" y="0.0" width="671" height="80"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Range Usage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7C-yZ-K2f">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Range Usage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7C-yZ-K2f">
                                 <rect key="frame" x="15" y="30.5" width="108" height="20.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="W7C-yZ-K2f" firstAttribute="centerY" secondItem="Rbe-St-K3f" secondAttribute="centerY" id="FCL-Ts-N0X"/>
-                            <constraint firstAttribute="height" constant="80" id="RF4-n3-LxB"/>
-                            <constraint firstItem="W7C-yZ-K2f" firstAttribute="leading" secondItem="Rbe-St-K3f" secondAttribute="leading" constant="15" id="d40-c6-2fv"/>
+                            <constraint firstAttribute="height" constant="80" id="Vef-Ch-0CY"/>
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleAspectFit" ambiguous="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G51-pE-cj3">
                         <rect key="frame" x="15" y="80" width="641" height="200"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="200" id="LGN-GO-bV0"/>
+                            <constraint firstAttribute="height" constant="76" id="ByT-xx-4Py"/>
                         </constraints>
                     </tableView>
                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sj-Lf-txe">
-                        <rect key="frame" x="35" y="285" width="140" height="32"/>
+                        <rect key="frame" x="15" y="285" width="140" height="30"/>
                         <color key="backgroundColor" red="0.60784906148910522" green="0.60783553123474121" blue="0.6078382134437561" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="140" id="IXd-QP-AhM"/>
-                            <constraint firstAttribute="height" constant="32" id="OfW-tk-utj"/>
+                            <constraint firstAttribute="width" constant="140" id="1eD-j2-lEq"/>
+                            <constraint firstAttribute="height" constant="30" id="6Mf-rf-3nw"/>
                         </constraints>
                         <state key="normal" title="+ Add Year">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
+                        <connections>
+                            <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0HH-lP-QZv"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Rbe-St-K3f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8YW-dS-pLW"/>
-                    <constraint firstItem="Rbe-St-K3f" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="JN0-HE-eZS"/>
-                    <constraint firstItem="G51-pE-cj3" firstAttribute="top" secondItem="Rbe-St-K3f" secondAttribute="bottom" id="OJr-KL-R6b"/>
-                    <constraint firstAttribute="trailing" secondItem="Rbe-St-K3f" secondAttribute="trailing" id="X7f-QH-hsa"/>
-                    <constraint firstItem="G51-pE-cj3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="aTH-vf-isI"/>
-                    <constraint firstAttribute="bottom" secondItem="1sj-Lf-txe" secondAttribute="bottom" constant="5" id="acX-Mt-sYK"/>
-                    <constraint firstItem="1sj-Lf-txe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="fi4-4M-EHl"/>
-                    <constraint firstItem="1sj-Lf-txe" firstAttribute="top" secondItem="G51-pE-cj3" secondAttribute="bottom" constant="5" id="vB3-jU-fvd"/>
-                    <constraint firstAttribute="trailing" secondItem="G51-pE-cj3" secondAttribute="trailing" constant="15" id="ygP-Ze-dIy"/>
+                    <constraint firstAttribute="trailing" secondItem="G51-pE-cj3" secondAttribute="trailing" constant="15" id="F1l-Yk-Owb"/>
+                    <constraint firstItem="Rbe-St-K3f" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="MyB-rk-f2E"/>
+                    <constraint firstItem="1sj-Lf-txe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Vqc-Be-ut5"/>
+                    <constraint firstAttribute="bottom" secondItem="1sj-Lf-txe" secondAttribute="bottom" constant="5.5" id="YGI-XC-NHo"/>
+                    <constraint firstItem="Rbe-St-K3f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bPB-z2-e0z"/>
+                    <constraint firstItem="G51-pE-cj3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="jmo-BM-btw"/>
+                    <constraint firstItem="1sj-Lf-txe" firstAttribute="top" secondItem="G51-pE-cj3" secondAttribute="bottom" constant="5" id="mL5-ma-rWf"/>
+                    <constraint firstItem="G51-pE-cj3" firstAttribute="top" secondItem="Rbe-St-K3f" secondAttribute="bottom" id="mfK-Jh-9BP"/>
+                    <constraint firstAttribute="trailing" secondItem="Rbe-St-K3f" secondAttribute="trailing" id="u5R-2M-Xvk"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="heightConstraint" destination="ByT-xx-4Py" id="xaT-2Q-p3D"/>
                 <outlet property="tableView" destination="G51-pE-cj3" id="7ka-tt-kc1"/>
             </connections>
             <point key="canvasLocation" x="43.5" y="27.5"/>

@@ -1,67 +1,69 @@
 //
-//  RangeUsageTableViewCell.swift
+//  PastureTableViewCell.swift
 //  Myra
 //
-//  Created by Amir Shayegh on 2018-02-20.
+//  Created by Amir Shayegh on 2018-02-22.
 //  Copyright © 2018 Government of British Columbia. All rights reserved.
 //
 
 import UIKit
 
-class RangeUsageTableViewCell: UITableViewCell {
+class PastureTableViewCell: UITableViewCell {
 
     // Mark: Constants
-
-    /* NOTE: update this if you update the cell height
-     of RangeUseageYearTableViewCell
-     */
-    let cellHeight = 76
+    let plantCommunityCellHeight = 100
 
     // Mark: Variables
-    var rangeUsageYears: [RangeUsageYear] = [RangeUsageYear]()
+    var pasture: Pasture?
+    var plantCommunities: [PlantCommunity] = [PlantCommunity]()
 
     // Mark: Outlets
+    @IBOutlet weak var pastureNameLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableHeight: NSLayoutConstraint!
+
+    @IBOutlet weak var pastureNotesTextField: UITextView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableView.reloadData()
-        self.tableView.isScrollEnabled = false
-        
+        addBoarder()
+    }
+
+    func addBoarder() {
+        containerView.layer.borderWidth = 1
+        containerView.layer.cornerRadius = 5
+        containerView.layer.borderColor = UIColor.black.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
     }
 
-    // Mark: Outlet actions
-    @IBAction func addAction(_ sender: Any) {
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.rangeUseYears.append(DummySupplier.shared.getRangeUseYear())
-        parent.tableView.reloadData()
-//        self.rangeUsageYears.append(DummySupplier.shared.getRangeUseYear())
-//        self.tableView.reloadData()
-        updateTableHeight()
-        print(self.rangeUsageYears.count)
-        self.tableView.reloadData()
+    // Mark: Outlet Actions
+    @IBAction func addPlantCommunityAction(_ sender: Any) {
+
     }
 
     // Mark: Functions
-    func setup(rangeUsageYears: [RangeUsageYear]) {
-        self.rangeUsageYears = rangeUsageYears
-        setUpTable()
+    func srtup(pasture: Pasture) {
+        self.plantCommunities = pasture.plantCommunities
+    }
+
+    func getCellHeight() -> CGSize {
+        return self.frame.size
     }
 
     func updateTableHeight() {
-        heightConstraint.constant = CGFloat((rangeUsageYears.count) * cellHeight + 5)
+        tableHeight.constant = CGFloat((plantCommunities.count) * plantCommunityCellHeight + 5)
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.tableView.reloadData()
     }
-
+    
 }
 
-extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
+extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {
         tableView.delegate = self
@@ -84,7 +86,7 @@ extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rangeUsageYears.count
+        return plantCommunities.count
     }
 
 }

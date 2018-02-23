@@ -24,6 +24,9 @@ class CreateNewRUPViewController: UIViewController {
     var managementIndexPath: IndexPath = [0,0]
     var mapIndexPath: IndexPath = [0,0]
 
+    var rangeUseYears: [RangeUsageYear] = [RangeUsageYear]()
+    var pastures: [Pasture] = [Pasture]()
+
     // MARK: Outlets
     // TOP
     @IBOutlet weak var viewTitle: UILabel!
@@ -76,6 +79,7 @@ class CreateNewRUPViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDummy()
         setUpTable()
         setMenuSize()
     }
@@ -89,6 +93,7 @@ class CreateNewRUPViewController: UIViewController {
         tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
     }
     @IBAction func pasturesAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: pasturesIndexPath, at: .top, animated: true)
     }
     @IBAction func scheduleAction(_ sender: UIButton) {
     }
@@ -102,14 +107,18 @@ class CreateNewRUPViewController: UIViewController {
     }
     @IBAction func mapAction(_ sender: UIButton) {
         tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
-//        let vc = getMapVC()
-//        self.present(vc, animated: true, completion: nil)
     }
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
     }
 
+    // Mark: Functions
     func getMapVC() -> CreateViewController {
         return ViewManager.shared.create
+    }
+
+    func setDummy() {
+        self.rangeUseYears = DummySupplier.shared.getRangeUseYears(count: 1)
+        self.pastures = DummySupplier.shared.getPastures(count: 2)
     }
 
 }
@@ -154,6 +163,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         tableView.dataSource = self
         registerCell(name: "BasicInformationTableViewCell")
         registerCell(name: "RangeUsageTableViewCell")
+        registerCell(name: "PasturesTableViewCell")
         registerCell(name: "MapTableViewCell")
     }
 
@@ -170,6 +180,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "BasicInformationTableViewCell", for: indexPath) as! BasicInformationTableViewCell
     }
 
+    func getPasturesCell(indexPath: IndexPath) -> PasturesTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PasturesTableViewCell", for: indexPath) as! PasturesTableViewCell
+    }
+
     func getMapCell(indexPath: IndexPath) -> MapTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "MapTableViewCell", for: indexPath) as! MapTableViewCell
     }
@@ -184,7 +198,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             return getBasicInfoCell(indexPath: indexPath)
         case 1:
             let cell = getRangeUsageCell(indexPath: indexPath)
-            cell.setUpTable()
+            cell.setup(rangeUsageYears: rangeUseYears)
+            return cell
+        case 2:
+            self.pasturesIndexPath = indexPath
+            let cell = getPasturesCell(indexPath: indexPath)
+            cell.setup(pastures: pastures)
             return cell
         default:
             self.mapIndexPath = indexPath
@@ -193,6 +212,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
+
 }

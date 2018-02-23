@@ -1,14 +1,14 @@
 //
-//  RangeUseageYearTableViewCell.swift
+//  PlantCommunityTableViewCell.swift
 //  Myra
 //
-//  Created by Amir Shayegh on 2018-02-21.
+//  Created by Amir Shayegh on 2018-02-22.
 //  Copyright © 2018 Government of British Columbia. All rights reserved.
 //
 
 import UIKit
 
-class RangeUseageYearTableViewCell: UITableViewCell {
+class PlantCommunityTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

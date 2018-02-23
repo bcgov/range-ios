@@ -34,6 +34,16 @@
 		29BF802A203CE97B0067B32B /* BasicInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29BF8028203CE97B0067B32B /* BasicInformationTableViewCell.xib */; };
 		29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */; };
 		29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */; };
+		29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D924203F449700193FA0 /* RangeUsageYear.swift */; };
+		29E0D927203F4B2400193FA0 /* DummySupplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D926203F4B2400193FA0 /* DummySupplier.swift */; };
+		29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */; };
+		29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D929203F551E00193FA0 /* PasturesTableViewCell.xib */; };
+		29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D92C203F5F6F00193FA0 /* Pasture.swift */; };
+		29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D92E203F652F00193FA0 /* PastureTableViewCell.swift */; };
+		29E0D931203F652F00193FA0 /* PastureTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */; };
+		29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D936203F65FD00193FA0 /* PlantCommunity.swift */; };
+		29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */; };
+		29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */; };
 		29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */; };
 		29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */; };
 		29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8449203E15D600D73F6B /* MapTableViewCell.swift */; };
@@ -69,6 +79,16 @@
 		29BF8028203CE97B0067B32B /* BasicInformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInformationTableViewCell.xib; sourceTree = "<group>"; };
 		29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUsageTableViewCell.swift; sourceTree = "<group>"; };
 		29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUsageTableViewCell.xib; sourceTree = "<group>"; };
+		29E0D924203F449700193FA0 /* RangeUsageYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUsageYear.swift; sourceTree = "<group>"; };
+		29E0D926203F4B2400193FA0 /* DummySupplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySupplier.swift; sourceTree = "<group>"; };
+		29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasturesTableViewCell.swift; sourceTree = "<group>"; };
+		29E0D929203F551E00193FA0 /* PasturesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasturesTableViewCell.xib; sourceTree = "<group>"; };
+		29E0D92C203F5F6F00193FA0 /* Pasture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasture.swift; sourceTree = "<group>"; };
+		29E0D92E203F652F00193FA0 /* PastureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastureTableViewCell.swift; sourceTree = "<group>"; };
+		29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PastureTableViewCell.xib; sourceTree = "<group>"; };
+		29E0D936203F65FD00193FA0 /* PlantCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunity.swift; sourceTree = "<group>"; };
+		29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityTableViewCell.swift; sourceTree = "<group>"; };
+		29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityTableViewCell.xib; sourceTree = "<group>"; };
 		29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUseageYearTableViewCell.swift; sourceTree = "<group>"; };
 		29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUseageYearTableViewCell.xib; sourceTree = "<group>"; };
 		29EB8449203E15D600D73F6B /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
@@ -113,8 +133,12 @@
 		2920F82B2034BF9A0090E7B4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				29E0D926203F4B2400193FA0 /* DummySupplier.swift */,
 				2920F82C2034BFCA0090E7B4 /* RUP.swift */,
 				2920F83D2034D6D60090E7B4 /* RUPStatus.swift */,
+				29E0D924203F449700193FA0 /* RangeUsageYear.swift */,
+				29E0D92C203F5F6F00193FA0 /* Pasture.swift */,
+				29E0D936203F65FD00193FA0 /* PlantCommunity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,6 +225,12 @@
 				29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */,
 				29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */,
 				29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */,
+				29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */,
+				29E0D929203F551E00193FA0 /* PasturesTableViewCell.xib */,
+				29E0D92E203F652F00193FA0 /* PastureTableViewCell.swift */,
+				29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */,
+				29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */,
+				29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */,
 				29EB8449203E15D600D73F6B /* MapTableViewCell.swift */,
 				29EB844A203E15D600D73F6B /* MapTableViewCell.xib */,
 			);
@@ -289,14 +319,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29E0D931203F652F00193FA0 /* PastureTableViewCell.xib in Resources */,
 				29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */,
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
+				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				2920F8382034CAB40090E7B4 /* RUPDetails.storyboard in Resources */,
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
 				29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */,
 				29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */,
 				291C4D9620364BEF00390523 /* Create.storyboard in Resources */,
+				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
 				29BF802A203CE97B0067B32B /* BasicInformationTableViewCell.xib in Resources */,
@@ -369,7 +402,9 @@
 				2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */,
 				29BF8029203CE97B0067B32B /* BasicInformationTableViewCell.swift in Sources */,
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
+				29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */,
 				2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */,
+				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				291C4D9B2037631400390523 /* Polygon.swift in Sources */,
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
@@ -377,13 +412,18 @@
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
 				2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */,
+				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
 				2920F8302034C0140090E7B4 /* RUPGenerator.swift in Sources */,
+				29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
+				29E0D927203F4B2400193FA0 /* DummySupplier.swift in Sources */,
 				2920F83A2034CADC0090E7B4 /* RUPDetailsViewController.swift in Sources */,
 				291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */,
+				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
 				2920F8352034C8540090E7B4 /* View.swift in Sources */,
 				2920F8332034C8380090E7B4 /* Color.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
+				29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */,
 				2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
