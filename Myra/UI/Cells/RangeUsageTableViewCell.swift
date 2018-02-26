@@ -40,8 +40,6 @@ class RangeUsageTableViewCell: UITableViewCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.rangeUseYears.append(DummySupplier.shared.getRangeUseYear())
         parent.tableView.reloadData()
-//        self.rangeUsageYears.append(DummySupplier.shared.getRangeUseYear())
-//        self.tableView.reloadData()
         updateTableHeight()
         print(self.rangeUsageYears.count)
         self.tableView.reloadData()

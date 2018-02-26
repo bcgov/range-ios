@@ -26,6 +26,7 @@ class CreateNewRUPViewController: UIViewController {
 
     var rangeUseYears: [RangeUsageYear] = [RangeUsageYear]()
     var pastures: [Pasture] = [Pasture]()
+    var agreementHolders: [AgreementHolder] = [AgreementHolder]()
 
     // MARK: Outlets
     // TOP
@@ -119,6 +120,7 @@ class CreateNewRUPViewController: UIViewController {
     func setDummy() {
         self.rangeUseYears = DummySupplier.shared.getRangeUseYears(count: 1)
         self.pastures = DummySupplier.shared.getPastures(count: 2)
+        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 2)
     }
 
 }
@@ -162,9 +164,11 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "BasicInformationTableViewCell")
+        registerCell(name: "AgreementInformationTableViewCell")
         registerCell(name: "RangeUsageTableViewCell")
         registerCell(name: "PasturesTableViewCell")
         registerCell(name: "MapTableViewCell")
+
     }
 
     func registerCell(name: String) {
@@ -178,6 +182,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
     func getBasicInfoCell(indexPath: IndexPath) -> BasicInformationTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "BasicInformationTableViewCell", for: indexPath) as! BasicInformationTableViewCell
+    }
+
+    func getAgreementInformationCell(indexPath: IndexPath) -> AgreementInformationTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "AgreementInformationTableViewCell", for: indexPath) as! AgreementInformationTableViewCell
     }
 
     func getPasturesCell(indexPath: IndexPath) -> PasturesTableViewCell {
@@ -197,10 +205,14 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             self.basicInformationIndexPath = indexPath
             return getBasicInfoCell(indexPath: indexPath)
         case 1:
+            let cell = getAgreementInformationCell(indexPath: indexPath)
+            cell.setup(agreementHolders: agreementHolders)
+            return cell
+        case 2:
             let cell = getRangeUsageCell(indexPath: indexPath)
             cell.setup(rangeUsageYears: rangeUseYears)
             return cell
-        case 2:
+        case 3:
             self.pasturesIndexPath = indexPath
             let cell = getPasturesCell(indexPath: indexPath)
             cell.setup(pastures: pastures)

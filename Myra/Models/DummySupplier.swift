@@ -16,7 +16,7 @@ class DummySupplier {
 
     func getRangeUseYears(count: Int) -> [RangeUsageYear] {
         var rangeUsageYears: [RangeUsageYear] = [RangeUsageYear]()
-        for _ in 1...count {
+        for _ in 0...count {
             rangeUsageYears.append(getRangeUseYear())
         }
 
@@ -32,8 +32,28 @@ class DummySupplier {
         for _ in 1...count {
             let pasture = Pasture()
             pasture.plantCommunities.append(PlantCommunity())
-            pastures.append(Pasture())
+            pastures.append(pasture)
         }
         return pastures
+    }
+
+    func getAgreementHolders(count: Int) -> [AgreementHolder]{
+        var agreementHolders: [AgreementHolder] = [AgreementHolder]()
+        for _ in 1...count {
+            let agreementHolder = AgreementHolder()
+            agreementHolder.firstName = "John"
+            agreementHolder.lastName = "Doe"
+            agreementHolder.type = .Primary
+            agreementHolders.append(agreementHolder)
+        }
+        return agreementHolders
+    }
+
+    func getAgreementHolder() -> AgreementHolder {
+        let agreementHolder = AgreementHolder()
+        agreementHolder.firstName = "John"
+        agreementHolder.lastName = "Doe"
+        agreementHolder.type = .Primary
+        return agreementHolder
     }
 }

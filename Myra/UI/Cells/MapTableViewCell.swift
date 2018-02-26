@@ -288,7 +288,7 @@ extension MapTableViewCell {
 
     func setupTileRenderer() {
         // TODO: Remove this, don't freak out
-        return
+//        return
         let overlay = OpenMapOverlay()
 
         overlay.canReplaceMapContent = true
