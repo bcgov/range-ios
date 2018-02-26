@@ -33,6 +33,11 @@
 		2974270420447BEB0033BC47 /* AgreementHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270320447BEB0033BC47 /* AgreementHolder.swift */; };
 		29742707204484FB0033BC47 /* AgreementHolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29742705204484FB0033BC47 /* AgreementHolderTableViewCell.swift */; };
 		29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29742706204484FB0033BC47 /* AgreementHolderTableViewCell.xib */; };
+		2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270920448F720033BC47 /* LiveStockIDTableViewCell.swift */; };
+		2974270C20448F720033BC47 /* LiveStockIDTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2974270A20448F720033BC47 /* LiveStockIDTableViewCell.xib */; };
+		2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270D2044949B0033BC47 /* LiveStockID.swift */; };
+		297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297427102044969A0033BC47 /* LiveStockTableViewCell.swift */; };
+		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
 		29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */; };
 		29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */; };
 		29BF8029203CE97B0067B32B /* BasicInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8027203CE97B0067B32B /* BasicInformationTableViewCell.swift */; };
@@ -83,6 +88,11 @@
 		2974270320447BEB0033BC47 /* AgreementHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementHolder.swift; sourceTree = "<group>"; };
 		29742705204484FB0033BC47 /* AgreementHolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementHolderTableViewCell.swift; sourceTree = "<group>"; };
 		29742706204484FB0033BC47 /* AgreementHolderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgreementHolderTableViewCell.xib; sourceTree = "<group>"; };
+		2974270920448F720033BC47 /* LiveStockIDTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockIDTableViewCell.swift; sourceTree = "<group>"; };
+		2974270A20448F720033BC47 /* LiveStockIDTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockIDTableViewCell.xib; sourceTree = "<group>"; };
+		2974270D2044949B0033BC47 /* LiveStockID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockID.swift; sourceTree = "<group>"; };
+		297427102044969A0033BC47 /* LiveStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockTableViewCell.swift; sourceTree = "<group>"; };
+		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
 		29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateNewRup.storyboard; sourceTree = "<group>"; };
 		29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRUPViewController.swift; sourceTree = "<group>"; };
 		29BF8027203CE97B0067B32B /* BasicInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationTableViewCell.swift; sourceTree = "<group>"; };
@@ -150,6 +160,7 @@
 				29E0D92C203F5F6F00193FA0 /* Pasture.swift */,
 				29E0D936203F65FD00193FA0 /* PlantCommunity.swift */,
 				2974270320447BEB0033BC47 /* AgreementHolder.swift */,
+				2974270D2044949B0033BC47 /* LiveStockID.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +247,10 @@
 				29742700204474BD0033BC47 /* AgreementInformationTableViewCell.xib */,
 				29742705204484FB0033BC47 /* AgreementHolderTableViewCell.swift */,
 				29742706204484FB0033BC47 /* AgreementHolderTableViewCell.xib */,
+				2974270920448F720033BC47 /* LiveStockIDTableViewCell.swift */,
+				2974270A20448F720033BC47 /* LiveStockIDTableViewCell.xib */,
+				297427102044969A0033BC47 /* LiveStockTableViewCell.swift */,
+				297427112044969A0033BC47 /* LiveStockTableViewCell.xib */,
 				29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */,
 				29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */,
 				29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */,
@@ -344,7 +359,9 @@
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
 				29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */,
+				2974270C20448F720033BC47 /* LiveStockIDTableViewCell.xib in Resources */,
 				29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */,
+				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
 				291C4D9620364BEF00390523 /* Create.storyboard in Resources */,
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
@@ -417,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */,
+				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,
 				29BF8029203CE97B0067B32B /* BasicInformationTableViewCell.swift in Sources */,
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
 				29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */,
@@ -429,6 +447,7 @@
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
 				2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */,
+				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
 				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
 				2974270420447BEB0033BC47 /* AgreementHolder.swift in Sources */,
 				2920F8302034C0140090E7B4 /* RUPGenerator.swift in Sources */,
@@ -436,6 +455,7 @@
 				29742707204484FB0033BC47 /* AgreementHolderTableViewCell.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				29E0D927203F4B2400193FA0 /* DummySupplier.swift in Sources */,
+				2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */,
 				2920F83A2034CADC0090E7B4 /* RUPDetailsViewController.swift in Sources */,
 				29742701204474BD0033BC47 /* AgreementInformationTableViewCell.swift in Sources */,
 				291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */,

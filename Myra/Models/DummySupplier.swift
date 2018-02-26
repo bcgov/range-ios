@@ -29,7 +29,7 @@ class DummySupplier {
 
     func getPastures(count: Int) -> [Pasture] {
         var pastures: [Pasture] = [Pasture]()
-        for _ in 1...count {
+        for _ in 0...count {
             let pasture = Pasture()
             pasture.plantCommunities.append(PlantCommunity())
             pastures.append(pasture)
@@ -39,7 +39,7 @@ class DummySupplier {
 
     func getAgreementHolders(count: Int) -> [AgreementHolder]{
         var agreementHolders: [AgreementHolder] = [AgreementHolder]()
-        for _ in 1...count {
+        for _ in 0...count {
             let agreementHolder = AgreementHolder()
             agreementHolder.firstName = "John"
             agreementHolder.lastName = "Doe"
@@ -55,5 +55,27 @@ class DummySupplier {
         agreementHolder.lastName = "Doe"
         agreementHolder.type = .Primary
         return agreementHolder
+    }
+
+    func getLiveStockIDs(count: Int) -> [LiveStockID] {
+        var liveStockIDs: [LiveStockID] = [LiveStockID]()
+        for _ in 0...count {
+            let liveStockID = LiveStockID()
+            liveStockID.ownerFirstName = "Jane"
+            liveStockID.ownerLastName = "Doe"
+            liveStockID.description = "Describing this field in this field"
+            liveStockID.type = .Brand
+            liveStockIDs.append(liveStockID)
+        }
+        return liveStockIDs
+    }
+
+    func getLiveStockID() -> LiveStockID {
+        let liveStockID = LiveStockID()
+        liveStockID.ownerFirstName = "Jane"
+        liveStockID.ownerLastName = "Doe"
+        liveStockID.description = "Describing this field in this field"
+        liveStockID.type = .Brand
+        return liveStockID
     }
 }

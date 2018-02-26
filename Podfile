@@ -6,6 +6,8 @@ target 'Myra' do
   use_frameworks!
   pod 'IQKeyboardManagerSwift', '5.0.0'
   pod 'ReachabilitySwift', '4.1.0'
+  pod 'Fabric'
+  pod 'Crashlytics'
   # Pods for Myra
 
 end

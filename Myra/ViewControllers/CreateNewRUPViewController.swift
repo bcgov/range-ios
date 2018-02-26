@@ -12,7 +12,7 @@ class CreateNewRUPViewController: UIViewController {
 
     // Mark: Variables
     /* need to hold the inxedpath of sections to be able to scroll back to them.
-       at this point, the indexpath's of the sections may not be known, and change
+       at this point, the indexpaths of the sections may not be known, and change
        at runtime.
     */
     var basicInformationIndexPath: IndexPath = [0,0]
@@ -27,6 +27,7 @@ class CreateNewRUPViewController: UIViewController {
     var rangeUseYears: [RangeUsageYear] = [RangeUsageYear]()
     var pastures: [Pasture] = [Pasture]()
     var agreementHolders: [AgreementHolder] = [AgreementHolder]()
+    var liveStockIDs: [LiveStockID] = [LiveStockID]()
 
     // MARK: Outlets
     // TOP
@@ -119,8 +120,9 @@ class CreateNewRUPViewController: UIViewController {
 
     func setDummy() {
         self.rangeUseYears = DummySupplier.shared.getRangeUseYears(count: 1)
-        self.pastures = DummySupplier.shared.getPastures(count: 2)
-        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 2)
+        self.pastures = DummySupplier.shared.getPastures(count: 1)
+        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 1)
+        self.liveStockIDs = DummySupplier.shared.getLiveStockIDs(count: 3)
     }
 
 }
@@ -165,6 +167,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         tableView.dataSource = self
         registerCell(name: "BasicInformationTableViewCell")
         registerCell(name: "AgreementInformationTableViewCell")
+        registerCell(name: "LiveStockIDTableViewCell")
         registerCell(name: "RangeUsageTableViewCell")
         registerCell(name: "PasturesTableViewCell")
         registerCell(name: "MapTableViewCell")
@@ -188,6 +191,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "AgreementInformationTableViewCell", for: indexPath) as! AgreementInformationTableViewCell
     }
 
+    func getLiveStockIDTableViewCell(indexPath: IndexPath) -> LiveStockIDTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "LiveStockIDTableViewCell", for: indexPath) as! LiveStockIDTableViewCell
+    }
+
     func getPasturesCell(indexPath: IndexPath) -> PasturesTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "PasturesTableViewCell", for: indexPath) as! PasturesTableViewCell
     }
@@ -209,6 +216,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             cell.setup(agreementHolders: agreementHolders)
             return cell
         case 2:
+            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
+            cell.setup(liveStockIDs: liveStockIDs)
+            return cell
+        case 2:
             let cell = getRangeUsageCell(indexPath: indexPath)
             cell.setup(rangeUsageYears: rangeUseYears)
             return cell
@@ -224,7 +235,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
 
 }
