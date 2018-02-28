@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S17-Tb-AhF">
                         <rect key="frame" x="0.0" y="0.0" width="453" height="100"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S4G-Md-pJi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="S4G-Md-pJi">
                                 <rect key="frame" x="15" y="15" width="10" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="Fzn-Pw-yaP"/>
@@ -87,4 +87,7 @@
             <point key="canvasLocation" x="147.5" y="76"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="boxUnchecked" width="128" height="128"/>
+    </resources>
 </document>

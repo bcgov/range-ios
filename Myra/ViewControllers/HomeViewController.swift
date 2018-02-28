@@ -24,7 +24,6 @@ class HomeViewController: BaseViewController {
 
     /////// may need to remove ////////
     @IBOutlet weak var topContainer: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var createButton: UIButton!
     //////////////////////
 

@@ -17,6 +17,14 @@ class RUP {
 
     var status: RUPStatus?
 
+    var rangeName: String = ""
+
+    var basicInformation: BasicInformation = BasicInformation()
+    var rangeUsageYears: [RangeUsageYear] = [RangeUsageYear]()
+    var agreementHolders: [AgreementHolder] = [AgreementHolder]()
+    var liveStockID: [LiveStockID] = [LiveStockID]()
+    var pastures: [Pasture] = [Pasture]()
+
     init(id: String) {
         self.id = id
     }

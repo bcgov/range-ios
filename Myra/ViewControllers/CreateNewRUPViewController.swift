@@ -11,11 +11,15 @@ import UIKit
 class CreateNewRUPViewController: UIViewController {
 
     // Mark: Variables
+
     /* need to hold the inxedpath of sections to be able to scroll back to them.
        at this point, the indexpaths of the sections may not be known, and change
        at runtime.
     */
     var basicInformationIndexPath: IndexPath = [0,0]
+    var agreementInformationIndexPath: IndexPath = [0,0]
+    var liveStockIDIndexPath: IndexPath = [0,0]
+    var rangeUsageIndexPath: IndexPath = [0,0]
     var pasturesIndexPath: IndexPath = [0,0]
     var scheduleIndexPath: IndexPath = [0,0]
     var minsterActionsIndexPath: IndexPath = [0,0]
@@ -24,19 +28,29 @@ class CreateNewRUPViewController: UIViewController {
     var managementIndexPath: IndexPath = [0,0]
     var mapIndexPath: IndexPath = [0,0]
 
+    var rup: RUP?
+
+    var reloading: Bool = false
+
     var rangeUseYears: [RangeUsageYear] = [RangeUsageYear]()
-    var pastures: [Pasture] = [Pasture]()
+    var pastures: [Pasture] = [Pasture]() {
+        didSet{
+            updateSubtableHeights()
+        }
+    }
     var agreementHolders: [AgreementHolder] = [AgreementHolder]()
     var liveStockIDs: [LiveStockID] = [LiveStockID]()
 
+    var reloaded: Bool = false
+
     // MARK: Outlets
+
     // TOP
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var ranchNameAndNumberLabel: UILabel!
     @IBOutlet weak var saveToDraftButton: UIButton!
 
     // Side Menu
-    
     @IBOutlet weak var menuWidth: NSLayoutConstraint!
     @IBOutlet weak var menuLeading: NSLayoutConstraint!
     
@@ -84,6 +98,10 @@ class CreateNewRUPViewController: UIViewController {
         setDummy()
         setUpTable()
         setMenuSize()
+        if !reloaded {
+            updateSubtableHeights()
+
+        }
     }
 
     // Mark: Outlet Actions
@@ -119,10 +137,15 @@ class CreateNewRUPViewController: UIViewController {
     }
 
     func setDummy() {
-        self.rangeUseYears = DummySupplier.shared.getRangeUseYears(count: 1)
-        self.pastures = DummySupplier.shared.getPastures(count: 1)
-        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 1)
-        self.liveStockIDs = DummySupplier.shared.getLiveStockIDs(count: 3)
+//        self.rangeUseYears = DummySupplier.shared.getRangeUseYears(count: 1)
+//        self.pastures = DummySupplier.shared.getPastures(count: 1)
+//        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 1)
+//        self.liveStockIDs = DummySupplier.shared.getLiveStockIDs(count: 1)
+        self.rup = RUP(id: "hello")
+    }
+
+    func updateSubtableHeights() {
+        NotificationCenter.default.post(name: .updateTableHeights, object: self, userInfo: ["reload": true])
     }
 
 }
@@ -163,6 +186,7 @@ extension CreateNewRUPViewController {
 
 extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
+        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "BasicInformationTableViewCell")
@@ -171,8 +195,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         registerCell(name: "RangeUsageTableViewCell")
         registerCell(name: "PasturesTableViewCell")
         registerCell(name: "MapTableViewCell")
-
     }
+    @objc func doThisWhenNotify() { return }
 
     func registerCell(name: String) {
         let nib = UINib(nibName: name, bundle: nil)
@@ -212,21 +236,24 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             self.basicInformationIndexPath = indexPath
             return getBasicInfoCell(indexPath: indexPath)
         case 1:
-            let cell = getAgreementInformationCell(indexPath: indexPath)
-            cell.setup(agreementHolders: agreementHolders)
-            return cell
-        case 2:
-            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
-            cell.setup(liveStockIDs: liveStockIDs)
-            return cell
-        case 2:
+            self.rangeUsageIndexPath = indexPath
             let cell = getRangeUsageCell(indexPath: indexPath)
-            cell.setup(rangeUsageYears: rangeUseYears)
+            cell.setup(rangeUsageYears: (rup?.rangeUsageYears)!)
+            return cell
+        case 2:
+            self.agreementInformationIndexPath = indexPath
+            let cell = getAgreementInformationCell(indexPath: indexPath)
+            cell.setup(agreementHolders: (rup?.agreementHolders)!)
             return cell
         case 3:
+            self.liveStockIDIndexPath = indexPath
+            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
+            cell.setup(liveStockIDs: (rup?.liveStockID)!)
+            return cell
+        case 4:
             self.pasturesIndexPath = indexPath
             let cell = getPasturesCell(indexPath: indexPath)
-            cell.setup(pastures: pastures)
+            cell.setup(mode: .Create, pastures: (rup?.pastures)!)
             return cell
         default:
             self.mapIndexPath = indexPath
@@ -235,7 +262,17 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
+    }
+
+    func realodAndGoTO(indexPath: IndexPath) {
+        self.tableView.reloadData()
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+
+    func deepReload(indexPath: IndexPath) {
+        self.tableView.reloadData()
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
 }

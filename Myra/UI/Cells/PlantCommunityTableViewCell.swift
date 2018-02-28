@@ -10,6 +10,10 @@ import UIKit
 
 class PlantCommunityTableViewCell: UITableViewCell {
 
+    // Variables:
+    var plantCommunity: PlantCommunity = PlantCommunity()
+    var mode: FormMode = .Create
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +24,27 @@ class PlantCommunityTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
+    func setup(mode: FormMode, plantCommunity: PlantCommunity) {
+        self.mode = mode
+        self.plantCommunity = plantCommunity
+        setupNotifications()
+
+        let parent = self.parentViewController
+
+        if !parent.reloading {
+             notifPastureCells()
+        } else {
+            parent.reloading = false
+        }
+    }
+
+    func setupNotifications() {
+         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updatePastureCells, object: nil)
+    }
+    @objc func doThisWhenNotify() { return }
+
+    func notifPastureCells() {
+        NotificationCenter.default.post(name: .updatePastureCells, object: self, userInfo: ["reload": true])
+    }
 }

@@ -17,8 +17,15 @@ class RUPGenerator {
         var rups = [RUP]()
         for i in 0...number {
             let temp = RUP(id: "RUP\(i)", info: "Info for rup #\(i)")
-            temp.primaryAgreementHolderLastName = randomString(length: 5)
-            temp.primaryAgreementHolderFirstName = randomString(length: 5)
+            temp.primaryAgreementHolderLastName = randomString(length: 5).lowercased()
+            temp.primaryAgreementHolderFirstName = randomString(length: 5).lowercased()
+            temp.rangeName = randomString(length: 6).lowercased()
+            if i % 2 == 0 {
+                temp.status = RUPStatus.Completed
+            } else {
+                temp.status = RUPStatus.Pending
+            }
+
             rups.append(temp)
         }
         return rups

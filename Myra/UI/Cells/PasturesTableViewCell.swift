@@ -12,13 +12,14 @@ class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Variables
     var pastures: [Pasture] = [Pasture]()
+    var mode: FormMode = .Create
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpTable()
+//        setUpTable()
 
     }
 
@@ -29,17 +30,25 @@ class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.pastures.append(DummySupplier.shared.getPastures(count: 1).first!)
+        self.pastures = parent.pastures
         updateTableHeight()
+        parent.realodAndGoTO(indexPath: parent.pasturesIndexPath)
+
     }
 
     // Mark: Functions
-    func setup(pastures: [Pasture]) {
+    func setup(mode: FormMode, pastures: [Pasture]) {
+        self.mode = mode
         self.pastures = pastures
+        setUpTable()
+        setupNotifications()
     }
 
     func updateTableHeight() {
+        self.tableView.reloadData()
         tableView.layoutIfNeeded()
-
         tableHeight.constant =  tableView.contentSize.height
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.tableView.reloadData()
@@ -47,6 +56,7 @@ class PasturesTableViewCell: UITableViewCell {
     
 }
 
+// TableView
 extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {
@@ -67,6 +77,7 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
+        cell.setup(pasture: pastures[indexPath.row])
         return cell
     }
 
@@ -74,5 +85,21 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         return pastures.count
     }
 
+}
+
+// Notifications
+extension PasturesTableViewCell {
+    func setupNotifications() {
+        NotificationCenter.default.addObserver(forName: .updatePasturesCell, object: nil, queue: nil, using: catchAction)
+//         NotificationCenter.default.addObserver(forName: .updateTableHeights, object: nil, queue: nil, using: catchUpdateAction)
+    }
+
+    func catchAction(notification:Notification) {
+        self.updateTableHeight()
+    }
+
+    func catchUpdateAction(notification:Notification) {
+        self.updateTableHeight()
+    }
 }
 

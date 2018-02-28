@@ -22,7 +22,7 @@ class LiveStockIDTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableView.reloadData()
+//        tableView.reloadData()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,10 +33,9 @@ class LiveStockIDTableViewCell: UITableViewCell {
     @IBAction func addLiveStockAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.liveStockIDs.append(DummySupplier.shared.getLiveStockID())
-        parent.tableView.reloadData()
         updateTableHeight()
-        print(self.liveStockIDs.count)
         self.tableView.reloadData()
+        parent.realodAndGoTO(indexPath: parent.liveStockIDIndexPath)
     }
 
     // Mark: Functions

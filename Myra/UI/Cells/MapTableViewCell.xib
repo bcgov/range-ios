@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="352" height="350"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="H3o-Yh-b1O">
-                                <rect key="frame" x="0.0" y="0.0" width="312" height="350.5"/>
+                                <rect key="frame" x="8" y="0.0" width="304" height="350.5"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tcv-HN-oiG">
                                 <rect key="frame" x="312" y="0.0" width="40" height="350"/>
@@ -76,7 +77,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Tcv-HN-oiG" secondAttribute="trailing" id="ICP-BX-XAm"/>
                             <constraint firstItem="Tcv-HN-oiG" firstAttribute="top" secondItem="1W3-eN-rbp" secondAttribute="top" id="TgO-NA-sYD"/>
-                            <constraint firstItem="H3o-Yh-b1O" firstAttribute="leading" secondItem="1W3-eN-rbp" secondAttribute="leading" id="XlD-nI-1dr"/>
+                            <constraint firstItem="H3o-Yh-b1O" firstAttribute="leading" secondItem="1W3-eN-rbp" secondAttribute="leadingMargin" id="XlD-nI-1dr"/>
                             <constraint firstItem="H3o-Yh-b1O" firstAttribute="top" secondItem="1W3-eN-rbp" secondAttribute="top" id="ZBE-bY-4ix"/>
                             <constraint firstAttribute="height" constant="350" id="cZj-HC-XOb"/>
                             <constraint firstItem="Tcv-HN-oiG" firstAttribute="leading" secondItem="H3o-Yh-b1O" secondAttribute="trailing" id="ijn-UL-g6p"/>

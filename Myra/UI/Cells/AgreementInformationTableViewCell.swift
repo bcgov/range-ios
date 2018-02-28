@@ -22,8 +22,8 @@ class AgreementInformationTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableView.reloadData()
-//        self.tableView.isScrollEnabled = false
+//        tableView.reloadData()
+        self.tableView.isScrollEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,12 +32,13 @@ class AgreementInformationTableViewCell: UITableViewCell {
 
     // Mark: Outlet Actions
     @IBAction func addAgreementHolderAction(_ sender: Any) {
+//        updateTableHeight()
+//        self.tableView.reloadData()
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.agreementHolders.append(DummySupplier.shared.getAgreementHolder())
-        parent.tableView.reloadData()
         updateTableHeight()
-        print(self.agreementHolders.count)
         self.tableView.reloadData()
+        parent.realodAndGoTO(indexPath: parent.agreementInformationIndexPath)
     }
 
     // Mark: Functions

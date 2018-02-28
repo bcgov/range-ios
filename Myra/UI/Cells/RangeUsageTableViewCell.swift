@@ -26,7 +26,7 @@ class RangeUsageTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableView.reloadData()
+//        tableView.reloadData()
         self.tableView.isScrollEnabled = false
         
     }
@@ -39,10 +39,8 @@ class RangeUsageTableViewCell: UITableViewCell {
     @IBAction func addAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.rangeUseYears.append(DummySupplier.shared.getRangeUseYear())
-        parent.tableView.reloadData()
         updateTableHeight()
-        print(self.rangeUsageYears.count)
-        self.tableView.reloadData()
+        parent.realodAndGoTO(indexPath: parent.rangeUsageIndexPath)
     }
 
     // Mark: Functions
@@ -52,11 +50,11 @@ class RangeUsageTableViewCell: UITableViewCell {
     }
 
     func updateTableHeight() {
+        self.tableView.reloadData()
         heightConstraint.constant = CGFloat((rangeUsageYears.count) * cellHeight + 5)
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.tableView.reloadData()
     }
-
 }
 
 extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
