@@ -31,7 +31,7 @@ class PasturesTableViewCell: UITableViewCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.pastures.append(DummySupplier.shared.getPastures(count: 1).first!)
+        parent.pastures.append(Pasture(name: "name"))
         self.pastures = parent.pastures
         updateTableHeight()
         parent.realodAndGoTO(indexPath: parent.pasturesIndexPath)
@@ -77,6 +77,7 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
+        if pastures.count <= indexPath.row {return cell}
         cell.setup(pasture: pastures[indexPath.row])
         return cell
     }

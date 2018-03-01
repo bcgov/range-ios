@@ -16,7 +16,6 @@ class OpenMapOverlay: MKTileOverlay {
     // grabs the tile for the current x y z
     override func url(forTilePath path: MKTileOverlayPath) -> URL {
         let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
-        print(tileUrl)
         return URL(string: tileUrl)!
     }
 }

@@ -54,7 +54,7 @@
                         <rect key="frame" x="15" y="80" width="529" height="287.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="750" constant="287.5" id="auS-xP-5Yh"/>
+                            <constraint firstAttribute="height" priority="750" id="auS-xP-5Yh"/>
                         </constraints>
                     </tableView>
                 </subviews>

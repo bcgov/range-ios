@@ -12,5 +12,7 @@ class Pasture {
     var name: String = ""
     var plantCommunities: [PlantCommunity] = [PlantCommunity]()
     
-    init(){}
+    init(name: String){
+        self.name = name
+    }
 }

@@ -29,22 +29,20 @@ class PlantCommunityTableViewCell: UITableViewCell {
         self.mode = mode
         self.plantCommunity = plantCommunity
         setupNotifications()
-
-        let parent = self.parentViewController
-
-        if !parent.reloading {
-             notifPastureCells()
-        } else {
-            parent.reloading = false
-        }
+        notifyReload()
     }
 
     func setupNotifications() {
          NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updatePastureCells, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .reload, object: nil)
     }
     @objc func doThisWhenNotify() { return }
 
     func notifPastureCells() {
         NotificationCenter.default.post(name: .updatePastureCells, object: self, userInfo: ["reload": true])
+    }
+
+    func notifyReload() {
+         NotificationCenter.default.post(name: .reload, object: self, userInfo: ["reload": true])
     }
 }

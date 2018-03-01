@@ -13,4 +13,6 @@ extension Notification.Name {
     static let updatePastureCells = Notification.Name("updatePastureCells")
     // Cell that contains Pastures
     static let updatePasturesCell = Notification.Name("updatePasturesCell")
+
+    static let reload = Notification.Name("reload")
 }

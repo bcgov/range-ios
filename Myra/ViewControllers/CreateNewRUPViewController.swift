@@ -102,6 +102,17 @@ class CreateNewRUPViewController: UIViewController {
             updateSubtableHeights()
 
         }
+
+        NotificationCenter.default.addObserver(forName: .updatePastureCells, object: nil, queue: nil, using: catchAction)
+    }
+
+    func catchAction(notification:Notification) {
+        if !reloading {
+            self.tableView.reloadData()
+            self.reloading = true
+        } else {
+            self.reloading = false
+        }
     }
 
     // Mark: Outlet Actions
@@ -248,7 +259,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 3:
             self.liveStockIDIndexPath = indexPath
             let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
-            cell.setup(liveStockIDs: (rup?.liveStockID)!)
+            cell.setup(liveStockIDs: (rup?.liveStockIDs)!)
             return cell
         case 4:
             self.pasturesIndexPath = indexPath
@@ -266,8 +277,9 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func realodAndGoTO(indexPath: IndexPath) {
+        print(indexPath)
         self.tableView.reloadData()
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
     func deepReload(indexPath: IndexPath) {

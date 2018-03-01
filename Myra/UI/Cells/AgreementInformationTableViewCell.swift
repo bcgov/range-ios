@@ -8,13 +8,15 @@
 
 import UIKit
 
+// Works exactly like Range useage years cell, but with different object
+// refer to RangeUsageTableViewCell for better comments
 class AgreementInformationTableViewCell: UITableViewCell {
+
+    // Mark: Constants
+    let cellHeight = 45
 
     // Mark: Variables
     var agreementHolders: [AgreementHolder] = [AgreementHolder]()
-
-    // Mark: Constants
-    let cellHeight = 40
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -22,8 +24,6 @@ class AgreementInformationTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        tableView.reloadData()
-        self.tableView.isScrollEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,32 +32,31 @@ class AgreementInformationTableViewCell: UITableViewCell {
 
     // Mark: Outlet Actions
     @IBAction func addAgreementHolderAction(_ sender: Any) {
-//        updateTableHeight()
-//        self.tableView.reloadData()
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.agreementHolders.append(DummySupplier.shared.getAgreementHolder())
+        parent.rup?.agreementHolders.append(AgreementHolder())
+        self.agreementHolders = (parent.rup?.agreementHolders)!
         updateTableHeight()
-        self.tableView.reloadData()
-        parent.realodAndGoTO(indexPath: parent.agreementInformationIndexPath)
     }
 
     // Mark: Functions
-    func updateTableHeight() {
-        tableViewHeight.constant = CGFloat((agreementHolders.count) * cellHeight + 5)
-        print(tableViewHeight.constant)
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.tableView.reloadData()
-    }
-
     func setup(agreementHolders: [AgreementHolder]) {
         self.agreementHolders = agreementHolders
         setUpTable()
+    }
+
+    func updateTableHeight() {
+        self.tableView.layoutIfNeeded()
+        self.tableView.reloadData()
+        tableViewHeight.constant = CGFloat((agreementHolders.count) * cellHeight + 5)
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.realodAndGoTO(indexPath: parent.agreementInformationIndexPath)
     }
 }
 
 extension AgreementInformationTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {
+        self.tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "AgreementHolderTableViewCell")

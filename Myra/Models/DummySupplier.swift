@@ -30,7 +30,7 @@ class DummySupplier {
     func getPastures(count: Int) -> [Pasture] {
         var pastures: [Pasture] = [Pasture]()
         for _ in 0...count {
-            let pasture = Pasture()
+            let pasture = Pasture(name: "name")
             pasture.plantCommunities.append(PlantCommunity())
             pastures.append(pasture)
         }

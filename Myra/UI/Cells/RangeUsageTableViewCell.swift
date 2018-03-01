@@ -12,10 +12,11 @@ class RangeUsageTableViewCell: UITableViewCell {
 
     // Mark: Constants
 
-    /* NOTE: update this if you update the cell height
-     of RangeUseageYearTableViewCell
+    /*
+     NOTE: update this if you update the cell height
+     of RangeUseageYearTableViewCell in storyboard
      */
-    let cellHeight = 76
+    let cellHeight = 49.5
 
     // Mark: Variables
     var rangeUsageYears: [RangeUsageYear] = [RangeUsageYear]()
@@ -26,9 +27,6 @@ class RangeUsageTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        tableView.reloadData()
-        self.tableView.isScrollEnabled = false
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,11 +34,14 @@ class RangeUsageTableViewCell: UITableViewCell {
     }
 
     // Mark: Outlet actions
+
+    // adds new range use year object to parent's rup object
+    // then updates this class' range use years to compute height
     @IBAction func addAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.rangeUseYears.append(DummySupplier.shared.getRangeUseYear())
+        parent.rup?.rangeUsageYears.append(RangeUsageYear())
+        self.rangeUsageYears = (parent.rup?.rangeUsageYears)!
         updateTableHeight()
-        parent.realodAndGoTO(indexPath: parent.rangeUsageIndexPath)
     }
 
     // Mark: Functions
@@ -49,17 +50,31 @@ class RangeUsageTableViewCell: UITableViewCell {
         setUpTable()
     }
 
+    // Calculate table height based on content and
+    // reload parent's table view to bottom of
+    // the indexpath of current cell
     func updateTableHeight() {
+        self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        heightConstraint.constant = CGFloat((rangeUsageYears.count) * cellHeight + 5)
+
+        heightConstraint.constant = CGFloat( Double(rangeUsageYears.count) * cellHeight + 5.0)
+
+        /*
+         tableView.contentSize.height did not provide correct height.
+         not sure why but cells do have fixed height
+         so we used the above alternative
+        */
+
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.tableView.reloadData()
+        parent.realodAndGoTO(indexPath: parent.rangeUsageIndexPath)
     }
 }
 
+// TableView
 extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {
+        self.tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "RangeUseageYearTableViewCell")

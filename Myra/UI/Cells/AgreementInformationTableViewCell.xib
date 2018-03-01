@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="503" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agreement Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RXC-HQ-1H3">
-                                <rect key="frame" x="15" y="30.5" width="190" height="20.5"/>
+                                <rect key="frame" x="8" y="30.5" width="190" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -32,7 +32,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="RXC-HQ-1H3" firstAttribute="leading" secondItem="ZNa-J0-scv" secondAttribute="leading" constant="15" id="N3e-3K-L0x"/>
+                            <constraint firstItem="RXC-HQ-1H3" firstAttribute="leading" secondItem="ZNa-J0-scv" secondAttribute="leadingMargin" id="N3e-3K-L0x"/>
                             <constraint firstItem="RXC-HQ-1H3" firstAttribute="centerY" secondItem="ZNa-J0-scv" secondAttribute="centerY" id="dpt-nv-Ypm"/>
                             <constraint firstAttribute="height" constant="80" id="qyk-95-DN2"/>
                         </constraints>

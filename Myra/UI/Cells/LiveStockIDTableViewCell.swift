@@ -9,12 +9,12 @@
 import UIKit
 
 class LiveStockIDTableViewCell: UITableViewCell {
+
+    // Mark: Constants
+    let cellHeight = 45
     
     // Mark: Variables
     var liveStockIDs: [LiveStockID] = [LiveStockID]()
-
-    // Mark: Constants
-    let cellHeight = 40
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -22,7 +22,6 @@ class LiveStockIDTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        tableView.reloadData()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,33 +31,34 @@ class LiveStockIDTableViewCell: UITableViewCell {
     // Mark: Outlet Actions
     @IBAction func addLiveStockAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.liveStockIDs.append(DummySupplier.shared.getLiveStockID())
+        parent.rup?.liveStockIDs.append(LiveStockID())
+        self.liveStockIDs = (parent.rup?.liveStockIDs)!
         updateTableHeight()
-        self.tableView.reloadData()
-        parent.realodAndGoTO(indexPath: parent.liveStockIDIndexPath)
     }
 
     // Mark: Functions
-    func setInitialHeight(numberOfFields: Int) {
-        tableViewHeight.constant = CGFloat(numberOfFields * cellHeight + 5)
-    }
-
-    func updateTableHeight() {
-        tableViewHeight.constant = CGFloat((liveStockIDs.count) * cellHeight + 5)
-        print(tableViewHeight.constant)
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.tableView.reloadData()
-    }
-
     func setup(liveStockIDs: [LiveStockID]) {
         self.liveStockIDs = liveStockIDs
         setUpTable()
     }
 
+    func updateTableHeight() {
+        self.tableView.layoutIfNeeded()
+        self.tableView.reloadData()
+        tableViewHeight.constant = CGFloat((liveStockIDs.count) * cellHeight + 5)
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.realodAndGoTO(indexPath: parent.liveStockIDIndexPath)
+    }
+
+//    func setInitialHeight(numberOfFields: Int) {
+//        tableViewHeight.constant = CGFloat(numberOfFields * cellHeight + 5)
+//    }
+
 }
 extension LiveStockIDTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {
+        self.tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "LiveStockTableViewCell")
