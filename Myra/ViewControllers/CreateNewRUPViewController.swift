@@ -32,14 +32,15 @@ class CreateNewRUPViewController: UIViewController {
 
     var reloading: Bool = false
 
-    var rangeUseYears: [RangeUsageYear] = [RangeUsageYear]()
-    var pastures: [Pasture] = [Pasture]() {
-        didSet{
-            updateSubtableHeights()
-        }
-    }
-    var agreementHolders: [AgreementHolder] = [AgreementHolder]()
-    var liveStockIDs: [LiveStockID] = [LiveStockID]()
+    var mode: FormMode = .Create
+//    var rangeUseYears: [RangeUsageYear] = [RangeUsageYear]()
+//    var pastures: [Pasture] = [Pasture]() {
+//        didSet{
+//            updateSubtableHeights()
+//        }
+//    }
+//    var agreementHolders: [AgreementHolder] = [AgreementHolder]()
+//    var liveStockIDs: [LiveStockID] = [LiveStockID]()
 
     var reloaded: Bool = false
 
@@ -249,22 +250,22 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 1:
             self.rangeUsageIndexPath = indexPath
             let cell = getRangeUsageCell(indexPath: indexPath)
-            cell.setup(rangeUsageYears: (rup?.rangeUsageYears)!)
+            cell.setup(mode: mode, rangeUsageYears: (rup?.rangeUsageYears)!)
             return cell
         case 2:
             self.agreementInformationIndexPath = indexPath
             let cell = getAgreementInformationCell(indexPath: indexPath)
-            cell.setup(agreementHolders: (rup?.agreementHolders)!)
+            cell.setup(mode: mode, agreementHolders: (rup?.agreementHolders)!)
             return cell
         case 3:
             self.liveStockIDIndexPath = indexPath
             let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
-            cell.setup(liveStockIDs: (rup?.liveStockIDs)!)
+            cell.setup(mode: mode, liveStockIDs: (rup?.liveStockIDs)!)
             return cell
         case 4:
             self.pasturesIndexPath = indexPath
             let cell = getPasturesCell(indexPath: indexPath)
-            cell.setup(mode: .Create, pastures: (rup?.pastures)!)
+            cell.setup(mode: mode, pastures: (rup?.pastures)!)
             return cell
         default:
             self.mapIndexPath = indexPath

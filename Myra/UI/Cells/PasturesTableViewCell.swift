@@ -8,6 +8,11 @@
 
 import UIKit
 
+/*
+ Pastures uses a different logic than range years cell for height:
+ the height of pasture cells within the table view depends on the height
+ of the content of a pasture's conent which will be unpredictable.
+*/
 class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Variables
@@ -17,10 +22,9 @@ class PasturesTableViewCell: UITableViewCell {
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-//        setUpTable()
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,10 +35,10 @@ class PasturesTableViewCell: UITableViewCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.pastures.append(Pasture(name: "name"))
-        self.pastures = parent.pastures
+        parent.rup?.pastures.append(Pasture(name: "name"))
+//        parent.pastures.append(Pasture(name: "name"))
+        self.pastures = (parent.rup?.pastures)!
         updateTableHeight()
-        parent.realodAndGoTO(indexPath: parent.pasturesIndexPath)
 
     }
 
@@ -43,15 +47,37 @@ class PasturesTableViewCell: UITableViewCell {
         self.mode = mode
         self.pastures = pastures
         setUpTable()
-        setupNotifications()
+//        setupNotifications()
     }
 
     func updateTableHeight() {
         self.tableView.reloadData()
         tableView.layoutIfNeeded()
-        tableHeight.constant =  tableView.contentSize.height
+//        tableHeight.constant =  tableView.contentSize.height
+        tableHeight.constant = computeHeight()
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.tableView.reloadData()
+        parent.realodAndGoTO(indexPath: parent.pasturesIndexPath)
+    }
+
+    func computeHeight() -> CGFloat {
+        /*
+         Height of Pastures cell =
+
+        */
+        var h: CGFloat = 0.0
+        for pasture in pastures {
+            h = h + computePastureHeight(pasture: pasture)
+        }
+        return h
+    }
+
+    func computePastureHeight(pasture: Pasture) -> CGFloat {
+        // 395 is the right number but clearly needed more padding
+//        let staticHeight: CGFloat = 395
+        let staticHeight: CGFloat = 410
+
+        let pastureHeight: CGFloat = 100
+        return (staticHeight + pastureHeight * CGFloat(pasture.plantCommunities.count))
     }
     
 }

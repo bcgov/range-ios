@@ -20,6 +20,7 @@ class RangeUsageTableViewCell: UITableViewCell {
 
     // Mark: Variables
     var rangeUsageYears: [RangeUsageYear] = [RangeUsageYear]()
+    var mode: FormMode = .Create
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -40,12 +41,13 @@ class RangeUsageTableViewCell: UITableViewCell {
     @IBAction func addAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.rup?.rangeUsageYears.append(RangeUsageYear())
-        self.rangeUsageYears = (parent.rup?.rangeUsageYears)!
+//        self.rangeUsageYears = (parent.rup?.rangeUsageYears)!
         updateTableHeight()
     }
 
     // Mark: Functions
-    func setup(rangeUsageYears: [RangeUsageYear]) {
+    func setup(mode: FormMode, rangeUsageYears: [RangeUsageYear]) {
+        self.mode = mode
         self.rangeUsageYears = rangeUsageYears
         setUpTable()
     }

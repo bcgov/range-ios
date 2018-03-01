@@ -15,6 +15,7 @@ class LiveStockIDTableViewCell: UITableViewCell {
     
     // Mark: Variables
     var liveStockIDs: [LiveStockID] = [LiveStockID]()
+    var mode: FormMode = .Create
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -37,7 +38,8 @@ class LiveStockIDTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(liveStockIDs: [LiveStockID]) {
+    func setup(mode: FormMode, liveStockIDs: [LiveStockID]) {
+        self.mode = mode
         self.liveStockIDs = liveStockIDs
         setUpTable()
     }

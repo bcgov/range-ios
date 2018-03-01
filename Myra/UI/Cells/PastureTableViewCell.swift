@@ -44,8 +44,9 @@ class PastureTableViewCell: UITableViewCell {
     // Mark: Outlet Actions
     @IBAction func addPlantCommunityAction(_ sender: Any) {
         self.plantCommunities.append(PlantCommunity())
+
         self.tableView.reloadData()
-//        let parent = self.parentViewController as! CreateNewRUPViewController
+        let parent = self.parentViewController as! CreateNewRUPViewController
 //        print(parent.pastures)
 //        print(plantCommunities.count)
 //        updateTableHeight()

@@ -17,7 +17,8 @@ class AgreementInformationTableViewCell: UITableViewCell {
 
     // Mark: Variables
     var agreementHolders: [AgreementHolder] = [AgreementHolder]()
-
+    var mode: FormMode = .Create
+    
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
@@ -39,7 +40,8 @@ class AgreementInformationTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(agreementHolders: [AgreementHolder]) {
+    func setup(mode: FormMode, agreementHolders: [AgreementHolder]) {
+        self.mode = mode
         self.agreementHolders = agreementHolders
         setUpTable()
     }
