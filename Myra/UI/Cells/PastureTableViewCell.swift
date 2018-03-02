@@ -15,8 +15,8 @@ class PastureTableViewCell: UITableViewCell {
 
     // Mark: Variables
     var pasture: Pasture?
-    var plantCommunities: [PlantCommunity] = [PlantCommunity]()
     var mode: FormMode = .Create
+    var loaded: Bool = false
 
     // Mark: Outlets
     @IBOutlet weak var pastureNameLabel: UILabel!
@@ -24,11 +24,13 @@ class PastureTableViewCell: UITableViewCell {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var totalHeight: NSLayoutConstraint!
     @IBOutlet weak var pastureNotesTextField: UITextView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         addBoarder()
+        loaded = true
     }
 
     func addBoarder() {
@@ -43,23 +45,18 @@ class PastureTableViewCell: UITableViewCell {
 
     // Mark: Outlet Actions
     @IBAction func addPlantCommunityAction(_ sender: Any) {
-        self.plantCommunities.append(PlantCommunity())
-
-        self.tableView.reloadData()
-        let parent = self.parentViewController as! CreateNewRUPViewController
-//        print(parent.pastures)
-//        print(plantCommunities.count)
-//        updateTableHeight()
-//        parent.realodAndGoTO(indexPath: parent.pasturesIndexPath)
+        self.pasture?.plantCommunities.append(PlantCommunity())
+        updateTableHeight()
     }
 
     // Mark: Functions
-    func setup(pasture: Pasture) {
+    func setup(mode: FormMode, pasture: Pasture) {
+        self.mode = mode
         self.pasture = pasture
         self.pastureNameLabel.text = pasture.name
-        self.plantCommunities = pasture.plantCommunities
         setupTable()
-        setupNotifications()
+//        setupNotifications()
+ 
     }
 
     func getCellHeight() -> CGSize {
@@ -67,11 +64,25 @@ class PastureTableViewCell: UITableViewCell {
     }
 
     func updateTableHeight() {
-        tableHeight.constant = CGFloat((plantCommunities.count) * plantCommunityCellHeight + 5)
+        self.totalHeight.constant = computePastureHeight()
+        let contentHeight = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + 5)
+        self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-//        let parent = self.parentViewController as! CreateNewRUPViewController
-//        parent.tableView.reloadData()
-        notifyPasturesCell()
+        if tableHeight.constant == contentHeight  {return}
+        tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + 5)
+
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.tableView.reloadData()
+//        notifyPasturesCell()
+    }
+
+    func computePastureHeight() -> CGFloat {
+        // 395 is the right number but clearly needed more padding
+        //        let staticHeight: CGFloat = 395
+        let staticHeight: CGFloat = 410
+
+        let pastureHeight: CGFloat = 105
+        return (staticHeight + pastureHeight * CGFloat(pasture!.plantCommunities.count))
     }
     
 }
@@ -96,12 +107,12 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
-        cell.setup(mode: .Create, plantCommunity: plantCommunities[indexPath.row])
+        cell.setup(mode: .Create, plantCommunity: (self.pasture?.plantCommunities[indexPath.row])!)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return plantCommunities.count
+        return (self.pasture?.plantCommunities.count)!
     }
 
 }

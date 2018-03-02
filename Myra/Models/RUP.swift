@@ -25,6 +25,10 @@ class RUP {
     var liveStockIDs: [LiveStockID] = [LiveStockID]()
     var pastures: [Pasture] = [Pasture]()
 
+    init() {
+        
+    }
+
     init(id: String) {
         self.id = id
     }

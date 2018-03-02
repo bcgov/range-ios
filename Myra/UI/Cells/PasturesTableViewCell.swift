@@ -35,11 +35,13 @@ class PasturesTableViewCell: UITableViewCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.rup?.pastures.append(Pasture(name: "name"))
-//        parent.pastures.append(Pasture(name: "name"))
+
+        let pasture1 = Pasture(name: "name")
+//        pasture1.plantCommunities.append(PlantCommunity())
+        parent.rup?.pastures.append(pasture1)
+//        parent.rup?.pastures.append(Pasture(name: "name"))
         self.pastures = (parent.rup?.pastures)!
         updateTableHeight()
-
     }
 
     // Mark: Functions
@@ -76,7 +78,7 @@ class PasturesTableViewCell: UITableViewCell {
 //        let staticHeight: CGFloat = 395
         let staticHeight: CGFloat = 410
 
-        let pastureHeight: CGFloat = 100
+        let pastureHeight: CGFloat = 105
         return (staticHeight + pastureHeight * CGFloat(pasture.plantCommunities.count))
     }
     
@@ -104,7 +106,7 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
         if pastures.count <= indexPath.row {return cell}
-        cell.setup(pasture: pastures[indexPath.row])
+        cell.setup(mode: mode, pasture: pastures[indexPath.row])
         return cell
     }
 

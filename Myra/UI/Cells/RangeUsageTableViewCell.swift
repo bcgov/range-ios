@@ -41,7 +41,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     @IBAction func addAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.rup?.rangeUsageYears.append(RangeUsageYear())
-//        self.rangeUsageYears = (parent.rup?.rangeUsageYears)!
+        self.rangeUsageYears = (parent.rup?.rangeUsageYears)!
         updateTableHeight()
     }
 
