@@ -7,7 +7,18 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-class PlantCommunity {
-    var name: String = ""
+class PlantCommunity: Object{
+
+    @objc dynamic var realmID: String = {
+        return String(Int.random(min: 1, max: Int(Int32.max)))
+    }()
+
+    override class func primaryKey() -> String? {
+        return "realmID"
+    }
+
+    @objc dynamic var name: String = ""
 }

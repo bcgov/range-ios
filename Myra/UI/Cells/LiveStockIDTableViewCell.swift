@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class LiveStockIDTableViewCell: UITableViewCell {
 
@@ -14,7 +16,7 @@ class LiveStockIDTableViewCell: UITableViewCell {
     let cellHeight = 45
     
     // Mark: Variables
-    var liveStockIDs: [LiveStockID] = [LiveStockID]()
+    var liveStockIDs = List<LiveStockID>()
     var mode: FormMode = .Create
 
     // Mark: Outlets
@@ -38,7 +40,7 @@ class LiveStockIDTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, liveStockIDs: [LiveStockID]) {
+    func setup(mode: FormMode, liveStockIDs: List<LiveStockID>) {
         self.mode = mode
         self.liveStockIDs = liveStockIDs
         setUpTable()

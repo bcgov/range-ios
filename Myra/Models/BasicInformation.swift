@@ -7,14 +7,25 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-class BasicInformation {
-    var rangeNumber: String?
-    var planStart: Date?
-    var agreementStart: Date?
-    var agreementType: String?
-    var planEnd: Date?
-    var agreementEnd: Date?
-    var district: String?
-    var zone: String?
+class BasicInformation: Object{
+
+    @objc dynamic var realmID: String = {
+        return String(Int.random(min: 1, max: Int(Int32.max)))
+    }()
+
+    override class func primaryKey() -> String? {
+        return "realmID"
+    }
+
+    @objc dynamic var rangeNumber: String = ""
+    @objc dynamic var planStart: Date =  Date()
+    @objc dynamic var agreementStart: Date = Date()
+    @objc dynamic var agreementType: String = ""
+    @objc dynamic var planEnd: Date = Date()
+    @objc dynamic var agreementEnd: Date = Date()
+    @objc dynamic var district: String = ""
+    @objc dynamic var RUPzone: String = ""
 }

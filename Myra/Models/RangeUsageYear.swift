@@ -7,16 +7,23 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-class RangeUsageYear {
-    var year: Int = 0
-    var auth_AUMs: String = ""
-    var tempIncrease: String = ""
-    var billable: String = ""
-    var nonBillable: String = ""
-    var totalAnnual: String = ""
+class RangeUsageYear: Object {
 
-    init() {
+    @objc dynamic var realmID: String = {
+        return String(Int.random(min: 1, max: Int(Int32.max)))
+    }()
 
+    override class func primaryKey() -> String? {
+        return "realmID"
     }
+
+    @objc dynamic var year: Int = 0
+    @objc dynamic var auth_AUMs: String = ""
+    @objc dynamic var tempIncrease: String = ""
+    @objc dynamic var billable: String = ""
+    @objc dynamic var nonBillable: String = ""
+    @objc dynamic var totalAnnual: String = ""
 }

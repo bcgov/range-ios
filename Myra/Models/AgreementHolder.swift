@@ -7,14 +7,28 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-class AgreementHolder {
-    var firstName: String = ""
-    var lastName: String = ""
-    var type: AgreementHolderType = .Other
-}
+class AgreementHolder: Object {
+    @objc dynamic var realmID: String = {
+        return String(Int.random(min: 1, max: Int(Int32.max)))
+    }()
 
-enum AgreementHolderType {
-    case Primary
-    case Other
+    override class func primaryKey() -> String? {
+        return "realmID"
+    }
+
+    @objc dynamic var firstName: String = ""
+    @objc dynamic var lastName: String = ""
+    @objc dynamic var type: String = AgreementHolderType.Other.rawValue
+
+    var typeEnum: AgreementHolderType {
+        get {
+            return AgreementHolderType(rawValue: type)!
+        }
+        set {
+            type = newValue.rawValue
+        }
+    }
 }

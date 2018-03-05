@@ -7,12 +7,19 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-class Pasture {
-    var name: String = ""
-    var plantCommunities: [PlantCommunity] = [PlantCommunity]()
-    
-    init(name: String){
-        self.name = name
+class Pasture: Object {
+    @objc dynamic var realmID: String = {
+        return String(Int.random(min: 1, max: Int(Int32.max)))
+    }()
+
+    override class func primaryKey() -> String? {
+        return "realmID"
     }
+
+    @objc dynamic var name: String = ""
+    var plantCommunities = List<PlantCommunity>()
+    
 }

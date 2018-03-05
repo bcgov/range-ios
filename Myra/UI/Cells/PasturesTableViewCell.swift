@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 /*
  Pastures uses a different logic than range years cell for height:
@@ -16,7 +18,7 @@ import UIKit
 class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Variables
-    var pastures: [Pasture] = [Pasture]()
+    var pastures = List<Pasture>()
     var mode: FormMode = .Create
 
     // Mark: Outlets
@@ -36,7 +38,8 @@ class PasturesTableViewCell: UITableViewCell {
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
 
-        let pasture1 = Pasture(name: "name")
+        let pasture1 = Pasture()
+        pasture1.name = "name"
 //        pasture1.plantCommunities.append(PlantCommunity())
         parent.rup?.pastures.append(pasture1)
 //        parent.rup?.pastures.append(Pasture(name: "name"))
@@ -45,7 +48,7 @@ class PasturesTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, pastures: [Pasture]) {
+    func setup(mode: FormMode, pastures: List<Pasture>) {
         self.mode = mode
         self.pastures = pastures
         setUpTable()
@@ -106,7 +109,7 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
         if pastures.count <= indexPath.row {return cell}
-        cell.setup(mode: mode, pasture: pastures[indexPath.row])
+        cell.setup(mode: mode, pasture: pastures[indexPath.row], pastures: self)
         return cell
     }
 

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class RangeUsageTableViewCell: UITableViewCell {
 
@@ -19,7 +21,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     let cellHeight = 49.5
 
     // Mark: Variables
-    var rangeUsageYears: [RangeUsageYear] = [RangeUsageYear]()
+    var rangeUsageYears = List<RangeUsageYear>()
     var mode: FormMode = .Create
 
     // Mark: Outlets
@@ -46,7 +48,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, rangeUsageYears: [RangeUsageYear]) {
+    func setup(mode: FormMode, rangeUsageYears: List<RangeUsageYear>) {
         self.mode = mode
         self.rangeUsageYears = rangeUsageYears
         setUpTable()

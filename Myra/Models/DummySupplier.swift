@@ -30,7 +30,8 @@ class DummySupplier {
     func getPastures(count: Int) -> [Pasture] {
         var pastures: [Pasture] = [Pasture]()
         for _ in 0...count {
-            let pasture = Pasture(name: "name")
+            let pasture = Pasture()
+            pasture.name = "name"
             pasture.plantCommunities.append(PlantCommunity())
             pastures.append(pasture)
         }
@@ -43,7 +44,7 @@ class DummySupplier {
             let agreementHolder = AgreementHolder()
             agreementHolder.firstName = "John"
             agreementHolder.lastName = "Doe"
-            agreementHolder.type = .Primary
+            agreementHolder.typeEnum = .Primary
             agreementHolders.append(agreementHolder)
         }
         return agreementHolders
@@ -53,7 +54,7 @@ class DummySupplier {
         let agreementHolder = AgreementHolder()
         agreementHolder.firstName = "John"
         agreementHolder.lastName = "Doe"
-        agreementHolder.type = .Primary
+        agreementHolder.typeEnum = .Primary
         return agreementHolder
     }
 
@@ -63,8 +64,8 @@ class DummySupplier {
             let liveStockID = LiveStockID()
             liveStockID.ownerFirstName = "Jane"
             liveStockID.ownerLastName = "Doe"
-            liveStockID.description = "Describing this field in this field"
-            liveStockID.type = .Brand
+            liveStockID.desc = "Describing this field in this field"
+            liveStockID.typeEnum = .Brand
             liveStockIDs.append(liveStockID)
         }
         return liveStockIDs
@@ -74,8 +75,8 @@ class DummySupplier {
         let liveStockID = LiveStockID()
         liveStockID.ownerFirstName = "Jane"
         liveStockID.ownerLastName = "Doe"
-        liveStockID.description = "Describing this field in this field"
-        liveStockID.type = .Brand
+        liveStockID.desc = "Describing this field in this field"
+        liveStockID.typeEnum = .Brand
         return liveStockID
     }
 }

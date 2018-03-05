@@ -7,14 +7,23 @@
 //
 
 import Foundation
-class LiveStockID {
-    var ownerFirstName: String = ""
-    var ownerLastName: String = ""
-    var type: LiveStockIDType = .Brand
-    var description: String = ""
-}
+import Realm
+import RealmSwift
 
-enum LiveStockIDType {
-    case Brand
-    case Tag
+class LiveStockID: Object {
+    @objc dynamic var ownerFirstName: String = ""
+    @objc dynamic var ownerLastName: String = ""
+    @objc dynamic var desc: String = ""
+
+    @objc dynamic var type: String = LiveStockIDType.Brand.rawValue
+
+    var typeEnum: LiveStockIDType {
+        get {
+            return LiveStockIDType(rawValue: type)!
+        }
+        set {
+            type = newValue.rawValue
+        }
+    }
+
 }

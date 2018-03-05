@@ -59,18 +59,18 @@ class AssignedRUPTableViewCell: UITableViewCell {
         self.idLabel.text = rup.id
         self.infoLabel.text = /*rup.info + ", Holder: " + */rup.primaryAgreementHolderLastName
         self.rangeName.text = rup.rangeName
-        switch rup.status {
-        case .Completed?:
+        switch rup.statusEnum {
+        case .Completed:
             self.statusText.text = "Completed"
             setStatusGreen()
-        case .Pending?:
+        case .Pending:
             self.statusText.text = "Pending"
             setStatusYellow()
-        case .Draft?:
+        case .Draft:
             self.statusText.text = "Draft"
             setStatusRed()
-        default:
-            self.statusText.text = "UNKNOWN"
+//        default:
+//            self.statusText.text = "UNKNOWN"
         }
     }
 }

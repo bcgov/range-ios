@@ -7,34 +7,40 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-class RUP {
-    var id: String = ""
-    var info: String = ""
+class RUP: Object {
+    
+    @objc dynamic var realmID: String = {
+        return String(Int.random(min: 1, max: Int(Int32.max)))
+    }()
 
-    var primaryAgreementHolderFirstName: String = ""
-    var primaryAgreementHolderLastName: String = ""
-
-    var status: RUPStatus?
-
-    var rangeName: String = ""
-
-    var basicInformation: BasicInformation = BasicInformation()
-    var rangeUsageYears: [RangeUsageYear] = [RangeUsageYear]()
-    var agreementHolders: [AgreementHolder] = [AgreementHolder]()
-    var liveStockIDs: [LiveStockID] = [LiveStockID]()
-    var pastures: [Pasture] = [Pasture]()
-
-    init() {
-        
+    override class func primaryKey() -> String? {
+        return "realmID"
     }
 
-    init(id: String) {
-        self.id = id
+    @objc dynamic var id: String = ""
+    @objc dynamic var info: String = ""
+
+    @objc dynamic var primaryAgreementHolderFirstName: String = ""
+    @objc dynamic var primaryAgreementHolderLastName: String = ""
+    @objc dynamic var status: String = RUPStatus.Draft.rawValue
+
+    var statusEnum: RUPStatus {
+        get {
+            return RUPStatus(rawValue: status)!
+        }
+        set {
+            status = newValue.rawValue
+        }
     }
 
-    init(id: String, info: String) {
-        self.id = id
-        self.info = info
-    }
+    @objc dynamic var rangeName: String = ""
+
+    @objc dynamic var basicInformation: BasicInformation? = nil
+    var rangeUsageYears = List<RangeUsageYear>()
+    var agreementHolders = List<AgreementHolder>()
+    var liveStockIDs = List<LiveStockID>()
+    var pastures = List<Pasture>()
 }

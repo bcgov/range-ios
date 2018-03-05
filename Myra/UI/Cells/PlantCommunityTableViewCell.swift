@@ -16,7 +16,8 @@ class PlantCommunityTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        // adds border
+        style()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -44,5 +45,15 @@ class PlantCommunityTableViewCell: UITableViewCell {
 
     func notifyReload() {
          NotificationCenter.default.post(name: .reload, object: self, userInfo: ["reload": true])
+    }
+}
+
+// styles
+extension PlantCommunityTableViewCell {
+    func style() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.black.cgColor
+
+
     }
 }

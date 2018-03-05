@@ -14,6 +14,7 @@ class PastureTableViewCell: UITableViewCell {
     let plantCommunityCellHeight = 100
 
     // Mark: Variables
+    var pastures: PasturesTableViewCell?
     var pasture: Pasture?
     var mode: FormMode = .Create
     var loaded: Bool = false
@@ -50,12 +51,12 @@ class PastureTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, pasture: Pasture) {
+    func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
+        self.pastures = pastures
         self.mode = mode
         self.pasture = pasture
         self.pastureNameLabel.text = pasture.name
         setupTable()
-//        setupNotifications()
  
     }
 
@@ -64,33 +65,20 @@ class PastureTableViewCell: UITableViewCell {
     }
 
     func updateTableHeight() {
-        self.totalHeight.constant = computePastureHeight()
-        let contentHeight = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + 5)
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        if tableHeight.constant == contentHeight  {return}
         tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + 5)
-
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.tableView.reloadData()
-//        notifyPasturesCell()
+        if let parent = pastures {
+            parent.updateTableHeight()
+        }
     }
-
-    func computePastureHeight() -> CGFloat {
-        // 395 is the right number but clearly needed more padding
-        //        let staticHeight: CGFloat = 395
-        let staticHeight: CGFloat = 410
-
-        let pastureHeight: CGFloat = 105
-        return (staticHeight + pastureHeight * CGFloat(pasture!.plantCommunities.count))
-    }
-    
 }
 
 // TableView
 extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func setupTable() {
+        tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "PlantCommunityTableViewCell")

@@ -153,7 +153,8 @@ class CreateNewRUPViewController: UIViewController {
 //        self.pastures = DummySupplier.shared.getPastures(count: 1)
 //        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 1)
 //        self.liveStockIDs = DummySupplier.shared.getLiveStockIDs(count: 1)
-        self.rup = RUP(id: "hello")
+        self.rup = RUP()
+        self.rup?.id = "RUPID"
     }
 
     func updateSubtableHeights() {

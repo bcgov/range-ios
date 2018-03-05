@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 // Works exactly like Range useage years cell, but with different object
 // refer to RangeUsageTableViewCell for better comments
@@ -16,7 +18,7 @@ class AgreementInformationTableViewCell: UITableViewCell {
     let cellHeight = 45
 
     // Mark: Variables
-    var agreementHolders: [AgreementHolder] = [AgreementHolder]()
+    var agreementHolders = List<AgreementHolder>()
     var mode: FormMode = .Create
     
     // Mark: Outlets
@@ -40,7 +42,7 @@ class AgreementInformationTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, agreementHolders: [AgreementHolder]) {
+    func setup(mode: FormMode, agreementHolders: List<AgreementHolder>) {
         self.mode = mode
         self.agreementHolders = agreementHolders
         setUpTable()

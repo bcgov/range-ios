@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum RUPStatus {
+enum RUPStatus: String {
     case Draft
     case Pending
     case Completed

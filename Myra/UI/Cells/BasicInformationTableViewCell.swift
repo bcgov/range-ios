@@ -47,13 +47,13 @@ class BasicInformationTableViewCell: UITableViewCell {
         if object != nil { return }
         if mode == .View || mode == .Edit {
             self.rangeNumberField.text = object?.rangeNumber
-            self.planStartField.text = object?.planStart?.string()
-            self.agreementStartDateField.text = object?.agreementStart?.string()
+            self.planStartField.text = object?.planStart.string()
+            self.agreementStartDateField.text = object?.agreementStart.string()
             self.agreementTypeField.text = object?.agreementType
-            self.planEndDateField.text = object?.planEnd?.string()
-            self.agreementEndDateField.text = object?.agreementEnd?.string()
+            self.planEndDateField.text = object?.planEnd.string()
+            self.agreementEndDateField.text = object?.agreementEnd.string()
             self.districtResponsibleField.text = object?.district
-            self.zoneField.text = object?.zone
+            self.zoneField.text = object?.RUPzone
         }
     }
 
