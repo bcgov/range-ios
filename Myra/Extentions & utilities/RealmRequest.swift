@@ -11,19 +11,19 @@ import Realm
 import RealmSwift
 
 struct RealmRequests {
-    static func getKey() -> Data {
-        let key = "W3VCPVGTL32XXSWHXXVVF4EYCLRYR399DFRPQSVRPT99J0A31UC2WBCGRKMI6I1X"
-        let data = key.data(using: .ascii)!
-        return data
-    }
-
-    static func getEncryptConfig() -> Realm.Configuration {
-        return Realm.Configuration(encryptionKey: getKey())
-    }
+//    static func getKey() -> Data {
+//        let key = "W3VCPVGTL32XXSWHXXVVF4EYCLRYR399DFRPQSVRPT99J0A31UC2WBCGRKMI6I1X"
+//        let data = key.data(using: .ascii)!
+//        return data
+//    }
+//
+//    static func getEncryptConfig() -> Realm.Configuration {
+//        return Realm.Configuration()
+//    }
 
     static func saveObject<T: Object>(object: T) {
         do {
-            let realm = try Realm(configuration: getEncryptConfig())
+            let realm = try Realm()
             try realm.write {
                 realm.add(object)
             }
@@ -34,7 +34,7 @@ struct RealmRequests {
     }
     static func updateObject<T: Object>(_ object: T) {
         do {
-            let realm = try Realm(configuration: getEncryptConfig())
+            let realm = try Realm()
             try realm.write {
                 realm.add(object, update: true)
             }
@@ -42,7 +42,7 @@ struct RealmRequests {
     }
     static func deleteObject<T: Object>(_ object: T) {
         do {
-            let realm = try Realm(configuration: getEncryptConfig())
+            let realm = try Realm()
             try realm.write {
                 realm.delete(object)
             }
@@ -51,7 +51,7 @@ struct RealmRequests {
 
     static func getObject<T: Object>(_ object: T.Type) -> [T]? {
         do {
-            let realm = try Realm(configuration: getEncryptConfig())
+            let realm = try Realm()
             let objs = realm.objects(object).map{ $0 }
             return Array(objs)
         } catch _ {}

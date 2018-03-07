@@ -79,4 +79,16 @@ class DummySupplier {
         liveStockID.typeEnum = .Brand
         return liveStockID
     }
+
+    func createLiveStockTypes() {
+        let lsts = RealmRequests.getObject(LiveStockType.self)
+        if lsts != nil && !(lsts?.isEmpty)! && (lsts?.count)! > 0 {
+            return
+        }
+        for i in 0...10 {
+            let lst = LiveStockType()
+            lst.type = "type\(i)"
+            RealmRequests.saveObject(object: lst)
+        }
+    }
 }

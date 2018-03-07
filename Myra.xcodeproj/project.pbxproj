@@ -29,9 +29,19 @@
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
 		293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 293C95CB20335D4100BF1113 /* Assets.xcassets */; };
 		293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */; };
+		294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC4FE204F3C5500F0FB04 /* RUPManager.swift */; };
+		294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294AC500204F57CC00F0FB04 /* Schedule.storyboard */; };
+		294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC502204F57E800F0FB04 /* ScheduleViewController.swift */; };
 		296232052047293A00F1CEBF /* FormMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296232042047293A00F1CEBF /* FormMode.swift */; };
 		2962320720472AAA00F1CEBF /* BasicInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962320620472AAA00F1CEBF /* BasicInformation.swift */; };
 		2962320920472D7500F1CEBF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962320820472D7500F1CEBF /* Date.swift */; };
+		2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */; };
+		2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */; };
+		2962B0E7204F076800F71B9C /* ScheduleCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */; };
+		2962B0E8204F076800F71B9C /* ScheduleCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2962B0E6204F076800F71B9C /* ScheduleCellTableViewCell.xib */; };
+		2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0E9204F167C00F71B9C /* Schedule.swift */; };
+		2962B0EC204F2BB400F71B9C /* ScheduleObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0EB204F2BB400F71B9C /* ScheduleObject.swift */; };
+		2962B0EE204F2FBB00F71B9C /* LiveStockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */; };
 		29742701204474BD0033BC47 /* AgreementInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297426FF204474BD0033BC47 /* AgreementInformationTableViewCell.swift */; };
 		29742702204474BD0033BC47 /* AgreementInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29742700204474BD0033BC47 /* AgreementInformationTableViewCell.xib */; };
 		2974270420447BEB0033BC47 /* AgreementHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270320447BEB0033BC47 /* AgreementHolder.swift */; };
@@ -63,6 +73,10 @@
 		29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */; };
 		29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8449203E15D600D73F6B /* MapTableViewCell.swift */; };
 		29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB844A203E15D600D73F6B /* MapTableViewCell.xib */; };
+		29EE75D7205053030061B18D /* ScheduleObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */; };
+		29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */; };
+		29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */; };
+		29EE75DC205053C40061B18D /* ScheduleFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */; };
 		29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97BC204DB87D005297B9 /* RealmRequest.swift */; };
 		29FB97BF204DB98E005297B9 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97BE204DB98E005297B9 /* Int.swift */; };
 		29FB97C1204DCB5B005297B9 /* AgeementHolderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */; };
@@ -93,9 +107,19 @@
 		293C95CB20335D4100BF1113 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		293C95CE20335D4100BF1113 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		293C95D020335D4100BF1113 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		294AC4FE204F3C5500F0FB04 /* RUPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPManager.swift; sourceTree = "<group>"; };
+		294AC500204F57CC00F0FB04 /* Schedule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Schedule.storyboard; sourceTree = "<group>"; };
+		294AC502204F57E800F0FB04 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		296232042047293A00F1CEBF /* FormMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormMode.swift; sourceTree = "<group>"; };
 		2962320620472AAA00F1CEBF /* BasicInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformation.swift; sourceTree = "<group>"; };
 		2962320820472D7500F1CEBF /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTableViewCell.xib; sourceTree = "<group>"; };
+		2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCellTableViewCell.swift; sourceTree = "<group>"; };
+		2962B0E6204F076800F71B9C /* ScheduleCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleCellTableViewCell.xib; sourceTree = "<group>"; };
+		2962B0E9204F167C00F71B9C /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		2962B0EB204F2BB400F71B9C /* ScheduleObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleObject.swift; sourceTree = "<group>"; };
+		2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockType.swift; sourceTree = "<group>"; };
 		297426FF204474BD0033BC47 /* AgreementInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementInformationTableViewCell.swift; sourceTree = "<group>"; };
 		29742700204474BD0033BC47 /* AgreementInformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgreementInformationTableViewCell.xib; sourceTree = "<group>"; };
 		2974270320447BEB0033BC47 /* AgreementHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementHolder.swift; sourceTree = "<group>"; };
@@ -127,6 +151,10 @@
 		29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUseageYearTableViewCell.xib; sourceTree = "<group>"; };
 		29EB8449203E15D600D73F6B /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		29EB844A203E15D600D73F6B /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
+		29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleObjectTableViewCell.swift; sourceTree = "<group>"; };
+		29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleObjectTableViewCell.xib; sourceTree = "<group>"; };
+		29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFormTableViewCell.swift; sourceTree = "<group>"; };
+		29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleFormTableViewCell.xib; sourceTree = "<group>"; };
 		29FB97BC204DB87D005297B9 /* RealmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRequest.swift; sourceTree = "<group>"; };
 		29FB97BE204DB98E005297B9 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeementHolderType.swift; sourceTree = "<group>"; };
@@ -164,6 +192,7 @@
 				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
 				2920F8392034CADC0090E7B4 /* RUPDetailsViewController.swift */,
 				291C4D9320364BDF00390523 /* CreateViewController.swift */,
+				294AC502204F57E800F0FB04 /* ScheduleViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -183,6 +212,9 @@
 				2962320620472AAA00F1CEBF /* BasicInformation.swift */,
 				29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */,
 				29FB97C2204DCCB2005297B9 /* LiveStockIDType.swift */,
+				2962B0E9204F167C00F71B9C /* Schedule.swift */,
+				2962B0EB204F2BB400F71B9C /* ScheduleObject.swift */,
+				2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,6 +225,7 @@
 				2920F82F2034C0140090E7B4 /* RUPGenerator.swift */,
 				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
+				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -288,6 +321,14 @@
 				29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */,
 				29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */,
 				29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */,
+				2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */,
+				2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */,
+				2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */,
+				2962B0E6204F076800F71B9C /* ScheduleCellTableViewCell.xib */,
+				29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */,
+				29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */,
+				29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */,
+				29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */,
 				29EB8449203E15D600D73F6B /* MapTableViewCell.swift */,
 				29EB844A203E15D600D73F6B /* MapTableViewCell.xib */,
 			);
@@ -301,6 +342,7 @@
 				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
 				2920F8372034CAB40090E7B4 /* RUPDetails.storyboard */,
 				291C4D9520364BEF00390523 /* Create.storyboard */,
+				294AC500204F57CC00F0FB04 /* Schedule.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -379,17 +421,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				29E0D931203F652F00193FA0 /* PastureTableViewCell.xib in Resources */,
+				29EE75DC205053C40061B18D /* ScheduleFormTableViewCell.xib in Resources */,
 				29742702204474BD0033BC47 /* AgreementInformationTableViewCell.xib in Resources */,
 				29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */,
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				2920F8382034CAB40090E7B4 /* RUPDetails.storyboard in Resources */,
+				29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */,
+				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
+				2962B0E8204F076800F71B9C /* ScheduleCellTableViewCell.xib in Resources */,
 				29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */,
 				2974270C20448F720033BC47 /* LiveStockIDTableViewCell.xib in Resources */,
 				29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */,
+				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
 				291C4D9620364BEF00390523 /* Create.storyboard in Resources */,
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
@@ -494,12 +541,17 @@
 			files = (
 				2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */,
 				29FB97C1204DCB5B005297B9 /* AgeementHolderType.swift in Sources */,
+				2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */,
+				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
 				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,
+				2962B0EE204F2FBB00F71B9C /* LiveStockType.swift in Sources */,
 				296232052047293A00F1CEBF /* FormMode.swift in Sources */,
 				29BF8029203CE97B0067B32B /* BasicInformationTableViewCell.swift in Sources */,
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
 				29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */,
+				2962B0EC204F2BB400F71B9C /* ScheduleObject.swift in Sources */,
 				2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */,
+				2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */,
 				2962320920472D7500F1CEBF /* Date.swift in Sources */,
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
@@ -511,15 +563,19 @@
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
 				2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */,
+				294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */,
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
 				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
 				2974270420447BEB0033BC47 /* AgreementHolder.swift in Sources */,
+				29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */,
+				29EE75D7205053030061B18D /* ScheduleObjectTableViewCell.swift in Sources */,
 				2920F8302034C0140090E7B4 /* RUPGenerator.swift in Sources */,
 				29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */,
 				29742707204484FB0033BC47 /* AgreementHolderTableViewCell.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				29E0D927203F4B2400193FA0 /* DummySupplier.swift in Sources */,
 				2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */,
+				2962B0E7204F076800F71B9C /* ScheduleCellTableViewCell.swift in Sources */,
 				2920F83A2034CADC0090E7B4 /* RUPDetailsViewController.swift in Sources */,
 				29FB97BF204DB98E005297B9 /* Int.swift in Sources */,
 				29DFA10C20450CB600B650CE /* Notifications.swift in Sources */,

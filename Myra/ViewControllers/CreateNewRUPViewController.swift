@@ -128,6 +128,7 @@ class CreateNewRUPViewController: UIViewController {
         tableView.scrollToRow(at: pasturesIndexPath, at: .top, animated: true)
     }
     @IBAction func scheduleAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
     }
     @IBAction func ministersIssuesAction(_ sender: UIButton) {
     }
@@ -208,6 +209,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         registerCell(name: "RangeUsageTableViewCell")
         registerCell(name: "PasturesTableViewCell")
         registerCell(name: "MapTableViewCell")
+        registerCell(name: "ScheduleTableViewCell")
     }
     @objc func doThisWhenNotify() { return }
 
@@ -234,6 +236,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
     func getPasturesCell(indexPath: IndexPath) -> PasturesTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "PasturesTableViewCell", for: indexPath) as! PasturesTableViewCell
+    }
+
+    func getScheduleCell(indexPath: IndexPath) -> ScheduleTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ScheduleTableViewCell", for: indexPath) as! ScheduleTableViewCell
     }
 
     func getMapCell(indexPath: IndexPath) -> MapTableViewCell {
@@ -268,6 +274,11 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             let cell = getPasturesCell(indexPath: indexPath)
             cell.setup(mode: mode, pastures: (rup?.pastures)!)
             return cell
+        case 5:
+            self.scheduleIndexPath = indexPath
+            let cell = getScheduleCell(indexPath: indexPath)
+            cell.setup(rup: rup!)
+            return cell
         default:
             self.mapIndexPath = indexPath
             return getMapCell(indexPath: indexPath)
@@ -275,7 +286,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 7
     }
 
     func realodAndGoTO(indexPath: IndexPath) {
@@ -288,5 +299,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         self.tableView.reloadData()
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
+}
 
+extension CreateNewRUPViewController {
+    func showSchedule(object: Schedule) {
+        let schedule = ViewManager.shared.schedule
+        schedule.schedule = object
+        self.present(schedule, animated: true, completion: nil)
+    }
 }

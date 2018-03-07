@@ -25,5 +25,9 @@ class ViewManager {
     lazy var createRUP: CreateNewRUPViewController = {
         return UIStoryboard(name: "CreateNewRup", bundle: Bundle.main).instantiateViewController(withIdentifier: "CreateNewRup") as! CreateNewRUPViewController
     }()
+
+    lazy var schedule: ScheduleViewController = {
+        return UIStoryboard(name: "Schedule", bundle: Bundle.main).instantiateViewController(withIdentifier: "Schedule") as! ScheduleViewController
+    }()
     
 }

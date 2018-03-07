@@ -40,6 +40,7 @@ class RangeUsageTableViewCell: UITableViewCell {
 
     // adds new range use year object to parent's rup object
     // then updates this class' range use years to compute height
+    // TODO: change setup to take rup object and add to rup object's array directly
     @IBAction func addAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.rup?.rangeUsageYears.append(RangeUsageYear())

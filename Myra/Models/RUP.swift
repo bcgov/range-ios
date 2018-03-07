@@ -43,4 +43,5 @@ class RUP: Object {
     var agreementHolders = List<AgreementHolder>()
     var liveStockIDs = List<LiveStockID>()
     var pastures = List<Pasture>()
+    var schedules = List<Schedule>()
 }
