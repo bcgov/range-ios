@@ -28,3 +28,7 @@ class ScheduleObjectTableViewCell: UITableViewCell {
     }
     
 }
+extension ScheduleObjectTableViewCell {
+//    func 
+}
+

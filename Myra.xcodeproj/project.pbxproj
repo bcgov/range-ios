@@ -67,6 +67,7 @@
 		29DA8A9F20574FB300139AD1 /* SelectAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */; };
 		29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */; };
 		29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */; };
+		29DA8AA52059A8DA00139AD1 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8AA42059A8DA00139AD1 /* String.swift */; };
 		29DFA10C20450CB600B650CE /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFA10B20450CB600B650CE /* Notifications.swift */; };
 		29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D924203F449700193FA0 /* RangeUsageYear.swift */; };
 		29E0D927203F4B2400193FA0 /* DummySupplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D926203F4B2400193FA0 /* DummySupplier.swift */; };
@@ -162,6 +163,7 @@
 		29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgreementViewController.swift; sourceTree = "<group>"; };
 		29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTableViewCell.swift; sourceTree = "<group>"; };
 		29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgreementTableViewCell.xib; sourceTree = "<group>"; };
+		29DA8AA42059A8DA00139AD1 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		29DFA10B20450CB600B650CE /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		29E0D924203F449700193FA0 /* RangeUsageYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUsageYear.swift; sourceTree = "<group>"; };
 		29E0D926203F4B2400193FA0 /* DummySupplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySupplier.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				29FCB037205702B3006CD247 /* DateManager.swift */,
 				29FCB0392057299D006CD247 /* DatePickerController.swift */,
 				29FCB03B20572AF6006CD247 /* UIViewController.swift */,
+				29DA8AA42059A8DA00139AD1 /* String.swift */,
 			);
 			path = "Extentions & utilities";
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				290A531B20534481005F5019 /* BasicInfoSectionTwoTableViewCell.swift in Sources */,
 				29FB97C1204DCB5B005297B9 /* AgeementHolderType.swift in Sources */,
 				2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */,
+				29DA8AA52059A8DA00139AD1 /* String.swift in Sources */,
 				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
 				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,
 				2962B0EE204F2FBB00F71B9C /* LiveStockType.swift in Sources */,

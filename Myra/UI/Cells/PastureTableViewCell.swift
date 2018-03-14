@@ -24,20 +24,16 @@ class PastureTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
-
-    @IBOutlet weak var totalHeight: NSLayoutConstraint!
+ 
     @IBOutlet weak var pastureNotesTextField: UITextView!
+    @IBOutlet weak var aumsField: UITextField!
+    @IBOutlet weak var deductionFIeld: UITextField!
+    @IBOutlet weak var graceDaysField: UITextField!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         addBoarder()
         loaded = true
-    }
-
-    func addBoarder() {
-        containerView.layer.borderWidth = 1
-        containerView.layer.cornerRadius = 5
-        containerView.layer.borderColor = UIColor.black.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -49,6 +45,31 @@ class PastureTableViewCell: UITableViewCell {
         self.pasture?.plantCommunities.append(PlantCommunity())
         updateTableHeight()
     }
+    @IBAction func fieldChanged(_ sender: Any) {
+        var currAUMs: Int = (self.pasture?.allowedAUMs)!
+        var currDeudction: Double = (self.pasture?.privateLandDeduction)!
+        var currGrace: Int = (self.pasture?.graceDays)!
+
+        if (aumsField.text?.isInt)! {
+             currAUMs = Int(aumsField.text!)!
+        }
+
+        if (deductionFIeld.text?.isDouble)! {
+            currDeudction = Double(deductionFIeld.text!)!
+        }
+
+        if (graceDaysField.text?.isInt)! {
+            currGrace = Int(graceDaysField.text!)!
+        }
+
+        self.pasture?.allowedAUMs = currAUMs
+        self.pasture?.privateLandDeduction = currDeudction
+        self.pasture?.graceDays = currGrace
+
+        print("\(String(describing: self.pasture?.allowedAUMs)) AUMs")
+        print("\(String(describing: self.pasture?.privateLandDeduction))%")
+        print("\(String(describing: self.pasture?.graceDays)) Days")
+    }
 
     // Mark: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
@@ -57,7 +78,6 @@ class PastureTableViewCell: UITableViewCell {
         self.pasture = pasture
         self.pastureNameLabel.text = pasture.name
         setupTable()
- 
     }
 
     func getCellHeight() -> CGSize {
@@ -71,6 +91,12 @@ class PastureTableViewCell: UITableViewCell {
         if let parent = pastures {
             parent.updateTableHeight()
         }
+    }
+
+    func addBoarder() {
+        containerView.layer.borderWidth = 1
+        containerView.layer.cornerRadius = 5
+        containerView.layer.borderColor = UIColor.black.cgColor
     }
 }
 

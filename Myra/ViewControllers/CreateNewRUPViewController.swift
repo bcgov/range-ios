@@ -386,7 +386,8 @@ extension CreateNewRUPViewController {
     func showSchedule(object: Schedule) {
          let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.schedule = object
+        schedule.setup(rup: rup!, schedule: object)
+//        schedule.schedule = object
         self.present(schedule, animated: true, completion: nil)
     }
 }

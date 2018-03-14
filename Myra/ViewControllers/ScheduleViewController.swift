@@ -11,6 +11,7 @@ import UIKit
 class ScheduleViewController: UIViewController {
 
     var schedule: Schedule?
+    var rup: RUP?
 
     @IBOutlet weak var scheduleTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
@@ -18,9 +19,10 @@ class ScheduleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(schedule)
-        setup()
         setUpTable()
+        setUpTable()
+        setTitle()
+        setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
     }
 
     @IBAction func backAction(_ sender: UIButton) {
@@ -33,28 +35,34 @@ class ScheduleViewController: UIViewController {
     @IBAction func deleteAction(_ sender: UIButton) {
     }
 
-    func setup() {
-//        setTitle()
+    func setup(rup: RUP, schedule: Schedule) {
+        self.rup = rup
+        self.schedule = schedule
+        setUpTable()
+        setTitle()
+        setSubtitle(ranNumber: rup.agreementId, agreementHolder: "", rangeName: rup.rangeName)
     }
 
     func setTitle() {
-        self.scheduleTitle.text = schedule?.name
+        if self.scheduleTitle == nil { return }
+        if schedule == nil {return}
+        self.scheduleTitle.text = "\(schedule?.name) Grazing Schedule"
     }
 
     func setSubtitle(ranNumber: String, agreementHolder: String, rangeName: String) {
+        if self.subtitle == nil { return }
         self.subtitle.text = "\(ranNumber) | \(agreementHolder) | \(rangeName)"
     }
 }
 
 extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
+        if self.tableView == nil { return }
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "ScheduleFormTableViewCell")
         registerCell(name: "ScheduleFooterTableViewCell")
     }
-
-    @objc func doThisWhenNotify() { return }
 
     func registerCell(name: String) {
         let nib = UINib(nibName: name, bundle: nil)
