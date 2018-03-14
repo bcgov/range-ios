@@ -38,7 +38,7 @@ class PasturesTableViewCell: UITableViewCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.promptName { (done, name) in
+        parent.promptName(title: "Pasture Name") { (done, name) in
             if done {
                 let newPasture = Pasture()
                 newPasture.name = name

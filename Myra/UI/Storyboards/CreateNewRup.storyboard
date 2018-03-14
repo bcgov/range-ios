@@ -27,10 +27,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="759" height="678"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Se1-jo-p5U">
-                                        <rect key="frame" x="259" y="275" width="240" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Se1-jo-p5U" userLabel="Gray">
+                                        <rect key="frame" x="0.0" y="0.0" width="759" height="678"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u51-LQ-Alk">
                                         <rect key="frame" x="229.5" y="100" width="300" height="150"/>
@@ -85,12 +84,16 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.15000167489999999" green="0.28323432799999998" blue="0.49806135889999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
+                                    <constraint firstItem="Se1-jo-p5U" firstAttribute="top" secondItem="HRZ-Na-sN4" secondAttribute="top" id="2zq-JG-dDl"/>
                                     <constraint firstItem="eHi-0H-7J4" firstAttribute="leading" secondItem="HRZ-Na-sN4" secondAttribute="leading" id="Avu-Q1-94W"/>
+                                    <constraint firstItem="Se1-jo-p5U" firstAttribute="leading" secondItem="HRZ-Na-sN4" secondAttribute="leading" id="XKX-1k-EVP"/>
+                                    <constraint firstAttribute="trailing" secondItem="Se1-jo-p5U" secondAttribute="trailing" id="ejt-OC-DuP"/>
                                     <constraint firstAttribute="trailing" secondItem="eHi-0H-7J4" secondAttribute="trailing" id="fwZ-fR-H4P"/>
                                     <constraint firstItem="eHi-0H-7J4" firstAttribute="top" secondItem="HRZ-Na-sN4" secondAttribute="top" id="i2d-22-57i"/>
                                     <constraint firstAttribute="bottom" secondItem="eHi-0H-7J4" secondAttribute="bottom" id="ofk-lM-tvl"/>
                                     <constraint firstItem="u51-LQ-Alk" firstAttribute="centerX" secondItem="HRZ-Na-sN4" secondAttribute="centerX" id="vfO-9f-0KQ"/>
                                     <constraint firstItem="u51-LQ-Alk" firstAttribute="top" secondItem="HRZ-Na-sN4" secondAttribute="top" constant="100" id="wAQ-hJ-Bsx"/>
+                                    <constraint firstAttribute="bottom" secondItem="Se1-jo-p5U" secondAttribute="bottom" id="xoA-M4-JSl"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LiW-fN-wXA" userLabel="Header">
@@ -620,6 +623,7 @@
                         <outlet property="basicInfoBoxImage" destination="yMB-tA-4nU" id="wXy-KS-Vi4"/>
                         <outlet property="basicInfoButton" destination="Cnc-y9-eVo" id="BHQ-dQ-7Id"/>
                         <outlet property="basicInfoLabel" destination="GaR-3e-EY9" id="thX-Hh-MHV"/>
+                        <outlet property="grayScreen" destination="Se1-jo-p5U" id="PMt-pd-X55"/>
                         <outlet property="invasivePlantsBoxImage" destination="E4f-zg-0le" id="zjf-zm-O8o"/>
                         <outlet property="invasivePlantsButton" destination="pxb-jr-geh" id="Ob1-B5-pOT"/>
                         <outlet property="invasivePlantsLabel" destination="4eg-9u-rEP" id="2o0-wH-jpP"/>

@@ -98,6 +98,7 @@ class CreateNewRUPViewController: UIViewController {
     @IBOutlet weak var popupVIew: UIView!
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var popupTextField: UITextField!
+    @IBOutlet weak var grayScreen: UIView!
 
     var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
 
@@ -121,12 +122,16 @@ class CreateNewRUPViewController: UIViewController {
     }
 
     func openPopup() {
+        self.tableView.isUserInteractionEnabled = false
+        self.grayScreen.alpha = 0.8
         self.popupVIew.alpha = 1
     }
     func closePopup() {
+        self.grayScreen.alpha = 0
         self.popupTextField.text = ""
         self.popupCompletion = nil
         self.popupVIew.alpha = 0
+        self.tableView.isUserInteractionEnabled = true
     }
 
 
