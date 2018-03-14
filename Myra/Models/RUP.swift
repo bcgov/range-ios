@@ -20,12 +20,39 @@ class RUP: Object {
         return "realmID"
     }
 
-    @objc dynamic var id: String = ""
     @objc dynamic var info: String = ""
 
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
     @objc dynamic var primaryAgreementHolderLastName: String = ""
     @objc dynamic var status: String = RUPStatus.Draft.rawValue
+
+    // set from API
+    @objc dynamic var id: Int = -1
+    @objc dynamic var apistatus: String = ""
+    var zone: Zone?
+    @objc dynamic var planStartDate: Date?
+    @objc dynamic var rangeName: String = ""
+    @objc dynamic var agreementStartDate: Date?
+    @objc dynamic var updatedAt: Date?
+    @objc dynamic var exemptionStatus: Bool = false
+    @objc dynamic var agreementId: String = ""
+    @objc dynamic var planEndDate: Date?
+    @objc dynamic var agreementEndDate: Date?
+    @objc dynamic var notes: String = ""
+
+    func set(id: Int, status: String, zone: Zone, planStartDate: Date?, rangeName: String, agreementStartDate: Date?, updatedAt: Date?, exemptionStatus: Bool, agreementId: String, planEndDate: Date?, agreementEndDate: Date?, notes: String) {
+        self.id = id
+        self.planStartDate = planStartDate
+        self.rangeName = rangeName
+        self.agreementStartDate = agreementStartDate
+        self.updatedAt = updatedAt
+        self.exemptionStatus = exemptionStatus
+        self.agreementId = agreementId
+        self.planEndDate = planEndDate
+        self.agreementEndDate = agreementEndDate
+        self.notes = notes
+        self.zone = zone
+    }
 
     var statusEnum: RUPStatus {
         get {
@@ -35,8 +62,6 @@ class RUP: Object {
             status = newValue.rawValue
         }
     }
-
-    @objc dynamic var rangeName: String = ""
 
     @objc dynamic var basicInformation: BasicInformation? = nil
     var rangeUsageYears = List<RangeUsageYear>()

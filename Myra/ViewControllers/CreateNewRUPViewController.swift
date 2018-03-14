@@ -94,17 +94,61 @@ class CreateNewRUPViewController: UIViewController {
     // Body
     @IBOutlet weak var tableView: UITableView!
 
+    // custom popup for names
+    @IBOutlet weak var popupVIew: UIView!
+    @IBOutlet weak var popupTitle: UILabel!
+    @IBOutlet weak var popupTextField: UITextField!
+
+    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
+
+    @IBAction func popupCancel(_ sender: Any) {
+        if popupCompletion == nil {return}
+        popupCompletion!(false, "")
+        closePopup()
+    }
+
+    @IBAction func popupAdd(_ sender: Any) {
+        if popupCompletion == nil {return}
+        if let text = popupTextField.text {
+            if text == "" {
+                popupTitle.text = "Please enter a valid name"
+                return
+            } else {
+                popupCompletion!(true, text)
+                closePopup()
+            }
+        }
+    }
+
+    func openPopup() {
+        self.popupVIew.alpha = 1
+    }
+    func closePopup() {
+        self.popupTextField.text = ""
+        self.popupCompletion = nil
+        self.popupVIew.alpha = 0
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setDummy()
+//        setDummy()
+        closePopup() 
         setUpTable()
         setMenuSize()
         if !reloaded {
             updateSubtableHeights()
-
         }
 
         NotificationCenter.default.addObserver(forName: .updatePastureCells, object: nil, queue: nil, using: catchAction)
+        autofill()
+    }
+
+    func autofill() {
+        let num = rup?.agreementId ?? ""
+        let name = rup?.rangeName ?? ""
+        ranchNameAndNumberLabel.text = "\(num) | \(name)"
+
     }
 
     func catchAction(notification:Notification) {
@@ -142,11 +186,24 @@ class CreateNewRUPViewController: UIViewController {
         tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
     }
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
+        APIManager.send(rup: self.rup!) { (done) in
+            if done {
+//                self.parentVC?.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 
     // Mark: Functions
     func getMapVC() -> CreateViewController {
-        return ViewManager.shared.create
+        let vm = ViewManager()
+        return vm.create
+    }
+
+    func setup(rup: RUP) {
+        self.rup = rup
+        setUpTable()
+        if self.tableView != nil {return}
     }
 
     func setDummy() {
@@ -155,7 +212,9 @@ class CreateNewRUPViewController: UIViewController {
 //        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 1)
 //        self.liveStockIDs = DummySupplier.shared.getLiveStockIDs(count: 1)
         self.rup = RUP()
-        self.rup?.id = "RUPID"
+        self.rup?.id = 0
+        let basicInfo = BasicInformation()
+        self.rup?.basicInformation = basicInfo
     }
 
     func updateSubtableHeights() {
@@ -200,10 +259,13 @@ extension CreateNewRUPViewController {
 
 extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
+        if self.tableView == nil {return}
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
         tableView.delegate = self
         tableView.dataSource = self
-        registerCell(name: "BasicInformationTableViewCell")
+//        registerCell(name: "BasicInformationTableViewCell")
+        registerCell(name: "BasicInfoTableViewCell")
+        registerCell(name: "BasicInfoSectionTwoTableViewCell")
         registerCell(name: "AgreementInformationTableViewCell")
         registerCell(name: "LiveStockIDTableViewCell")
         registerCell(name: "RangeUsageTableViewCell")
@@ -222,8 +284,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "RangeUsageTableViewCell", for: indexPath) as! RangeUsageTableViewCell
     }
 
-    func getBasicInfoCell(indexPath: IndexPath) -> BasicInformationTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "BasicInformationTableViewCell", for: indexPath) as! BasicInformationTableViewCell
+    func getBasicInfoSectionTwoCell(indexPath: IndexPath) -> BasicInfoSectionTwoTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "BasicInfoSectionTwoTableViewCell", for: indexPath) as! BasicInfoSectionTwoTableViewCell
+    }
+
+    func getBasicInfoCell(indexPath: IndexPath) -> BasicInfoTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "BasicInfoTableViewCell", for: indexPath) as! BasicInfoTableViewCell
     }
 
     func getAgreementInformationCell(indexPath: IndexPath) -> AgreementInformationTableViewCell {
@@ -253,16 +319,17 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         switch index {
         case 0:
             self.basicInformationIndexPath = indexPath
-            return getBasicInfoCell(indexPath: indexPath)
+            let cell = getBasicInfoCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: rup!)
+            return cell
         case 1:
+            let cell = getBasicInfoSectionTwoCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: rup!)
+            return cell
+        case 2:
             self.rangeUsageIndexPath = indexPath
             let cell = getRangeUsageCell(indexPath: indexPath)
             cell.setup(mode: mode, rangeUsageYears: (rup?.rangeUsageYears)!)
-            return cell
-        case 2:
-            self.agreementInformationIndexPath = indexPath
-            let cell = getAgreementInformationCell(indexPath: indexPath)
-            cell.setup(mode: mode, agreementHolders: (rup?.agreementHolders)!)
             return cell
         case 3:
             self.liveStockIDIndexPath = indexPath
@@ -272,7 +339,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 4:
             self.pasturesIndexPath = indexPath
             let cell = getPasturesCell(indexPath: indexPath)
-            cell.setup(mode: mode, pastures: (rup?.pastures)!)
+            cell.setup(mode: mode, rup: rup!)
             return cell
         case 5:
             self.scheduleIndexPath = indexPath
@@ -286,7 +353,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 6
     }
 
     func realodAndGoTO(indexPath: IndexPath) {
@@ -302,8 +369,18 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 extension CreateNewRUPViewController {
+    // Use done to indicate if user cancelled or not
+    func promptName(title: String, completion: @escaping (_ done: Bool,_ result: String) -> Void) {
+        self.popupTitle.text = title
+        self.popupCompletion = completion
+        self.openPopup()
+    }
+}
+
+extension CreateNewRUPViewController {
     func showSchedule(object: Schedule) {
-        let schedule = ViewManager.shared.schedule
+         let vm = ViewManager()
+        let schedule = vm.schedule
         schedule.schedule = object
         self.present(schedule, animated: true, completion: nil)
     }

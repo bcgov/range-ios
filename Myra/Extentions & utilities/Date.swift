@@ -7,13 +7,16 @@
 //
 
 import Foundation
-extension Date
-{
-    func string() -> String
-    {
+extension Date {
+    func string() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM dd, yyyy"
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
         return dateFormatter.string(from: self)
+    }
+
+    
+    public func startOf() -> Date?{
+        return Calendar(identifier: .gregorian).startOfDay(for: self)
     }
 
 }

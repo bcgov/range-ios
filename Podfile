@@ -10,6 +10,8 @@ target 'Myra' do
   pod 'ReachabilitySwift', '4.1.0'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'Alamofire', '4.6'
+  pod 'SwiftyJSON', '4.0.0'
   # Pods for Myra
 
 end

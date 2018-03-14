@@ -51,8 +51,9 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "ScheduleFormTableViewCell")
-        registerCell(name: "AgreementInformationTableViewCell")
+        registerCell(name: "ScheduleFooterTableViewCell")
     }
+
     @objc func doThisWhenNotify() { return }
 
     func registerCell(name: String) {
@@ -64,11 +65,19 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: "ScheduleFormTableViewCell", for: indexPath) as! ScheduleFormTableViewCell
     }
 
+    func getScheduleFooterCell(indexPath: IndexPath) -> ScheduleFooterTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ScheduleFooterTableViewCell", for: indexPath) as! ScheduleFooterTableViewCell
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
         switch index {
         case 0:
             let cell = getScheduleCell(indexPath: indexPath)
+            cell.setup(schedule: schedule!)
+            return cell
+        case 1:
+            let cell = getScheduleFooterCell(indexPath: indexPath)
             return cell
         default:
             return getScheduleCell(indexPath: indexPath)
@@ -76,7 +85,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 
 }

@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 class ViewManager {
-    static let shared = ViewManager()
-    
-    private init() {}
+//    static let shared = ViewManager()
+//    
+//    private init() {}
 
     lazy var rupDetails: RUPDetailsViewController = {
         return UIStoryboard(name: "RUPDetails", bundle: Bundle.main).instantiateViewController(withIdentifier: "RUPDetails") as! RUPDetailsViewController
@@ -28,6 +28,10 @@ class ViewManager {
 
     lazy var schedule: ScheduleViewController = {
         return UIStoryboard(name: "Schedule", bundle: Bundle.main).instantiateViewController(withIdentifier: "Schedule") as! ScheduleViewController
+    }()
+
+    lazy var selectAgreement: SelectAgreementViewController = {
+        return UIStoryboard(name: "SelectAgreement", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectAgreement") as! SelectAgreementViewController
     }()
     
 }

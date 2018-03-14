@@ -38,6 +38,7 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
+        getAgreements()
         self.rups = getRUPs()
         setUpTable()
     }
@@ -49,7 +50,20 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func CreateRUPAction(_ sender: Any) {
-        showCreate()
+//        showCreate()
+        APIManager.getDummyRUPs { (done, rups) in
+            if done {
+                let vm = ViewManager()
+                let vc = vm.selectAgreement
+                vc.setup(rups: rups!)
+                self.present(vc, animated: true, completion: nil)
+            } else {
+                let vm = ViewManager()
+                let vc = vm.createRUP
+                vc.setup(rup: RUP())
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
     }
 
 }
@@ -88,7 +102,22 @@ extension HomeViewController {
     func getRUPs() -> [RUP] {
         let rups = RUPGenerator.shared.getSamples(number: 20)
         // sort by last name
+
         return rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
+    }
+
+    func getAgreements() {
+//        APIManager.getDummyRUPs { (done, rups) in
+//            if done {
+//                for rup in rups! {
+//                    print(rup)
+//                }
+//                let r = rups?.first
+//                APIManager.send(rup: r!, completion: { (success) in
+//
+//                })
+//            }
+//        }
     }
 }
 
@@ -97,7 +126,8 @@ extension HomeViewController {
 
     // returns rup details view controller
     func getRUPDetailsVC() -> RUPDetailsViewController {
-        return ViewManager.shared.rupDetails
+         let vm = ViewManager()
+        return vm.rupDetails
     }
 
     // present rup details in view mode
@@ -118,11 +148,13 @@ extension HomeViewController {
 
 
     func getMapVC() -> CreateViewController {
-        return ViewManager.shared.create
+        let vm = ViewManager()
+        return vm.create
     }
 
     func getCreateNewVC() -> CreateNewRUPViewController {
-        return ViewManager.shared.createRUP
+        let vm = ViewManager()
+        return vm.createRUP
     }
 
     func showCreate() {

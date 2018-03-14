@@ -10,15 +10,16 @@ import UIKit
 
 class ScheduleFormTableViewCell: UITableViewCell {
 
+    let cellHeight = 50.0
     // Mark: Variables
     var schedule: Schedule?
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var height: NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,6 +30,8 @@ class ScheduleFormTableViewCell: UITableViewCell {
 
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
+        schedule?.scheduleObjects.append(ScheduleObject())
+        updateTableHeight()
     }
 
     // Mark: Functions
@@ -36,11 +39,22 @@ class ScheduleFormTableViewCell: UITableViewCell {
         self.schedule = schedule
         setUpTable()
     }
+
+    func updateTableHeight() {
+        self.tableView.layoutIfNeeded()
+        self.tableView.reloadData()
+
+        height.constant = CGFloat( Double((schedule?.scheduleObjects.count)!) * cellHeight + 5.0)
+
+        let parent = self.parentViewController as! ScheduleViewController
+        parent.tableView.reloadData()
+    }
     
 }
 
 extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
+        self.tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "ScheduleObjectTableViewCell")
@@ -69,7 +83,7 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
         if let count = schedule?.scheduleObjects.count {
             return count
         } else {
-            return 1
+            return 0
         }
     }
 

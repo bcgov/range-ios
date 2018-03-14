@@ -10,7 +10,7 @@ import UIKit
 
 class ScheduleTableViewCell: UITableViewCell {
 
-    let cellHeight = 57.0
+    let cellHeight = 56.5
     var rup: RUP?
 
     @IBOutlet weak var tableView: UITableView!
@@ -86,8 +86,8 @@ extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("seleted")
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.showSchedule(object: (rup?.schedules[indexPath.row])!)
+//        let parent = self.parentViewController as! CreateNewRUPViewController
+//        parent.showSchedule(object: (rup?.schedules[indexPath.row])!)
     }
 
 }

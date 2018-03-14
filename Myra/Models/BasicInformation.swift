@@ -28,4 +28,6 @@ class BasicInformation: Object{
     @objc dynamic var agreementEnd: Date = Date()
     @objc dynamic var district: String = ""
     @objc dynamic var RUPzone: String = ""
+    @objc dynamic var rangeName: String = ""
+    @objc dynamic var alternativeBusinessName: String = ""
 }

@@ -17,7 +17,7 @@ class RUPGenerator {
         var rups = [RUP]()
         for i in 0...number {
             let temp = RUP()
-            temp.id = "RUP\(i)"
+            temp.id = i
             temp.info = "Info for rup #\(i)"
             temp.primaryAgreementHolderLastName = randomString(length: 5).lowercased()
             temp.primaryAgreementHolderFirstName = randomString(length: 5).lowercased()

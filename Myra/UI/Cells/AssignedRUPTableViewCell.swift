@@ -56,7 +56,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
     }
 
     func setupView(rup: RUP) {
-        self.idLabel.text = rup.id
+        self.idLabel.text = "\(rup.id)"
         self.infoLabel.text = /*rup.info + ", Holder: " + */rup.primaryAgreementHolderLastName
         self.rangeName.text = rup.rangeName
         switch rup.statusEnum {
@@ -65,7 +65,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
             setStatusGreen()
         case .Pending:
             self.statusText.text = "Pending"
-            setStatusYellow()
+            setStatusRed()
         case .Draft:
             self.statusText.text = "Draft"
             setStatusRed()

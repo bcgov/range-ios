@@ -18,8 +18,9 @@ import RealmSwift
 class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Variables
-    var pastures = List<Pasture>()
+//    var pastures = List<Pasture>()
     var mode: FormMode = .Create
+    var rup: RUP?
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -37,20 +38,21 @@ class PasturesTableViewCell: UITableViewCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-
-        let pasture1 = Pasture()
-        pasture1.name = "name"
-//        pasture1.plantCommunities.append(PlantCommunity())
-        parent.rup?.pastures.append(pasture1)
-//        parent.rup?.pastures.append(Pasture(name: "name"))
-        self.pastures = (parent.rup?.pastures)!
-        updateTableHeight()
+        parent.promptName { (done, name) in
+            if done {
+                let newPasture = Pasture()
+                newPasture.name = name
+                self.rup?.pastures.append(newPasture)
+                self.updateTableHeight()
+            }
+        }
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, pastures: List<Pasture>) {
+    func setup(mode: FormMode, rup: RUP) {
+        self.rup = rup
         self.mode = mode
-        self.pastures = pastures
+//        self.pastures = pastures
         setUpTable()
 //        setupNotifications()
     }
@@ -70,7 +72,7 @@ class PasturesTableViewCell: UITableViewCell {
 
         */
         var h: CGFloat = 0.0
-        for pasture in pastures {
+        for pasture in (rup?.pastures)! {
             h = h + computePastureHeight(pasture: pasture)
         }
         return h
@@ -108,13 +110,13 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
-        if pastures.count <= indexPath.row {return cell}
-        cell.setup(mode: mode, pasture: pastures[indexPath.row], pastures: self)
+        if (rup?.pastures.count)! <= indexPath.row {return cell}
+        cell.setup(mode: mode, pasture: (rup?.pastures[indexPath.row])!, pastures: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pastures.count
+        return (rup?.pastures.count)!
     }
 
 }
