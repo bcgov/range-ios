@@ -1,2 +1,2 @@
-rootProject.name='geb-mobile-extension'
-include 'geb-mobile', 'geb-mobile-test-spock'
+rootProject.name='BDDStack-mobile-testing-iOS-Myra'
+include 'geb-mobile', 'Myra-iOS-BDD-test'
