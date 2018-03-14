@@ -1,0 +1,143 @@
+dependencies {
+    compile project(':geb-mobile')
+}
+
+tasks.withType(Test) { task ->
+    onlyIf { !Boolean.getBoolean('skip.tests') }
+    ignoreFailures = true
+    systemProperties.put = System.properties
+    outputs.upToDateWhen { false }
+}
+
+task androidOnLocalDevice(type: Test, dependsOn: [compileGroovy]) {
+
+    /**
+     * Need the following to be ready:
+     *  Appium (Check for installation with Appium-doctor)
+     *  ADB, with device connected
+     *  app apk
+     *
+     **/
+
+    File app = new File("demo_apps/app-debug.apk")
+    systemProperties.put "framework", "appium"
+//    systemProperties.put "appium_app", app.getAbsolutePath()
+    systemProperties.put "appium_appPackage", "com.android.settings"
+    systemProperties.put "appium_appActivity", "com.android.settings.Settings"
+//    systemProperties.put "appium_appPackage", "ca.bc.gov.secureimage"
+//    systemProperties.put "appium_appActivity", "ca.bc.gov.secureimage.screens.authenticate.AuthenticateActivity"
+    systemProperties.put "appium_platformName", "Android"
+    systemProperties.put "appium_automationName", "uiautomator2"
+
+
+    include '**/GebMobileAutomationTestWithPagesSpec.*'
+}
+
+
+task iOSOnLocalDevice(type: Test, dependsOn: [compileGroovy]) {
+
+    /**
+     * Install:
+     *  Appium
+     *  Xcode
+     *  brew install ideviceinstaller
+     *  app needed to be installed on iphone already
+     *
+     *
+     *  fill in device info:
+     **/
+
+    // File app = new File("demo_apps/WordPressSample.ipa")
+    systemProperties.put "framework", "appium"
+    // systemProperties.put "appium_app", app.getAbsolutePath()
+    systemProperties.put "appium_app", "ca.bc.gov.pathfinder.mobile.MyRA"
+    systemProperties.put "appium_platformName", "iOS"
+    systemProperties.put "appium_platformVersion", "11.0"
+    systemProperties.put "appium_deviceName", "Pathfinder iPhone 8"
+    systemProperties.put "appium_automationName", "XCUITest"
+    systemProperties.put "appium_udid", "9560718f96ffddffea0267e280a5dbad0ca7ddb8"
+    systemProperties.put "appium_xcodeOrgId", "TCH45SXZ69"
+    systemProperties.put "appium_xcodeSigningId", "iPhone Developer"
+
+    include '**/UICatalogAppSpec.*'
+}
+
+
+
+
+task androidOnBrowserStack(type: Test, dependsOn: [compileGroovy]) {
+    /**
+     * UiAutomator2 capa minimum (with jdk1.8.0)
+     *
+     * automationName - UiAutomator2
+     * platformName - Android
+     * platformVersion
+     * deviceName
+     * app
+     * browserName - Chrome/Chromium (for webview)
+     *
+     **/
+
+    systemProperties.put "framework", "appium"
+    systemProperties.put "appium_app", "bs://6923b20d35af5655b0d622f1c4770311ea0818f9"
+    systemProperties.put "appium.url", "http://shellytesting2:y8beASRQzjhXbqbXiqTx@hub.browserstack.com/wd/hub"
+    systemProperties.put "appium_platformName", "Android"
+    systemProperties.put "appium_deviceName", "Google Pixel"
+    systemProperties.put "appium_platformVersion", "7.1"
+
+    include '**/GebMobileAutomationTestWithPagesSpec.*'
+}
+
+
+task iOSOnSauceLabs(type: Test, dependsOn: [compileGroovy]) {
+    /**
+     * UIAutomation capa minimum (for iOS 9.3 -)
+     *
+     * platformName - iOS
+     * platformVersion
+     * deviceName
+     * app
+     * browserName - Safari (for webview)
+     *
+     *
+     * XCUITest capa minimum (for iOS 9.3 or higher)
+     *
+     * automationName - XCUITest
+     * platformName - iOS
+     * platformVersion
+     * deviceName
+     * app
+     **/
+
+    systemProperties.put "framework", "appium"
+    systemProperties.put "appium_app", "https://s3.amazonaws.com/appium/TestApp8.4.app.zip"
+    systemProperties.put "appium.url", "http://ShellyTesting2:b5cd63ed-c033-4b5d-9c60-12eda5218917@ondemand.saucelabs.com:80/wd/hub"
+    systemProperties.put "appium_platformName", "iOS"
+    systemProperties.put "appium_deviceName", "iPhone 6"
+    systemProperties.put "appium_platformVersion", "8.4"
+
+
+    include '**/UICatalogAppSpec.*'
+}
+
+
+task uploadAppToDeviceFarm(type: Exec) {
+/**
+ *  BrowserStack:
+ **/
+//    Upload Android app:
+//    commandLine = ['curl', '-u', "shellytesting2:y8beASRQzjhXbqbXiqTx", '-X', 'POST', "https://api.browserstack.com/app-automate/upload", '-F', "file=@/path/name.apk"]
+
+//Upload iOS app:
+    commandLine = ['curl', '-u', "shellytesting2:y8beASRQzjhXbqbXiqTx", '-X', 'POST', "https://api.browserstack.com/app-automate/upload", '-F', "file=@/path/name.ipa"]
+
+/**
+ *  SauceLabs:
+ **/
+//    Upload Android app:
+//    commandLine = ['curl', '-u', "ShellyTesting2:b5cd63ed-c033-4b5d-9c60-12eda5218917", '-X', 'POST', '-H', "Content-Type: application/octet-stream" https://saucelabs.com/rest/v1/storage/ShellyTesting2/testapp.apk?overwrite=true --data-binary", "@/path/name.apk"]
+
+//Upload iOS app:
+//    commandLine = ['curl', '-u', "ShellyTesting2:b5cd63ed-c033-4b5d-9c60-12eda5218917", '-X', 'POST', '-H', "Content-Type: application/octet-stream" https://saucelabs.com/rest/v1/storage/ShellyTesting2/testapp.ipa?overwrite=true --data-binary", "@/path/name.ipa"]
+
+}
