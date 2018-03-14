@@ -15,7 +15,6 @@ ext.groovyVersion = '2.3.11'
 ext.appiumClientVersion = '5.0.4'
 ext.junitVersion = '4.11'
 
-
 allprojects {
     apply plugin: 'idea'
 
@@ -23,7 +22,6 @@ allprojects {
         mavenLocal()
         mavenCentral()
     }
-
 }
 
 subprojects {
@@ -31,14 +29,13 @@ subprojects {
 
     dependencies {
 
-        compile("io.appium:java-client:$appiumClientVersion")
+        compile "io.appium:java-client:$appiumClientVersion"
         compile "org.json:json:20171018"
         compile "org.codehaus.groovy:groovy-all:$groovyVersion"
         compile "org.slf4j:slf4j-api:1.7.6"
-        compile 'ch.qos.logback:logback-classic:1.1.2'
+        compile "ch.qos.logback:logback-classic:1.1.2"
         compile "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
         compile "junit:junit:$junitVersion"
-
 
         compile("org.gebish:geb-spock:$gebVersion") {
             exclude module: "groovy"
@@ -51,10 +48,24 @@ subprojects {
         }
 
         testCompile "junit:junit:$junitVersion"
+
+        // Spock reports
+        testCompile("com.athaydes:spock-reports:1.2.10") {
+            transitive = false
+        }
     }
-
-
 }
+
+task checkenv {
+    doLast {
+        if (System.properties.'os.name'.toLowerCase().startsWith("mac")) {
+            println "MAC ... "
+            println "check appium installation: " + 'appium -v'.execute().text
+
+        }
+    }
+}
+
 // the appium server for local devices and simulators/emulators:
 def startServer = { server, command ->
     if (System.properties.'skipServer') {
@@ -106,16 +117,6 @@ task stopServers(group: 'Server') {
     doLast {
         project.ext.properties.each { k, v ->
             if (k =~ /^SERVER_/ && project.ext.has(k)) stopServer(k)
-        }
-    }
-}
-
-task checkenv {
-    doLast {
-        if (System.properties.'os.name'.toLowerCase().startsWith("mac")) {
-            println "MAC ... "
-            println "check appium installation: " + 'appium -v'.execute().text
-
         }
     }
 }

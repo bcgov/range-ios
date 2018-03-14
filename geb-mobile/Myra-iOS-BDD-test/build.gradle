@@ -7,6 +7,9 @@ tasks.withType(Test) { task ->
     ignoreFailures = true
     systemProperties.put = System.properties
     outputs.upToDateWhen { false }
+    systemProperty 'com.athaydes.spockframework.report.outputDir', 'build/reports/spock'
+    systemProperty 'com.athaydes.spockframework.report.internal.HtmlReportCreator.inlineCss', false
+    systemProperty 'com.athaydes.spockframework.report.projectName',"Test build 1"
 }
 
 task iOSOnLocalDevice(type: Test, dependsOn: [compileGroovy]) {
