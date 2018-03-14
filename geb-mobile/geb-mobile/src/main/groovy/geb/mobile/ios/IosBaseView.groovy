@@ -9,9 +9,15 @@ import org.openqa.selenium.ScreenOrientation
  * Created by gmueksch on 27.08.14.
  */
 @Slf4j
-class IosBaseView extends Page{
+class IosBaseView extends Page {
 
     static content = {
+    }
+
+    static at = {
+//        TODO: the actual activity is not matching the activities name:
+//        getActivityName() ? currentActivity == getActivityName() : true
+        getCurrentActivity() ? currentActivity == getCurrentActivity() : true
     }
 
     void switchOrientation( orientation ) {
