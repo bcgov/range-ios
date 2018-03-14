@@ -1,33 +1,33 @@
 package geb.mobile.ios.specification
 
+import geb.mobile.GebMobileBaseSpec
+import spock.lang.Stepwise
+
 import geb.mobile.ios.views.CreateView
 import geb.mobile.ios.views.HomeView
-import geb.spock.GebSpec
 
 /**
- * Created by gmueksch on 01.09.14.
+ * The positive user story test cases:
  */
 
-/**
- * Sample test case for iOS app calculator native app:
- */
-
-class MainSpec extends GebSpec {
+@Stepwise
+class MainSpec extends GebMobileBaseSpec {
 
     def "open app to the Home page"(){
-        Given: "Land on home page"
-        at HomeView
+        given: "Land on home page"
+        // at HomeView
+        sleep(10)
 
-        When:"I see the table"
+        when: "I see the table"
         rangeTable
 
-        And: "Click on create new RUP button"
+        and: "Click on create new RUP button"
         createButton
-        // .click()
-        createButton2
+        // createButton2
 
-        Then: "I should be in Create page"
-        at CreateView
+        then: "I should be in Create page"
+        // at CreateView
+        sleep(10)
     }
 
 
