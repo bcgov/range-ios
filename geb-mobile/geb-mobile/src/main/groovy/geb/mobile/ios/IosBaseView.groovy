@@ -15,10 +15,12 @@ class IosBaseView extends Page {
     }
 
     static at = {
-//        TODO: the actual activity is not matching the activities name:
-//        getActivityName() ? currentActivity == getActivityName() : true
-        getCurrentActivity() ? currentActivity == getCurrentActivity() : true
+// iOS does not have concept as activity/page/view, just returning True.
+// The actual check would be by a specifc element in the page
+//        getCurrentView() ? currentView == getCurrentView() : true
+        true
     }
+
 
     void switchOrientation( orientation ) {
             if (driver instanceof IOSDriver) {
@@ -40,5 +42,10 @@ class IosBaseView extends Page {
             log.error("Error on target Function $func: $e.message")
         }
     }
+
+    //To add for web view:
+//    public String getCurrentView() {
+//        return driver.currentUrl
+//    }
 
 }

@@ -87,7 +87,6 @@ class GebMobileScreenshotRule implements MethodRule {
                     if (baseSpec) {
                         log.warn("Caugth exception: $ex.message --> take screenshot")
                         def snapDir = getSnapshotDir()
-                        log.info("------The screenshot is at: $snapDir")
                         def fName = method.getName().replaceAll(/[ ,\._\-:]/, "_")
                         try {
                             def img = baseSpec.getScreenShotAsImage()

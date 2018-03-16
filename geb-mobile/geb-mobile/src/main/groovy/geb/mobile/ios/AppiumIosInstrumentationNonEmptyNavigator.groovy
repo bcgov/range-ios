@@ -78,7 +78,6 @@ class AppiumIosInstrumentationNonEmptyNavigator extends AbstractMobileNonEmptyNa
                 log.warn("Selector $selectorString: findElementsByIosUIAutomation: $e.message")
                 return new EmptyNavigator()
             }
-
         }
     }
 
