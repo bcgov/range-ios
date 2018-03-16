@@ -2,17 +2,30 @@ package geb.mobile.ios.views
 
 import geb.mobile.ios.IosBaseView
 
-/**
- * Created by gmueksch on 01.09.14.
- */
+
 class CreateView extends IosBaseView {
 
-    // static at = { insertTextElement1.isEnabled() }
+     static content = {
 
-    // static content = {
-    //     insertTextElement1 { $("#TextField1") }
-    //     insertTextElement2 { $("#TextField2") }
-    //     sumElement { $("#ComputeSumButton") }
-    //     resultField { $("#UIAStaticText")[0] }
-    // }
+//         Title section:
+         cancelButton = {$("//XCUIElementTypeButton[@name=\"Save to Drafts\"]")}
+
+//         Create-new buttons:
+         addAgreementHolderButton = {$("//XCUIElementTypeButton[@name=\"+ Add Agreement Holder\"]")}
+         addYear1Button = {$("//XCUIElementTypeButton[@name=\"+ Add Year\"][1]")}
+         addYear2Button = {$("//XCUIElementTypeButton[@name=\"+ Add Year\"]")}
+         addLiveStockButton = {$("//XCUIElementTypeButton[@name=\"+ Add LiveStock\"]")}
+         addPastureButton = {$("//XCUIElementTypeButton[@name=\"+ Add Pasture\"]")}
+
+
+//         Auto-fill fields, (need accessibility id):
+//         rangeNumberField = {$("")}
+
+
+
+//         Side bar elements:
+         submitButton = {$("//XCUIElementTypeStaticText[@name=\"Review and Submit\"]")}
+
+
+     }
 }

@@ -7,18 +7,13 @@ import geb.mobile.ios.IosBaseView
  */
 class HomeView extends IosBaseView {
 
-    // static at = { insertTextElement1.isEnabled() }
-
     static content = {
 
-        createButton {$("//XCUIElementTypeButton[@name='+ Create New RUP ']")}
-        createButton2 {$("#+ Create New RUP")}
+        createButton {$("//XCUIElementTypeButton[@name=\" + Create New RUP \"]")}
         rangeTable {$("#XCUIElementTypeTable")}
-        
+        rangeTableCells {$("#XCUIElementTypeCell")}
+        completedTableCells {$("//XCUIElementTypeStaticText[@name=\"Completed\"]")}
 
-        // insertTextElement1 { $("#TextField1") }
-        // insertTextElement2 { $("#TextField2") }
-        // sumElement { $("#ComputeSumButton") }
-        // resultField { $("#UIAStaticText")[0] }
+
     }
 }
