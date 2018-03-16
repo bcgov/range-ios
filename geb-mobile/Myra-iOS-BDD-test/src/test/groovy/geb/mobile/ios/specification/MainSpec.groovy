@@ -10,20 +10,21 @@ import geb.mobile.ios.views.PopUpNameView
 
 
 
-@Title("Test #1 - v1")
+@Title("Test #2 - v1")
 @Narrative("""
 Only including the positive user story for test cases.
-- standard procedure of app usage
-- Create a new RUP with all information
-- Save and reaccess
-- Submit and verify the status change
+Standard procedure of app usage on the Home page: (and general navigation)
+- Verify the app and data status
+- See a list of assigned agreements
+- Create a new RUP and save
+- Logout
 """)
 
 
 @Stepwise
 class MainSpec extends GebMobileBaseSpec {
 
-    def "open app to the Home page"(){
+    def "Open app to the Home page for list of assigned agreements"(){
         given: "Land on Home page"
         at HomeView
 
@@ -37,7 +38,31 @@ class MainSpec extends GebMobileBaseSpec {
 
     }
 
-    def "create new RUP"(){
+    def "Verify internet mode"(){
+        given: "I am on Home page"
+        at HomeView
+
+        when: "I turn off wifi on device"
+
+
+        then: "I should be in OFFLINE mode"
+
+    }
+
+    def "Verify internet mode 2"(){
+        given: "I am on Home page"
+        at HomeView
+
+        when: "I turn on wifi on device"
+
+
+        then: "I should be in ONLINE mode"
+
+    }
+//    ------------------------------------------------------------------------in a new spec...
+
+
+    def "Create a new RUP and save"(){
         given: "I am on Home page"
         at HomeView
 
@@ -53,7 +78,6 @@ class MainSpec extends GebMobileBaseSpec {
         then: "I should be in the Create page"
         at CreateView
     }
-
 
     def "check auto-populated fields in agreement for RUP"(){
         given: "I am on Create page"
