@@ -1,5 +1,6 @@
 import geb.spock.GebReportingSpec
-import pages.app.HomePage
+import pages.app.*
+import pages.external.*
 import spock.lang.*
 
 @Title("Basic Navigational Tests")

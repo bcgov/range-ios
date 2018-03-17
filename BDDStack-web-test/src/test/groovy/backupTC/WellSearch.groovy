@@ -1,12 +1,6 @@
 import geb.spock.GebReportingSpec
 import pages.app.SearchPage
-import pages.app.WellSummaryPage
-
-import spock.lang.Ignore
-import spock.lang.Issue
 import spock.lang.Narrative
-import spock.lang.See
-import spock.lang.Specification
 import spock.lang.Title
 import spock.lang.Unroll
 

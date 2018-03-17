@@ -2,7 +2,7 @@ package pages.app
 
 import geb.Page
 
-class HomePage extends Page {
+class LoginPage extends Page {
     static at = { title == "My Range App" }
-    static url = "range-use-plans"
+    static url = "login"
 }

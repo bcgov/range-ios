@@ -1,14 +1,9 @@
 import geb.spock.GebReportingSpec
 import pages.app.SearchPage
-import pages.app.WellSummaryPage
 
 import spock.lang.Unroll
-import spock.lang.Ignore
-import spock.lang.Issue
 import spock.lang.Narrative
 //import spock.lang.PendingFeature
-import spock.lang.See
-import spock.lang.Specification
 import spock.lang.Title
 
 @Title("backupTC Results Pagination")

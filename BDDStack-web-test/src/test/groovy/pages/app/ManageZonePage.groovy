@@ -3,7 +3,7 @@ package pages.app
 import geb.Page
 import geb.Module
 
-class SearchPage extends Page {
+class ManageZonePage extends Page {
     static at = { title == "Groundwater Wells backupTC - Province of British Columbia" }
     static url = "gwells/search"
 
