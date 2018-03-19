@@ -44,16 +44,16 @@ class LoginSpec extends GebReportingSpec {
 
 
     def "Scenario: 3 - Search agreements"(){
-        given: "I am at the redhat page"
+        given: "I am at the Home page"
         at HomePage
 
-        when: "I enter the IDIR account username and password"
+        when: "I enter in the search field"
         searchField.value("yes")
 
-        and: "I click on submit"
+        and: "I hit enter"
         sleep(1000)
 
-        then: "I should be redirected to the Home page"
+        then: "I should see the filtered list"
         at HomePage
     }
 }
