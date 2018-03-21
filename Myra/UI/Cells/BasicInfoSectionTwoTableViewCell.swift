@@ -86,7 +86,6 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
             if let zone = rup?.zone {
                 self.rupzone.text = zone.code
             }
-//            if let 
 
             self.alternativeBusinesName.text = rup?.basicInformation?.alternativeBusinessName
             self.districtResponsible.text = rup?.basicInformation?.district
@@ -97,7 +96,6 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
             self.planStart.text = rup?.basicInformation?.planStart.string()
             self.planEnd.text = rup?.basicInformation?.planEnd.string()
         } else {
-            print(rup)
             if let zone = rup?.zone {
                 self.rupzone.text = zone.code
             }

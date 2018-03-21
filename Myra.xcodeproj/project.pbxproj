@@ -57,6 +57,11 @@
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
 		2978AF482053318C0004562E /* BasicInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978AF462053318C0004562E /* BasicInfoTableViewCell.swift */; };
 		2978AF492053318C0004562E /* BasicInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2978AF472053318C0004562E /* BasicInfoTableViewCell.xib */; };
+		29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A52744205B301400C871F7 /* SelectionPopup.storyboard */; };
+		29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */; };
+		29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */; };
+		29A52750205B322700C871F7 /* selectionPopUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */; };
+		29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */; };
 		29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */; };
 		29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */; };
 		29BF8029203CE97B0067B32B /* BasicInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8027203CE97B0067B32B /* BasicInformationTableViewCell.swift */; };
@@ -79,6 +84,9 @@
 		29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D936203F65FD00193FA0 /* PlantCommunity.swift */; };
 		29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */; };
 		29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */; };
+		29EADF7E206039BC0087593F /* AgreemntType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EADF7D206039BC0087593F /* AgreemntType.swift */; };
+		29EADF80206039D60087593F /* AgreementStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EADF7F206039D60087593F /* AgreementStatus.swift */; };
+		29EADF8420603F9C0087593F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EADF8320603F9C0087593F /* RealmManager.swift */; };
 		29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */; };
 		29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */; };
 		29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8449203E15D600D73F6B /* MapTableViewCell.swift */; };
@@ -153,6 +161,11 @@
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
 		2978AF462053318C0004562E /* BasicInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2978AF472053318C0004562E /* BasicInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInfoTableViewCell.xib; sourceTree = "<group>"; };
+		29A52744205B301400C871F7 /* SelectionPopup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectionPopup.storyboard; sourceTree = "<group>"; };
+		29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpViewController.swift; sourceTree = "<group>"; };
+		29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpObject.swift; sourceTree = "<group>"; };
+		29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectionPopUpTableViewCell.swift; sourceTree = "<group>"; };
+		29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = selectionPopUpTableViewCell.xib; sourceTree = "<group>"; };
 		29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateNewRup.storyboard; sourceTree = "<group>"; };
 		29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRUPViewController.swift; sourceTree = "<group>"; };
 		29BF8027203CE97B0067B32B /* BasicInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationTableViewCell.swift; sourceTree = "<group>"; };
@@ -175,6 +188,9 @@
 		29E0D936203F65FD00193FA0 /* PlantCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunity.swift; sourceTree = "<group>"; };
 		29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityTableViewCell.swift; sourceTree = "<group>"; };
 		29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityTableViewCell.xib; sourceTree = "<group>"; };
+		29EADF7D206039BC0087593F /* AgreemntType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreemntType.swift; sourceTree = "<group>"; };
+		29EADF7F206039D60087593F /* AgreementStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementStatus.swift; sourceTree = "<group>"; };
+		29EADF8320603F9C0087593F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUseageYearTableViewCell.swift; sourceTree = "<group>"; };
 		29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUseageYearTableViewCell.xib; sourceTree = "<group>"; };
 		29EB8449203E15D600D73F6B /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
@@ -230,6 +246,7 @@
 				291C4D9320364BDF00390523 /* CreateViewController.swift */,
 				294AC502204F57E800F0FB04 /* ScheduleViewController.swift */,
 				29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */,
+				29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -237,6 +254,7 @@
 		2920F82B2034BF9A0090E7B4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				29EADF7C206039A90087593F /* Reference */,
 				2920F82C2034BFCA0090E7B4 /* RUP.swift */,
 				2920F83D2034D6D60090E7B4 /* RUPStatus.swift */,
 				29E0D924203F449700193FA0 /* RangeUsageYear.swift */,
@@ -250,9 +268,9 @@
 				29FB97C2204DCCB2005297B9 /* LiveStockIDType.swift */,
 				2962B0E9204F167C00F71B9C /* Schedule.swift */,
 				2962B0EB204F2BB400F71B9C /* ScheduleObject.swift */,
-				2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */,
 				29FCB0332056EF47006CD247 /* Zone.swift */,
 				29FCB0352056EF95006CD247 /* District.swift */,
+				29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -266,6 +284,7 @@
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
 				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
 				290A531D2053503A005F5019 /* APIManager.swift */,
+				29EADF8320603F9C0087593F /* RealmManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -332,6 +351,16 @@
 			path = Myra;
 			sourceTree = "<group>";
 		};
+		29EADF7C206039A90087593F /* Reference */ = {
+			isa = PBXGroup;
+			children = (
+				29EADF7D206039BC0087593F /* AgreemntType.swift */,
+				2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */,
+				29EADF7F206039D60087593F /* AgreementStatus.swift */,
+			);
+			path = Reference;
+			sourceTree = "<group>";
+		};
 		29EB8442203DEE7A00D73F6B /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +413,8 @@
 				290A531A20534481005F5019 /* BasicInfoSectionTwoTableViewCell.xib */,
 				29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */,
 				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
+				29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */,
+				29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -397,6 +428,7 @@
 				291C4D9520364BEF00390523 /* Create.storyboard */,
 				294AC500204F57CC00F0FB04 /* Schedule.storyboard */,
 				29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */,
+				29A52744205B301400C871F7 /* SelectionPopup.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -447,7 +479,7 @@
 				TargetAttributes = {
 					293C95C020335D4100BF1113 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -496,10 +528,12 @@
 				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				2978AF492053318C0004562E /* BasicInfoTableViewCell.xib in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
+				29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */,
 				291C4D9620364BEF00390523 /* Create.storyboard in Resources */,
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
+				29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
 				29BF802A203CE97B0067B32B /* BasicInformationTableViewCell.xib in Resources */,
@@ -580,6 +614,8 @@
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SingleSignOn/SingleSignOn.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -589,6 +625,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SingleSignOn.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,6 +643,7 @@
 			files = (
 				2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */,
 				290A531B20534481005F5019 /* BasicInfoSectionTwoTableViewCell.swift in Sources */,
+				29A52750205B322700C871F7 /* selectionPopUpTableViewCell.swift in Sources */,
 				29FB97C1204DCB5B005297B9 /* AgeementHolderType.swift in Sources */,
 				2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */,
 				29DA8AA52059A8DA00139AD1 /* String.swift in Sources */,
@@ -638,8 +677,11 @@
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
 				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
 				2978AF482053318C0004562E /* BasicInfoTableViewCell.swift in Sources */,
+				29EADF80206039D60087593F /* AgreementStatus.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
 				290A531E2053503A005F5019 /* APIManager.swift in Sources */,
+				29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */,
+				29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */,
 				2974270420447BEB0033BC47 /* AgreementHolder.swift in Sources */,
 				29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */,
 				29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */,
@@ -656,6 +698,8 @@
 				29DFA10C20450CB600B650CE /* Notifications.swift in Sources */,
 				29DA8A9F20574FB300139AD1 /* SelectAgreementViewController.swift in Sources */,
 				29742701204474BD0033BC47 /* AgreementInformationTableViewCell.swift in Sources */,
+				29EADF8420603F9C0087593F /* RealmManager.swift in Sources */,
+				29EADF7E206039BC0087593F /* AgreemntType.swift in Sources */,
 				291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */,
 				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
 				2920F8352034C8540090E7B4 /* View.swift in Sources */,
@@ -803,17 +847,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "873976be-b118-4de4-a421-1f5ab24c0dfc";
+				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -823,17 +867,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "873976be-b118-4de4-a421-1f5ab24c0dfc";
+				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

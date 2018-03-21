@@ -19,6 +19,12 @@ class HomeViewController: BaseViewController {
 
     var online: Bool = false { didSet{ updateStatusText() }}
 
+    private let authServices: AuthServices = {
+        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
+                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+                            idpHint: Constants.SSO.idpHint)
+    }()
+
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
 
@@ -41,6 +47,16 @@ class HomeViewController: BaseViewController {
         getAgreements()
         self.rups = getRUPs()
         setUpTable()
+
+        APIManager.getReferenceData{(done) in
+            if done {
+                let one = RealmRequests.getObject(AgreementType.self)
+                for x in one! {
+                    print(x)
+                }
+            }
+        }
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -158,7 +174,6 @@ extension HomeViewController {
     }
 
     func showCreate() {
-//        let vc = getCreateVC()
         let vc = getCreateNewVC()
         self.present(vc, animated: true, completion: nil)
     }

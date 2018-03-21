@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum AcceptedPopupInput {
+    case String
+    case Double
+    case Integer
+    case Year
+}
+
 class CreateNewRUPViewController: UIViewController {
 
     // Mark: Variables
@@ -99,8 +106,9 @@ class CreateNewRUPViewController: UIViewController {
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var popupTextField: UITextField!
     @IBOutlet weak var grayScreen: UIView!
-
+    var acceptedPopupInput: AcceptedPopupInput = .String
     var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
+    var popupTakenValues: [String] = [String]()
 
     @IBAction func popupCancel(_ sender: Any) {
         if popupCompletion == nil {return}
@@ -111,12 +119,55 @@ class CreateNewRUPViewController: UIViewController {
     @IBAction func popupAdd(_ sender: Any) {
         if popupCompletion == nil {return}
         if let text = popupTextField.text {
+            // has value
             if text == "" {
-                popupTitle.text = "Please enter a valid name"
+                popupTitle.text = "Please enter a value"
+                popupTitle.textColor = UIColor.red
                 return
             } else {
-                popupCompletion!(true, text)
-                closePopup()
+                // value is not duplicate
+                if popupTakenValues.contains(text) {
+                    popupTitle.text = "Duplicate value"
+                    popupTitle.textColor = UIColor.red
+                    return
+                } else {
+                    // value is in correct format
+                    switch acceptedPopupInput {
+                    case .String:
+                        popupCompletion!(true, text)
+                        closePopup()
+                    case .Double:
+                        if text.isDouble {
+                            popupCompletion!(true, text)
+                            closePopup()
+                        } else {
+                            popupTitle.text = "Invalid value"
+                            popupTitle.textColor = UIColor.red
+                        }
+                    case .Integer:
+                        if text.isInt {
+                            popupCompletion!(true, text)
+                            closePopup()
+                        } else {
+                            popupTitle.text = "Invalid value"
+                            popupTitle.textColor = UIColor.red
+                        }
+                    case .Year:
+                        if text.isInt {
+                            let year = Int(text) ?? 0
+                            if (year > 2000) && (year < 2030) {
+                                popupCompletion!(true, text)
+                                closePopup()
+                            } else {
+                                popupTitle.text = "Invalid Year"
+                                popupTitle.textColor = UIColor.red
+                            }
+                        } else {
+                            popupTitle.text = "Invalid value"
+                            popupTitle.textColor = UIColor.red
+                        }
+                    }
+                }
             }
         }
     }
@@ -126,6 +177,7 @@ class CreateNewRUPViewController: UIViewController {
         self.grayScreen.alpha = 0.8
         self.popupVIew.alpha = 1
     }
+
     func closePopup() {
         self.grayScreen.alpha = 0
         self.popupTextField.text = ""
@@ -362,8 +414,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func realodAndGoTO(indexPath: IndexPath) {
-        print(indexPath)
-        self.tableView.reloadData()
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
 //        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
@@ -374,10 +426,13 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 extension CreateNewRUPViewController {
-    // Use done to indicate if user cancelled or not
-    func promptName(title: String, completion: @escaping (_ done: Bool,_ result: String) -> Void) {
+    // Use done variable in completion to indicate if user cancelled or not
+    func promptInput(title: String, accept: AcceptedPopupInput,taken: [String],completion: @escaping (_ done: Bool,_ result: String) -> Void) {
+        self.acceptedPopupInput = accept
+        self.popupTakenValues = taken
         self.popupTitle.text = title
         self.popupCompletion = completion
+        self.popupTitle.textColor = UIColor.black
         self.openPopup()
     }
 }

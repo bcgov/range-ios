@@ -20,5 +20,7 @@ class LiveStockType: Object {
         return "realmID"
     }
 
-    @objc dynamic var type: String = ""
+    @objc dynamic var id: Int = -1
+    @objc dynamic var name: String = ""
+    @objc dynamic var auFactor: Double = 0.0
 }

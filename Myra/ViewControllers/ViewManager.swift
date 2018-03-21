@@ -33,5 +33,8 @@ class ViewManager {
     lazy var selectAgreement: SelectAgreementViewController = {
         return UIStoryboard(name: "SelectAgreement", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectAgreement") as! SelectAgreementViewController
     }()
-    
+
+    lazy var lookup: SelectionPopUpViewController = {
+        return UIStoryboard(name: "SelectionPopup", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectionPopUp") as! SelectionPopUpViewController
+    }()
 }

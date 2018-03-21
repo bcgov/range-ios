@@ -80,6 +80,7 @@ class DummySupplier {
         return liveStockID
     }
 
+    /*
     func createLiveStockTypes() {
         let lsts = RealmRequests.getObject(LiveStockType.self)
         if lsts != nil && !(lsts?.isEmpty)! && (lsts?.count)! > 0 {
@@ -91,4 +92,5 @@ class DummySupplier {
             RealmRequests.saveObject(object: lst)
         }
     }
+ */
 }

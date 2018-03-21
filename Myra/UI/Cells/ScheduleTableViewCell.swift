@@ -25,9 +25,21 @@ class ScheduleTableViewCell: UITableViewCell {
     }
 
     @IBAction func addScheduleAction(_ sender: UIButton) {
-        self.rup?.schedules.append(Schedule())
-        print(rup?.schedules.count)
-        updateTableHeight()
+//        self.rup?.schedules.append(Schedule())
+//        updateTableHeight()
+        // show popup instead
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.promptInput(title: "Schedule year", accept: .Year, taken: RUPManager.shared.getScheduleYears(rup: rup!)) { (done, name) in
+            if done {
+                if name.isInt {
+                    let newSchedule = Schedule()
+                    newSchedule.name = name
+                    newSchedule.year = Int(name)!
+                    self.rup?.schedules.append(newSchedule)
+                    self.updateTableHeight()
+                }
+            }
+        }
     }
 
     func setup(rup: RUP) {
@@ -39,10 +51,8 @@ class ScheduleTableViewCell: UITableViewCell {
     func updateTableHeight() {
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        print(rup?.schedules.count)
         let count = rup?.schedules.count ?? 0
         tableHeight.constant = CGFloat( Double(count) * cellHeight + 5.0)
-        print(tableHeight.constant)
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.realodAndGoTO(indexPath: parent.scheduleIndexPath)
     }
@@ -55,6 +65,7 @@ class ScheduleTableViewCell: UITableViewCell {
     }
     
 }
+
 extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {

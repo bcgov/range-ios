@@ -24,26 +24,26 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXS-FB-L5X">
                                         <rect key="frame" x="0.0" y="0.0" width="1112" height="100"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ONLINE MODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4Y-NY-0YW">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ONLINE MODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4Y-NY-0YW">
                                                 <rect key="frame" x="10" y="10" width="101.5" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Last Synced:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6o-wT-Buk">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Synced:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6o-wT-Buk">
                                                 <rect key="frame" x="133" y="9.5" width="89" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vHc-hz-tPE" userLabel="Separato">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHc-hz-tPE" userLabel="Separato">
                                                 <rect key="frame" x="122" y="10" width="1" height="18"/>
                                                 <color key="backgroundColor" red="0.38532912730000002" green="0.34274265170000001" blue="0.43530178069999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="1" id="dp6-j1-j72"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="UNKNOWN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nU-Z3-ckc">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNKNOWN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nU-Z3-ckc">
                                                 <rect key="frame" x="230" y="10" width="78.5" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
@@ -91,7 +91,6 @@
                                             <constraint firstItem="5nU-Z3-ckc" firstAttribute="leading" secondItem="H6o-wT-Buk" secondAttribute="trailing" constant="8" id="ghd-qT-aGk"/>
                                             <constraint firstItem="H6o-wT-Buk" firstAttribute="leading" secondItem="vHc-hz-tPE" secondAttribute="trailing" constant="10" id="jJH-uF-VYL"/>
                                             <constraint firstItem="vHc-hz-tPE" firstAttribute="leading" secondItem="p4Y-NY-0YW" secondAttribute="trailing" constant="10" id="jof-ZG-DSV"/>
-                                            <constraint firstItem="rFj-sk-oe3" firstAttribute="leading" relation="lessThanOrEqual" secondItem="5nU-Z3-ckc" secondAttribute="trailing" constant="511.5" id="m5i-Il-6uB"/>
                                             <constraint firstItem="5nU-Z3-ckc" firstAttribute="centerY" secondItem="H6o-wT-Buk" secondAttribute="centerY" id="zXG-gb-q2a"/>
                                         </constraints>
                                     </view>

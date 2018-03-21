@@ -45,30 +45,62 @@ class PastureTableViewCell: UITableViewCell {
         self.pasture?.plantCommunities.append(PlantCommunity())
         updateTableHeight()
     }
-    @IBAction func fieldChanged(_ sender: Any) {
-        var currAUMs: Int = (self.pasture?.allowedAUMs)!
-        var currDeudction: Double = (self.pasture?.privateLandDeduction)!
-        var currGrace: Int = (self.pasture?.graceDays)!
-
+    @IBAction func aumChanged(_ sender: UITextField) {
         if (aumsField.text?.isInt)! {
-             currAUMs = Int(aumsField.text!)!
+            self.pasture?.allowedAUMs = Int(aumsField.text!)!
+            aumsField.textColor = UIColor.black
+        } else {
+            aumsField.textColor = UIColor.red
+            self.pasture?.allowedAUMs = 0
+        }
+    }
+
+    @IBAction func landDeductionChanged(_ sender: UITextField) {
+        if (deductionFIeld.text?.isDouble)! {
+            self.pasture?.privateLandDeduction = Double(deductionFIeld.text!)!
+            deductionFIeld.textColor = UIColor.black
+        } else {
+            deductionFIeld.textColor = UIColor.red
+            self.pasture?.privateLandDeduction = 0.0
+        }
+    }
+
+    @IBAction func graceDaysChanged(_ sender: UITextField) {
+        if (graceDaysField.text?.isInt)! {
+            self.pasture?.graceDays = Int(graceDaysField.text!)!
+            graceDaysField.textColor = UIColor.black
+        } else {
+            graceDaysField.textColor = UIColor.red
+            self.pasture?.graceDays = 0
+        }
+    }
+
+    @IBAction func fieldChanged(_ sender: Any) {
+        /*
+        if (aumsField.text?.isInt)! {
+            self.pasture?.allowedAUMs = Int(aumsField.text!)!
+            aumsField.textColor = UIColor.black
+        } else {
+            aumsField.textColor = UIColor.red
+            self.pasture?.allowedAUMs = 0
         }
 
         if (deductionFIeld.text?.isDouble)! {
-            currDeudction = Double(deductionFIeld.text!)!
+            self.pasture?.privateLandDeduction = Double(deductionFIeld.text!)!
+            deductionFIeld.textColor = UIColor.black
+        } else {
+            deductionFIeld.textColor = UIColor.red
+            self.pasture?.privateLandDeduction = 0.0
         }
 
         if (graceDaysField.text?.isInt)! {
-            currGrace = Int(graceDaysField.text!)!
+            self.pasture?.graceDays = Int(graceDaysField.text!)!
+            graceDaysField.textColor = UIColor.black
+        } else {
+            graceDaysField.textColor = UIColor.red
+            self.pasture?.graceDays = 0
         }
-
-        self.pasture?.allowedAUMs = currAUMs
-        self.pasture?.privateLandDeduction = currDeudction
-        self.pasture?.graceDays = currGrace
-
-        print("\(String(describing: self.pasture?.allowedAUMs)) AUMs")
-        print("\(String(describing: self.pasture?.privateLandDeduction))%")
-        print("\(String(describing: self.pasture?.graceDays)) Days")
+ */
     }
 
     // Mark: Functions

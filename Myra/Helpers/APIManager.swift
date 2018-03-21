@@ -13,12 +13,75 @@ import SwiftyJSON
 class APIManager {
 
     static let baseURL = "http://api-range-myra-dev.pathfinder.gov.bc.ca/v1"
-    static let dummyEndpoint = "\(baseURL)/agreement"
     static let agreementEndpoint = "\(baseURL)/agreement"
+    static let reference = "\(baseURL)/reference"
 
     static func headers() -> HTTPHeaders {
         let h = ["Content-Type" : "application/json"]
         return h
+    }
+
+    static func getReferenceData(completion: @escaping (_ success: Bool) -> Void) {
+        RealmManager.shared.clearReferenceData()
+        Alamofire.request(reference, method: .get, headers: headers()).responseData { (response) in
+            if response.result.description == "SUCCESS" {
+                let json = JSON(response.result.value!)
+                handleLiveStockResponse(json: json["LIVESTOCK_TYPE"])
+                handleAgreemenTypeResponse(json: json["AGREEMENT_TYPE"])
+                handleAgreementStatusResponse(json: json["AGREEMENT_STATUS"])
+                return completion(true)
+            }else {
+                return completion(false)
+            }
+        }
+    }
+
+    static func handleLiveStockResponse(json: JSON) {
+        for (_,item) in json {
+            let lv = LiveStockType()
+            if let name = item["name"].string {
+                lv.name = name
+            }
+            if let id = item["id"].int {
+                lv.id = id
+            }
+            if let auFactor = item["auFactor"].double {
+                lv.auFactor = auFactor
+            }
+            RealmRequests.saveObject(object: lv)
+        }
+    }
+
+    static func handleAgreementStatusResponse(json: JSON) {
+        for (_,item) in json {
+            let astatus = AgreementStatus()
+            if let name = item["name"].string {
+                astatus.name = name
+            }
+            if let id = item["id"].int {
+                astatus.id = id
+            }
+            if let code = item["code"].string {
+                astatus.code = code
+            }
+            RealmRequests.saveObject(object: astatus)
+        }
+    }
+
+    static func handleAgreemenTypeResponse(json: JSON) {
+        for (_,item) in json {
+            let aType = AgreementType()
+            if let id = item["id"].int {
+                aType.id = id
+            }
+            if let desc = item["description"].string {
+                aType.desc = desc
+            }
+            if let code = item["auFactor"].string {
+                aType.code = code
+            }
+            RealmRequests.saveObject(object: aType)
+        }
     }
 
     static func send(rup: RUP,completion: @escaping (_ success: Bool) -> Void) {
@@ -45,12 +108,11 @@ class APIManager {
     }
 
     static func getDummyRUPs(completion: @escaping (_ success: Bool,_ rups: [RUP]?) -> Void) {
-        Alamofire.request(dummyEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
+        Alamofire.request(agreementEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
-                print(json)
                 var rups: [RUP] = [RUP]()
-                if let error = json["error"].dictionary {
+                if json["error"].dictionary != nil {
                     return completion(false, nil)
                 }
 

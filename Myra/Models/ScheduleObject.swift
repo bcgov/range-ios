@@ -20,17 +20,11 @@ class ScheduleObject: Object {
         return "realmID"
     }
 
-    @objc dynamic var pasture: Pasture?
-
-    @objc dynamic var name: String = ""
-    @objc dynamic var numberOfAnumals: Int = 0
-    @objc dynamic var dateIn: Date?
-    @objc dynamic var dateOut: Date?
-    var todatlDays: Int {
+    var totalDays: Int {
         if dateIn == nil || dateOut == nil {
             return 0
         }
-        return -1
+        return DateManager.daysBetween(date1: dateIn!, date2: dateOut!)
     }
     var pastureName: String {
         if pasture == nil {
@@ -39,10 +33,25 @@ class ScheduleObject: Object {
             return (pasture?.name)!
         }
     }
+    var graceDays: Int {
+        if pasture == nil {
+            return 0
+        } else {
+            return (pasture?.graceDays)!
+        }
+    }
+    var crownAUMs: Double {
+        return totalAUMs - pldAUMs
+    }
+    
+    @objc dynamic var pasture: Pasture?
     @objc dynamic var type: LiveStockType?
-    @objc dynamic var totalAUMs: Int = 0
-    @objc dynamic var pldAUMs: Int = 0
-    @objc dynamic var crownAUMs: Int = 0
+    @objc dynamic var numberOfAnimals: Int = 0
+    @objc dynamic var dateIn: Date?
+    @objc dynamic var dateOut: Date?
+    @objc dynamic var totalAUMs: Double = 0
+    @objc dynamic var pldAUMs: Double = 0
     @objc dynamic var scheduleDescription: String = ""
+
 }
 

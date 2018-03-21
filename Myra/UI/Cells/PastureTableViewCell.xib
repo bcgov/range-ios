@@ -48,6 +48,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 <connections>
+                                                    <action selector="aumChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="Sss-OT-UkU"/>
                                                     <action selector="fieldChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="BPr-3f-9jF"/>
                                                 </connections>
                                             </textField>
@@ -89,6 +90,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
                                                     <action selector="fieldChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="ofA-ve-3r5"/>
+                                                    <action selector="landDeductionChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="4L2-e3-4jW"/>
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRf-U9-ZPd">
@@ -129,6 +131,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
                                                     <action selector="fieldChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="pss-zK-imL"/>
+                                                    <action selector="graceDaysChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="dqD-Qt-elM"/>
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0x-7j-SE1">

@@ -10,6 +10,9 @@ import UIKit
 
 class ScheduleViewController: UIViewController {
 
+    @IBOutlet weak var popupContainer: UIView!
+
+    var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var rup: RUP?
 
@@ -19,7 +22,7 @@ class ScheduleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpTable()
+        popupContainer.alpha = 0 
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
@@ -29,15 +32,13 @@ class ScheduleViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func saveAction(_ sender: UIButton) {
-    }
-
-    @IBAction func deleteAction(_ sender: UIButton) {
-    }
-
     func setup(rup: RUP, schedule: Schedule) {
         self.rup = rup
         self.schedule = schedule
+        let scheduleObjects = schedule.scheduleObjects
+        for object in scheduleObjects {
+            RUPManager.shared.calculate(scheduleObject: object)
+        }
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: rup.agreementId, agreementHolder: "", rangeName: rup.rangeName)
@@ -46,12 +47,49 @@ class ScheduleViewController: UIViewController {
     func setTitle() {
         if self.scheduleTitle == nil { return }
         if schedule == nil {return}
-        self.scheduleTitle.text = "\(schedule?.name) Grazing Schedule"
+        if let scheduleName = schedule?.name {
+            self.scheduleTitle.text = "\(scheduleName) Grazing Schedule"
+        }
     }
 
     func setSubtitle(ranNumber: String, agreementHolder: String, rangeName: String) {
         if self.subtitle == nil { return }
         self.subtitle.text = "\(ranNumber) | \(agreementHolder) | \(rangeName)"
+    }
+
+    func showpopup(vc: SelectionPopUpViewController) {
+        add(asChildViewController: vc)
+        self.popupContainer.alpha = 1
+    }
+
+    func hidepopup(vc: SelectionPopUpViewController) {
+        remove(asChildViewController: vc)
+        self.popupContainer.alpha = 0
+    }
+
+    func add(asChildViewController viewController: UIViewController) {
+        addChildViewController(viewController)
+        popupContainer.addSubview(viewController.view)
+        viewController.view.frame = popupContainer.bounds
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.didMove(toParentViewController: self)
+    }
+
+    func remove(asChildViewController viewController: UIViewController) {
+        viewController.willMove(toParentViewController: nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParentViewController()
+    }
+
+    func reloadCells() {
+        self.tableView.beginUpdates()
+        self.tableView.reloadData()
+        self.tableView.endUpdates()
+
+    }
+
+    func calculateTotals() {
+        self.footerReference?.setValues()
     }
 }
 
@@ -82,10 +120,12 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         switch index {
         case 0:
             let cell = getScheduleCell(indexPath: indexPath)
-            cell.setup(schedule: schedule!)
+            cell.setup(schedule: schedule!, rup: rup!, parentReference: self)
             return cell
         case 1:
             let cell = getScheduleFooterCell(indexPath: indexPath)
+            cell.setup(schedule: schedule!)
+            self.footerReference = cell
             return cell
         default:
             return getScheduleCell(indexPath: indexPath)

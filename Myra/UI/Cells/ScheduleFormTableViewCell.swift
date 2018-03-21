@@ -10,9 +10,13 @@ import UIKit
 
 class ScheduleFormTableViewCell: UITableViewCell {
 
+    // Mark: Constants
     let cellHeight = 50.0
+
     // Mark: Variables
     var schedule: Schedule?
+    var rup: RUP?
+    var parentReference: ScheduleViewController?
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -31,23 +35,29 @@ class ScheduleFormTableViewCell: UITableViewCell {
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
         schedule?.scheduleObjects.append(ScheduleObject())
+        // todo: Remove?
+        parentReference?.calculateTotals()
+        
         updateTableHeight()
     }
 
     // Mark: Functions
-    func setup(schedule: Schedule) {
+    func setup(schedule: Schedule, rup: RUP, parentReference: ScheduleViewController) {
+        self.parentReference = parentReference
+        self.rup = rup
         self.schedule = schedule
+        height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * cellHeight + 5.0)
         setUpTable()
+
     }
 
     func updateTableHeight() {
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-
         height.constant = CGFloat( Double((schedule?.scheduleObjects.count)!) * cellHeight + 5.0)
 
         let parent = self.parentViewController as! ScheduleViewController
-        parent.tableView.reloadData()
+        parent.reloadCells()
     }
     
 }
@@ -58,7 +68,6 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "ScheduleObjectTableViewCell")
-        registerCell(name: "AgreementInformationTableViewCell")
     }
     @objc func doThisWhenNotify() { return }
 
@@ -74,17 +83,13 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleObjectCell(indexPath: indexPath)
         if let object = schedule?.scheduleObjects[indexPath.row] {
-            cell.setup(scheduleObject: object)
+            cell.setup(scheduleObject: object, rup: rup!, scheduleViewReference: parentReference!)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = schedule?.scheduleObjects.count {
-            return count
-        } else {
-            return 0
-        }
+        return schedule?.scheduleObjects.count ?? 0
     }
 
 }

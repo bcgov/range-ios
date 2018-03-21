@@ -44,11 +44,21 @@
                                                     <constraint firstAttribute="height" constant="1" id="t55-N8-5Xm"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToI-k8-8ID">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44"/>
+                                                <connections>
+                                                    <action selector="lookupPastures:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uUs-3v-6he"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="ToI-k8-8ID" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="1jW-XW-vJB"/>
                                             <constraint firstItem="rib-Uu-eHr" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="72B-5j-gMM"/>
                                             <constraint firstAttribute="trailing" secondItem="rib-Uu-eHr" secondAttribute="trailing" id="CEA-rP-ftb"/>
                                             <constraint firstItem="pKY-cO-wEA" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="CTj-SU-2c3"/>
+                                            <constraint firstItem="ToI-k8-8ID" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="Lc5-l8-ba2"/>
+                                            <constraint firstAttribute="trailing" secondItem="ToI-k8-8ID" secondAttribute="trailing" id="Rkz-F1-ZA9"/>
+                                            <constraint firstItem="rib-Uu-eHr" firstAttribute="top" secondItem="ToI-k8-8ID" secondAttribute="bottom" id="X3V-Gl-dhy"/>
                                             <constraint firstAttribute="trailing" secondItem="pKY-cO-wEA" secondAttribute="trailing" id="qfa-3O-fZ7"/>
                                             <constraint firstAttribute="bottom" secondItem="rib-Uu-eHr" secondAttribute="bottom" id="ryM-6L-VT1"/>
                                             <constraint firstItem="rib-Uu-eHr" firstAttribute="top" secondItem="pKY-cO-wEA" secondAttribute="bottom" id="wiQ-ab-HMK"/>
@@ -74,14 +84,24 @@
                                                     <constraint firstAttribute="height" constant="1" id="gVQ-gw-k2k"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-PB-jfn">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44"/>
+                                                <connections>
+                                                    <action selector="lookupLiveStockType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Ch-pq-dcO"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="4Q6-he-02C"/>
                                             <constraint firstItem="uTC-sl-aHj" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="9ox-JP-tMF"/>
                                             <constraint firstItem="uTC-sl-aHj" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="EOk-gT-elR"/>
+                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="FZe-gL-2X9"/>
                                             <constraint firstItem="eyv-Bg-BCY" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="LRs-ow-LHD"/>
                                             <constraint firstAttribute="trailing" secondItem="eyv-Bg-BCY" secondAttribute="trailing" id="Sn1-gQ-IaA"/>
                                             <constraint firstAttribute="bottom" secondItem="eyv-Bg-BCY" secondAttribute="bottom" id="WFO-2P-5B8"/>
                                             <constraint firstAttribute="trailing" secondItem="uTC-sl-aHj" secondAttribute="trailing" id="Wb9-RE-aTr"/>
+                                            <constraint firstAttribute="trailing" secondItem="0lz-PB-jfn" secondAttribute="trailing" id="Zgg-fd-ogD"/>
+                                            <constraint firstItem="eyv-Bg-BCY" firstAttribute="top" secondItem="0lz-PB-jfn" secondAttribute="bottom" id="cgK-Ye-wEh"/>
                                             <constraint firstItem="eyv-Bg-BCY" firstAttribute="top" secondItem="uTC-sl-aHj" secondAttribute="bottom" id="f83-S7-GXh"/>
                                         </constraints>
                                     </view>
@@ -103,6 +123,9 @@
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="numberOfAnimalsChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="bvm-Pl-ru9"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -127,6 +150,12 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mw2-PD-7ur">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44"/>
+                                                <connections>
+                                                    <action selector="dateInAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lbo-YM-bnc"/>
+                                                </connections>
+                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1n7-QD-zTY">
                                                 <rect key="frame" x="0.0" y="44" width="66.5" height="1"/>
                                                 <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -139,9 +168,13 @@
                                             <constraint firstItem="1n7-QD-zTY" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="2BK-7c-NLq"/>
                                             <constraint firstAttribute="bottom" secondItem="1n7-QD-zTY" secondAttribute="bottom" id="EUp-9f-PKB"/>
                                             <constraint firstItem="pDS-AF-6Y3" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="Lkd-Xf-RhZ"/>
+                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="OUL-o9-9Gf"/>
+                                            <constraint firstAttribute="trailing" secondItem="Mw2-PD-7ur" secondAttribute="trailing" id="WuF-e9-3bz"/>
                                             <constraint firstAttribute="trailing" secondItem="1n7-QD-zTY" secondAttribute="trailing" id="bZo-gf-42r"/>
                                             <constraint firstAttribute="trailing" secondItem="pDS-AF-6Y3" secondAttribute="trailing" id="ceL-wl-Jw1"/>
+                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="ghy-We-Pqn"/>
                                             <constraint firstItem="pDS-AF-6Y3" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="whz-mX-ozW"/>
+                                            <constraint firstItem="1n7-QD-zTY" firstAttribute="top" secondItem="Mw2-PD-7ur" secondAttribute="bottom" id="zjo-iS-8km"/>
                                             <constraint firstItem="1n7-QD-zTY" firstAttribute="top" secondItem="pDS-AF-6Y3" secondAttribute="bottom" id="zmR-dC-Dtu"/>
                                         </constraints>
                                     </view>
@@ -157,6 +190,12 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2w-1j-MEv">
+                                                <rect key="frame" x="0.0" y="0.0" width="66" height="44"/>
+                                                <connections>
+                                                    <action selector="dateOutAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rnj-EW-3aX"/>
+                                                </connections>
+                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LmB-Sb-Sfy">
                                                 <rect key="frame" x="0.0" y="44" width="66.5" height="1"/>
                                                 <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -166,10 +205,14 @@
                                             </view>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="0Dc-qw-Wah"/>
                                             <constraint firstItem="LmB-Sb-Sfy" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="0ia-hL-RYR"/>
                                             <constraint firstAttribute="trailing" secondItem="T2x-t1-I4Z" secondAttribute="trailing" id="4LH-jJ-q7W"/>
                                             <constraint firstItem="T2x-t1-I4Z" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="IS6-VF-RCr"/>
                                             <constraint firstAttribute="bottom" secondItem="LmB-Sb-Sfy" secondAttribute="bottom" id="MUI-bd-ano"/>
+                                            <constraint firstItem="LmB-Sb-Sfy" firstAttribute="top" secondItem="J2w-1j-MEv" secondAttribute="bottom" id="Y2j-9N-od4"/>
+                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="diG-sd-kbr"/>
+                                            <constraint firstAttribute="trailing" secondItem="J2w-1j-MEv" secondAttribute="trailing" id="jte-BQ-ueJ"/>
                                             <constraint firstAttribute="trailing" secondItem="LmB-Sb-Sfy" secondAttribute="trailing" id="p1A-9c-vjC"/>
                                             <constraint firstItem="LmB-Sb-Sfy" firstAttribute="top" secondItem="T2x-t1-I4Z" secondAttribute="bottom" id="s5v-4d-qY3"/>
                                             <constraint firstItem="T2x-t1-I4Z" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="z0K-cL-UBB"/>
@@ -317,6 +360,17 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="crownAUM" destination="bsA-os-aVb" id="4RX-NN-jRV"/>
+                <outlet property="dateIn" destination="pDS-AF-6Y3" id="EVf-Ay-EIp"/>
+                <outlet property="dateOut" destination="T2x-t1-I4Z" id="0ZV-Nz-rJt"/>
+                <outlet property="days" destination="UMP-fz-nzB" id="ewg-oI-qK6"/>
+                <outlet property="graceDays" destination="d5o-9U-aHr" id="aCh-xD-uD6"/>
+                <outlet property="liveStock" destination="uTC-sl-aHj" id="9HY-vb-bdm"/>
+                <outlet property="numberOfAniamls" destination="Vv3-Lf-CIF" id="bxI-of-Z3A"/>
+                <outlet property="pasture" destination="pKY-cO-wEA" id="kPX-6X-PAN"/>
+                <outlet property="pldAUM" destination="aps-wf-RPv" id="Kvu-xW-Taf"/>
+            </connections>
             <point key="canvasLocation" x="193" y="-202"/>
         </tableViewCell>
     </objects>

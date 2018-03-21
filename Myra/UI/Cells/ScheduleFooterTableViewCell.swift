@@ -10,20 +10,32 @@ import UIKit
 
 class ScheduleFooterTableViewCell: UITableViewCell {
 
+    var schedule: Schedule?
+
     @IBOutlet weak var totalBox: UIView!
     @IBOutlet weak var authorizedBox: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var authorizedAUMs: UILabel!
     @IBOutlet weak var totalAUMs: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         style()
+        setValues()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
 
-        // Configure the view for the selected state
+    func setup(schedule: Schedule) {
+        self.schedule = schedule
+        setValues()
+    }
+
+    func setValues() {
+         if self.totalAUMs == nil || self.schedule == nil {return}
+        self.totalAUMs.text = "\(RUPManager.shared.getTotalAUMsFor(schedule: self.schedule!))"
     }
 
     func style() {

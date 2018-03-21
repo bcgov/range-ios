@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 class DateManager {
 
     static func toString(date: Date) -> String {
@@ -37,4 +36,11 @@ class DateManager {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSXXXXX"
         return formatter.string(from: date)
     }
+
+    static func daysBetween(date1: Date, date2: Date) -> Int {
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        return(components.day ?? -1)
+    }
+
 }

@@ -30,6 +30,7 @@ class ScheduleCellTableViewCell: UITableViewCell {
 
     func setup(schedule: Schedule) {
         self.schedule = schedule
+        if nameLabel != nil { nameLabel.text = schedule.name }
 //        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
 //        swipeLeft.direction = .left
 //        self.view.addGestureRecognizer(swipeLeft)
@@ -40,7 +41,6 @@ class ScheduleCellTableViewCell: UITableViewCell {
     }
     
     @IBAction func optionsAction(_ sender: Any) {
-        print("show option")
         let width = optionsView.frame.width
         self.leadingOptions.constant = 0 - width
         animateIt()
@@ -58,7 +58,7 @@ class ScheduleCellTableViewCell: UITableViewCell {
     }
 
     @IBAction func closeOptions(_ sender: Any) {
-        let width = optionsView.frame.width
+//        let width = optionsView.frame.width
         self.leadingOptions.constant = 0
         animateIt()
     }

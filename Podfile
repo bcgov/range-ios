@@ -12,6 +12,7 @@ target 'Myra' do
   pod 'Crashlytics'
   pod 'Alamofire', '4.6'
   pod 'SwiftyJSON', '4.0.0'
+  pod 'SingleSignOn', :git => 'https://github.com/bcgov/mobile-authentication-ios.git', :tag => 'v1.0.1'
   # Pods for Myra
 
 end

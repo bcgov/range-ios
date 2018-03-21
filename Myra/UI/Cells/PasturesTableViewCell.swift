@@ -18,7 +18,6 @@ import RealmSwift
 class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Variables
-//    var pastures = List<Pasture>()
     var mode: FormMode = .Create
     var rup: RUP?
 
@@ -38,7 +37,7 @@ class PasturesTableViewCell: UITableViewCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.promptName(title: "Pasture Name") { (done, name) in
+        parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup!)) { (done, name) in
             if done {
                 let newPasture = Pasture()
                 newPasture.name = name
@@ -52,15 +51,12 @@ class PasturesTableViewCell: UITableViewCell {
     func setup(mode: FormMode, rup: RUP) {
         self.rup = rup
         self.mode = mode
-//        self.pastures = pastures
         setUpTable()
-//        setupNotifications()
     }
 
     func updateTableHeight() {
         self.tableView.reloadData()
         tableView.layoutIfNeeded()
-//        tableHeight.constant =  tableView.contentSize.height
         tableHeight.constant = computeHeight()
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.realodAndGoTO(indexPath: parent.pasturesIndexPath)
@@ -125,7 +121,6 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
 extension PasturesTableViewCell {
     func setupNotifications() {
         NotificationCenter.default.addObserver(forName: .updatePasturesCell, object: nil, queue: nil, using: catchAction)
-//         NotificationCenter.default.addObserver(forName: .updateTableHeights, object: nil, queue: nil, using: catchUpdateAction)
     }
 
     func catchAction(notification:Notification) {
