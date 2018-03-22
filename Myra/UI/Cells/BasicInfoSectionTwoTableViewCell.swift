@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class BasicInfoSectionTwoTableViewCell: UITableViewCell {
 
@@ -31,16 +33,31 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
     }
 
     @IBAction func planStartAction(_ sender: Any) {
+
         let parent = self.parentViewController as! CreateNewRUPViewController
         DatePickerController.present(on: parent, completion: { (date) in
             guard let date = date else { return }
             self.planStart.text = date.string()
-            self.rup?.planStartDate = date
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.rup?.planStartDate = date
+                }
+            } catch _ {
+                fatalError()
+            }
             if self.planEnd.text != "" {
                 let endDate = DateManager.from(string: self.planEnd.text!)
                 if endDate < date {
                     self.planEnd.text = DateManager.toString(date: (self.rup?.planStartDate)!)
-                    self.rup?.planEndDate = self.rup?.planStartDate
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                           self.rup?.planEndDate = self.rup?.planStartDate
+                        }
+                    } catch _ {
+                        fatalError()
+                    }
                 }
             }
         })
@@ -55,13 +72,27 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
             DatePickerController.present(on: parent, minimum: startDate, completion: { (date) in
                 guard let date = date else { return }
                 self.planEnd.text = date.string()
-                self.rup?.planEndDate = date
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        self.rup?.planEndDate = date
+                    }
+                } catch _ {
+                    fatalError()
+                }
             })
         } else {
             DatePickerController.present(on: parent, completion: { (date) in
                 guard let date = date else { return }
                 self.planEnd.text = date.string()
-                self.rup?.planEndDate = date
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        self.rup?.planEndDate = date
+                    }
+                } catch _ {
+                    fatalError()
+                }
             })
         }
     }

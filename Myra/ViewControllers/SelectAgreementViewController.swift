@@ -10,6 +10,9 @@ import UIKit
 
 class SelectAgreementViewController: UIViewController {
 
+    var parentCallBack: ((_ close: Bool) -> Void )?
+
+
     var rups: [RUP] = [RUP]()
 
     @IBOutlet weak var tableView: UITableView!
@@ -25,16 +28,21 @@ class SelectAgreementViewController: UIViewController {
     }
     
     @IBAction func cancelAction(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            if self.parentCallBack != nil {
+                return self.parentCallBack!(true)
+            }
+        })
     }
 
-    func setup(rups: [RUP]) {
+    func setup(rups: [RUP], callBack: @escaping ((_ close: Bool) -> Void )) {
+        self.parentCallBack = callBack
         self.rups = rups
         self.setUpTable()
     }
 
     func reload() {
-        APIManager.getDummyRUPs { (done, rups) in
+        APIManager.getAgreements { (done, rups) in
             if done {
                 self.rups = rups!
                 self.tableView.reloadData()
@@ -73,7 +81,13 @@ extension SelectAgreementViewController: UITableViewDelegate, UITableViewDataSou
         let rup = rups[indexPath.row]
          let vm = ViewManager()
         let createVC = vm.createRUP
-        createVC.setup(rup: rup)
+        createVC.setup(rup: rup, callBack: {closed in
+            self.dismiss(animated: true, completion: {
+                if self.parentCallBack != nil {
+                    return self.parentCallBack!(true)
+                }
+            })
+        })
         self.present(createVC, animated: true, completion: nil)
     }
 

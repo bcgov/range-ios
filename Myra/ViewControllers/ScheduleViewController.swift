@@ -82,8 +82,8 @@ class ScheduleViewController: UIViewController {
     }
 
     func reloadCells() {
-        self.tableView.beginUpdates()
         self.tableView.reloadData()
+        self.tableView.beginUpdates()
         self.tableView.endUpdates()
 
     }

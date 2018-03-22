@@ -8,22 +8,37 @@
 
 import UIKit
 import Reachability
+import SingleSignOn
 
 class HomeViewController: BaseViewController {
 
     // MARK: Constants
     let reachability = Reachability()!
+    let authServices: AuthServices = {
+        return AuthServices(baseUrl: SingleSignOnConstants.SSO.baseUrl, redirectUri: SingleSignOnConstants.SSO.redirectUri,
+                            clientId: SingleSignOnConstants.SSO.clientId, realm:SingleSignOnConstants.SSO.realmName,
+                            idpHint: SingleSignOnConstants.SSO.idpHint)
+    }()
 
     // MARK: Variables
+
     var rups: [RUP] = [RUP]()
 
-    var online: Bool = false { didSet{ updateStatusText() }}
+    var online: Bool = false {
+        didSet {
+            updateAccordingToNetworkStatus()
+        }
+    }
 
-    private let authServices: AuthServices = {
-        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                            idpHint: Constants.SSO.idpHint)
-    }()
+    var syncing: Bool = false {
+        didSet {
+            if syncing {
+                showSyncPage()
+            } else {
+                hideSyncPage()
+            }
+        }
+    }
 
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
@@ -41,22 +56,18 @@ class HomeViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    // sync
+    @IBOutlet weak var syncButton: UIButton!
+    @IBOutlet weak var grayScreen: UIView!
+    @IBOutlet weak var syncContainer: UIView!
+    @IBOutlet weak var syncTitle: UILabel!
+    @IBOutlet weak var syncPageButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        style()
-        getAgreements()
-        self.rups = getRUPs()
-        setUpTable()
-
-        APIManager.getReferenceData{(done) in
-            if done {
-                let one = RealmRequests.getObject(AgreementType.self)
-                for x in one! {
-                    print(x)
-                }
-            }
-        }
-
+        syncing = false
+        authenticateIfRequred()
+        loadHome()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,19 +77,57 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func CreateRUPAction(_ sender: Any) {
-//        showCreate()
-        APIManager.getDummyRUPs { (done, rups) in
+        let agreements = RUPManager.shared.getAgreements()
+        let vm = ViewManager()
+        let vc = vm.selectAgreement
+        vc.setup(rups: agreements, callBack: { closed in
+            self.loadHome()
+        })
+        self.present(vc, animated: true, completion: nil)
+    }
+
+    func loadHome() {
+        let lastSync = RealmManager.shared.getLastSyncDate()
+        if lastSync != nil, let ls = lastSync?.string() {
+            lastSyncLabel.text = ls
+        }
+        setUpTable()
+        self.getRUPs()
+        self.tableView.reloadData()
+        style()
+    }
+
+    @IBAction func syncAction(_ sender: UIButton) {
+        syncing = true
+    }
+
+    @IBAction func syncPageButtonAction(_ sender: UIButton) {
+        syncing = false
+    }
+
+    func showSyncPage() {
+        self.grayScreen.alpha = 1
+        beginSync()
+    }
+
+    func hideSyncPage() {
+        self.grayScreen.alpha = 0
+    }
+
+    func beginSync() {
+        syncPageButton.setTitle("Synchronizing...", for: .normal)
+        syncPageButton.isEnabled = false
+        APIManager.sync(completion: { (done) in
             if done {
-                let vm = ViewManager()
-                let vc = vm.selectAgreement
-                vc.setup(rups: rups!)
-                self.present(vc, animated: true, completion: nil)
+                self.syncPageButton.setTitle("Sync completed.", for: .normal)
+                self.loadHome()
             } else {
-                let vm = ViewManager()
-                let vc = vm.createRUP
-                vc.setup(rup: RUP())
-                self.present(vc, animated: true, completion: nil)
+                self.syncPageButton.setTitle("Sync failed", for: .normal)
             }
+            self.syncPageButton.isEnabled = true
+
+        }) { (progress) in
+            self.syncTitle.text = progress
         }
     }
 
@@ -114,26 +163,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 // Functions to handle retrival of rups
 extension HomeViewController {
-    // TODO: load from local storage instead.
-    func getRUPs() -> [RUP] {
-        let rups = RUPGenerator.shared.getSamples(number: 20)
+
+    func getRUPs()  {
+        let rups = RUPManager.shared.getRUPs()
         // sort by last name
-
-        return rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
-    }
-
-    func getAgreements() {
-//        APIManager.getDummyRUPs { (done, rups) in
-//            if done {
-//                for rup in rups! {
-//                    print(rup)
-//                }
-//                let r = rups?.first
-//                APIManager.send(rup: r!, completion: { (success) in
-//
-//                })
-//            }
-//        }
+        self.rups = rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
     }
 }
 
@@ -161,7 +195,6 @@ extension HomeViewController {
         vc.set(rup: rup, readOnly: false)
         self.present(vc, animated: true, completion: nil)
     }
-
 
     func getMapVC() -> CreateViewController {
         let vm = ViewManager()
@@ -202,17 +235,68 @@ extension HomeViewController {
         }
     }
 
-    func updateStatusText() {
+    func updateAccordingToNetworkStatus() {
         if online {
+            self.syncButton.alpha = 1
+            syncButton.isEnabled = true
             self.connectivityLabel.text = "ONLINE MODE"
         } else {
+            self.syncButton.alpha = 0
+            syncButton.isEnabled = false
             self.connectivityLabel.text = "OFFLINE MODE"
         }
     }
 }
 
+// Mark: Authentication
+extension HomeViewController {
+
+    private func authenticateIfRequred() {
+        if !authServices.isAuthenticated() {
+            let vc = authServices.viewController() { (credentials, error) in
+
+                guard let _ = credentials, error == nil else {
+                    let title = "Authentication"
+                    let message = "Authentication didn't work. Please try again."
+
+                    self.showAlert(with: title, message: message)
+
+                    return
+                }
+//                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
+            }
+
+            present(vc, animated: true, completion: nil)
+        } else {
+            authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
+//                if let error = error, error == AuthenticationError.expired {
+//                    let vc = self.authServices.viewController() { (credentials, error) in
+//
+//                        guard let _ = credentials, error == nil else {
+//                            let title = "Authentication"
+//                            let message = "Authentication didn't work. Please try again."
+//
+//                            self.showAlert(with: title, message: message)
+//
+//                            return
+//                        }
+//
+////                        self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
+//                    }
+//
+//                    self.present(vc, animated: true, completion: nil)
+//                    return
+//                }
+
+//                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
+            })
+        }
+    }
+
+}
 extension HomeViewController {
     func style() {
         makeCircle(view: userBoxView)
     }
 }
+

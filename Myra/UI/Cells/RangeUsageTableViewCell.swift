@@ -21,7 +21,8 @@ class RangeUsageTableViewCell: UITableViewCell {
     let cellHeight = 49.5
 
     // Mark: Variables
-    var rangeUsageYears = List<RangeUsageYear>()
+//    var rangeUsageYears = List<RangeUsageYear>()
+    var rup: RUP?
     var mode: FormMode = .Create
 
     // Mark: Outlets
@@ -38,20 +39,22 @@ class RangeUsageTableViewCell: UITableViewCell {
 
     // Mark: Outlet actions
 
-    // adds new range use year object to parent's rup object
-    // then updates this class' range use years to compute height
-    // TODO: change setup to take rup object and add to rup object's array directly
     @IBAction func addAction(_ sender: Any) {
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.rup?.rangeUsageYears.append(RangeUsageYear())
-        self.rangeUsageYears = (parent.rup?.rangeUsageYears)!
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup?.rangeUsageYears.append(RangeUsageYear())
+            }
+        } catch _ {
+            fatalError()
+        }
         updateTableHeight()
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, rangeUsageYears: List<RangeUsageYear>) {
+    func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
-        self.rangeUsageYears = rangeUsageYears
+        self.rup = rup
         setUpTable()
     }
 
@@ -62,7 +65,7 @@ class RangeUsageTableViewCell: UITableViewCell {
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
 
-        heightConstraint.constant = CGFloat( Double(rangeUsageYears.count) * cellHeight + 5.0)
+        heightConstraint.constant = CGFloat( Double((rup?.rangeUsageYears.count)!) * cellHeight + 5.0)
 
         /*
          tableView.contentSize.height did not provide correct height.
@@ -100,7 +103,7 @@ extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rangeUsageYears.count
+        return self.rup!.rangeUsageYears.count
     }
 
 }

@@ -41,7 +41,14 @@ class PasturesTableViewCell: UITableViewCell {
             if done {
                 let newPasture = Pasture()
                 newPasture.name = name
-                self.rup?.pastures.append(newPasture)
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                         self.rup?.pastures.append(newPasture)
+                    }
+                } catch _ {
+                    fatalError()
+                }
                 self.updateTableHeight()
             }
         }

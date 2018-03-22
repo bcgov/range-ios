@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ScheduleObjectTableViewCell: UITableViewCell {
 
@@ -50,6 +52,124 @@ class ScheduleObjectTableViewCell: UITableViewCell {
             }
         }
         parent.showpopup(vc: lookup)
+    }
+
+    @IBAction func lookupLiveStockType(_ sender: Any) {
+        let parent = self.parentViewController as! ScheduleViewController
+        let vm = ViewManager()
+        let lookup = vm.lookup
+        let objects = RealmManager.shared.getLiveStockTypeLookup()
+        lookup.setup(objects: objects) { (selected, obj) in
+            if selected {
+                if RUPManager.shared.setLiveStockTypeFor(scheduleObject: self.scheduleObject!, liveStock: (obj?.display)!) {
+                    self.update()
+                    parent.hidepopup(vc: lookup)
+                } else {
+                    // todo: Handle error: Livestock not found.
+                    // if this happens, something must be broken with the
+                    // way names of livestock types are stored and retrieved
+                    parent.hidepopup(vc: lookup)
+                }
+            } else {
+                parent.hidepopup(vc: lookup)
+                self.update()
+            }
+        }
+        parent.showpopup(vc: lookup)
+    }
+
+    @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
+        let curr = numberOfAniamls.text
+        if (curr?.isInt)! {
+            numberOfAniamls.textColor = UIColor.black
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.scheduleObject?.numberOfAnimals = Int(curr!)!
+                }
+            } catch _ {
+                fatalError()
+            }
+        } else {
+            numberOfAniamls.textColor = UIColor.red
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.scheduleObject?.numberOfAnimals = 0
+                }
+            } catch _ {
+                fatalError()
+            }
+        }
+        update()
+    }
+
+    @IBAction func dateInAction(_ sender: Any) {
+        let parent = self.parentViewController as! ScheduleViewController
+
+        DatePickerController.present(on: parent, completion: { (date) in
+            guard let date = date else { return }
+            self.dateIn.text = date.string()
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.scheduleObject?.dateIn = date
+                }
+            } catch _ {
+                fatalError()
+            }
+            self.calculateDays()
+            if self.dateOut.text != "" {
+                let endDate = DateManager.from(string: self.dateOut.text!)
+                if endDate < date {
+                    self.dateOut.text = DateManager.toString(date: (self.scheduleObject?.dateIn)!)
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            self.scheduleObject?.dateOut = self.scheduleObject?.dateIn
+                        }
+                    } catch _ {
+                        fatalError()
+                    }
+                    self.calculateDays()
+                }
+            }
+        })
+    }
+
+    @IBAction func dateOutAction(_ sender: Any) {
+        let parent = self.parentViewController as! ScheduleViewController
+
+        if dateIn.text != "" {
+            let startDate = DateManager.from(string: dateIn.text!)
+            DatePickerController.present(on: parent, minimum: startDate, completion: { (date) in
+                guard let date = date else { return }
+                self.dateOut.text = date.string()
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        self.scheduleObject?.dateOut = date
+                    }
+                } catch _ {
+                    fatalError()
+                }
+                self.calculateDays()
+            })
+        } else {
+            DatePickerController.present(on: parent, completion: { (date) in
+                guard let date = date else { return }
+                self.dateOut.text = date.string()
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        self.scheduleObject?.dateOut = date
+                    }
+                } catch _ {
+                    fatalError()
+                }
+                self.calculateDays()
+            })
+        }
     }
 
     func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController) {
@@ -102,82 +222,6 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         self.graceDays.text = "\(self.scheduleObject?.graceDays ?? 0)"
         self.pldAUM.text = "\(self.scheduleObject?.pldAUMs ?? 0)"
         self.crownAUM.text = "\(self.scheduleObject?.crownAUMs ?? 0.0)"
-    }
-    
-    @IBAction func lookupLiveStockType(_ sender: Any) {
-        let parent = self.parentViewController as! ScheduleViewController
-        let vm = ViewManager()
-        let lookup = vm.lookup
-        let objects = RealmManager.shared.getLiveStockTypeLookup()
-        lookup.setup(objects: objects) { (selected, obj) in
-            if selected {
-                if RUPManager.shared.setLiveStockTypeFor(scheduleObject: self.scheduleObject!, liveStock: (obj?.display)!) {
-                    self.update()
-                    parent.hidepopup(vc: lookup)
-                } else {
-                    // todo: Handle error: Livestock not found.
-                    // if this happens, something must be broken with the
-                    // way names of livestock types are stored and retrieved
-                    parent.hidepopup(vc: lookup)
-                }
-            } else {
-                parent.hidepopup(vc: lookup)
-                self.update()
-            }
-        }
-        parent.showpopup(vc: lookup)
-    }
-
-    @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
-        let curr = numberOfAniamls.text
-        if (curr?.isInt)! {
-            numberOfAniamls.textColor = UIColor.black
-            self.scheduleObject?.numberOfAnimals = Int(curr!)!
-        } else {
-            numberOfAniamls.textColor = UIColor.red
-            self.scheduleObject?.numberOfAnimals = 0
-        }
-        update()
-    }
-
-    @IBAction func dateInAction(_ sender: Any) {
-        let parent = self.parentViewController as! ScheduleViewController
-        
-        DatePickerController.present(on: parent, completion: { (date) in
-            guard let date = date else { return }
-            self.dateIn.text = date.string()
-            self.scheduleObject?.dateIn = date
-            self.calculateDays()
-            if self.dateOut.text != "" {
-                let endDate = DateManager.from(string: self.dateOut.text!)
-                if endDate < date {
-                    self.dateOut.text = DateManager.toString(date: (self.scheduleObject?.dateIn)!)
-                    self.scheduleObject?.dateOut = self.scheduleObject?.dateIn
-                    self.calculateDays()
-                }
-            }
-        })
-    }
-
-    @IBAction func dateOutAction(_ sender: Any) {
-        let parent = self.parentViewController as! ScheduleViewController
-
-        if dateIn.text != "" {
-            let startDate = DateManager.from(string: dateIn.text!)
-            DatePickerController.present(on: parent, minimum: startDate, completion: { (date) in
-                guard let date = date else { return }
-                self.dateOut.text = date.string()
-                self.scheduleObject?.dateOut = date
-                self.calculateDays()
-            })
-        } else {
-            DatePickerController.present(on: parent, completion: { (date) in
-                guard let date = date else { return }
-                self.dateOut.text = date.string()
-                self.scheduleObject?.dateOut = date
-                self.calculateDays()
-            })
-        }
     }
 
     func calculateDays() {

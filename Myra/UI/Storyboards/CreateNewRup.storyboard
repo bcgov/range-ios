@@ -21,14 +21,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRZ-Na-sN4" userLabel="Body Container">
-                                <rect key="frame" x="265" y="90" width="759" height="678"/>
+                                <rect key="frame" x="265" y="95" width="759" height="673"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eHi-0H-7J4">
-                                        <rect key="frame" x="0.0" y="0.0" width="759" height="678"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="759" height="673"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Se1-jo-p5U" userLabel="Gray">
-                                        <rect key="frame" x="0.0" y="0.0" width="759" height="678"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="759" height="673"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u51-LQ-Alk">
@@ -97,16 +97,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LiW-fN-wXA" userLabel="Header">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="70"/>
+                                <rect key="frame" x="0.0" y="20" width="1024" height="75"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create New RUP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ob-oN-R5i">
-                                        <rect key="frame" x="448.5" y="25" width="127.5" height="20.5"/>
+                                        <rect key="frame" x="448.5" y="27.5" width="127.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4Y-I5-Z9f">
-                                        <rect key="frame" x="896" y="18" width="108" height="33"/>
+                                        <rect key="frame" x="896" y="20.5" width="108" height="33"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                         <state key="normal" title="Save to Drafts">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -116,7 +116,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#RAN07878  |  Range Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqq-yl-p8l">
-                                        <rect key="frame" x="20" y="27" width="180.5" height="17"/>
+                                        <rect key="frame" x="20" y="29.5" width="180.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -124,7 +124,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.9076380076142132" green="0.9076380076142132" blue="0.9076380076142132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="8z7-dn-Qms"/>
+                                    <constraint firstAttribute="height" constant="75" id="8z7-dn-Qms"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="JIU-mi-aTR"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="Tw7-5j-4oq"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerX" secondItem="LiW-fN-wXA" secondAttribute="centerX" id="XjG-Fk-FEt"/>
@@ -134,7 +134,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNq-BJ-ffb" userLabel="Menu">
-                                <rect key="frame" x="0.0" y="90" width="265" height="678"/>
+                                <rect key="frame" x="0.0" y="95" width="265" height="673"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-3T-mac">
                                         <rect key="frame" x="19.5" y="20" width="226" height="526"/>
@@ -567,7 +567,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VNU-D3-PhK">
-                                        <rect key="frame" x="264" y="0.0" width="1" height="678"/>
+                                        <rect key="frame" x="264" y="0.0" width="1" height="673"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="O67-Gl-3ac"/>

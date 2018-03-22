@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ScheduleTableViewCell: UITableViewCell {
 
@@ -35,7 +37,14 @@ class ScheduleTableViewCell: UITableViewCell {
                     let newSchedule = Schedule()
                     newSchedule.name = name
                     newSchedule.year = Int(name)!
-                    self.rup?.schedules.append(newSchedule)
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            self.rup?.schedules.append(newSchedule)
+                        }
+                    } catch _ {
+                        fatalError()
+                    }
                     self.updateTableHeight()
                 }
             }

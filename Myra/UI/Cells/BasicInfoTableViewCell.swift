@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 // Works exactly like Range useage years cell
 // refer to RangeUsageTableViewCell for better comments
@@ -39,7 +41,14 @@ class BasicInfoTableViewCell: UITableViewCell {
     }
 
     @IBAction func addAction(_ sender: Any) {
-        rup?.agreementHolders.append(AgreementHolder())
+        do {
+            let realm = try Realm()
+            try realm.write {
+                rup?.agreementHolders.append(AgreementHolder())
+            }
+        } catch _ {
+            fatalError()
+        }
         updateTableHeight()
     }
 

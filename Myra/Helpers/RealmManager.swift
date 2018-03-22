@@ -13,6 +13,37 @@ class RealmManager {
 
     private init() {}
 
+    func getLastSyncDate() -> Date? {
+        let query = RealmRequests.getObject(SyncDate.self)
+        if query != nil {
+            return query?.last?.fullSync
+        }
+        return nil
+    }
+
+    func getLastRefDownload() -> Date? {
+        let query = RealmRequests.getObject(SyncDate.self)
+        if query != nil {
+            return query?.last?.refDownload
+        }
+        return nil
+    }
+
+    func updateLastSyncDate(date: Date, DownloadedReference: Bool) {
+        let query = RealmRequests.getObject(SyncDate.self)
+        if query != nil {
+            for element in query! {
+                RealmRequests.deleteObject(element)
+            }
+        }
+        let syncDate = SyncDate()
+        syncDate.fullSync = date
+        if DownloadedReference {
+            syncDate.refDownload = date
+        }
+        RealmRequests.saveObject(object: syncDate)
+    }
+
     // Reference
     func clearReferenceData() {
         let one = getAgreementTypes()

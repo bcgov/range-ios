@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Reachability
 
 class APIManager {
 
@@ -107,7 +108,7 @@ class APIManager {
         }
     }
 
-    static func getDummyRUPs(completion: @escaping (_ success: Bool,_ rups: [RUP]?) -> Void) {
+    static func getAgreements(completion: @escaping (_ success: Bool,_ rups: [RUP]?) -> Void) {
         Alamofire.request(agreementEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
@@ -225,4 +226,36 @@ class APIManager {
         return rup
     }
 
+}
+extension APIManager {
+    static func sync(completion: @escaping (_ done: Bool) -> Void, progress: @escaping (_ text: String)-> Void) {
+        progress("veryfying connection")
+        if let r = Reachability(), r.connection != .none {
+            progress("Downloading reference data")
+            getReferenceData(completion: { (success) in
+                if success {
+                    progress("Downloading agreements")
+                    getAgreements(completion: { (done, rups) in
+                        if done {
+                            progress("Updating stored data")
+                            RUPManager.shared.diffAgreements(rups: rups!)
+                            progress("Completed")
+                            RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
+                            return completion(true)
+                        } else {
+                            progress("Failed while downloading agreements")
+                            return completion(false)
+                        }
+                    })
+                } else {
+                    progress("Failed while downloading reference data")
+                    return completion(false)
+                }
+            })
+        } else {
+            progress("Failed while verifying connection")
+            return completion(false)
+        }
+
+    }
 }

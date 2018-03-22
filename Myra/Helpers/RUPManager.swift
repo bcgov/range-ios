@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
 class RUPManager {
     static let shared = RUPManager()
@@ -59,9 +61,92 @@ class RUPManager {
 
 }
 
+// rup / agreement
+extension RUPManager {
 
-// Schedule section
+    func getRUP(with agreementId: String) -> RUP? {
+        if rupExists(agreementId: agreementId) {
+            let storedRups = RealmRequests.getObject(RUP.self)
+            for stored in storedRups! {
+                if stored.agreementId == agreementId {
+                    return stored
+                }
+            }
+        }
+        return nil
+    }
 
+    func rupExists(agreementId: String) -> Bool {
+        let storedRups = RealmRequests.getObject(RUP.self)
+        if storedRups != nil {
+            for storedRUP in storedRups! {
+                if storedRUP.agreementId == agreementId {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    // will fetch the store rup with the same id,
+    // so only pass in the newly downloaded agreement
+    func updateRUP(with newAgreement: RUP) {
+        let storedRUP = getRUP(with: newAgreement.agreementId)
+        if storedRUP == nil {return}
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+//                storedRUP?.status = newAgreement.status
+                if newAgreement.zone != nil {
+                    storedRUP?.zone = newAgreement.zone
+                }
+            }
+
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.updateObject(storedRUP!)
+    }
+
+    func diffAgreements(rups: [RUP]) {
+        for rup in rups {
+            if rupExists(agreementId: rup.agreementId) {
+                updateRUP(with: rup)
+            } else {
+                rup.statusEnum = .Agreement
+                RealmRequests.saveObject(object: rup)
+            }
+        }
+    }
+
+    func getAgreements() -> [RUP] {
+        let rups = RealmRequests.getObject(RUP.self)
+        var agreements = [RUP]()
+        if rups == nil {return agreements}
+        for rup in (rups)! {
+            if rup.statusEnum == .Agreement {
+                agreements.append(rup)
+            }
+        }
+        return agreements
+    }
+
+    // returns all rups that are not in agreement state
+    func getRUPs() -> [RUP] {
+        let rups = RealmRequests.getObject(RUP.self)
+        var  returnRups = [RUP]()
+        if rups == nil {return returnRups}
+        for rup in (rups)! {
+            if rup.statusEnum != .Agreement {
+                 returnRups.append(rup)
+            }
+        }
+        return returnRups
+    }
+}
+
+// Schedule
 extension RUPManager {
     /*
        Sets a schedule object's related pasture object.
@@ -71,7 +156,14 @@ extension RUPManager {
        rely on schedule objects being able to reference their assigned pastures.
     */
     func setPastureOn(scheduleObject: ScheduleObject, pastureName: String, rup: RUP) {
-        scheduleObject.pasture = getPastureNamed(name: pastureName, rup: rup)
+        do {
+            let realm = try Realm()
+            try realm.write {
+                scheduleObject.pasture = getPastureNamed(name: pastureName, rup: rup)
+            }
+        } catch _ {
+            fatalError()
+        }
         calculate(scheduleObject: scheduleObject)
     }
 
@@ -86,7 +178,14 @@ extension RUPManager {
         if let animalType = scheduleObject.type {
             auFactor = animalType.auFactor
         } else {
-            scheduleObject.totalAUMs = 0.0
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    scheduleObject.totalAUMs = 0.0
+                }
+            } catch _ {
+                fatalError()
+            }
             return
         }
         // otherwise continue...
@@ -95,7 +194,14 @@ extension RUPManager {
         let totalDays = Double(scheduleObject.totalDays)
 
         // Total AUMs = (# of Animals *Days*Animal Class Proportion)/ 30.44
-        scheduleObject.totalAUMs = (numberOfAnimals * totalDays * auFactor) / 30.44
+        do {
+            let realm = try Realm()
+            try realm.write {
+                scheduleObject.totalAUMs = (numberOfAnimals * totalDays * auFactor) / 30.44
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
     func calculatePLDFor(scheduleObject: ScheduleObject) {
@@ -104,13 +210,27 @@ extension RUPManager {
         if let pasture = scheduleObject.pasture {
             pasturePLD = pasture.privateLandDeduction
         } else {
-            scheduleObject.pldAUMs = 0.0
+            do {
+                let realm = try Realm()
+                try realm.write {
+                   scheduleObject.pldAUMs = 0.0
+                }
+            } catch _ {
+                fatalError()
+            }
             return
         }
         // otherwise continue...
 
         // Private Land Deduction = Total AUMs * % PLD entered for that pasture
-        scheduleObject.pldAUMs = (scheduleObject.totalAUMs * (pasturePLD / 100))
+        do {
+            let realm = try Realm()
+            try realm.write {
+                scheduleObject.pldAUMs = (scheduleObject.totalAUMs * (pasturePLD / 100))
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
     func getTotalAUMsFor(schedule: Schedule) -> Double{
@@ -126,7 +246,14 @@ extension RUPManager {
         let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
         // if found
         if ls.0 {
-            scheduleObject.type = ls.1
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    scheduleObject.type = ls.1
+                }
+            } catch _ {
+                fatalError()
+            }
             return true
         } else {
             return false

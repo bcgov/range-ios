@@ -19,24 +19,7 @@ class BaseViewController: UIViewController {
         if loadingImages.count != 4 {
             setupLoadingIndicatorImages()
         }
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -71,6 +54,18 @@ extension BaseViewController {
                 print("Portrait")
             }
         }
+    }
+}
+
+// Alerts
+extension BaseViewController {
+    
+    func showAlert(with title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        ac.addAction(cancel)
+
+        present(ac, animated: true, completion: nil)
     }
 }
 

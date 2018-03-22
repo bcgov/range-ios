@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 enum AcceptedPopupInput {
     case String
@@ -18,6 +20,8 @@ enum AcceptedPopupInput {
 class CreateNewRUPViewController: UIViewController {
 
     // Mark: Variables
+
+    var parentCallBack: ((_ close: Bool) -> Void )?
 
     /* need to hold the inxedpath of sections to be able to scroll back to them.
        at this point, the indexpaths of the sections may not be known, and change
@@ -40,14 +44,6 @@ class CreateNewRUPViewController: UIViewController {
     var reloading: Bool = false
 
     var mode: FormMode = .Create
-//    var rangeUseYears: [RangeUsageYear] = [RangeUsageYear]()
-//    var pastures: [Pasture] = [Pasture]() {
-//        didSet{
-//            updateSubtableHeights()
-//        }
-//    }
-//    var agreementHolders: [AgreementHolder] = [AgreementHolder]()
-//    var liveStockIDs: [LiveStockID] = [LiveStockID]()
 
     var reloaded: Bool = false
 
@@ -101,7 +97,7 @@ class CreateNewRUPViewController: UIViewController {
     // Body
     @IBOutlet weak var tableView: UITableView!
 
-    // custom popup for names
+    // custom popup
     @IBOutlet weak var popupVIew: UIView!
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var popupTextField: UITextField!
@@ -155,7 +151,7 @@ class CreateNewRUPViewController: UIViewController {
                     case .Year:
                         if text.isInt {
                             let year = Int(text) ?? 0
-                            if (year > 2000) && (year < 2030) {
+                            if (year > 2000) && (year < 2100) {
                                 popupCompletion!(true, text)
                                 closePopup()
                             } else {
@@ -185,6 +181,7 @@ class CreateNewRUPViewController: UIViewController {
         self.popupVIew.alpha = 0
         self.tableView.isUserInteractionEnabled = true
     }
+    // end of custom popup
 
 
     override func viewDidLoad() {
@@ -219,7 +216,20 @@ class CreateNewRUPViewController: UIViewController {
 
     // Mark: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup?.statusEnum = .Draft
+            }
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.updateObject(self.rup!)
+        self.dismiss(animated: true) {
+            if self.parentCallBack != nil {
+                return self.parentCallBack!(true)
+            }
+        }
     }
 
     @IBAction func basicInfoAction(_ sender: UIButton) {
@@ -257,17 +267,21 @@ class CreateNewRUPViewController: UIViewController {
         return vm.create
     }
 
-    func setup(rup: RUP) {
+    func setup(rup: RUP, callBack: @escaping ((_ close: Bool) -> Void )) {
+        self.parentCallBack = callBack
         self.rup = rup
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup?.statusEnum = .Draft
+            }
+        } catch _ {
+            fatalError()
+        }
         setUpTable()
-        if self.tableView != nil {return}
     }
 
     func setDummy() {
-//        self.rangeUseYears = DummySupplier.shared.getRangeUseYears(count: 1)
-//        self.pastures = DummySupplier.shared.getPastures(count: 1)
-//        self.agreementHolders = DummySupplier.shared.getAgreementHolders(count: 1)
-//        self.liveStockIDs = DummySupplier.shared.getLiveStockIDs(count: 1)
         self.rup = RUP()
         self.rup?.id = 0
         let basicInfo = BasicInformation()
@@ -386,12 +400,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 2:
             self.rangeUsageIndexPath = indexPath
             let cell = getRangeUsageCell(indexPath: indexPath)
-            cell.setup(mode: mode, rangeUsageYears: (rup?.rangeUsageYears)!)
+            cell.setup(mode: mode, rup: rup!)
             return cell
         case 3:
             self.liveStockIDIndexPath = indexPath
             let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
-            cell.setup(mode: mode, liveStockIDs: (rup?.liveStockIDs)!)
+            cell.setup(mode: mode, rup: rup!)
             return cell
         case 4:
             self.pasturesIndexPath = indexPath

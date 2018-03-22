@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class PastureTableViewCell: UITableViewCell {
 
@@ -42,66 +44,69 @@ class PastureTableViewCell: UITableViewCell {
 
     // Mark: Outlet Actions
     @IBAction func addPlantCommunityAction(_ sender: Any) {
-        self.pasture?.plantCommunities.append(PlantCommunity())
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.pasture?.plantCommunities.append(PlantCommunity())
+            }
+        } catch _ {
+            fatalError()
+        }
         updateTableHeight()
     }
     @IBAction func aumChanged(_ sender: UITextField) {
-        if (aumsField.text?.isInt)! {
-            self.pasture?.allowedAUMs = Int(aumsField.text!)!
-            aumsField.textColor = UIColor.black
-        } else {
-            aumsField.textColor = UIColor.red
-            self.pasture?.allowedAUMs = 0
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if (aumsField.text?.isInt)! {
+                    self.pasture?.allowedAUMs = Int(aumsField.text!)!
+                    aumsField.textColor = UIColor.black
+                } else {
+                    aumsField.textColor = UIColor.red
+                    self.pasture?.allowedAUMs = 0
+                }
+            }
+        } catch _ {
+            fatalError()
         }
     }
 
     @IBAction func landDeductionChanged(_ sender: UITextField) {
-        if (deductionFIeld.text?.isDouble)! {
-            self.pasture?.privateLandDeduction = Double(deductionFIeld.text!)!
-            deductionFIeld.textColor = UIColor.black
-        } else {
-            deductionFIeld.textColor = UIColor.red
-            self.pasture?.privateLandDeduction = 0.0
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if (deductionFIeld.text?.isDouble)! {
+                    self.pasture?.privateLandDeduction = Double(deductionFIeld.text!)!
+                    deductionFIeld.textColor = UIColor.black
+                } else {
+                    deductionFIeld.textColor = UIColor.red
+                    self.pasture?.privateLandDeduction = 0.0
+                }
+            }
+        } catch _ {
+            fatalError()
         }
     }
 
     @IBAction func graceDaysChanged(_ sender: UITextField) {
-        if (graceDaysField.text?.isInt)! {
-            self.pasture?.graceDays = Int(graceDaysField.text!)!
-            graceDaysField.textColor = UIColor.black
-        } else {
-            graceDaysField.textColor = UIColor.red
-            self.pasture?.graceDays = 0
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if (graceDaysField.text?.isInt)! {
+                    self.pasture?.graceDays = Int(graceDaysField.text!)!
+                    graceDaysField.textColor = UIColor.black
+                } else {
+                    graceDaysField.textColor = UIColor.red
+                    self.pasture?.graceDays = 0
+                }
+            }
+        } catch _ {
+            fatalError()
         }
+
     }
 
-    @IBAction func fieldChanged(_ sender: Any) {
-        /*
-        if (aumsField.text?.isInt)! {
-            self.pasture?.allowedAUMs = Int(aumsField.text!)!
-            aumsField.textColor = UIColor.black
-        } else {
-            aumsField.textColor = UIColor.red
-            self.pasture?.allowedAUMs = 0
-        }
-
-        if (deductionFIeld.text?.isDouble)! {
-            self.pasture?.privateLandDeduction = Double(deductionFIeld.text!)!
-            deductionFIeld.textColor = UIColor.black
-        } else {
-            deductionFIeld.textColor = UIColor.red
-            self.pasture?.privateLandDeduction = 0.0
-        }
-
-        if (graceDaysField.text?.isInt)! {
-            self.pasture?.graceDays = Int(graceDaysField.text!)!
-            graceDaysField.textColor = UIColor.black
-        } else {
-            graceDaysField.textColor = UIColor.red
-            self.pasture?.graceDays = 0
-        }
- */
-    }
+    @IBAction func fieldChanged(_ sender: Any) {}
 
     // Mark: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {

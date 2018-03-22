@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ScheduleFormTableViewCell: UITableViewCell {
 
@@ -34,7 +36,14 @@ class ScheduleFormTableViewCell: UITableViewCell {
 
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
-        schedule?.scheduleObjects.append(ScheduleObject())
+        do {
+            let realm = try Realm()
+            try realm.write {
+                schedule?.scheduleObjects.append(ScheduleObject())
+            }
+        } catch _ {
+            fatalError()
+        }
         // todo: Remove?
         parentReference?.calculateTotals()
         
@@ -48,7 +57,6 @@ class ScheduleFormTableViewCell: UITableViewCell {
         self.schedule = schedule
         height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * cellHeight + 5.0)
         setUpTable()
-
     }
 
     func updateTableHeight() {

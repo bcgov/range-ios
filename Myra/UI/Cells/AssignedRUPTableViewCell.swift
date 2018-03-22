@@ -37,6 +37,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
         if rup == nil {return}
+        print(rup)
         let parent = self.parentViewController as! HomeViewController
         parent.viewRUP(rup: rup!)
     }
@@ -71,6 +72,9 @@ class AssignedRUPTableViewCell: UITableViewCell {
             setStatusRed()
 //        default:
 //            self.statusText.text = "UNKNOWN"
+        case .Agreement:
+            self.statusText.text = "Not Started"
+            setStatusRed()
         }
     }
 }

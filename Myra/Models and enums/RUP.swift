@@ -11,7 +11,10 @@ import Realm
 import RealmSwift
 
 class RUP: Object {
-    
+
+    // agreement, draft, outbox
+//    @objc dynamic var state: String = "agreement"
+
     @objc dynamic var realmID: String = {
         return String(Int.random(min: 1, max: Int(Int32.max)))
     }()
@@ -20,11 +23,20 @@ class RUP: Object {
         return "realmID"
     }
 
+    var statusEnum: RUPStatus {
+        get {
+            return RUPStatus(rawValue: status)!
+        }
+        set {
+            status = newValue.rawValue
+        }
+    }
+
     @objc dynamic var info: String = ""
 
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
     @objc dynamic var primaryAgreementHolderLastName: String = ""
-    @objc dynamic var status: String = RUPStatus.Draft.rawValue
+    @objc dynamic var status: String = RUPStatus.Agreement.rawValue
 
     // set from API
     @objc dynamic var id: Int = -1
@@ -40,6 +52,13 @@ class RUP: Object {
     @objc dynamic var agreementEndDate: Date?
     @objc dynamic var notes: String = ""
 
+    @objc dynamic var basicInformation: BasicInformation? = nil
+    var rangeUsageYears = List<RangeUsageYear>()
+    var agreementHolders = List<AgreementHolder>()
+    var liveStockIDs = List<LiveStockID>()
+    var pastures = List<Pasture>()
+    var schedules = List<Schedule>()
+
     func set(id: Int, status: String, zone: Zone, planStartDate: Date?, rangeName: String, agreementStartDate: Date?, updatedAt: Date?, exemptionStatus: Bool, agreementId: String, planEndDate: Date?, agreementEndDate: Date?, notes: String) {
         self.id = id
         self.planStartDate = planStartDate
@@ -53,20 +72,4 @@ class RUP: Object {
         self.notes = notes
         self.zone = zone
     }
-
-    var statusEnum: RUPStatus {
-        get {
-            return RUPStatus(rawValue: status)!
-        }
-        set {
-            status = newValue.rawValue
-        }
-    }
-
-    @objc dynamic var basicInformation: BasicInformation? = nil
-    var rangeUsageYears = List<RangeUsageYear>()
-    var agreementHolders = List<AgreementHolder>()
-    var liveStockIDs = List<LiveStockID>()
-    var pastures = List<Pasture>()
-    var schedules = List<Schedule>()
 }
