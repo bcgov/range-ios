@@ -1,6 +1,6 @@
 import groovy.json.JsonOutput
 
-def APP_NAME = 'range-myra-web'
+//def APP_NAME = 'range-myra-web'
 def BUILD_CONFIG = APP_NAME
 def CADDY_BUILD_CONFIG = 'range-myra-web-caddy'
 def CADDY_IMAGESTREAM_NAME = 'range-myra-web-caddy'
