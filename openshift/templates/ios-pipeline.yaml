@@ -1,0 +1,31 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: range-myra-ios-pipeline
+    name: range-myra-ios-pipeline
+    template: range-myra-ios-pipeline
+  name: range-myra-ios-pipeline
+  namespace: range-myra-tools
+  selfLink: >-
+    /apis/build.openshift.io/v1/namespaces/range-myra-tools/buildconfigs/range-myra-ios-pipeline
+spec:
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Parallel
+  source:
+    git:
+      ref: dev
+      uri: 'https://github.com/bcgov/range-ios.git'
+    type: Git
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+    type: JenkinsPipeline
+  triggers:
+    - github:
+        secret: ba4addf34d0f5638
+      type: GitHub
+status:
