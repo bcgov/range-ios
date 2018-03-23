@@ -50,13 +50,13 @@ node ('xcode') {
 
 // Get from script:
     FRABRIC_APIKEY = sh (
-      script: 'oc get secret/fabric -o template --template="{{.data.apiKey}}" | base64 --decode',
+      script: '/usr/local/bin/oc get secret/fabric -o template --template="{{.data.apiKey}}" | base64 --decode',
       returnStdout: true
         ).trim()
     echo "FRABRIC_APIKEY: ${FRABRIC_APIKEY}"
 
     FRABRIC_TOKEN = sh (
-      script: 'oc get secret/fabric -o template --template="{{.data.token}}" | base64 --decode',
+      script: '/usr/local/bin/oc get secret/fabric -o template --template="{{.data.token}}" | base64 --decode',
       returnStdout: true
         ).trim()
     echo "FRABRIC_TOKEN: ${FRABRIC_TOKEN}"
