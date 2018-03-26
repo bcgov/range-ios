@@ -51,3 +51,7 @@ class ScheduleFooterTableViewCell: UITableViewCell {
     }
     
 }
+
+extension ScheduleFooterTableViewCell {
+
+}

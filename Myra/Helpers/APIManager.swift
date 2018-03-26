@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import Reachability
+import SingleSignOn
 
 class APIManager {
 
@@ -17,9 +18,20 @@ class APIManager {
     static let agreementEndpoint = "\(baseURL)/agreement"
     static let reference = "\(baseURL)/reference"
 
+    static let authServices: AuthServices = {
+        return AuthServices(baseUrl: SingleSignOnConstants.SSO.baseUrl, redirectUri: SingleSignOnConstants.SSO.redirectUri,
+                            clientId: SingleSignOnConstants.SSO.clientId, realm:SingleSignOnConstants.SSO.realmName,
+                            idpHint: SingleSignOnConstants.SSO.idpHint)
+    }()
+
+
     static func headers() -> HTTPHeaders {
-        let h = ["Content-Type" : "application/json"]
-        return h
+        if let creds = authServices.credentials {
+            let token = creds.accessToken
+            return ["Content-Type" : "application/json", "Authorization": "Bearer \(token)"]
+        } else {
+            return ["Content-Type" : "application/json"]
+        }
     }
 
     static func getReferenceData(completion: @escaping (_ success: Bool) -> Void) {
@@ -99,6 +111,7 @@ class APIManager {
         }
 
         let headers = ["Content-Type":"application/json"]
+
         Alamofire.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 return completion(true)

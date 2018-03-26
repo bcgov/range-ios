@@ -66,7 +66,6 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         syncing = false
-        authenticateIfRequred()
         loadHome()
     }
 
@@ -86,19 +85,32 @@ class HomeViewController: BaseViewController {
         self.present(vc, animated: true, completion: nil)
     }
 
+    /*
+     When loading home page,
+     1) check if a last sync date exists.
+        if not, show login page
+        else, set last sync date label
+     2) setup table view
+     3) get rups that dont have status: Agreeemnt
+     4) reload table to load the rups from step 3
+    */
+
     func loadHome() {
+        style()
         let lastSync = RealmManager.shared.getLastSyncDate()
         if lastSync != nil, let ls = lastSync?.string() {
             lastSyncLabel.text = ls
+        } else {
+            showLoginPage()
+            authenticateIfRequred()
         }
         setUpTable()
         self.getRUPs()
         self.tableView.reloadData()
-        style()
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
-        syncing = true
+        authenticateIfRequred()
     }
 
     @IBAction func syncPageButtonAction(_ sender: UIButton) {
@@ -106,7 +118,11 @@ class HomeViewController: BaseViewController {
     }
 
     func showSyncPage() {
-        self.grayScreen.alpha = 1
+        let syncView = getSyncView()
+        syncView.autoresizesSubviews = false
+        self.view.addSubview(getSyncView())
+        return
+//        self.grayScreen.alpha = 1
         beginSync()
     }
 
@@ -115,20 +131,39 @@ class HomeViewController: BaseViewController {
     }
 
     func beginSync() {
-        syncPageButton.setTitle("Synchronizing...", for: .normal)
-        syncPageButton.isEnabled = false
+        self.beginSyncLoadingAnimation()
+        self.updateSyncButtonTitle(text: "...")
+        self.disableSyncViewButton()
+//        syncPageButton.setTitle("Synchronizing...", for: .normal)
+//        syncPageButton.isEnabled = false
+//        authenticateIfRequred()
         APIManager.sync(completion: { (done) in
             if done {
-                self.syncPageButton.setTitle("Sync completed.", for: .normal)
+                self.updateSyncDescription(text: "Sync completed.")
+                self.updateSyncButtonTitle(text: "Close")
+                self.endSyncLoadingAnimation()
+//                self.syncPageButton.setTitle("Sync completed.", for: .normal)
                 self.loadHome()
             } else {
-                self.syncPageButton.setTitle("Sync failed", for: .normal)
+                self.updateSyncDescription(text: "Sync failed")
+                self.updateSyncButtonTitle(text: "Close")
+                self.endSyncLoadingAnimation()
+//                self.syncPageButton.setTitle("Sync failed", for: .normal)
             }
-            self.syncPageButton.isEnabled = true
+            self.enableSyncViewButton()
 
         }) { (progress) in
-            self.syncTitle.text = progress
+            self.updateSyncDescription(text: progress)
+//            self.syncTitle.text = progress
         }
+    }
+
+    func showLoginPage() {
+
+    }
+
+    func hideLoginPage() {
+
     }
 
 }
@@ -263,12 +298,14 @@ extension HomeViewController {
 
                     return
                 }
+                self.syncing = true
 //                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
             }
 
             present(vc, animated: true, completion: nil)
         } else {
             authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
+
 //                if let error = error, error == AuthenticationError.expired {
 //                    let vc = self.authServices.viewController() { (credentials, error) in
 //
@@ -280,20 +317,20 @@ extension HomeViewController {
 //
 //                            return
 //                        }
-//
-////                        self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
+//                         self.syncing = true
 //                    }
 //
 //                    self.present(vc, animated: true, completion: nil)
 //                    return
 //                }
-
-//                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
+                self.syncing = true
             })
         }
     }
 
 }
+
+// Styles
 extension HomeViewController {
     func style() {
         makeCircle(view: userBoxView)

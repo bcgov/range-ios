@@ -23,6 +23,17 @@ class BaseViewController: UIViewController {
 
 }
 
+extension BaseViewController {
+    func getLoginView() -> UIView {
+        let view = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.height))
+        view.center.y = self.view.center.y
+        view.center.x = self.view.center.x
+        view.alpha = 1
+
+        return view
+    }
+}
+
 // Loading Spinner
 extension BaseViewController {
     func setupLoadingIndicatorImages() {
