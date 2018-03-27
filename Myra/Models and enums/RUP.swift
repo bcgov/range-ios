@@ -39,11 +39,11 @@ class RUP: Object {
     @objc dynamic var status: String = RUPStatus.Agreement.rawValue
 
     // set from API
-    @objc dynamic var id: Int = -1
+    @objc dynamic var id: String = "-1"
     @objc dynamic var apistatus: String = ""
-    var zone: Zone?
     @objc dynamic var planStartDate: Date?
     @objc dynamic var rangeName: String = ""
+    @objc dynamic var alternativeName: String = ""
     @objc dynamic var agreementStartDate: Date?
     @objc dynamic var updatedAt: Date?
     @objc dynamic var exemptionStatus: Bool = false
@@ -51,6 +51,7 @@ class RUP: Object {
     @objc dynamic var planEndDate: Date?
     @objc dynamic var agreementEndDate: Date?
     @objc dynamic var notes: String = ""
+    @objc dynamic var typeId: Int = 0
 
     @objc dynamic var basicInformation: BasicInformation? = nil
     var rangeUsageYears = List<RangeUsageYear>()
@@ -58,8 +59,9 @@ class RUP: Object {
     var liveStockIDs = List<LiveStockID>()
     var pastures = List<Pasture>()
     var schedules = List<Schedule>()
+    var zones = List<Zone>()
 
-    func set(id: Int, status: String, zone: Zone, planStartDate: Date?, rangeName: String, agreementStartDate: Date?, updatedAt: Date?, exemptionStatus: Bool, agreementId: String, planEndDate: Date?, agreementEndDate: Date?, notes: String) {
+    func set(id: String, status: String, zone: Zone, planStartDate: Date?, rangeName: String, agreementStartDate: Date?, updatedAt: Date?, exemptionStatus: Bool, agreementId: String, planEndDate: Date?, agreementEndDate: Date?, notes: String) {
         self.id = id
         self.planStartDate = planStartDate
         self.rangeName = rangeName
@@ -70,6 +72,6 @@ class RUP: Object {
         self.planEndDate = planEndDate
         self.agreementEndDate = agreementEndDate
         self.notes = notes
-        self.zone = zone
+        self.zones.append(zone)
     }
 }

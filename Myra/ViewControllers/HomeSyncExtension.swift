@@ -20,6 +20,8 @@ extension HomeViewController {
     // button's tag = 103
     // Container's tag = 104
     // animation's tag = 105
+    // success animation's tag = 106
+    // fail animation's tag = 107
     func getSyncView() -> UIView {
         // white screen
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
@@ -69,14 +71,13 @@ extension HomeViewController {
         // description text
         let descWidth: CGFloat = layerWidth
         let descHeight: CGFloat = 22
-         let descLayerTopPadding = separatorY + 10
+        let descLayerTopPadding = separatorY + 10
         let descLayer = UILabel(frame: CGRect(x: 0, y: descLayerTopPadding, width: descWidth, height: descHeight))
         descLayer.lineBreakMode = .byWordWrapping
         descLayer.numberOfLines = 1
         descLayer.textColor = UIColor.black
-        descLayer.attributedText = getSycDescriptionText(text: "WOOOOOO")
+        descLayer.attributedText = getSycDescriptionText(text: "")
         descLayer.textAlignment = .center
-//        descLayer.backgroundColor = UIColor.green
 
         descLayer.tag = 102
         // add to layer that holds content
@@ -100,25 +101,29 @@ extension HomeViewController {
         layer.addSubview(button)
 
         let spinnerWidth: CGFloat = 200
-        let animationView = LOTAnimationView(name: "spinner2_")
+        let animationView = LOTAnimationView(name: "spinner_")
         animationView.frame = CGRect(x: (layer.frame.width/2) - (spinnerWidth/2), y: (layer.frame.height/2) - (spinnerWidth/2), width: spinnerWidth, height: spinnerWidth)
-//        animationView.center = layer.center
         animationView.contentMode = .scaleAspectFit
         animationView.loopAnimation = true
-        animationView .tag = 105
+        animationView.tag = 105
+        animationView.alpha = 0
         layer.addSubview(animationView)
 
         let animationView2 = LOTAnimationView(name: "checked_done_")
         animationView2.frame = CGRect(x: (layer.frame.width/2) - (spinnerWidth/2), y: (layer.frame.height/2) - (spinnerWidth/2), width: spinnerWidth, height: spinnerWidth)
-        //        animationView.center = layer.center
         animationView2.contentMode = .scaleAspectFit
         animationView2.loopAnimation = false
         animationView2 .tag = 106
         animationView2.alpha = 0
-
         layer.addSubview(animationView2)
 
-//        animationView.play()
+        let animationView3 = LOTAnimationView(name: "x_pop")
+        animationView3.frame = CGRect(x: (layer.frame.width/2) - (spinnerWidth/2), y: (layer.frame.height/2) - (spinnerWidth/2), width: spinnerWidth, height: spinnerWidth)
+        animationView3.contentMode = .scaleAspectFit
+        animationView3.loopAnimation = false
+        animationView3.tag = 107
+        animationView3.alpha = 0
+        layer.addSubview(animationView3)
 
         // add layer that holds content to gray screen
         view.addSubview(layer)
@@ -131,45 +136,71 @@ extension HomeViewController {
 
     func beginSyncLoadingAnimation() {
         if let animationView = self.view.viewWithTag(105) as? LOTAnimationView {
+            animationView.alpha = 1
             animationView.play()
         }
     }
 
     func endSyncLoadingAnimation() {
-        if let loadingView = self.view.viewWithTag(105) as? LOTAnimationView, let done = self.view.viewWithTag(106) as? LOTAnimationView {
-            loadingView.removeFromSuperview()
-            done.alpha = 1
+        if let loadingView = self.view.viewWithTag(105) as? LOTAnimationView {
+            loadingView.alpha = 0
+        }
+    }
+
+    func successLoadingAnimation() {
+        if let done = self.view.viewWithTag(106) as? LOTAnimationView {
             done.play()
+            done.alpha = 1
+        }
+    }
+
+    func failLoadingAnimation() {
+        if let err = self.view.viewWithTag(107) as? LOTAnimationView {
+            err.alpha = 1
+            err.play()
         }
     }
 
     func updateSyncDescription(text: String) {
         if let viewWithTag = self.view.viewWithTag(102) as? UILabel {
             viewWithTag.attributedText = getSycDescriptionText(text: text)
+            viewWithTag.textAlignment = .center
         }
     }
 
     func updateSyncTitle(text: String) {
-        if let viewWithTag = self.view.viewWithTag(101) as? UILabel {
-            viewWithTag.attributedText = getSycnTitleText(text: text)
+        if let label = self.view.viewWithTag(101) as? UILabel {
+            label.attributedText = getSycnTitleText(text: text)
         }
     }
 
     func updateSyncButtonTitle(text: String) {
-        if let viewWithTag = self.view.viewWithTag(103) as? UIButton {
-            viewWithTag.setTitle(text, for: .normal)
+        if let button = self.view.viewWithTag(103) as? UIButton {
+            button.setTitle(text, for: .normal)
         }
     }
 
     func disableSyncViewButton() {
-        if let viewWithTag = self.view.viewWithTag(103) as? UIButton {
-            viewWithTag.isEnabled = false
+        if let button = self.view.viewWithTag(103) as? UIButton {
+            button.isEnabled = false
         }
     }
 
     func enableSyncViewButton() {
-        if let viewWithTag = self.view.viewWithTag(103) as? UIButton {
-            viewWithTag.isEnabled = true
+        if let button = self.view.viewWithTag(103) as? UIButton {
+            button.isEnabled = true
+        }
+    }
+
+    func showSyncViewButton() {
+        if let button = self.view.viewWithTag(103) as? UIButton {
+            button.alpha = 1
+        }
+    }
+
+    func hideSyncViewButton() {
+        if let button = self.view.viewWithTag(103) as? UIButton {
+            button.alpha = 0
         }
     }
 

@@ -28,7 +28,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEM-gW-nUy" userLabel="input box">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="45"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q1C-hd-9bp">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Year" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q1C-hd-9bp">
                                                 <rect key="frame" x="0.0" y="0.0" width="125.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="5Z7-rw-YAh"/>
@@ -95,7 +95,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="wFs-R4-hb2"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LZS-uO-eZN">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Temp Increase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LZS-uO-eZN">
                                                 <rect key="frame" x="0.0" y="0.0" width="124.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="2vf-zb-wT1"/>
@@ -118,7 +118,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dF2-A3-2fe" userLabel="input box">
                                         <rect key="frame" x="420.5" y="0.0" width="125" height="45"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S19-1h-bNP">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Non-Use" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S19-1h-bNP">
                                                 <rect key="frame" x="0.0" y="0.0" width="125.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="kC6-ad-bfU"/>
@@ -178,7 +178,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkv-GG-WHJ" userLabel="input box">
                                         <rect key="frame" x="701" y="0.0" width="125" height="45"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Pc-QN-NtM">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Total Annual" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Pc-QN-NtM">
                                                 <rect key="frame" x="0.0" y="0.0" width="125.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="4v7-Dv-hBy"/>
@@ -226,6 +226,13 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="auth_AUMs" destination="uVc-TC-kOu" id="S0B-Hi-XZP"/>
+                <outlet property="tempIncrease" destination="LZS-uO-eZN" id="0yY-8j-f5B"/>
+                <outlet property="totalAnnual" destination="7Pc-QN-NtM" id="5zd-DD-lFa"/>
+                <outlet property="totalNonUse" destination="S19-1h-bNP" id="2Zl-S0-rzF"/>
+                <outlet property="year" destination="Q1C-hd-9bp" id="grr-4x-au4"/>
+            </connections>
             <point key="canvasLocation" x="333" y="57"/>
         </tableViewCell>
     </objects>

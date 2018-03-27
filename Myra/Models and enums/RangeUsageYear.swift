@@ -20,10 +20,12 @@ class RangeUsageYear: Object {
         return "realmID"
     }
 
+    @objc dynamic var id: Int = 0
+    @objc dynamic var auth_AUMs: Int = 0
+    @objc dynamic var totalAnnual: Int = 0
+    @objc dynamic var tempIncrease: Int = 0
+    @objc dynamic var totalNonUse: Int = 0
+    @objc dynamic var agreementId: String = ""
     @objc dynamic var year: Int = 0
-    @objc dynamic var auth_AUMs: String = ""
-    @objc dynamic var tempIncrease: String = ""
-    @objc dynamic var billable: String = ""
-    @objc dynamic var nonBillable: String = ""
-    @objc dynamic var totalAnnual: String = ""
+
 }

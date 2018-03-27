@@ -1,4 +1,4 @@
-//
+ //
 //  RUPManager.swift
 //  Myra
 //
@@ -59,16 +59,28 @@ class RUPManager {
         return years
     }
 
+    func getType(id: Int) -> String {
+        let types = RealmRequests.getObject(AgreementType.self)
+        if types != nil {
+            for type in types! {
+                if type.id == id {
+                    return type.desc
+                }
+            }
+        }
+        return ""
+    }
+
 }
 
 // rup / agreement
 extension RUPManager {
 
-    func getRUP(with agreementId: String) -> RUP? {
-        if rupExists(agreementId: agreementId) {
+    func getRUP(with id: String) -> RUP? {
+        if rupExists(id: id) {
             let storedRups = RealmRequests.getObject(RUP.self)
             for stored in storedRups! {
-                if stored.agreementId == agreementId {
+                if stored.id == id {
                     return stored
                 }
             }
@@ -76,11 +88,11 @@ extension RUPManager {
         return nil
     }
 
-    func rupExists(agreementId: String) -> Bool {
+    func rupExists(id: String) -> Bool {
         let storedRups = RealmRequests.getObject(RUP.self)
         if storedRups != nil {
             for storedRUP in storedRups! {
-                if storedRUP.agreementId == agreementId {
+                if storedRUP.id == id {
                     return true
                 }
             }
@@ -98,8 +110,8 @@ extension RUPManager {
             let realm = try Realm()
             try realm.write {
 //                storedRUP?.status = newAgreement.status
-                if newAgreement.zone != nil {
-                    storedRUP?.zone = newAgreement.zone
+                if newAgreement.zones.count > 0 {
+                    storedRUP?.zones = newAgreement.zones
                 }
             }
 
@@ -111,7 +123,7 @@ extension RUPManager {
 
     func diffAgreements(rups: [RUP]) {
         for rup in rups {
-            if rupExists(agreementId: rup.agreementId) {
+            if rupExists(id: rup.id) {
                 updateRUP(with: rup)
             } else {
                 rup.statusEnum = .Agreement
@@ -143,6 +155,19 @@ extension RUPManager {
             }
         }
         return returnRups
+    }
+
+    func getUsageFor(year: Int, agreementId: String) -> RangeUsageYear? {
+        let usages = RealmRequests.getObject(RangeUsageYear.self)
+
+        if usages == nil {return nil}
+        for usage in usages! {
+
+            if usage.agreementId == agreementId && usage.year == year {
+                return usage
+            }
+        }
+        return nil
     }
 }
 
@@ -236,7 +261,7 @@ extension RUPManager {
     func getTotalAUMsFor(schedule: Schedule) -> Double{
         var total = 0.0
         for object in schedule.scheduleObjects {
-            total = total + object.totalAUMs
+            total = total + object.crownAUMs
         }
         return total
     }
@@ -258,5 +283,15 @@ extension RUPManager {
         } else {
             return false
         }
+    }
+
+    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
+        let taken = getScheduleYears(rup: rup)
+        let start = from + 1
+        var new = from
+        while taken.contains("\(new)") {
+            new = new + 1
+        }
+        return new
     }
 }

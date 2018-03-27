@@ -96,7 +96,29 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
             })
         }
     }
-    
+
+    @IBAction func nameEdited(_ sender: Any) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup?.rangeName = self.rangeName.text ?? ""
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    @IBAction func businessNameEdited(_ sender: Any) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup?.alternativeName = alternativeBusinesName.text ?? ""
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func setup(mode: FormMode, rup: RUP) {
         self.rup = rup
         self.mode = mode
@@ -105,6 +127,34 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
 
     func autofill() {
         if rup == nil { return }
+        setFieldMode()
+        if let zone = rup?.zones.last {
+            self.rupzone.text = zone.code
+            if let district = zone.districts.last {
+                self.districtResponsible.text = district.code
+            }
+        }
+        if let rangeName = rup?.rangeName {
+            self.rangeName.text = rangeName
+        }
+
+        if let alternativeName = rup?.alternativeName {
+           self.alternativeBusinesName.text = alternativeName
+        }
+
+        if let start = rup?.planStartDate {
+            self.planStart.text = DateManager.toString(date: start)
+        }
+
+        if let end = rup?.planEndDate {
+            self.planEnd.text = DateManager.toString(date: end)
+        }
+
+        if let agreeType = rup?.typeId {
+            self.agreementType.text = RUPManager.shared.getType(id: agreeType)
+        }
+
+        /*
         if mode == .View || mode == .Edit {
             self.rupzone.text = rup?.basicInformation?.RUPzone
             self.alternativeBusinesName.text = rup?.basicInformation?.alternativeBusinessName
@@ -144,26 +194,27 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
                 self.planEnd.text = DateManager.toString(date: end)
             }
         }
+ */
     }
 
     func setFieldMode() {
         switch mode {
         case .Create:
-            rupzone.isUserInteractionEnabled = true
+            rupzone.isUserInteractionEnabled = false
             alternativeBusinesName.isUserInteractionEnabled = true
-            districtResponsible.isUserInteractionEnabled = true
-            agreementType.isUserInteractionEnabled = true
+            districtResponsible.isUserInteractionEnabled = false
+            agreementType.isUserInteractionEnabled = false
             rangeName.isUserInteractionEnabled = true
-            planStart.isUserInteractionEnabled = true
-            planEnd.isUserInteractionEnabled = true
+            planStart.isUserInteractionEnabled = false
+            planEnd.isUserInteractionEnabled = false
         case .Edit:
-            rupzone.isUserInteractionEnabled = true
+            rupzone.isUserInteractionEnabled = false
             alternativeBusinesName.isUserInteractionEnabled = true
-            districtResponsible.isUserInteractionEnabled = true
-            agreementType.isUserInteractionEnabled = true
+            districtResponsible.isUserInteractionEnabled = false
+            agreementType.isUserInteractionEnabled = false
             rangeName.isUserInteractionEnabled = true
-            planStart.isUserInteractionEnabled = true
-            planEnd.isUserInteractionEnabled = true
+            planStart.isUserInteractionEnabled = false
+            planEnd.isUserInteractionEnabled = false
         case .View:
             rupzone.isUserInteractionEnabled = false
             alternativeBusinesName.isUserInteractionEnabled = false

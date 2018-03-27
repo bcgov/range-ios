@@ -126,12 +126,11 @@ class APIManager {
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 var rups: [RUP] = [RUP]()
-                if json["error"].dictionary != nil {
+                if let error = json["error"].string {
                     return completion(false, nil)
                 }
-
-                for (_,rupJSON) in json {
-                    rups.append( handleAgreementJSON(rupJSON: rupJSON))
+                for (_,agreementJSON) in json {
+                    rups.append(handleAgreementJSON(rupJSON: agreementJSON))
                 }
 
                 return completion(true, rups)
@@ -144,7 +143,7 @@ class APIManager {
     static func handleAgreementJSON(rupJSON: JSON) -> RUP {
         // RUP object vars
         var status = ""
-        var id = -1
+        var id = "-1"
         var planStartDate: Date?
         var rangeName: String = ""
         var agreementStartDate: Date?
@@ -154,37 +153,52 @@ class APIManager {
         var planEndDate: Date?
         var agreementEndDate: Date?
         var notes: String = ""
+        var typeID: Int = 0
 
         if let s = rupJSON["status"].string {
             status = s
         }
-        if let i = rupJSON["id"].int {
+
+        if let type = rupJSON["typeId"].int {
+            typeID = type
+        }
+
+        if let i = rupJSON["id"].string {
             id = i
         }
+
         if let d1 = rupJSON["planStartDate"].string {
             planStartDate = DateManager.fromUTC(string: d1)
         }
+
         if let rn = rupJSON["rangeName"].string {
             rangeName = rn
         }
+
         if let d2 = rupJSON["agreementStartDate"].string {
             agreementStartDate = DateManager.fromUTC(string: d2)
         }
+
         if let d3 = rupJSON["updatedAt"].string {
             updatedAt = DateManager.fromUTC(string: d3)
         }
+
         if let exm = rupJSON["exemptionStatus"].bool {
             exemptionStatus = exm
         }
+
         if let aid = rupJSON["agreementId"].string {
             agreementId = aid
         }
+
         if let d4 = rupJSON["planEndDate"].string {
             planEndDate = DateManager.fromUTC(string: d4)
         }
+
         if let d5 = rupJSON["agreementEndDate"].string {
             agreementEndDate = DateManager.fromUTC(string: d5)
         }
+
         if let nts = rupJSON["notes"].string {
             notes = nts
         }
@@ -209,6 +223,47 @@ class APIManager {
         if let zdes = zoneJSON["description"].string {
             zdesc = zdes
         }
+
+        var usages = [RangeUsageYear]()
+        let usageJSON = rupJSON["usage"]
+        for (_,usage) in usageJSON {
+            let usageObj = RangeUsageYear()
+
+            if let authAUM = usage["authorizedAum"].int {
+                usageObj.auth_AUMs = authAUM
+            }
+
+            if let uid = usage["id"].int {
+                usageObj.id = uid
+            }
+
+            if let tAU = usage["totalAnnualUse"].int{
+                usageObj.totalAnnual = tAU
+            }
+
+            if let ti = usage["temporaryIncrease"].int {
+                usageObj.tempIncrease = ti
+            }
+
+            if let tnu = usage["totalNonUse"].int {
+                usageObj.totalNonUse = tnu
+            }
+
+            if let agid = usage["agreementId"].string {
+                usageObj.agreementId = agid
+            }
+
+            if let yy = usage["year"].string {
+                if yy.isInt {
+                    usageObj.year = Int(yy)!
+                }
+            }
+
+            usages.append(usageObj)
+
+        }
+
+        let sortedUsages = usages.sorted(by: { $0.year < $1.year })
 
         // District object vars
         let districtJSON = zoneJSON["district"]
@@ -235,7 +290,10 @@ class APIManager {
         let rup = RUP()
 
         rup.set(id: id, status: status, zone: zone, planStartDate: planStartDate, rangeName: rangeName, agreementStartDate: agreementStartDate, updatedAt: updatedAt, exemptionStatus: exemptionStatus, agreementId: agreementId, planEndDate: planEndDate, agreementEndDate: agreementEndDate, notes: notes)
-
+        for usage in sortedUsages {
+            rup.rangeUsageYears.append(usage)
+        }
+        rup.typeId = typeID
         return rup
     }
 

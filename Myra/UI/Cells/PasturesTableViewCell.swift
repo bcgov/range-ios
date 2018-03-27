@@ -58,6 +58,7 @@ class PasturesTableViewCell: UITableViewCell {
     func setup(mode: FormMode, rup: RUP) {
         self.rup = rup
         self.mode = mode
+        tableHeight.constant = computeHeight()
         setUpTable()
     }
 

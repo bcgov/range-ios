@@ -1,8 +1,8 @@
 //
-//  Schedule.swift
+//  Agreement.swift
 //  Myra
 //
-//  Created by Amir Shayegh on 2018-03-06.
+//  Created by Amir Shayegh on 2018-03-26.
 //  Copyright © 2018 Government of British Columbia. All rights reserved.
 //
 
@@ -10,8 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class Schedule: Object {
-
+class Agreement: Object {
     @objc dynamic var realmID: String = {
         return String(Int.random(min: 1, max: Int(Int32.max)))
     }()
@@ -20,7 +19,8 @@ class Schedule: Object {
         return "realmID"
     }
 
-    @objc dynamic var name: String = ""
-    @objc dynamic var year: Int = 2000
-    var scheduleObjects = List<ScheduleObject>()
+     @objc dynamic var id: String = ""
+     @objc dynamic var agreementStartDate: Date?
+     @objc dynamic var agreementEndDate: Date?
+    var rup = List<RUP>()
 }

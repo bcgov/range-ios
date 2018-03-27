@@ -103,18 +103,33 @@
                         <rect key="frame" x="567" y="8.5" width="567" height="40"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQl-aW-nhQ">
-                                <rect key="frame" x="532" y="4.5" width="30" height="30"/>
+                                <rect key="frame" x="532" y="-0.5" width="30" height="40"/>
                                 <state key="normal" title="X">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="closeOptions:" destination="HNH-gb-EUb" eventType="touchUpInside" id="PuE-h0-OKT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6v-7b-mpt">
+                                <rect key="frame" x="25" y="5" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="14l-Xx-98G"/>
+                                </constraints>
+                                <state key="normal" title="Copy">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="copyAtion:" destination="HNH-gb-EUb" eventType="touchUpInside" id="jqG-1p-x16"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.62303365460000004" blue="0.54890557480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HQl-aW-nhQ" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="AQi-bs-mE9"/>
+                            <constraint firstItem="D6v-7b-mpt" firstAttribute="leading" secondItem="gpi-eb-Q6x" secondAttribute="leading" constant="25" id="iQ2-lw-xnY"/>
+                            <constraint firstItem="HQl-aW-nhQ" firstAttribute="height" secondItem="gpi-eb-Q6x" secondAttribute="height" id="o72-d6-bbC"/>
+                            <constraint firstItem="D6v-7b-mpt" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="vZL-w0-YcR"/>
                             <constraint firstAttribute="trailing" secondItem="HQl-aW-nhQ" secondAttribute="trailing" constant="5" id="y6Z-Hf-aGe"/>
                         </constraints>
                     </view>

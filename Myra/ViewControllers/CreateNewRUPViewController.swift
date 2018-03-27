@@ -199,7 +199,7 @@ class CreateNewRUPViewController: UIViewController {
     }
 
     func autofill() {
-        let num = rup?.agreementId ?? ""
+        let num = rup?.id ?? ""
         let name = rup?.rangeName ?? ""
         ranchNameAndNumberLabel.text = "\(num) | \(name)"
 
@@ -279,13 +279,6 @@ class CreateNewRUPViewController: UIViewController {
             fatalError()
         }
         setUpTable()
-    }
-
-    func setDummy() {
-        self.rup = RUP()
-        self.rup?.id = 0
-        let basicInfo = BasicInformation()
-        self.rup?.basicInformation = basicInfo
     }
 
     func updateSubtableHeights() {
@@ -402,17 +395,17 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             let cell = getRangeUsageCell(indexPath: indexPath)
             cell.setup(mode: mode, rup: rup!)
             return cell
+//        case 3:
+//            self.liveStockIDIndexPath = indexPath
+//            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
+//            cell.setup(mode: mode, rup: rup!)
+//            return cell
         case 3:
-            self.liveStockIDIndexPath = indexPath
-            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-        case 4:
             self.pasturesIndexPath = indexPath
             let cell = getPasturesCell(indexPath: indexPath)
             cell.setup(mode: mode, rup: rup!)
             return cell
-        case 5:
+        case 4:
             self.scheduleIndexPath = indexPath
             let cell = getScheduleCell(indexPath: indexPath)
             cell.setup(rup: rup!)
@@ -424,7 +417,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 5
     }
 
     func realodAndGoTO(indexPath: IndexPath) {

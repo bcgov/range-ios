@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ScheduleCellTableViewCell: UITableViewCell {
     @IBOutlet weak var cellContainer: UIView!
@@ -14,8 +16,10 @@ class ScheduleCellTableViewCell: UITableViewCell {
     @IBOutlet weak var optionsView: UIView!
 
     @IBOutlet weak var leadingOptions: NSLayoutConstraint!
+
     var schedule: Schedule?
     var rup: RUP?
+    var parentReference: ScheduleTableViewCell?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,10 +29,15 @@ class ScheduleCellTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    @IBAction func copyAtion(_ sender: Any) {
+        duplicate()
+    }
 
-    func setup(schedule: Schedule) {
+    func setup(rup: RUP,schedule: Schedule, parentReference: ScheduleTableViewCell) {
         self.schedule = schedule
         if nameLabel != nil { nameLabel.text = schedule.name }
+        self.parentReference = parentReference
+        self.rup = rup
 //        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
 //        swipeLeft.direction = .left
 //        self.view.addGestureRecognizer(swipeLeft)
@@ -36,6 +45,28 @@ class ScheduleCellTableViewCell: UITableViewCell {
     
     func handleGesture(gesture: UISwipeGestureRecognizer) {
 
+    }
+
+    func duplicate() {
+        let copy = Schedule()
+        copy.year = (schedule?.year)!
+        copy.scheduleObjects = (schedule?.scheduleObjects)!
+        if let rupObject = rup {
+            copy.year = RUPManager.shared.getNextScheduleYearFor(from: copy.year, rup: rupObject)
+            copy.name = "\(copy.year)"
+        }
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup?.schedules.append(copy)
+            }
+        } catch _ {
+            fatalError()
+        }
+
+        parentReference?.updateTableHeight()
+        self.leadingOptions.constant = 0
+        animateIt()
     }
     
     @IBAction func optionsAction(_ sender: Any) {

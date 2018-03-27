@@ -105,6 +105,7 @@ class ScheduleObjectTableViewCell: UITableViewCell {
     }
 
     @IBAction func dateInAction(_ sender: Any) {
+        dismissKeyboard()
         let parent = self.parentViewController as! ScheduleViewController
 
         DatePickerController.present(on: parent, completion: { (date) in
@@ -138,8 +139,8 @@ class ScheduleObjectTableViewCell: UITableViewCell {
     }
 
     @IBAction func dateOutAction(_ sender: Any) {
+        dismissKeyboard()
         let parent = self.parentViewController as! ScheduleViewController
-
         if dateIn.text != "" {
             let startDate = DateManager.from(string: dateIn.text!)
             DatePickerController.present(on: parent, minimum: startDate, completion: { (date) in
@@ -177,6 +178,11 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
         autofill()
+    }
+
+    public func dismissKeyboard() {
+        if scheduleViewReference == nil { return }
+        scheduleViewReference?.view.endEditing(true)
     }
 
     func autofill() {
@@ -220,8 +226,8 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         }
 
         self.graceDays.text = "\(self.scheduleObject?.graceDays ?? 0)"
-        self.pldAUM.text = "\(self.scheduleObject?.pldAUMs ?? 0)"
-        self.crownAUM.text = "\(self.scheduleObject?.crownAUMs ?? 0.0)"
+        self.pldAUM.text = "\(self.scheduleObject?.pldAUMs.rounded() ?? 0)"
+        self.crownAUM.text = "\(self.scheduleObject?.crownAUMs.rounded() ?? 0.0)"
     }
 
     func calculateDays() {

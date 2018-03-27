@@ -24,11 +24,12 @@ class selectionPopUpTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setup(object: SelectionPopUpObject) {
+    func setup(object: SelectionPopUpObject, bg: UIColor) {
         self.object = object
         if label != nil {
             label.text = object.display
         }
+        self.backgroundColor = bg
     }
     
 }

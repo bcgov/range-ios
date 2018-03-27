@@ -11,6 +11,7 @@ import UIKit
 class ScheduleFooterTableViewCell: UITableViewCell {
 
     var schedule: Schedule?
+    var agreementID: String = " "
 
     @IBOutlet weak var totalBox: UIView!
     @IBOutlet weak var authorizedBox: UIView!
@@ -28,14 +29,25 @@ class ScheduleFooterTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setup(schedule: Schedule) {
+    func setup(schedule: Schedule, agreementID: String) {
         self.schedule = schedule
+        self.agreementID = agreementID
         setValues()
     }
 
     func setValues() {
-         if self.totalAUMs == nil || self.schedule == nil {return}
-        self.totalAUMs.text = "\(RUPManager.shared.getTotalAUMsFor(schedule: self.schedule!))"
+        if self.totalAUMs == nil || self.schedule == nil {return}
+        let totAUMs = RUPManager.shared.getTotalAUMsFor(schedule: self.schedule!)
+        self.totalAUMs.text = "\(totAUMs.rounded())"
+        let usage = RUPManager.shared.getUsageFor(year: (schedule?.year)!, agreementId: agreementID)
+        let allowed = usage?.auth_AUMs ?? 0
+        self.authorizedAUMs.text = "\(allowed)"
+
+        if totAUMs > Double(allowed) {
+            totalAUMs.textColor = UIColor.red
+        } else {
+            totalAUMs.textColor = UIColor.black
+        }
     }
 
     func style() {

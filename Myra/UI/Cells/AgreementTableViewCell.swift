@@ -24,7 +24,7 @@ class AgreementTableViewCell: UITableViewCell {
     }
 
     func setup(rup: RUP) {
-        self.rangeNumber.text = "\(rup.agreementId)"
+        self.rangeNumber.text = "\(rup.id)"
         self.agreementHolder.text = ""
         self.rangeName.text = rup.rangeName
     }

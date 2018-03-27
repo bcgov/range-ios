@@ -71,43 +71,52 @@ class BasicInfoTableViewCell: UITableViewCell {
 
     func autofill() {
         if rup == nil { return }
-        if mode == .View || mode == .Edit {
-            self.planNumber.text = rup?.basicInformation?.rangeNumber
-            self.agreementStart.text = rup?.basicInformation?.agreementStart.string()
-            self.agreementEnd.text = rup?.basicInformation?.agreementEnd.string()
-        } else {
-            if let rangeNumber = rup?.agreementId {
-                self.planNumber.text =  rangeNumber
-            }
-            if let start = rup?.agreementStartDate {
-                self.agreementStart.text = DateManager.toString(date: start)
-            }
-            if let end = rup?.agreementEndDate {
-                self.agreementEnd.text = DateManager.toString(date: end)
-            }
+        setFieldMode()
+        self.addButton.alpha = 0
+        if let rangeNumber = rup?.id {
+            self.planNumber.text =  rangeNumber
         }
+        if let start = rup?.agreementStartDate {
+            self.agreementStart.text = DateManager.toString(date: start)
+        }
+        if let end = rup?.agreementEndDate {
+            self.agreementEnd.text = DateManager.toString(date: end)
+        }
+
+//        if mode == .View || mode == .Edit {
+//            self.planNumber.text = rup?.basicInformation?.rangeNumber
+//            self.agreementStart.text = rup?.basicInformation?.agreementStart.string()
+//            self.agreementEnd.text = rup?.basicInformation?.agreementEnd.string()
+//        } else {
+//            if let rangeNumber = rup?.agreementId {
+//                self.planNumber.text =  rangeNumber
+//            }
+//            if let start = rup?.agreementStartDate {
+//                self.agreementStart.text = DateManager.toString(date: start)
+//            }
+//            if let end = rup?.agreementEndDate {
+//                self.agreementEnd.text = DateManager.toString(date: end)
+//            }
+//        }
     }
 
     func setFieldMode() {
         switch mode {
         case .Create:
             addButton.isUserInteractionEnabled = true
-            planNumber.isUserInteractionEnabled = true
-            agreementStart.isUserInteractionEnabled = true
-            agreementEnd.isUserInteractionEnabled = true
-            addButton.isUserInteractionEnabled = true
+            planNumber.isUserInteractionEnabled = false
+            agreementStart.isUserInteractionEnabled = false
+            agreementEnd.isUserInteractionEnabled = false
         case .Edit:
             addButton.isUserInteractionEnabled = true
-            planNumber.isUserInteractionEnabled = true
-            agreementStart.isUserInteractionEnabled = true
-            agreementEnd.isUserInteractionEnabled = true
-            addButton.isUserInteractionEnabled = true
+            planNumber.isUserInteractionEnabled = false
+            agreementStart.isUserInteractionEnabled = false
+            agreementEnd.isUserInteractionEnabled = false
         case .View:
             addButton.isUserInteractionEnabled = false
             planNumber.isUserInteractionEnabled = false
             agreementStart.isUserInteractionEnabled = false
             agreementEnd.isUserInteractionEnabled = false
-            addButton.isUserInteractionEnabled = false
         }
     }
 }

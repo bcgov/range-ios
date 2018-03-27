@@ -37,17 +37,13 @@ class AssignedRUPTableViewCell: UITableViewCell {
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
         if rup == nil {return}
-        print(rup)
         let parent = self.parentViewController as! HomeViewController
-        parent.viewRUP(rup: rup!)
+        parent.editRUP(rup: rup!)
     }
 
 
     // removed
     @IBAction func ammendAction(_ sender: Any) {
-        if rup == nil {return}
-        let parent = self.parentViewController as! HomeViewController
-        parent.ammendRUP(rup: rup!)
     }
 
     // MARK: Functions
@@ -78,7 +74,6 @@ class AssignedRUPTableViewCell: UITableViewCell {
         }
     }
 }
-
 
 // Mark: Styles
 extension AssignedRUPTableViewCell {

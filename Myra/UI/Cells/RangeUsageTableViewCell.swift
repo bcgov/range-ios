@@ -55,6 +55,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
+        heightConstraint.constant = CGFloat( Double((rup.rangeUsageYears.count)) * cellHeight + 5.0)
         setUpTable()
     }
 
@@ -99,6 +100,7 @@ extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
+        cell.setup(usage: (rup?.rangeUsageYears[indexPath.row])!)
         return cell
     }
 

@@ -58,8 +58,12 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var color = UIColor.lightGray
+        if indexPath.row % 2 == 0 {
+            color = UIColor.white
+        }
         let cell = getCell(indexPath: indexPath)
-        cell.setup(object: objects[indexPath.row])
+        cell.setup(object: objects[indexPath.row], bg: color)
         return cell
     }
 

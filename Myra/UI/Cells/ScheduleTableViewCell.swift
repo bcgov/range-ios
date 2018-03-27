@@ -53,6 +53,7 @@ class ScheduleTableViewCell: UITableViewCell {
 
     func setup(rup: RUP) {
         self.rup = rup
+        tableHeight.constant = CGFloat( Double(rup.schedules.count) * cellHeight + 5.0)
         setUpTable()
         style()
     }
@@ -100,7 +101,7 @@ extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleCell(indexPath: indexPath)
-        cell.setup(schedule: (rup?.schedules[indexPath.row])!)
+        cell.setup(rup: rup!, schedule: (rup?.schedules[indexPath.row])!, parentReference: self)
         return cell
     }
 

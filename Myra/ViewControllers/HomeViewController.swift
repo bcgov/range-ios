@@ -58,10 +58,6 @@ class HomeViewController: BaseViewController {
 
     // sync
     @IBOutlet weak var syncButton: UIButton!
-    @IBOutlet weak var grayScreen: UIView!
-    @IBOutlet weak var syncContainer: UIView!
-    @IBOutlet weak var syncTitle: UILabel!
-    @IBOutlet weak var syncPageButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,10 +72,10 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func CreateRUPAction(_ sender: Any) {
-        let agreements = RUPManager.shared.getAgreements()
+//        let agreements = RUPManager.shared.getAgreements()
         let vm = ViewManager()
         let vc = vm.selectAgreement
-        vc.setup(rups: agreements, callBack: { closed in
+        vc.setup(callBack: { closed in
             self.loadHome()
         })
         self.present(vc, animated: true, completion: nil)
@@ -87,6 +83,7 @@ class HomeViewController: BaseViewController {
 
     /*
      When loading home page,
+
      1) check if a last sync date exists.
         if not, show login page
         else, set last sync date label
@@ -118,36 +115,40 @@ class HomeViewController: BaseViewController {
     }
 
     func showSyncPage() {
+        syncButton.isUserInteractionEnabled = true
+        self.createButton.isUserInteractionEnabled = true
+        self.tableView.isUserInteractionEnabled = true
         let syncView = getSyncView()
-        syncView.autoresizesSubviews = false
+
+//        syncView.autoresizesSubviews = false
         self.view.addSubview(getSyncView())
-        return
-//        self.grayScreen.alpha = 1
-        beginSync()
     }
 
     func hideSyncPage() {
-        self.grayScreen.alpha = 0
+        syncButton.isUserInteractionEnabled = true
+        self.createButton.isUserInteractionEnabled = true
+        self.tableView.isUserInteractionEnabled = true
     }
 
     func beginSync() {
         self.beginSyncLoadingAnimation()
-        self.updateSyncButtonTitle(text: "...")
-        self.disableSyncViewButton()
-//        syncPageButton.setTitle("Synchronizing...", for: .normal)
-//        syncPageButton.isEnabled = false
-//        authenticateIfRequred()
+        self.hideSyncViewButton()
         APIManager.sync(completion: { (done) in
             if done {
-                self.updateSyncDescription(text: "Sync completed.")
-                self.updateSyncButtonTitle(text: "Close")
+//                self.endSyncLoadingAnimation()
+                self.successLoadingAnimation()
                 self.endSyncLoadingAnimation()
+                self.updateSyncDescription(text: "Sync completed.")
+                self.showSyncViewButton()
+
 //                self.syncPageButton.setTitle("Sync completed.", for: .normal)
                 self.loadHome()
             } else {
                 self.updateSyncDescription(text: "Sync failed")
                 self.updateSyncButtonTitle(text: "Close")
                 self.endSyncLoadingAnimation()
+                self.failLoadingAnimation()
+                self.showSyncViewButton()
 //                self.syncPageButton.setTitle("Sync failed", for: .normal)
             }
             self.enableSyncViewButton()
@@ -224,10 +225,12 @@ extension HomeViewController {
     }
 
     // present rup details in ammend mode
-    func ammendRUP(rup: RUP) {
-        print("go to ammend")
-        let vc = getRUPDetailsVC()
-        vc.set(rup: rup, readOnly: false)
+    func editRUP(rup: RUP) {
+        let vm = ViewManager()
+        let vc = vm.createRUP
+        vc.setup(rup: rup) { (closed) in
+            self.tableView.reloadData()
+        }
         self.present(vc, animated: true, completion: nil)
     }
 
@@ -299,6 +302,7 @@ extension HomeViewController {
                     return
                 }
                 self.syncing = true
+                self.beginSync()
 //                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
             }
 
@@ -324,6 +328,7 @@ extension HomeViewController {
 //                    return
 //                }
                 self.syncing = true
+                self.beginSync()
             })
         }
     }

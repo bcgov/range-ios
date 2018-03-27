@@ -19,12 +19,18 @@ class SelectAgreementViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.rups = RUPManager.shared.getAgreements()
         setUpTable()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
     }
     
     @IBAction func cancelAction(_ sender: Any) {
@@ -35,10 +41,10 @@ class SelectAgreementViewController: UIViewController {
         })
     }
 
-    func setup(rups: [RUP], callBack: @escaping ((_ close: Bool) -> Void )) {
+    func setup(callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
-        self.rups = rups
-        self.setUpTable()
+//        self.rups = rups
+//        self.setUpTable()
     }
 
     func reload() {

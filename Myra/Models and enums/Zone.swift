@@ -19,14 +19,14 @@ class Zone: Object {
         return "realmID"
     }
 
-    var district: District?
+    var districts = List<District>()
     @objc dynamic var id: Int = -1
     @objc dynamic var code: String = ""
     @objc dynamic var districtId: Int = -1
     @objc dynamic var desc: String = ""
 
     func set(district: District, id: Int, code: String, districtId: Int, desc: String) {
-        self.district = district
+        self.districts.append(district)
         self.id = id
         self.code = code
         self.districtId = districtId

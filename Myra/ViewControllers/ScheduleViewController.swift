@@ -25,7 +25,7 @@ class ScheduleViewController: UIViewController {
         popupContainer.alpha = 0 
         setUpTable()
         setTitle()
-        setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
+        setSubtitle(ranNumber: (rup?.id)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
     }
 
     @IBAction func backAction(_ sender: UIButton) {
@@ -124,7 +124,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             let cell = getScheduleFooterCell(indexPath: indexPath)
-            cell.setup(schedule: schedule!)
+            cell.setup(schedule: schedule!, agreementID: (rup?.id)!)
             self.footerReference = cell
             return cell
         default:

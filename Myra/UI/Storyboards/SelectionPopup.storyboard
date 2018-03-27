@@ -23,23 +23,26 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kg5-FW-Bej">
-                                <rect key="frame" x="8" y="28" width="100" height="40"/>
+                                <rect key="frame" x="8" y="28" width="359" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="3gf-Ys-7BF"/>
                                     <constraint firstAttribute="height" constant="40" id="yyf-qx-QEZ"/>
                                 </constraints>
-                                <state key="normal" title="Close"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="closeAction:" destination="IzR-Fm-bPD" eventType="touchUpInside" id="gOS-EG-pma"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0039215686269999999" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Kg5-FW-Bej" firstAttribute="leading" secondItem="RlO-sw-BSW" secondAttribute="leading" constant="8" id="4Dk-co-I1U"/>
                             <constraint firstItem="fzb-v5-igl" firstAttribute="trailing" secondItem="RlO-sw-BSW" secondAttribute="trailing" id="7Jd-ed-Ldq"/>
                             <constraint firstItem="Kg5-FW-Bej" firstAttribute="top" secondItem="RlO-sw-BSW" secondAttribute="top" constant="8" id="HZU-Jc-giL"/>
                             <constraint firstItem="fzb-v5-igl" firstAttribute="top" secondItem="Kg5-FW-Bej" secondAttribute="bottom" id="VLr-Rb-VUN"/>
+                            <constraint firstItem="RlO-sw-BSW" firstAttribute="trailing" secondItem="Kg5-FW-Bej" secondAttribute="trailing" constant="8" id="iZJ-me-tUO"/>
                             <constraint firstItem="fzb-v5-igl" firstAttribute="leading" secondItem="RlO-sw-BSW" secondAttribute="leading" id="rzL-hD-ycL"/>
                             <constraint firstItem="fzb-v5-igl" firstAttribute="bottom" secondItem="RlO-sw-BSW" secondAttribute="bottom" id="wF6-8y-Yfc"/>
                         </constraints>
