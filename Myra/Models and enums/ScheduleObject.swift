@@ -53,5 +53,19 @@ class ScheduleObject: Object {
     @objc dynamic var pldAUMs: Double = 0
     @objc dynamic var scheduleDescription: String = ""
 
+    func toJSON()  -> [String:Any] {
+        let schedule: [String: Any] = [
+            "startDate": DateManager.toUTC(date: dateIn!),
+            "endDate": DateManager.toUTC(date: dateOut!),
+            "dateIn": DateManager.toUTC(date: dateIn!),
+            "dateOut": DateManager.toUTC(date: dateOut!),
+            "livestockCount": numberOfAnimals,
+            "livestockTypeId": type?.id,
+            "pastureId": pasture?.dbID
+        ]
+
+        return schedule
+    }
+
 }
 

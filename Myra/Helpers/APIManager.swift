@@ -11,11 +11,14 @@ import Alamofire
 import SwiftyJSON
 import Reachability
 import SingleSignOn
+import Realm
+import RealmSwift
 
 class APIManager {
 
     static let baseURL = "http://api-range-myra-dev.pathfinder.gov.bc.ca/v1"
     static let agreementEndpoint = "\(baseURL)/agreement"
+    static let planEndpoint = "\(baseURL)/plan"
     static let reference = "\(baseURL)/reference"
 
     static let authServices: AuthServices = {
@@ -125,6 +128,7 @@ class APIManager {
         Alamofire.request(agreementEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
+                print(json)
                 var rups: [RUP] = [RUP]()
                 if let error = json["error"].string {
                     return completion(false, nil)
@@ -328,5 +332,138 @@ extension APIManager {
             return completion(false)
         }
 
+    }
+
+    static func uploadRUP(rup: RUP, completion: @escaping (_ done: Bool) -> Void) {
+        Alamofire.request(planEndpoint, method: .post, parameters: rup.toJSON(), encoding: JSONEncoding.default, headers: headers())
+            .responseData{ response in
+                if response.result.description == "SUCCESS" {
+                    let json = JSON(response.result.value!)
+                    if let id = json["id"].int {
+                        do {
+                            let realm = try Realm()
+                            try realm.write {
+                                rup.dbID = id
+                            }
+                        } catch _ {
+                            return completion(false)
+                        }
+                        let pastures = RUPManager.shared.getPasturesArray(rup: rup)
+                        recursivePastureUpload(pastures: pastures, planID: id, completion: { (success) in
+                            if success {
+                                let schedules = RUPManager.shared.getSchedulesArray(rup: rup)
+                                recursiveScheduleUpload(schedules: schedules, planID: id, completion: { (success) in
+                                    if success {
+                                        completion(true)
+                                    } else {
+                                        completion(false)
+                                    }
+                                })
+                                completion(true)
+                            } else {
+                                completion(false)
+                            }
+                        })
+                    }
+                } else {
+                    completion(false)
+                }
+//                switch response.result {
+//                case .success(let value):
+//                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
+//                        print("The request failed")
+//                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
+//                    }
+//                    completion(true)
+//                case .failure(let error):
+//                    completion(false)
+//                }
+        }
+    }
+
+    static func recursiveScheduleUpload(schedules: [Schedule], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+        if schedules.count <= 0 {
+            return completion(true)
+        }
+
+        var all = schedules
+        let schedule = all.last
+        all.removeLast()
+        uploadSchedule(schedule: schedule!, planID: planID) { (done) in
+            if done {
+                recursiveScheduleUpload(schedules: all, planID: planID, completion: completion)
+            } else {
+                return completion(false)
+            }
+        }
+    }
+
+    static func uploadSchedule(schedule: Schedule, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+        let url = "\(planEndpoint)/\(planID)/schedule"
+        let param = schedule.toJSON()
+        Alamofire.request(url, method: .post, parameters: param, encoding:  JSONEncoding.default, headers: headers()).responseData { (response) in
+            if response.result.description == "SUCCESS" {
+                let json = JSON(response.result.value!)
+                print(json)
+                if let id = json["id"].int {
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            schedule.dbID = id
+                        }
+                        return completion(true)
+                    } catch _ {
+                        return completion(false)
+                    }
+                } else {
+                     return completion(false)
+                }
+            } else {
+                 return completion(false)
+            }
+        }
+    }
+
+    static func recursivePastureUpload(pastures: [Pasture], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+        if pastures.count <= 0 {
+            return completion(true)
+        }
+
+        var all = pastures
+        let pasture = all.last
+        all.removeLast()
+        uploadPasture(pasture: pasture!, planID: planID) { (done) in
+            if done {
+                recursivePastureUpload(pastures: all, planID: planID, completion: completion)
+            } else {
+                return completion(false)
+            }
+        }
+    }
+
+    static func uploadPasture(pasture: Pasture, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+        let url = "\(planEndpoint)/\(planID)/pasture"
+        let param = pasture.toJSON(planID: planID)
+        Alamofire.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
+            if response.result.description == "SUCCESS" {
+                let json = JSON(response.result.value!)
+                print(json)
+                if let id = json["id"].int {
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            pasture.dbID = id
+                        }
+                        return completion(true)
+                    } catch _ {
+                        return completion(false)
+                    }
+                } else {
+                    return completion(false)
+                }
+            } else {
+                return completion(false)
+            }
+        }
     }
 }

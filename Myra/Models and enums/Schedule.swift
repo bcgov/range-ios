@@ -22,5 +22,23 @@ class Schedule: Object {
 
     @objc dynamic var name: String = ""
     @objc dynamic var year: Int = 2000
+    @objc dynamic var dbID: Int = -1
     var scheduleObjects = List<ScheduleObject>()
+
+    func toJSON()  -> [String:Any] {
+        let schedule: [String: Any] = [
+            "year": year,
+            "grazingScheduleEntries" : getobjectsJSON()
+        ]
+
+        return schedule
+    }
+
+    func getobjectsJSON() -> [[String: Any]]{
+        var r = [[String: Any]]()
+        for obj in scheduleObjects {
+            r.append(obj.toJSON())
+        }
+        return r
+    }
 }

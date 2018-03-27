@@ -26,10 +26,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="826" height="49.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEM-gW-nUy" userLabel="input box">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="153" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Year" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q1C-hd-9bp">
-                                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="153.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="5Z7-rw-YAh"/>
                                                 </constraints>
@@ -38,7 +38,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rR9-Vz-fhx">
-                                                <rect key="frame" x="0.0" y="44" width="125.5" height="1"/>
+                                                <rect key="frame" x="0.0" y="44" width="153.5" height="1"/>
                                                 <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="nOc-MF-95u"/>
@@ -56,10 +56,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3yq-sM-bFg" userLabel="input box">
-                                        <rect key="frame" x="140" y="0.0" width="125.5" height="45"/>
+                                        <rect key="frame" x="168" y="0.0" width="153.5" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uVc-TC-kOu">
-                                                <rect key="frame" x="0.0" y="0.0" width="126" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="154" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Uz7-5W-aQy"/>
                                                 </constraints>
@@ -68,7 +68,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f07-b7-ble">
-                                                <rect key="frame" x="0.0" y="44" width="126" height="1"/>
+                                                <rect key="frame" x="0.0" y="44" width="154" height="1"/>
                                                 <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="WdD-yJ-s8f"/>
@@ -86,17 +86,17 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzD-MF-Csd" userLabel="input box">
-                                        <rect key="frame" x="280.5" y="0.0" width="125" height="45"/>
+                                        <rect key="frame" x="336.5" y="0.0" width="153" height="45"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e5B-hP-RGa">
-                                                <rect key="frame" x="0.0" y="44" width="125.5" height="1"/>
+                                                <rect key="frame" x="0.0" y="44" width="153.5" height="1"/>
                                                 <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="wFs-R4-hb2"/>
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Temp Increase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LZS-uO-eZN">
-                                                <rect key="frame" x="0.0" y="0.0" width="124.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="152.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="2vf-zb-wT1"/>
                                                 </constraints>
@@ -116,10 +116,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dF2-A3-2fe" userLabel="input box">
-                                        <rect key="frame" x="420.5" y="0.0" width="125" height="45"/>
+                                        <rect key="frame" x="504.5" y="0.0" width="153.5" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Non-Use" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S19-1h-bNP">
-                                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="154" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="kC6-ad-bfU"/>
                                                 </constraints>
@@ -128,7 +128,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Gf-ht-mqU">
-                                                <rect key="frame" x="0.0" y="44" width="125.5" height="1"/>
+                                                <rect key="frame" x="0.0" y="44" width="154" height="1"/>
                                                 <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="jUD-eo-Enm"/>
@@ -145,41 +145,11 @@
                                             <constraint firstAttribute="trailing" secondItem="S19-1h-bNP" secondAttribute="trailing" id="nuf-S2-muh"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5m-Wd-hoE" userLabel="input box">
-                                        <rect key="frame" x="560.5" y="0.0" width="125.5" height="45"/>
-                                        <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1xu-hA-pIu">
-                                                <rect key="frame" x="0.0" y="0.0" width="126" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="FbD-EL-HOT"/>
-                                                </constraints>
-                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWJ-c8-51j">
-                                                <rect key="frame" x="0.0" y="44" width="126" height="1"/>
-                                                <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="hQV-fH-fKr"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="rWJ-c8-51j" firstAttribute="top" secondItem="1xu-hA-pIu" secondAttribute="bottom" id="Kje-Bs-QX3"/>
-                                            <constraint firstAttribute="bottom" secondItem="rWJ-c8-51j" secondAttribute="bottom" id="NBx-Ze-pEN"/>
-                                            <constraint firstItem="rWJ-c8-51j" firstAttribute="leading" secondItem="q5m-Wd-hoE" secondAttribute="leading" id="S43-C8-Pkv"/>
-                                            <constraint firstAttribute="trailing" secondItem="rWJ-c8-51j" secondAttribute="trailing" id="b7T-0m-Jh7"/>
-                                            <constraint firstAttribute="trailing" secondItem="1xu-hA-pIu" secondAttribute="trailing" id="cjc-ZH-RK5"/>
-                                            <constraint firstItem="1xu-hA-pIu" firstAttribute="top" secondItem="q5m-Wd-hoE" secondAttribute="top" id="eAi-s1-obd"/>
-                                            <constraint firstItem="1xu-hA-pIu" firstAttribute="leading" secondItem="q5m-Wd-hoE" secondAttribute="leading" id="zuD-Kd-08t"/>
-                                        </constraints>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkv-GG-WHJ" userLabel="input box">
-                                        <rect key="frame" x="701" y="0.0" width="125" height="45"/>
+                                        <rect key="frame" x="673" y="0.0" width="153" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Total Annual" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Pc-QN-NtM">
-                                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="153.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="4v7-Dv-hBy"/>
                                                 </constraints>
@@ -188,7 +158,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tee-9d-ZKk">
-                                                <rect key="frame" x="0.0" y="44" width="125.5" height="1"/>
+                                                <rect key="frame" x="0.0" y="44" width="153.5" height="1"/>
                                                 <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="HYV-mC-YOG"/>

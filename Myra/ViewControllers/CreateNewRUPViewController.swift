@@ -252,13 +252,29 @@ class CreateNewRUPViewController: UIViewController {
     @IBAction func mapAction(_ sender: UIButton) {
         tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
     }
+
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
-        APIManager.send(rup: self.rup!) { (done) in
-            if done {
-//                self.parentVC?.dismiss(animated: true, completion: nil)
+
+        if let rupobj = rup {
+            APIManager.uploadRUP(rup: rupobj) { (success) in
+                if success {
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            self.rup?.statusEnum = .Pending
+                        }
+                    } catch _ {}
+                }
+                return self.parentCallBack!(true)
                 self.dismiss(animated: true, completion: nil)
             }
         }
+//        APIManager.send(rup: self.rup!) { (done) in
+//            if done {
+////                self.parentVC?.dismiss(animated: true, completion: nil)
+//                self.dismiss(animated: true, completion: nil)
+//            }
+//        }
     }
 
     // Mark: Functions

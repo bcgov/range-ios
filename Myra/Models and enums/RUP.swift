@@ -52,6 +52,7 @@ class RUP: Object {
     @objc dynamic var agreementEndDate: Date?
     @objc dynamic var notes: String = ""
     @objc dynamic var typeId: Int = 0
+    @objc dynamic var dbID: Int = -1
 
     @objc dynamic var basicInformation: BasicInformation? = nil
     var rangeUsageYears = List<RangeUsageYear>()
@@ -73,5 +74,14 @@ class RUP: Object {
         self.agreementEndDate = agreementEndDate
         self.notes = notes
         self.zones.append(zone)
+    }
+
+    func toJSON() -> [String:Any] {
+        let plan: [String:Any] = [
+            "rangeName": rangeName,
+            "agreementId": id,
+            "statusId": 1
+        ]
+        return plan
     }
 }

@@ -285,6 +285,24 @@ extension RUPManager {
         }
     }
 
+    func getPasturesArray(rup: RUP) -> [Pasture] {
+        let ps = rup.pastures
+        var returnVal = [Pasture]()
+        for p in ps {
+            returnVal.append(p)
+        }
+        return returnVal
+    }
+
+    func getSchedulesArray(rup: RUP) -> [Schedule] {
+        let ss = rup.schedules
+        var returnVal = [Schedule]()
+        for s in ss {
+            returnVal.append(s)
+        }
+        return returnVal
+    }
+
     func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
         let taken = getScheduleYears(rup: rup)
         let start = from + 1
