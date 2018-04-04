@@ -13,5 +13,5 @@ target 'Myra' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'lottie-ios'
-  pod 'SingleSignOn', :git => 'https://github.com/bcgov/mobile-authentication-ios.git', :tag => 'v1.0.2' 
+  pod 'SingleSignOn', :git => 'https://github.com/bcgov/mobile-authentication-ios.git', :tag => 'v1.0.3' 
 end
