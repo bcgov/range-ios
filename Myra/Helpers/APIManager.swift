@@ -124,100 +124,79 @@ class APIManager {
         }
     }
 
-    static func getAgreements(completion: @escaping (_ success: Bool,_ rups: [RUP]?) -> Void) {
+    static func getAgreements(completion: @escaping (_ success: Bool,_ rups: [Agreement]?) -> Void) {
         print(headers())
+        var agreements: [Agreement] = [Agreement]()
         Alamofire.request(agreementEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 print(json)
-                var rups: [RUP] = [RUP]()
                 if let error = json["error"].string {
                     print(error)
                     return completion(false, nil)
                 }
 
+
                 for (_,agreementJSON) in json {
-                    rups.append(handleAgreementJSON(rupJSON: agreementJSON))
+                    agreements.append(handleAgreementJSON(agreementJSON: agreementJSON))
                 }
 
-                return completion(true, rups)
+                return completion(true, agreements)
             } else {
-                return completion(false, nil)
+                return completion(false, agreements)
             }
         }
     }
 
-    static func handleAgreementJSON(rupJSON: JSON) -> RUP {
-        // RUP object vars
-        var status = ""
-        var id = "-1"
-        var planStartDate: Date?
-        var rangeName: String = ""
-        var agreementStartDate: Date?
-        var updatedAt: Date?
-        var exemptionStatus: Bool = false
+    static func handleAgreementJSON(agreementJSON: JSON) -> Agreement {
+        // Agreement Object vars
         var agreementId: String = ""
-        var planEndDate: Date?
+        var agreementStartDate: Date?
         var agreementEndDate: Date?
-        var notes: String = ""
-        var typeID: Int = 0
+        var typeId: Int = -1
+        var exemptionStatusId: Int = -1
+        var createdAt: Date?
+        var updatedAt: Date?
 
-
-        if let s = rupJSON["status"].string {
-            status = s
+        if let i = agreementJSON["id"].string {
+            agreementId = i
         }
 
-        if let type = rupJSON["typeId"].int {
-            typeID = type
+        if let dateStart = agreementJSON["agreementStartDate"].string {
+            agreementStartDate = DateManager.fromUTC(string: dateStart)
         }
 
-        if let i = rupJSON["id"].string {
-            id = i
+        if let dateEnd = agreementJSON["agreementEndDate"].string {
+            agreementEndDate = DateManager.fromUTC(string: dateEnd)
         }
 
-        if let d1 = rupJSON["planStartDate"].string {
-            planStartDate = DateManager.fromUTC(string: d1)
+        if let type = agreementJSON["typeId"].int {
+            typeId = type
         }
 
-        if let rn = rupJSON["rangeName"].string {
-            rangeName = rn
+        if let dateCreate = agreementJSON["createdAt"].string {
+            createdAt = DateManager.fromUTC(string: dateCreate)
         }
 
-        if let d2 = rupJSON["agreementStartDate"].string {
-            agreementStartDate = DateManager.fromUTC(string: d2)
+        if let dateUpdate = agreementJSON["updatedAt"].string {
+            updatedAt = DateManager.fromUTC(string: dateUpdate)
         }
 
-        if let d3 = rupJSON["updatedAt"].string {
-            updatedAt = DateManager.fromUTC(string: d3)
+        if let exemptionStatusNumber = agreementJSON["exemptionStatusId"].int {
+            exemptionStatusId = exemptionStatusNumber
         }
 
-        if let exm = rupJSON["exemptionStatus"].bool {
-            exemptionStatus = exm
-        }
-
-        if let aid = rupJSON["agreementId"].string {
-            agreementId = aid
-        }
-
-        if let d4 = rupJSON["planEndDate"].string {
-            planEndDate = DateManager.fromUTC(string: d4)
-        }
-
-        if let d5 = rupJSON["agreementEndDate"].string {
-            agreementEndDate = DateManager.fromUTC(string: d5)
-        }
-
-        if let nts = rupJSON["notes"].string {
-            notes = nts
-        }
-
-        // Zone object vars
-        let zoneJSON = rupJSON["zone"]
+        // Zone object
+        let zoneJSON = agreementJSON["zone"]
 
         var zid: Int = -1
         var zcode: String = ""
         var zdistrictId: Int = -1
         var zdesc: String = ""
+
+        var zcontactName = ""
+        var zcontactPhoneNumber = ""
+        var zcontactEmail = ""
 
         if let zd = zoneJSON["id"].int {
             zid = zd
@@ -231,53 +210,22 @@ class APIManager {
         if let zdes = zoneJSON["description"].string {
             zdesc = zdes
         }
-
-        var usages = [RangeUsageYear]()
-        let usageJSON = rupJSON["usage"]
-        for (_,usage) in usageJSON {
-            let usageObj = RangeUsageYear()
-
-            if let authAUM = usage["authorizedAum"].int {
-                usageObj.auth_AUMs = authAUM
-            }
-
-            if let uid = usage["id"].int {
-                usageObj.id = uid
-            }
-
-            if let tAU = usage["totalAnnualUse"].int{
-                usageObj.totalAnnual = tAU
-            }
-
-            if let ti = usage["temporaryIncrease"].int {
-                usageObj.tempIncrease = ti
-            }
-
-            if let tnu = usage["totalNonUse"].int {
-                usageObj.totalNonUse = tnu
-            }
-
-            if let agid = usage["agreementId"].string {
-                usageObj.agreementId = agid
-            }
-
-            if let yy = usage["year"].string {
-                if yy.isInt {
-                    usageObj.year = Int(yy)!
-                }
-            }
-
-            usages.append(usageObj)
-
+        if let zcn = zoneJSON["contactName"].string {
+            zcontactName = zcn
+        }
+        if let zpn = zoneJSON["contactPhoneNumber"].string {
+            zcontactPhoneNumber = zpn
+        }
+        if let zce = zoneJSON["contactEmail"].string {
+            zcontactEmail = zce
         }
 
-        let sortedUsages = usages.sorted(by: { $0.year < $1.year })
-
-        // District object vars
+        // District object
         let districtJSON = zoneJSON["district"]
         var did: Int = -1
         var ddesc: String = ""
         var dcode: String = ""
+
 
         if let distId = districtJSON["id"].int {
             did = distId
@@ -293,92 +241,10 @@ class APIManager {
         district.set(id: did, code: dcode, desc: ddesc)
 
         let zone = Zone()
-        zone.set(district: district, id: zid, code: zcode, districtId: zdistrictId, desc: zdesc, contactName: "", contactPhoneNumber: "", contactEmail: "")
+        zone.set(district: district, id: zid, code: zcode, districtId: zdistrictId, desc: zdesc, contactName: zcontactName, contactPhoneNumber: zcontactPhoneNumber, contactEmail: zcontactEmail)
 
-        let rup = RUP()
-
-        rup.set(id: id, status: status, zone: zone, planStartDate: planStartDate, rangeName: rangeName, agreementStartDate: agreementStartDate, updatedAt: updatedAt, exemptionStatus: exemptionStatus, agreementId: agreementId, planEndDate: planEndDate, agreementEndDate: agreementEndDate, notes: notes)
-        for usage in sortedUsages {
-            rup.rangeUsageYears.append(usage)
-        }
-        rup.typeId = typeID
-        return rup
-    }
-
-
-    static func handleAgreementJSON2(agreementJSON: JSON) -> RUP {
-        // RUP object vars
-
-        /*
-        var status = ""
-        var id = "-1"
-        var planStartDate: Date?
-        var rangeName: String = ""
-        var agreementStartDate: Date?
-        var updatedAt: Date?
-        var exemptionStatus: Bool = false
-        var agreementId: String = ""
-        var planEndDate: Date?
-        var agreementEndDate: Date?
-        var notes: String = ""
-        var typeID: Int = 0
- */
-        // Agreement Object vars
-        var agreementId: String = ""
-        var agreementStartDate: Date?
-        var agreementEndDate: Date?
-        var typeId: Int = -1
-        var exemptionStatusId : Int = -1
-        var createdAt: Date?
-        var updatedAt: Date?
-        var agreement_type_i: Int
-        var agreement_exemption_status_id: Int
-        var zone_id: Int
-
-        if let i = agreementJSON["id"].string {
-            agreementId = i
-        }
-
-
-        if let dateStart = agreementJSON["agreementStartDate"].string {
-            agreementStartDate = DateManager.fromUTC(string: dateStart)
-        }
-
-        if let dateEnd = agreementJSON["agreementEndDate"].string {
-            agreementEndDate = DateManager.fromUTC(string: dateEnd)
-        }
-
-        if let type = agreementJSON["typeId"].int {
-            typeId = type
-        }
-
-        if let dateUpdate = agreementJSON["updatedAt"].string {
-            updatedAt = DateManager.fromUTC(string: dateUpdate)
-        }
-
-        // Zone object
-        let zoneJSON = agreementJSON["zone"]
-
-        var zid: Int = -1
-        var zcode: String = ""
-        var zdistrictId: Int = -1
-        var zdesc: String = ""
-
-        if let zd = zoneJSON["id"].int {
-            zid = zd
-        }
-        if let zc = zoneJSON["code"].string {
-            zcode = zc
-        }
-        if let zdid = zoneJSON["districtId"].int {
-            zdistrictId = zdid
-        }
-        if let zdes = zoneJSON["description"].string {
-            zdesc = zdes
-        }
-
-        // Range Usage year objects
-        var usages = [RangeUsageYear]()
+        // Usage year objects
+        var usages: [RangeUsageYear] = [RangeUsageYear]()
         let usageJSON = agreementJSON["usage"]
         for (_,usage) in usageJSON {
             let usageObj = RangeUsageYear()
@@ -412,49 +278,58 @@ class APIManager {
                     usageObj.year = Int(yy)!
                 }
             }
-
             usages.append(usageObj)
-
         }
+
         let sortedUsages = usages.sorted(by: { $0.year < $1.year })
 
-        // District object
-        let districtJSON = zoneJSON["district"]
-        var did: Int = -1
-        var ddesc: String = ""
-        var dcode: String = ""
-
-        if let distId = districtJSON["id"].int {
-            did = distId
-        }
-        if let distDesc = districtJSON["description"].string {
-            ddesc = distDesc
-        }
-        if let distCode = districtJSON["code"].string {
-            dcode = distCode
-        }
-
-        let district = District()
-        district.set(id: did, code: dcode, desc: ddesc)
-
-        let zone = Zone()
-        zone.set(district: district, id: zid, code: zcode, districtId: zdistrictId, desc: zdesc)
-
         // Clients
-        var clientsJSON = agreementJSON["clients"]
+        let clientsJSON = agreementJSON["clients"]
+        var clients: [Client] = [Client]()
+        for (_,clientJSON) in clientsJSON {
+            let client = Client()
 
-        let rup = RUP()
+            if let cid = clientJSON["id"].string {
+                client.id = cid
+            }
 
-        rup.set(id: id, status: status, zone: zone, planStartDate: planStartDate, rangeName: rangeName, agreementStartDate: agreementStartDate, updatedAt: updatedAt, exemptionStatus: exemptionStatus, agreementId: agreementId, planEndDate: planEndDate, agreementEndDate: agreementEndDate, notes: notes)
-        for usage in sortedUsages {
-            rup.rangeUsageYears.append(usage)
+            if let cname = clientJSON["name"].string {
+                client.name = cname
+            }
+
+            if let clocationCode = clientJSON["locationCode"].string {
+                client.locationCode = clocationCode
+            }
+
+            if let cstart = clientJSON["startDate"].string {
+                client.startDate = DateManager.fromUTC(string: cstart)
+            }
+
+            if let cclientTypeCode = clientJSON["clientTypeCode"].string {
+                client.clientTypeCode = cclientTypeCode
+            }
+            clients.append(client)
         }
-        rup.typeId = typeID
-        return rup
+
+        let agreement = Agreement()
+        agreement.set(agreementId: agreementId, agreementStartDate: agreementStartDate!, agreementEndDate: agreementEndDate!, typeId: typeId, exemptionStatusId: exemptionStatusId, createdAt: createdAt, updatedAt: updatedAt)
+
+        for usage in sortedUsages {
+            agreement.rangeUsageYears.append(usage)
+        }
+
+        for client in clients {
+            agreement.clients.append(client)
+        }
+
+        agreement.zones.append(zone)
+
+        print(agreement)
+
+        return agreement
     }
-
-
 }
+
 extension APIManager {
     static func sync(completion: @escaping (_ done: Bool) -> Void, progress: @escaping (_ text: String)-> Void) {
         progress("veryfying connection")
@@ -463,10 +338,11 @@ extension APIManager {
             getReferenceData(completion: { (success) in
                 if success {
                     progress("Downloading agreements")
-                    getAgreements(completion: { (done, rups) in
+                    getAgreements(completion: { (done, agreements) in
                         if done {
                             progress("Updating stored data")
-                            RUPManager.shared.diffAgreements(rups: rups!)
+                            RUPManager.shared.diffAgreements(agreements: agreements!)
+//                            RUPManager.shared.diffAgreements(rups: rups!)
                             progress("Completed")
                             RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
                             return completion(true)
@@ -484,7 +360,6 @@ extension APIManager {
             progress("Failed while verifying connection")
             return completion(false)
         }
-
     }
 
     static func uploadRUP(rup: RUP, completion: @escaping (_ done: Bool) -> Void) {
@@ -523,16 +398,6 @@ extension APIManager {
                 } else {
                     completion(false)
                 }
-//                switch response.result {
-//                case .success(let value):
-//                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
-//                        print("The request failed")
-//                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
-//                    }
-//                    completion(true)
-//                case .failure(let error):
-//                    completion(false)
-//                }f
         }
     }
 

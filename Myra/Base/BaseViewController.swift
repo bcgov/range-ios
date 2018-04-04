@@ -383,6 +383,7 @@ extension BaseViewController {
                 self.endSyncLoadingAnimation()
                 self.updateSyncDescription(text: "Sync completed.")
                 self.showSyncViewButton()
+                self.enableSyncViewButton()
                 return completion(true)
             } else {
                 self.updateSyncDescription(text: "Sync failed")
@@ -390,9 +391,9 @@ extension BaseViewController {
                 self.endSyncLoadingAnimation()
                 self.failLoadingAnimation()
                 self.showSyncViewButton()
+                self.enableSyncViewButton()
                 return completion(true)
             }
-            self.enableSyncViewButton()
 
         }) { (progress) in
             self.updateSyncDescription(text: progress)

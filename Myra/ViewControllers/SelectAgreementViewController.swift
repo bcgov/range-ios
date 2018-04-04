@@ -12,14 +12,14 @@ class SelectAgreementViewController: UIViewController {
 
     var parentCallBack: ((_ close: Bool) -> Void )?
 
-
-    var rups: [RUP] = [RUP]()
+    var agreements: [Agreement] = [Agreement]()
+//    var rups: [RUP] = [RUP]()
 
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.rups = RUPManager.shared.getAgreements()
+        self.agreements = RUPManager.shared.getAgreements()
         setUpTable()
     }
 
@@ -48,9 +48,9 @@ class SelectAgreementViewController: UIViewController {
     }
 
     func reload() {
-        APIManager.getAgreements { (done, rups) in
+        APIManager.getAgreements { (done, agreements) in
             if done {
-                self.rups = rups!
+                self.agreements = agreements!
                 self.tableView.reloadData()
             }
         }
@@ -74,18 +74,22 @@ extension SelectAgreementViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rups.count
+        return agreements.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(indexPath: indexPath)
-        cell.setup(rup: rups[indexPath.row])
+        // TODO
+        cell.setup(agreement: agreements[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rup = rups[indexPath.row]
-         let vm = ViewManager()
+        // TODO
+//        let agreement = agreements[indexPath.row]
+        // TODO: gen rup structure from agreement
+        let rup = RUP()
+        let vm = ViewManager()
         let createVC = vm.createRUP
         createVC.setup(rup: rup, callBack: {closed in
             self.dismiss(animated: true, completion: {
