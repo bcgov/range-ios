@@ -125,6 +125,7 @@ class APIManager {
     }
 
     static func getAgreements(completion: @escaping (_ success: Bool,_ rups: [RUP]?) -> Void) {
+        print(headers())
         Alamofire.request(agreementEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
@@ -160,6 +161,7 @@ class APIManager {
         var agreementEndDate: Date?
         var notes: String = ""
         var typeID: Int = 0
+
 
         if let s = rupJSON["status"].string {
             status = s
@@ -291,7 +293,7 @@ class APIManager {
         district.set(id: did, code: dcode, desc: ddesc)
 
         let zone = Zone()
-        zone.set(district: district, id: zid, code: zcode, districtId: zdistrictId, desc: zdesc)
+        zone.set(district: district, id: zid, code: zcode, districtId: zdistrictId, desc: zdesc, contactName: "", contactPhoneNumber: "", contactEmail: "")
 
         let rup = RUP()
 
@@ -302,6 +304,155 @@ class APIManager {
         rup.typeId = typeID
         return rup
     }
+
+
+    static func handleAgreementJSON2(agreementJSON: JSON) -> RUP {
+        // RUP object vars
+
+        /*
+        var status = ""
+        var id = "-1"
+        var planStartDate: Date?
+        var rangeName: String = ""
+        var agreementStartDate: Date?
+        var updatedAt: Date?
+        var exemptionStatus: Bool = false
+        var agreementId: String = ""
+        var planEndDate: Date?
+        var agreementEndDate: Date?
+        var notes: String = ""
+        var typeID: Int = 0
+ */
+        // Agreement Object vars
+        var agreementId: String = ""
+        var agreementStartDate: Date?
+        var agreementEndDate: Date?
+        var typeId: Int = -1
+        var exemptionStatusId : Int = -1
+        var createdAt: Date?
+        var updatedAt: Date?
+        var agreement_type_i: Int
+        var agreement_exemption_status_id: Int
+        var zone_id: Int
+
+        if let i = agreementJSON["id"].string {
+            agreementId = i
+        }
+
+
+        if let dateStart = agreementJSON["agreementStartDate"].string {
+            agreementStartDate = DateManager.fromUTC(string: dateStart)
+        }
+
+        if let dateEnd = agreementJSON["agreementEndDate"].string {
+            agreementEndDate = DateManager.fromUTC(string: dateEnd)
+        }
+
+        if let type = agreementJSON["typeId"].int {
+            typeId = type
+        }
+
+        if let dateUpdate = agreementJSON["updatedAt"].string {
+            updatedAt = DateManager.fromUTC(string: dateUpdate)
+        }
+
+        // Zone object
+        let zoneJSON = agreementJSON["zone"]
+
+        var zid: Int = -1
+        var zcode: String = ""
+        var zdistrictId: Int = -1
+        var zdesc: String = ""
+
+        if let zd = zoneJSON["id"].int {
+            zid = zd
+        }
+        if let zc = zoneJSON["code"].string {
+            zcode = zc
+        }
+        if let zdid = zoneJSON["districtId"].int {
+            zdistrictId = zdid
+        }
+        if let zdes = zoneJSON["description"].string {
+            zdesc = zdes
+        }
+
+        // Range Usage year objects
+        var usages = [RangeUsageYear]()
+        let usageJSON = agreementJSON["usage"]
+        for (_,usage) in usageJSON {
+            let usageObj = RangeUsageYear()
+
+            if let authAUM = usage["authorizedAum"].int {
+                usageObj.auth_AUMs = authAUM
+            }
+
+            if let uid = usage["id"].int {
+                usageObj.id = uid
+            }
+
+            if let tAU = usage["totalAnnualUse"].int{
+                usageObj.totalAnnual = tAU
+            }
+
+            if let ti = usage["temporaryIncrease"].int {
+                usageObj.tempIncrease = ti
+            }
+
+            if let tnu = usage["totalNonUse"].int {
+                usageObj.totalNonUse = tnu
+            }
+
+            if let agid = usage["agreementId"].string {
+                usageObj.agreementId = agid
+            }
+
+            if let yy = usage["year"].string {
+                if yy.isInt {
+                    usageObj.year = Int(yy)!
+                }
+            }
+
+            usages.append(usageObj)
+
+        }
+        let sortedUsages = usages.sorted(by: { $0.year < $1.year })
+
+        // District object
+        let districtJSON = zoneJSON["district"]
+        var did: Int = -1
+        var ddesc: String = ""
+        var dcode: String = ""
+
+        if let distId = districtJSON["id"].int {
+            did = distId
+        }
+        if let distDesc = districtJSON["description"].string {
+            ddesc = distDesc
+        }
+        if let distCode = districtJSON["code"].string {
+            dcode = distCode
+        }
+
+        let district = District()
+        district.set(id: did, code: dcode, desc: ddesc)
+
+        let zone = Zone()
+        zone.set(district: district, id: zid, code: zcode, districtId: zdistrictId, desc: zdesc)
+
+        // Clients
+        var clientsJSON = agreementJSON["clients"]
+
+        let rup = RUP()
+
+        rup.set(id: id, status: status, zone: zone, planStartDate: planStartDate, rangeName: rangeName, agreementStartDate: agreementStartDate, updatedAt: updatedAt, exemptionStatus: exemptionStatus, agreementId: agreementId, planEndDate: planEndDate, agreementEndDate: agreementEndDate, notes: notes)
+        for usage in sortedUsages {
+            rup.rangeUsageYears.append(usage)
+        }
+        rup.typeId = typeID
+        return rup
+    }
+
 
 }
 extension APIManager {

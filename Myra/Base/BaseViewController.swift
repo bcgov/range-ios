@@ -415,34 +415,34 @@ extension BaseViewController {
 
                     return
                 }
-                 self.authenticated = true
-//                self.syncing = true
-//                self.beginSync()
-                //                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
+                self.authenticated = true
+                //                self.syncing = true
+                //                self.beginSync()
+                //                                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
             }
             present(vc, animated: true, completion: nil)
         } else {
             authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
 
-                //                if let error = error, error == AuthenticationError.expired {
-                //                    let vc = self.authServices.viewController() { (credentials, error) in
-                //
-                //                        guard let _ = credentials, error == nil else {
-                //                            let title = "Authentication"
-                //                            let message = "Authentication didn't work. Please try again."
-                //
-                //                            self.showAlert(with: title, message: message)
-                //
-                //                            return
-                //                        }
-                //                         self.syncing = true
-                //                    }
-                //
-                //                    self.present(vc, animated: true, completion: nil)
-                //                    return
-                //                }
-//                self.syncing = true
-//                self.beginSync()
+                if let error = error, error == AuthenticationError.expired {
+                    let vc = self.authServices.viewController() { (credentials, error) in
+
+                        guard let _ = credentials, error == nil else {
+                            let title = "Authentication"
+                            let message = "Authentication didn't work. Please try again."
+
+                            self.showAlert(with: title, message: message)
+
+                            return
+                        }
+                        self.authenticated = true
+                    }
+
+                    self.present(vc, animated: true, completion: nil)
+                    return
+                }
+                //                self.syncing = true
+                //                self.beginSync()
                 self.authenticated = true
             })
         }
