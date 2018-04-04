@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Create View Controller-->
+        <scene sceneID="ZGd-mj-Bdz">
+            <objects>
+                <viewController storyboardIdentifier="Create" id="XtB-KO-Ruc" customClass="CreateViewController" customModule="Myra" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nvj-2c-5F7">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uAj-Uo-zY8">
+                                <rect key="frame" x="0.0" y="120" width="768" height="904"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QS8-bh-Yy2">
+                                <rect key="frame" x="0.0" y="20" width="768" height="100"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="m8J-cc-ImG">
+                                        <rect key="frame" x="229" y="35" width="310" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwL-hT-4T9" userLabel="Layer1">
+                                                <rect key="frame" x="0.0" y="0.0" width="55" height="30"/>
+                                                <state key="normal" title="Layer1"/>
+                                                <connections>
+                                                    <action selector="layer1Action:" destination="XtB-KO-Ruc" eventType="touchUpInside" id="X46-LS-VZg"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Di0-tz-wh3">
+                                                <rect key="frame" x="85" y="0.0" width="55" height="30"/>
+                                                <state key="normal" title="Layer2"/>
+                                                <connections>
+                                                    <action selector="layer2Action:" destination="XtB-KO-Ruc" eventType="touchUpInside" id="9eA-aC-0bS"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISM-T1-XpK">
+                                                <rect key="frame" x="170" y="0.0" width="55" height="30"/>
+                                                <state key="normal" title="Layer3"/>
+                                                <connections>
+                                                    <action selector="layer3Action:" destination="XtB-KO-Ruc" eventType="touchUpInside" id="FVn-1L-ak9"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpA-qG-PT2">
+                                                <rect key="frame" x="255" y="0.0" width="55" height="30"/>
+                                                <state key="normal" title="Find Me"/>
+                                                <connections>
+                                                    <action selector="layer4Action:" destination="XtB-KO-Ruc" eventType="touchUpInside" id="hl3-p4-h27"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="m8J-cc-ImG" firstAttribute="centerX" secondItem="QS8-bh-Yy2" secondAttribute="centerX" id="BUH-1H-gxe"/>
+                                    <constraint firstItem="m8J-cc-ImG" firstAttribute="centerY" secondItem="QS8-bh-Yy2" secondAttribute="centerY" id="gO8-Df-4Pj"/>
+                                    <constraint firstAttribute="height" constant="100" id="jgc-mb-xvL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Zlh-tG-gdc" firstAttribute="trailing" secondItem="QS8-bh-Yy2" secondAttribute="trailing" id="9MN-Le-U6J"/>
+                            <constraint firstItem="Zlh-tG-gdc" firstAttribute="bottom" secondItem="uAj-Uo-zY8" secondAttribute="bottom" id="A70-01-kZR"/>
+                            <constraint firstItem="Zlh-tG-gdc" firstAttribute="trailing" secondItem="uAj-Uo-zY8" secondAttribute="trailing" id="ABT-wa-ePi"/>
+                            <constraint firstItem="uAj-Uo-zY8" firstAttribute="top" secondItem="QS8-bh-Yy2" secondAttribute="bottom" id="JV6-Uq-Jrv"/>
+                            <constraint firstItem="uAj-Uo-zY8" firstAttribute="leading" secondItem="Zlh-tG-gdc" secondAttribute="leading" id="PDz-Jj-u6N"/>
+                            <constraint firstItem="QS8-bh-Yy2" firstAttribute="top" secondItem="Zlh-tG-gdc" secondAttribute="top" id="Xbo-jz-TJo"/>
+                            <constraint firstItem="QS8-bh-Yy2" firstAttribute="leading" secondItem="Zlh-tG-gdc" secondAttribute="leading" id="gqk-CI-l2E"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Zlh-tG-gdc"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="uAj-Uo-zY8" id="UnL-g1-1h8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wd4-Tk-AWy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-370.3125" y="-192.1875"/>
+        </scene>
+    </scenes>
+</document>
