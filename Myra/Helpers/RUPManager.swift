@@ -200,17 +200,31 @@
         }
     }
 
-    func getAgreements() -> [RUP] {
-        let rups = RealmRequests.getObject(RUP.self)
-        var agreements = [RUP]()
-        if rups == nil {return agreements}
-        for rup in (rups)! {
-            if rup.statusEnum == .Agreement {
-                agreements.append(rup)
+    func getAgreementsWithNoRUPs() -> [Agreement] {
+        let agreements = getAgreements()
+        var filtered = [Agreement]()
+        for agreement in agreements {
+            if agreement.rups.count < 1 {
+                filtered.append(agreement)
             }
         }
+        return filtered
+    }
+
+    // TODO
+    /*
+    func getRUPsForAgreement() -> [RUP] {
+        let rups = RealmRequests.getObject(RUP.self)
+        var agreements = [RUP]()
+//        if rups == nil {return agreements}
+//        for rup in (rups)! {
+//            if rup.statusEnum == .Agreement {
+//                agreements.append(rup)
+//            }
+//        }
         return agreements
     }
+     */
 
     // returns all rups that are not in agreement state
     func getRUPs() -> [RUP] {
@@ -223,6 +237,21 @@
             }
         }
         return returnRups
+    }
+
+    func genRUP(forAgreement: Agreement) -> RUP {
+        let rup = RUP()
+        rup.setFrom(agreement: forAgreement)
+        do {
+            let realm = try Realm()
+            try realm.write {
+                forAgreement.rups.append(rup)
+            }
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.saveObject(object: rup)
+        return rup
     }
 
     func getUsageFor(year: Int, agreementId: String) -> RangeUsageYear? {
@@ -281,8 +310,8 @@
             }
             return
         }
-        // otherwise continue...
 
+        // otherwise continue...
         let numberOfAnimals = Double(scheduleObject.numberOfAnimals)
         let totalDays = Double(scheduleObject.totalDays)
 

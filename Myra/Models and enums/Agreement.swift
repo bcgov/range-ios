@@ -19,9 +19,6 @@ class Agreement: Object {
         return "realmID"
     }
 
-//     @objc dynamic var id: String = ""
-//     @objc dynamic var agreementStartDate: Date?
-//     @objc dynamic var agreementEndDate: Date?
     @objc dynamic var agreementId: String = ""
     @objc dynamic var agreementStartDate: Date?
     @objc dynamic var agreementEndDate: Date?
@@ -31,9 +28,9 @@ class Agreement: Object {
     @objc dynamic var updatedAt: Date?
 
     var clients = List<Client>()
-    var rups = List<RUP>()
     var rangeUsageYears = List<RangeUsageYear>()
     var zones = List<Zone>()
+    var rups = List<RUP>()
 
     func set(agreementId: String, agreementStartDate: Date, agreementEndDate: Date, typeId: Int, exemptionStatusId: Int, createdAt: Date?, updatedAt: Date?) {
         self.agreementId = agreementId
