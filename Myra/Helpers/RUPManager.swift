@@ -266,6 +266,18 @@ extension RUPManager {
         return total
     }
 
+    func isScheduleValid(schedule: Schedule, agreementID: String) -> Bool {
+        let totAUMs = getTotalAUMsFor(schedule: schedule)
+        let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
+        let allowed = usage?.auth_AUMs ?? 0
+
+        print(totAUMs)
+        print(usage)
+        print(allowed)
+        return totAUMs <= Double(allowed)
+
+    }
+
     // if livestock with the specified name is not found, returns false
     func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) -> Bool {
         let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
@@ -305,11 +317,41 @@ extension RUPManager {
 
     func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
         let taken = getScheduleYears(rup: rup)
-        let start = from + 1
         var new = from
         while taken.contains("\(new)") {
             new = new + 1
         }
         return new
+    }
+
+    func sortSchedule(rup: RUP) {
+        let sorted = rup.schedules.sorted(by: { $0.year < $1.year })
+        var list: List<Schedule> = List<Schedule>()
+        for element in sorted {
+            list.append(element)
+        }
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                rup.schedules = list
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func updateSchedulesForPasture(pasture: Pasture, in rup: RUP) {
+        let query = RealmRequests.getObject(ScheduleObject.self)
+        if let scheduleObjects = query {
+            for object in scheduleObjects {
+                if object.pasture?.realmID == pasture.realmID {
+                    print(object)
+                    calculate(scheduleObject: object)
+                    print(object)
+                    print("done")
+                }
+            }
+        }
     }
 }

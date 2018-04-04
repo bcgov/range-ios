@@ -69,6 +69,9 @@ class PastureTableViewCell: UITableViewCell {
         } catch _ {
             fatalError()
         }
+
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
+
     }
 
     @IBAction func landDeductionChanged(_ sender: UITextField) {
@@ -86,6 +89,7 @@ class PastureTableViewCell: UITableViewCell {
         } catch _ {
             fatalError()
         }
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
     }
 
     @IBAction func graceDaysChanged(_ sender: UITextField) {
@@ -103,6 +107,7 @@ class PastureTableViewCell: UITableViewCell {
         } catch _ {
             fatalError()
         }
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
 
     }
 
@@ -114,7 +119,14 @@ class PastureTableViewCell: UITableViewCell {
         self.mode = mode
         self.pasture = pasture
         self.pastureNameLabel.text = pasture.name
+        autofill()
         setupTable()
+    }
+
+    func autofill() {
+        self.aumsField.text = "\(pasture?.allowedAUMs ?? 0)"
+        self.deductionFIeld.text = "\(pasture?.privateLandDeduction ?? 0)"
+        self.graceDaysField.text = "\(pasture?.graceDays ?? 0)"
     }
 
     func getCellHeight() -> CGSize {

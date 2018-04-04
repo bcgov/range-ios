@@ -59,6 +59,9 @@ class ScheduleTableViewCell: UITableViewCell {
     }
 
     func updateTableHeight() {
+        if let plan = rup {
+            RUPManager.shared.sortSchedule(rup: plan)
+        }
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
         let count = rup?.schedules.count ?? 0

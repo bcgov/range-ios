@@ -13,6 +13,10 @@
 		290A531E2053503A005F5019 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290A531D2053503A005F5019 /* APIManager.swift */; };
 		290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290E153B2048C9FE00A51884 /* BaseFormCell.swift */; };
 		290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290FF88520635F1F00C7DAC0 /* SyncDate.swift */; };
+		29174683207426E2005F70B4 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29174682207426E2005F70B4 /* Home.storyboard */; };
+		2917468520742765005F70B4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2917468420742765005F70B4 /* Login.storyboard */; };
+		291746872074279B005F70B4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291746862074279B005F70B4 /* LoginViewController.swift */; };
+		2917468920742A7A005F70B4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917468820742A7A005F70B4 /* MainViewController.swift */; };
 		291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9320364BDF00390523 /* CreateViewController.swift */; };
 		291C4D9620364BEF00390523 /* Create.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291C4D9520364BEF00390523 /* Create.storyboard */; };
 		291C4D9B2037631400390523 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9A2037631400390523 /* Polygon.swift */; };
@@ -23,7 +27,6 @@
 		2920F8302034C0140090E7B4 /* RUPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82F2034C0140090E7B4 /* RUPGenerator.swift */; };
 		2920F8332034C8380090E7B4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8322034C8380090E7B4 /* Color.swift */; };
 		2920F8352034C8540090E7B4 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8342034C8540090E7B4 /* View.swift */; };
-		2920F8382034CAB40090E7B4 /* RUPDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2920F8372034CAB40090E7B4 /* RUPDetails.storyboard */; };
 		2920F83A2034CADC0090E7B4 /* RUPDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8392034CADC0090E7B4 /* RUPDetailsViewController.swift */; };
 		2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83B2034CF850090E7B4 /* ViewManager.swift */; };
 		2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83D2034D6D60090E7B4 /* RUPStatus.swift */; };
@@ -122,6 +125,10 @@
 		290A531D2053503A005F5019 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		290E153B2048C9FE00A51884 /* BaseFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFormCell.swift; sourceTree = "<group>"; };
 		290FF88520635F1F00C7DAC0 /* SyncDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDate.swift; sourceTree = "<group>"; };
+		29174682207426E2005F70B4 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		2917468420742765005F70B4 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		291746862074279B005F70B4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		2917468820742A7A005F70B4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		291C4D9320364BDF00390523 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		291C4D9520364BEF00390523 /* Create.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Create.storyboard; sourceTree = "<group>"; };
 		291C4D9A2037631400390523 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
@@ -132,7 +139,6 @@
 		2920F82F2034C0140090E7B4 /* RUPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPGenerator.swift; sourceTree = "<group>"; };
 		2920F8322034C8380090E7B4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2920F8342034C8540090E7B4 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		2920F8372034CAB40090E7B4 /* RUPDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RUPDetails.storyboard; sourceTree = "<group>"; };
 		2920F8392034CADC0090E7B4 /* RUPDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPDetailsViewController.swift; sourceTree = "<group>"; };
 		2920F83B2034CF850090E7B4 /* ViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
 		2920F83D2034D6D60090E7B4 /* RUPStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPStatus.swift; sourceTree = "<group>"; };
@@ -254,6 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				2920F83B2034CF850090E7B4 /* ViewManager.swift */,
+				2917468820742A7A005F70B4 /* MainViewController.swift */,
+				291746862074279B005F70B4 /* LoginViewController.swift */,
 				293C95C620335D4100BF1113 /* HomeViewController.swift */,
 				292185532065686B006F5EF4 /* HomeSyncExtension.swift */,
 				29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */,
@@ -444,12 +452,13 @@
 			isa = PBXGroup;
 			children = (
 				293C95C820335D4100BF1113 /* Main.storyboard */,
+				2917468420742765005F70B4 /* Login.storyboard */,
+				29174682207426E2005F70B4 /* Home.storyboard */,
 				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
-				2920F8372034CAB40090E7B4 /* RUPDetails.storyboard */,
-				291C4D9520364BEF00390523 /* Create.storyboard */,
 				294AC500204F57CC00F0FB04 /* Schedule.storyboard */,
 				29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */,
 				29A52744205B301400C871F7 /* SelectionPopup.storyboard */,
+				291C4D9520364BEF00390523 /* Create.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -534,11 +543,11 @@
 				29EA02992069565C0076403B /* checked_done_.json in Resources */,
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
 				29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */,
+				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
-				2920F8382034CAB40090E7B4 /* RUPDetails.storyboard in Resources */,
 				29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */,
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
@@ -547,6 +556,7 @@
 				29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */,
 				2974270C20448F720033BC47 /* LiveStockIDTableViewCell.xib in Resources */,
 				29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */,
+				29174683207426E2005F70B4 /* Home.storyboard in Resources */,
 				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				2978AF492053318C0004562E /* BasicInfoTableViewCell.xib in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
@@ -674,6 +684,7 @@
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,
+				2917468920742A7A005F70B4 /* MainViewController.swift in Sources */,
 				291C4D9B2037631400390523 /* Polygon.swift in Sources */,
 				29FCB038205702B3006CD247 /* DateManager.swift in Sources */,
 				2962320720472AAA00F1CEBF /* BasicInformation.swift in Sources */,
@@ -682,6 +693,7 @@
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */,
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
+				291746872074279B005F70B4 /* LoginViewController.swift in Sources */,
 				29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */,
 				29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum LiveStockIDType: String{
+enum LiveStockIDType: String {
     case Brand
     case Tag
 }

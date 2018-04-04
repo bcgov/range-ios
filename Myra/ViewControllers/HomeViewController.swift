@@ -14,11 +14,6 @@ class HomeViewController: BaseViewController {
 
     // MARK: Constants
     let reachability = Reachability()!
-    let authServices: AuthServices = {
-        return AuthServices(baseUrl: SingleSignOnConstants.SSO.baseUrl, redirectUri: SingleSignOnConstants.SSO.redirectUri,
-                            clientId: SingleSignOnConstants.SSO.clientId, realm:SingleSignOnConstants.SSO.realmName,
-                            idpHint: SingleSignOnConstants.SSO.idpHint)
-    }()
 
     // MARK: Variables
 
@@ -114,12 +109,22 @@ class HomeViewController: BaseViewController {
         syncing = false
     }
 
+    override func whenAuthenticated() {
+        self.syncing = true
+        sync { (synced) in
+            self.loadHome()
+        }
+    }
+
+    override func whenSyncClosed() {
+        self.syncing = false
+    }
+
     func showSyncPage() {
         syncButton.isUserInteractionEnabled = true
         self.createButton.isUserInteractionEnabled = true
         self.tableView.isUserInteractionEnabled = true
-        let syncView = getSyncView()
-
+//        let syncView = getSyncView()
 //        syncView.autoresizesSubviews = false
         self.view.addSubview(getSyncView())
     }
@@ -130,34 +135,34 @@ class HomeViewController: BaseViewController {
         self.tableView.isUserInteractionEnabled = true
     }
 
-    func beginSync() {
-        self.beginSyncLoadingAnimation()
-        self.hideSyncViewButton()
-        APIManager.sync(completion: { (done) in
-            if done {
+//    func beginSync() {
+//        self.beginSyncLoadingAnimation()
+//        self.hideSyncViewButton()
+//        APIManager.sync(completion: { (done) in
+//            if done {
+////                self.endSyncLoadingAnimation()
+//                self.successLoadingAnimation()
 //                self.endSyncLoadingAnimation()
-                self.successLoadingAnimation()
-                self.endSyncLoadingAnimation()
-                self.updateSyncDescription(text: "Sync completed.")
-                self.showSyncViewButton()
-
-//                self.syncPageButton.setTitle("Sync completed.", for: .normal)
-                self.loadHome()
-            } else {
-                self.updateSyncDescription(text: "Sync failed")
-                self.updateSyncButtonTitle(text: "Close")
-                self.endSyncLoadingAnimation()
-                self.failLoadingAnimation()
-                self.showSyncViewButton()
-//                self.syncPageButton.setTitle("Sync failed", for: .normal)
-            }
-            self.enableSyncViewButton()
-
-        }) { (progress) in
-            self.updateSyncDescription(text: progress)
-//            self.syncTitle.text = progress
-        }
-    }
+//                self.updateSyncDescription(text: "Sync completed.")
+//                self.showSyncViewButton()
+//
+////                self.syncPageButton.setTitle("Sync completed.", for: .normal)
+//                self.loadHome()
+//            } else {
+//                self.updateSyncDescription(text: "Sync failed")
+//                self.updateSyncButtonTitle(text: "Close")
+//                self.endSyncLoadingAnimation()
+//                self.failLoadingAnimation()
+//                self.showSyncViewButton()
+////                self.syncPageButton.setTitle("Sync failed", for: .normal)
+//            }
+//            self.enableSyncViewButton()
+//
+//        }) { (progress) in
+//            self.updateSyncDescription(text: progress)
+////            self.syncTitle.text = progress
+//        }
+//    }
 
     func showLoginPage() {
 
@@ -286,58 +291,10 @@ extension HomeViewController {
     }
 }
 
-// Mark: Authentication
-extension HomeViewController {
-
-    private func authenticateIfRequred() {
-        if !authServices.isAuthenticated() {
-            let vc = authServices.viewController() { (credentials, error) in
-
-                guard let _ = credentials, error == nil else {
-                    let title = "Authentication"
-                    let message = "Authentication didn't work. Please try again."
-
-                    self.showAlert(with: title, message: message)
-
-                    return
-                }
-                self.syncing = true
-                self.beginSync()
-//                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
-            }
-
-            present(vc, animated: true, completion: nil)
-        } else {
-            authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
-
-//                if let error = error, error == AuthenticationError.expired {
-//                    let vc = self.authServices.viewController() { (credentials, error) in
-//
-//                        guard let _ = credentials, error == nil else {
-//                            let title = "Authentication"
-//                            let message = "Authentication didn't work. Please try again."
-//
-//                            self.showAlert(with: title, message: message)
-//
-//                            return
-//                        }
-//                         self.syncing = true
-//                    }
-//
-//                    self.present(vc, animated: true, completion: nil)
-//                    return
-//                }
-                self.syncing = true
-                self.beginSync()
-            })
-        }
-    }
-
-}
-
 // Styles
 extension HomeViewController {
     func style() {
+        setStatusBarAppearanceDark()
         makeCircle(view: userBoxView)
     }
 }

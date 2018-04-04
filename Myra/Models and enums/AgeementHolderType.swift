@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum AgreementHolderType: String{
+enum AgreementHolderType: String {
     case Primary
     case Other
 }

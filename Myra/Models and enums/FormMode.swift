@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FormMode{
+enum FormMode {
     case View
     case Create
     case Edit

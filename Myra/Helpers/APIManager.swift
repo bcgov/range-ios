@@ -131,8 +131,10 @@ class APIManager {
                 print(json)
                 var rups: [RUP] = [RUP]()
                 if let error = json["error"].string {
+                    print(error)
                     return completion(false, nil)
                 }
+
                 for (_,agreementJSON) in json {
                     rups.append(handleAgreementJSON(rupJSON: agreementJSON))
                 }
@@ -364,6 +366,8 @@ extension APIManager {
                                 completion(false)
                             }
                         })
+                    } else {
+                        completion(false)
                     }
                 } else {
                     completion(false)
@@ -377,7 +381,7 @@ extension APIManager {
 //                    completion(true)
 //                case .failure(let error):
 //                    completion(false)
-//                }
+//                }f
         }
     }
 

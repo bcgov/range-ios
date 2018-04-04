@@ -13,7 +13,7 @@ import Lottie
 // Sync view
 extension HomeViewController {
 
-
+/*
     // White screen's tag = 100
     // View's title = 101
     // View's description = 102
@@ -234,5 +234,5 @@ extension HomeViewController {
             viewWithTag.removeFromSuperview()
         }
     }
-    
+    */
 }

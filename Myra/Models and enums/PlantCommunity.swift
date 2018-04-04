@@ -10,7 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class PlantCommunity: Object{
+class PlantCommunity: Object {
 
     @objc dynamic var realmID: String = {
         return String(Int.random(min: 1, max: Int(Int32.max)))

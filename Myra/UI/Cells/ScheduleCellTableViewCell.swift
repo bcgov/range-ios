@@ -33,14 +33,23 @@ class ScheduleCellTableViewCell: UITableViewCell {
         duplicate()
     }
 
-    func setup(rup: RUP,schedule: Schedule, parentReference: ScheduleTableViewCell) {
+    func setup(rup: RUP, schedule: Schedule, parentReference: ScheduleTableViewCell) {
         self.schedule = schedule
         if nameLabel != nil { nameLabel.text = schedule.name }
         self.parentReference = parentReference
         self.rup = rup
+        styleBasedOnValidity()
 //        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
 //        swipeLeft.direction = .left
 //        self.view.addGestureRecognizer(swipeLeft)
+    }
+
+    func styleBasedOnValidity() {
+        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup?.id)!) {
+            styleValid()
+        } else {
+            styleInvalid()
+        }
     }
     
     func handleGesture(gesture: UISwipeGestureRecognizer) {
@@ -77,7 +86,9 @@ class ScheduleCellTableViewCell: UITableViewCell {
 
     @IBAction func detailAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.showSchedule(object: schedule!)
+        parent.showSchedule(object: schedule!, completion: { done in
+            self.styleBasedOnValidity()
+        })
     }
 
     func animateIt() {
@@ -97,5 +108,14 @@ class ScheduleCellTableViewCell: UITableViewCell {
         layer?.layer.cornerRadius = 3
         layer?.layer.borderWidth = 1
         layer?.layer.borderColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1).cgColor
+    }
+
+    func styleInvalid() {
+        nameLabel.textColor = UIColor.red
+        cellContainer.layer.borderColor = UIColor.red.cgColor
+    }
+    func styleValid() {
+        nameLabel.textColor = UIColor.black
+        cellContainer.layer.borderColor = UIColor.black.cgColor
     }
 }

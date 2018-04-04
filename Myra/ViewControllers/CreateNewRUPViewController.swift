@@ -70,6 +70,7 @@ class CreateNewRUPViewController: UIViewController {
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleBoxImage: UIImageView!
 
+    /*
     @IBOutlet weak var ministersIssuesLabel: UILabel!
     @IBOutlet weak var ministersIssuesButton: UIButton!
     @IBOutlet weak var ministersIssuesBoxImage: UIImageView!
@@ -89,6 +90,7 @@ class CreateNewRUPViewController: UIViewController {
     @IBOutlet weak var mapLabel: UILabel!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var mapInfoBoxImage: UIImageView!
+    */
 
     @IBOutlet weak var reviewAndSubmitLabel: UILabel!
     @IBOutlet weak var reviewAndSubmitButton: UIButton!
@@ -241,6 +243,7 @@ class CreateNewRUPViewController: UIViewController {
     @IBAction func scheduleAction(_ sender: UIButton) {
         tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
     }
+    /*
     @IBAction func ministersIssuesAction(_ sender: UIButton) {
     }
     @IBAction func invasivePlantsAction(_ sender: UIButton) {
@@ -252,9 +255,10 @@ class CreateNewRUPViewController: UIViewController {
     @IBAction func mapAction(_ sender: UIButton) {
         tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
     }
+    */
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
-
+        self.view.isUserInteractionEnabled = false
         if let rupobj = rup {
             APIManager.uploadRUP(rup: rupobj) { (success) in
                 if success {
@@ -264,9 +268,11 @@ class CreateNewRUPViewController: UIViewController {
                             self.rup?.statusEnum = .Pending
                         }
                     } catch _ {}
+                } else {
+                    self.view.isUserInteractionEnabled = true
                 }
-                return self.parentCallBack!(true)
                 self.dismiss(animated: true, completion: nil)
+                return self.parentCallBack!(true)
             }
         }
 //        APIManager.send(rup: self.rup!) { (done) in
@@ -461,10 +467,10 @@ extension CreateNewRUPViewController {
 }
 
 extension CreateNewRUPViewController {
-    func showSchedule(object: Schedule) {
+    func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
          let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.setup(rup: rup!, schedule: object)
+        schedule.setup(rup: rup!, schedule: object, completion: completion)
 //        schedule.schedule = object
         self.present(schedule, animated: true, completion: nil)
     }
