@@ -500,25 +500,7 @@
         return ClientType()
     }
 
-    func clearStoredReferenceData() {
-        let query1 = RealmRequests.getObject(ClientType.self)
-        let query2 = RealmRequests.getObject(PlanStatus.self)
-        let query3 = RealmRequests.getObject(LivestockIdentifierType.self)
-        let query4 = RealmRequests.getObject(AgreementExemptionStatus.self)
-        let query5 = RealmRequests.getObject(AgreementStatus.self)
-        let query6 = RealmRequests.getObject(LiveStockType.self)
-        let query7 = RealmRequests.getObject(AgreementType.self)
-
-        removeAllObjectsIn(query: query1)
-        removeAllObjectsIn(query: query2)
-        removeAllObjectsIn(query: query3)
-        removeAllObjectsIn(query: query4)
-        removeAllObjectsIn(query: query5)
-        removeAllObjectsIn(query: query6)
-        removeAllObjectsIn(query: query7)
-    }
-
-    func clearStoredReferenceData2() {
+    func getAllReferenceData() -> [Object] {
         var objects = [Object]()
 
         if let query1: [Object] = RealmRequests.getObject(ClientType.self) {
@@ -543,6 +525,11 @@
             objects.append(contentsOf: query7)
         }
 
+        return objects
+    }
+
+    func clearStoredReferenceData() {
+        let objects = getAllReferenceData()
         removeAllObjectsIn(query: objects)
     }
 
