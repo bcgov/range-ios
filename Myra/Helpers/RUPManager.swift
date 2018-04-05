@@ -451,4 +451,88 @@
             }
         }
     }
+
+    func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
+        let query = RealmRequests.getObject(AgreementExemptionStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return AgreementExemptionStatus()
+    }
+
+    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
+        let query = RealmRequests.getObject(LivestockIdentifierType.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return LivestockIdentifierType()
+    }
+
+    func getPlanStatusFor(id: Int) -> PlanStatus {
+        let query = RealmRequests.getObject(PlanStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return PlanStatus()
+    }
+
+    func getClientTypeFor(id: Int) -> ClientType {
+        let query = RealmRequests.getObject(ClientType.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return ClientType()
+    }
+
+    func clearStoredReferenceData() {
+        let query1 = RealmRequests.getObject(ClientType.self)
+        let query2 = RealmRequests.getObject(PlanStatus.self)
+        let query3 = RealmRequests.getObject(LivestockIdentifierType.self)
+        let query4 = RealmRequests.getObject(AgreementExemptionStatus.self)
+        let query5 = RealmRequests.getObject(AgreementStatus.self)
+        let query6 = RealmRequests.getObject(LiveStockType.self)
+        let query7 = RealmRequests.getObject(AgreementType.self)
+
+        removeAllObjectsIn(query: query1)
+        removeAllObjectsIn(query: query2)
+        removeAllObjectsIn(query: query3)
+        removeAllObjectsIn(query: query4)
+        removeAllObjectsIn(query: query5)
+        removeAllObjectsIn(query: query6)
+        removeAllObjectsIn(query: query7)
+    }
+
+    func removeAllObjectsIn(query: [Object]?) {
+        if query == nil {return}
+        for object in query! {
+            RealmRequests.deleteObject(object)
+        }
+    }
+
+    func storeNewReferenceData(objects: [Object]) {
+        for object in objects {
+            RealmRequests.saveObject(object: object)
+        }
+    }
+
+    func updateReferenceData(objects: [Object]) {
+        clearStoredReferenceData()
+        storeNewReferenceData(objects: objects)
+    }
  }
