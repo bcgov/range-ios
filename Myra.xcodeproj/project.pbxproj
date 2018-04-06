@@ -33,6 +33,10 @@
 		2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8402034F3880090E7B4 /* BaseViewController.swift */; };
 		292185542065686B006F5EF4 /* HomeSyncExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292185532065686B006F5EF4 /* HomeSyncExtension.swift */; };
 		2926D96E20754E52006250D3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
+		292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
+		292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
+		292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65222076AAF3003D4AF0 /* PlanStatus.swift */; };
+		292E65252076AB12003D4AF0 /* AgreementExemptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65242076AB12003D4AF0 /* AgreementExemptionStatus.swift */; };
 		293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
 		293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* HomeViewController.swift */; };
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
@@ -146,6 +150,10 @@
 		2920F8402034F3880090E7B4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		292185532065686B006F5EF4 /* HomeSyncExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSyncExtension.swift; sourceTree = "<group>"; };
 		2926D96D20754E52006250D3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestockIdentifierType.swift; sourceTree = "<group>"; };
+		292E65202076AAC6003D4AF0 /* ClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientType.swift; sourceTree = "<group>"; };
+		292E65222076AAF3003D4AF0 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
+		292E65242076AB12003D4AF0 /* AgreementExemptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementExemptionStatus.swift; sourceTree = "<group>"; };
 		293C95C120335D4100BF1113 /* Myra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Myra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		293C95C420335D4100BF1113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		293C95C620335D4100BF1113 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -389,6 +397,10 @@
 				29EADF7D206039BC0087593F /* AgreemntType.swift */,
 				2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */,
 				29EADF7F206039D60087593F /* AgreementStatus.swift */,
+				292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */,
+				292E65202076AAC6003D4AF0 /* ClientType.swift */,
+				292E65222076AAF3003D4AF0 /* PlanStatus.swift */,
+				292E65242076AB12003D4AF0 /* AgreementExemptionStatus.swift */,
 			);
 			path = Reference;
 			sourceTree = "<group>";
@@ -637,6 +649,7 @@
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ShowTime/ShowTime.framework",
 				"${BUILT_PRODUCTS_DIR}/SingleSignOn/SingleSignOn.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -649,6 +662,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ShowTime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SingleSignOn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -671,6 +685,7 @@
 				29A52750205B322700C871F7 /* selectionPopUpTableViewCell.swift in Sources */,
 				29FB97C1204DCB5B005297B9 /* AgeementHolderType.swift in Sources */,
 				2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */,
+				292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */,
 				29DA8AA52059A8DA00139AD1 /* String.swift in Sources */,
 				290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */,
 				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
@@ -682,6 +697,7 @@
 				29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */,
 				2962B0EC204F2BB400F71B9C /* ScheduleObject.swift in Sources */,
 				2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */,
+				292E65252076AB12003D4AF0 /* AgreementExemptionStatus.swift in Sources */,
 				2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */,
 				2962320920472D7500F1CEBF /* Date.swift in Sources */,
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
@@ -737,7 +753,9 @@
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				2920F8332034C8380090E7B4 /* Color.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
+				292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */,
 				29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */,
+				292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */,
 				29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */,
 				29E5A09B2062CFC00077F0A5 /* SingleSignOnConstants.swift in Sources */,
 				2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */,

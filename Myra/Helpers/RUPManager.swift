@@ -451,4 +451,103 @@
             }
         }
     }
+
+    func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
+        let query = RealmRequests.getObject(AgreementExemptionStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return AgreementExemptionStatus()
+    }
+
+    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
+        let query = RealmRequests.getObject(LivestockIdentifierType.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return LivestockIdentifierType()
+    }
+
+    func getPlanStatusFor(id: Int) -> PlanStatus {
+        let query = RealmRequests.getObject(PlanStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return PlanStatus()
+    }
+
+    func getClientTypeFor(id: Int) -> ClientType {
+        let query = RealmRequests.getObject(ClientType.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return ClientType()
+    }
+
+    func getAllReferenceData() -> [Object] {
+        var objects = [Object]()
+
+        if let query1: [Object] = RealmRequests.getObject(ClientType.self) {
+            objects.append(contentsOf: query1)
+        }
+        if let query2: [Object] = RealmRequests.getObject(PlanStatus.self) {
+            objects.append(contentsOf: query2)
+        }
+        if let query3: [Object] = RealmRequests.getObject(LivestockIdentifierType.self) {
+            objects.append(contentsOf: query3)
+        }
+        if let query4: [Object] = RealmRequests.getObject(AgreementExemptionStatus.self) {
+            objects.append(contentsOf: query4)
+        }
+        if let query5: [Object] = RealmRequests.getObject(AgreementStatus.self) {
+            objects.append(contentsOf: query5)
+        }
+        if let query6: [Object] = RealmRequests.getObject(LiveStockType.self) {
+            objects.append(contentsOf: query6)
+        }
+        if let query7: [Object] = RealmRequests.getObject(AgreementType.self) {
+            objects.append(contentsOf: query7)
+        }
+
+        return objects
+    }
+
+    func clearStoredReferenceData() {
+        let objects = getAllReferenceData()
+        removeAllObjectsIn(query: objects)
+    }
+
+    func removeAllObjectsIn(query: [Object]?) {
+        if query == nil {return}
+        for object in query! {
+            RealmRequests.deleteObject(object)
+        }
+    }
+
+    func storeNewReferenceData(objects: [Object]) {
+        for object in objects {
+            RealmRequests.saveObject(object: object)
+        }
+    }
+
+    func updateReferenceData(objects: [Object]) {
+        clearStoredReferenceData()
+        storeNewReferenceData(objects: objects)
+    }
  }
