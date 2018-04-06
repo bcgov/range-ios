@@ -23,10 +23,10 @@ class AgreementTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setup(rup: RUP) {
-        self.rangeNumber.text = "\(rup.id)"
+    func setup(agreement: Agreement) {
+        self.rangeNumber.text = "\(agreement.agreementId)"
         self.agreementHolder.text = ""
-        self.rangeName.text = rup.rangeName
+        self.rangeName.text = ""
     }
     
 }

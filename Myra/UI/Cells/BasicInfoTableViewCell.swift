@@ -73,7 +73,7 @@ class BasicInfoTableViewCell: UITableViewCell {
         if rup == nil { return }
         setFieldMode()
         self.addButton.alpha = 0
-        if let rangeNumber = rup?.id {
+        if let rangeNumber = rup?.agreementId {
             self.planNumber.text =  rangeNumber
         }
         if let start = rup?.agreementStartDate {

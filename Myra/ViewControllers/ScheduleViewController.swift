@@ -12,6 +12,7 @@ class ScheduleViewController: UIViewController {
 
     @IBOutlet weak var popupContainer: UIView!
 
+    var completion: ((_ done: Bool) -> Void)?
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var rup: RUP?
@@ -29,12 +30,16 @@ class ScheduleViewController: UIViewController {
     }
 
     @IBAction func backAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+
+        self.dismiss(animated: true, completion: {
+            return self.completion!(true)
+        })
     }
 
-    func setup(rup: RUP, schedule: Schedule) {
+    func setup(rup: RUP, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         self.rup = rup
         self.schedule = schedule
+        self.completion = completion
         let scheduleObjects = schedule.scheduleObjects
         for object in scheduleObjects {
             RUPManager.shared.calculate(scheduleObject: object)

@@ -43,6 +43,9 @@ class ScheduleFooterTableViewCell: UITableViewCell {
         let allowed = usage?.auth_AUMs ?? 0
         self.authorizedAUMs.text = "\(allowed)"
 
+        // could also use
+        // RUPManager.shared.isScheduleValid(schedule: schedule, agreementID: agreementID)
+
         if totAUMs > Double(allowed) {
             totalAUMs.textColor = UIColor.red
         } else {

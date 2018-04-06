@@ -62,6 +62,7 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         lookup.setup(objects: objects) { (selected, obj) in
             if selected {
                 if RUPManager.shared.setLiveStockTypeFor(scheduleObject: self.scheduleObject!, liveStock: (obj?.display)!) {
+                    RealmRequests.updateObject(self.scheduleObject!)
                     self.update()
                     parent.hidepopup(vc: lookup)
                 } else {
@@ -177,6 +178,7 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         self.rup = rup
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
+        print(scheduleObject)
         autofill()
     }
 

@@ -14,6 +14,14 @@ class ViewManager {
 //    
 //    private init() {}
 
+    lazy var home: HomeViewController = {
+        return UIStoryboard(name: "Home", bundle: Bundle.main).instantiateViewController(withIdentifier: "Home") as! HomeViewController
+    }()
+
+    lazy var login: LoginViewController = {
+        return UIStoryboard(name: "Login", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login") as! LoginViewController
+    }()
+
     lazy var rupDetails: RUPDetailsViewController = {
         return UIStoryboard(name: "RUPDetails", bundle: Bundle.main).instantiateViewController(withIdentifier: "RUPDetails") as! RUPDetailsViewController
     }()

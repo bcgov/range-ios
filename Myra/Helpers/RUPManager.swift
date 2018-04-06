@@ -1,16 +1,16 @@
  //
-//  RUPManager.swift
-//  Myra
-//
-//  Created by Amir Shayegh on 2018-03-06.
-//  Copyright © 2018 Government of British Columbia. All rights reserved.
-//
+ //  RUPManager.swift
+ //  Myra
+ //
+ //  Created by Amir Shayegh on 2018-03-06.
+ //  Copyright © 2018 Government of British Columbia. All rights reserved.
+ //
 
-import Foundation
-import Realm
-import RealmSwift
+ import Foundation
+ import Realm
+ import RealmSwift
 
-class RUPManager {
+ class RUPManager {
     static let shared = RUPManager()
     private init() {}
 
@@ -71,10 +71,10 @@ class RUPManager {
         return ""
     }
 
-}
+ }
 
-// rup / agreement
-extension RUPManager {
+ // rup / agreement
+ extension RUPManager {
 
     func getRUP(with id: String) -> RUP? {
         if rupExists(id: id) {
@@ -102,16 +102,16 @@ extension RUPManager {
 
     // will fetch the store rup with the same id,
     // so only pass in the newly downloaded agreement
-    func updateRUP(with newAgreement: RUP) {
-        let storedRUP = getRUP(with: newAgreement.agreementId)
+    // TODO: Refactor - schema change
+    func updateRUP(with newRUP: RUP) {
+        let storedRUP = getRUP(with: newRUP.agreementId)
         if storedRUP == nil {return}
 
         do {
             let realm = try Realm()
             try realm.write {
-//                storedRUP?.status = newAgreement.status
-                if newAgreement.zones.count > 0 {
-                    storedRUP?.zones = newAgreement.zones
+                if newRUP.zones.count > 0 {
+                    storedRUP?.zones = newRUP.zones
                 }
             }
 
@@ -121,7 +121,8 @@ extension RUPManager {
         RealmRequests.updateObject(storedRUP!)
     }
 
-    func diffAgreements(rups: [RUP]) {
+    // TODO: Refactor - schema change
+    func diffRup(rups: [RUP]) {
         for rup in rups {
             if rupExists(id: rup.id) {
                 updateRUP(with: rup)
@@ -132,17 +133,98 @@ extension RUPManager {
         }
     }
 
-    func getAgreements() -> [RUP] {
-        let rups = RealmRequests.getObject(RUP.self)
-        var agreements = [RUP]()
-        if rups == nil {return agreements}
-        for rup in (rups)! {
-            if rup.statusEnum == .Agreement {
-                agreements.append(rup)
+    func getAgreement(with id: String) -> Agreement? {
+        if agreementExists(id: id) {
+            let storedAgreements = RealmRequests.getObject(Agreement.self)
+            if storedAgreements != nil {
+                for storedAgreement in storedAgreements! {
+                    if storedAgreement.agreementId == id {
+                        return storedAgreement
+                    }
+                }
             }
         }
+        return nil
+    }
+
+    func agreementExists(id: String) -> Bool {
+        let storedAgreements = RealmRequests.getObject(Agreement.self)
+        if storedAgreements != nil {
+            for storedAgreement in storedAgreements! {
+                if storedAgreement.agreementId == id {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    // Updates Range use years and zones
+    func updateAgreement(with newAgreement: Agreement) {
+        let storedAgreement = getAgreement(with: newAgreement.agreementId)
+        if storedAgreement == nil {return}
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                storedAgreement?.zones = newAgreement.zones
+                storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
+                if newAgreement.zones.count > 0 {
+                    storedAgreement?.zones = newAgreement.zones
+                    storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
+                }
+            }
+
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.updateObject(storedAgreement!)
+    }
+
+    func diffAgreements(agreements: [Agreement]) {
+        for agreement in agreements {
+            if agreementExists(id: agreement.agreementId) {
+                updateAgreement(with: agreement)
+            } else {
+                RealmRequests.saveObject(object: agreement)
+            }
+        }
+    }
+
+    func getAgreements() -> [Agreement] {
+        let agreementObjects = RealmRequests.getObject(Agreement.self)
+        if let agreements: [Agreement] = agreementObjects {
+            return agreements
+        } else {
+            return [Agreement]()
+        }
+    }
+
+    func getAgreementsWithNoRUPs() -> [Agreement] {
+        let agreements = getAgreements()
+        var filtered = [Agreement]()
+        for agreement in agreements {
+            if agreement.rups.count < 1 {
+                filtered.append(agreement)
+            }
+        }
+        return filtered
+    }
+
+    // TODO
+    /*
+    func getRUPsForAgreement() -> [RUP] {
+        let rups = RealmRequests.getObject(RUP.self)
+        var agreements = [RUP]()
+//        if rups == nil {return agreements}
+//        for rup in (rups)! {
+//            if rup.statusEnum == .Agreement {
+//                agreements.append(rup)
+//            }
+//        }
         return agreements
     }
+     */
 
     // returns all rups that are not in agreement state
     func getRUPs() -> [RUP] {
@@ -151,10 +233,25 @@ extension RUPManager {
         if rups == nil {return returnRups}
         for rup in (rups)! {
             if rup.statusEnum != .Agreement {
-                 returnRups.append(rup)
+                returnRups.append(rup)
             }
         }
         return returnRups
+    }
+
+    func genRUP(forAgreement: Agreement) -> RUP {
+        let rup = RUP()
+        rup.setFrom(agreement: forAgreement)
+        do {
+            let realm = try Realm()
+            try realm.write {
+                forAgreement.rups.append(rup)
+            }
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.saveObject(object: rup)
+        return rup
     }
 
     func getUsageFor(year: Int, agreementId: String) -> RangeUsageYear? {
@@ -169,17 +266,17 @@ extension RUPManager {
         }
         return nil
     }
-}
+ }
 
-// Schedule
-extension RUPManager {
+ // Schedule
+ extension RUPManager {
     /*
-       Sets a schedule object's related pasture object.
-       used in lookupPastures in ScheduleObjectTableViewCell and
-       should be re used in the future if a rup is downloaded.
-       the calculations in the other functions in this extention
-       rely on schedule objects being able to reference their assigned pastures.
-    */
+     Sets a schedule object's related pasture object.
+     used in lookupPastures in ScheduleObjectTableViewCell and
+     should be re used in the future if a rup is downloaded.
+     the calculations in the other functions in this extention
+     rely on schedule objects being able to reference their assigned pastures.
+     */
     func setPastureOn(scheduleObject: ScheduleObject, pastureName: String, rup: RUP) {
         do {
             let realm = try Realm()
@@ -213,8 +310,8 @@ extension RUPManager {
             }
             return
         }
-        // otherwise continue...
 
+        // otherwise continue...
         let numberOfAnimals = Double(scheduleObject.numberOfAnimals)
         let totalDays = Double(scheduleObject.totalDays)
 
@@ -238,7 +335,7 @@ extension RUPManager {
             do {
                 let realm = try Realm()
                 try realm.write {
-                   scheduleObject.pldAUMs = 0.0
+                    scheduleObject.pldAUMs = 0.0
                 }
             } catch _ {
                 fatalError()
@@ -264,6 +361,18 @@ extension RUPManager {
             total = total + object.crownAUMs
         }
         return total
+    }
+
+    func isScheduleValid(schedule: Schedule, agreementID: String) -> Bool {
+        let totAUMs = getTotalAUMsFor(schedule: schedule)
+        let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
+        let allowed = usage?.auth_AUMs ?? 0
+
+        print(totAUMs)
+        print(usage ?? "nil")
+        print(allowed)
+        return totAUMs <= Double(allowed)
+
     }
 
     // if livestock with the specified name is not found, returns false
@@ -305,11 +414,41 @@ extension RUPManager {
 
     func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
         let taken = getScheduleYears(rup: rup)
-        let start = from + 1
         var new = from
         while taken.contains("\(new)") {
             new = new + 1
         }
         return new
     }
-}
+
+    func sortSchedule(rup: RUP) {
+        let sorted = rup.schedules.sorted(by: { $0.year < $1.year })
+        let list: List<Schedule> = List<Schedule>()
+        for element in sorted {
+            list.append(element)
+        }
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                rup.schedules = list
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func updateSchedulesForPasture(pasture: Pasture, in rup: RUP) {
+        let query = RealmRequests.getObject(ScheduleObject.self)
+        if let scheduleObjects = query {
+            for object in scheduleObjects {
+                if object.pasture?.realmID == pasture.realmID {
+                    print(object)
+                    calculate(scheduleObject: object)
+                    print(object)
+                    print("done")
+                }
+            }
+        }
+    }
+ }

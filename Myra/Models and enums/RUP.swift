@@ -38,48 +38,46 @@ class RUP: Object {
     @objc dynamic var primaryAgreementHolderLastName: String = ""
     @objc dynamic var status: String = RUPStatus.Agreement.rawValue
 
-    // set from API
+    // if id == -1, it has not been "synced"
+    // store db id on submission in this
     @objc dynamic var id: String = "-1"
+    @objc dynamic var agreementId: String = ""
     @objc dynamic var apistatus: String = ""
     @objc dynamic var planStartDate: Date?
+    @objc dynamic var planEndDate: Date?
+    @objc dynamic var agreementStartDate: Date?
+    @objc dynamic var agreementEndDate: Date?
     @objc dynamic var rangeName: String = ""
     @objc dynamic var alternativeName: String = ""
-    @objc dynamic var agreementStartDate: Date?
     @objc dynamic var updatedAt: Date?
     @objc dynamic var exemptionStatus: Bool = false
-    @objc dynamic var agreementId: String = ""
-    @objc dynamic var planEndDate: Date?
-    @objc dynamic var agreementEndDate: Date?
     @objc dynamic var notes: String = ""
     @objc dynamic var typeId: Int = 0
     @objc dynamic var dbID: Int = -1
 
-    @objc dynamic var basicInformation: BasicInformation? = nil
     var rangeUsageYears = List<RangeUsageYear>()
     var agreementHolders = List<AgreementHolder>()
     var liveStockIDs = List<LiveStockID>()
     var pastures = List<Pasture>()
     var schedules = List<Schedule>()
     var zones = List<Zone>()
+    var clients = List<Client>()
 
-    func set(id: String, status: String, zone: Zone, planStartDate: Date?, rangeName: String, agreementStartDate: Date?, updatedAt: Date?, exemptionStatus: Bool, agreementId: String, planEndDate: Date?, agreementEndDate: Date?, notes: String) {
-        self.id = id
-        self.planStartDate = planStartDate
-        self.rangeName = rangeName
-        self.agreementStartDate = agreementStartDate
-        self.updatedAt = updatedAt
-        self.exemptionStatus = exemptionStatus
-        self.agreementId = agreementId
-        self.planEndDate = planEndDate
-        self.agreementEndDate = agreementEndDate
-        self.notes = notes
-        self.zones.append(zone)
+    func setFrom(agreement: Agreement) {
+        self.agreementId = agreement.agreementId
+        self.agreementStartDate = agreement.agreementStartDate
+        self.agreementEndDate = agreement.agreementEndDate
+        self.typeId = agreement.typeId
+
+        self.clients = agreement.clients
+        self.zones = agreement.zones
+        self.rangeUsageYears = agreement.rangeUsageYears
     }
 
     func toJSON() -> [String:Any] {
         let plan: [String:Any] = [
             "rangeName": rangeName,
-            "agreementId": id,
+            "agreementId": agreementId,
             "statusId": 1
         ]
         return plan
