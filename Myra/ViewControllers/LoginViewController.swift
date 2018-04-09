@@ -18,6 +18,11 @@ class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
+        if UIDevice.current.orientation.isLandscape{
+            self.whenLandscape()
+        } else {
+            self.whenPortrait()
+        }
     }
 
     @IBAction func loginAction(_ sender: Any) {
@@ -45,7 +50,7 @@ class LoginViewController: BaseViewController {
     }
 
     override func whenLandscape() {
-        bgImage.contentMode = .scaleAspectFit
+        bgImage.contentMode = .center
     }
 
 }

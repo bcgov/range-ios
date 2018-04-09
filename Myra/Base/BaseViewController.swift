@@ -12,6 +12,15 @@ import SingleSignOn
 
 class BaseViewController: UIViewController {
 
+    let SYNC_WHITE_SCREEN_TAG = 100
+    let SYNC_TTITLE_TAG = 101
+    let SYNC_DESCRIPTION_TAG = 102
+    let SYNC_BUTTON_TAG = 103
+    let SYNC_CONTAINER_TAG = 104
+    let SYNC_LOADING_ANIMATION_TAG = 105
+    let SYNC_SUCCESS_ANIMATION_TAG = 106
+    let SYNC_FAIL_ANIMATION_TAG = 107
+
     var loading: UIImageView?
     var loadingImages = [UIImage]()
     let authServices: AuthServices = {
@@ -81,9 +90,11 @@ extension BaseViewController {
         coordinator.animate(alongsideTransition: nil) { _ in
             if UIDevice.current.orientation.isLandscape{
                 print("Landscape")
+                self.rotateSync()
                 self.whenLandscape()
             } else {
                 print("Portrait")
+                self.rotateSync()
                 self.whenPortrait()
             }
         }
@@ -149,15 +160,8 @@ extension BaseViewController {
 // Sync view
 extension BaseViewController {
 
-    // White screen's tag = 100
-    // View's title = 101
-    // View's description = 102
-    // button's tag = 103
-    // Container's tag = 104
-    // animation's tag = 105
-    // success animation's tag = 106
-    // fail animation's tag = 107
     func getSyncView() -> UIView {
+
         // white screen
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         view.center.y = self.view.center.y
@@ -177,7 +181,7 @@ extension BaseViewController {
         layer.layer.shadowRadius = 10
         layer.center.x = self.view.center.x
         layer.center.y = self.view.center.y
-        layer.tag = 104
+        layer.tag = SYNC_CONTAINER_TAG
 
         // title layer
         let textLayerWidth: CGFloat = layerWidth
@@ -190,7 +194,7 @@ extension BaseViewController {
         textLayer.attributedText = getSycnTitleText(text: "Sync Changes")
         textLayer.textAlignment = .center
 
-        textLayer.tag = 101
+        textLayer.tag = SYNC_TTITLE_TAG
         // add to layer that holds content
         layer.addSubview(textLayer)
 
@@ -214,7 +218,7 @@ extension BaseViewController {
         descLayer.attributedText = getSycDescriptionText(text: "")
         descLayer.textAlignment = .center
 
-        descLayer.tag = 102
+        descLayer.tag = SYNC_DESCRIPTION_TAG
         // add to layer that holds content
         layer.addSubview(descLayer)
 
@@ -231,7 +235,7 @@ extension BaseViewController {
         button.setTitleColor(UIColor(red:0.14, green:0.25, blue:0.46, alpha:1), for: .normal)
         button.addTarget(self, action: #selector(syncLayerButtonAction), for: .touchUpInside)
 
-        button.tag = 103
+        button.tag = SYNC_BUTTON_TAG
         // add to layer that holds content
         layer.addSubview(button)
 
@@ -240,7 +244,7 @@ extension BaseViewController {
         animationView.frame = CGRect(x: (layer.frame.width/2) - (spinnerWidth/2), y: (layer.frame.height/2) - (spinnerWidth/2), width: spinnerWidth, height: spinnerWidth)
         animationView.contentMode = .scaleAspectFit
         animationView.loopAnimation = true
-        animationView.tag = 105
+        animationView.tag = SYNC_LOADING_ANIMATION_TAG
         animationView.alpha = 0
         layer.addSubview(animationView)
 
@@ -248,7 +252,7 @@ extension BaseViewController {
         animationView2.frame = CGRect(x: (layer.frame.width/2) - (spinnerWidth/2), y: (layer.frame.height/2) - (spinnerWidth/2), width: spinnerWidth, height: spinnerWidth)
         animationView2.contentMode = .scaleAspectFit
         animationView2.loopAnimation = false
-        animationView2 .tag = 106
+        animationView2 .tag = SYNC_SUCCESS_ANIMATION_TAG
         animationView2.alpha = 0
         layer.addSubview(animationView2)
 
@@ -256,7 +260,7 @@ extension BaseViewController {
         animationView3.frame = CGRect(x: (layer.frame.width/2) - (spinnerWidth/2), y: (layer.frame.height/2) - (spinnerWidth/2), width: spinnerWidth, height: spinnerWidth)
         animationView3.contentMode = .scaleAspectFit
         animationView3.loopAnimation = false
-        animationView3.tag = 107
+        animationView3.tag = SYNC_FAIL_ANIMATION_TAG
         animationView3.alpha = 0
         layer.addSubview(animationView3)
 
@@ -264,77 +268,77 @@ extension BaseViewController {
         view.addSubview(layer)
 
         // give the view that contains it all (white screen)
-        view.tag = 100
+        view.tag = SYNC_WHITE_SCREEN_TAG
 
         return view
     }
 
     func beginSyncLoadingAnimation() {
-        if let animationView = self.view.viewWithTag(105) as? LOTAnimationView {
+        if let animationView = self.view.viewWithTag(SYNC_LOADING_ANIMATION_TAG) as? LOTAnimationView {
             animationView.alpha = 1
             animationView.play()
         }
     }
 
     func endSyncLoadingAnimation() {
-        if let loadingView = self.view.viewWithTag(105) as? LOTAnimationView {
+        if let loadingView = self.view.viewWithTag(SYNC_LOADING_ANIMATION_TAG) as? LOTAnimationView {
             loadingView.alpha = 0
         }
     }
 
     func successLoadingAnimation() {
-        if let done = self.view.viewWithTag(106) as? LOTAnimationView {
+        if let done = self.view.viewWithTag(SYNC_SUCCESS_ANIMATION_TAG) as? LOTAnimationView {
             done.play()
             done.alpha = 1
         }
     }
 
     func failLoadingAnimation() {
-        if let err = self.view.viewWithTag(107) as? LOTAnimationView {
+        if let err = self.view.viewWithTag(SYNC_FAIL_ANIMATION_TAG) as? LOTAnimationView {
             err.alpha = 1
             err.play()
         }
     }
 
     func updateSyncDescription(text: String) {
-        if let viewWithTag = self.view.viewWithTag(102) as? UILabel {
+        if let viewWithTag = self.view.viewWithTag(SYNC_DESCRIPTION_TAG) as? UILabel {
             viewWithTag.attributedText = getSycDescriptionText(text: text)
             viewWithTag.textAlignment = .center
         }
     }
 
     func updateSyncTitle(text: String) {
-        if let label = self.view.viewWithTag(101) as? UILabel {
+        if let label = self.view.viewWithTag(SYNC_TTITLE_TAG) as? UILabel {
             label.attributedText = getSycnTitleText(text: text)
         }
     }
 
     func updateSyncButtonTitle(text: String) {
-        if let button = self.view.viewWithTag(103) as? UIButton {
+        if let button = self.view.viewWithTag(SYNC_BUTTON_TAG) as? UIButton {
             button.setTitle(text, for: .normal)
         }
     }
 
     func disableSyncViewButton() {
-        if let button = self.view.viewWithTag(103) as? UIButton {
+        if let button = self.view.viewWithTag(SYNC_BUTTON_TAG) as? UIButton {
             button.isEnabled = false
         }
     }
 
     func enableSyncViewButton() {
-        if let button = self.view.viewWithTag(103) as? UIButton {
+        if let button = self.view.viewWithTag(SYNC_BUTTON_TAG) as? UIButton {
             button.isEnabled = true
         }
     }
 
     func showSyncViewButton() {
-        if let button = self.view.viewWithTag(103) as? UIButton {
+        if let button = self.view.viewWithTag(SYNC_BUTTON_TAG) as? UIButton {
             button.alpha = 1
         }
     }
 
     func hideSyncViewButton() {
-        if let button = self.view.viewWithTag(103) as? UIButton {
+        if let button = self.view.viewWithTag(SYNC_BUTTON_TAG) as? UIButton {
             button.alpha = 0
         }
     }
@@ -363,9 +367,25 @@ extension BaseViewController {
         return textString
     }
 
+    func rotateSync() {
+        if let whiteBG = self.view.viewWithTag(SYNC_WHITE_SCREEN_TAG), let container = self.view.viewWithTag(SYNC_CONTAINER_TAG) {
+            whiteBG.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+            whiteBG.center.y = self.view.center.y
+            whiteBG.center.x = self.view.center.x
+
+            let containerWidth: CGFloat = 400
+            let containerHeight: CGFloat = 390
+
+            container.frame.size.width = containerWidth
+            container.frame.size.height = containerHeight
+            container.center.y = self.view.center.y
+            container.center.x = self.view.center.x
+        }
+    }
+
     @objc func syncLayerButtonAction(sender: UIButton!) {
         // removes the sync view by removing the white screen view that contains the other views
-        if let viewWithTag = self.view.viewWithTag(100) {
+        if let viewWithTag = self.view.viewWithTag(SYNC_WHITE_SCREEN_TAG) {
             viewWithTag.removeFromSuperview()
             whenSyncClosed()
         }

@@ -45,34 +45,33 @@ class ScheduleCellTableViewCell: UITableViewCell {
     }
 
     func styleBasedOnValidity() {
-        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup?.id)!) {
+        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup?.agreementId)!) {
             styleValid()
         } else {
             styleInvalid()
         }
     }
     
-    func handleGesture(gesture: UISwipeGestureRecognizer) {
-
-    }
+    func handleGesture(gesture: UISwipeGestureRecognizer) {    }
 
     func duplicate() {
-        let copy = Schedule()
-        copy.year = (schedule?.year)!
-        copy.scheduleObjects = (schedule?.scheduleObjects)!
-        if let rupObject = rup {
+        if let rupObject = rup, let sched = schedule {
+            let copy = Schedule()
+            copy.year = sched.year
+            RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
             copy.year = RUPManager.shared.getNextScheduleYearFor(from: copy.year, rup: rupObject)
             copy.name = "\(copy.year)"
-        }
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup?.schedules.append(copy)
+            RealmRequests.saveObject(object: copy)
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.rup?.schedules.append(copy)
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
+            RealmRequests.updateObject(rup!)
         }
-
         parentReference?.updateTableHeight()
         self.leadingOptions.constant = 0
         animateIt()

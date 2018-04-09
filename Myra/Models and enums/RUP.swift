@@ -36,13 +36,12 @@ class RUP: Object {
 
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
     @objc dynamic var primaryAgreementHolderLastName: String = ""
-    @objc dynamic var status: String = RUPStatus.Agreement.rawValue
+    @objc dynamic var status: String = RUPStatus.Draft.rawValue
 
     // if id == -1, it has not been "synced"
     // store db id on submission in this
-    @objc dynamic var id: String = "-1"
+    @objc dynamic var id: Int = -1
     @objc dynamic var agreementId: String = ""
-    @objc dynamic var apistatus: String = ""
     @objc dynamic var planStartDate: Date?
     @objc dynamic var planEndDate: Date?
     @objc dynamic var agreementStartDate: Date?
@@ -50,10 +49,7 @@ class RUP: Object {
     @objc dynamic var rangeName: String = ""
     @objc dynamic var alternativeName: String = ""
     @objc dynamic var updatedAt: Date?
-    @objc dynamic var exemptionStatus: Bool = false
-    @objc dynamic var notes: String = ""
     @objc dynamic var typeId: Int = 0
-    @objc dynamic var dbID: Int = -1
 
     var rangeUsageYears = List<RangeUsageYear>()
     var agreementHolders = List<AgreementHolder>()

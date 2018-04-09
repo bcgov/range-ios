@@ -76,7 +76,7 @@
  // rup / agreement
  extension RUPManager {
 
-    func getRUP(with id: String) -> RUP? {
+    func getRUP(with id: Int) -> RUP? {
         if rupExists(id: id) {
             let storedRups = RealmRequests.getObject(RUP.self)
             for stored in storedRups! {
@@ -88,7 +88,7 @@
         return nil
     }
 
-    func rupExists(id: String) -> Bool {
+    func rupExists(id: Int) -> Bool {
         let storedRups = RealmRequests.getObject(RUP.self)
         if storedRups != nil {
             for storedRUP in storedRups! {
@@ -100,11 +100,11 @@
         return false
     }
 
-    // will fetch the store rup with the same id,
+    // will fetch the stored rup with the same id,
     // so only pass in the newly downloaded agreement
     // TODO: Refactor - schema change
     func updateRUP(with newRUP: RUP) {
-        let storedRUP = getRUP(with: newRUP.agreementId)
+        let storedRUP = getRUP(with: newRUP.id)
         if storedRUP == nil {return}
 
         do {
@@ -119,18 +119,6 @@
             fatalError()
         }
         RealmRequests.updateObject(storedRUP!)
-    }
-
-    // TODO: Refactor - schema change
-    func diffRup(rups: [RUP]) {
-        for rup in rups {
-            if rupExists(id: rup.id) {
-                updateRUP(with: rup)
-            } else {
-                rup.statusEnum = .Agreement
-                RealmRequests.saveObject(object: rup)
-            }
-        }
     }
 
     func getAgreement(with id: String) -> Agreement? {
@@ -211,32 +199,26 @@
         return filtered
     }
 
-    // TODO
-    /*
-    func getRUPsForAgreement() -> [RUP] {
+    func getRUPsForAgreement(agreementId: String) -> [RUP] {
         let rups = RealmRequests.getObject(RUP.self)
-        var agreements = [RUP]()
-//        if rups == nil {return agreements}
-//        for rup in (rups)! {
-//            if rup.statusEnum == .Agreement {
-//                agreements.append(rup)
-//            }
-//        }
-        return agreements
-    }
-     */
-
-    // returns all rups that are not in agreement state
-    func getRUPs() -> [RUP] {
-        let rups = RealmRequests.getObject(RUP.self)
-        var  returnRups = [RUP]()
-        if rups == nil {return returnRups}
-        for rup in (rups)! {
-            if rup.statusEnum != .Agreement {
-                returnRups.append(rup)
+        var found = [RUP]()
+        if let all = rups {
+            for rup in all {
+                if rup.agreementId == agreementId {
+                    found.append(rup)
+                }
             }
         }
-        return returnRups
+        return found
+    }
+
+    func getRUPs() -> [RUP] {
+        let rups = RealmRequests.getObject(RUP.self)
+        if let all = rups {
+            return all
+        } else {
+            return [RUP]()
+        }
     }
 
     func genRUP(forAgreement: Agreement) -> RUP {
@@ -259,9 +241,12 @@
 
         if usages == nil {return nil}
         for usage in usages! {
-
+            print(usage)
             if usage.agreementId == agreementId && usage.year == year {
+                print(usage.year)
                 return usage
+            } else {
+                print(usage.year)
             }
         }
         return nil
@@ -270,6 +255,22 @@
 
  // Schedule
  extension RUPManager {
+
+    func copyScheduleObjects(from: Schedule, to: Schedule) {
+        for object in from.scheduleObjects {
+            let new = ScheduleObject()
+            new.pasture = object.pasture
+            new.type = object.type
+            new.numberOfAnimals = object.numberOfAnimals
+            new.dateIn = object.dateIn
+            new.dateOut = object.dateOut
+            new.totalAUMs = object.totalAUMs
+            new.pldAUMs = object.pldAUMs
+            new.scheduleDescription = object.scheduleDescription
+            to.scheduleObjects.append(new)
+        }
+    }
+    
     /*
      Sets a schedule object's related pasture object.
      used in lookupPastures in ScheduleObjectTableViewCell and
@@ -376,22 +377,18 @@
     }
 
     // if livestock with the specified name is not found, returns false
-    func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) -> Bool {
+    func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) {
         let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
-        // if found
-        if ls.0 {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    scheduleObject.type = ls.1
-                }
-            } catch _ {
-                fatalError()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                scheduleObject.type = ls
             }
-            return true
-        } else {
-            return false
+        } catch _ {
+            fatalError()
         }
+
+        RealmRequests.updateObject(scheduleObject)
     }
 
     func getPasturesArray(rup: RUP) -> [Pasture] {
@@ -549,5 +546,10 @@
     func updateReferenceData(objects: [Object]) {
         clearStoredReferenceData()
         storeNewReferenceData(objects: objects)
+        // todo: remove
+        getAllReferenceData()
+        for object in objects {
+            print(object)
+        }
     }
  }

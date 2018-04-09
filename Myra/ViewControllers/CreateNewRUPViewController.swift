@@ -201,9 +201,12 @@ class CreateNewRUPViewController: UIViewController {
     }
 
     func autofill() {
-        let num = rup?.id ?? ""
+        let num = rup?.agreementId ?? ""
         let name = rup?.rangeName ?? ""
         ranchNameAndNumberLabel.text = "\(num) | \(name)"
+        for obj in (rup?.schedules)! {
+            print (obj)
+        }
 
     }
 

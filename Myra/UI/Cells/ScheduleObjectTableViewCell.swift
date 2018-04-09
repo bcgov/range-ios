@@ -61,16 +61,10 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         let objects = RealmManager.shared.getLiveStockTypeLookup()
         lookup.setup(objects: objects) { (selected, obj) in
             if selected {
-                if RUPManager.shared.setLiveStockTypeFor(scheduleObject: self.scheduleObject!, liveStock: (obj?.display)!) {
-                    RealmRequests.updateObject(self.scheduleObject!)
-                    self.update()
-                    parent.hidepopup(vc: lookup)
-                } else {
-                    // todo: Handle error: Livestock not found.
-                    // if this happens, something must be broken with the
-                    // way names of livestock types are stored and retrieved
-                    parent.hidepopup(vc: lookup)
-                }
+                RUPManager.shared.setLiveStockTypeFor(scheduleObject: self.scheduleObject!, liveStock: (obj?.display)!)
+                RealmRequests.updateObject(self.rup!)
+                self.update()
+                parent.hidepopup(vc: lookup)
             } else {
                 parent.hidepopup(vc: lookup)
                 self.update()

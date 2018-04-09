@@ -223,7 +223,6 @@ class APIManager {
                     return completion(false, nil)
                 }
 
-
                 for (_,agreementJSON) in json {
                     agreements.append(handleAgreementJSON(agreementJSON: agreementJSON))
                 }
@@ -335,7 +334,7 @@ class APIManager {
         let usageJSON = agreementJSON["usage"]
         for (_,usage) in usageJSON {
             let usageObj = RangeUsageYear()
-
+            usageObj.agreementId = agreementId
             if let authAUM = usage["authorizedAum"].int {
                 usageObj.auth_AUMs = authAUM
             }
@@ -354,10 +353,6 @@ class APIManager {
 
             if let tnu = usage["totalNonUse"].int {
                 usageObj.totalNonUse = tnu
-            }
-
-            if let agid = usage["agreementId"].string {
-                usageObj.agreementId = agid
             }
 
             if let yy = usage["year"].string {
@@ -424,13 +419,12 @@ extension APIManager {
             progress("Downloading reference data")
             getReferenceData(completion: { (success) in
                 if success {
-                    // todo: remove call to print
                     progress("Downloading agreements")
+                    // sent rups
                     getAgreements(completion: { (done, agreements) in
                         if done {
                             progress("Updating stored data")
                             RUPManager.shared.diffAgreements(agreements: agreements!)
-                            //                            RUPManager.shared.diffAgreements(rups: rups!)
                             progress("Completed")
                             RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
                             return completion(true)
@@ -459,7 +453,7 @@ extension APIManager {
                         do {
                             let realm = try Realm()
                             try realm.write {
-                                rup.dbID = id
+                                rup.id = id
                             }
                         } catch _ {
                             return completion(false)

@@ -45,6 +45,7 @@ class ScheduleTableViewCell: UITableViewCell {
                     } catch _ {
                         fatalError()
                     }
+                    RealmRequests.updateObject(self.rup!)
                     self.updateTableHeight()
                 }
             }

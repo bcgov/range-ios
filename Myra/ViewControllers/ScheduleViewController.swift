@@ -26,7 +26,7 @@ class ScheduleViewController: UIViewController {
         popupContainer.alpha = 0 
         setUpTable()
         setTitle()
-        setSubtitle(ranNumber: (rup?.id)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
+        setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
     }
 
     @IBAction func backAction(_ sender: UIButton) {
@@ -90,7 +90,6 @@ class ScheduleViewController: UIViewController {
         self.tableView.reloadData()
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
-
     }
 
     func calculateTotals() {
@@ -129,7 +128,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             let cell = getScheduleFooterCell(indexPath: indexPath)
-            cell.setup(schedule: schedule!, agreementID: (rup?.id)!)
+            cell.setup(schedule: schedule!, agreementID: (rup?.agreementId)!)
             self.footerReference = cell
             return cell
         default:
