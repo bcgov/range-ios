@@ -14,6 +14,7 @@ class ScheduleTableViewCell: UITableViewCell {
 
     let cellHeight = 56.5
     var rup: RUP?
+    var parentReference: CreateNewRUPViewController?
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
@@ -27,32 +28,40 @@ class ScheduleTableViewCell: UITableViewCell {
     }
 
     @IBAction func addScheduleAction(_ sender: UIButton) {
-//        self.rup?.schedules.append(Schedule())
-//        updateTableHeight()
-        // show popup instead
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.promptInput(title: "Schedule year", accept: .Year, taken: RUPManager.shared.getScheduleYears(rup: rup!)) { (done, name) in
+        guard let p = parentReference else { return }
+
+        p.promptInput(title: "Schedule year", accept: .Year, taken: RUPManager.shared.getScheduleYears(rup: rup!)) { (done, name) in
             if done {
-                if name.isInt {
-                    let newSchedule = Schedule()
-                    newSchedule.name = name
-                    newSchedule.year = Int(name)!
-                    do {
-                        let realm = try Realm()
-                        try realm.write {
-                            self.rup?.schedules.append(newSchedule)
+                if name.isInt, let year = Int(name), let r = self.rup {
+                    // check if year is valid
+                    if RUPManager.shared.isNewScheduleYearValidFor(rup: r, newYear: year) {
+                        let newSchedule = Schedule()
+                        newSchedule.name = name
+                        newSchedule.year = year
+                        let schedules = r.schedules
+                        do {
+                            let realm = try Realm()
+                            try realm.write {
+                                schedules.append(newSchedule)
+                                r.schedules = schedules
+                            }
+                        } catch _ {
+                            fatalError()
                         }
-                    } catch _ {
-                        fatalError()
+                        RealmRequests.updateObject(r)
+                        self.updateTableHeight()
+                    } else {
+                        p.showAlert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
                     }
-                    RealmRequests.updateObject(self.rup!)
-                    self.updateTableHeight()
+                } else {
+                    p.showAlert(with: "Invalid year", message: "")
                 }
             }
         }
     }
 
-    func setup(rup: RUP) {
+    func setup(rup: RUP, parentReference: CreateNewRUPViewController) {
+        self.parentReference = parentReference
         self.rup = rup
         tableHeight.constant = CGFloat( Double(rup.schedules.count) * cellHeight + 5.0)
         setUpTable()

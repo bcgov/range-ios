@@ -89,11 +89,11 @@ extension BaseViewController {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
             if UIDevice.current.orientation.isLandscape{
-                print("Landscape")
+//                print("Landscape")
                 self.rotateSync()
                 self.whenLandscape()
             } else {
-                print("Portrait")
+//                print("Portrait")
                 self.rotateSync()
                 self.whenPortrait()
             }

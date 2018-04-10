@@ -30,7 +30,9 @@ class ScheduleViewController: UIViewController {
     }
 
     @IBAction func backAction(_ sender: UIButton) {
-
+        if let r = self.rup {
+            RealmRequests.updateObject(r)
+        }
         self.dismiss(animated: true, completion: {
             return self.completion!(true)
         })

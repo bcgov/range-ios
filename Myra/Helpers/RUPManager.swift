@@ -155,11 +155,12 @@
         do {
             let realm = try Realm()
             try realm.write {
-                storedAgreement?.zones = newAgreement.zones
-                storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
+//                storedAgreement?.zones = newAgreement.zones
+//                storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
                 if newAgreement.zones.count > 0 {
                     storedAgreement?.zones = newAgreement.zones
                     storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
+                    updateRUPsFor(agreement: newAgreement)
                 }
             }
 
@@ -167,6 +168,17 @@
             fatalError()
         }
         RealmRequests.updateObject(storedAgreement!)
+    }
+
+    func updateRUPsFor(agreement: Agreement) {
+        if let rups = RealmRequests.getObject(RUP.self) {
+            for rup in rups {
+                if rup.agreementId == agreement.agreementId {
+                    rup.zones = agreement.zones
+                    rup.rangeUsageYears = agreement.rangeUsageYears
+                }
+            }
+        }
     }
 
     func diffAgreements(agreements: [Agreement]) {
@@ -267,8 +279,11 @@
             new.totalAUMs = object.totalAUMs
             new.pldAUMs = object.pldAUMs
             new.scheduleDescription = object.scheduleDescription
+
+            RealmRequests.saveObject(object: new)
             to.scheduleObjects.append(new)
         }
+        RealmRequests.updateObject(to)
     }
     
     /*
@@ -409,13 +424,101 @@
         return returnVal
     }
 
-    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
+    func isNewScheduleYearValidFor(rup: RUP, newYear: Int) -> Bool {
+        // String array of years current schedule objects
         let taken = getScheduleYears(rup: rup)
+        if taken.contains("\(newYear)") {
+            return false
+        }
+
+        let start = getPlanStartYear(rup: rup)
+        let end = getPlanEndYear(rup: rup)
+
+        // if plan start and end dates are not selected
+        if start == 0 || end == 0 {
+            return false
+        }
+
+        // the only valid case
+        if newYear <= end && newYear >= start {
+            return true
+        }
+
+        return false
+    }
+
+    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
+        // String array of years current schedule objects
+        let taken = getScheduleYears(rup: rup)
+
+        // Find the next year that's not taken
+        var new = computeNextScheduleYearFor(from: from, taken: taken)
+
+        // If calculated year is past plan start year,
+        // find next year not taken, from plan Start year
+        if new > getPlanEndYear(rup: rup) {
+            new = computeNextScheduleYearFor(from: getPlanStartYear(rup: rup), taken: taken)
+        }
+
+        return new
+    }
+
+    func computeNextScheduleYearFor(from: Int, taken: [String]) -> Int {
         var new = from
+
+        // Find the next year that's not taken
         while taken.contains("\(new)") {
             new = new + 1
         }
+
         return new
+    }
+
+    // Attempt to return selected plan start date's year.
+    // if not set, return 0
+    func getPlanStartYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let startDate = rup.planStartDate {
+            return calendar.component(Calendar.Component.year, from: startDate)
+        } else  {
+            return 0
+        }
+    }
+
+    // Attempt to return selected plan end date's year.
+    // if not set, return 0
+    func getPlanEndYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let endDate = rup.planEndDate {
+            return calendar.component(Calendar.Component.year, from: endDate)
+        } else {
+            return 0
+        }
+    }
+
+    // Attempt to return agreement end date's year.
+    // if not set, return min year
+    func getAgreementStartYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let date = rup.agreementStartDate {
+            return calendar.component(Calendar.Component.year, from: date)
+        } else  {
+            print("FOUND ERRROR IN getAgreementStartYear(): DATE NOT SET")
+            return Constants.minYear
+        }
+
+    }
+
+    // Attempt to return agreement end date's year.
+    // if not set, return max year
+    func getAgreementEndYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let date = rup.agreementEndDate {
+            return calendar.component(Calendar.Component.year, from: date)
+        } else {
+            print("FOUND ERRROR IN getAgreementEndYear(): DATE NOT SET")
+            return Constants.maxYear
+        }
     }
 
     func sortSchedule(rup: RUP) {
@@ -485,11 +588,16 @@
         return PlanStatus()
     }
 
-    func getClientTypeFor(id: Int) -> ClientType {
+    func getClientTypeFor(clientTypeCode: String) -> ClientType {
         let query = RealmRequests.getObject(ClientType.self)
         if let all = query {
             for object in all {
-                if object.id == id {
+                // while you're at it, clean up invalid data..
+                if object.id == -1 {
+                    RealmRequests.deleteObject(object)
+                }
+                print(object)
+                if object.code == clientTypeCode {
                     return object
                 }
             }

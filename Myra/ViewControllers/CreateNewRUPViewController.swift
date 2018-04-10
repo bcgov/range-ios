@@ -17,7 +17,7 @@ enum AcceptedPopupInput {
     case Year
 }
 
-class CreateNewRUPViewController: UIViewController {
+class CreateNewRUPViewController: BaseViewController {
 
     // Mark: Variables
 
@@ -46,6 +46,11 @@ class CreateNewRUPViewController: UIViewController {
     var mode: FormMode = .Create
 
     var reloaded: Bool = false
+
+    // pop up for adding pastures and years
+    var acceptedPopupInput: AcceptedPopupInput = .String
+    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
+    var popupTakenValues: [String] = [String]()
 
     // MARK: Outlets
 
@@ -104,9 +109,7 @@ class CreateNewRUPViewController: UIViewController {
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var popupTextField: UITextField!
     @IBOutlet weak var grayScreen: UIView!
-    var acceptedPopupInput: AcceptedPopupInput = .String
-    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
-    var popupTakenValues: [String] = [String]()
+
 
     @IBAction func popupCancel(_ sender: Any) {
         if popupCompletion == nil {return}
@@ -332,20 +335,6 @@ extension CreateNewRUPViewController {
     }
 }
 
-extension CreateNewRUPViewController {
-    func animateIt() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
-
-    func animateFor(time: Double) {
-        UIView.animate(withDuration: time, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
-}
-
 extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil {return}
@@ -409,7 +398,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 0:
             self.basicInformationIndexPath = indexPath
             let cell = getBasicInfoCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
+            cell.setup(mode: mode, rup: rup!, parentReference: self)
             return cell
         case 1:
             let cell = getBasicInfoSectionTwoCell(indexPath: indexPath)
@@ -433,7 +422,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 4:
             self.scheduleIndexPath = indexPath
             let cell = getScheduleCell(indexPath: indexPath)
-            cell.setup(rup: rup!)
+            // passing self reference because cells within this cell's tableview need to call showAlert()
+            cell.setup(rup: rup!, parentReference: self)
             return cell
         default:
             self.mapIndexPath = indexPath

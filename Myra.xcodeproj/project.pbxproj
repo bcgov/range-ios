@@ -67,6 +67,7 @@
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
 		2978AF482053318C0004562E /* BasicInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978AF462053318C0004562E /* BasicInfoTableViewCell.swift */; };
 		2978AF492053318C0004562E /* BasicInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2978AF472053318C0004562E /* BasicInfoTableViewCell.xib */; };
+		299BD278207BF488004B1D07 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BD277207BF488004B1D07 /* Constants.swift */; };
 		29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A52744205B301400C871F7 /* SelectionPopup.storyboard */; };
 		29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */; };
 		29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */; };
@@ -186,6 +187,7 @@
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
 		2978AF462053318C0004562E /* BasicInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2978AF472053318C0004562E /* BasicInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInfoTableViewCell.xib; sourceTree = "<group>"; };
+		299BD277207BF488004B1D07 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		29A52744205B301400C871F7 /* SelectionPopup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectionPopup.storyboard; sourceTree = "<group>"; };
 		29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpViewController.swift; sourceTree = "<group>"; };
 		29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpObject.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
 				290A531D2053503A005F5019 /* APIManager.swift */,
 				29EADF8320603F9C0087593F /* RealmManager.swift */,
+				299BD277207BF488004B1D07 /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -735,6 +738,7 @@
 				2920F8302034C0140090E7B4 /* RUPGenerator.swift in Sources */,
 				29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */,
 				29742707204484FB0033BC47 /* AgreementHolderTableViewCell.swift in Sources */,
+				299BD278207BF488004B1D07 /* Constants.swift in Sources */,
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				29E0D927203F4B2400193FA0 /* DummySupplier.swift in Sources */,

@@ -56,22 +56,30 @@ class ScheduleCellTableViewCell: UITableViewCell {
 
     func duplicate() {
         if let rupObject = rup, let sched = schedule {
+            print(rupObject.schedules)
             let copy = Schedule()
-            copy.year = sched.year
-            RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
-            copy.year = RUPManager.shared.getNextScheduleYearFor(from: copy.year, rup: rupObject)
-            copy.name = "\(copy.year)"
-            RealmRequests.saveObject(object: copy)
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    self.rup?.schedules.append(copy)
+            copy.year = RUPManager.shared.getNextScheduleYearFor(from: sched.year, rup: rupObject)
+            
+            if RUPManager.shared.isNewScheduleYearValidFor(rup: rupObject, newYear: copy.year) {
+                copy.name = "\(copy.year)"
+                RealmRequests.saveObject(object: copy)
+                RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
+                let schedules = rupObject.schedules
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        schedules.append(copy)
+                        self.rup?.schedules = schedules
+                    }
+                } catch _ {
+                    fatalError()
                 }
-            } catch _ {
-                fatalError()
+                RealmRequests.updateObject(rupObject)
+            } else {
+                parentReference?.parentReference?.showAlert(with: "Invalid year", message: "Cannot insert a valid schedule object within plan start and plan end date")
             }
-            RealmRequests.updateObject(rup!)
         }
+
         parentReference?.updateTableHeight()
         self.leadingOptions.constant = 0
         animateIt()

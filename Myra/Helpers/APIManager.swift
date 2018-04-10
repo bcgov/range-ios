@@ -423,6 +423,7 @@ extension APIManager {
                     // sent rups
                     getAgreements(completion: { (done, agreements) in
                         if done {
+                            print(agreements?.count)
                             progress("Updating stored data")
                             RUPManager.shared.diffAgreements(agreements: agreements!)
                             progress("Completed")
@@ -464,21 +465,21 @@ extension APIManager {
                                 let schedules = RUPManager.shared.getSchedulesArray(rup: rup)
                                 recursiveScheduleUpload(schedules: schedules, planID: id, completion: { (success) in
                                     if success {
-                                        completion(true)
+                                        return completion(true)
                                     } else {
-                                        completion(false)
+                                        return completion(false)
                                     }
                                 })
-                                completion(true)
+                                return completion(true)
                             } else {
-                                completion(false)
+                                return completion(false)
                             }
                         })
                     } else {
-                        completion(false)
+                        return completion(false)
                     }
                 } else {
-                    completion(false)
+                    return completion(false)
                 }
         }
     }
