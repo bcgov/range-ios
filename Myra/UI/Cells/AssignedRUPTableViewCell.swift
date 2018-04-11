@@ -54,7 +54,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
 
     func setupView(rup: RUP) {
         self.idLabel.text = "\(rup.agreementId)"
-        self.infoLabel.text = /*rup.info + ", Holder: " + */rup.primaryAgreementHolderLastName
+        self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
         switch rup.statusEnum {
         case .Completed:

@@ -15,7 +15,9 @@ class RUP: Object {
     // agreement, draft, outbox
 //    @objc dynamic var state: String = "agreement"
 
-    @objc dynamic var realmID: String = String(Int.random(min: 1, max: Int(Int32.max)))
+    @objc dynamic var realmID: String = {
+        return UUID().uuidString
+    }()
 
     override class func primaryKey() -> String? {
         return "realmID"

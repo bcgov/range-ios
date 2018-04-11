@@ -13,7 +13,7 @@ import RealmSwift
 
 class SyncDate: Object {
     @objc dynamic var realmID: String = {
-        return String(Int.random(min: 1, max: Int(Int32.max)))
+         return UUID().uuidString
     }()
 
     override class func primaryKey() -> String? {

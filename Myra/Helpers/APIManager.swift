@@ -17,7 +17,7 @@ import RealmSwift
 class APIManager {
 
     static let baseURL = "http://api-range-myra-dev.pathfinder.gov.bc.ca/v1"
-    static let agreementEndpoint = "\(baseURL)/agreement"
+    static let agreementEndpoint = "\(baseURL)/agreement?limit=10"
     static let planEndpoint = "\(baseURL)/plan"
     static let reference = "\(baseURL)/reference"
 
@@ -43,13 +43,13 @@ class APIManager {
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 var newReference = [Object]()
-                newReference.append(contentsOf: handle_LIVESTOCK_TYPE(json: json["LIVESTOCK_TYPE"]))
-                newReference.append(contentsOf: handle_AGREEMENT_TYPE(json: json["AGREEMENT_TYPE"]))
-                newReference.append(contentsOf: handle_AGREEMENT_STATUS(json: json["AGREEMENT_STATUS"]))
-                newReference.append(contentsOf: handle_LIVESTOCK_IDENTIFIER_TYPE(json: json["LIVESTOCK_IDENTIFIER_TYPE"]))
-                newReference.append(contentsOf: handle_CLIENT_TYPE(json:json["CLIENT_TYPE"]))
-                newReference.append(contentsOf: handle_PLAN_STATUS(json:json["PLAN_STATUS"]))
-                newReference.append(contentsOf: handle_AGREEMENT_EXEMPTION_STATUS(json: json["AGREEMENT_EXEMPTION_STATUS"]))
+                newReference.append(contentsOf: handleLiveStockType(json: json["LIVESTOCK_TYPE"]))
+                newReference.append(contentsOf: handleAgreementType(json: json["AGREEMENT_TYPE"]))
+                newReference.append(contentsOf: handleAgreementStatus(json: json["AGREEMENT_STATUS"]))
+                newReference.append(contentsOf: handleLivestockIdentifierType(json: json["LIVESTOCK_IDENTIFIER_TYPE"]))
+                newReference.append(contentsOf: handleClientType(json:json["CLIENT_TYPE"]))
+                newReference.append(contentsOf: handlePlanStatus(json:json["PLAN_STATUS"]))
+                newReference.append(contentsOf: handleAgreementExeptionStatus(json: json["AGREEMENT_EXEMPTION_STATUS"]))
                 RUPManager.shared.updateReferenceData(objects: newReference)
                 return completion(true)
             }else {
@@ -58,7 +58,7 @@ class APIManager {
         }
     }
 
-    static func handle_LIVESTOCK_IDENTIFIER_TYPE(json: JSON) -> [Object] {
+    static func handleLivestockIdentifierType(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
             let obj = LivestockIdentifierType()
@@ -74,7 +74,7 @@ class APIManager {
         return result
     }
 
-    static func handle_CLIENT_TYPE(json: JSON) -> [Object] {
+    static func handleClientType(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
             let obj = ClientType()
@@ -93,7 +93,7 @@ class APIManager {
         return result
     }
 
-    static func handle_PLAN_STATUS(json: JSON) -> [Object] {
+    static func handlePlanStatus(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
             let obj = PlanStatus()
@@ -111,7 +111,7 @@ class APIManager {
         }
         return result
     }
-    static func handle_AGREEMENT_EXEMPTION_STATUS(json: JSON) -> [Object] {
+    static func handleAgreementExeptionStatus(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
             let obj = AgreementExemptionStatus()
@@ -130,7 +130,7 @@ class APIManager {
         return result
     }
 
-    static func handle_LIVESTOCK_TYPE(json: JSON) -> [Object] {
+    static func handleLiveStockType(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
             let obj = LiveStockType()
@@ -149,7 +149,7 @@ class APIManager {
         return result
     }
 
-    static func handle_AGREEMENT_STATUS(json: JSON) -> [Object] {
+    static func handleAgreementStatus(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
             let obj = AgreementStatus()
@@ -168,7 +168,7 @@ class APIManager {
         return result
     }
 
-    static func handle_AGREEMENT_TYPE(json: JSON) -> [Object] {
+    static func handleAgreementType(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
             let obj = AgreementType()
