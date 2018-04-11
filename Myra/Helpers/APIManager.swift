@@ -42,9 +42,15 @@ class APIManager {
         Alamofire.request(reference, method: .get, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
-                handleLiveStockResponse(json: json["LIVESTOCK_TYPE"])
-                handleAgreemenTypeResponse(json: json["AGREEMENT_TYPE"])
-                handleAgreementStatusResponse(json: json["AGREEMENT_STATUS"])
+                var newReference = [Object]()
+                newReference.append(contentsOf: handle_LIVESTOCK_TYPE(json: json["LIVESTOCK_TYPE"]))
+                newReference.append(contentsOf: handle_AGREEMENT_TYPE(json: json["AGREEMENT_TYPE"]))
+                newReference.append(contentsOf: handle_AGREEMENT_STATUS(json: json["AGREEMENT_STATUS"]))
+                newReference.append(contentsOf: handle_LIVESTOCK_IDENTIFIER_TYPE(json: json["LIVESTOCK_IDENTIFIER_TYPE"]))
+                newReference.append(contentsOf: handle_CLIENT_TYPE(json:json["CLIENT_TYPE"]))
+                newReference.append(contentsOf: handle_PLAN_STATUS(json:json["PLAN_STATUS"]))
+                newReference.append(contentsOf: handle_AGREEMENT_EXEMPTION_STATUS(json: json["AGREEMENT_EXEMPTION_STATUS"]))
+                RUPManager.shared.updateReferenceData(objects: newReference)
                 return completion(true)
             }else {
                 return completion(false)
@@ -52,52 +58,133 @@ class APIManager {
         }
     }
 
-    static func handleLiveStockResponse(json: JSON) {
+    static func handle_LIVESTOCK_IDENTIFIER_TYPE(json: JSON) -> [Object] {
+        var result = [Object]()
         for (_,item) in json {
-            let lv = LiveStockType()
-            if let name = item["name"].string {
-                lv.name = name
+            let obj = LivestockIdentifierType()
+            if let desc = item["description"].string {
+                obj.desc = desc
             }
             if let id = item["id"].int {
-                lv.id = id
+                obj.id = id
             }
-            if let auFactor = item["auFactor"].double {
-                lv.auFactor = auFactor
-            }
-            RealmRequests.saveObject(object: lv)
+            result.append(obj)
+//            RealmRequests.saveObject(object: obj)
         }
+        return result
     }
 
-    static func handleAgreementStatusResponse(json: JSON) {
+    static func handle_CLIENT_TYPE(json: JSON) -> [Object] {
+        var result = [Object]()
         for (_,item) in json {
-            let astatus = AgreementStatus()
-            if let name = item["name"].string {
-                astatus.name = name
+            let obj = ClientType()
+            if let desc = item["description"].string {
+                obj.desc = desc
             }
             if let id = item["id"].int {
-                astatus.id = id
+                obj.id = id
             }
             if let code = item["code"].string {
-                astatus.code = code
+                obj.code = code
             }
-            RealmRequests.saveObject(object: astatus)
+            result.append(obj)
+            //            RealmRequests.saveObject(object: obj)
         }
+        return result
     }
 
-    static func handleAgreemenTypeResponse(json: JSON) {
+    static func handle_PLAN_STATUS(json: JSON) -> [Object] {
+        var result = [Object]()
         for (_,item) in json {
-            let aType = AgreementType()
+            let obj = PlanStatus()
+            if let name = item["name"].string {
+                obj.name = name
+            }
             if let id = item["id"].int {
-                aType.id = id
+                obj.id = id
+            }
+            if let code = item["code"].string {
+                obj.code = code
+            }
+            result.append(obj)
+            //            RealmRequests.saveObject(object: obj)
+        }
+        return result
+    }
+    static func handle_AGREEMENT_EXEMPTION_STATUS(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = AgreementExemptionStatus()
+            if let desc = item["description"].string {
+                obj.desc = desc
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let code = item["code"].string {
+                obj.code = code
+            }
+            result.append(obj)
+            //            RealmRequests.saveObject(object: obj)
+        }
+        return result
+    }
+
+    static func handle_LIVESTOCK_TYPE(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = LiveStockType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let auFactor = item["auFactor"].double {
+                obj.auFactor = auFactor
+            }
+            result.append(obj)
+            //            RealmRequests.saveObject(object: obj)
+        }
+        return result
+    }
+
+    static func handle_AGREEMENT_STATUS(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = AgreementStatus()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let code = item["code"].string {
+                obj.code = code
+            }
+            result.append(obj)
+            //            RealmRequests.saveObject(object: obj)
+        }
+        return result
+    }
+
+    static func handle_AGREEMENT_TYPE(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = AgreementType()
+            if let id = item["id"].int {
+                obj.id = id
             }
             if let desc = item["description"].string {
-                aType.desc = desc
+                obj.desc = desc
             }
             if let code = item["auFactor"].string {
-                aType.code = code
+                obj.code = code
             }
-            RealmRequests.saveObject(object: aType)
+            result.append(obj)
+            //            RealmRequests.saveObject(object: obj)
         }
+        return result
     }
 
     static func send(rup: RUP,completion: @escaping (_ success: Bool) -> Void) {
@@ -105,7 +192,7 @@ class APIManager {
         var params: [String: Any] = [String: Any]()
         if let ps = rup.planStartDate {
             let start = DateManager.toUTC(date: ps)
-             params["planStartDate"] = start
+            params["planStartDate"] = start
         }
 
         if let pe = rup.planEndDate {
@@ -135,7 +222,6 @@ class APIManager {
                     print(error)
                     return completion(false, nil)
                 }
-
 
                 for (_,agreementJSON) in json {
                     agreements.append(handleAgreementJSON(agreementJSON: agreementJSON))
@@ -248,7 +334,7 @@ class APIManager {
         let usageJSON = agreementJSON["usage"]
         for (_,usage) in usageJSON {
             let usageObj = RangeUsageYear()
-
+            usageObj.agreementId = agreementId
             if let authAUM = usage["authorizedAum"].int {
                 usageObj.auth_AUMs = authAUM
             }
@@ -267,10 +353,6 @@ class APIManager {
 
             if let tnu = usage["totalNonUse"].int {
                 usageObj.totalNonUse = tnu
-            }
-
-            if let agid = usage["agreementId"].string {
-                usageObj.agreementId = agid
             }
 
             if let yy = usage["year"].string {
@@ -338,11 +420,12 @@ extension APIManager {
             getReferenceData(completion: { (success) in
                 if success {
                     progress("Downloading agreements")
+                    // sent rups
                     getAgreements(completion: { (done, agreements) in
                         if done {
+                            print(agreements?.count)
                             progress("Updating stored data")
                             RUPManager.shared.diffAgreements(agreements: agreements!)
-//                            RUPManager.shared.diffAgreements(rups: rups!)
                             progress("Completed")
                             RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
                             return completion(true)
@@ -371,7 +454,7 @@ extension APIManager {
                         do {
                             let realm = try Realm()
                             try realm.write {
-                                rup.dbID = id
+                                rup.id = id
                             }
                         } catch _ {
                             return completion(false)
@@ -382,21 +465,21 @@ extension APIManager {
                                 let schedules = RUPManager.shared.getSchedulesArray(rup: rup)
                                 recursiveScheduleUpload(schedules: schedules, planID: id, completion: { (success) in
                                     if success {
-                                        completion(true)
+                                        return completion(true)
                                     } else {
-                                        completion(false)
+                                        return completion(false)
                                     }
                                 })
-                                completion(true)
+                                return completion(true)
                             } else {
-                                completion(false)
+                                return completion(false)
                             }
                         })
                     } else {
-                        completion(false)
+                        return completion(false)
                     }
                 } else {
-                    completion(false)
+                    return completion(false)
                 }
         }
     }
@@ -436,10 +519,10 @@ extension APIManager {
                         return completion(false)
                     }
                 } else {
-                     return completion(false)
+                    return completion(false)
                 }
             } else {
-                 return completion(false)
+                return completion(false)
             }
         }
     }

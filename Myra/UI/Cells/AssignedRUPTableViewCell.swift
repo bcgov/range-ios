@@ -66,11 +66,6 @@ class AssignedRUPTableViewCell: UITableViewCell {
         case .Draft:
             self.statusText.text = "Draft"
             setStatusRed()
-//        default:
-//            self.statusText.text = "UNKNOWN"
-        case .Agreement:
-            self.statusText.text = "Not Started"
-            setStatusRed()
         }
     }
 }

@@ -105,14 +105,14 @@ class RealmManager {
         return returnArray
     }
 
-    func getLiveStockTypeObject(name: String) -> (Bool, LiveStockType?) {
+    func getLiveStockTypeObject(name: String) -> (LiveStockType) {
         let objects = getLiveStockType()
         for object in objects {
-            if object.name == name {
-                return (true, object)
+            if object.name.lowercased() == name.lowercased() {
+                return object
             }
         }
-        return (false, nil)
+        return LiveStockType()
     }
     // END OF Reference
 

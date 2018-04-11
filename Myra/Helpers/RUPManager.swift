@@ -76,7 +76,7 @@
  // rup / agreement
  extension RUPManager {
 
-    func getRUP(with id: String) -> RUP? {
+    func getRUP(with id: Int) -> RUP? {
         if rupExists(id: id) {
             let storedRups = RealmRequests.getObject(RUP.self)
             for stored in storedRups! {
@@ -88,7 +88,7 @@
         return nil
     }
 
-    func rupExists(id: String) -> Bool {
+    func rupExists(id: Int) -> Bool {
         let storedRups = RealmRequests.getObject(RUP.self)
         if storedRups != nil {
             for storedRUP in storedRups! {
@@ -100,11 +100,11 @@
         return false
     }
 
-    // will fetch the store rup with the same id,
+    // will fetch the stored rup with the same id,
     // so only pass in the newly downloaded agreement
     // TODO: Refactor - schema change
     func updateRUP(with newRUP: RUP) {
-        let storedRUP = getRUP(with: newRUP.agreementId)
+        let storedRUP = getRUP(with: newRUP.id)
         if storedRUP == nil {return}
 
         do {
@@ -119,18 +119,6 @@
             fatalError()
         }
         RealmRequests.updateObject(storedRUP!)
-    }
-
-    // TODO: Refactor - schema change
-    func diffRup(rups: [RUP]) {
-        for rup in rups {
-            if rupExists(id: rup.id) {
-                updateRUP(with: rup)
-            } else {
-                rup.statusEnum = .Agreement
-                RealmRequests.saveObject(object: rup)
-            }
-        }
     }
 
     func getAgreement(with id: String) -> Agreement? {
@@ -167,11 +155,12 @@
         do {
             let realm = try Realm()
             try realm.write {
-                storedAgreement?.zones = newAgreement.zones
-                storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
+//                storedAgreement?.zones = newAgreement.zones
+//                storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
                 if newAgreement.zones.count > 0 {
                     storedAgreement?.zones = newAgreement.zones
                     storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
+                    updateRUPsFor(agreement: newAgreement)
                 }
             }
 
@@ -179,6 +168,17 @@
             fatalError()
         }
         RealmRequests.updateObject(storedAgreement!)
+    }
+
+    func updateRUPsFor(agreement: Agreement) {
+        if let rups = RealmRequests.getObject(RUP.self) {
+            for rup in rups {
+                if rup.agreementId == agreement.agreementId {
+                    rup.zones = agreement.zones
+                    rup.rangeUsageYears = agreement.rangeUsageYears
+                }
+            }
+        }
     }
 
     func diffAgreements(agreements: [Agreement]) {
@@ -211,32 +211,26 @@
         return filtered
     }
 
-    // TODO
-    /*
-    func getRUPsForAgreement() -> [RUP] {
+    func getRUPsForAgreement(agreementId: String) -> [RUP] {
         let rups = RealmRequests.getObject(RUP.self)
-        var agreements = [RUP]()
-//        if rups == nil {return agreements}
-//        for rup in (rups)! {
-//            if rup.statusEnum == .Agreement {
-//                agreements.append(rup)
-//            }
-//        }
-        return agreements
-    }
-     */
-
-    // returns all rups that are not in agreement state
-    func getRUPs() -> [RUP] {
-        let rups = RealmRequests.getObject(RUP.self)
-        var  returnRups = [RUP]()
-        if rups == nil {return returnRups}
-        for rup in (rups)! {
-            if rup.statusEnum != .Agreement {
-                returnRups.append(rup)
+        var found = [RUP]()
+        if let all = rups {
+            for rup in all {
+                if rup.agreementId == agreementId {
+                    found.append(rup)
+                }
             }
         }
-        return returnRups
+        return found
+    }
+
+    func getRUPs() -> [RUP] {
+        let rups = RealmRequests.getObject(RUP.self)
+        if let all = rups {
+            return all
+        } else {
+            return [RUP]()
+        }
     }
 
     func genRUP(forAgreement: Agreement) -> RUP {
@@ -259,9 +253,12 @@
 
         if usages == nil {return nil}
         for usage in usages! {
-
+            print(usage)
             if usage.agreementId == agreementId && usage.year == year {
+                print(usage.year)
                 return usage
+            } else {
+                print(usage.year)
             }
         }
         return nil
@@ -270,6 +267,25 @@
 
  // Schedule
  extension RUPManager {
+
+    func copyScheduleObjects(from: Schedule, to: Schedule) {
+        for object in from.scheduleObjects {
+            let new = ScheduleObject()
+            new.pasture = object.pasture
+            new.type = object.type
+            new.numberOfAnimals = object.numberOfAnimals
+            new.dateIn = object.dateIn
+            new.dateOut = object.dateOut
+            new.totalAUMs = object.totalAUMs
+            new.pldAUMs = object.pldAUMs
+            new.scheduleDescription = object.scheduleDescription
+
+            RealmRequests.saveObject(object: new)
+            to.scheduleObjects.append(new)
+        }
+        RealmRequests.updateObject(to)
+    }
+    
     /*
      Sets a schedule object's related pasture object.
      used in lookupPastures in ScheduleObjectTableViewCell and
@@ -376,22 +392,18 @@
     }
 
     // if livestock with the specified name is not found, returns false
-    func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) -> Bool {
+    func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) {
         let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
-        // if found
-        if ls.0 {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    scheduleObject.type = ls.1
-                }
-            } catch _ {
-                fatalError()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                scheduleObject.type = ls
             }
-            return true
-        } else {
-            return false
+        } catch _ {
+            fatalError()
         }
+
+        RealmRequests.updateObject(scheduleObject)
     }
 
     func getPasturesArray(rup: RUP) -> [Pasture] {
@@ -412,13 +424,101 @@
         return returnVal
     }
 
-    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
+    func isNewScheduleYearValidFor(rup: RUP, newYear: Int) -> Bool {
+        // String array of years current schedule objects
         let taken = getScheduleYears(rup: rup)
+        if taken.contains("\(newYear)") {
+            return false
+        }
+
+        let start = getPlanStartYear(rup: rup)
+        let end = getPlanEndYear(rup: rup)
+
+        // if plan start and end dates are not selected
+        if start == 0 || end == 0 {
+            return false
+        }
+
+        // the only valid case
+        if newYear <= end && newYear >= start {
+            return true
+        }
+
+        return false
+    }
+
+    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int {
+        // String array of years current schedule objects
+        let taken = getScheduleYears(rup: rup)
+
+        // Find the next year that's not taken
+        var new = computeNextScheduleYearFor(from: from, taken: taken)
+
+        // If calculated year is past plan start year,
+        // find next year not taken, from plan Start year
+        if new > getPlanEndYear(rup: rup) {
+            new = computeNextScheduleYearFor(from: getPlanStartYear(rup: rup), taken: taken)
+        }
+
+        return new
+    }
+
+    func computeNextScheduleYearFor(from: Int, taken: [String]) -> Int {
         var new = from
+
+        // Find the next year that's not taken
         while taken.contains("\(new)") {
             new = new + 1
         }
+
         return new
+    }
+
+    // Attempt to return selected plan start date's year.
+    // if not set, return 0
+    func getPlanStartYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let startDate = rup.planStartDate {
+            return calendar.component(Calendar.Component.year, from: startDate)
+        } else  {
+            return 0
+        }
+    }
+
+    // Attempt to return selected plan end date's year.
+    // if not set, return 0
+    func getPlanEndYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let endDate = rup.planEndDate {
+            return calendar.component(Calendar.Component.year, from: endDate)
+        } else {
+            return 0
+        }
+    }
+
+    // Attempt to return agreement end date's year.
+    // if not set, return min year
+    func getAgreementStartYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let date = rup.agreementStartDate {
+            return calendar.component(Calendar.Component.year, from: date)
+        } else  {
+            print("FOUND ERRROR IN getAgreementStartYear(): DATE NOT SET")
+            return Constants.minYear
+        }
+
+    }
+
+    // Attempt to return agreement end date's year.
+    // if not set, return max year
+    func getAgreementEndYear(rup: RUP) -> Int {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        if let date = rup.agreementEndDate {
+            return calendar.component(Calendar.Component.year, from: date)
+        } else {
+            print("FOUND ERRROR IN getAgreementEndYear(): DATE NOT SET")
+            return Constants.maxYear
+        }
     }
 
     func sortSchedule(rup: RUP) {
@@ -449,6 +549,115 @@
                     print("done")
                 }
             }
+        }
+    }
+
+    func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
+        let query = RealmRequests.getObject(AgreementExemptionStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return AgreementExemptionStatus()
+    }
+
+    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
+        let query = RealmRequests.getObject(LivestockIdentifierType.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return LivestockIdentifierType()
+    }
+
+    func getPlanStatusFor(id: Int) -> PlanStatus {
+        let query = RealmRequests.getObject(PlanStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return PlanStatus()
+    }
+
+    func getClientTypeFor(clientTypeCode: String) -> ClientType {
+        let query = RealmRequests.getObject(ClientType.self)
+        if let all = query {
+            for object in all {
+                // while you're at it, clean up invalid data..
+                if object.id == -1 {
+                    RealmRequests.deleteObject(object)
+                }
+                print(object)
+                if object.code == clientTypeCode {
+                    return object
+                }
+            }
+        }
+        return ClientType()
+    }
+
+    func getAllReferenceData() -> [Object] {
+        var objects = [Object]()
+
+        if let query1: [Object] = RealmRequests.getObject(ClientType.self) {
+            objects.append(contentsOf: query1)
+        }
+        if let query2: [Object] = RealmRequests.getObject(PlanStatus.self) {
+            objects.append(contentsOf: query2)
+        }
+        if let query3: [Object] = RealmRequests.getObject(LivestockIdentifierType.self) {
+            objects.append(contentsOf: query3)
+        }
+        if let query4: [Object] = RealmRequests.getObject(AgreementExemptionStatus.self) {
+            objects.append(contentsOf: query4)
+        }
+        if let query5: [Object] = RealmRequests.getObject(AgreementStatus.self) {
+            objects.append(contentsOf: query5)
+        }
+        if let query6: [Object] = RealmRequests.getObject(LiveStockType.self) {
+            objects.append(contentsOf: query6)
+        }
+        if let query7: [Object] = RealmRequests.getObject(AgreementType.self) {
+            objects.append(contentsOf: query7)
+        }
+
+        return objects
+    }
+
+    func clearStoredReferenceData() {
+        let objects = getAllReferenceData()
+        removeAllObjectsIn(query: objects)
+    }
+
+    func removeAllObjectsIn(query: [Object]?) {
+        if query == nil {return}
+        for object in query! {
+            RealmRequests.deleteObject(object)
+        }
+    }
+
+    func storeNewReferenceData(objects: [Object]) {
+        for object in objects {
+            RealmRequests.saveObject(object: object)
+        }
+    }
+
+    func updateReferenceData(objects: [Object]) {
+        clearStoredReferenceData()
+        storeNewReferenceData(objects: objects)
+        // todo: remove
+        getAllReferenceData()
+        for object in objects {
+            print(object)
         }
     }
  }

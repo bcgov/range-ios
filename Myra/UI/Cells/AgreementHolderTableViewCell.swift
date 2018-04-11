@@ -10,6 +10,12 @@ import UIKit
 
 class AgreementHolderTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var agreementHolder: UITextField!
+    @IBOutlet weak var agreementType: UITextField!
+
+    var client: Client?
+    var parentCell: BasicInfoTableViewCell?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,6 +25,20 @@ class AgreementHolderTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+
+    func setup(client: Client, parentCell: BasicInfoTableViewCell) {
+        self.client = client
+        self.parentCell = parentCell
+        autoFill()
+    }
+
+    func autoFill() {
+        if let c = client {
+            let clientType = RUPManager.shared.getClientTypeFor(clientTypeCode: c.clientTypeCode)
+            self.agreementHolder.text = c.name
+            self.agreementType.text = clientType.desc
+        }
     }
     
 }

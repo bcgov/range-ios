@@ -21,6 +21,8 @@ class BasicInfoTableViewCell: UITableViewCell {
     var mode: FormMode = .Create
     var rup: RUP?
 
+    var parentReference: CreateNewRUPViewController?
+
     // Mark: Outlets
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
@@ -34,6 +36,7 @@ class BasicInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.addButton.alpha = 0
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -54,7 +57,8 @@ class BasicInfoTableViewCell: UITableViewCell {
 
 
     // Mark: Functions
-    func setup(mode: FormMode, rup: RUP) {
+    func setup(mode: FormMode, rup: RUP, parentReference: CreateNewRUPViewController) {
+        self.parentReference = parentReference
         self.mode = mode
         self.rup = rup
         setUpTable()
@@ -64,15 +68,18 @@ class BasicInfoTableViewCell: UITableViewCell {
     func updateTableHeight() {
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        tableHeight.constant = CGFloat((rup?.agreementHolders.count)! * cellHeight + 5)
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTO(indexPath: parent.agreementInformationIndexPath)
+        if let r = rup, let p = parentReference {
+            let clients = r.clients
+            tableHeight.constant = CGFloat((clients.count) * cellHeight + 5)
+            p.realodAndGoTO(indexPath: p.basicInformationIndexPath)
+//            p.realodAndGoTO(indexPath: parent.agreementInformationIndexPath)
+        }
     }
 
     func autofill() {
         if rup == nil { return }
         setFieldMode()
-        self.addButton.alpha = 0
+
         if let rangeNumber = rup?.agreementId {
             self.planNumber.text =  rangeNumber
         }
@@ -82,6 +89,8 @@ class BasicInfoTableViewCell: UITableViewCell {
         if let end = rup?.agreementEndDate {
             self.agreementEnd.text = DateManager.toString(date: end)
         }
+        updateTableHeight()
+
 
 //        if mode == .View || mode == .Edit {
 //            self.planNumber.text = rup?.basicInformation?.rangeNumber
@@ -140,11 +149,19 @@ extension BasicInfoTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getHolderCell(indexPath: indexPath)
+        if let r = rup {
+            cell.setup(client: r.clients[indexPath.row], parentCell: self)
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rup!.agreementHolders.count
+        if let r = rup {
+            return r.clients.count
+        } else {
+            return 0
+        }
+//        return rup!.agreementHolders.count
     }
 
 }
