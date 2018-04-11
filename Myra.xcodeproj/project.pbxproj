@@ -123,6 +123,7 @@
 		29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0392057299D006CD247 /* DatePickerController.swift */; };
 		29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB03B20572AF6006CD247 /* UIViewController.swift */; };
 		29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */; };
+		56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56873E30207E6D6600C530CA /* DateExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -243,6 +244,7 @@
 		29FCB0392057299D006CD247 /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
 		29FCB03B20572AF6006CD247 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePickerController.storyboard; sourceTree = "<group>"; };
+		56873E30207E6D6600C530CA /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.release.xcconfig"; sourceTree = "<group>"; };
 		AC1A12ECD6EA7B0AF9754FFC /* Pods-Myra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.debug.xcconfig"; sourceTree = "<group>"; };
 		FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Myra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,7 +330,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		2920F8312034C7870090E7B4 /* Extentions & utilities */ = {
+		2920F8312034C7870090E7B4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */,
@@ -344,7 +346,7 @@
 				29DA8AA42059A8DA00139AD1 /* String.swift */,
 				29E5A09A2062CFC00077F0A5 /* SingleSignOnConstants.swift */,
 			);
-			path = "Extentions & utilities";
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		2920F83F2034F37A0090E7B4 /* Base */ = {
@@ -377,10 +379,11 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
+				56873E32207E6D6A00C530CA /* Extensions */,
 				29EA029E2069664B0076403B /* x_pop.json */,
 				29EA02982069565B0076403B /* checked_done_.json */,
 				29EA02A020696A710076403B /* spinner_.json */,
-				2920F8312034C7870090E7B4 /* Extentions & utilities */,
+				2920F8312034C7870090E7B4 /* Utilities */,
 				2920F82E2034C0000090E7B4 /* Helpers */,
 				2920F82B2034BF9A0090E7B4 /* Models and enums */,
 				29EB8442203DEE7A00D73F6B /* UI */,
@@ -488,6 +491,14 @@
 				9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		56873E32207E6D6A00C530CA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				56873E30207E6D6600C530CA /* DateExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -742,6 +753,7 @@
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				29E0D927203F4B2400193FA0 /* DummySupplier.swift in Sources */,
+				56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */,
 				2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */,
 				2962B0E7204F076800F71B9C /* ScheduleCellTableViewCell.swift in Sources */,
 				2920F83A2034CADC0090E7B4 /* RUPDetailsViewController.swift in Sources */,
