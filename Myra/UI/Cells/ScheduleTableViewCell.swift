@@ -35,20 +35,21 @@ class ScheduleTableViewCell: UITableViewCell {
                 if name.isInt, let year = Int(name), let r = self.rup {
                     // check if year is valid
                     if RUPManager.shared.isNewScheduleYearValidFor(rup: r, newYear: year) {
-                        let newSchedule = Schedule()
-                        newSchedule.name = name
-                        newSchedule.year = year
-                        let schedules = r.schedules
+                        let schedule = Schedule()
+                        schedule.name = name
+                        schedule.year = year
+
                         do {
                             let realm = try Realm()
+                            let aRup = realm.objects(RUP.self).filter("realmID = %@", r.realmID).first!
                             try realm.write {
-                                schedules.append(newSchedule)
-                                r.schedules = schedules
+                                aRup.schedules.append(schedule)
+                                realm.add(schedule)
                             }
+                            self.rup = aRup
                         } catch _ {
                             fatalError()
                         }
-                        RealmRequests.updateObject(r)
                         self.updateTableHeight()
                     } else {
                         p.showAlert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
@@ -69,9 +70,15 @@ class ScheduleTableViewCell: UITableViewCell {
     }
 
     func updateTableHeight() {
-        if let plan = rup {
-            RUPManager.shared.sortSchedule(rup: plan)
-        }
+        
+//        guard let plan = rup else {
+//            fatalError()
+//        }
+//
+//        rup.schedules.sorted("year", ascending: true)
+//        if let plan = rup {
+//            RUPManager.shared.sortSchedule(rup: plan)
+//        }
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
         let count = rup?.schedules.count ?? 0
