@@ -61,10 +61,11 @@ class AssignedRUPTableViewCell: UITableViewCell {
             self.statusText.text = "Completed"
             setStatusGreen()
         case .Pending:
-            self.statusText.text = "Pending"
+            self.statusText.text = "Submitted"
             setStatusRed()
         case .Draft:
             self.statusText.text = "Draft"
+            infoButton.setTitle("Edit", for: .normal)
             setStatusRed()
         }
     }

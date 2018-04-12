@@ -191,7 +191,7 @@ class CreateNewRUPViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setDummy()
+        setMenuSize()
         closePopup() 
         setUpTable()
         setMenuSize()
@@ -313,29 +313,32 @@ class CreateNewRUPViewController: BaseViewController {
         NotificationCenter.default.post(name: .updateTableHeights, object: self, userInfo: ["reload": true])
     }
 
+    override func whenLandscape() {
+        setMenuSize()
+    }
+    override func whenPortrait() {
+        setMenuSize()
+    }
+
 }
 
 extension CreateNewRUPViewController {
-    // TODO: currently unused. reposition loading spinner.
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: nil) { _ in
-            self.setMenuSize()
-        }
-    }
 
     func setMenuSize() {
         if UIDevice.current.orientation.isLandscape{
             self.menuWidth.constant = 265
-            self.animateIt()
         } else {
             self.menuWidth.constant = 156
-            self.animateIt()
         }
+        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0{
+            self.tableView.scrollToRow(at: indexPath[0], at: .top, animated: true)
+        }
+        self.animateIt()
     }
 }
 
 extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource {
+
     func setUpTable() {
         if self.tableView == nil {return}
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
@@ -351,6 +354,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         registerCell(name: "MapTableViewCell")
         registerCell(name: "ScheduleTableViewCell")
     }
+
     @objc func doThisWhenNotify() { return }
 
     func registerCell(name: String) {
@@ -444,6 +448,31 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     func deepReload(indexPath: IndexPath) {
         self.tableView.reloadData()
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
+            var indexPath = indexPaths[0]
+            if indexPaths.count > 1 {
+                indexPath = indexPaths[1]
+            }
+            if indexPaths.count > 2 {
+                indexPath = indexPaths[2]
+            }
+            if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
+                basicInfoLabel.textColor = UIColor.blue
+                pasturesLabel.textColor = UIColor.black
+                scheduleLabel.textColor = UIColor.black
+            } else if indexPath == pasturesIndexPath {
+                basicInfoLabel.textColor = UIColor.black
+                pasturesLabel.textColor = UIColor.blue
+                scheduleLabel.textColor = UIColor.black
+            } else if indexPath == scheduleIndexPath {
+                basicInfoLabel.textColor = UIColor.black
+                pasturesLabel.textColor = UIColor.black
+                scheduleLabel.textColor = UIColor.blue
+            }
+        }
     }
 }
 

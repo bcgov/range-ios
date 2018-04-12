@@ -34,7 +34,8 @@ class PastureTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addBoarder()
+        addBoarder(layer: containerView.layer)
+        addBoarder(layer: pastureNotesTextField.layer)
         loaded = true
     }
 
@@ -142,10 +143,10 @@ class PastureTableViewCell: UITableViewCell {
         }
     }
 
-    func addBoarder() {
-        containerView.layer.borderWidth = 1
-        containerView.layer.cornerRadius = 5
-        containerView.layer.borderColor = UIColor.black.cgColor
+    func addBoarder(layer: CALayer) {
+        layer.borderWidth = 1
+        layer.cornerRadius = 5
+        layer.borderColor = UIColor.black.cgColor
     }
 }
 
