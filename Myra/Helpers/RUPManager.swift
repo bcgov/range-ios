@@ -587,4 +587,13 @@
             print(object)
         }
     }
+
+    func getPrimaryAgreementHolderFor(rup: RUP) -> String {
+        for client in rup.clients {
+            if client.clientTypeCode == "A" {
+                return client.name
+            }
+        }
+        return ""
+    }
  }

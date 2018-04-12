@@ -28,6 +28,8 @@ class AgreementHolderTableViewCell: UITableViewCell {
     }
 
     func setup(client: Client, parentCell: BasicInfoTableViewCell) {
+        self.agreementType.isUserInteractionEnabled = false
+        self.agreementHolder.isUserInteractionEnabled = false
         self.client = client
         self.parentCell = parentCell
         autoFill()
