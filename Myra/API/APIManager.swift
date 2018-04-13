@@ -27,11 +27,10 @@ class APIManager {
                             idpHint: SingleSignOnConstants.SSO.idpHint)
     }()
 
-
     static func headers() -> HTTPHeaders {
         if let creds = authServices.credentials {
             let token = creds.accessToken
-            return ["Content-Type" : "application/json", "Authorization": "Bearer \(token)"]
+            return ["Authorization": "Bearer \(token)"]
         } else {
             return ["Content-Type" : "application/json"]
         }
@@ -54,6 +53,36 @@ class APIManager {
                 return completion(true)
             }else {
                 return completion(false)
+            }
+        }
+    }
+    
+    static func create(plan: RUP, completion: @escaping (_ plan: [String: Any]?, _ error: Error?) -> ()) {
+        
+        guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+        
+        let params = plan.toDictionary()
+        
+        Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
+            .responseJSON { response in
+//            guard response.result.isSuccess else {
+//                completion(nil)
+//                return
+//            }
+
+            switch response.result {
+            case .success(let value):
+                if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
+                    print("The request failed.")
+                    print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
+                    completion(nil, nil)
+                }
+                
+                completion(value as? [String: Any], nil)
+            case .failure(let error):
+                completion(nil, error)
             }
         }
     }
@@ -187,29 +216,30 @@ class APIManager {
         return result
     }
 
-    static func send(rup: RUP,completion: @escaping (_ success: Bool) -> Void) {
-        let url = "\(agreementEndpoint)/\(rup.id)"
-        var params: [String: Any] = [String: Any]()
-        if let ps = rup.planStartDate {
-            let start = DateManager.toUTC(date: ps)
-            params["planStartDate"] = start
-        }
 
-        if let pe = rup.planEndDate {
-            let end = DateManager.toUTC(date: pe)
-            params["planEndDate"] = end
-        }
-
-        let headers = ["Content-Type":"application/json"]
-
-        Alamofire.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).responseData { (response) in
-            if response.result.description == "SUCCESS" {
-                return completion(true)
-            } else {
-                return completion(false)
-            }
-        }
-    }
+//    static func send(rup: RUP,completion: @escaping (_ success: Bool) -> Void) {
+//        let url = "\(agreementEndpoint)/\(rup.id)"
+//        var params: [String: Any] = [String: Any]()
+//        if let ps = rup.planStartDate {
+//            let start = DateManager.toUTC(date: ps)
+//            params["planStartDate"] = start
+//        }
+//
+//        if let pe = rup.planEndDate {
+//            let end = DateManager.toUTC(date: pe)
+//            params["planEndDate"] = end
+//        }
+//
+//        let headers = ["Content-Type":"application/json"]
+//
+//        Alamofire.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).responseData { (response) in
+//            if response.result.description == "SUCCESS" {
+//                return completion(true)
+//            } else {
+//                return completion(false)
+//            }
+//        }
+//    }
 
     static func getAgreements(completion: @escaping (_ success: Bool,_ rups: [Agreement]?) -> Void) {
         print(headers())
@@ -413,40 +443,46 @@ class APIManager {
 }
 
 extension APIManager {
-    static func sync(completion: @escaping (_ done: Bool) -> Void, progress: @escaping (_ text: String)-> Void) {
-        progress("veryfying connection")
-        if let r = Reachability(), r.connection != .none {
-            progress("Downloading reference data")
-            getReferenceData(completion: { (success) in
-                if success {
-                    progress("Downloading agreements")
-                    // sent rups
-                    getAgreements(completion: { (done, agreements) in
-                        if done {
-                            print(agreements?.count)
-                            progress("Updating stored data")
-                            RUPManager.shared.diffAgreements(agreements: agreements!)
-                            progress("Completed")
-                            RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
-                            return completion(true)
-                        } else {
-                            progress("Failed while downloading agreements")
-                            return completion(false)
-                        }
-                    })
-                } else {
-                    progress("Failed while downloading reference data")
-                    return completion(false)
-                }
-            })
-        } else {
-            progress("Failed while verifying connection")
-            return completion(false)
+    static func sync(completion: @escaping (_ done: Bool) -> Void, progress: @escaping (_ text: String) -> Void) {
+        
+        DataServices.shared.uploadDraftRangeUsePlans {
+            print("done like dinner")
+        
+            progress("veryfying connection")
+            if let r = Reachability(), r.connection != .none {
+                progress("Downloading reference data")
+                
+                getReferenceData(completion: { (success) in
+                    if success {
+                        progress("Downloading agreements")
+                        // sent rups
+                        getAgreements(completion: { (done, agreements) in
+                            if done {
+    //                            print(agreements?.count)
+                                progress("Updating stored data")
+                                RUPManager.shared.diffAgreements(agreements: agreements!)
+                                progress("Completed")
+                                RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
+                                return completion(true)
+                            } else {
+                                progress("Failed while downloading agreements")
+                                return completion(false)
+                            }
+                        })
+                    } else {
+                        progress("Failed while downloading reference data")
+                        return completion(false)
+                    }
+                })
+            } else {
+                progress("Failed while verifying connection")
+                return completion(false)
+            }
         }
     }
 
     static func uploadRUP(rup: RUP, completion: @escaping (_ done: Bool) -> Void) {
-        Alamofire.request(planEndpoint, method: .post, parameters: rup.toJSON(), encoding: JSONEncoding.default, headers: headers())
+        Alamofire.request(planEndpoint, method: .post, parameters: rup.toDictionary(), encoding: JSONEncoding.default, headers: headers())
             .responseData{ response in
                 if response.result.description == "SUCCESS" {
                     let json = JSON(response.result.value!)
