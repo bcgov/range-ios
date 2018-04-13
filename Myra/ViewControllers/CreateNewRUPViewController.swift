@@ -346,15 +346,16 @@ class CreateNewRUPViewController: BaseViewController {
 extension CreateNewRUPViewController {
 
     func setMenuSize() {
+        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
+            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+        }
         if UIDevice.current.orientation.isLandscape{
             self.menuWidth.constant = 265
         } else {
             self.menuWidth.constant = 156
         }
-        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0{
-            self.tableView.scrollToRow(at: indexPath[0], at: .top, animated: true)
-        }
         self.animateIt()
+
     }
 }
 
