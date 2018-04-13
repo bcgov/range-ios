@@ -12,7 +12,7 @@ import SingleSignOn
 
 class BaseViewController: UIViewController {
 
-    let syncWhiteScreenTag = 100
+    let whiteScreenTag = 100
     let syncTitleTag = 101
     let syncDescriptionTag = 102
     let syncButtonTag = 103
@@ -49,6 +49,27 @@ class BaseViewController: UIViewController {
 
     func whenLandscape() {}
     func whenPortrait() {}
+
+    // Mark: White screen for popups
+    func getWhiteScreen() -> UIView {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        view.center.y = self.view.center.y
+        view.center.x = self.view.center.x
+        view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0.9)
+        view.alpha = 1
+        view.tag = whiteScreenTag
+        return view
+    }
+
+    func showWhiteScreen() {
+        self.view.addSubview(getWhiteScreen())
+    }
+
+    func removeWhiteScreen() {
+        if let whiteView = self.view.viewWithTag(whiteScreenTag) {
+            whiteView.removeFromSuperview()
+        }
+    }
 
 }
 
@@ -163,11 +184,7 @@ extension BaseViewController {
     func getSyncView() -> UIView {
 
         // white screen
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        view.center.y = self.view.center.y
-        view.center.x = self.view.center.x
-        view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0.9)
-        view.alpha = 1
+        let view = getWhiteScreen()
 
         // view that holds content
         let layerWidth: CGFloat = 400
@@ -268,7 +285,7 @@ extension BaseViewController {
         view.addSubview(layer)
 
         // give the view that contains it all (white screen)
-        view.tag = syncWhiteScreenTag
+        view.tag = whiteScreenTag
 
         return view
     }
@@ -368,7 +385,7 @@ extension BaseViewController {
     }
 
     func rotateSync() {
-        if let whiteBG = self.view.viewWithTag(syncWhiteScreenTag), let container = self.view.viewWithTag(syncContainerTag) {
+        if let whiteBG = self.view.viewWithTag(whiteScreenTag), let container = self.view.viewWithTag(syncContainerTag) {
             whiteBG.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
             whiteBG.center.y = self.view.center.y
             whiteBG.center.x = self.view.center.x
@@ -385,7 +402,7 @@ extension BaseViewController {
 
     @objc func syncLayerButtonAction(sender: UIButton!) {
         // removes the sync view by removing the white screen view that contains the other views
-        if let viewWithTag = self.view.viewWithTag(syncWhiteScreenTag) {
+        if let viewWithTag = self.view.viewWithTag(whiteScreenTag) {
             viewWithTag.removeFromSuperview()
             whenSyncClosed()
         }

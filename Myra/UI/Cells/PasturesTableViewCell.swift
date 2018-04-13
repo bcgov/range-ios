@@ -36,6 +36,7 @@ class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
+        guard let r = rup else { return }
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup!)) { (done, name) in
             if done {
@@ -43,9 +44,12 @@ class PasturesTableViewCell: UITableViewCell {
                 newPasture.name = name
                 do {
                     let realm = try Realm()
+                    let aRup = realm.objects(RUP.self).filter("realmID = %@", r.realmID).first!
                     try realm.write {
-                         self.rup?.pastures.append(newPasture)
+                        aRup.pastures.append(newPasture)
+                        realm.add(newPasture)
                     }
+                    self.rup = aRup
                 } catch _ {
                     fatalError()
                 }

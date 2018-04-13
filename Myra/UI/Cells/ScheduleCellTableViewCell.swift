@@ -29,8 +29,18 @@ class ScheduleCellTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+
     @IBAction func copyAtion(_ sender: Any) {
         duplicate()
+    }
+
+    @IBAction func deleteAction(_ sender: Any) {
+        if let s = schedule, let p = parentReference {
+            RealmRequests.deleteObject(s)
+            p.updateTableHeight()
+            self.leadingOptions.constant = 0
+            animateIt()
+        }
     }
 
     func setup(rup: RUP, schedule: Schedule, parentReference: ScheduleTableViewCell) {
@@ -59,6 +69,8 @@ class ScheduleCellTableViewCell: UITableViewCell {
             
             guard let nextYear = RUPManager.shared.getNextScheduleYearFor(from: sched.year, rup: rupObject) else {
                 parentReference?.parentReference?.showAlert(with: "Invalid year", message: "Cannot insert a valid schedule object within plan start and plan end date")
+                self.leadingOptions.constant = 0
+                animateIt()
                 return
             }
             
