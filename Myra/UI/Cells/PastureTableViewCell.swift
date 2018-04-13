@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class PastureTableViewCell: UITableViewCell {
+class PastureTableViewCell: BaseFormCell {
 
     // Mark: Constants
     let plantCommunityCellHeight = 100
@@ -18,7 +18,7 @@ class PastureTableViewCell: UITableViewCell {
     // Mark: Variables
     var pastures: PasturesTableViewCell?
     var pasture: Pasture?
-    var mode: FormMode = .Create
+//    var mode: FormMode = .Create
     var loaded: Bool = false
 
     // Mark: Outlets
@@ -120,6 +120,9 @@ class PastureTableViewCell: UITableViewCell {
         autofill()
         setupTable()
         self.pastureNotesTextField.delegate = self
+        styleInput(input: aumsField)
+        styleInput(input: deductionFIeld)
+        styleInput(input: graceDaysField)
     }
 
     func autofill() {

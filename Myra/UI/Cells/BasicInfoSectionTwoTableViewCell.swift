@@ -10,10 +10,10 @@ import UIKit
 import Realm
 import RealmSwift
 
-class BasicInfoSectionTwoTableViewCell: UITableViewCell {
+class BasicInfoSectionTwoTableViewCell: BaseFormCell {
 
-    var rup: RUP?
-    var mode: FormMode = .Create
+//    var rup: RUP?
+//    var mode: FormMode = .Create
 
     @IBOutlet weak var rupzone: UITextField!
     @IBOutlet weak var alternativeBusinesName: UITextField!
@@ -35,13 +35,13 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
     @IBAction func planStartAction(_ sender: Any) {
 
         let parent = self.parentViewController as! CreateNewRUPViewController
-        DatePickerController.present(on: parent, completion: { (date) in
+        DatePickerController.present(on: parent, minimum: rup.agreementStartDate) { (date) in
             guard let date = date else { return }
             self.planStart.text = date.string()
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.rup?.planStartDate = date
+                    self.rup.planStartDate = date
                 }
             } catch _ {
                 fatalError()
@@ -49,18 +49,18 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
             if self.planEnd.text != "" {
                 let endDate = DateManager.from(string: self.planEnd.text!)
                 if endDate < date {
-                    self.planEnd.text = DateManager.toString(date: (self.rup?.planStartDate)!)
+                    self.planEnd.text = DateManager.toString(date: (self.rup.planStartDate)!)
                     do {
                         let realm = try Realm()
                         try realm.write {
-                           self.rup?.planEndDate = self.rup?.planStartDate
+                           self.rup.planEndDate = self.rup.planStartDate
                         }
                     } catch _ {
                         fatalError()
                     }
                 }
             }
-        })
+        }
 
     }
     
@@ -75,25 +75,25 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        self.rup?.planEndDate = date
+                        self.rup.planEndDate = date
                     }
                 } catch _ {
                     fatalError()
                 }
             })
         } else {
-            DatePickerController.present(on: parent, completion: { (date) in
+            DatePickerController.present(on: parent, minimum: rup.agreementStartDate) { (date) in
                 guard let date = date else { return }
                 self.planEnd.text = date.string()
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        self.rup?.planEndDate = date
+                        self.rup.planEndDate = date
                     }
                 } catch _ {
                     fatalError()
                 }
-            })
+            }
         }
     }
 
@@ -101,7 +101,7 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
         do {
             let realm = try Realm()
             try realm.write {
-                self.rup?.rangeName = self.rangeName.text ?? ""
+                self.rup.rangeName = self.rangeName.text ?? ""
             }
         } catch _ {
             fatalError()
@@ -112,47 +112,44 @@ class BasicInfoSectionTwoTableViewCell: UITableViewCell {
         do {
             let realm = try Realm()
             try realm.write {
-                self.rup?.alternativeName = alternativeBusinesName.text ?? ""
+                self.rup.alternativeName = alternativeBusinesName.text ?? ""
             }
         } catch _ {
             fatalError()
         }
     }
 
-    func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: RUP) {
         self.rup = rup
         self.mode = mode
         autofill()
+        styleInput(input: alternativeBusinesName)
+        styleInput(input: rangeName)
+        styleInput(input: planStart)
+        styleInput(input: planEnd)
     }
 
     func autofill() {
         if rup == nil { return }
         setFieldMode()
-        if let zone = rup?.zones.last {
+        if let zone = rup.zones.last {
             self.rupzone.text = zone.code
             if let district = zone.districts.last {
                 self.districtResponsible.text = district.code
             }
         }
-        if let rangeName = rup?.rangeName {
-            self.rangeName.text = rangeName
-        }
+        self.rangeName.text = rup.rangeName
+        self.alternativeBusinesName.text = rup.alternativeName
+        self.agreementType.text = RUPManager.shared.getType(id: rup.typeId)
 
-        if let alternativeName = rup?.alternativeName {
-           self.alternativeBusinesName.text = alternativeName
-        }
-
-        if let start = rup?.planStartDate {
+        if let start = rup.planStartDate {
             self.planStart.text = DateManager.toString(date: start)
         }
 
-        if let end = rup?.planEndDate {
+        if let end = rup.planEndDate {
             self.planEnd.text = DateManager.toString(date: end)
         }
 
-        if let agreeType = rup?.typeId {
-            self.agreementType.text = RUPManager.shared.getType(id: agreeType)
-        }
 
         /*
         if mode == .View || mode == .Edit {

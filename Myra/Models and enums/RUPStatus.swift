@@ -12,4 +12,5 @@ enum RUPStatus: String {
     case Draft
     case Pending
     case Completed
+    case Outbox
 }
