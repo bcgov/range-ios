@@ -49,8 +49,6 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 <connections>
                                                     <action selector="aumChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="Sss-OT-UkU"/>
-                                                    <action selector="beginEditingField:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="3F8-bl-FUD"/>
-                                                    <action selector="fieldChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="BPr-3f-9jF"/>
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLs-f5-2Hy">
@@ -90,8 +88,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
-                                                    <action selector="beginEditingField:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="yg9-3s-7zJ"/>
-                                                    <action selector="fieldChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="ofA-ve-3r5"/>
                                                     <action selector="landDeductionChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="4L2-e3-4jW"/>
                                                 </connections>
                                             </textField>
@@ -132,8 +128,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
-                                                    <action selector="beginEditingField:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="Csi-u1-L27"/>
-                                                    <action selector="fieldChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="pss-zK-imL"/>
                                                     <action selector="graceDaysChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="dqD-Qt-elM"/>
                                                 </connections>
                                             </textField>

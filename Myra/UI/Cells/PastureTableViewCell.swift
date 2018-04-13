@@ -109,16 +109,7 @@ class PastureTableViewCell: UITableViewCell {
             fatalError()
         }
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
-
     }
-
-    @IBAction func beginEditingField(_ sender: UITextField) {
-        if sender.text == "0" || sender.text == "0.0" {
-            sender.text = ""
-        }
-    }
-
-    @IBAction func fieldChanged(_ sender: Any) {}
 
     // Mark: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
