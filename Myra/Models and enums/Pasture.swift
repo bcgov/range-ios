@@ -23,6 +23,7 @@ class Pasture: Object {
     @objc dynamic var allowedAUMs: Int = 0
     @objc dynamic var privateLandDeduction: Double = 0.0
     @objc dynamic var graceDays: Int = 0
+    @objc dynamic var notes: String = ""
     @objc dynamic var dbID: Int = -1
     var plantCommunities = List<PlantCommunity>()
 

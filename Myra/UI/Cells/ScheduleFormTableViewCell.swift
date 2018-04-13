@@ -36,11 +36,16 @@ class ScheduleFormTableViewCell: UITableViewCell {
 
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
+        guard let sched = self.schedule else { return }
         do {
             let realm = try Realm()
+            let aSchedule = realm.objects(Schedule.self).filter("realmID = %@", sched.realmID).first!
             try realm.write {
-                schedule?.scheduleObjects.append(ScheduleObject())
+                let new = ScheduleObject()
+                aSchedule.scheduleObjects.append(new)
+                realm.add(new)
             }
+            self.schedule = aSchedule
         } catch _ {
             fatalError()
         }

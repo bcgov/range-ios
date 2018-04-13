@@ -388,18 +388,18 @@
     }
 
     // if livestock with the specified name is not found, returns false
-    func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) {
+    func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) -> ScheduleObject {
         let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
         do {
             let realm = try Realm()
+            let scheduleObj = realm.objects(ScheduleObject.self).filter("realmID = %@", scheduleObject.realmID).first!
             try realm.write {
-                scheduleObject.type = ls
+                scheduleObj.type = ls
             }
+            return scheduleObj
         } catch _ {
             fatalError()
         }
-
-        RealmRequests.updateObject(scheduleObject)
     }
 
     func getPasturesArray(rup: RUP) -> [Pasture] {
@@ -441,24 +441,33 @@
         return true
     }
 
-    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int? {
+    func getNextScheduleYearFor(from: Int,rup: RUP) -> Int? {
         // String array of years current schedule objects
         let years = rup.schedules.map({ (schedule) in
             return schedule.year
         }).sorted {$0 < $1}
 
-        guard let last = years.last, isNewScheduleYearValidFor(rup: rup, newYear: last + 1) else {
-            return nil
+        guard let planStart = rup.planStartDate?.yearOfDate() else { return nil}
+        guard let plantEnd = rup.planEndDate?.yearOfDate() else { return nil}
+
+        let y_forward = computeNextScheduleYearFor(from: from, to: plantEnd, taken: years)
+        if isNewScheduleYearValidFor(rup: rup, newYear: y_forward) {
+            return y_forward
+        } else {
+            let y_backwards = computeNextScheduleYearFor(from: planStart, to: plantEnd, taken: years)
+            if isNewScheduleYearValidFor(rup: rup, newYear: y_backwards) {
+                return y_backwards
+            }
         }
-        
-        return last + 1
+
+        return nil
     }
 
-    func computeNextScheduleYearFor(from: Int, taken: [String]) -> Int {
+    func computeNextScheduleYearFor(from: Int, to: Int,taken: [Int]) -> Int {
         var new = from
 
         // Find the next year that's not taken
-        while taken.contains("\(new)") {
+        while taken.contains(new) && new <= to {
             new = new + 1
         }
 

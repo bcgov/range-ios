@@ -135,35 +135,6 @@ class HomeViewController: BaseViewController {
         self.tableView.isUserInteractionEnabled = true
     }
 
-//    func beginSync() {
-//        self.beginSyncLoadingAnimation()
-//        self.hideSyncViewButton()
-//        APIManager.sync(completion: { (done) in
-//            if done {
-////                self.endSyncLoadingAnimation()
-//                self.successLoadingAnimation()
-//                self.endSyncLoadingAnimation()
-//                self.updateSyncDescription(text: "Sync completed.")
-//                self.showSyncViewButton()
-//
-////                self.syncPageButton.setTitle("Sync completed.", for: .normal)
-//                self.loadHome()
-//            } else {
-//                self.updateSyncDescription(text: "Sync failed")
-//                self.updateSyncButtonTitle(text: "Close")
-//                self.endSyncLoadingAnimation()
-//                self.failLoadingAnimation()
-//                self.showSyncViewButton()
-////                self.syncPageButton.setTitle("Sync failed", for: .normal)
-//            }
-//            self.enableSyncViewButton()
-//
-//        }) { (progress) in
-//            self.updateSyncDescription(text: progress)
-////            self.syncTitle.text = progress
-//        }
-//    }
-
     func showLoginPage() {
 
     }

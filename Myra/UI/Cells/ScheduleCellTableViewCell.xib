@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -111,13 +111,24 @@
                                     <action selector="closeOptions:" destination="HNH-gb-EUb" eventType="touchUpInside" id="PuE-h0-OKT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4E-ND-gat">
+                                <rect key="frame" x="332" y="4.5" width="100" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.62303365460000004" blue="0.54890557480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteAction:" destination="HNH-gb-EUb" eventType="touchUpInside" id="G0q-SK-Fp0"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6v-7b-mpt">
                                 <rect key="frame" x="25" y="5" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.0039215686269999999" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="14l-Xx-98G"/>
                                 </constraints>
                                 <state key="normal" title="Copy">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="copyAtion:" destination="HNH-gb-EUb" eventType="touchUpInside" id="jqG-1p-x16"/>
@@ -126,10 +137,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="height" secondItem="D6v-7b-mpt" secondAttribute="height" id="5Qb-2M-H5s"/>
                             <constraint firstItem="HQl-aW-nhQ" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="AQi-bs-mE9"/>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="width" secondItem="D6v-7b-mpt" secondAttribute="width" id="Cv6-h2-63P"/>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="D6v-7b-mpt" secondAttribute="trailing" constant="50" id="ONn-Bj-6nv"/>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="centerY" secondItem="D6v-7b-mpt" secondAttribute="centerY" id="e3t-mI-5rE"/>
                             <constraint firstItem="D6v-7b-mpt" firstAttribute="leading" secondItem="gpi-eb-Q6x" secondAttribute="leading" constant="25" id="iQ2-lw-xnY"/>
                             <constraint firstItem="HQl-aW-nhQ" firstAttribute="height" secondItem="gpi-eb-Q6x" secondAttribute="height" id="o72-d6-bbC"/>
                             <constraint firstItem="D6v-7b-mpt" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="vZL-w0-YcR"/>
+                            <constraint firstItem="HQl-aW-nhQ" firstAttribute="leading" secondItem="U4E-ND-gat" secondAttribute="trailing" constant="100" id="vzy-2d-KZY"/>
                             <constraint firstAttribute="trailing" secondItem="HQl-aW-nhQ" secondAttribute="trailing" constant="5" id="y6Z-Hf-aGe"/>
                         </constraints>
                     </view>
