@@ -12,27 +12,17 @@ import Realm
 import RealmSwift
 
 class DataServices: NSObject {
-
+    
     typealias UploadCompleted = () -> Void
     
     internal static let shared = DataServices()
     private let queue: OperationQueue = {
         let q = OperationQueue()
-        q.maxConcurrentOperationCount = 1
-
-
+        q.maxConcurrentOperationCount = 1 // serial queue
         
         return q
     }()
     internal var onUploadCompleted: UploadCompleted?
-    
-    static func plan(withLocalId localId: Int) -> RUP? {
-        guard let plans = try? Realm().objects(RUP.self).filter("realmID = %@", localId), let plan = plans.first else {
-            return nil
-        }
-        
-        return plan
-    }
     
     override init() {
         super.init()
@@ -61,39 +51,39 @@ class DataServices: NSObject {
         
         onUploadCompleted = completion
         
-            for i in agreements.enumerated() {
-                for j in i.element.rups.enumerated() {
-                    // let offset = j.offset
-                    let plan = j.element
-                    let pid = plan.realmID
-                    
-                    queue.addAsyncOperation { done in
-                        
-                        // different thread, need new realm to access.
-                        guard let plans = try? Realm().objects(RUP.self).filter("realmID = %@", pid), let myPlan = plans.first else {
-                            return
-                        }
-
-                        APIManager.create(plan: myPlan, completion: { (response, error) in
-                            guard let response = response, error == nil else {
-                                fatalError()
-                            }
-                            
-                            // different thread again, need new realm to write.
-                            if let realm = try? Realm(), let aPlan = realm.objects(RUP.self).filter("realmID = %@", plan.realmID).first {
-                                do {
-                                    try realm.write {
-                                        aPlan.id = response["id"] as! Int
-                                    }
-                                } catch {
-                                    fatalError() // just for now.
-                                }
-                            }
+        for i in agreements.enumerated() {
+            for j in i.element.rups.enumerated() {
+                // let offset = j.offset
+                let plan = j.element
+                let pid = plan.realmID
                 
-                            done()
-                        })
+                queue.addAsyncOperation { done in
+                    
+                    // different thread, need new realm to access.
+                    guard let plans = try? Realm().objects(RUP.self).filter("realmID = %@", pid), let myPlan = plans.first else {
+                        return
                     }
+                    
+                    APIManager.create(plan: myPlan, completion: { (response, error) in
+                        guard let response = response, error == nil else {
+                            fatalError()
+                        }
+                        
+                        // different thread again, need new realm to write.
+                        if let realm = try? Realm(), let aPlan = realm.objects(RUP.self).filter("realmID = %@", plan.realmID).first {
+                            do {
+                                try realm.write {
+                                    aPlan.id = response["id"] as! Int
+                                }
+                            } catch {
+                                fatalError() // just for now.
+                            }
+                        }
+                        
+                        done()
+                    })
                 }
             }
+        }
     }
 }

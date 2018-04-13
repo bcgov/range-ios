@@ -445,39 +445,56 @@ class APIManager {
 extension APIManager {
     static func sync(completion: @escaping (_ done: Bool) -> Void, progress: @escaping (_ text: String) -> Void) {
         
+        guard let r = Reachability(), r.connection != .none else {
+            progress("Failed while verifying connection")
+            completion(false)
+            return
+        }
+        
+        var myAgreements: [Agreement]?
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        progress("Uploading data to the server")
         DataServices.shared.uploadDraftRangeUsePlans {
             print("done like dinner")
+            dispatchGroup.leave()
+        }
         
-            progress("veryfying connection")
-            if let r = Reachability(), r.connection != .none {
-                progress("Downloading reference data")
-                
-                getReferenceData(completion: { (success) in
-                    if success {
-                        progress("Downloading agreements")
-                        // sent rups
-                        getAgreements(completion: { (done, agreements) in
-                            if done {
-    //                            print(agreements?.count)
-                                progress("Updating stored data")
-                                RUPManager.shared.diffAgreements(agreements: agreements!)
-                                progress("Completed")
-                                RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
-                                return completion(true)
-                            } else {
-                                progress("Failed while downloading agreements")
-                                return completion(false)
-                            }
-                        })
-                    } else {
-                        progress("Failed while downloading reference data")
-                        return completion(false)
-                    }
-                })
-            } else {
-                progress("Failed while verifying connection")
-                return completion(false)
+        dispatchGroup.enter()
+        progress("Downloading reference data")
+        getReferenceData(completion: { (success) in
+            if (!success) {
+                progress("Failed while downloading reference data")
             }
+
+            dispatchGroup.leave()
+        })
+        
+        dispatchGroup.enter()
+        progress("Downloading agreements")
+        getAgreements(completion: { (done, agreements) in
+            
+            myAgreements = agreements
+            
+            if !done {
+                progress("Failed while downloading agreements")
+            } else {
+                progress("Completed")
+            }
+            
+            dispatchGroup.leave()
+        })
+        
+        dispatchGroup.notify(queue: .main) {
+            if let agreements = myAgreements {
+                progress("Updating stored data")
+                RUPManager.shared.diffAgreements(agreements: agreements)
+                progress("Completed")
+                RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
+            }
+            
+            completion(true)
         }
     }
 
