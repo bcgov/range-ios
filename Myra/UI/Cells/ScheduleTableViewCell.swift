@@ -121,7 +121,7 @@ extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleCell(indexPath: indexPath)
-        cell.setup(rup: rup!, schedule: (rup?.schedules[indexPath.row])!, parentReference: self)
+        cell.setup(rup: rup!, schedule: (rup?.schedules.sorted(by: { $0.year < $1.year })[indexPath.row])!, parentReference: self)
         return cell
     }
 

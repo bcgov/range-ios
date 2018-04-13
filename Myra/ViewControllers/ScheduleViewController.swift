@@ -8,14 +8,13 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController {
-
-    @IBOutlet weak var popupContainer: UIView!
+class ScheduleViewController: BaseViewController {
 
     var completion: ((_ done: Bool) -> Void)?
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var rup: RUP?
+    var popupContainerTag = 200
 
     @IBOutlet weak var scheduleTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
@@ -23,7 +22,6 @@ class ScheduleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        popupContainer.alpha = 0 
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
@@ -64,28 +62,68 @@ class ScheduleViewController: UIViewController {
         self.subtitle.text = "\(ranNumber) | \(agreementHolder) | \(rangeName)"
     }
 
+    // Mark: Livestock selection popup
     func showpopup(vc: SelectionPopUpViewController) {
-        add(asChildViewController: vc)
-        self.popupContainer.alpha = 1
+        showWhiteScreen()
+        if let whiteView = self.view.viewWithTag(whiteScreenTag) {
+            let container = getLiveStockPopupHolder()
+            whiteView.addSubview(container)
+            addChildViewController(vc)
+            container.addSubview(vc.view)
+            vc.view.frame = container.bounds
+            vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            vc.didMove(toParentViewController: self)
+        }
     }
 
     func hidepopup(vc: SelectionPopUpViewController) {
-        remove(asChildViewController: vc)
-        self.popupContainer.alpha = 0
+        vc.willMove(toParentViewController: nil)
+        vc.view.removeFromSuperview()
+        vc.removeFromParentViewController()
+        if let container = self.view.viewWithTag(popupContainerTag) {
+            container.removeFromSuperview()
+        }
+        removeWhiteScreen()
     }
 
-    func add(asChildViewController viewController: UIViewController) {
-        addChildViewController(viewController)
-        popupContainer.addSubview(viewController.view)
-        viewController.view.frame = popupContainer.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParentViewController: self)
+    func getLiveStockPopupHolder() -> UIView {
+        let layerWidth: CGFloat = (self.view.frame.width / 4)
+        let layerHeight: CGFloat = (self.view.frame.height / 2)
+        let layer = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: layerWidth, height: layerHeight))
+        layer.layer.cornerRadius = 5
+        layer.backgroundColor = UIColor.white
+        layer.layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.layer.shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
+        layer.layer.shadowOpacity = 1
+        layer.layer.shadowRadius = 10
+        layer.center.x = self.view.center.x
+        layer.center.y = self.view.center.y
+        layer.tag = popupContainerTag
+        return layer
     }
 
-    func remove(asChildViewController viewController: UIViewController) {
-        viewController.willMove(toParentViewController: nil)
-        viewController.view.removeFromSuperview()
-        viewController.removeFromParentViewController()
+    func rotatePopup() {
+        if let whiteBG = self.view.viewWithTag(whiteScreenTag), let container = self.view.viewWithTag(popupContainerTag) {
+            whiteBG.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+            whiteBG.center.y = self.view.center.y
+            whiteBG.center.x = self.view.center.x
+
+            let containerWidth: CGFloat = (self.view.frame.width / 4)
+            let containerHeight: CGFloat = (self.view.frame.height / 2)
+
+            container.frame.size.width = containerWidth
+            container.frame.size.height = containerHeight
+            container.center.y = self.view.center.y
+            container.center.x = self.view.center.x
+        }
+    }
+
+    override func whenLandscape() {
+        rotatePopup()
+    }
+
+    override func whenPortrait() {
+        rotatePopup()
     }
 
     func reloadCells() {

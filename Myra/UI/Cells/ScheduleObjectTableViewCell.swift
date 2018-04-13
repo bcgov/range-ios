@@ -62,8 +62,7 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         lookup.setup(objects: objects) { (selected, obj) in
             if selected {
                 if let r = self.rup, let schObject = self.scheduleObject, let selectedType = obj {
-                    RUPManager.shared.setLiveStockTypeFor(scheduleObject: schObject, liveStock: selectedType.display)
-                    RealmRequests.updateObject(r)
+                    self.scheduleObject = RUPManager.shared.setLiveStockTypeFor(scheduleObject: schObject, liveStock: selectedType.display)
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }

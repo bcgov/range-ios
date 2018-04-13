@@ -102,17 +102,14 @@ class PastureTableViewCell: UITableViewCell {
                     graceDaysField.textColor = UIColor.black
                 } else {
                     graceDaysField.textColor = UIColor.red
-                    self.pasture?.graceDays = 0
+                    self.pasture?.graceDays = 3
                 }
             }
         } catch _ {
             fatalError()
         }
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
-
     }
-
-    @IBAction func fieldChanged(_ sender: Any) {}
 
     // Mark: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
@@ -122,12 +119,14 @@ class PastureTableViewCell: UITableViewCell {
         self.pastureNameLabel.text = pasture.name
         autofill()
         setupTable()
+        self.pastureNotesTextField.delegate = self
     }
 
     func autofill() {
         self.aumsField.text = "\(pasture?.allowedAUMs ?? 0)"
         self.deductionFIeld.text = "\(pasture?.privateLandDeduction ?? 0)"
-        self.graceDaysField.text = "\(pasture?.graceDays ?? 0)"
+        self.graceDaysField.text = "\(pasture?.graceDays ?? 3)"
+        self.pastureNotesTextField.text = pasture?.notes
     }
 
     func getCellHeight() -> CGSize {
@@ -148,6 +147,7 @@ class PastureTableViewCell: UITableViewCell {
         layer.cornerRadius = 5
         layer.borderColor = UIColor.black.cgColor
     }
+
 }
 
 // TableView
@@ -196,5 +196,21 @@ extension PastureTableViewCell {
 
     func catchAction(notification:Notification) {
         self.updateTableHeight()
+    }
+}
+
+// Notes
+extension PastureTableViewCell: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {}
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.pasture?.notes = textView.text
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 }

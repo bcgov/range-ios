@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -77,14 +77,6 @@
                                 <rect key="frame" x="0.0" y="174" width="1024" height="594"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSB-4v-MSD">
-                                <rect key="frame" x="412" y="184" width="200" height="350"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="GgX-wa-6sG"/>
-                                    <constraint firstAttribute="width" constant="200" id="WxP-Kt-SJV"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -93,9 +85,7 @@
                             <constraint firstItem="ktd-tc-bzf" firstAttribute="trailing" secondItem="g6e-Bh-kSx" secondAttribute="trailing" id="LR1-pJ-2B9"/>
                             <constraint firstItem="mvf-uz-dBk" firstAttribute="top" secondItem="g6e-Bh-kSx" secondAttribute="bottom" id="LyO-yc-3qg"/>
                             <constraint firstItem="FfS-yq-3AT" firstAttribute="top" secondItem="mvf-uz-dBk" secondAttribute="bottom" id="R2B-0W-jSU"/>
-                            <constraint firstItem="GSB-4v-MSD" firstAttribute="centerX" secondItem="iZg-Hf-HvY" secondAttribute="centerX" id="VYw-eR-m3t"/>
                             <constraint firstItem="FfS-yq-3AT" firstAttribute="leading" secondItem="ktd-tc-bzf" secondAttribute="leading" id="ZAW-CA-6cn"/>
-                            <constraint firstItem="GSB-4v-MSD" firstAttribute="top" secondItem="mvf-uz-dBk" secondAttribute="bottom" constant="10" id="b72-o4-7Jo"/>
                             <constraint firstItem="g6e-Bh-kSx" firstAttribute="leading" secondItem="ktd-tc-bzf" secondAttribute="leading" id="kq6-5a-ttN"/>
                             <constraint firstItem="ktd-tc-bzf" firstAttribute="trailing" secondItem="mvf-uz-dBk" secondAttribute="trailing" id="nwy-e9-2Wu"/>
                             <constraint firstItem="g6e-Bh-kSx" firstAttribute="top" secondItem="ktd-tc-bzf" secondAttribute="top" id="tL6-Lv-NaM"/>
@@ -104,7 +94,6 @@
                         <viewLayoutGuide key="safeArea" id="ktd-tc-bzf"/>
                     </view>
                     <connections>
-                        <outlet property="popupContainer" destination="GSB-4v-MSD" id="WZT-FD-0Po"/>
                         <outlet property="scheduleTitle" destination="ll5-lG-1nr" id="QuQ-qd-8SQ"/>
                         <outlet property="subtitle" destination="ebn-yk-vEf" id="gl6-uD-kcx"/>
                         <outlet property="tableView" destination="FfS-yq-3AT" id="iif-B1-XlU"/>
