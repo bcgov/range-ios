@@ -75,11 +75,11 @@ class RUP: Object {
 
     func toDictionary() -> [String:Any] {
         return [
-            "rangeName": "Hello Range",
-            "agreementId": "RAN074014",
+            "rangeName": rangeName,
+            "agreementId": agreementId,
             "statusId": 1
         ]
-        
+
 //        guard let json = try? JSONSerialization.data(withJSONObject: plan, options: .prettyPrinted) else {
 //            return nil
 //        }

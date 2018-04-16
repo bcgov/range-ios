@@ -35,6 +35,18 @@ class APIManager {
             return ["Content-Type" : "application/json"]
         }
     }
+    
+    static func request(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let credentials = authServices.credentials {
+            request.setValue("\(credentials.accessToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        return request
+    }
 
     static func getReferenceData(completion: @escaping (_ success: Bool) -> Void) {
         RealmManager.shared.clearReferenceData()
@@ -57,20 +69,17 @@ class APIManager {
         }
     }
     
-    static func create(plan: RUP, completion: @escaping (_ plan: [String: Any]?, _ error: Error?) -> ()) {
+    static func add(plan: RUP, toAgreement agreementId: String, completion: @escaping (_ plan: [String: Any]?, _ error: Error?) -> ()) {
         
         guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL!) else {
             return
         }
         
-        let params = plan.toDictionary()
+        var params = plan.toDictionary()
+        params["agreementId"] = agreementId
         
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
-//            guard response.result.isSuccess else {
-//                completion(nil)
-//                return
-//            }
 
             switch response.result {
             case .success(let value):
@@ -86,7 +95,69 @@ class APIManager {
             }
         }
     }
+    
+    static func add(pasture: Pasture, toPlan planId: String, completion: @escaping (_ pasture: [String:Any]?, _ error: Error?) -> ()) {
+        
+        let pathKey = ":id"
+        let path = Constants.API.pasturePath.replacingOccurrences(of: pathKey, with: planId, options: .literal, range: nil)
+        
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+        
+        let params = pasture.toDictionary()
+        
+        Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
+            .responseJSON { response in
+                
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
+                        print("The request failed.")
+                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
+                        completion(nil, nil)
+                    }
+                    
+                    completion(value as? [String: Any], nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+        }
+    }
 
+//    static func add(pastures: [Pasture], toPlan planId: String, completion: @escaping (_ pastures: [Pasture]?, _ error: Error?) -> ()) {
+//
+//        let pathKey = ":id"
+//        let path = Constants.API.pasturePath.replacingOccurrences(of: pathKey, with: planId, options: .literal, range: nil)
+//
+//        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+//            return
+//        }
+//
+//        var request = APIManager.request(url: endpoint)
+//        request.httpBody = try! JSONSerialization.data(withJSONObject: pastures.map { $0.toDictionary() })
+//
+//        Alamofire.request(request).responseJSON { response in
+//
+//                switch response.result {
+//                case .success(let value):
+//                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
+//                        print("The request failed.")
+//                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
+//                        completion(nil, nil)
+//                    }
+//
+//                    completion(nil, nil)
+//                case .failure(let error):
+//                    completion(nil, error)
+//                }
+//        }
+//    }
+
+    //
+    // Everythign below here needs to be refactored or moved !!!
+    //
+    
     static func handleLivestockIdentifierType(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
@@ -599,7 +670,7 @@ extension APIManager {
 
     static func uploadPasture(pasture: Pasture, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
         let url = "\(planEndpoint)/\(planID)/pasture"
-        let param = pasture.toJSON(planID: planID)
+        let param = pasture.toDictionary()
         Alamofire.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
