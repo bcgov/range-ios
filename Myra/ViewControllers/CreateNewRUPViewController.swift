@@ -198,7 +198,7 @@ class CreateNewRUPViewController: BaseViewController {
         if !reloaded {
             updateSubtableHeights()
         }
-
+        setMenuSize()
         NotificationCenter.default.addObserver(forName: .updatePastureCells, object: nil, queue: nil, using: catchAction)
         autofill()
     }
@@ -264,6 +264,33 @@ class CreateNewRUPViewController: BaseViewController {
     */
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
+
+        showAlert(title: "Confirm", description: "You will not be able to edit this rup after submission", yesButtonTapped: {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.rup?.statusEnum = .Outbox
+                }
+                
+            } catch _ {}
+            self.dismiss(animated: true) {
+                if self.parentCallBack != nil {
+                    return self.parentCallBack!(true)
+                }
+            }
+        }) {
+
+        }
+//        APIManager.send(rup: self.rup!) { (done) in
+//            if done {
+////                self.parentVC?.dismiss(animated: true, completion: nil)
+//                self.dismiss(animated: true, completion: nil)
+//            }
+//        }
+    }
+
+
+    func submitRup() {
         self.view.isUserInteractionEnabled = false
         if let rupobj = rup {
             APIManager.uploadRUP(rup: rupobj) { (success) in
@@ -281,12 +308,6 @@ class CreateNewRUPViewController: BaseViewController {
                 return self.parentCallBack!(true)
             }
         }
-//        APIManager.send(rup: self.rup!) { (done) in
-//            if done {
-////                self.parentVC?.dismiss(animated: true, completion: nil)
-//                self.dismiss(animated: true, completion: nil)
-//            }
-//        }
     }
 
     // Mark: Functions
@@ -325,15 +346,16 @@ class CreateNewRUPViewController: BaseViewController {
 extension CreateNewRUPViewController {
 
     func setMenuSize() {
+        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
+            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+        }
         if UIDevice.current.orientation.isLandscape{
             self.menuWidth.constant = 265
         } else {
             self.menuWidth.constant = 156
         }
-        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0{
-            self.tableView.scrollToRow(at: indexPath[0], at: .top, animated: true)
-        }
         self.animateIt()
+
     }
 }
 

@@ -71,6 +71,11 @@ class BaseViewController: UIViewController {
         }
     }
 
+    func styleInput(input: UITextField) {
+        input.layer.cornerRadius = 3
+        input.layer.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1).cgColor
+    }
+
 }
 
 extension BaseViewController {
@@ -131,6 +136,21 @@ extension BaseViewController {
         ac.addAction(cancel)
 
         present(ac, animated: true, completion: nil)
+    }
+    
+    func showAlert(title: String, description: String, yesButtonTapped:@escaping () -> (), noButtonTapped:@escaping () -> ()) {
+        let alert = UIAlertController(title: title, message: description, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "YES", style: .default, handler: { (action) in
+            DispatchQueue.main.async {
+                yesButtonTapped()
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "NO", style: .default, handler: { (action) in
+            DispatchQueue.main.async {
+                noButtonTapped()
+            }
+        }))
+        present(alert, animated: true, completion: nil)
     }
 }
 

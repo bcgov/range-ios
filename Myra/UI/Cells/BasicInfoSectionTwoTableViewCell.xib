@@ -37,6 +37,7 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9z9-xZ-dnu">
                                                 <rect key="frame" x="0.0" y="10" width="177" height="45"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="BasicInfoAgreementTypeLabel"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="7eX-Nb-dbF"/>
                                                 </constraints>
@@ -77,6 +78,7 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iv5-cg-sup">
                                                 <rect key="frame" x="0.0" y="10" width="177.5" height="45"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="BasicInfoDistrictResponsibleLabel"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="DXQ-Xy-JsG"/>
                                                 </constraints>
@@ -117,6 +119,7 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2EF-v1-cDp">
                                                 <rect key="frame" x="0.0" y="10" width="177" height="45"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="BasicInfoZoneLabel"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="13o-1A-Nxv"/>
                                                 </constraints>
@@ -162,6 +165,7 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Goh-vN-35Y">
                                                 <rect key="frame" x="0.0" y="10" width="276" height="45"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="BasicInfoRangeNameLabel"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="xgA-qk-bpo"/>
                                                 </constraints>
@@ -205,6 +209,7 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c9A-O4-BOE">
                                                 <rect key="frame" x="0.0" y="10" width="276.5" height="45"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="BasicInfoAltBusinessNameLabel"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="H8F-3F-nb9"/>
                                                 </constraints>
@@ -269,6 +274,7 @@
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbs-gJ-4fd">
                                                 <rect key="frame" x="0.0" y="10" width="177.5" height="53"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="BasicInfoPlanStartButton"/>
                                                 <connections>
                                                     <action selector="planStartAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="feb-c2-rJC"/>
                                                 </connections>
@@ -319,6 +325,7 @@
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6h-JP-pDv">
                                                 <rect key="frame" x="0.0" y="10" width="177.5" height="53"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="BasicInfoPlanEndButton"/>
                                                 <connections>
                                                     <action selector="planEndAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fPm-y7-oT2"/>
                                                 </connections>

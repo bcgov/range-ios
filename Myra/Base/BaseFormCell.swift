@@ -30,4 +30,8 @@ class BaseFormCell: UITableViewCell {
         self.mode = mode
     }
 
+    func styleInput(input: UITextField) {
+        input.layer.cornerRadius = 3
+        input.layer.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1).cgColor
+    }
 }

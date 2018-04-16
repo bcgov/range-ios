@@ -37,6 +37,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
         if rup == nil {return}
+        if rup?.statusEnum == .Outbox {return}
         let parent = self.parentViewController as! HomeViewController
         parent.editRUP(rup: rup!)
     }
@@ -67,6 +68,10 @@ class AssignedRUPTableViewCell: UITableViewCell {
             self.statusText.text = "Draft"
             infoButton.setTitle("Edit", for: .normal)
             setStatusRed()
+        case .Outbox:
+            self.statusText.text = "Outbox"
+            infoButton.alpha = 0
+            setStatusGray()
         }
     }
 }
@@ -91,5 +96,9 @@ extension AssignedRUPTableViewCell {
 
     func setStatusYellow() {
         self.statusLight.backgroundColor = UIColor.yellow
+    }
+
+    func setStatusGray() {
+        self.statusLight.backgroundColor = UIColor.gray
     }
 }
