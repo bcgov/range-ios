@@ -21,9 +21,6 @@ class AssignedRUPTableViewCell: UITableViewCell {
     @IBOutlet weak var statusText: UILabel!
     @IBOutlet weak var rangeName: UILabel!
 
-    // Removed
-    @IBOutlet weak var ammendButton: UIButton!
-
     override func awakeFromNib() {
         super.awakeFromNib()
         style()
@@ -48,9 +45,10 @@ class AssignedRUPTableViewCell: UITableViewCell {
     }
 
     // MARK: Functions
-    func set(rup: RUP) {
+    func set(rup: RUP, color: UIColor) {
         self.rup = rup
         setupView(rup: rup)
+        self.backgroundColor = color
     }
 
     func setupView(rup: RUP) {
@@ -74,12 +72,19 @@ class AssignedRUPTableViewCell: UITableViewCell {
             setStatusGray()
         }
     }
-}
 
-// Mark: Styles
-extension AssignedRUPTableViewCell {
+    // MARK: Styles
     func style() {
         makeCircle(view: statusLight)
+        styleButton(button: infoButton)
+    }
+
+    func styleButton(button: UIButton) {
+        button.layer.cornerRadius = 5
+        button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 1
+        button.layer.borderColor = Colors.primary.cgColor
+        button.setTitleColor(Colors.primary, for: .normal)
     }
 
     func makeCircle(view: UIView) {

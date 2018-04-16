@@ -164,6 +164,14 @@ extension BaseViewController {
         layer.shadowRadius = 3
     }
 
+    func addShadow(to layer: CALayer, opacity: Float, height: Int) {
+        layer.borderColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
+        layer.shadowOffset = CGSize(width: 0, height: height)
+        layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = 3
+    }
+
     func roundCorners(layer: CALayer) {
         layer.cornerRadius = 8
     }

@@ -14,6 +14,10 @@ class HomeViewController: BaseViewController {
 
     // MARK: Constants
     let reachability = Reachability()!
+    let filterAllTag = 11
+    let filterDraftsTag = 12
+    let filterPendingTag = 13
+    let filterCompletedTag = 14
 
     // MARK: Variables
 
@@ -38,21 +42,33 @@ class HomeViewController: BaseViewController {
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
 
-    /////// may need to remove ////////
-    @IBOutlet weak var topContainer: UIView!
-    @IBOutlet weak var createButton: UIButton!
-    //////////////////////
-
+    // Top
     @IBOutlet weak var userBoxView: UIView!
     @IBOutlet weak var userBoxLabel: UILabel!
-
+    @IBOutlet weak var statusBar: UIView!
+    @IBOutlet weak var navBar: UIView!
+    @IBOutlet weak var navBarImage: UIImageView!
+    @IBOutlet weak var syncLabel: UILabel!
     @IBOutlet weak var connectivityLabel: UILabel!
     @IBOutlet weak var lastSyncLabel: UILabel!
-
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var viewTitle: UILabel!
+    @IBOutlet weak var connectivityLight: UIView!
 
     // sync
     @IBOutlet weak var syncButton: UIButton!
+    @IBOutlet weak var syncContainer: UIView!
+
+    // Create button and filters
+    @IBOutlet weak var topContainer: UIView!
+    @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var allFilter: UIButton!
+    @IBOutlet weak var draftsFilter: UIButton!
+    @IBOutlet weak var pendingFilter: UIButton!
+    @IBOutlet weak var completedFilter: UIButton!
+
+    // table
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeaderSeparator: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +83,6 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func CreateRUPAction(_ sender: Any) {
-//        let agreements = RUPManager.shared.getAgreements()
         let vm = ViewManager()
         let vc = vm.selectAgreement
         vc.setup(callBack: { closed in
@@ -76,40 +91,183 @@ class HomeViewController: BaseViewController {
         self.present(vc, animated: true, completion: nil)
     }
 
-    /*
-     When loading home page,
-
-     1) check if a last sync date exists.
-        if not, show login page
-        else, set last sync date label
-     2) setup table view
-     3) get rups that dont have status: Agreeemnt
-     4) reload table to load the rups from step 3
-    */
-
-    func loadHome() {
-        style()
-        let lastSync = RealmManager.shared.getLastSyncDate()
-        if lastSync != nil, let ls = lastSync?.string() {
-            lastSyncLabel.text = ls
-        } else {
-            showLoginPage()
-            authenticateIfRequred()
-        }
-        setUpTable()
-        self.getRUPs()
-        self.tableView.reloadData()
-    }
-
     @IBAction func syncAction(_ sender: UIButton) {
 
         authenticateIfRequred()
     }
 
-    @IBAction func syncPageButtonAction(_ sender: UIButton) {
-        syncing = false
+    @IBAction func filterAction(_ sender: UIButton) {
+        switch sender.tag {
+        case 11:
+            filterByAll()
+        case 12:
+            filterByDrafts()
+        case 13:
+            filterByPending()
+        case 14:
+            filterByCompleted()
+        default:
+            print("not possible.. why would you link anything else to this?")
+        }
     }
 
+    // MARK: Filter
+    func filterByAll() {
+        filterButtonOn(button: allFilter)
+        self.rups = RUPManager.shared.getRUPs()
+        self.tableView.reloadData()
+    }
+
+    func filterByDrafts() {
+        filterButtonOn(button: draftsFilter)
+        self.rups = RUPManager.shared.getDraftRups()
+        self.tableView.reloadData()
+    }
+
+    func filterByPending() {
+        filterButtonOn(button: pendingFilter)
+        self.rups = RUPManager.shared.getPendingRups()
+        self.tableView.reloadData()
+    }
+
+    func filterByCompleted() {
+        filterButtonOn(button: completedFilter)
+        self.rups = RUPManager.shared.getCompletedRups()
+        self.tableView.reloadData()
+    }
+
+    func sortByAgreementHolder() {
+
+    }
+
+    func sortByRangeName() {
+
+    }
+
+    func sortByStatus() {
+
+    }
+
+    func sortByRangeNumber() {
+
+    }
+
+
+    // MARK: setup
+    /*
+     When loading home page,
+
+     1) check if a last sync date exists.
+     if not, show login page
+     else, set last sync date label
+     2) setup table view
+     3) get rups that dont have status: Agreeemnt
+     4) reload table to load the rups from step 3
+     */
+
+    func loadHome() {
+        style()
+        let lastSync = RealmManager.shared.getLastSyncDate()
+        if let ls = lastSync {
+            let calendar = Calendar.current
+            let now = Date()
+            let components = calendar.dateComponents([.day], from: ls, to: now)
+            if let days = components.day {
+                lastSyncLabel.text = "\(days) days ago"
+            } else {
+                lastSyncLabel.text = "Unknown"
+            }
+        } else {
+            authenticateIfRequred()
+        }
+        setUpTable()
+        filterByAll()
+    }
+
+    // MARK: Styles
+    func style() {
+        setStatusBarAppearanceLight()
+        styleNavBar()
+        styleCreateButton()
+        styleFilterContainer()
+        styleUserBox()
+        styleSyncBox()
+        makeCircle(view: connectivityLight)
+        setFilterButtonFonts()
+        tableHeaderSeparator.backgroundColor = Colors.secondary
+    }
+
+    func styleNavBar() {
+        // lower alpha to show image behind
+        statusBar.alpha = 0.8
+        navBar.alpha = 0.8
+
+        navBarImage.image = #imageLiteral(resourceName: "homeNavBarImage")
+
+        // background color
+        statusBar.backgroundColor = Colors.primary
+        navBar.backgroundColor = Colors.primary
+
+        // text colors
+        syncLabel.textColor = UIColor.white
+        connectivityLabel.textColor = UIColor.white
+        lastSyncLabel.textColor = UIColor.white
+        viewTitle.textColor = UIColor.white
+
+        // fonts
+        syncLabel.font = Fonts.getPrimary(size: 15)
+        connectivityLabel.font = Fonts.getPrimary(size: 15)
+        lastSyncLabel.font = Fonts.getPrimary(size: 15)
+        viewTitle.font = Fonts.getPrimaryHeavy(size: 40)
+    }
+
+    func styleCreateButton() {
+        createButton.backgroundColor = Colors.primary
+        createButton.layer.cornerRadius = 5
+        createButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
+    }
+
+    func styleFilterContainer() {
+        topContainer.backgroundColor = UIColor.white
+        addShadow(to: topContainer.layer, opacity: 0.5, height: 1)
+    }
+
+    func styleUserBox() {
+        makeCircle(view: userBoxView)
+        userBoxView.backgroundColor = UIColor.white
+        userBoxLabel.textColor = Colors.mainText
+    }
+
+    func styleSyncBox() {
+        makeCircle(view: syncContainer)
+        syncContainer.backgroundColor = UIColor.white
+    }
+
+    func filterButtonOn(button: UIButton) {
+        swtichFilterButtonsOff()
+        button.setTitleColor(Colors.secondary, for: .normal)
+    }
+
+    func filterButtonOff(button: UIButton) {
+        button.setTitleColor(Colors.bodyText, for: .normal)
+        button.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+    }
+
+    func swtichFilterButtonsOff() {
+        filterButtonOff(button: allFilter)
+        filterButtonOff(button: draftsFilter)
+        filterButtonOff(button: pendingFilter)
+        filterButtonOff(button: completedFilter)
+    }
+
+    func setFilterButtonFonts() {
+        allFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+        draftsFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+        pendingFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+        completedFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+    }
+
+    // MARK: Sync
     override func whenAuthenticated() {
         self.syncing = true
         sync { (synced) in
@@ -125,8 +283,6 @@ class HomeViewController: BaseViewController {
         syncButton.isUserInteractionEnabled = false
         self.createButton.isUserInteractionEnabled = false
         self.tableView.isUserInteractionEnabled = false
-//        let syncView = getSyncView()
-//        syncView.autoresizesSubviews = false
         self.view.addSubview(getSyncView())
     }
 
@@ -135,15 +291,6 @@ class HomeViewController: BaseViewController {
         self.createButton.isUserInteractionEnabled = true
         self.tableView.isUserInteractionEnabled = true
     }
-
-    func showLoginPage() {
-
-    }
-
-    func hideLoginPage() {
-
-    }
-
 }
 
 // Functions to handle TableView
@@ -164,14 +311,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let index = indexPath.row
         let cell = getAssignedRupCell(indexPath: indexPath)
-        cell.set(rup: rups[indexPath.row])
+        if index % 2 == 0 {
+            cell.set(rup: rups[index], color: Colors.evenCell)
+        } else {
+            cell.set(rup: rups[index], color: Colors.oddCell)
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rups.count
     }
+
 }
 
 // Functions to handle retrival of rups
@@ -181,6 +334,7 @@ extension HomeViewController {
         let rups = RUPManager.shared.getRUPs()
         // sort by last name
         self.rups = rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
+        filterByAll()
     }
 }
 
@@ -252,22 +406,17 @@ extension HomeViewController {
 
     func updateAccordingToNetworkStatus() {
         if online {
-            self.syncButton.alpha = 1
+            self.syncContainer.alpha = 1
             syncButton.isEnabled = true
             self.connectivityLabel.text = "ONLINE MODE"
+            self.connectivityLight.backgroundColor = UIColor.green
         } else {
-            self.syncButton.alpha = 0
+            self.syncContainer.alpha = 0
             syncButton.isEnabled = false
             self.connectivityLabel.text = "OFFLINE MODE"
+            self.connectivityLight.backgroundColor = UIColor.red
         }
     }
 }
 
-// Styles
-extension HomeViewController {
-    func style() {
-        setStatusBarAppearanceDark()
-        makeCircle(view: userBoxView)
-    }
-}
 
