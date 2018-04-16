@@ -29,6 +29,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUX-3I-mjR" userLabel="Back">
                                         <rect key="frame" x="20" y="0.0" width="34" height="70"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="SchedulePageBackBUtton"/>
                                         <state key="normal" title="Back">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>

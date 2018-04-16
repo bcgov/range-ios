@@ -23,6 +23,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     // Mark: Variables
 //    var rangeUsageYears = List<RangeUsageYear>()
     var rup: RUP?
+    var usageYears = [RangeUsageYear]()
     var mode: FormMode = .Create
 
     // Mark: Outlets
@@ -55,7 +56,12 @@ class RangeUsageTableViewCell: UITableViewCell {
     func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
-        heightConstraint.constant = CGFloat( Double((rup.rangeUsageYears.count)) * cellHeight + 5.0)
+        for usage in rup.rangeUsageYears {
+            if usage.year >= (rup.agreementStartDate?.yearOfDate())! && usage.year <= (rup.agreementEndDate?.yearOfDate())! {
+                usageYears.append(usage)
+            }
+        }
+        heightConstraint.constant = CGFloat( Double(usageYears.count) * cellHeight + 5.0)
         setUpTable()
     }
 
@@ -66,7 +72,7 @@ class RangeUsageTableViewCell: UITableViewCell {
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
 
-        heightConstraint.constant = CGFloat( Double((rup?.rangeUsageYears.count)!) * cellHeight + 5.0)
+        heightConstraint.constant = CGFloat( Double(usageYears.count) * cellHeight + 5.0)
 
         /*
          tableView.contentSize.height did not provide correct height.
@@ -100,12 +106,12 @@ extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
-        cell.setup(usage: (rup?.rangeUsageYears[indexPath.row])!)
+        cell.setup(usage: usageYears[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rup!.rangeUsageYears.count
+        return usageYears.count
     }
 
 }

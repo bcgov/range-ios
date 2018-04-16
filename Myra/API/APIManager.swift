@@ -17,7 +17,7 @@ import RealmSwift
 class APIManager {
 
     static let baseURL = "http://api-range-myra-dev.pathfinder.gov.bc.ca/v1"
-    static let agreementEndpoint = "\(baseURL)/agreement"
+    static let agreementEndpoint = "\(baseURL)/agreement?limit=10"
     static let planEndpoint = "\(baseURL)/plan"
     static let reference = "\(baseURL)/reference"
 

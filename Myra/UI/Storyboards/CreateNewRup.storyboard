@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -40,23 +40,25 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PZE-DF-IW6">
-                                                <rect key="frame" x="15" y="43.5" width="270" height="30"/>
+                                                <rect key="frame" x="15" y="43.5" width="270" height="46.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ygC-Kn-J96">
-                                                <rect key="frame" x="15" y="88.5" width="270" height="46.5"/>
+                                                <rect key="frame" x="15" y="105" width="270" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALK-pv-FcH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="135" height="46.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="135" height="30"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="PopUpCancelButton"/>
                                                         <state key="normal" title="Cancel"/>
                                                         <connections>
                                                             <action selector="popupCancel:" destination="q34-99-p1g" eventType="touchUpInside" id="e60-5h-8eZ"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSY-n3-yhg">
-                                                        <rect key="frame" x="135" y="0.0" width="135" height="46.5"/>
+                                                        <rect key="frame" x="135" y="0.0" width="135" height="30"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="PopUpAddButton"/>
                                                         <state key="normal" title="Add"/>
                                                         <connections>
                                                             <action selector="popupAdd:" destination="q34-99-p1g" eventType="touchUpInside" id="zjm-cu-u6D"/>
@@ -107,6 +109,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4Y-I5-Z9f">
                                         <rect key="frame" x="896" y="20.5" width="108" height="33"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="SaveDraftButton"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                         <state key="normal" title="Save to Drafts">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,6 +120,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#RAN07878  |  Range Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqq-yl-p8l">
                                         <rect key="frame" x="20" y="29.5" width="180.5" height="17"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="RangeNameLabel"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -164,6 +168,7 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cnc-y9-eVo">
                                                         <rect key="frame" x="0.0" y="0.0" width="226" height="44"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="BasicInformationSectionButton"/>
                                                         <connections>
                                                             <action selector="basicInfoAction:" destination="q34-99-p1g" eventType="touchUpInside" id="csy-jF-y2b"/>
                                                         </connections>
@@ -212,6 +217,7 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXp-HH-Zns">
                                                         <rect key="frame" x="0.0" y="0.0" width="226" height="44"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="PastureSectionButton"/>
                                                         <connections>
                                                             <action selector="pasturesAction:" destination="q34-99-p1g" eventType="touchUpInside" id="mQc-qL-KMX"/>
                                                         </connections>
@@ -260,6 +266,7 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmk-yH-6yx">
                                                         <rect key="frame" x="0.0" y="0.0" width="226" height="44"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="ScheduleSectionButton"/>
                                                         <connections>
                                                             <action selector="scheduleAction:" destination="q34-99-p1g" eventType="touchUpInside" id="Qkj-hQ-asy"/>
                                                         </connections>
@@ -305,6 +312,7 @@
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uky-vQ-eLt">
                                                         <rect key="frame" x="0.0" y="0.0" width="226" height="54"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="SubmitRUPButton"/>
                                                         <connections>
                                                             <action selector="reviewAndSubmitAction:" destination="q34-99-p1g" eventType="touchUpInside" id="wv2-ra-pUr"/>
                                                         </connections>

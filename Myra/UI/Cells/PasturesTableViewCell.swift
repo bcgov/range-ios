@@ -81,7 +81,7 @@ class PasturesTableViewCell: UITableViewCell {
         */
         var h: CGFloat = 0.0
         for pasture in (rup?.pastures)! {
-            h = h + computePastureHeight(pasture: pasture)
+            h = h + computePastureHeight(pasture: pasture) + 7
         }
         return h
     }

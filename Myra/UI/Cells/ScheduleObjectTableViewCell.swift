@@ -10,10 +10,10 @@ import UIKit
 import Realm
 import RealmSwift
 
-class ScheduleObjectTableViewCell: UITableViewCell {
+class ScheduleObjectTableViewCell: BaseFormCell {
 
     var scheduleObject: ScheduleObject?
-    var rup: RUP?
+//    var rup: RUP?
     var scheduleViewReference: ScheduleViewController?
 
     @IBOutlet weak var pasture: UITextField!
@@ -39,11 +39,11 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         let parent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup!)) { (selected, obj) in
+        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup)) { (selected, obj) in
             if selected {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
-                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: (obj?.value)!, rup: self.rup!)
+                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: (obj?.value)!, rup: self.rup)
                 // fill appropriate fields
                 self.fillCurrentValues()
                 parent.hidepopup(vc: lookup)
@@ -61,7 +61,7 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         let objects = RealmManager.shared.getLiveStockTypeLookup()
         lookup.setup(objects: objects) { (selected, obj) in
             if selected {
-                if let r = self.rup, let schObject = self.scheduleObject, let selectedType = obj {
+                if let schObject = self.scheduleObject, let selectedType = obj {
                     self.scheduleObject = RUPManager.shared.setLiveStockTypeFor(scheduleObject: schObject, liveStock: selectedType.display)
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
@@ -177,6 +177,15 @@ class ScheduleObjectTableViewCell: UITableViewCell {
         self.scheduleViewReference = scheduleViewReference
         print(scheduleObject)
         autofill()
+        styleInput(input: pasture)
+        styleInput(input: liveStock)
+        styleInput(input: numberOfAniamls)
+        styleInput(input: dateIn)
+        styleInput(input: dateOut)
+        styleInput(input: days)
+        styleInput(input: graceDays)
+        styleInput(input: crownAUM)
+        styleInput(input: pldAUM)
     }
 
     public func dismissKeyboard() {

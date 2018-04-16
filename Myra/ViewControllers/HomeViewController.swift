@@ -102,6 +102,7 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
+
         authenticateIfRequred()
     }
 
@@ -121,9 +122,9 @@ class HomeViewController: BaseViewController {
     }
 
     func showSyncPage() {
-        syncButton.isUserInteractionEnabled = true
-        self.createButton.isUserInteractionEnabled = true
-        self.tableView.isUserInteractionEnabled = true
+        syncButton.isUserInteractionEnabled = false
+        self.createButton.isUserInteractionEnabled = false
+        self.tableView.isUserInteractionEnabled = false
 //        let syncView = getSyncView()
 //        syncView.autoresizesSubviews = false
         self.view.addSubview(getSyncView())
