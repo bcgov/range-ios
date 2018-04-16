@@ -148,7 +148,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="CreateRUPAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="AeH-Bx-pv8"/>
+                                                    <action selector="createRUPAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="BbH-Ci-anN"/>
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Kxf-Sw-J8K">
@@ -164,7 +164,7 @@
                                                                     <color key="titleColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="filterAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="cNg-TH-L9j"/>
+                                                                    <action selector="filterAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="ry6-e5-q8I"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>

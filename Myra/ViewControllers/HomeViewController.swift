@@ -14,13 +14,8 @@ class HomeViewController: BaseViewController {
 
     // MARK: Constants
     let reachability = Reachability()!
-    let filterAllTag = 11
-    let filterDraftsTag = 12
-    let filterPendingTag = 13
-    let filterCompletedTag = 14
 
     // MARK: Variables
-
     var rups: [RUP] = [RUP]()
 
     var online: Bool = false {
@@ -82,7 +77,7 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Outlet actions
-    @IBAction func CreateRUPAction(_ sender: Any) {
+    @IBAction func createRUPAction(_ sender: UIButton) {
         let vm = ViewManager()
         let vc = vm.selectAgreement
         vc.setup(callBack: { closed in
@@ -96,15 +91,16 @@ class HomeViewController: BaseViewController {
         authenticateIfRequred()
     }
 
+
     @IBAction func filterAction(_ sender: UIButton) {
-        switch sender.tag {
-        case 11:
-            filterByAll()
-        case 12:
+        switch sender {
+        case allFilter:
+             filterByAll()
+        case draftsFilter:
             filterByDrafts()
-        case 13:
-            filterByPending()
-        case 14:
+        case pendingFilter:
+             filterByPending()
+        case completedFilter:
             filterByCompleted()
         default:
             print("not possible.. why would you link anything else to this?")
@@ -115,6 +111,7 @@ class HomeViewController: BaseViewController {
     func filterByAll() {
         filterButtonOn(button: allFilter)
         self.rups = RUPManager.shared.getRUPs()
+        sortByRangeNumber()
         self.tableView.reloadData()
     }
 
@@ -137,7 +134,7 @@ class HomeViewController: BaseViewController {
     }
 
     func sortByAgreementHolder() {
-
+        self.rups = self.rups.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
     }
 
     func sortByRangeName() {
@@ -149,7 +146,7 @@ class HomeViewController: BaseViewController {
     }
 
     func sortByRangeNumber() {
-
+        self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
     }
 
 

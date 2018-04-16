@@ -49,6 +49,7 @@ class RUP: Object {
     @objc dynamic var alternativeName: String = ""
     @objc dynamic var updatedAt: Date?
     @objc dynamic var typeId: Int = 0
+    @objc dynamic var ranNumber = 0
 
     var rangeUsageYears = List<RangeUsageYear>()
     var agreementHolders = List<AgreementHolder>()
@@ -71,6 +72,12 @@ class RUP: Object {
         self.clients = agreement.clients
         self.zones = agreement.zones
         self.rangeUsageYears = agreement.rangeUsageYears
+        let primary = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+        let primaryArray = primary.split(separator: ",")
+        self.primaryAgreementHolderLastName = String(primaryArray[0])
+        self.primaryAgreementHolderFirstName = String(primaryArray[1])
+        let splitRan = agreementId.split(separator: "N")
+        self.ranNumber = Int(splitRan[1]) ?? 0
     }
 
     func toDictionary() -> [String:Any] {
