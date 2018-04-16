@@ -141,11 +141,11 @@ class HomeViewController: BaseViewController {
     }
 
     func sortByRangeName() {
-
+        self.rups = self.rups.sorted(by: {$0.rangeName < $1.rangeName})
     }
 
     func sortByStatus() {
-
+        self.rups = self.rups.sorted(by: {$0.status < $1.status})
     }
 
     func sortByRangeNumber() {
