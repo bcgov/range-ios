@@ -58,23 +58,32 @@ class RUP: Object {
     var zones = List<Zone>()
     var clients = List<Client>()
 
+//    convenience init(data: [String: Any]?) {
+//        self.init()
+//
+//    }
+
     func setFrom(agreement: Agreement) {
         self.agreementId = agreement.agreementId
         self.agreementStartDate = agreement.agreementStartDate
         self.agreementEndDate = agreement.agreementEndDate
         self.typeId = agreement.typeId
-
         self.clients = agreement.clients
         self.zones = agreement.zones
         self.rangeUsageYears = agreement.rangeUsageYears
     }
 
-    func toJSON() -> [String:Any] {
-        let plan: [String:Any] = [
-            "rangeName": rangeName,
-            "agreementId": agreementId,
+    func toDictionary() -> [String:Any] {
+        return [
+            "rangeName": "Hello Range",
+            "agreementId": "RAN074014",
             "statusId": 1
         ]
-        return plan
+        
+//        guard let json = try? JSONSerialization.data(withJSONObject: plan, options: .prettyPrinted) else {
+//            return nil
+//        }
+
+//        return plan
     }
 }

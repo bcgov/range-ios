@@ -126,6 +126,9 @@
 		29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB03B20572AF6006CD247 /* UIViewController.swift */; };
 		29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */; };
 		56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56873E30207E6D6600C530CA /* DateExtensions.swift */; };
+		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
+		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
+		56F388A520801FB4004CDFAE /* DataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A420801FB4004CDFAE /* DataServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -249,6 +252,9 @@
 		29FCB03B20572AF6006CD247 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePickerController.storyboard; sourceTree = "<group>"; };
 		56873E30207E6D6600C530CA /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		56F388A020801757004CDFAE /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
+		56F388A220801763004CDFAE /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
+		56F388A420801FB4004CDFAE /* DataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
 		9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.release.xcconfig"; sourceTree = "<group>"; };
 		AC1A12ECD6EA7B0AF9754FFC /* Pods-Myra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.debug.xcconfig"; sourceTree = "<group>"; };
 		FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Myra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -327,7 +333,6 @@
 				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
 				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
-				290A531D2053503A005F5019 /* APIManager.swift */,
 				29EADF8320603F9C0087593F /* RealmManager.swift */,
 				299BD277207BF488004B1D07 /* Constants.swift */,
 				2932BB4C20851BD900579A57 /* Colors.swift */,
@@ -389,6 +394,7 @@
 				29EA029E2069664B0076403B /* x_pop.json */,
 				29EA02982069565B0076403B /* checked_done_.json */,
 				29EA02A020696A710076403B /* spinner_.json */,
+				56F3889F2080173C004CDFAE /* API */,
 				2920F8312034C7870090E7B4 /* Utilities */,
 				2920F82E2034C0000090E7B4 /* Helpers */,
 				2920F82B2034BF9A0090E7B4 /* Models and enums */,
@@ -396,6 +402,7 @@
 				2920F83F2034F37A0090E7B4 /* Base */,
 				2920F8202034B98D0090E7B4 /* ViewControllers */,
 				293C95C420335D4100BF1113 /* AppDelegate.swift */,
+				299BD277207BF488004B1D07 /* Constants.swift */,
 				293C95CB20335D4100BF1113 /* Assets.xcassets */,
 				293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */,
 				293C95D020335D4100BF1113 /* Info.plist */,
@@ -505,6 +512,17 @@
 				56873E30207E6D6600C530CA /* DateExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		56F3889F2080173C004CDFAE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				290A531D2053503A005F5019 /* APIManager.swift */,
+				56F388A420801FB4004CDFAE /* DataServices.swift */,
+				56F388A020801757004CDFAE /* AsyncBlockOperation.swift */,
+				56F388A220801763004CDFAE /* ConcurrentOperation.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -727,6 +745,7 @@
 				2917468920742A7A005F70B4 /* MainViewController.swift in Sources */,
 				291C4D9B2037631400390523 /* Polygon.swift in Sources */,
 				29FCB038205702B3006CD247 /* DateManager.swift in Sources */,
+				56F388A520801FB4004CDFAE /* DataServices.swift in Sources */,
 				2962320720472AAA00F1CEBF /* BasicInformation.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
 				292185542065686B006F5EF4 /* HomeSyncExtension.swift in Sources */,
@@ -735,6 +754,7 @@
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
 				291746872074279B005F70B4 /* LoginViewController.swift in Sources */,
 				29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */,
+				56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */,
 				29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
@@ -743,6 +763,7 @@
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
 				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
 				2978AF482053318C0004562E /* BasicInfoTableViewCell.swift in Sources */,
+				56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */,
 				29EADF80206039D60087593F /* AgreementStatus.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
 				290A531E2053503A005F5019 /* APIManager.swift in Sources */,
