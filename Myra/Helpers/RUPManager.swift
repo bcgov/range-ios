@@ -233,6 +233,48 @@
         }
     }
 
+//    case Draft
+//    case Pending
+//    case Completed
+//    case Outbox
+//    statusEnum
+
+    func getDraftRups() -> [RUP] {
+        do {
+            let realm = try Realm()
+            let objs = realm.objects(RUP.self).filter("status == 'Draft'").map{ $0 }
+            return Array(objs)
+        } catch _ {}
+        return [RUP]()
+    }
+
+    func getPendingRups() -> [RUP] {
+        do {
+            let realm = try Realm()
+            let objs = realm.objects(RUP.self).filter("status == 'Pending'").map{ $0 }
+            return Array(objs)
+        } catch _ {}
+        return [RUP]()
+    }
+
+    func getCompletedRups() -> [RUP] {
+        do {
+            let realm = try Realm()
+            let objs = realm.objects(RUP.self).filter("status == 'Completed'").map{ $0 }
+            return Array(objs)
+        } catch _ {}
+        return [RUP]()
+    }
+
+    func getOutboxRups() -> [RUP] {
+        do {
+            let realm = try Realm()
+            let objs = realm.objects(RUP.self).filter("status == 'Outbox'").map{ $0 }
+            return Array(objs)
+        } catch _ {}
+        return [RUP]()
+    }
+
     func genRUP(forAgreement: Agreement) -> RUP {
         let rup = RUP()
         rup.setFrom(agreement: forAgreement)
@@ -599,6 +641,15 @@
 
     func getPrimaryAgreementHolderFor(rup: RUP) -> String {
         for client in rup.clients {
+            if client.clientTypeCode == "A" {
+                return client.name
+            }
+        }
+        return ""
+    }
+
+    func getPrimaryAgreementHolderFor(agreement: Agreement) -> String {
+        for client in agreement.clients {
             if client.clientTypeCode == "A" {
                 return client.name
             }
