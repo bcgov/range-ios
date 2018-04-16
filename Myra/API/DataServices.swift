@@ -30,6 +30,23 @@ class DataServices: NSObject {
         queue.addObserver(self, forKeyPath: "operations", options: .new, context: nil)
     }
     
+    static func plan(withLocalId localId: String) -> RUP? {
+        guard let realm = try? Realm(), let plan = realm.objects(RUP.self).filter("realmID = %@", localId).first else {
+            return nil
+        }
+        
+        return plan
+    }
+    
+    static func pasture(withLocalId localId: String) -> Pasture? {
+        guard let pastures = try? Realm().objects(Pasture.self).filter("realmID = %@", localId), let pasture = pastures.first else {
+            return nil
+        }
+        
+        return pasture
+    }
+
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         switch keyPath! {
@@ -51,39 +68,102 @@ class DataServices: NSObject {
         
         onUploadCompleted = completion
         
-        for i in agreements.enumerated() {
-            for j in i.element.rups.enumerated() {
-                // let offset = j.offset
-                let plan = j.element
-                let pid = plan.realmID
+        for agreement in agreements {
+            let agreementId = agreement.agreementId
+            queue.addAsyncOperation { done in
+                guard let myAgreements = try? Realm().objects(Agreement.self).filter("agreementId = %@", agreementId), let myAgreement = myAgreements.first else {
+                    return
+                }
                 
-                queue.addAsyncOperation { done in
-                    
-                    // different thread, need new realm to access.
-                    guard let plans = try? Realm().objects(RUP.self).filter("realmID = %@", pid), let myPlan = plans.first else {
-                        return
-                    }
-                    
-                    APIManager.create(plan: myPlan, completion: { (response, error) in
-                        guard let response = response, error == nil else {
-                            fatalError()
-                        }
-                        
-                        // different thread again, need new realm to write.
-                        if let realm = try? Realm(), let aPlan = realm.objects(RUP.self).filter("realmID = %@", plan.realmID).first {
-                            do {
-                                try realm.write {
-                                    aPlan.id = response["id"] as! Int
-                                }
-                            } catch {
-                                fatalError() // just for now.
-                            }
-                        }
-                        
-                        done()
-                    })
+                self.uploadPlans(forAgreement: myAgreement) { () in
+                    done()
                 }
             }
+        }
+    }
+    
+    private func uploadPlans(forAgreement agreement: Agreement, completion: @escaping () -> Void) {
+        
+        let group = DispatchGroup()
+        
+        for plan in agreement.rups {
+            let agreementId = agreement.agreementId
+            let planId = plan.realmID
+            
+            group.enter()
+            
+            // Were on a new thread now !
+            guard let myPlan = DataServices.plan(withLocalId: planId) else {
+                group.leave()
+                return
+            }
+            
+            APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
+                guard let response = response, error == nil else {
+                    fatalError()
+                }
+                
+                // Were on a new thread now !
+                if let plan = DataServices.plan(withLocalId: planId), let realm = try? Realm() {
+                    do {
+                        try realm.write {
+                            plan.id = response["id"] as! Int
+                        }
+                        
+                        self.uploadPastures(forPlan: plan, completion: {
+                            group.leave()
+                        })
+                    } catch {
+                        fatalError() // just for now.
+                    }
+                }
+                
+            })
+        }
+        
+        group.notify(queue: .main) {
+            completion()
+        }
+    }
+    
+    private func uploadPastures(forPlan plan: RUP, completion: @escaping () -> Void) {
+        
+        let group = DispatchGroup()
+        
+        for pasture in plan.pastures {
+            let pastureId = pasture.realmID
+            let planId = "\(plan.id)"
+            
+            group.enter()
+            
+            // Were on a new thread now !
+            guard let myPasture = DataServices.pasture(withLocalId: pastureId) else {
+                group.leave()
+                return
+            }
+            
+            APIManager.add(pasture: myPasture, toPlan: planId, completion: { (response, error) in
+                guard let response = response, error == nil else {
+                    fatalError()
+                }
+                
+                // Were on a new thread now !
+                if let pasture = DataServices.pasture(withLocalId: pastureId), let realm = try? Realm() {
+                    do {
+                        try realm.write {
+                            pasture.dbID = response["id"] as! Int
+                        }
+                        
+                        group.leave()
+                    } catch {
+                        fatalError() // just for now.
+                    }
+                }
+            })
+        }
+        
+        group.notify(queue: .main) {
+            completion()
         }
     }
 }
