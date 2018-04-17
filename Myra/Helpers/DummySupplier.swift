@@ -38,26 +38,6 @@ class DummySupplier {
         return pastures
     }
 
-    func getAgreementHolders(count: Int) -> [AgreementHolder]{
-        var agreementHolders: [AgreementHolder] = [AgreementHolder]()
-        for _ in 0...count {
-            let agreementHolder = AgreementHolder()
-            agreementHolder.firstName = "John"
-            agreementHolder.lastName = "Doe"
-            agreementHolder.typeEnum = .Primary
-            agreementHolders.append(agreementHolder)
-        }
-        return agreementHolders
-    }
-
-    func getAgreementHolder() -> AgreementHolder {
-        let agreementHolder = AgreementHolder()
-        agreementHolder.firstName = "John"
-        agreementHolder.lastName = "Doe"
-        agreementHolder.typeEnum = .Primary
-        return agreementHolder
-    }
-
     func getLiveStockIDs(count: Int) -> [LiveStockID] {
         var liveStockIDs: [LiveStockID] = [LiveStockID]()
         for _ in 0...count {

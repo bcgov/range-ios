@@ -10,14 +10,16 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RangeUsageYear: Object {
+class RangeUsageYear: Object, MyraObject {
 
-    @objc dynamic var realmID: String = {
+    @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
 
+    @objc dynamic var remoteId: Int = -1
+
     override class func primaryKey() -> String? {
-        return "realmID"
+        return "localId"
     }
 
     @objc dynamic var id: Int = 0

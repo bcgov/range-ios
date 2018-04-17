@@ -47,7 +47,7 @@ class BasicInfoTableViewCell: UITableViewCell {
         do {
             let realm = try Realm()
             try realm.write {
-                rup?.agreementHolders.append(AgreementHolder())
+//                rup?.agreementHolders.append(AgreementHolder())
             }
         } catch _ {
             fatalError()

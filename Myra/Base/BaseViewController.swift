@@ -20,6 +20,7 @@ class BaseViewController: UIViewController {
     let syncLoadingAnimationTag = 105
     let syncSuccessAnimationTag = 106
     let syncFailAnimationTag = 107
+    let loadingAnimationTag = 110
 
     var loading: UIImageView?
     var loadingImages = [UIImage]()
@@ -107,7 +108,20 @@ extension BaseViewController {
         view.center.y = self.view.center.y
         view.center.x = self.view.center.x
         view.alpha = 1
+        view.tag = loadingAnimationTag
         return view
+    }
+
+    func beginLoading() {
+        loading = getIoadingView()
+        self.view.addSubview(loading!)
+        loading?.startAnimating()
+    }
+
+    func endLoading() {
+        if let imageView = self.view.viewWithTag(loadingAnimationTag) {
+            imageView.removeFromSuperview()
+        }
     }
 
     // TODO: reposition loading spinner.

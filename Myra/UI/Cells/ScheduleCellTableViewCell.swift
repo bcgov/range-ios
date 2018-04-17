@@ -82,7 +82,7 @@ class ScheduleCellTableViewCell: UITableViewCell {
             
             do {
                 let realm = try Realm()
-                let aRup = realm.objects(RUP.self).filter("realmID = %@", rupObject.realmID).first!
+                let aRup = realm.objects(RUP.self).filter("localId = %@", rupObject.localId).first!
                 try realm.write {
                     aRup.schedules.append(copy)
                     realm.add(copy)

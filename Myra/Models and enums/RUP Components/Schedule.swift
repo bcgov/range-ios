@@ -10,19 +10,21 @@ import Foundation
 import Realm
 import RealmSwift
 
-class Schedule: Object {
+class Schedule: Object, MyraObject {
 
-    @objc dynamic var realmID: String = {
-         return UUID().uuidString
+    @objc dynamic var localId: String = {
+        return UUID().uuidString
     }()
 
+    @objc dynamic var remoteId: Int = -1
+
     override class func primaryKey() -> String? {
-        return "realmID"
+        return "localId"
     }
 
     @objc dynamic var name: String = ""
     @objc dynamic var year: Int = 2000
-    @objc dynamic var dbID: Int = -1
+    
     var scheduleObjects = List<ScheduleObject>()
 
     func toJSON()  -> [String:Any] {

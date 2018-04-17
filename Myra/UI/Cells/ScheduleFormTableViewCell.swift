@@ -39,7 +39,7 @@ class ScheduleFormTableViewCell: UITableViewCell {
         guard let sched = self.schedule else { return }
         do {
             let realm = try Realm()
-            let aSchedule = realm.objects(Schedule.self).filter("realmID = %@", sched.realmID).first!
+            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
             try realm.write {
                 let new = ScheduleObject()
                 aSchedule.scheduleObjects.append(new)

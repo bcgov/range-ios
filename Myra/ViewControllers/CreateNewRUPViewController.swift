@@ -396,10 +396,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "BasicInfoTableViewCell", for: indexPath) as! BasicInfoTableViewCell
     }
 
-    func getAgreementInformationCell(indexPath: IndexPath) -> AgreementInformationTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "AgreementInformationTableViewCell", for: indexPath) as! AgreementInformationTableViewCell
-    }
-
     func getLiveStockIDTableViewCell(indexPath: IndexPath) -> LiveStockIDTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "LiveStockIDTableViewCell", for: indexPath) as! LiveStockIDTableViewCell
     }
