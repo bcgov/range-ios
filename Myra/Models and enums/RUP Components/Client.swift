@@ -11,12 +11,12 @@ import Realm
 import RealmSwift
 
 class Client: Object {
-    @objc dynamic var realmID: String = {
+    @objc dynamic var localId: String = {
          return UUID().uuidString
     }()
 
     override class func primaryKey() -> String? {
-        return "realmID"
+        return "localId"
     }
 
     @objc dynamic var id: String = ""

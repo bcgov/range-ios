@@ -61,7 +61,7 @@ class DataServices: NSObject {
     
     internal func uploadDraftRangeUsePlans(completion: @escaping () -> Void) {
         
-        guard let agreements = try? Realm().objects(Agreement.self).filter("ANY rups.id == %@", Constants.Defaults.planId), agreements.count > 0 else {
+        guard let agreements = try? Realm().objects(Agreement.self).filter("ANY rups.remoteId == %@", Constants.Defaults.planId), agreements.count > 0 else {
             completion()
             return // no plans to upload
         }
@@ -88,7 +88,7 @@ class DataServices: NSObject {
         
         for plan in agreement.rups {
             let agreementId = agreement.agreementId
-            let planId = plan.realmID
+            let planId = plan.localId
             
             group.enter()
             
@@ -107,7 +107,7 @@ class DataServices: NSObject {
                 if let plan = DataServices.plan(withLocalId: planId), let realm = try? Realm() {
                     do {
                         try realm.write {
-                            plan.id = response["id"] as! Int
+                            plan.remoteId = response["id"] as! Int
                         }
                         
                         self.uploadPastures(forPlan: plan, completion: {
@@ -132,7 +132,7 @@ class DataServices: NSObject {
         
         for pasture in plan.pastures {
             let pastureId = pasture.realmID
-            let planId = "\(plan.id)"
+            let planId = "\(plan.remoteId)"
             
             group.enter()
             

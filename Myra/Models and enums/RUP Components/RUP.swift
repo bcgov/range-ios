@@ -10,17 +10,17 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RUP: Object {
+class RUP: Object, MyraObject {
 
-    // agreement, draft, outbox
-//    @objc dynamic var state: String = "agreement"
-
-    @objc dynamic var realmID: String = {
+    @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
 
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
+
     override class func primaryKey() -> String? {
-        return "realmID"
+        return "localId"
     }
 
     var statusEnum: RUPStatus {
@@ -37,9 +37,6 @@ class RUP: Object {
     @objc dynamic var primaryAgreementHolderLastName: String = ""
     @objc dynamic var status: String = RUPStatus.Draft.rawValue
 
-    // if id == -1, it has not been "synced"
-    // store db id on submission in this
-    @objc dynamic var id: Int = -1
     @objc dynamic var agreementId: String = ""
     @objc dynamic var planStartDate: Date?
     @objc dynamic var planEndDate: Date?
@@ -52,7 +49,6 @@ class RUP: Object {
     @objc dynamic var ranNumber = 0
 
     var rangeUsageYears = List<RangeUsageYear>()
-    var agreementHolders = List<AgreementHolder>()
     var liveStockIDs = List<LiveStockID>()
     var pastures = List<Pasture>()
     var schedules = List<Schedule>()

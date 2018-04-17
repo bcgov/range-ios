@@ -16,8 +16,8 @@ import RealmSwift
 
 class APIManager {
 
-    static let baseURL = "http://api-range-myra-dev.pathfinder.gov.bc.ca/v1"
-    static let agreementEndpoint = "\(baseURL)/agreement?limit=10"
+    static let baseURL = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1"
+    static let agreementEndpoint = "\(baseURL)/agreement"
     static let planEndpoint = "\(baseURL)/plan"
     static let reference = "\(baseURL)/reference"
 
@@ -169,7 +169,6 @@ class APIManager {
                 obj.id = id
             }
             result.append(obj)
-//            RealmRequests.saveObject(object: obj)
         }
         return result
     }
@@ -188,7 +187,6 @@ class APIManager {
                 obj.code = code
             }
             result.append(obj)
-            //            RealmRequests.saveObject(object: obj)
         }
         return result
     }
@@ -207,7 +205,6 @@ class APIManager {
                 obj.code = code
             }
             result.append(obj)
-            //            RealmRequests.saveObject(object: obj)
         }
         return result
     }
@@ -225,7 +222,6 @@ class APIManager {
                 obj.code = code
             }
             result.append(obj)
-            //            RealmRequests.saveObject(object: obj)
         }
         return result
     }
@@ -244,7 +240,6 @@ class APIManager {
                 obj.auFactor = auFactor
             }
             result.append(obj)
-            //            RealmRequests.saveObject(object: obj)
         }
         return result
     }
@@ -263,7 +258,6 @@ class APIManager {
                 obj.code = code
             }
             result.append(obj)
-            //            RealmRequests.saveObject(object: obj)
         }
         return result
     }
@@ -282,7 +276,6 @@ class APIManager {
                 obj.code = code
             }
             result.append(obj)
-            //            RealmRequests.saveObject(object: obj)
         }
         return result
     }
@@ -471,7 +464,7 @@ class APIManager {
         var clients: [Client] = [Client]()
         for (_,clientJSON) in clientsJSON {
             let client = Client()
-
+            
             if let cid = clientJSON["id"].string {
                 client.id = cid
             }
@@ -578,7 +571,7 @@ extension APIManager {
                         do {
                             let realm = try Realm()
                             try realm.write {
-                                rup.id = id
+                                rup.remoteId = id
                             }
                         } catch _ {
                             return completion(false)
@@ -636,7 +629,7 @@ extension APIManager {
                     do {
                         let realm = try Realm()
                         try realm.write {
-                            schedule.dbID = id
+                            schedule.remoteId = id
                         }
                         return completion(true)
                     } catch _ {

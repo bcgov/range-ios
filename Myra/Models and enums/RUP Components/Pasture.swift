@@ -10,7 +10,18 @@ import Foundation
 import Realm
 import RealmSwift
 
-class Pasture: Object {
+class Pasture: Object, MyraObject {
+
+    @objc dynamic var localId: String = {
+        return UUID().uuidString
+    }()
+
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
+
+    override class func primaryKey() -> String? {
+        return "localId"
+    }
     
     convenience init(data: [String: Any]) {
         self.init()
@@ -21,10 +32,6 @@ class Pasture: Object {
         graceDays = data["graceDays"] as! Int
         notes = data["notes"] as! String
         dbID = data["dbID"] as! Int
-    }
-    
-    override class func primaryKey() -> String? {
-        return "realmID"
     }
     
     @objc dynamic var realmID: String = UUID().uuidString

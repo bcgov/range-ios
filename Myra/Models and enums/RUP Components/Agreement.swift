@@ -11,12 +11,13 @@ import Realm
 import RealmSwift
 
 class Agreement: Object {
-    @objc dynamic var realmID: String = {
-         return UUID().uuidString
+
+    @objc dynamic var localId: String = {
+        return UUID().uuidString
     }()
 
     override class func primaryKey() -> String? {
-        return "realmID"
+        return "localId"
     }
 
     @objc dynamic var agreementId: String = ""

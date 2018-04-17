@@ -70,7 +70,7 @@
         }
         return ""
     }
-
+    
  }
 
  // rup / agreement
@@ -80,7 +80,7 @@
         if rupExists(id: id) {
             let storedRups = RealmRequests.getObject(RUP.self)
             for stored in storedRups! {
-                if stored.id == id {
+                if stored.remoteId == id {
                     return stored
                 }
             }
@@ -92,7 +92,7 @@
         let storedRups = RealmRequests.getObject(RUP.self)
         if storedRups != nil {
             for storedRUP in storedRups! {
-                if storedRUP.id == id {
+                if storedRUP.remoteId == id {
                     return true
                 }
             }
@@ -104,7 +104,7 @@
     // so only pass in the newly downloaded agreement
     // TODO: Refactor - schema change
     func updateRUP(with newRUP: RUP) {
-        let storedRUP = getRUP(with: newRUP.id)
+        let storedRUP = getRUP(with: newRUP.remoteId)
         if storedRUP == nil {return}
 
         do {
@@ -202,6 +202,7 @@
 
     func getAgreementsWithNoRUPs() -> [Agreement] {
         let agreements = getAgreements()
+        print(agreements.count)
         var filtered = [Agreement]()
         for agreement in agreements {
             if agreement.rups.count < 1 {
@@ -232,13 +233,7 @@
             return [RUP]()
         }
     }
-
-//    case Draft
-//    case Pending
-//    case Completed
-//    case Outbox
-//    statusEnum
-
+    
     func getDraftRups() -> [RUP] {
         do {
             let realm = try Realm()
@@ -434,7 +429,7 @@
         let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
         do {
             let realm = try Realm()
-            let scheduleObj = realm.objects(ScheduleObject.self).filter("realmID = %@", scheduleObject.realmID).first!
+            let scheduleObj = realm.objects(ScheduleObject.self).filter("localId = %@", scheduleObject.localId).first!
             try realm.write {
                 scheduleObj.type = ls
             }
@@ -632,11 +627,6 @@
     func updateReferenceData(objects: [Object]) {
         clearStoredReferenceData()
         storeNewReferenceData(objects: objects)
-        // todo: remove
-        getAllReferenceData()
-        for object in objects {
-            print(object)
-        }
     }
 
     func getPrimaryAgreementHolderFor(rup: RUP) -> String {

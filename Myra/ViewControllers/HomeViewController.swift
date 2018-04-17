@@ -338,20 +338,6 @@ extension HomeViewController {
 // Functions to handle displaying views
 extension HomeViewController {
 
-    // returns rup details view controller
-    func getRUPDetailsVC() -> RUPDetailsViewController {
-         let vm = ViewManager()
-        return vm.rupDetails
-    }
-
-    // present rup details in view mode
-    func viewRUP(rup: RUP) {
-        print("go to view")
-        let vc = getRUPDetailsVC()
-        vc.set(rup: rup, readOnly: true)
-        self.present(vc, animated: true, completion: nil)
-    }
-
     // present rup details in ammend mode
     func editRUP(rup: RUP) {
         let vm = ViewManager()
