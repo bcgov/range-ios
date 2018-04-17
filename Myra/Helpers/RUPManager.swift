@@ -70,7 +70,7 @@
         }
         return ""
     }
-
+    
  }
 
  // rup / agreement

@@ -10,14 +10,11 @@ import Foundation
 import Realm
 import RealmSwift
 
-class Agreement: Object, MyraObject {
+class Agreement: Object {
 
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
-
-    // if remoteId == -1, it has not been "synced"
-    @objc dynamic var remoteId: Int = -1
 
     override class func primaryKey() -> String? {
         return "localId"
