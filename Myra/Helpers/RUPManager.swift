@@ -515,11 +515,8 @@
         let query = RealmRequests.getObject(ScheduleObject.self)
         if let scheduleObjects = query {
             for object in scheduleObjects {
-                if object.pasture?.realmID == pasture.realmID {
-                    print(object)
+                if object.pasture?.localId == pasture.localId {
                     calculate(scheduleObject: object)
-                    print(object)
-                    print("done")
                 }
             }
         }

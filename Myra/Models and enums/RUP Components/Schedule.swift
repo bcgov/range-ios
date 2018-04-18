@@ -27,7 +27,7 @@ class Schedule: Object, MyraObject {
     
     var scheduleObjects = List<ScheduleObject>()
 
-    func toJSON()  -> [String:Any] {
+    func toDictionary()  -> [String:Any] {
         let schedule: [String: Any] = [
             "year": year,
             "grazingScheduleEntries" : getobjectsJSON()

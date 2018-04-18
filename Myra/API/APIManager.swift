@@ -74,15 +74,20 @@ class APIManager {
         guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL!) else {
             return
         }
-        
+
+//        let endpoint = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/plan"
+
         var params = plan.toDictionary()
         params["agreementId"] = agreementId
+
+        print(endpoint)
+        print(params)
         
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
-
             switch response.result {
             case .success(let value):
+                let j = JSON(value)
                 if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
                     print("The request failed.")
                     print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
@@ -106,7 +111,7 @@ class APIManager {
         }
         
         let params = pasture.toDictionary()
-        
+
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
                 
@@ -118,6 +123,38 @@ class APIManager {
                         completion(nil, nil)
                     }
                     
+                    completion(value as? [String: Any], nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+        }
+    }
+
+    static func add(schedule: Schedule, toPlan planId: String, completion: @escaping (_ pasture: [String:Any]?, _ error: Error?) -> ()) {
+
+        let pathKey = ":id"
+        let path = Constants.API.schedulePath.replacingOccurrences(of: pathKey, with: planId, options: .literal, range: nil)
+
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+
+        var params = schedule.toDictionary()
+        params["plan_id"] = planId
+
+        print(params)
+
+        Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
+            .responseJSON { response in
+
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
+                        print("The request failed.")
+                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
+                        completion(nil, nil)
+                    }
+
                     completion(value as? [String: Any], nil)
                 case .failure(let error):
                     completion(nil, error)
@@ -208,6 +245,7 @@ class APIManager {
         }
         return result
     }
+
     static func handleAgreementExeptionStatus(json: JSON) -> [Object] {
         var result = [Object]()
         for (_,item) in json {
@@ -311,7 +349,6 @@ class APIManager {
         Alamofire.request(agreementEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
-                print(json)
                 if let error = json["error"].string {
                     print(error)
                     return completion(false, nil)
@@ -517,10 +554,19 @@ extension APIManager {
         
         var myAgreements: [Agreement]?
         let dispatchGroup = DispatchGroup()
-        
+
+
+        // Feature not yet implemented
         dispatchGroup.enter()
         progress("Uploading data to the server")
         DataServices.shared.uploadDraftRangeUsePlans {
+            print("done like dinner")
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.enter()
+        progress("Uploading data to the server")
+        DataServices.shared.uploadOutboxRangeUsePlans {
             print("done like dinner")
             dispatchGroup.leave()
         }
@@ -620,7 +666,7 @@ extension APIManager {
 
     static func uploadSchedule(schedule: Schedule, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
         let url = "\(planEndpoint)/\(planID)/schedule"
-        let param = schedule.toJSON()
+        let param = schedule.toDictionary()
         Alamofire.request(url, method: .post, parameters: param, encoding:  JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
@@ -672,7 +718,7 @@ extension APIManager {
                     do {
                         let realm = try Realm()
                         try realm.write {
-                            pasture.dbID = id
+                            pasture.remoteId = id
                         }
                         return completion(true)
                     } catch _ {

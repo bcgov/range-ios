@@ -57,7 +57,7 @@ class ScheduleObject: Object, MyraObject {
     @objc dynamic var scheduleDescription: String = ""
 
     func toJSON() -> [String : Any]? {
-        if let pastureID = pasture?.dbID, let typeID = type?.id {
+        if let pastureID = pasture?.remoteId, let typeID = type?.id {
             let schedule: [String: Any] = [
                 "startDate": DateManager.toUTC(date: dateIn!),
                 "endDate": DateManager.toUTC(date: dateOut!),
