@@ -31,7 +31,7 @@ class DataServices: NSObject {
     }
     
     static func plan(withLocalId localId: String) -> RUP? {
-        guard let realm = try? Realm(), let plan = realm.objects(RUP.self).filter("realmID = %@", localId).first else {
+        guard let realm = try? Realm(), let plan = realm.objects(RUP.self).filter("localId = %@", localId).first else {
             return nil
         }
         
@@ -39,7 +39,7 @@ class DataServices: NSObject {
     }
     
     static func pasture(withLocalId localId: String) -> Pasture? {
-        guard let pastures = try? Realm().objects(Pasture.self).filter("realmID = %@", localId), let pasture = pastures.first else {
+        guard let realm = try? Realm(), let pasture = realm.objects(Pasture.self).filter("localId = %@", localId).first else {
             return nil
         }
         
@@ -131,7 +131,7 @@ class DataServices: NSObject {
         let group = DispatchGroup()
         
         for pasture in plan.pastures {
-            let pastureId = pasture.realmID
+            let pastureId = pasture.localId
             let planId = "\(plan.remoteId)"
             
             group.enter()
@@ -151,7 +151,7 @@ class DataServices: NSObject {
                 if let pasture = DataServices.pasture(withLocalId: pastureId), let realm = try? Realm() {
                     do {
                         try realm.write {
-                            pasture.dbID = response["id"] as! Int
+                            pasture.remoteId = response["id"] as! Int
                         }
                         
                         group.leave()
