@@ -593,128 +593,129 @@ extension APIManager {
         }
     }
 
-    static func uploadRUP(rup: RUP, completion: @escaping (_ done: Bool) -> Void) {
-        Alamofire.request(planEndpoint, method: .post, parameters: rup.toDictionary(), encoding: JSONEncoding.default, headers: headers())
-            .responseData{ response in
-                if response.result.description == "SUCCESS" {
-                    let json = JSON(response.result.value!)
-                    if let id = json["id"].int {
-                        do {
-                            let realm = try Realm()
-                            try realm.write {
-                                rup.remoteId = id
-                            }
-                        } catch _ {
-                            return completion(false)
-                        }
-                        let pastures = RUPManager.shared.getPasturesArray(rup: rup)
-                        recursivePastureUpload(pastures: pastures, planID: id, completion: { (success) in
-                            if success {
-                                let schedules = RUPManager.shared.getSchedulesArray(rup: rup)
-                                recursiveScheduleUpload(schedules: schedules, planID: id, completion: { (success) in
-                                    if success {
-                                        return completion(true)
-                                    } else {
-                                        return completion(false)
-                                    }
-                                })
-                                return completion(true)
-                            } else {
-                                return completion(false)
-                            }
-                        })
-                    } else {
-                        return completion(false)
-                    }
-                } else {
-                    return completion(false)
-                }
-        }
-    }
+//    static func uploadRUP(rup: RUP, completion: @escaping (_ done: Bool) -> Void) {
+//        Alamofire.request(planEndpoint, method: .post, parameters: rup.toDictionary(), encoding: JSONEncoding.default, headers: headers())
+//            .responseData{ response in
+//                if response.result.description == "SUCCESS" {
+//                    let json = JSON(response.result.value!)
+//                    if let id = json["id"].int {
+//                        do {
+//                            let realm = try Realm()
+//                            try realm.write {
+//                                rup.remoteId = id
+//                            }
+//                        } catch _ {
+//                            return completion(false)
+//                        }
+//                        let pastures = RUPManager.shared.getPasturesArray(rup: rup)
+//                        recursivePastureUpload(pastures: pastures, planID: id, completion: { (success) in
+//                            if success {
+//                                let schedules = RUPManager.shared.getSchedulesArray(rup: rup)
+//                                recursiveScheduleUpload(schedules: schedules, planID: id, completion: { (success) in
+//                                    if success {
+//                                        return completion(true)
+//                                    } else {
+//                                        return completion(false)
+//                                    }
+//                                })
+//                                return completion(true)
+//                            } else {
+//                                return completion(false)
+//                            }
+//                        })
+//                    } else {
+//                        return completion(false)
+//                    }
+//                } else {
+//                    return completion(false)
+//                }
+//        }
+//    }
 
-    static func recursiveScheduleUpload(schedules: [Schedule], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-        if schedules.count <= 0 {
-            return completion(true)
-        }
+//    static func recursiveScheduleUpload(schedules: [Schedule], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+//        if schedules.count <= 0 {
+//            return completion(true)
+//        }
+//
+//        var all = schedules
+//        let schedule = all.last
+//        all.removeLast()
+//        uploadSchedule(schedule: schedule!, planID: planID) { (done) in
+//            if done {
+//                recursiveScheduleUpload(schedules: all, planID: planID, completion: completion)
+//            } else {
+//                return completion(false)
+//            }
+//        }
+//    }
 
-        var all = schedules
-        let schedule = all.last
-        all.removeLast()
-        uploadSchedule(schedule: schedule!, planID: planID) { (done) in
-            if done {
-                recursiveScheduleUpload(schedules: all, planID: planID, completion: completion)
-            } else {
-                return completion(false)
-            }
-        }
-    }
+//    static func uploadSchedule(schedule: Schedule, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+//        let url = "\(planEndpoint)/\(planID)/schedule"
+//        let param = schedule.toDictionary()
+//        Alamofire.request(url, method: .post, parameters: param, encoding:  JSONEncoding.default, headers: headers()).responseData { (response) in
+//            if response.result.description == "SUCCESS" {
+//                let json = JSON(response.result.value!)
+//                print(json)
+//                if let id = json["id"].int {
+//                    do {
+//                        let realm = try Realm()
+//                        try realm.write {
+//                            schedule.remoteId = id
+//                        }
+//                        return completion(true)
+//                    } catch _ {
+//                        return completion(false)
+//                    }
+//                } else {
+//                    return completion(false)
+//                }
+//            } else {
+//                return completion(false)
+//            }
+//        }
+//    }
 
-    static func uploadSchedule(schedule: Schedule, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-        let url = "\(planEndpoint)/\(planID)/schedule"
-        let param = schedule.toDictionary()
-        Alamofire.request(url, method: .post, parameters: param, encoding:  JSONEncoding.default, headers: headers()).responseData { (response) in
-            if response.result.description == "SUCCESS" {
-                let json = JSON(response.result.value!)
-                print(json)
-                if let id = json["id"].int {
-                    do {
-                        let realm = try Realm()
-                        try realm.write {
-                            schedule.remoteId = id
-                        }
-                        return completion(true)
-                    } catch _ {
-                        return completion(false)
-                    }
-                } else {
-                    return completion(false)
-                }
-            } else {
-                return completion(false)
-            }
-        }
-    }
+//    static func recursivePastureUpload(pastures: [Pasture], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+//        if pastures.count <= 0 {
+//            return completion(true)
+//        }
+//
+//        var all = pastures
+//        let pasture = all.last
+//        all.removeLast()
+//        uploadPasture(pasture: pasture!, planID: planID) { (done) in
+//            if done {
+//                recursivePastureUpload(pastures: all, planID: planID, completion: completion)
+//            } else {
+//                return completion(false)
+//            }
+//        }
+//    }
 
-    static func recursivePastureUpload(pastures: [Pasture], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-        if pastures.count <= 0 {
-            return completion(true)
-        }
-
-        var all = pastures
-        let pasture = all.last
-        all.removeLast()
-        uploadPasture(pasture: pasture!, planID: planID) { (done) in
-            if done {
-                recursivePastureUpload(pastures: all, planID: planID, completion: completion)
-            } else {
-                return completion(false)
-            }
-        }
-    }
-
-    static func uploadPasture(pasture: Pasture, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-        let url = "\(planEndpoint)/\(planID)/pasture"
-        let param = pasture.toDictionary()
-        Alamofire.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
-            if response.result.description == "SUCCESS" {
-                let json = JSON(response.result.value!)
-                print(json)
-                if let id = json["id"].int {
-                    do {
-                        let realm = try Realm()
-                        try realm.write {
-                            pasture.remoteId = id
-                        }
-                        return completion(true)
-                    } catch _ {
-                        return completion(false)
-                    }
-                } else {
-                    return completion(false)
-                }
-            } else {
-                return completion(false)
-            }
-        }
-    }
+//    static func uploadPasture(pasture: Pasture, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
+//
+//        let url = "\(planEndpoint)/\(planID)/pasture"
+//        let param = pasture.toDictionary()
+//        Alamofire.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
+//            if response.result.description == "SUCCESS" {
+//                let json = JSON(response.result.value!)
+//                print(json)
+//                if let id = json["id"].int {
+//                    do {
+//                        let realm = try Realm()
+//                        try realm.write {
+//                            pasture.remoteId = id
+//                        }
+//                        return completion(true)
+//                    } catch _ {
+//                        return completion(false)
+//                    }
+//                } else {
+//                    return completion(false)
+//                }
+//            } else {
+//                return completion(false)
+//            }
+//        }
+//    }
 }
