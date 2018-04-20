@@ -44,6 +44,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
                 RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: (obj?.value)!, rup: self.rup)
+
+                self.update()
                 // fill appropriate fields
                 self.fillCurrentValues()
                 parent.hidepopup(vc: lookup)
@@ -61,8 +63,18 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let objects = RealmManager.shared.getLiveStockTypeLookup()
         lookup.setup(objects: objects) { (selected, obj) in
             if selected {
-                if let schObject = self.scheduleObject, let selectedType = obj {
-                    self.scheduleObject = RUPManager.shared.setLiveStockTypeFor(scheduleObject: schObject, liveStock: selectedType.display)
+                if let selectedType = obj {
+                    let ls = RealmManager.shared.getLiveStockTypeObject(name: selectedType.display)
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            self.scheduleObject?.liveStockTypeId = ls.id
+                        }
+                    } catch _ {
+                        fatalError()
+                    }
+
+//                    self.scheduleObject = RUPManager.shared.setLiveStockTypeFor(scheduleObject: schObject, liveStock: selectedType.display)
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
@@ -226,8 +238,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         if scheduleObject == nil {return}
 
         // Live Stock Type
-        if let ls = scheduleObject?.type {
-            self.liveStock.text = ls.name
+        if let liveStockId = scheduleObject?.liveStockTypeId, liveStockId != -1 {
+            let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: liveStockId)
+            self.liveStock.text = liveStockObject.name
+
         } else {
             print("POSSIBLE ERROR IN fillCurrentValues() -> NO LIVESTOCK FOR CURRENT OBJECT")
         }

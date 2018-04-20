@@ -31,16 +31,15 @@ class Pasture: Object, MyraObject {
         privateLandDeduction = data["privateLandDeduction"] as! Double
         graceDays = data["graceDays"] as! Int
         notes = data["notes"] as! String
-        dbID = data["dbID"] as! Int
+        remoteId = data["dbID"] as! Int
     }
     
-    @objc dynamic var realmID: String = UUID().uuidString
     @objc dynamic var name: String = ""
     @objc dynamic var allowedAUMs: Int = 0
     @objc dynamic var privateLandDeduction: Double = 0.0
     @objc dynamic var graceDays: Int = 3
     @objc dynamic var notes: String = ""
-    @objc dynamic var dbID: Int = -1
+
     var plantCommunities = List<PlantCommunity>()
 
     func toDictionary() -> [String:Any] {

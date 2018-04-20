@@ -46,6 +46,7 @@ class ScheduleFormTableViewCell: UITableViewCell {
                 realm.add(new)
             }
             self.schedule = aSchedule
+
         } catch _ {
             fatalError()
         }
