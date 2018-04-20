@@ -75,9 +75,14 @@ class APIManager {
             return
         }
 
+        // Were on a new thread now !
+        guard let myPlan = DataServices.plan(withLocalId: plan.localId) else {
+            return completion(nil, nil)
+        }
+
 //        let endpoint = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/plan"
 
-        var params = plan.toDictionary()
+        var params = myPlan.toDictionary()
         params["agreementId"] = agreementId
 
         print(endpoint)
@@ -557,17 +562,18 @@ extension APIManager {
 
 
         // Feature not yet implemented
-        dispatchGroup.enter()
-        progress("Uploading data to the server")
-        DataServices.shared.uploadDraftRangeUsePlans {
-            print("done like dinner")
-            dispatchGroup.leave()
-        }
+//        dispatchGroup.enter()
+//        progress("Uploading data to the server")
+//        DataServices.shared.uploadDraftRangeUsePlans {
+//            print("done like dinner")
+//            dispatchGroup.leave()
+//        }
+
 
         dispatchGroup.enter()
         progress("Uploading data to the server")
         DataServices.shared.uploadOutboxRangeUsePlans {
-            print("done like dinner")
+            progress("Downloading reference data")
             dispatchGroup.leave()
         }
         
@@ -580,22 +586,22 @@ extension APIManager {
 
             dispatchGroup.leave()
         })
-        
+
         dispatchGroup.enter()
         progress("Downloading agreements")
         getAgreements(completion: { (done, agreements) in
-            
+
             myAgreements = agreements
-            
+
             if !done {
                 progress("Failed while downloading agreements")
             } else {
                 progress("Completed")
             }
-            
+
             dispatchGroup.leave()
         })
-        
+
         dispatchGroup.notify(queue: .main) {
             if let agreements = myAgreements {
                 progress("Updating stored data")

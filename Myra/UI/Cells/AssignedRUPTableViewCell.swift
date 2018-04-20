@@ -34,11 +34,15 @@ class AssignedRUPTableViewCell: UITableViewCell {
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
         if rup == nil {return}
-        if rup?.statusEnum == .Outbox {return}
+//        if rup?.statusEnum == .Outbox {return}
         let parent = self.parentViewController as! HomeViewController
         parent.editRUP(rup: rup!)
     }
 
+    @IBAction func debugButton(_ sender: Any) {
+        print(self.rup?.schedules)
+        print("**")
+    }
 
     // removed
     @IBAction func ammendAction(_ sender: Any) {
@@ -52,23 +56,27 @@ class AssignedRUPTableViewCell: UITableViewCell {
     }
 
     func setupView(rup: RUP) {
+        infoButton.alpha = 0
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
         switch rup.statusEnum {
         case .Completed:
             self.statusText.text = "Completed"
+            infoButton.alpha = 1
             setStatusGreen()
         case .Pending:
             self.statusText.text = "Submitted"
+            infoButton.alpha = 1
             setStatusRed()
         case .Draft:
             self.statusText.text = "Draft"
             infoButton.setTitle("Edit", for: .normal)
+            infoButton.alpha = 1
             setStatusRed()
         case .Outbox:
             self.statusText.text = "Outbox"
-            infoButton.alpha = 0
+            infoButton.alpha = 1
             setStatusGray()
         }
     }

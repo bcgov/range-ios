@@ -48,7 +48,8 @@ class ScheduleObject: Object, MyraObject {
     }
     
     @objc dynamic var pasture: Pasture?
-    @objc dynamic var type: LiveStockType?
+//    @objc dynamic var type: LiveStockType?
+    @objc dynamic var liveStockTypeId: Int = -1
     @objc dynamic var numberOfAnimals: Int = 0
     @objc dynamic var dateIn: Date?
     @objc dynamic var dateOut: Date?
@@ -56,15 +57,15 @@ class ScheduleObject: Object, MyraObject {
     @objc dynamic var pldAUMs: Double = 0
     @objc dynamic var scheduleDescription: String = ""
 
-    func toJSON() -> [String : Any]? {
-        if let pastureID = pasture?.remoteId, let typeID = type?.id {
+    func toDictionary() -> [String : Any]? {
+        if let pastureID = pasture?.remoteId, liveStockTypeId != -1, let inDate = dateIn, let outDate = dateOut {
             let schedule: [String: Any] = [
-                "startDate": DateManager.toUTC(date: dateIn!),
-                "endDate": DateManager.toUTC(date: dateOut!),
-                "dateIn": DateManager.toUTC(date: dateIn!),
-                "dateOut": DateManager.toUTC(date: dateOut!),
+                "startDate": DateManager.toUTC(date: inDate),
+                "endDate": DateManager.toUTC(date: outDate),
+                "dateIn": DateManager.toUTC(date: inDate),
+                "dateOut": DateManager.toUTC(date: outDate),
                 "livestockCount": numberOfAnimals,
-                "livestockTypeId": typeID,
+                "livestockTypeId": liveStockTypeId,
                 "pastureId": pastureID
             ]
             return schedule

@@ -305,7 +305,7 @@
         for object in from.scheduleObjects {
             let new = ScheduleObject()
             new.pasture = object.pasture
-            new.type = object.type
+            new.liveStockTypeId = object.liveStockTypeId
             new.numberOfAnimals = object.numberOfAnimals
             new.dateIn = object.dateIn
             new.dateOut = object.dateOut
@@ -346,19 +346,21 @@
     func calculateTotalAUMsFor(scheduleObject: ScheduleObject) {
         var auFactor = 0.0
         // if animal type hasn't been selected, return 0
-        if let animalType = scheduleObject.type {
-            auFactor = animalType.auFactor
+        let liveStockId = scheduleObject.liveStockTypeId
+        if liveStockId != -1 {
+            let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: liveStockId)
+            auFactor = liveStockObject.auFactor
         } else {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    scheduleObject.totalAUMs = 0.0
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        scheduleObject.totalAUMs = 0.0
+                    }
+                } catch _ {
+                    fatalError()
                 }
-            } catch _ {
-                fatalError()
+                return
             }
-            return
-        }
 
         // otherwise continue...
         let numberOfAnimals = Double(scheduleObject.numberOfAnimals)
@@ -431,7 +433,7 @@
             let realm = try Realm()
             let scheduleObj = realm.objects(ScheduleObject.self).filter("localId = %@", scheduleObject.localId).first!
             try realm.write {
-                scheduleObj.type = ls
+                scheduleObj.liveStockTypeId = ls.id
             }
             return scheduleObj
         } catch _ {
@@ -534,17 +536,17 @@
         return AgreementExemptionStatus()
     }
 
-    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
-        let query = RealmRequests.getObject(LivestockIdentifierType.self)
-        if let all = query {
-            for object in all {
-                if object.id == id {
-                    return object
-                }
-            }
-        }
-        return LivestockIdentifierType()
-    }
+//    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
+//        let query = RealmRequests.getObject(LivestockIdentifierType.self)
+//        if let all = query {
+//            for object in all {
+//                if object.id == id {
+//                    return object
+//                }
+//            }
+//        }
+//        return LivestockIdentifierType()
+//    }
 
     func getPlanStatusFor(id: Int) -> PlanStatus {
         let query = RealmRequests.getObject(PlanStatus.self)

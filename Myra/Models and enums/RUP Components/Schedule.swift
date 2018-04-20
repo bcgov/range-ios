@@ -30,17 +30,17 @@ class Schedule: Object, MyraObject {
     func toDictionary()  -> [String:Any] {
         let schedule: [String: Any] = [
             "year": year,
-            "grazingScheduleEntries" : getobjectsJSON()
+            "grazingScheduleEntries" : getEntriesDictionary()
         ]
 
         return schedule
     }
 
     // Note: If schedule object is invalid, it won't be added
-    func getobjectsJSON() -> [[String: Any]]{
+    func getEntriesDictionary() -> [[String: Any]]{
         var r = [[String: Any]]()
         for obj in scheduleObjects {
-            if let json = obj.toJSON() {
+            if let json = obj.toDictionary() {
                 r.append(json)
             }
         }

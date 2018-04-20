@@ -91,24 +91,96 @@ class DataServices: NSObject {
 
     internal func uploadOutboxRangeUsePlans(completion: @escaping () -> Void) {
 
-        guard let agreements = try? Realm().objects(Agreement.self).filter("ANY rups.status == 'Outbox'", Constants.Defaults.planId), agreements.count > 0 else {
-            completion()
-            return // no plans to upload
+        let outboxPlans = RUPManager.shared.getOutboxRups()
+//        onUploadCompleted = completion
+        self.upload(plans: outboxPlans) {
+            return completion()
         }
 
-        onUploadCompleted = completion
 
-        for agreement in agreements {
-            let agreementId = agreement.agreementId
-            queue.addAsyncOperation { done in
-                guard let myAgreements = try? Realm().objects(Agreement.self).filter("agreementId = %@", agreementId), let myAgreement = myAgreements.first else {
+
+//        guard let agreements = try? Realm().objects(Agreement.self).filter("ANY rups.status == 'Outbox'", Constants.Defaults.planId), agreements.count > 0 else {
+//            completion()
+//            return // no plans to upload
+//        }
+//
+//        onUploadCompleted = completion
+//
+//        for agreement in agreements {
+//            let agreementId = agreement.agreementId
+//            queue.addAsyncOperation { done in
+//                guard let myAgreements = try? Realm().objects(Agreement.self).filter("agreementId = %@", agreementId), let myAgreement = myAgreements.first else {
+//                    return
+//                }
+//
+//                self.uploadPlans(forAgreement: myAgreement) { () in
+//                    done()
+//                }
+//            }
+//        }
+
+    }
+
+    private func upload(plans: [RUP], completion: @escaping () -> Void) {
+
+        let group = DispatchGroup()
+
+        for plan in plans {
+            print(plan.schedules)
+            let agreementId = plan.agreementId
+            let planId = plan.localId
+
+            group.enter()
+
+            // Were on a new thread now !
+            guard let myPlan = DataServices.plan(withLocalId: planId) else {
+                group.leave()
+                return
+            }
+
+            APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
+                guard let response = response, error == nil else {
+                    fatalError()
+                }
+
+                // Were on a new thread now !
+                guard let myPlanAgain = DataServices.plan(withLocalId: planId) else {
+                    group.leave()
                     return
                 }
 
-                self.uploadPlans(forAgreement: myAgreement) { () in
-                    done()
+                // Were on a new thread now !
+                if let realm = try? Realm() {
+                    do {
+                        try realm.write {
+                            myPlanAgain.remoteId = response["id"] as! Int
+                        }
+
+                        self.uploadPastures(forPlan: plan, completion: {
+                            self.uploadSchedules(forPlan: plan, completion: {
+                                if plan.statusEnum == .Outbox {
+                                    do {
+                                        let realm = try Realm()
+                                        try realm.write {
+                                            plan.statusEnum = .Pending
+                                        }
+                                    } catch _ {
+                                        fatalError()
+                                    }
+                                }
+                                group.leave()
+                            })
+                        })
+                    } catch {
+                        fatalError() // just for now.
+                    }
                 }
-            }
+
+            })
+        }
+
+        group.notify(queue: .main) {
+            completion()
         }
     }
     
@@ -235,7 +307,6 @@ class DataServices: NSObject {
                         try realm.write {
                             schedule.remoteId = response["id"] as! Int
                         }
-
                         group.leave()
                     } catch {
                         fatalError() // just for now.
