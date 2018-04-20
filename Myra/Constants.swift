@@ -19,9 +19,18 @@ struct Constants {
     struct API {
         static let maxConcurentEndpointRequests = 3
         static let baseURL = URL(string: "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")
-//        static let baseURL = URL(string: "http://localhost:8000/v1/")
         static let planPath = "plan/"
         static let pasturePath = "plan/:id/pasture"
+        static let referencePath = "reference/"
+        static let agreementPath = "agreement/"
         static let schedulePath = "plan/:id/schedule"
+    }
+    
+    struct SSO {
+        static let baseUrl = URL(string: "https://dev-sso.pathfinder.gov.bc.ca")!
+        static let redirectUri = "http://web-range-myra-dev.pathfinder.gov.bc.ca/login"
+        static let clientId = "range-test"
+        static let realmName = "mobile"
+        static let idpHint = ""
     }
 }

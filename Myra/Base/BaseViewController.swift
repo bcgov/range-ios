@@ -25,9 +25,9 @@ class BaseViewController: UIViewController {
     var loading: UIImageView?
     var loadingImages = [UIImage]()
     let authServices: AuthServices = {
-        return AuthServices(baseUrl: SingleSignOnConstants.SSO.baseUrl, redirectUri: SingleSignOnConstants.SSO.redirectUri,
-                            clientId: SingleSignOnConstants.SSO.clientId, realm:SingleSignOnConstants.SSO.realmName,
-                            idpHint: SingleSignOnConstants.SSO.idpHint)
+        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
+                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+                            idpHint: Constants.SSO.idpHint)
     }()
 
     var authenticated: Bool = false {

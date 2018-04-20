@@ -40,6 +40,7 @@ class DataServices: NSObject {
     
     static func pasture(withLocalId localId: String) -> Pasture? {
         guard let pastures = try? Realm().objects(Pasture.self).filter("localId = %@", localId), let pasture = pastures.first else {
+
             return nil
         }
         

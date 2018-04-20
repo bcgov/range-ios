@@ -89,7 +89,6 @@
 		29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D936203F65FD00193FA0 /* PlantCommunity.swift */; };
 		29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */; };
 		29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */; };
-		29E5A09B2062CFC00077F0A5 /* SingleSignOnConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E5A09A2062CFC00077F0A5 /* SingleSignOnConstants.swift */; };
 		29EA02992069565C0076403B /* checked_done_.json in Resources */ = {isa = PBXBuildFile; fileRef = 29EA02982069565B0076403B /* checked_done_.json */; };
 		29EA029F2069664C0076403B /* x_pop.json in Resources */ = {isa = PBXBuildFile; fileRef = 29EA029E2069664B0076403B /* x_pop.json */; };
 		29EA02A120696A720076403B /* spinner_.json in Resources */ = {isa = PBXBuildFile; fileRef = 29EA02A020696A710076403B /* spinner_.json */; };
@@ -207,7 +206,6 @@
 		29E0D936203F65FD00193FA0 /* PlantCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunity.swift; sourceTree = "<group>"; };
 		29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityTableViewCell.swift; sourceTree = "<group>"; };
 		29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityTableViewCell.xib; sourceTree = "<group>"; };
-		29E5A09A2062CFC00077F0A5 /* SingleSignOnConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSignOnConstants.swift; sourceTree = "<group>"; };
 		29EA02982069565B0076403B /* checked_done_.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = checked_done_.json; sourceTree = "<group>"; };
 		29EA029E2069664B0076403B /* x_pop.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = x_pop.json; sourceTree = "<group>"; };
 		29EA02A020696A710076403B /* spinner_.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spinner_.json; sourceTree = "<group>"; };
@@ -322,7 +320,6 @@
 				29FCB0392057299D006CD247 /* DatePickerController.swift */,
 				29FCB03B20572AF6006CD247 /* UIViewController.swift */,
 				29DA8AA42059A8DA00139AD1 /* String.swift */,
-				29E5A09A2062CFC00077F0A5 /* SingleSignOnConstants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -785,7 +782,6 @@
 				29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */,
 				292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */,
 				29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */,
-				29E5A09B2062CFC00077F0A5 /* SingleSignOnConstants.swift in Sources */,
 				2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

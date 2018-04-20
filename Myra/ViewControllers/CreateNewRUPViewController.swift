@@ -290,25 +290,25 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
 
-    func submitRup() {
-        self.view.isUserInteractionEnabled = false
-        if let rupobj = rup {
-            APIManager.uploadRUP(rup: rupobj) { (success) in
-                if success {
-                    do {
-                        let realm = try Realm()
-                        try realm.write {
-                            self.rup?.statusEnum = .Pending
-                        }
-                    } catch _ {}
-                } else {
-                    self.view.isUserInteractionEnabled = true
-                }
-                self.dismiss(animated: true, completion: nil)
-                return self.parentCallBack!(true)
-            }
-        }
-    }
+//    func submitRup() {
+//        self.view.isUserInteractionEnabled = false
+//        if let rupobj = rup {
+//            APIManager.uploadRUP(rup: rupobj) { (success) in
+//                if success {
+//                    do {
+//                        let realm = try Realm()
+//                        try realm.write {
+//                            self.rup?.statusEnum = .Pending
+//                        }
+//                    } catch _ {}
+//                } else {
+//                    self.view.isUserInteractionEnabled = true
+//                }
+//                self.dismiss(animated: true, completion: nil)
+//                return self.parentCallBack!(true)
+//            }
+//        }
+//    }
 
     // Mark: Functions
     func getMapVC() -> CreateViewController {

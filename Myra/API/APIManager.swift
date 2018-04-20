@@ -16,15 +16,10 @@ import RealmSwift
 
 class APIManager {
 
-    static let baseURL = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1"
-    static let agreementEndpoint = "\(baseURL)/agreement"
-    static let planEndpoint = "\(baseURL)/plan"
-    static let reference = "\(baseURL)/reference"
-
     static let authServices: AuthServices = {
-        return AuthServices(baseUrl: SingleSignOnConstants.SSO.baseUrl, redirectUri: SingleSignOnConstants.SSO.redirectUri,
-                            clientId: SingleSignOnConstants.SSO.clientId, realm:SingleSignOnConstants.SSO.realmName,
-                            idpHint: SingleSignOnConstants.SSO.idpHint)
+        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
+                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+                            idpHint: Constants.SSO.idpHint)
     }()
 
     static func headers() -> HTTPHeaders {
@@ -36,21 +31,26 @@ class APIManager {
         }
     }
     
-    static func request(url: URL) -> URLRequest {
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        if let credentials = authServices.credentials {
-            request.setValue("\(credentials.accessToken)", forHTTPHeaderField: "Authorization")
-        }
-        
-        return request
-    }
+//    static func request(url: URL) -> URLRequest {
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        if let credentials = authServices.credentials {
+//            request.setValue("\(credentials.accessToken)", forHTTPHeaderField: "Authorization")
+//        }
+//
+//        return request
+//    }
 
     static func getReferenceData(completion: @escaping (_ success: Bool) -> Void) {
+        
+        guard let endpoint = URL(string: Constants.API.referencePath, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+        
         RealmManager.shared.clearReferenceData()
-        Alamofire.request(reference, method: .get, headers: headers()).responseData { (response) in
+        Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 var newReference = [Object]()
@@ -323,35 +323,14 @@ class APIManager {
         return result
     }
 
-
-//    static func send(rup: RUP,completion: @escaping (_ success: Bool) -> Void) {
-//        let url = "\(agreementEndpoint)/\(rup.id)"
-//        var params: [String: Any] = [String: Any]()
-//        if let ps = rup.planStartDate {
-//            let start = DateManager.toUTC(date: ps)
-//            params["planStartDate"] = start
-//        }
-//
-//        if let pe = rup.planEndDate {
-//            let end = DateManager.toUTC(date: pe)
-//            params["planEndDate"] = end
-//        }
-//
-//        let headers = ["Content-Type":"application/json"]
-//
-//        Alamofire.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).responseData { (response) in
-//            if response.result.description == "SUCCESS" {
-//                return completion(true)
-//            } else {
-//                return completion(false)
-//            }
-//        }
-//    }
-
     static func getAgreements(completion: @escaping (_ success: Bool,_ rups: [Agreement]?) -> Void) {
-        print(headers())
+        
+        guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+
         var agreements: [Agreement] = [Agreement]()
-        Alamofire.request(agreementEndpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
+        Alamofire.request(endpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 if let error = json["error"].string {
