@@ -12,6 +12,10 @@ import SingleSignOn
 
 class BaseViewController: UIViewController {
 
+    let mediumAnimationDuration = 0.5
+    let shortAnimationDuration = 0.3
+
+
     let whiteScreenTag = 100
     let syncTitleTag = 101
     let syncDescriptionTag = 102
@@ -198,7 +202,7 @@ extension BaseViewController {
 // Animations
 extension BaseViewController {
     func animateIt() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: shortAnimationDuration, animations: {
             self.view.layoutIfNeeded()
         })
     }

@@ -15,13 +15,14 @@ import RealmSwift
  the height of pasture cells within the table view depends on the height
  of the content of a pasture's conent which will be unpredictable.
 */
-class PasturesTableViewCell: UITableViewCell {
+class PasturesTableViewCell: BaseFormCell {
 
     // Mark: Variables
-    var mode: FormMode = .Create
-    var rup: RUP?
 
     // Mark: Outlets
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var sectionTitle: UILabel!
+    @IBOutlet weak var divider: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
@@ -36,15 +37,14 @@ class PasturesTableViewCell: UITableViewCell {
 
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
-        guard let r = rup else { return }
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup!)) { (done, name) in
+        parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
             if done {
                 let newPasture = Pasture()
                 newPasture.name = name
                 do {
                     let realm = try Realm()
-                    let aRup = realm.objects(RUP.self).filter("localId = %@", r.localId).first!
+                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
                     try realm.write {
                         aRup.pastures.append(newPasture)
                         realm.add(newPasture)
@@ -59,11 +59,12 @@ class PasturesTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: RUP) {
         self.rup = rup
         self.mode = mode
         tableHeight.constant = computeHeight()
         setUpTable()
+        style()
     }
 
     func updateTableHeight() {
@@ -80,7 +81,7 @@ class PasturesTableViewCell: UITableViewCell {
 
         */
         var h: CGFloat = 0.0
-        for pasture in (rup?.pastures)! {
+        for pasture in (rup.pastures) {
             h = h + computePastureHeight(pasture: pasture) + 7
         }
         return h
@@ -93,6 +94,14 @@ class PasturesTableViewCell: UITableViewCell {
 
         let pastureHeight: CGFloat = 105
         return (staticHeight + pastureHeight * CGFloat(pasture.plantCommunities.count))
+    }
+
+    // MARK: Style
+    func style() {
+        divider.backgroundColor = Colors.secondary
+        sectionTitle.textColor = Colors.primary
+        sectionTitle.font = Fonts.getPrimaryHeavy(size: 34)
+        styleButton(button: addButton)
     }
     
 }
@@ -118,13 +127,13 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
-        if (rup?.pastures.count)! <= indexPath.row {return cell}
-        cell.setup(mode: mode, pasture: (rup?.pastures[indexPath.row])!, pastures: self)
+        if (rup.pastures.count) <= indexPath.row {return cell}
+        cell.setup(mode: mode, pasture: (rup.pastures[indexPath.row]), pastures: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (rup?.pastures.count)!
+        return (rup.pastures.count)
     }
 
 }

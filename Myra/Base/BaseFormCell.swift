@@ -34,4 +34,12 @@ class BaseFormCell: UITableViewCell {
         input.layer.cornerRadius = 3
         input.layer.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1).cgColor
     }
+
+    func styleButton(button: UIButton) {
+        button.layer.cornerRadius = 5
+        button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 1
+        button.layer.borderColor = Colors.primary.cgColor
+        button.setTitleColor(Colors.primary, for: .normal)
+    }
 }

@@ -19,6 +19,10 @@ enum AcceptedPopupInput {
 
 class CreateNewRUPViewController: BaseViewController {
 
+    // Mark: Constants
+    let landscapeMenuWidh: CGFloat = 265
+    let horizontalMenuWidth: CGFloat = 156
+
     // Mark: Variables
 
     var parentCallBack: ((_ close: Bool) -> Void )?
@@ -55,25 +59,37 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlets
 
     // TOP
+    @IBOutlet weak var statusBar: UIView!
+    @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var ranchNameAndNumberLabel: UILabel!
     @IBOutlet weak var saveToDraftButton: UIButton!
+    @IBOutlet weak var headerHeight: NSLayoutConstraint!
 
     // Side Menu
+
+    @IBOutlet weak var menuContainer: UIView!
     @IBOutlet weak var menuWidth: NSLayoutConstraint!
     @IBOutlet weak var menuLeading: NSLayoutConstraint!
-    
+
+    @IBOutlet weak var basicInfoLowerBar: UIView!
+    @IBOutlet weak var basicInfoBox: UIView!
     @IBOutlet weak var basicInfoLabel: UILabel!
     @IBOutlet weak var basicInfoButton: UIButton!
     @IBOutlet weak var basicInfoBoxImage: UIImageView!
 
+    @IBOutlet weak var pasturesBox: UIView!
     @IBOutlet weak var pasturesLabel: UILabel!
     @IBOutlet weak var pasturesButton: UIButton!
     @IBOutlet weak var pasturesBoxImage: UIImageView!
+    @IBOutlet weak var pasturesLowerBar: UIView!
 
+    @IBOutlet weak var scheduleBox: UIView!
     @IBOutlet weak var scheduleLabel: UILabel!
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleBoxImage: UIImageView!
+    @IBOutlet weak var scheduleLowerBar: UIView!
+
 
     /*
     @IBOutlet weak var ministersIssuesLabel: UILabel!
@@ -100,6 +116,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var reviewAndSubmitLabel: UILabel!
     @IBOutlet weak var reviewAndSubmitButton: UIButton!
     @IBOutlet weak var reviewAndSubmitBoxImage: UIImageView!
+    @IBOutlet weak var submitButtonContainer: UIView!
 
     // Body
     @IBOutlet weak var tableView: UITableView!
@@ -191,6 +208,7 @@ class CreateNewRUPViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        style()
         setMenuSize()
         closePopup() 
         setUpTable()
@@ -201,6 +219,12 @@ class CreateNewRUPViewController: BaseViewController {
         setMenuSize()
         NotificationCenter.default.addObserver(forName: .updatePastureCells, object: nil, queue: nil, using: catchAction)
         autofill()
+        prepareToAnimate()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        openingAnimations()
     }
 
     func autofill() {
@@ -343,22 +367,6 @@ class CreateNewRUPViewController: BaseViewController {
 
 }
 
-extension CreateNewRUPViewController {
-
-    func setMenuSize() {
-        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
-            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
-        }
-        if UIDevice.current.orientation.isLandscape{
-            self.menuWidth.constant = 265
-        } else {
-            self.menuWidth.constant = 156
-        }
-        self.animateIt()
-
-    }
-}
-
 extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {
@@ -460,6 +468,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     func realodAndGoTO(indexPath: IndexPath) {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
+        self.tableView.layoutIfNeeded()
 //        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
@@ -478,17 +487,17 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 indexPath = indexPaths[2]
             }
             if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
-                basicInfoLabel.textColor = UIColor.blue
+                basicInfoLabel.textColor = Colors.primary
                 pasturesLabel.textColor = UIColor.black
                 scheduleLabel.textColor = UIColor.black
             } else if indexPath == pasturesIndexPath {
                 basicInfoLabel.textColor = UIColor.black
-                pasturesLabel.textColor = UIColor.blue
+                pasturesLabel.textColor = Colors.primary
                 scheduleLabel.textColor = UIColor.black
             } else if indexPath == scheduleIndexPath {
                 basicInfoLabel.textColor = UIColor.black
                 pasturesLabel.textColor = UIColor.black
-                scheduleLabel.textColor = UIColor.blue
+                scheduleLabel.textColor = Colors.primary
             }
         }
     }
