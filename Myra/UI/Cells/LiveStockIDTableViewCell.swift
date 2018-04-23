@@ -10,14 +10,12 @@ import UIKit
 import Realm
 import RealmSwift
 
-class LiveStockIDTableViewCell: UITableViewCell {
+class LiveStockIDTableViewCell: BaseFormCell {
 
     // Mark: Constants
     let cellHeight = 45
     
     // Mark: Variables
-    var rup: RUP?
-    var mode: FormMode = .Create
 
     // Mark: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -36,7 +34,7 @@ class LiveStockIDTableViewCell: UITableViewCell {
         do {
             let realm = try Realm()
             try realm.write {
-                self.rup?.liveStockIDs.append(LiveStockID())
+                self.rup.liveStockIDs.append(LiveStockID())
             }
         } catch _ {
             fatalError()
@@ -45,7 +43,7 @@ class LiveStockIDTableViewCell: UITableViewCell {
     }
 
     // Mark: Functions
-    func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
         setUpTable()
@@ -54,7 +52,7 @@ class LiveStockIDTableViewCell: UITableViewCell {
     func updateTableHeight() {
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        tableViewHeight.constant = CGFloat((self.rup?.liveStockIDs.count)! * cellHeight + 5)
+        tableViewHeight.constant = CGFloat((self.rup.liveStockIDs.count) * cellHeight + 5)
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.realodAndGoTO(indexPath: parent.liveStockIDIndexPath)
     }
@@ -88,7 +86,7 @@ extension LiveStockIDTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.rup?.liveStockIDs.count)!
+        return self.rup.liveStockIDs.count
     }
 
 }

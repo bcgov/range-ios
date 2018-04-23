@@ -37,14 +37,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="206.5" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allowable AUM's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j97-0l-Yxy">
-                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="18"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybV-9w-RlV">
-                                                <rect key="frame" x="0.0" y="18" width="206.5" height="76"/>
+                                                <rect key="frame" x="0.0" y="44" width="206.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureAUMField"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="0Cp-Wk-7rx"/>
+                                                </constraints>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -78,13 +81,13 @@
                                         <rect key="frame" x="216.5" y="0.0" width="207" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private Land Deduction %" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wje-rC-PmX">
-                                                <rect key="frame" x="0.0" y="0.0" width="207" height="18"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="207" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-R6-cNE">
-                                                <rect key="frame" x="0.0" y="18" width="207" height="76"/>
+                                                <rect key="frame" x="0.0" y="44" width="207" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureDeductionField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -119,13 +122,13 @@
                                         <rect key="frame" x="433.5" y="0.0" width="206.5" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grace Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Rd-em-TrO">
-                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="18"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8J-IT-yrY">
-                                                <rect key="frame" x="0.0" y="18" width="206.5" height="76"/>
+                                                <rect key="frame" x="0.0" y="44" width="206.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureGraceDaysField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -158,7 +161,9 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Y8J-IT-yrY" firstAttribute="height" secondItem="ybV-9w-RlV" secondAttribute="height" id="5RK-nY-dZO"/>
                                     <constraint firstAttribute="height" constant="95" id="7pg-6v-DAB"/>
+                                    <constraint firstItem="uS4-R6-cNE" firstAttribute="height" secondItem="ybV-9w-RlV" secondAttribute="height" id="oSo-7h-xRc"/>
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billy's Bluff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6P-6l-YOY">
@@ -257,6 +262,7 @@
                 <outlet property="aumsField" destination="ybV-9w-RlV" id="C16-ka-a3e"/>
                 <outlet property="containerView" destination="d10-4y-3Jf" id="Rtt-QY-yFx"/>
                 <outlet property="deductionFIeld" destination="uS4-R6-cNE" id="KPk-pS-bMW"/>
+                <outlet property="fieldHeight" destination="0Cp-Wk-7rx" id="FnW-99-hEQ"/>
                 <outlet property="graceDaysField" destination="Y8J-IT-yrY" id="vN7-hI-ML5"/>
                 <outlet property="pastureNameLabel" destination="E6P-6l-YOY" id="QYI-5O-1I1"/>
                 <outlet property="pastureNotesTextField" destination="tAI-sm-UTn" id="FX3-I3-frs"/>

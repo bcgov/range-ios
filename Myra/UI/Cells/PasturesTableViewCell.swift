@@ -78,8 +78,8 @@ class PasturesTableViewCell: BaseFormCell {
     func computeHeight() -> CGFloat {
         /*
          Height of Pastures cell =
-
         */
+        var padding = 7
         var h: CGFloat = 0.0
         for pasture in (rup.pastures) {
             h = h + computePastureHeight(pasture: pasture) + 7
@@ -91,7 +91,6 @@ class PasturesTableViewCell: BaseFormCell {
         // 395 is the right number but clearly needed more padding
 //        let staticHeight: CGFloat = 395
         let staticHeight: CGFloat = 410
-
         let pastureHeight: CGFloat = 105
         return (staticHeight + pastureHeight * CGFloat(pasture.plantCommunities.count))
     }

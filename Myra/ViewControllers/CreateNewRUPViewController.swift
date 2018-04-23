@@ -48,8 +48,6 @@ class CreateNewRUPViewController: BaseViewController {
 
     var mode: FormMode = .Create
 
-    var reloaded: Bool = false
-
     // pop up for adding pastures and years
     var acceptedPopupInput: AcceptedPopupInput = .String
     var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
@@ -212,12 +210,6 @@ class CreateNewRUPViewController: BaseViewController {
         setMenuSize()
         closePopup() 
         setUpTable()
-        setMenuSize()
-        if !reloaded {
-            updateSubtableHeights()
-        }
-        setMenuSize()
-//        NotificationCenter.default.addObserver(forName: .updatePastureCells, object: nil, queue: nil, using: catchAction)
         autofill()
         prepareToAnimate()
     }
@@ -232,10 +224,6 @@ class CreateNewRUPViewController: BaseViewController {
         let num = rup?.agreementId ?? ""
         let name = rup?.rangeName ?? ""
         ranchNameAndNumberLabel.text = "\(num) | \(name)"
-        for obj in (rup?.schedules)! {
-            print (obj)
-        }
-
     }
 
     func catchAction(notification:Notification) {
@@ -329,10 +317,6 @@ class CreateNewRUPViewController: BaseViewController {
             fatalError()
         }
         setUpTable()
-    }
-
-    func updateSubtableHeights() {
-//        NotificationCenter.default.post(name: .updateTableHeights, object: self, userInfo: ["reload": true])
     }
 
     override func whenLandscape() {

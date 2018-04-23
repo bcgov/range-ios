@@ -10,9 +10,10 @@ import UIKit
 
 class BaseFormCell: UITableViewCell {
 
-    // Mark: Constants
+    // MARK: Constants
 
-    // Mark: Variables
+
+    // MARK: Variables
     var rup: RUP = RUP()
     var mode: FormMode = .Create
 

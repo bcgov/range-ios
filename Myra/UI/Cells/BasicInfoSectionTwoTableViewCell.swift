@@ -12,9 +12,6 @@ import RealmSwift
 
 class BasicInfoSectionTwoTableViewCell: BaseFormCell {
 
-//    var rup: RUP?
-//    var mode: FormMode = .Create
-
     @IBOutlet weak var rupzone: UITextField!
     @IBOutlet weak var alternativeBusinesName: UITextField!
     @IBOutlet weak var districtResponsible: UITextField!
@@ -130,7 +127,6 @@ class BasicInfoSectionTwoTableViewCell: BaseFormCell {
     }
 
     func autofill() {
-        if rup == nil { return }
         setFieldMode()
         if let zone = rup.zones.last {
             self.rupzone.text = zone.code

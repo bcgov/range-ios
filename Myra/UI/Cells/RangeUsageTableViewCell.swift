@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class RangeUsageTableViewCell: UITableViewCell {
+class RangeUsageTableViewCell: BaseFormCell {
 
     // MARK: Constants
 
@@ -21,9 +21,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     let cellHeight = 49.5
 
     // MARK: Variables
-    var rup: RUP?
     var usageYears = [RangeUsageYear]()
-    var mode: FormMode = .Create
 
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -42,7 +40,7 @@ class RangeUsageTableViewCell: UITableViewCell {
         do {
             let realm = try Realm()
             try realm.write {
-                self.rup?.rangeUsageYears.append(RangeUsageYear())
+                self.rup.rangeUsageYears.append(RangeUsageYear())
             }
         } catch _ {
             fatalError()
@@ -51,9 +49,10 @@ class RangeUsageTableViewCell: UITableViewCell {
     }
 
     // MARK: Functions
-    func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
+        self.usageYears = [RangeUsageYear]()
         for usage in rup.rangeUsageYears {
             if usage.year >= (rup.agreementStartDate?.yearOfDate())! && usage.year <= (rup.agreementEndDate?.yearOfDate())! {
                 usageYears.append(usage)
@@ -67,7 +66,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     // Calculate table height based on content and
     // reload parent's table view to bottom of
     // the indexpath of current cell
-    func updateTableHeight() {
+    func updateTableHeight() {  
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
 
