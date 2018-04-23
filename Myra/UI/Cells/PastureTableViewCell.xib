@@ -21,7 +21,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d10-4y-3Jf">
-                        <rect key="frame" x="20" y="16" width="670" height="389"/>
+                        <rect key="frame" x="5" y="16" width="700" height="389"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="EjY-Uy-5TR">
                                 <rect key="frame" x="15" y="14.5" width="22" height="22"/>
@@ -31,19 +31,19 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zuB-WJ-S4r">
-                                <rect key="frame" x="15" y="51.5" width="640" height="95"/>
+                                <rect key="frame" x="15" y="51.5" width="670" height="95"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOu-zn-fVu" userLabel="input box">
-                                        <rect key="frame" x="0.0" y="0.0" width="206.5" height="95"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="216.5" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allowable AUM's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j97-0l-Yxy">
-                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="216.5" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybV-9w-RlV">
-                                                <rect key="frame" x="0.0" y="44" width="206.5" height="50"/>
+                                                <rect key="frame" x="0.0" y="44" width="216.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureAUMField"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="0Cp-Wk-7rx"/>
@@ -55,8 +55,8 @@
                                                     <action selector="aumChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="Sss-OT-UkU"/>
                                                 </connections>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLs-f5-2Hy">
-                                                <rect key="frame" x="0.0" y="94" width="206.5" height="1"/>
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLs-f5-2Hy">
+                                                <rect key="frame" x="0.0" y="94" width="216.5" height="1"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="O07-Hy-VK2"/>
@@ -78,16 +78,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLw-rw-omn" userLabel="input box">
-                                        <rect key="frame" x="216.5" y="0.0" width="207" height="95"/>
+                                        <rect key="frame" x="226.5" y="0.0" width="217" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private Land Deduction %" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wje-rC-PmX">
-                                                <rect key="frame" x="0.0" y="0.0" width="207" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="217" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-R6-cNE">
-                                                <rect key="frame" x="0.0" y="44" width="207" height="50"/>
+                                                <rect key="frame" x="0.0" y="44" width="217" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureDeductionField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -96,8 +96,8 @@
                                                     <action selector="landDeductionChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="4L2-e3-4jW"/>
                                                 </connections>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRf-U9-ZPd">
-                                                <rect key="frame" x="0.0" y="94" width="207" height="1"/>
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRf-U9-ZPd">
+                                                <rect key="frame" x="0.0" y="94" width="217" height="1"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="GGC-T1-zWd"/>
@@ -119,16 +119,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyD-zY-5zj" userLabel="input box">
-                                        <rect key="frame" x="433.5" y="0.0" width="206.5" height="95"/>
+                                        <rect key="frame" x="453.5" y="0.0" width="216.5" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grace Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Rd-em-TrO">
-                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="216.5" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8J-IT-yrY">
-                                                <rect key="frame" x="0.0" y="44" width="206.5" height="50"/>
+                                                <rect key="frame" x="0.0" y="44" width="216.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureGraceDaysField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -137,8 +137,8 @@
                                                     <action selector="graceDaysChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="dqD-Qt-elM"/>
                                                 </connections>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0x-7j-SE1">
-                                                <rect key="frame" x="0.0" y="94" width="206.5" height="1"/>
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0x-7j-SE1">
+                                                <rect key="frame" x="0.0" y="94" width="216.5" height="1"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Yhf-No-1Be"/>
@@ -173,7 +173,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasture Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFx-h9-LGF">
-                                <rect key="frame" x="15" y="162.5" width="640" height="20.5"/>
+                                <rect key="frame" x="15" y="162.5" width="670" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.60784906149999995" green="0.6078355312" blue="0.60783821339999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -185,7 +185,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tAI-sm-UTn">
-                                <rect key="frame" x="15" y="191" width="640" height="100"/>
+                                <rect key="frame" x="15" y="191" width="670" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureNotesField"/>
                                 <constraints>
@@ -195,13 +195,13 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plant Communities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncF-tG-42g">
-                                <rect key="frame" x="15" y="299" width="640" height="20.5"/>
+                                <rect key="frame" x="15" y="299" width="670" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kqn-88-dK7">
-                                <rect key="frame" x="15" y="327.5" width="640" height="5"/>
+                                <rect key="frame" x="15" y="327.5" width="670" height="5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="1TJ-O3-kaG"/>
@@ -251,21 +251,26 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="d10-4y-3Jf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="4wk-ES-eiL"/>
                     <constraint firstAttribute="bottomMargin" secondItem="d10-4y-3Jf" secondAttribute="bottom" constant="5" id="MuK-te-gsG"/>
+                    <constraint firstAttribute="trailing" secondItem="d10-4y-3Jf" secondAttribute="trailing" constant="5" id="c2D-j0-i4q"/>
                     <constraint firstItem="d10-4y-3Jf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="hPy-vK-Ger"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="d10-4y-3Jf" secondAttribute="trailing" id="x1P-U3-z5J"/>
+                    <constraint firstItem="d10-4y-3Jf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="uqP-ax-5DR"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="aumHeader" destination="j97-0l-Yxy" id="iBu-VD-bBS"/>
                 <outlet property="aumsField" destination="ybV-9w-RlV" id="C16-ka-a3e"/>
                 <outlet property="containerView" destination="d10-4y-3Jf" id="Rtt-QY-yFx"/>
                 <outlet property="deductionFIeld" destination="uS4-R6-cNE" id="KPk-pS-bMW"/>
                 <outlet property="fieldHeight" destination="0Cp-Wk-7rx" id="FnW-99-hEQ"/>
                 <outlet property="graceDaysField" destination="Y8J-IT-yrY" id="vN7-hI-ML5"/>
+                <outlet property="graceDaysHeader" destination="4Rd-em-TrO" id="hNu-yJ-eCU"/>
+                <outlet property="pastureNameHeader" destination="Lmo-yi-ffD" id="bmP-Dn-x26"/>
                 <outlet property="pastureNameLabel" destination="E6P-6l-YOY" id="QYI-5O-1I1"/>
+                <outlet property="pastureNotesHeader" destination="zFx-h9-LGF" id="yiC-qO-Tkt"/>
                 <outlet property="pastureNotesTextField" destination="tAI-sm-UTn" id="FX3-I3-frs"/>
+                <outlet property="pldHeader" destination="Wje-rC-PmX" id="wBk-Qq-Tpi"/>
                 <outlet property="tableHeight" destination="1TJ-O3-kaG" id="kdf-Ud-ilS"/>
                 <outlet property="tableView" destination="kqn-88-dK7" id="fCv-Vf-tS5"/>
             </connections>

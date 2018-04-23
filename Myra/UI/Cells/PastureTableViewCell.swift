@@ -21,23 +21,30 @@ class PastureTableViewCell: BaseFormCell {
     var loaded: Bool = false
 
     // MARK: Outlets
+    @IBOutlet weak var pastureNameHeader: UILabel!
     @IBOutlet weak var pastureNameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
  
     @IBOutlet weak var pastureNotesTextField: UITextView!
+    @IBOutlet weak var pastureNotesHeader: UILabel!
     @IBOutlet weak var aumsField: UITextField!
     @IBOutlet weak var deductionFIeld: UITextField!
     @IBOutlet weak var graceDaysField: UITextField!
 
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var graceDaysHeader: UILabel!
+    @IBOutlet weak var pldHeader: UILabel!
+    @IBOutlet weak var aumHeader: UILabel!
+
+
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
-        addBoarder(layer: containerView.layer)
-        addBoarder(layer: pastureNotesTextField.layer)
+//        addBoarder(layer: containerView.layer)
+//        addBoarder(layer: pastureNotesTextField.layer)
         loaded = true
     }
 
@@ -122,9 +129,7 @@ class PastureTableViewCell: BaseFormCell {
         autofill()
         setupTable()
         self.pastureNotesTextField.delegate = self
-        styleInput(input: aumsField)
-        styleInput(input: deductionFIeld)
-        styleInput(input: graceDaysField)
+        style()
     }
 
     func autofill() {
@@ -139,20 +144,25 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     func updateTableHeight() {
+        let padding = 5
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + 5)
+        tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + padding)
         if let parent = pastures {
             parent.updateTableHeight()
         }
     }
 
-    func addBoarder(layer: CALayer) {
-        layer.borderWidth = 1
-        layer.cornerRadius = 5
-        layer.borderColor = UIColor.black.cgColor
+    // MARK: Styles
+    func style() {
+        styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
+        styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
+        styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
+        styleInputField(field: pastureNotesTextField, header: pastureNotesHeader)
+        styleContainer(view: containerView)
+        styleSubHeader(label: pastureNameHeader)
+        styleSubHeader(label: pastureNameLabel)
     }
-
 }
 
 // MARK: TableView

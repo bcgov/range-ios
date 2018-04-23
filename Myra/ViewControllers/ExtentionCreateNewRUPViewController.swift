@@ -43,6 +43,7 @@ extension CreateNewRUPViewController {
     }
 
     func styleMenu() {
+        self.menuSectionsOff()
         self.menuContainer.layer.cornerRadius = 5
         self.addShadow(to: menuContainer.layer, opacity: 0.8, height: 2)
         self.styleMenuSubmitButton()
@@ -57,7 +58,8 @@ extension CreateNewRUPViewController {
 
     func styleMenuSubmitButton() {
         self.reviewAndSubmitLabel.text = "Submit and Review"
-        self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "boxUnchecked")
+        self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
+
         self.submitButtonContainer.layer.cornerRadius = 5
         self.submitButtonContainer.backgroundColor = Colors.primary
         self.submitButtonContainer.layer.borderWidth = 1
@@ -69,6 +71,49 @@ extension CreateNewRUPViewController {
         button.layer.borderWidth = 1
         button.layer.borderColor = Colors.primary.cgColor
         button.setTitleColor(Colors.primary, for: .normal)
+    }
+
+    func menuBasicInfoOn() {
+        menuSectionsOff()
+        basicInfoBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: basicInfoLabel)
+        basicInfoBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation")
+    }
+
+    func menuPastureOn() {
+        menuSectionsOff()
+        pastureBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: pasturesLabel)
+        pasturesBoxImage.image = #imageLiteral(resourceName: "icon_Pastures")
+    }
+
+    func menuScheduleOn() {
+        menuSectionsOff()
+        scheduleBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: scheduleLabel)
+        scheduleBoxImage.image = #imageLiteral(resourceName: "icon_Schedule")
+    }
+
+    func menuSectionsOff() {
+        menuSectionOff(label: basicInfoLabel)
+        basicInfoBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation_off")
+        basicInfoBoxLeft.backgroundColor = UIColor.clear
+        menuSectionOff(label: pasturesLabel)
+        pasturesBoxImage.image = #imageLiteral(resourceName: "icon_Pastures_off")
+        pastureBoxLeft.backgroundColor = UIColor.clear
+        menuSectionOff(label: scheduleLabel)
+        scheduleBoxImage.image = #imageLiteral(resourceName: "icon_Schedule_off")
+        scheduleBoxLeft.backgroundColor = UIColor.clear
+    }
+
+    func menuSectionOff(label: UILabel) {
+        label.textColor = UIColor.black
+        label.font = Fonts.getPrimary(size: 15)
+    }
+
+    func menuSectionOn(label: UILabel) {
+        label.textColor = Colors.primary
+        label.font = Fonts.getPrimaryMedium(size: 15)
     }
 
     // MARK: Animations

@@ -73,18 +73,21 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var basicInfoLabel: UILabel!
     @IBOutlet weak var basicInfoButton: UIButton!
     @IBOutlet weak var basicInfoBoxImage: UIImageView!
+    @IBOutlet weak var basicInfoBoxLeft: UIView!
 
     @IBOutlet weak var pasturesBox: UIView!
     @IBOutlet weak var pasturesLabel: UILabel!
     @IBOutlet weak var pasturesButton: UIButton!
     @IBOutlet weak var pasturesBoxImage: UIImageView!
     @IBOutlet weak var pasturesLowerBar: UIView!
+    @IBOutlet weak var pastureBoxLeft: UIView!
 
     @IBOutlet weak var scheduleBox: UIView!
     @IBOutlet weak var scheduleLabel: UILabel!
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleBoxImage: UIImageView!
     @IBOutlet weak var scheduleLowerBar: UIView!
+    @IBOutlet weak var scheduleBoxLeft: UIView!
 
 
     /*
@@ -113,7 +116,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var reviewAndSubmitButton: UIButton!
     @IBOutlet weak var reviewAndSubmitBoxImage: UIImageView!
     @IBOutlet weak var submitButtonContainer: UIView!
-
+    
     // Body
     @IBOutlet weak var tableView: UITableView!
 
@@ -438,30 +441,24 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
-//            var indexPath = indexPaths[0]
-//            if indexPaths.count > 1 {
-//                indexPath = indexPaths[1]
-//            }
-//            if indexPaths.count > 2 {
-//                indexPath = indexPaths[2]
-//            }
-//            if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
-//                basicInfoLabel.textColor = Colors.primary
-//                pasturesLabel.textColor = UIColor.black
-//                scheduleLabel.textColor = UIColor.black
-//            } else if indexPath == pasturesIndexPath {
-//                basicInfoLabel.textColor = UIColor.black
-//                pasturesLabel.textColor = Colors.primary
-//                scheduleLabel.textColor = UIColor.black
-//            } else if indexPath == scheduleIndexPath {
-//                basicInfoLabel.textColor = UIColor.black
-//                pasturesLabel.textColor = UIColor.black
-//                scheduleLabel.textColor = Colors.primary
-//            }
-//        }
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
+            var indexPath = indexPaths[0]
+            if indexPaths.count > 1 {
+                indexPath = indexPaths[1]
+            }
+          if indexPaths.count > 2 {
+               indexPath = indexPaths[2]
+           }
+          if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
+               menuBasicInfoOn()
+           } else if indexPath == pasturesIndexPath {
+               menuPastureOn()
+           } else if indexPath == scheduleIndexPath {
+              menuScheduleOn()
+          }
+      }
+  }
 }
 
 // MARK: Input Prompt

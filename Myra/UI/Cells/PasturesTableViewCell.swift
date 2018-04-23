@@ -97,9 +97,7 @@ class PasturesTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
-        divider.backgroundColor = Colors.secondary
-        sectionTitle.textColor = Colors.primary
-        sectionTitle.font = Fonts.getPrimaryHeavy(size: 34)
+        styleHeader(label: sectionTitle, divider: divider)
         styleButton(button: addButton)
     }
     

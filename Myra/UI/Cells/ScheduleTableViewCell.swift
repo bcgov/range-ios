@@ -78,6 +78,7 @@ class ScheduleTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
+        styleHeader(label: sectionTitle, divider: divider)
         divider.backgroundColor = Colors.secondary
         sectionTitle.textColor = Colors.primary
         sectionTitle.font = Fonts.getPrimaryHeavy(size: 34)
