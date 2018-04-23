@@ -107,10 +107,13 @@ extension CreateNewRUPViewController {
             self.view.layoutIfNeeded()
         }) { (done) in
             UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+
                 if UIDevice.current.orientation.isLandscape{
                     self.menuWidth.constant = self.landscapeMenuWidh
-                } else {
+                } else if UIDevice.current.orientation.isPortrait {
                     self.menuWidth.constant = self.horizontalMenuWidth
+                } else {
+                    self.menuWidth.constant = self.landscapeMenuWidh
                 }
                 self.view.layoutIfNeeded()
             }, completion: { (done) in
@@ -123,5 +126,19 @@ extension CreateNewRUPViewController {
 
             })
         }
+    }
+
+    func closingAnimations() {
+        UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+            self.menuWidth.constant = 0
+            self.menuContainer.alpha = 0
+            self.view.layoutIfNeeded()
+        })
+
+        UIView.animate(withDuration: shortAnimationDuration, animations: {
+            self.hideHeaderContent()
+            self.headerHeight.constant = 0
+            self.view.layoutIfNeeded()
+        })
     }
 }

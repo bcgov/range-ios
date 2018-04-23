@@ -84,9 +84,6 @@ class APIManager {
 
         var params = myPlan.toDictionary()
         params["agreementId"] = agreementId
-
-        print(endpoint)
-        print(params)
         
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in

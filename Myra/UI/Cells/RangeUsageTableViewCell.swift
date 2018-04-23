@@ -12,7 +12,7 @@ import RealmSwift
 
 class RangeUsageTableViewCell: UITableViewCell {
 
-    // Mark: Constants
+    // MARK: Constants
 
     /*
      NOTE: update this if you update the cell height
@@ -20,13 +20,12 @@ class RangeUsageTableViewCell: UITableViewCell {
      */
     let cellHeight = 49.5
 
-    // Mark: Variables
-//    var rangeUsageYears = List<RangeUsageYear>()
+    // MARK: Variables
     var rup: RUP?
     var usageYears = [RangeUsageYear]()
     var mode: FormMode = .Create
 
-    // Mark: Outlets
+    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
@@ -38,8 +37,7 @@ class RangeUsageTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    // Mark: Outlet actions
-
+    // MARK: Outlet actions
     @IBAction func addAction(_ sender: Any) {
         do {
             let realm = try Realm()
@@ -52,7 +50,7 @@ class RangeUsageTableViewCell: UITableViewCell {
         updateTableHeight()
     }
 
-    // Mark: Functions
+    // MARK: Functions
     func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
@@ -65,6 +63,7 @@ class RangeUsageTableViewCell: UITableViewCell {
         setUpTable()
     }
 
+    // MARK: Style
     // Calculate table height based on content and
     // reload parent's table view to bottom of
     // the indexpath of current cell
@@ -85,7 +84,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     }
 }
 
-// TableView
+// MARK: TableView
 extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {

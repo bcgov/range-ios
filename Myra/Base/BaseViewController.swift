@@ -132,14 +132,25 @@ extension BaseViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
+//            if UIDevice.current.orientation.isLandscape{
+////                print("Landscape")
+//                self.rotateSync()
+//                self.whenLandscape()
+//            } else {
+////                print("Portrait")
+//                self.rotateSync()
+//                self.whenPortrait()
+//            }
+
             if UIDevice.current.orientation.isLandscape{
-//                print("Landscape")
                 self.rotateSync()
                 self.whenLandscape()
-            } else {
-//                print("Portrait")
+            } else if UIDevice.current.orientation.isPortrait {
                 self.rotateSync()
                 self.whenPortrait()
+            } else {
+                self.rotateSync()
+                self.whenLandscape()
             }
         }
     }

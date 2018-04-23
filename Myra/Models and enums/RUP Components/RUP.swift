@@ -77,16 +77,14 @@ class RUP: Object, MyraObject {
     }
 
     func toDictionary() -> [String:Any] {
+        if planEndDate == nil || planEndDate == nil{ return [String:Any]()}
         return [
             "rangeName": rangeName,
             "agreementId": agreementId,
+            "planStartDate": DateManager.toUTC(date: planStartDate!),
+            "planEndDate": DateManager.toUTC(date: planEndDate!),
+            "alternativeBusinessName": alternativeName,
             "statusId": 1
         ]
-
-//        guard let json = try? JSONSerialization.data(withJSONObject: plan, options: .prettyPrinted) else {
-//            return nil
-//        }
-
-//        return plan
     }
 }

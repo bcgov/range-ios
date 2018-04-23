@@ -127,7 +127,6 @@ class DataServices: NSObject {
         let group = DispatchGroup()
 
         for plan in plans {
-            print(plan.schedules)
             let agreementId = plan.agreementId
             let planId = plan.localId
 
