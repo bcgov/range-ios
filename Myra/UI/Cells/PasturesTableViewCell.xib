@@ -22,9 +22,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4kO-M9-pu2" userLabel="Head">
                         <rect key="frame" x="0.0" y="0.0" width="559" height="80"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pastures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WP-HP-akx">
-                                <rect key="frame" x="15" y="30.5" width="108" height="20.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pastures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WP-HP-akx">
+                                <rect key="frame" x="15" y="30.5" width="334" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,10 +43,23 @@
                                     <action selector="addPastureAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="oIy-ul-2vQ"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8aD-Un-OTV">
+                                <rect key="frame" x="15" y="78" width="529" height="2"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="JTd-LX-DaT"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="q5I-op-ypu" secondAttribute="trailing" constant="15" id="8Au-FE-rj3"/>
                             <constraint firstAttribute="height" constant="80" id="Cz7-Ox-E0r"/>
+                            <constraint firstItem="8aD-Un-OTV" firstAttribute="leading" secondItem="4kO-M9-pu2" secondAttribute="leading" constant="15" id="I6R-wI-DuQ"/>
+                            <constraint firstItem="6WP-HP-akx" firstAttribute="centerY" secondItem="q5I-op-ypu" secondAttribute="centerY" id="IRc-Bv-JM7"/>
+                            <constraint firstAttribute="bottom" secondItem="8aD-Un-OTV" secondAttribute="bottom" id="PR6-13-0fy"/>
+                            <constraint firstItem="6WP-HP-akx" firstAttribute="leading" secondItem="4kO-M9-pu2" secondAttribute="leading" constant="15" id="QRC-Pe-FHW"/>
+                            <constraint firstItem="q5I-op-ypu" firstAttribute="leading" secondItem="6WP-HP-akx" secondAttribute="trailing" constant="5" id="Ug2-Gq-Lg6"/>
+                            <constraint firstAttribute="trailing" secondItem="8aD-Un-OTV" secondAttribute="trailing" constant="15" id="rcI-Jk-pcX"/>
                             <constraint firstItem="q5I-op-ypu" firstAttribute="centerY" secondItem="4kO-M9-pu2" secondAttribute="centerY" id="yjJ-9i-pNK"/>
                         </constraints>
                     </view>
@@ -71,6 +83,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addButton" destination="q5I-op-ypu" id="gOj-wQ-Ots"/>
+                <outlet property="divider" destination="8aD-Un-OTV" id="Q4q-Av-gfG"/>
+                <outlet property="sectionTitle" destination="6WP-HP-akx" id="mDz-Hh-spa"/>
                 <outlet property="tableHeight" destination="auS-xP-5Yh" id="O1n-XT-QBz"/>
                 <outlet property="tableView" destination="Pt0-1a-KoL" id="Xs7-AX-fGl"/>
             </connections>

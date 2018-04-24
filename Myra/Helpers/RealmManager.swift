@@ -114,6 +114,16 @@ class RealmManager {
         }
         return LiveStockType()
     }
+
+    func getLiveStockTypeObject(id: Int) -> (LiveStockType) {
+        let objects = getLiveStockType()
+        for object in objects {
+            if object.id == id {
+                return object
+            }
+        }
+        return LiveStockType()
+    }
     // END OF Reference
 
 }

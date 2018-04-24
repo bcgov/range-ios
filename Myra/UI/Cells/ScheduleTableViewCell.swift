@@ -10,15 +10,20 @@ import UIKit
 import Realm
 import RealmSwift
 
-class ScheduleTableViewCell: UITableViewCell {
+class ScheduleTableViewCell: BaseFormCell {
 
+    // MARK: Variables
     let cellHeight = 56.5
-    var rup: RUP?
     var parentReference: CreateNewRUPViewController?
 
+    // MARK: Outlets
+    @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var sectionTitle: UILabel!
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
-    
+
+    // MARK: Cell Functions
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -27,21 +32,22 @@ class ScheduleTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
         guard let p = parentReference else { return }
 
-        p.promptInput(title: "Schedule year", accept: .Year, taken: RUPManager.shared.getScheduleYears(rup: rup!)) { (done, name) in
+        p.promptInput(title: "Schedule year", accept: .Year, taken: RUPManager.shared.getScheduleYears(rup: rup)) { (done, name) in
             if done {
-                if name.isInt, let year = Int(name), let r = self.rup {
+                if name.isInt, let year = Int(name) {
                     // check if year is valid
-                    if RUPManager.shared.isNewScheduleYearValidFor(rup: r, newYear: year) {
+                    if RUPManager.shared.isNewScheduleYearValidFor(rup: self.rup, newYear: year) {
                         let schedule = Schedule()
                         schedule.name = name
                         schedule.year = year
 
                         do {
                             let realm = try Realm()
-                            let aRup = realm.objects(RUP.self).filter("localId = %@", r.localId).first!
+                            let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
                             try realm.write {
                                 aRup.schedules.append(schedule)
                                 realm.add(schedule)
@@ -61,6 +67,7 @@ class ScheduleTableViewCell: UITableViewCell {
         }
     }
 
+    // MARK: Setup
     func setup(rup: RUP, parentReference: CreateNewRUPViewController) {
         self.parentReference = parentReference
         self.rup = rup
@@ -69,37 +76,32 @@ class ScheduleTableViewCell: UITableViewCell {
         style()
     }
 
+    // MARK: Style
+    func style() {
+        styleHeader(label: sectionTitle, divider: divider)
+        divider.backgroundColor = Colors.secondary
+        sectionTitle.textColor = Colors.primary
+        sectionTitle.font = Fonts.getPrimaryHeavy(size: 34)
+        styleButton(button: addButton)
+        tableView.layer.cornerRadius = 3
+        tableView.layer.borderWidth = 1
+        tableView.layer.borderColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1).cgColor
+    }
+
     func updateTableHeight() {
-        
-//        guard let plan = rup else {
-//            fatalError()
-//        }
-//
-//        rup.schedules.sorted("year", ascending: true)
-//        if let plan = rup {
-//            RUPManager.shared.sortSchedule(rup: plan)
-//        }
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        let count = rup?.schedules.count ?? 0
+        let count = rup.schedules.count
         tableHeight.constant = CGFloat( Double(count) * cellHeight + 5.0)
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.realodAndGoTO(indexPath: parent.scheduleIndexPath)
     }
-
-    func style() {
-        let layer = tableView.layer
-        layer.cornerRadius = 3
-        layer.borderWidth = 1
-        layer.borderColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1).cgColor
-    }
     
 }
 
+// MARK: Tableview
 extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
-
     func setUpTable() {
-//        if rup == nil {return}
         self.tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -116,19 +118,16 @@ extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (rup?.schedules.count)!
+        return (rup.schedules.count)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleCell(indexPath: indexPath)
-        cell.setup(rup: rup!, schedule: (rup?.schedules.sorted(by: { $0.year < $1.year })[indexPath.row])!, parentReference: self)
+        cell.setup(rup: rup, schedule: (rup.schedules.sorted(by: { $0.year < $1.year })[indexPath.row]), parentReference: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("seleted")
-//        let parent = self.parentViewController as! CreateNewRUPViewController
-//        parent.showSchedule(object: (rup?.schedules[indexPath.row])!)
     }
 
 }

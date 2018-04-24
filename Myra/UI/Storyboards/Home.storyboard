@@ -60,10 +60,9 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpW-FV-O6r">
                                                 <rect key="frame" x="1007" y="36" width="40" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSl-7p-lny">
+                                                    <button opaque="NO" tag="121" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSl-7p-lny">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="SyncButton"/>
-                                                        <state key="normal" title="Sync Now" image="sync"/>
                                                         <connections>
                                                             <action selector="syncAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="RkZ-iz-cze"/>
                                                         </connections>
@@ -419,7 +418,4 @@
             <point key="canvasLocation" x="679.85611510791364" y="-188.48920863309354"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="sync" width="256" height="256"/>
-    </resources>
 </document>

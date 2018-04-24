@@ -105,6 +105,7 @@ class ScheduleCellTableViewCell: UITableViewCell {
     }
 
     @IBAction func detailAction(_ sender: Any) {
+        print(self.schedule?.toDictionary())
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.showSchedule(object: schedule!, completion: { done in
             self.styleBasedOnValidity()

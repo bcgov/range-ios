@@ -10,9 +10,9 @@ import UIKit
 import Realm
 import RealmSwift
 
-class RangeUsageTableViewCell: UITableViewCell {
+class RangeUsageTableViewCell: BaseFormCell {
 
-    // Mark: Constants
+    // MARK: Constants
 
     /*
      NOTE: update this if you update the cell height
@@ -20,13 +20,10 @@ class RangeUsageTableViewCell: UITableViewCell {
      */
     let cellHeight = 49.5
 
-    // Mark: Variables
-//    var rangeUsageYears = List<RangeUsageYear>()
-    var rup: RUP?
+    // MARK: Variables
     var usageYears = [RangeUsageYear]()
-    var mode: FormMode = .Create
 
-    // Mark: Outlets
+    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
@@ -38,13 +35,12 @@ class RangeUsageTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    // Mark: Outlet actions
-
+    // MARK: Outlet actions
     @IBAction func addAction(_ sender: Any) {
         do {
             let realm = try Realm()
             try realm.write {
-                self.rup?.rangeUsageYears.append(RangeUsageYear())
+                self.rup.rangeUsageYears.append(RangeUsageYear())
             }
         } catch _ {
             fatalError()
@@ -52,10 +48,11 @@ class RangeUsageTableViewCell: UITableViewCell {
         updateTableHeight()
     }
 
-    // Mark: Functions
-    func setup(mode: FormMode, rup: RUP) {
+    // MARK: Functions
+    override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
+        self.usageYears = [RangeUsageYear]()
         for usage in rup.rangeUsageYears {
             if usage.year >= (rup.agreementStartDate?.yearOfDate())! && usage.year <= (rup.agreementEndDate?.yearOfDate())! {
                 usageYears.append(usage)
@@ -65,10 +62,11 @@ class RangeUsageTableViewCell: UITableViewCell {
         setUpTable()
     }
 
+    // MARK: Style
     // Calculate table height based on content and
     // reload parent's table view to bottom of
     // the indexpath of current cell
-    func updateTableHeight() {
+    func updateTableHeight() {  
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
 
@@ -85,7 +83,7 @@ class RangeUsageTableViewCell: UITableViewCell {
     }
 }
 
-// TableView
+// MARK: TableView
 extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setUpTable() {

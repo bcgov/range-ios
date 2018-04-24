@@ -38,6 +38,7 @@
 		2932BB4D20851BD900579A57 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB4C20851BD900579A57 /* Colors.swift */; };
 		2932BB4F2085209000579A57 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB4E2085209000579A57 /* Fonts.swift */; };
 		2932BB51208567D900579A57 /* MyraObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB50208567D900579A57 /* MyraObject.swift */; };
+		2932BB57208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */; };
 		293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
 		293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* HomeViewController.swift */; };
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
@@ -70,6 +71,7 @@
 		29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */; };
 		29A52750205B322700C871F7 /* selectionPopUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */; };
 		29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */; };
+		29B5F047208E958D003D996D /* sync_icon.json in Resources */ = {isa = PBXBuildFile; fileRef = 29B5F046208E958D003D996D /* sync_icon.json */; };
 		29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */; };
 		29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */; };
 		29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */; };
@@ -153,6 +155,7 @@
 		2932BB4C20851BD900579A57 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2932BB4E2085209000579A57 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		2932BB50208567D900579A57 /* MyraObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyraObject.swift; sourceTree = "<group>"; };
+		2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionCreateNewRUPViewController.swift; sourceTree = "<group>"; };
 		293C95C120335D4100BF1113 /* Myra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Myra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		293C95C420335D4100BF1113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		293C95C620335D4100BF1113 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 		29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpObject.swift; sourceTree = "<group>"; };
 		29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectionPopUpTableViewCell.swift; sourceTree = "<group>"; };
 		29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = selectionPopUpTableViewCell.xib; sourceTree = "<group>"; };
+		29B5F046208E958D003D996D /* sync_icon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sync_icon.json; sourceTree = "<group>"; };
 		29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateNewRup.storyboard; sourceTree = "<group>"; };
 		29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRUPViewController.swift; sourceTree = "<group>"; };
 		29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUsageTableViewCell.swift; sourceTree = "<group>"; };
@@ -272,6 +276,7 @@
 				292185532065686B006F5EF4 /* HomeSyncExtension.swift */,
 				29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */,
 				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
+				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
 				294AC502204F57E800F0FB04 /* ScheduleViewController.swift */,
 				29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */,
 				291C4D9320364BDF00390523 /* CreateViewController.swift */,
@@ -385,6 +390,7 @@
 				56873E32207E6D6A00C530CA /* Extensions */,
 				29EA029E2069664B0076403B /* x_pop.json */,
 				29EA02982069565B0076403B /* checked_done_.json */,
+				29B5F046208E958D003D996D /* sync_icon.json */,
 				29EA02A020696A710076403B /* spinner_.json */,
 				56F3889F2080173C004CDFAE /* API */,
 				2920F8312034C7870090E7B4 /* Utilities */,
@@ -549,7 +555,7 @@
 				TargetAttributes = {
 					293C95C020335D4100BF1113 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -603,6 +609,7 @@
 				29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */,
 				291C4D9620364BEF00390523 /* Create.storyboard in Resources */,
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
+				29B5F047208E958D003D996D /* sync_icon.json in Resources */,
 				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
 				29EA02A120696A720076403B /* spinner_.json in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
@@ -774,6 +781,7 @@
 				291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */,
 				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
 				2932BB51208567D900579A57 /* MyraObject.swift in Sources */,
+				2932BB57208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift in Sources */,
 				2920F8352034C8540090E7B4 /* View.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				2920F8332034C8380090E7B4 /* Color.swift in Sources */,
@@ -922,15 +930,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "fd27113b-4617-458e-9b5c-cb4d38d32957";
+				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -943,15 +951,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "fd27113b-4617-458e-9b5c-cb4d38d32957";
+				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
