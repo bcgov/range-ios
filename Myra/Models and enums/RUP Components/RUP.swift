@@ -69,24 +69,22 @@ class RUP: Object, MyraObject {
         self.zones = agreement.zones
         self.rangeUsageYears = agreement.rangeUsageYears
         let primary = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
-        let primaryArray = primary.split(separator: ",")
-        self.primaryAgreementHolderLastName = String(primaryArray[0])
-        self.primaryAgreementHolderFirstName = String(primaryArray[1])
+//        let primaryArray = primary.split(separator: ",")
+//        self.primaryAgreementHolderLastName = String(primaryArray[0])
+//        self.primaryAgreementHolderFirstName = String(primaryArray[1])
         let splitRan = agreementId.split(separator: "N")
         self.ranNumber = Int(splitRan[1]) ?? 0
     }
 
     func toDictionary() -> [String:Any] {
+        if planEndDate == nil || planEndDate == nil{ return [String:Any]()}
         return [
             "rangeName": rangeName,
             "agreementId": agreementId,
+            "planStartDate": DateManager.toUTC(date: planStartDate!),
+            "planEndDate": DateManager.toUTC(date: planEndDate!),
+            "alternativeBusinessName": alternativeName,
             "statusId": 1
         ]
-
-//        guard let json = try? JSONSerialization.data(withJSONObject: plan, options: .prettyPrinted) else {
-//            return nil
-//        }
-
-//        return plan
     }
 }

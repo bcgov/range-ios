@@ -19,8 +19,11 @@ enum AcceptedPopupInput {
 
 class CreateNewRUPViewController: BaseViewController {
 
-    // Mark: Variables
+    // MARK: Constants
+    let landscapeMenuWidh: CGFloat = 265
+    let horizontalMenuWidth: CGFloat = 156
 
+    // MARK: Variables
     var parentCallBack: ((_ close: Bool) -> Void )?
 
     /* need to hold the inxedpath of sections to be able to scroll back to them.
@@ -45,8 +48,6 @@ class CreateNewRUPViewController: BaseViewController {
 
     var mode: FormMode = .Create
 
-    var reloaded: Bool = false
-
     // pop up for adding pastures and years
     var acceptedPopupInput: AcceptedPopupInput = .String
     var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
@@ -55,25 +56,39 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlets
 
     // TOP
+    @IBOutlet weak var statusBar: UIView!
+    @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var ranchNameAndNumberLabel: UILabel!
     @IBOutlet weak var saveToDraftButton: UIButton!
+    @IBOutlet weak var headerHeight: NSLayoutConstraint!
 
     // Side Menu
+    @IBOutlet weak var menuContainer: UIView!
     @IBOutlet weak var menuWidth: NSLayoutConstraint!
     @IBOutlet weak var menuLeading: NSLayoutConstraint!
-    
+
+    @IBOutlet weak var basicInfoLowerBar: UIView!
+    @IBOutlet weak var basicInfoBox: UIView!
     @IBOutlet weak var basicInfoLabel: UILabel!
     @IBOutlet weak var basicInfoButton: UIButton!
     @IBOutlet weak var basicInfoBoxImage: UIImageView!
+    @IBOutlet weak var basicInfoBoxLeft: UIView!
 
+    @IBOutlet weak var pasturesBox: UIView!
     @IBOutlet weak var pasturesLabel: UILabel!
     @IBOutlet weak var pasturesButton: UIButton!
     @IBOutlet weak var pasturesBoxImage: UIImageView!
+    @IBOutlet weak var pasturesLowerBar: UIView!
+    @IBOutlet weak var pastureBoxLeft: UIView!
 
+    @IBOutlet weak var scheduleBox: UIView!
     @IBOutlet weak var scheduleLabel: UILabel!
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleBoxImage: UIImageView!
+    @IBOutlet weak var scheduleLowerBar: UIView!
+    @IBOutlet weak var scheduleBoxLeft: UIView!
+
 
     /*
     @IBOutlet weak var ministersIssuesLabel: UILabel!
@@ -100,7 +115,8 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var reviewAndSubmitLabel: UILabel!
     @IBOutlet weak var reviewAndSubmitButton: UIButton!
     @IBOutlet weak var reviewAndSubmitBoxImage: UIImageView!
-
+    @IBOutlet weak var submitButtonContainer: UIView!
+    
     // Body
     @IBOutlet weak var tableView: UITableView!
 
@@ -111,6 +127,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var grayScreen: UIView!
 
 
+    // MARK: POP UP
     @IBAction func popupCancel(_ sender: Any) {
         if popupCompletion == nil {return}
         popupCompletion!(false, "")
@@ -189,28 +206,27 @@ class CreateNewRUPViewController: BaseViewController {
     // end of custom popup
 
 
+    // MARK: ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        style()
         setMenuSize()
         closePopup() 
         setUpTable()
-        setMenuSize()
-        if !reloaded {
-            updateSubtableHeights()
-        }
-        setMenuSize()
-        NotificationCenter.default.addObserver(forName: .updatePastureCells, object: nil, queue: nil, using: catchAction)
         autofill()
+        prepareToAnimate()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        openingAnimations()
+    }
+
+    // MARK: Setup
     func autofill() {
         let num = rup?.agreementId ?? ""
         let name = rup?.rangeName ?? ""
         ranchNameAndNumberLabel.text = "\(num) | \(name)"
-        for obj in (rup?.schedules)! {
-            print (obj)
-        }
-
     }
 
     func catchAction(notification:Notification) {
@@ -222,7 +238,7 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
 
-    // Mark: Outlet Actions
+    // MARK: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
         do {
             let realm = try Realm()
@@ -264,8 +280,9 @@ class CreateNewRUPViewController: BaseViewController {
     */
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
-
+        closingAnimations()
         showAlert(title: "Confirm", description: "You will not be able to edit this rup after submission", yesButtonTapped: {
+            // Yes tapped
             do {
                 let realm = try Realm()
                 try realm.write {
@@ -273,42 +290,17 @@ class CreateNewRUPViewController: BaseViewController {
                 }
                 
             } catch _ {}
+            // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
                     return self.parentCallBack!(true)
                 }
             }
         }) {
-
+            // No tapped
+            self.openingAnimations()
         }
-//        APIManager.send(rup: self.rup!) { (done) in
-//            if done {
-////                self.parentVC?.dismiss(animated: true, completion: nil)
-//                self.dismiss(animated: true, completion: nil)
-//            }
-//        }
     }
-
-
-//    func submitRup() {
-//        self.view.isUserInteractionEnabled = false
-//        if let rupobj = rup {
-//            APIManager.uploadRUP(rup: rupobj) { (success) in
-//                if success {
-//                    do {
-//                        let realm = try Realm()
-//                        try realm.write {
-//                            self.rup?.statusEnum = .Pending
-//                        }
-//                    } catch _ {}
-//                } else {
-//                    self.view.isUserInteractionEnabled = true
-//                }
-//                self.dismiss(animated: true, completion: nil)
-//                return self.parentCallBack!(true)
-//            }
-//        }
-//    }
 
     // Mark: Functions
     func getMapVC() -> CreateViewController {
@@ -330,10 +322,6 @@ class CreateNewRUPViewController: BaseViewController {
         setUpTable()
     }
 
-    func updateSubtableHeights() {
-        NotificationCenter.default.post(name: .updateTableHeights, object: self, userInfo: ["reload": true])
-    }
-
     override func whenLandscape() {
         setMenuSize()
     }
@@ -343,24 +331,8 @@ class CreateNewRUPViewController: BaseViewController {
 
 }
 
-extension CreateNewRUPViewController {
-
-    func setMenuSize() {
-        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
-            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
-        }
-        if UIDevice.current.orientation.isLandscape{
-            self.menuWidth.constant = 265
-        } else {
-            self.menuWidth.constant = 156
-        }
-        self.animateIt()
-
-    }
-}
-
+// MARK: Tableview
 extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource {
-
     func setUpTable() {
         if self.tableView == nil {return}
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
@@ -460,6 +432,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     func realodAndGoTO(indexPath: IndexPath) {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
+        self.tableView.layoutIfNeeded()
 //        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
@@ -474,26 +447,21 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             if indexPaths.count > 1 {
                 indexPath = indexPaths[1]
             }
-            if indexPaths.count > 2 {
-                indexPath = indexPaths[2]
-            }
-            if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
-                basicInfoLabel.textColor = UIColor.blue
-                pasturesLabel.textColor = UIColor.black
-                scheduleLabel.textColor = UIColor.black
-            } else if indexPath == pasturesIndexPath {
-                basicInfoLabel.textColor = UIColor.black
-                pasturesLabel.textColor = UIColor.blue
-                scheduleLabel.textColor = UIColor.black
-            } else if indexPath == scheduleIndexPath {
-                basicInfoLabel.textColor = UIColor.black
-                pasturesLabel.textColor = UIColor.black
-                scheduleLabel.textColor = UIColor.blue
-            }
-        }
-    }
+          if indexPaths.count > 2 {
+               indexPath = indexPaths[2]
+           }
+          if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
+               menuBasicInfoOn()
+           } else if indexPath == pasturesIndexPath {
+               menuPastureOn()
+           } else if indexPath == scheduleIndexPath {
+              menuScheduleOn()
+          }
+      }
+  }
 }
 
+// MARK: Input Prompt
 extension CreateNewRUPViewController {
     // Use done variable in completion to indicate if user cancelled or not
     func promptInput(title: String, accept: AcceptedPopupInput,taken: [String],completion: @escaping (_ done: Bool,_ result: String) -> Void) {
@@ -506,12 +474,12 @@ extension CreateNewRUPViewController {
     }
 }
 
+// MARK: Schedule View
 extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
          let vm = ViewManager()
         let schedule = vm.schedule
         schedule.setup(rup: rup!, schedule: object, completion: completion)
-//        schedule.schedule = object
         self.present(schedule, animated: true, completion: nil)
     }
 }

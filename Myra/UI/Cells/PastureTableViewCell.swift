@@ -12,30 +12,39 @@ import RealmSwift
 
 class PastureTableViewCell: BaseFormCell {
 
-    // Mark: Constants
+    // MARK: Constants
     let plantCommunityCellHeight = 100
 
-    // Mark: Variables
+    // MARK: Variables
     var pastures: PasturesTableViewCell?
     var pasture: Pasture?
-//    var mode: FormMode = .Create
     var loaded: Bool = false
 
-    // Mark: Outlets
+    // MARK: Outlets
+    @IBOutlet weak var pastureNameHeader: UILabel!
     @IBOutlet weak var pastureNameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
  
     @IBOutlet weak var pastureNotesTextField: UITextView!
+    @IBOutlet weak var pastureNotesHeader: UILabel!
     @IBOutlet weak var aumsField: UITextField!
     @IBOutlet weak var deductionFIeld: UITextField!
     @IBOutlet weak var graceDaysField: UITextField!
 
+    @IBOutlet weak var fieldHeight: NSLayoutConstraint!
+
+    @IBOutlet weak var graceDaysHeader: UILabel!
+    @IBOutlet weak var pldHeader: UILabel!
+    @IBOutlet weak var aumHeader: UILabel!
+
+
+    // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
-        addBoarder(layer: containerView.layer)
-        addBoarder(layer: pastureNotesTextField.layer)
+//        addBoarder(layer: containerView.layer)
+//        addBoarder(layer: pastureNotesTextField.layer)
         loaded = true
     }
 
@@ -43,7 +52,7 @@ class PastureTableViewCell: BaseFormCell {
         super.setSelected(selected, animated: animated)
     }
 
-    // Mark: Outlet Actions
+    // MARK: Outlet Actions
     @IBAction func addPlantCommunityAction(_ sender: Any) {
         do {
             let realm = try Realm()
@@ -111,7 +120,7 @@ class PastureTableViewCell: BaseFormCell {
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
     }
 
-    // Mark: Functions
+    // MARK: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
         self.pastures = pastures
         self.mode = mode
@@ -120,9 +129,7 @@ class PastureTableViewCell: BaseFormCell {
         autofill()
         setupTable()
         self.pastureNotesTextField.delegate = self
-        styleInput(input: aumsField)
-        styleInput(input: deductionFIeld)
-        styleInput(input: graceDaysField)
+        style()
     }
 
     func autofill() {
@@ -137,23 +144,28 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     func updateTableHeight() {
+        let padding = 5
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + 5)
+        tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + padding)
         if let parent = pastures {
             parent.updateTableHeight()
         }
     }
 
-    func addBoarder(layer: CALayer) {
-        layer.borderWidth = 1
-        layer.cornerRadius = 5
-        layer.borderColor = UIColor.black.cgColor
+    // MARK: Styles
+    func style() {
+        styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
+        styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
+        styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
+        styleInputField(field: pastureNotesTextField, header: pastureNotesHeader)
+        styleContainer(view: containerView)
+        styleSubHeader(label: pastureNameHeader)
+        styleSubHeader(label: pastureNameLabel)
     }
-
 }
 
-// TableView
+// MARK: TableView
 extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func setupTable() {
@@ -184,25 +196,7 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
 }
 
-// Notifications
-extension PastureTableViewCell {
-    func setupNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updatePasturesCell, object: nil)
-        NotificationCenter.default.addObserver(forName: .updatePastureCells, object: nil, queue: nil, using: catchAction)
-    }
-
-    @objc func doThisWhenNotify() { return }
-
-    func notifyPasturesCell() {
-        NotificationCenter.default.post(name: .updatePasturesCell, object: self, userInfo: ["reload": true])
-    }
-
-    func catchAction(notification:Notification) {
-        self.updateTableHeight()
-    }
-}
-
-// Notes
+// MARK: Notes
 extension PastureTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
 
