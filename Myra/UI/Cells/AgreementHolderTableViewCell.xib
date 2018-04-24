@@ -31,13 +31,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6d2-Zo-vqr">
-                                <rect key="frame" x="0.0" y="44" width="209" height="1"/>
-                                <color key="backgroundColor" red="0.80986278550000002" green="0.80986278550000002" blue="0.80986278550000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="Zlj-ZP-Jkx"/>
-                                </constraints>
-                            </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XI4-kN-Upw">
                                 <rect key="frame" x="229" y="0.0" width="150" height="44"/>
                                 <constraints>
@@ -47,30 +40,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tox-5W-zzV">
-                                <rect key="frame" x="229" y="44" width="150" height="1"/>
-                                <color key="backgroundColor" red="0.80986278550000002" green="0.80986278550000002" blue="0.80986278550000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="LVp-KQ-dXL"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vsj-IO-Sls" firstAttribute="leading" secondItem="LNR-TE-fo9" secondAttribute="leading" id="4MN-56-M1E"/>
                             <constraint firstItem="XI4-kN-Upw" firstAttribute="top" secondItem="LNR-TE-fo9" secondAttribute="top" id="LMO-cg-r3E"/>
                             <constraint firstAttribute="trailing" secondItem="XI4-kN-Upw" secondAttribute="trailing" constant="20" id="M2T-LJ-gUg"/>
-                            <constraint firstItem="6d2-Zo-vqr" firstAttribute="width" secondItem="vsj-IO-Sls" secondAttribute="width" id="ShN-pC-WBc"/>
                             <constraint firstItem="XI4-kN-Upw" firstAttribute="leading" secondItem="vsj-IO-Sls" secondAttribute="trailing" constant="20" id="U2z-dc-Mpa"/>
-                            <constraint firstItem="6d2-Zo-vqr" firstAttribute="centerX" secondItem="vsj-IO-Sls" secondAttribute="centerX" id="Vtf-s8-FWJ"/>
                             <constraint firstItem="XI4-kN-Upw" firstAttribute="height" secondItem="vsj-IO-Sls" secondAttribute="height" id="WHL-h5-5jc"/>
                             <constraint firstAttribute="height" constant="45" id="fn0-D7-I3L"/>
-                            <constraint firstAttribute="bottom" secondItem="6d2-Zo-vqr" secondAttribute="bottom" id="icS-7i-k7Y"/>
-                            <constraint firstAttribute="bottom" secondItem="Tox-5W-zzV" secondAttribute="bottom" id="kq0-iL-Qm7"/>
-                            <constraint firstItem="Tox-5W-zzV" firstAttribute="centerX" secondItem="XI4-kN-Upw" secondAttribute="centerX" id="oBL-2l-osd"/>
-                            <constraint firstItem="Tox-5W-zzV" firstAttribute="top" secondItem="XI4-kN-Upw" secondAttribute="bottom" id="q2m-hQ-2zm"/>
                             <constraint firstItem="vsj-IO-Sls" firstAttribute="top" secondItem="LNR-TE-fo9" secondAttribute="top" id="wE8-08-xuc"/>
-                            <constraint firstItem="Tox-5W-zzV" firstAttribute="width" secondItem="XI4-kN-Upw" secondAttribute="width" id="xGu-qZ-7rX"/>
                         </constraints>
                     </view>
                 </subviews>

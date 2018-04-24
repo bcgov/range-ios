@@ -95,20 +95,31 @@ class BaseFormCell: UITableViewCell {
     }
 
     func styleStaticField(field: UILabel, header: UILabel) {
+        styleStaticField(field: field)
+        styleFieldHeader(label: header)
+    }
+
+    func styleStaticField(field: UILabel) {
         field.textColor = defaultInputFieldTextColor
         field.font = defaultInputFieldFont
-        header.textColor = defaultFieldHeaderColor
-        header.font = defaultFieldHeaderFont
     }
 
     func styleInputField(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
         height.constant = defaultInputFieldHeight
+        styleInputField(field:field, editable: true)
+        styleFieldHeader(label: header)
+    }
+
+    func styleInputField(field: UITextField, editable: Bool) {
         field.textColor = defaultInputFieldTextColor
-        field.backgroundColor = defaultInputFieldBackground
         field.font = defaultInputFieldFont
         field.layer.cornerRadius = 3
-        header.textColor = defaultFieldHeaderColor
-        header.font = defaultFieldHeaderFont
+        if editable {
+             field.backgroundColor = defaultInputFieldBackground
+        } else {
+            field.backgroundColor = UIColor.clear
+            field.isUserInteractionEnabled = false
+        }
     }
 
     func styleInputField(field: UITextView, header: UILabel) {
@@ -116,8 +127,12 @@ class BaseFormCell: UITableViewCell {
         field.backgroundColor = defaultInputFieldBackground
         field.font = defaultInputFieldFont
         field.layer.cornerRadius = 3
-        header.textColor = defaultFieldHeaderColor
-        header.font = defaultFieldHeaderFont
+        styleFieldHeader(label: header)
+    }
+
+    func styleFieldHeader(label: UILabel) {
+        label.textColor = defaultFieldHeaderColor
+        label.font = defaultFieldHeaderFont
     }
 
     func styleSubHeader(label: UILabel) {

@@ -340,6 +340,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         tableView.dataSource = self
         registerCell(name: "BasicInformationTableViewCell")
         registerCell(name: "PlanInformationTableViewCell")
+        registerCell(name: "AgreementHoldersTableViewCell")
         registerCell(name: "BasicInfoSectionTwoTableViewCell")
         registerCell(name: "AgreementInformationTableViewCell")
         registerCell(name: "LiveStockIDTableViewCell")
@@ -362,6 +363,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
     func getBasicInfoSectionTwoCell(indexPath: IndexPath) -> BasicInfoSectionTwoTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "BasicInfoSectionTwoTableViewCell", for: indexPath) as! BasicInfoSectionTwoTableViewCell
+    }
+
+    func getAgreementHoldersCell(indexPath: IndexPath) -> AgreementHoldersTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "AgreementHoldersTableViewCell", for: indexPath) as! AgreementHoldersTableViewCell
     }
 
     func getBasicInfoCell(indexPath: IndexPath) -> BasicInformationTableViewCell {
@@ -396,17 +401,17 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 0:
             self.basicInformationIndexPath = indexPath
             let cell = getBasicInfoCell(indexPath: indexPath)
-//            cell.setup(mode: mode, rup: rup!, parentReference: self)
             cell.setup(mode: mode, rup: rup!)
             return cell
         case 1:
             let cell = getPlanInformationCell(indexPath: indexPath)
             cell.setup(mode: mode, rup: rup!)
             return cell
-//            let cell = getBasicInfoSectionTwoCell(indexPath: indexPath)
-//            cell.setup(mode: mode, rup: rup!)
-//            return cell
         case 2:
+            let cell = getAgreementHoldersCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: rup!)
+            return cell
+        case 3:
             self.rangeUsageIndexPath = indexPath
             let cell = getRangeUsageCell(indexPath: indexPath)
             cell.setup(mode: mode, rup: rup!)
@@ -416,12 +421,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 //            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
 //            cell.setup(mode: mode, rup: rup!)
 //            return cell
-        case 3:
+        case 4:
             self.pasturesIndexPath = indexPath
             let cell = getPasturesCell(indexPath: indexPath)
             cell.setup(mode: mode, rup: rup!)
             return cell
-        case 4:
+        case 5:
             self.scheduleIndexPath = indexPath
             let cell = getScheduleCell(indexPath: indexPath)
             // passing self reference because cells within this cell's tableview need to call showAlert()
@@ -434,7 +439,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
 
     func realodAndGoTO(indexPath: IndexPath) {

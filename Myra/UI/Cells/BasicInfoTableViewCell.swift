@@ -150,7 +150,7 @@ extension BasicInfoTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getHolderCell(indexPath: indexPath)
         if let r = rup {
-            cell.setup(client: r.clients[indexPath.row], parentCell: self)
+            cell.setup(client: r.clients[indexPath.row])
         }
         return cell
     }

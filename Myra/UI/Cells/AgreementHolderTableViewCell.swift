@@ -8,13 +8,14 @@
 
 import UIKit
 
-class AgreementHolderTableViewCell: UITableViewCell {
+class AgreementHolderTableViewCell: BaseFormCell {
+
+    // TODO: Clean up
 
     @IBOutlet weak var agreementHolder: UITextField!
     @IBOutlet weak var agreementType: UITextField!
 
     var client: Client?
-    var parentCell: BasicInfoTableViewCell?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,12 +28,12 @@ class AgreementHolderTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setup(client: Client, parentCell: BasicInfoTableViewCell) {
+    func setup(client: Client) {
         self.agreementType.isUserInteractionEnabled = false
         self.agreementHolder.isUserInteractionEnabled = false
         self.client = client
-        self.parentCell = parentCell
         autoFill()
+        style()
     }
 
     func autoFill() {
@@ -41,6 +42,11 @@ class AgreementHolderTableViewCell: UITableViewCell {
             self.agreementHolder.text = c.name
             self.agreementType.text = clientType.desc
         }
+    }
+
+    func style() {
+        styleInputField(field: agreementType, editable: false)
+        styleInputField(field: agreementHolder,editable: false)
     }
     
 }
