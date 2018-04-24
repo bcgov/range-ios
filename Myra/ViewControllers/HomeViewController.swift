@@ -9,11 +9,14 @@
 import UIKit
 import Reachability
 import SingleSignOn
+import Lottie
 
 class HomeViewController: BaseViewController {
 
     // MARK: Constants
     let reachability = Reachability()!
+    var syncButtonAnimationTag = 120
+    var syncButtonActionTag = 121
 
     // MARK: Variables
     var rups: [RUP] = [RUP]()
@@ -65,6 +68,8 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeaderSeparator: UIView!
 
+
+    // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         syncing = false
@@ -87,7 +92,6 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
-
         authenticateIfRequred()
     }
 
@@ -188,10 +192,10 @@ class HomeViewController: BaseViewController {
         styleCreateButton()
         styleFilterContainer()
         styleUserBox()
-        styleSyncBox()
         makeCircle(view: connectivityLight)
         setFilterButtonFonts()
         tableHeaderSeparator.backgroundColor = Colors.secondary
+        styleSyncBox()
     }
 
     func styleNavBar() {
@@ -238,6 +242,35 @@ class HomeViewController: BaseViewController {
     func styleSyncBox() {
         makeCircle(view: syncContainer)
         syncContainer.backgroundColor = UIColor.white
+
+        // add animated image
+        let animatedSync = LOTAnimationView(name: "sync_icon")
+        animatedSync.frame = syncContainer.frame
+        animatedSync.center.y = syncButton.center.y
+        animatedSync.center.x = syncButton.center.x
+        animatedSync.contentMode = .scaleAspectFit
+        animatedSync.loopAnimation = false
+        animatedSync.tag = syncButtonAnimationTag
+        self.syncContainer.addSubview(animatedSync)
+        animatedSync.play()
+
+        // Note: now animation overlaps button.. so move the button to top
+        if let button = self.view.viewWithTag(syncButtonActionTag) {
+            self.syncContainer.addSubview(button)
+        }
+    }
+
+    func playSyncButtonAnimation() {
+        if let animation = self.view.viewWithTag(syncButtonAnimationTag) as? LOTAnimationView {
+            animation.loopAnimation = true
+            animation.play()
+        }
+    }
+
+    func stopSyncButtonAnimation() {
+        if let animation = self.view.viewWithTag(syncButtonAnimationTag) as? LOTAnimationView {
+            animation.stop()
+        }
     }
 
     func filterButtonOn(button: UIButton) {
