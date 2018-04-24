@@ -11,20 +11,25 @@ import UIKit
 class BaseFormCell: UITableViewCell {
 
     // MARK: Constants
+
     let defaultContainerShadowOpacity: Float = 0.4
     let defaultContainershadowHeight = 2
 
+    // Input Field
     let defaultInputFieldHeight: CGFloat = 45
     let defaultInputFieldBackground = Colors.inputBG
     let defaultInputFieldTextColor = Colors.inputText
     let defaultInputFieldFont = Fonts.getPrimary(size: 15)
 
+    // Field Header
     let defaultFieldHeaderColor = Colors.inputHeaderText
-    let defaultFieldHeaderFont = Fonts.getPrimary(size: 14)
+    let defaultFieldHeaderFont = Fonts.getPrimaryHeavy(size: 14)
 
+    // Section Header
     let defaultSectionHeaderColor = Colors.primary
     let defaultSectionHeaderFont = Fonts.getPrimaryHeavy(size: 34)
 
+    // Section Sub Header
     let defaultSectionSubHeaderColor = Colors.primary
     let defaultSectionSubHeaderFont = Fonts.getPrimaryHeavy(size: 17)
 
@@ -32,6 +37,7 @@ class BaseFormCell: UITableViewCell {
     var rup: RUP = RUP()
     var mode: FormMode = .Create
 
+    // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -41,11 +47,13 @@ class BaseFormCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    // MARK: Cell Setup
     func setup(mode: FormMode, rup: RUP) {
         self.rup = rup
         self.mode = mode
     }
 
+    // MARK: Styles
     func styleInput(input: UITextField) {
         input.layer.cornerRadius = 3
         input.layer.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1).cgColor
@@ -86,6 +94,13 @@ class BaseFormCell: UITableViewCell {
         layer.borderColor = UIColor.black.cgColor
     }
 
+    func styleStaticField(field: UILabel, header: UILabel) {
+        field.textColor = defaultInputFieldTextColor
+        field.font = defaultInputFieldFont
+        header.textColor = defaultFieldHeaderColor
+        header.font = defaultFieldHeaderFont
+    }
+
     func styleInputField(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
         height.constant = defaultInputFieldHeight
         field.textColor = defaultInputFieldTextColor
@@ -111,8 +126,12 @@ class BaseFormCell: UITableViewCell {
     }
 
     func styleHeader(label: UILabel, divider: UIView) {
-        divider.backgroundColor = Colors.secondary
+        styleDivider(divider: divider)
         label.textColor = defaultSectionHeaderColor
         label.font = defaultSectionHeaderFont
+    }
+
+    func styleDivider(divider: UIView) {
+        divider.backgroundColor = Colors.secondary
     }
 }

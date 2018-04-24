@@ -628,6 +628,15 @@
         storeNewReferenceData(objects: objects)
     }
 
+    func getPrimaryAgreementHolderObjectFor(rup: RUP) -> Client {
+        for client in rup.clients {
+            if client.clientTypeCode == "A" {
+                return client
+            }
+        }
+        return Client()
+    }
+
     func getPrimaryAgreementHolderFor(rup: RUP) -> String {
         for client in rup.clients {
             if client.clientTypeCode == "A" {

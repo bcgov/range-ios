@@ -338,8 +338,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
         tableView.delegate = self
         tableView.dataSource = self
-//        registerCell(name: "BasicInformationTableViewCell")
-        registerCell(name: "BasicInfoTableViewCell")
+        registerCell(name: "BasicInformationTableViewCell")
+        registerCell(name: "PlanInformationTableViewCell")
         registerCell(name: "BasicInfoSectionTwoTableViewCell")
         registerCell(name: "AgreementInformationTableViewCell")
         registerCell(name: "LiveStockIDTableViewCell")
@@ -364,8 +364,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "BasicInfoSectionTwoTableViewCell", for: indexPath) as! BasicInfoSectionTwoTableViewCell
     }
 
-    func getBasicInfoCell(indexPath: IndexPath) -> BasicInfoTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "BasicInfoTableViewCell", for: indexPath) as! BasicInfoTableViewCell
+    func getBasicInfoCell(indexPath: IndexPath) -> BasicInformationTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "BasicInformationTableViewCell", for: indexPath) as! BasicInformationTableViewCell
+    }
+
+    func getPlanInformationCell(indexPath: IndexPath) -> PlanInformationTableViewCell {
+         return tableView.dequeueReusableCell(withIdentifier: "PlanInformationTableViewCell", for: indexPath) as! PlanInformationTableViewCell
     }
 
     func getLiveStockIDTableViewCell(indexPath: IndexPath) -> LiveStockIDTableViewCell {
@@ -392,12 +396,16 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         case 0:
             self.basicInformationIndexPath = indexPath
             let cell = getBasicInfoCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!, parentReference: self)
-            return cell
-        case 1:
-            let cell = getBasicInfoSectionTwoCell(indexPath: indexPath)
+//            cell.setup(mode: mode, rup: rup!, parentReference: self)
             cell.setup(mode: mode, rup: rup!)
             return cell
+        case 1:
+            let cell = getPlanInformationCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: rup!)
+            return cell
+//            let cell = getBasicInfoSectionTwoCell(indexPath: indexPath)
+//            cell.setup(mode: mode, rup: rup!)
+//            return cell
         case 2:
             self.rangeUsageIndexPath = indexPath
             let cell = getRangeUsageCell(indexPath: indexPath)
