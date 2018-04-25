@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="57" id="HNH-gb-EUb" customClass="ScheduleCellTableViewCell" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="567" height="57"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNH-gb-EUb" id="l8u-JW-Myj">
+                <rect key="frame" x="0.0" y="0.0" width="567" height="56.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spc-L6-Aaz">
+                        <rect key="frame" x="0.0" y="0.0" width="567" height="56.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMC-Sw-4M4">
+                                <rect key="frame" x="533" y="8.5" width="24" height="40"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expandicon" translatesAutoresizingMaskIntoConstraints="NO" id="T2b-53-tFv">
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="T2b-53-tFv" firstAttribute="top" secondItem="ZMC-Sw-4M4" secondAttribute="top" id="DyT-tG-e4Y"/>
+                                    <constraint firstAttribute="width" constant="24" id="PB4-OB-Nfn"/>
+                                    <constraint firstItem="T2b-53-tFv" firstAttribute="leading" secondItem="ZMC-Sw-4M4" secondAttribute="leading" id="WUi-77-hcx"/>
+                                    <constraint firstAttribute="trailing" secondItem="T2b-53-tFv" secondAttribute="trailing" id="hYY-Op-uXp"/>
+                                    <constraint firstAttribute="bottom" secondItem="T2b-53-tFv" secondAttribute="bottom" id="oq8-oJ-PYA"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" restorationIdentifier="ScheduleCellTableViewCell" translatesAutoresizingMaskIntoConstraints="NO" id="1HG-P7-hIF">
+                                <rect key="frame" x="15" y="8.5" width="478" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgI-IE-Uaq">
+                                        <rect key="frame" x="0.0" y="0.0" width="478" height="40"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="OpenYearlyScheduleButton"/>
+                                        <connections>
+                                            <action selector="detailAction:" destination="HNH-gb-EUb" eventType="touchUpInside" id="Z8o-ve-q8T"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ha4-c9-Lk7">
+                                        <rect key="frame" x="466" y="5" width="10" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="10" id="2bm-mh-lGz"/>
+                                        </constraints>
+                                        <state key="normal" title="&gt;">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mee-NH-aQC">
+                                        <rect key="frame" x="8" y="9.5" width="453" height="21"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="YearlyScheduleCellName"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ha4-c9-Lk7" firstAttribute="centerY" secondItem="1HG-P7-hIF" secondAttribute="centerY" id="GvO-uU-AbX"/>
+                                    <constraint firstAttribute="trailing" secondItem="ha4-c9-Lk7" secondAttribute="trailing" constant="2" id="PT0-um-Zyi"/>
+                                    <constraint firstItem="ha4-c9-Lk7" firstAttribute="leading" secondItem="Mee-NH-aQC" secondAttribute="trailing" constant="5" id="PyU-lf-mpI"/>
+                                    <constraint firstAttribute="height" constant="40" id="RGV-gR-y3G"/>
+                                    <constraint firstItem="kgI-IE-Uaq" firstAttribute="top" secondItem="1HG-P7-hIF" secondAttribute="top" id="Xgl-kH-1Ay"/>
+                                    <constraint firstAttribute="trailing" secondItem="kgI-IE-Uaq" secondAttribute="trailing" id="Y0X-LH-hhU"/>
+                                    <constraint firstAttribute="bottom" secondItem="kgI-IE-Uaq" secondAttribute="bottom" id="daU-bD-aQA"/>
+                                    <constraint firstItem="Mee-NH-aQC" firstAttribute="leading" secondItem="1HG-P7-hIF" secondAttribute="leading" constant="8" id="eOY-5m-rzj"/>
+                                    <constraint firstItem="Mee-NH-aQC" firstAttribute="centerY" secondItem="1HG-P7-hIF" secondAttribute="centerY" id="mjV-eV-LAE"/>
+                                    <constraint firstItem="kgI-IE-Uaq" firstAttribute="leading" secondItem="1HG-P7-hIF" secondAttribute="leading" id="nlN-Nj-Y0h"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boe-1c-INy">
+                                <rect key="frame" x="493" y="0.0" width="74" height="56.5"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ScheduleCellOpenMenu"/>
+                                <connections>
+                                    <action selector="optionsAction:" destination="HNH-gb-EUb" eventType="touchUpInside" id="N6y-Bk-bsD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="boe-1c-INy" secondAttribute="bottom" id="5iy-bi-eJ3"/>
+                            <constraint firstItem="ZMC-Sw-4M4" firstAttribute="centerY" secondItem="1HG-P7-hIF" secondAttribute="centerY" id="6HK-Yv-yIf"/>
+                            <constraint firstAttribute="height" constant="56.5" id="Bwe-qe-mL7"/>
+                            <constraint firstAttribute="trailing" secondItem="boe-1c-INy" secondAttribute="trailing" id="ERD-Y0-6MM"/>
+                            <constraint firstItem="boe-1c-INy" firstAttribute="top" secondItem="spc-L6-Aaz" secondAttribute="top" id="M9s-ED-BcY"/>
+                            <constraint firstItem="ZMC-Sw-4M4" firstAttribute="height" secondItem="1HG-P7-hIF" secondAttribute="height" id="Y0v-bX-3BX"/>
+                            <constraint firstItem="1HG-P7-hIF" firstAttribute="centerY" secondItem="spc-L6-Aaz" secondAttribute="centerY" id="aTE-KK-y9v"/>
+                            <constraint firstItem="boe-1c-INy" firstAttribute="leading" secondItem="1HG-P7-hIF" secondAttribute="trailing" id="chj-Fx-gC7"/>
+                            <constraint firstAttribute="trailing" secondItem="ZMC-Sw-4M4" secondAttribute="trailing" constant="10" id="npf-Od-PoO"/>
+                            <constraint firstItem="ZMC-Sw-4M4" firstAttribute="leading" secondItem="1HG-P7-hIF" secondAttribute="trailing" constant="40" id="ttg-H5-f3K"/>
+                            <constraint firstItem="1HG-P7-hIF" firstAttribute="leading" secondItem="spc-L6-Aaz" secondAttribute="leading" constant="15" id="ugw-o4-Rmr"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-eb-Q6x">
+                        <rect key="frame" x="567" y="8.5" width="567" height="40"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQl-aW-nhQ">
+                                <rect key="frame" x="532" y="-0.5" width="30" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ScheduleOptionsCloseMenu"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeOptions:" destination="HNH-gb-EUb" eventType="touchUpInside" id="PuE-h0-OKT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4E-ND-gat">
+                                <rect key="frame" x="332" y="4.5" width="100" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.62303365460000004" blue="0.54890557480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ScheduleCellDeleteButton"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteAction:" destination="HNH-gb-EUb" eventType="touchUpInside" id="G0q-SK-Fp0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6v-7b-mpt">
+                                <rect key="frame" x="25" y="5" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.0039215686269999999" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ScheduleCellCopyButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="14l-Xx-98G"/>
+                                </constraints>
+                                <state key="normal" title="Copy">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="copyAtion:" destination="HNH-gb-EUb" eventType="touchUpInside" id="jqG-1p-x16"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="height" secondItem="D6v-7b-mpt" secondAttribute="height" id="5Qb-2M-H5s"/>
+                            <constraint firstItem="HQl-aW-nhQ" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="AQi-bs-mE9"/>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="width" secondItem="D6v-7b-mpt" secondAttribute="width" id="Cv6-h2-63P"/>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="D6v-7b-mpt" secondAttribute="trailing" constant="50" id="ONn-Bj-6nv"/>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="centerY" secondItem="D6v-7b-mpt" secondAttribute="centerY" id="e3t-mI-5rE"/>
+                            <constraint firstItem="D6v-7b-mpt" firstAttribute="leading" secondItem="gpi-eb-Q6x" secondAttribute="leading" constant="25" id="iQ2-lw-xnY"/>
+                            <constraint firstItem="HQl-aW-nhQ" firstAttribute="height" secondItem="gpi-eb-Q6x" secondAttribute="height" id="o72-d6-bbC"/>
+                            <constraint firstItem="D6v-7b-mpt" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="vZL-w0-YcR"/>
+                            <constraint firstItem="HQl-aW-nhQ" firstAttribute="leading" secondItem="U4E-ND-gat" secondAttribute="trailing" constant="100" id="vzy-2d-KZY"/>
+                            <constraint firstAttribute="trailing" secondItem="HQl-aW-nhQ" secondAttribute="trailing" constant="5" id="y6Z-Hf-aGe"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="gpi-eb-Q6x" firstAttribute="centerY" secondItem="spc-L6-Aaz" secondAttribute="centerY" id="2TT-CB-mAg"/>
+                    <constraint firstItem="gpi-eb-Q6x" firstAttribute="height" secondItem="1HG-P7-hIF" secondAttribute="height" id="6sX-Kr-YPY"/>
+                    <constraint firstAttribute="trailing" secondItem="spc-L6-Aaz" secondAttribute="trailing" id="NNK-49-I1k"/>
+                    <constraint firstItem="spc-L6-Aaz" firstAttribute="leading" secondItem="l8u-JW-Myj" secondAttribute="leading" id="TGa-BI-ymh"/>
+                    <constraint firstItem="spc-L6-Aaz" firstAttribute="top" secondItem="l8u-JW-Myj" secondAttribute="top" id="b1e-lu-qXd"/>
+                    <constraint firstAttribute="bottom" secondItem="spc-L6-Aaz" secondAttribute="bottom" id="dfx-u1-vrp"/>
+                    <constraint firstItem="gpi-eb-Q6x" firstAttribute="width" secondItem="spc-L6-Aaz" secondAttribute="width" id="iV0-bZ-B56"/>
+                    <constraint firstItem="gpi-eb-Q6x" firstAttribute="leading" secondItem="spc-L6-Aaz" secondAttribute="trailing" id="zKE-00-v6p"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Wzq-Jn-ZPd"/>
+            <connections>
+                <outlet property="cellContainer" destination="1HG-P7-hIF" id="QD1-V2-UPe"/>
+                <outlet property="leadingOptions" destination="zKE-00-v6p" id="ou7-tT-dvj"/>
+                <outlet property="nameLabel" destination="Mee-NH-aQC" id="3QK-nT-kdy"/>
+                <outlet property="optionsView" destination="gpi-eb-Q6x" id="bNB-uI-tiU"/>
+            </connections>
+            <point key="canvasLocation" x="-126.5" y="286.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="expandicon" width="48" height="48"/>
+    </resources>
+</document>

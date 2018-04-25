@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Pz-UG-QPc">
+    <device id="ipad10_5" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="ATA-AW-KYF">
+            <objects>
+                <viewController storyboardIdentifier="Main" id="4Pz-UG-QPc" customClass="MainViewController" customModule="Myra" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SoV-2M-G8l">
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="coe-IO-Rv8">
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="coe-IO-Rv8" firstAttribute="leading" secondItem="SoV-2M-G8l" secondAttribute="leading" id="J6Q-al-DQT"/>
+                            <constraint firstAttribute="trailing" secondItem="coe-IO-Rv8" secondAttribute="trailing" id="NB9-Pl-Wjt"/>
+                            <constraint firstItem="coe-IO-Rv8" firstAttribute="top" secondItem="SoV-2M-G8l" secondAttribute="top" id="htL-j4-jPy"/>
+                            <constraint firstItem="E8P-dA-YsX" firstAttribute="bottom" secondItem="coe-IO-Rv8" secondAttribute="bottom" id="vFm-h0-0pk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="E8P-dA-YsX"/>
+                    </view>
+                    <connections>
+                        <outlet property="container" destination="coe-IO-Rv8" id="Xnt-yS-9oV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hg7-wJ-9Tx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-60" y="-188"/>
+        </scene>
+    </scenes>
+</document>
