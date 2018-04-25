@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RangeUseageYearTableViewCell: UITableViewCell {
+class RangeUseageYearTableViewCell: BaseFormCell {
 
     var usageYear: RangeUsageYear?
 
@@ -35,6 +35,7 @@ class RangeUseageYearTableViewCell: UITableViewCell {
             lockFields()
         }
         autofill()
+        style()
     }
 
     func autofill() {
@@ -52,5 +53,13 @@ class RangeUseageYearTableViewCell: UITableViewCell {
         self.totalNonUse.isUserInteractionEnabled = false
         self.totalAnnual.isUserInteractionEnabled = false
     }
-    
+
+    // MARK: Style
+    func style() {
+        styleInputField(field: year, editable: false)
+        styleInputField(field: auth_AUMs, editable: false)
+        styleInputField(field: tempIncrease, editable: false)
+        styleInputField(field: totalNonUse, editable: false)
+        styleInputField(field: totalAnnual, editable: false)
+    }
 }
