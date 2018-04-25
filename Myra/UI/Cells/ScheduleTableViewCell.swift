@@ -79,13 +79,8 @@ class ScheduleTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
-        divider.backgroundColor = Colors.secondary
-        sectionTitle.textColor = Colors.primary
-        sectionTitle.font = Fonts.getPrimaryHeavy(size: 34)
         styleButton(button: addButton)
-        tableView.layer.cornerRadius = 3
-        tableView.layer.borderWidth = 1
-        tableView.layer.borderColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1).cgColor
+        styleContainer(layer: tableView.layer)
     }
 
     func updateTableHeight() {

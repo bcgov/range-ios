@@ -88,6 +88,11 @@ class BaseFormCell: UITableViewCell {
         addShadow(to: view.layer, opacity: defaultContainerShadowOpacity, height: defaultContainershadowHeight)
     }
 
+    func styleContainer(layer: CALayer) {
+        roundCorners(layer: layer)
+        addShadow(to: layer, opacity: defaultContainerShadowOpacity, height: defaultContainershadowHeight)
+    }
+
     func addBoarder(layer: CALayer, cornerRadius: CGFloat) {
         layer.borderWidth = 1
         layer.cornerRadius = cornerRadius

@@ -65,7 +65,7 @@
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ejs-zW-dy7">
-                        <rect key="frame" x="20" y="106" width="567" height="98.5"/>
+                        <rect key="frame" x="35" y="106" width="537" height="98.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="750" id="0I4-LE-U2p"/>
@@ -89,11 +89,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="ejs-zW-dy7" firstAttribute="top" secondItem="G0g-gh-W40" secondAttribute="bottom" constant="15" id="2rt-Dj-FY0"/>
-                    <constraint firstItem="ejs-zW-dy7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="J6h-aW-Ash"/>
+                    <constraint firstItem="ejs-zW-dy7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="J6h-aW-Ash"/>
                     <constraint firstItem="G0g-gh-W40" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="S2D-RW-TLM"/>
                     <constraint firstItem="G0g-gh-W40" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="VuN-ga-4nA"/>
                     <constraint firstItem="3NW-40-cC0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="etk-2B-onQ"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ejs-zW-dy7" secondAttribute="trailing" id="fw0-XM-mMw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ejs-zW-dy7" secondAttribute="trailing" constant="15" id="fw0-XM-mMw"/>
                     <constraint firstAttribute="bottom" secondItem="3NW-40-cC0" secondAttribute="bottom" constant="5" id="g5R-oI-fF8"/>
                     <constraint firstItem="3NW-40-cC0" firstAttribute="top" secondItem="ejs-zW-dy7" secondAttribute="bottom" constant="5" id="hu4-j2-J0f"/>
                     <constraint firstAttribute="trailing" secondItem="G0g-gh-W40" secondAttribute="trailing" constant="15" id="wIa-4b-7Lu"/>

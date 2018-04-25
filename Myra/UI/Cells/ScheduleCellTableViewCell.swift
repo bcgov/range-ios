@@ -10,16 +10,21 @@ import UIKit
 import Realm
 import RealmSwift
 
-class ScheduleCellTableViewCell: UITableViewCell {
+class ScheduleCellTableViewCell: BaseFormCell {
+
+    // MARK: Constants
+    var schedule: Schedule?
+    var parentReference: ScheduleTableViewCell?
+
+    // MARK: Outlets
     @IBOutlet weak var cellContainer: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var optionsView: UIView!
 
-    @IBOutlet weak var leadingOptions: NSLayoutConstraint!
+    @IBOutlet weak var copyButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
 
-    var schedule: Schedule?
-    var rup: RUP?
-    var parentReference: ScheduleTableViewCell?
+    @IBOutlet weak var leadingOptions: NSLayoutConstraint!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,7 +60,7 @@ class ScheduleCellTableViewCell: UITableViewCell {
     }
 
     func styleBasedOnValidity() {
-        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup?.agreementId)!) {
+        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup.agreementId)) {
             styleValid()
         } else {
             styleInvalid()
@@ -65,9 +70,9 @@ class ScheduleCellTableViewCell: UITableViewCell {
     func handleGesture(gesture: UISwipeGestureRecognizer) {    }
 
     func duplicate() {
-        if let rupObject = rup, let sched = schedule {
+        if let sched = schedule {
             
-            guard let nextYear = RUPManager.shared.getNextScheduleYearFor(from: sched.year, rup: rupObject) else {
+            guard let nextYear = RUPManager.shared.getNextScheduleYearFor(from: sched.year, rup: rup) else {
                 parentReference?.parentReference?.showAlert(with: "Invalid year", message: "Cannot insert a valid schedule object within plan start and plan end date")
                 self.leadingOptions.constant = 0
                 animateIt()
@@ -82,7 +87,7 @@ class ScheduleCellTableViewCell: UITableViewCell {
             
             do {
                 let realm = try Realm()
-                let aRup = realm.objects(RUP.self).filter("localId = %@", rupObject.localId).first!
+                let aRup = realm.objects(RUP.self).filter("localId = %@", rup.localId).first!
                 try realm.write {
                     aRup.schedules.append(copy)
                     realm.add(copy)
@@ -105,7 +110,6 @@ class ScheduleCellTableViewCell: UITableViewCell {
     }
 
     @IBAction func detailAction(_ sender: Any) {
-        print(self.schedule?.toDictionary())
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.showSchedule(object: schedule!, completion: { done in
             self.styleBasedOnValidity()
@@ -125,10 +129,9 @@ class ScheduleCellTableViewCell: UITableViewCell {
     }
 
     func style() {
-        let layer = cellContainer
-        layer?.layer.cornerRadius = 3
-        layer?.layer.borderWidth = 1
-        layer?.layer.borderColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1).cgColor
+        styleContainer(view:  cellContainer)
+        styleButton(button: deleteButton)
+        styleButton(button: copyButton)
     }
 
     func styleInvalid() {
