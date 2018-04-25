@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class BasicInformationTableViewCell: BaseFormCell {
 
@@ -52,6 +54,7 @@ class BasicInformationTableViewCell: BaseFormCell {
 
     @IBOutlet weak var altBusinessNameHeader: UILabel!
     @IBOutlet weak var altBusinessNameValue: UITextField!
+    
     @IBOutlet weak var inputFieldHeight: NSLayoutConstraint!
 
     // MARK: Cell Functions
@@ -62,6 +65,29 @@ class BasicInformationTableViewCell: BaseFormCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+
+    // MARK: Outlet actions
+    @IBAction func nameEdited(_ sender: Any) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup.rangeName = self.rangeNameValue.text ?? ""
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    @IBAction func businessNameEdited(_ sender: Any) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup.alternativeName = altBusinessNameValue.text ?? ""
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
     // MARK: Functions

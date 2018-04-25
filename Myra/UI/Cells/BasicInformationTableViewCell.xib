@@ -139,6 +139,9 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="nameEdited:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="0Fq-EN-sWR"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -160,6 +163,9 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="businessNameEdited:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="qbD-Ll-kYs"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
