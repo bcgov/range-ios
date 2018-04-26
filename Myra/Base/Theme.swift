@@ -206,8 +206,7 @@ extension Theme {
 
     func styleHeader(label: UILabel, divider: UIView) {
         styleDivider(divider: divider)
-        label.textColor = defaultSectionHeaderColor()
-        label.font = defaultSectionHeaderFont()
+        styleHeader(label: label)
     }
 
     func styleFooter(label: UILabel) {
