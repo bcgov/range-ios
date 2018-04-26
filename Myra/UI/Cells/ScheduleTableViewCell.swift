@@ -22,7 +22,7 @@ class ScheduleTableViewCell: BaseFormCell {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
-    
+
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
         guard let p = parentReference else { return }
@@ -70,7 +70,7 @@ class ScheduleTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
-        styleButton(button: addButton)
+        styleHollowButton(button: addButton)
         styleContainer(layer: tableView.layer)
     }
 

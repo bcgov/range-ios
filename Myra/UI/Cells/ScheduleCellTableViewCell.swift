@@ -45,6 +45,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
         if nameLabel != nil { nameLabel.text = schedule.name }
         self.parentReference = parentReference
         self.rup = rup
+        style()
         styleBasedOnValidity()
 //        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
 //        swipeLeft.direction = .left
@@ -121,9 +122,9 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
 
     func style() {
-        styleContainer(view:  cellContainer)
-        styleButton(button: deleteButton)
-        styleButton(button: copyButton)
+        styleContainer(view: cellContainer)
+        styleHollowButton(button: deleteButton)
+        styleHollowButton(button: copyButton)
     }
 
     func styleInvalid() {
