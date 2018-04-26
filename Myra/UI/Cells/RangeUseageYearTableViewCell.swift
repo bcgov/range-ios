@@ -13,7 +13,7 @@ class RangeUseageYearTableViewCell: BaseFormCell {
     var usageYear: RangeUsageYear?
 
     @IBOutlet weak var year: UITextField!
-    @IBOutlet weak var auth_AUMs: UITextField!
+    @IBOutlet weak var authAUMs: UITextField!
     @IBOutlet weak var tempIncrease: UITextField!
     @IBOutlet weak var totalNonUse: UITextField!
     @IBOutlet weak var totalAnnual: UITextField!
@@ -40,7 +40,7 @@ class RangeUseageYearTableViewCell: BaseFormCell {
 
     func autofill() {
         self.year.text = "\(usageYear?.year ?? 0)"
-        self.auth_AUMs.text = "\(usageYear?.auth_AUMs ?? 0)"
+        self.authAUMs.text = "\(usageYear?.auth_AUMs ?? 0)"
         self.tempIncrease.text = "\(usageYear?.tempIncrease ?? 0)"
         self.totalNonUse.text = "\(usageYear?.totalNonUse ?? 0)"
         self.totalAnnual.text = "\(usageYear?.totalAnnual ?? 0)"
@@ -48,7 +48,7 @@ class RangeUseageYearTableViewCell: BaseFormCell {
 
     func lockFields() {
         self.year.isUserInteractionEnabled = false
-        self.auth_AUMs.isUserInteractionEnabled = false
+        self.authAUMs.isUserInteractionEnabled = false
         self.tempIncrease.isUserInteractionEnabled = false
         self.totalNonUse.isUserInteractionEnabled = false
         self.totalAnnual.isUserInteractionEnabled = false
@@ -57,7 +57,7 @@ class RangeUseageYearTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleInputField(field: year, editable: false)
-        styleInputField(field: auth_AUMs, editable: false)
+        styleInputField(field: authAUMs, editable: false)
         styleInputField(field: tempIncrease, editable: false)
         styleInputField(field: totalNonUse, editable: false)
         styleInputField(field: totalAnnual, editable: false)

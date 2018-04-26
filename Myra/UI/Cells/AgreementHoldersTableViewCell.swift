@@ -12,7 +12,7 @@ class AgreementHoldersTableViewCell: BaseFormCell {
 
     // MARK: Constants
     let cellHeight = 45
-    
+
     // MARK: Variables
 
     // MARK: Outlets
@@ -22,15 +22,6 @@ class AgreementHoldersTableViewCell: BaseFormCell {
     @IBOutlet weak var agreementHolderHeader: UILabel!
     @IBOutlet weak var agreementTypeHeader: UILabel!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    
-    // MARK: Cell functions
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 
     // MARK: functions
     override func setup(mode: FormMode, rup: RUP) {
@@ -45,8 +36,9 @@ class AgreementHoldersTableViewCell: BaseFormCell {
         self.tableView.reloadData()
         if let p = self.parentViewController as? CreateNewRUPViewController {
             let clients = rup.clients
-            heightConstraint.constant = CGFloat((clients.count) * cellHeight + 5)
-            p.realodAndGoTO(indexPath: p.basicInformationIndexPath)
+            let padding = 5
+            heightConstraint.constant = CGFloat((clients.count) * cellHeight + padding)
+            p.realodAndGoTo(indexPath: p.basicInformationIndexPath)
         }
     }
 

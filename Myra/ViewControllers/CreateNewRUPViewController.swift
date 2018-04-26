@@ -22,6 +22,7 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
     let horizontalMenuWidth: CGFloat = 156
+    let numberOfSections = 6
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool) -> Void )?
@@ -439,10 +440,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return numberOfSections
     }
 
-    func realodAndGoTO(indexPath: IndexPath) {
+    func realodAndGoTo(indexPath: IndexPath) {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()

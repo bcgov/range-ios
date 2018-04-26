@@ -36,13 +36,6 @@ class RangeUsageTableViewCell: BaseFormCell {
     @IBOutlet weak var totalAnnualHeader: UILabel!
 
     // MARK: Cell functions
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 
     // MARK: Outlet actions
     @IBAction func addAction(_ sender: Any) {
@@ -99,7 +92,7 @@ class RangeUsageTableViewCell: BaseFormCell {
         */
 
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTO(indexPath: parent.rangeUsageIndexPath)
+        parent.realodAndGoTo(indexPath: parent.rangeUsageIndexPath)
     }
 }
 

@@ -13,15 +13,6 @@ class AgreementTableViewCell: UITableViewCell {
     @IBOutlet weak var rangeNumber: UILabel!
     @IBOutlet weak var agreementHolder: UILabel!
     @IBOutlet weak var rangeName: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
 
     func setup(agreement: Agreement) {
         self.rangeNumber.text = "\(agreement.agreementId)"

@@ -71,7 +71,7 @@ class BasicInfoTableViewCell: UITableViewCell {
         if let r = rup, let p = parentReference {
             let clients = r.clients
             tableHeight.constant = CGFloat((clients.count) * cellHeight + 5)
-            p.realodAndGoTO(indexPath: p.basicInformationIndexPath)
+            p.realodAndGoTo(indexPath: p.basicInformationIndexPath)
 //            p.realodAndGoTO(indexPath: parent.agreementInformationIndexPath)
         }
     }

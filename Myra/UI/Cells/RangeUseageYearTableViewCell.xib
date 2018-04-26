@@ -142,7 +142,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="auth_AUMs" destination="uVc-TC-kOu" id="S0B-Hi-XZP"/>
+                <outlet property="authAUMs" destination="uVc-TC-kOu" id="S0B-Hi-XZP"/>
                 <outlet property="tempIncrease" destination="LZS-uO-eZN" id="0yY-8j-f5B"/>
                 <outlet property="totalAnnual" destination="7Pc-QN-NtM" id="5zd-DD-lFa"/>
                 <outlet property="totalNonUse" destination="S19-1h-bNP" id="2Zl-S0-rzF"/>

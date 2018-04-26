@@ -26,15 +26,6 @@ class PasturesTableViewCell: BaseFormCell {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
@@ -72,7 +63,7 @@ class PasturesTableViewCell: BaseFormCell {
         tableView.layoutIfNeeded()
         tableHeight.constant = computeHeight()
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTO(indexPath: parent.pasturesIndexPath)
+        parent.realodAndGoTo(indexPath: parent.pasturesIndexPath)
     }
 
     func computeHeight() -> CGFloat {

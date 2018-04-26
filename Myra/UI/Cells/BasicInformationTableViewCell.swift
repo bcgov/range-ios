@@ -58,14 +58,6 @@ class BasicInformationTableViewCell: BaseFormCell {
     @IBOutlet weak var inputFieldHeight: NSLayoutConstraint!
 
     // MARK: Cell Functions
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 
     // MARK: Outlet actions
     @IBAction func nameEdited(_ sender: Any) {

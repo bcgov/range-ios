@@ -26,15 +26,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
 
     @IBOutlet weak var leadingOptions: NSLayoutConstraint!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        style()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
+    // MARK: Actions
     @IBAction func copyAtion(_ sender: Any) {
         duplicate()
     }

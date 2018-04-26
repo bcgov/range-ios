@@ -35,16 +35,8 @@ class PlanInformationTableViewCell: BaseFormCell {
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     
     // MARK: Cell functions
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
-    //MARK: Outlet actions
+    // MARK: Outlet actions
     @IBAction func planStartAction(_ sender: Any) {
 
         let parent = self.parentViewController as! CreateNewRUPViewController
