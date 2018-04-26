@@ -18,6 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVv-QZ-3R0">
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u4R-wU-QOv" userLabel="Header">
                                 <rect key="frame" x="0.0" y="20" width="1112" height="70"/>
                                 <subviews>
@@ -108,8 +112,11 @@
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="q8Z-rs-yyD" secondAttribute="trailing" constant="20" id="GJI-2K-cwE"/>
                             <constraint firstItem="5Cr-iZ-ABX" firstAttribute="top" secondItem="q8Z-rs-yyD" secondAttribute="bottom" constant="10" id="I3D-TN-a8g"/>
                             <constraint firstItem="w5z-eY-DwW" firstAttribute="centerY" secondItem="Dtm-F2-gfp" secondAttribute="centerY" id="NFt-fQ-dJf"/>
+                            <constraint firstItem="IVv-QZ-3R0" firstAttribute="leading" secondItem="bbz-AA-Jye" secondAttribute="leading" id="OXo-wN-DEv"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="u4R-wU-QOv" secondAttribute="trailing" id="PTG-B1-zXF"/>
                             <constraint firstItem="D7H-ge-6XK" firstAttribute="centerY" secondItem="w5z-eY-DwW" secondAttribute="centerY" id="RXo-uU-he2"/>
+                            <constraint firstItem="u4R-wU-QOv" firstAttribute="top" secondItem="IVv-QZ-3R0" secondAttribute="bottom" id="Tj4-DR-N7V"/>
+                            <constraint firstItem="IVv-QZ-3R0" firstAttribute="top" secondItem="bbz-AA-Jye" secondAttribute="top" id="VmR-FG-Nlf"/>
                             <constraint firstItem="Dtm-F2-gfp" firstAttribute="top" secondItem="5Cr-iZ-ABX" secondAttribute="bottom" constant="50" id="YkK-fN-xGc"/>
                             <constraint firstItem="D7H-ge-6XK" firstAttribute="leading" secondItem="w5z-eY-DwW" secondAttribute="trailing" id="hFV-e9-CrM"/>
                             <constraint firstItem="u4R-wU-QOv" firstAttribute="top" secondItem="bS5-sm-VEA" secondAttribute="top" id="hWL-EJ-kdn"/>
@@ -117,6 +124,7 @@
                             <constraint firstItem="q8Z-rs-yyD" firstAttribute="leading" secondItem="bS5-sm-VEA" secondAttribute="leading" constant="20" id="lah-pr-8mo"/>
                             <constraint firstItem="w5z-eY-DwW" firstAttribute="leading" secondItem="Dtm-F2-gfp" secondAttribute="trailing" id="lvG-kW-hq6"/>
                             <constraint firstItem="u4R-wU-QOv" firstAttribute="leading" secondItem="bS5-sm-VEA" secondAttribute="leading" id="mwr-8g-FtY"/>
+                            <constraint firstAttribute="trailing" secondItem="IVv-QZ-3R0" secondAttribute="trailing" id="s6P-8a-inA"/>
                             <constraint firstItem="IO1-fm-XB8" firstAttribute="leading" secondItem="Dtm-F2-gfp" secondAttribute="leading" id="sFc-sm-PpP"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="bottom" secondItem="IO1-fm-XB8" secondAttribute="bottom" id="vsg-GM-aWc"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="IO1-fm-XB8" secondAttribute="trailing" constant="20" id="wfH-6s-EKV"/>
@@ -125,6 +133,15 @@
                         <viewLayoutGuide key="safeArea" id="bS5-sm-VEA"/>
                     </view>
                     <connections>
+                        <outlet property="agreementHolderHeader" destination="w5z-eY-DwW" id="0TU-6W-5pp"/>
+                        <outlet property="cancelButton" destination="hrX-2Q-EQb" id="rZp-hd-wNe"/>
+                        <outlet property="createNewRupFooter" destination="5Cr-iZ-ABX" id="WNT-gD-Z1U"/>
+                        <outlet property="createNewRupHeader" destination="q8Z-rs-yyD" id="0Qu-vm-CtM"/>
+                        <outlet property="divider" destination="vxA-xj-6Z2" id="tXN-5c-JNF"/>
+                        <outlet property="navBar" destination="u4R-wU-QOv" id="UiQ-TF-rWY"/>
+                        <outlet property="pageTitle" destination="Vzn-y5-que" id="Z03-Sx-iZt"/>
+                        <outlet property="rangeNumberHeader" destination="Dtm-F2-gfp" id="Ad6-Nx-4r6"/>
+                        <outlet property="statusBar" destination="IVv-QZ-3R0" id="gXy-qe-beS"/>
                         <outlet property="tableView" destination="IO1-fm-XB8" id="Alx-WB-DZj"/>
                     </connections>
                 </viewController>

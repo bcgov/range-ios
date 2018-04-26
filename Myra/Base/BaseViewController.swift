@@ -10,7 +10,7 @@ import UIKit
 import Lottie
 import SingleSignOn
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, Theme {
 
     let mediumAnimationDuration = 0.5
     let shortAnimationDuration = 0.3
@@ -94,7 +94,7 @@ extension BaseViewController {
     }
 }
 
-// Loading Spinner
+// MARK: Loading Spinner
 extension BaseViewController {
     func setupLoadingIndicatorImages() {
         var images = [UIImage]()
@@ -146,7 +146,7 @@ extension BaseViewController {
     }
 }
 
-// Alerts
+// MARK: Alerts
 extension BaseViewController {
     
     func showAlert(with title: String, message: String) {
@@ -173,34 +173,7 @@ extension BaseViewController {
     }
 }
 
-// Styles
-extension BaseViewController {
-    func addShadow(layer: CALayer) {
-        layer.borderColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
-        layer.shadowOpacity = 1
-        layer.shadowRadius = 3
-    }
-
-    func addShadow(to layer: CALayer, opacity: Float, height: Int) {
-        layer.borderColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
-        layer.shadowOffset = CGSize(width: 0, height: height)
-        layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
-        layer.shadowOpacity = opacity
-        layer.shadowRadius = 3
-    }
-
-    func roundCorners(layer: CALayer) {
-        layer.cornerRadius = 8
-    }
-
-    func makeCircle(view: UIView) {
-        view.layer.cornerRadius = view.frame.size.height/2
-    }
-}
-
-// Animations
+// MARK: Animations
 extension BaseViewController {
     func animateIt() {
         UIView.animate(withDuration: shortAnimationDuration, animations: {
@@ -215,7 +188,7 @@ extension BaseViewController {
     }
 }
 
-// Status Bar Appearance
+// MARK: Status Bar Appearance
 extension BaseViewController {
     func setStatusBarAppearanceLight() {
         UIApplication.shared.statusBarStyle = .lightContent
@@ -225,7 +198,7 @@ extension BaseViewController {
     }
 }
 
-// Sync view
+// MARK: Sync view
 extension BaseViewController {
 
     func getSyncView() -> UIView {
@@ -486,7 +459,7 @@ extension BaseViewController {
     }
 }
 
-// Mark: Authentication
+// MARK: Authentication
 extension BaseViewController {
     func authenticateIfRequred() {
         if !authServices.isAuthenticated() {

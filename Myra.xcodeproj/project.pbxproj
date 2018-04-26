@@ -48,6 +48,7 @@
 		29400580208FCD5700AA1BDC /* PlanInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2940057E208FCD5700AA1BDC /* PlanInformationTableViewCell.xib */; };
 		29400583208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */; };
 		29400584208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */; };
+		294005862092726D00AA1BDC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294005852092726D00AA1BDC /* Theme.swift */; };
 		294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC4FE204F3C5500F0FB04 /* RUPManager.swift */; };
 		294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294AC500204F57CC00F0FB04 /* Schedule.storyboard */; };
 		294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC502204F57E800F0FB04 /* ScheduleViewController.swift */; };
@@ -173,6 +174,7 @@
 		2940057E208FCD5700AA1BDC /* PlanInformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanInformationTableViewCell.xib; sourceTree = "<group>"; };
 		29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementHoldersTableViewCell.swift; sourceTree = "<group>"; };
 		29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgreementHoldersTableViewCell.xib; sourceTree = "<group>"; };
+		294005852092726D00AA1BDC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		294AC4FE204F3C5500F0FB04 /* RUPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPManager.swift; sourceTree = "<group>"; };
 		294AC500204F57CC00F0FB04 /* Schedule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Schedule.storyboard; sourceTree = "<group>"; };
 		294AC502204F57E800F0FB04 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 			children = (
 				2920F8402034F3880090E7B4 /* BaseViewController.swift */,
 				290E153B2048C9FE00A51884 /* BaseFormCell.swift */,
+				294005852092726D00AA1BDC /* Theme.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -801,6 +804,7 @@
 				29DA8A9F20574FB300139AD1 /* SelectAgreementViewController.swift in Sources */,
 				29EADF8420603F9C0087593F /* RealmManager.swift in Sources */,
 				29EADF7E206039BC0087593F /* AgreemntType.swift in Sources */,
+				294005862092726D00AA1BDC /* Theme.swift in Sources */,
 				291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */,
 				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
 				2932BB51208567D900579A57 /* MyraObject.swift in Sources */,

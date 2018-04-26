@@ -8,30 +8,38 @@
 
 import UIKit
 
-class SelectAgreementViewController: UIViewController {
+class SelectAgreementViewController: UIViewController, Theme {
 
+    // MARK: Variables
     var parentCallBack: ((_ close: Bool) -> Void )?
 
     var agreements: [Agreement] = [Agreement]()
 
+    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var statusBar: UIView!
+    @IBOutlet weak var navBar: UIView!
+    @IBOutlet weak var pageTitle: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var createNewRupHeader: UILabel!
+    @IBOutlet weak var createNewRupFooter: UILabel!
+    @IBOutlet weak var rangeNumberHeader: UILabel!
+    @IBOutlet weak var agreementHolderHeader: UILabel!
+    @IBOutlet weak var divider: UIView!
 
+    // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         self.agreements = RUPManager.shared.getAgreementsWithNoRUPs()
         setUpTable()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.reloadData()
     }
-    
+
+    // MARK: Outlet actions
     @IBAction func cancelAction(_ sender: Any) {
         self.dismiss(animated: true, completion: {
             if self.parentCallBack != nil {
@@ -40,11 +48,20 @@ class SelectAgreementViewController: UIViewController {
         })
     }
 
+    // MARK: Setup
     func setup(callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
     }
+
+    // MARK: Style
+
+    func style() {
+        
+    }
 }
 
+
+// MARK: Tableview
 extension SelectAgreementViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
