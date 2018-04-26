@@ -56,7 +56,7 @@ class BaseFormCell: UITableViewCell {
     // MARK: Styles
     func styleInput(input: UITextField) {
         input.layer.cornerRadius = 3
-        input.layer.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1).cgColor
+        input.layer.backgroundColor = Colors.inputBG.cgColor
     }
 
     func styleButton(button: UIButton) {
@@ -76,9 +76,9 @@ class BaseFormCell: UITableViewCell {
     }
 
     func addShadow(to layer: CALayer, opacity: Float, height: Int) {
-        layer.borderColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
+        layer.borderColor = Colors.shadowColor.cgColor
         layer.shadowOffset = CGSize(width: 0, height: height)
-        layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5).cgColor
+        layer.shadowColor = Colors.shadowColor.cgColor
         layer.shadowOpacity = opacity
         layer.shadowRadius = 3
     }
