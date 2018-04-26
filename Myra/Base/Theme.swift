@@ -15,6 +15,9 @@ extension Theme {
     // MARK: Constants
 
     // Shadow
+    func defaultShadowColor() -> CGColor {
+        return Colors.shadowColor.cgColor
+    }
     func defaultContainerShadowOpacity() -> Float {
         return 0.4
     }
@@ -23,7 +26,7 @@ extension Theme {
     }
 
     // Input Field
-    func defaultInputFieldHeight() ->  CGFloat{
+    func defaultInputFieldHeight() -> CGFloat {
         return 45
     }
 
@@ -79,15 +82,37 @@ extension Theme {
         return Fonts.getPrimaryMedium(size: 14)
     }
 
+    // Button
+    func defaultButtonBorderColor() -> CGColor {
+        return Colors.primary.cgColor
+    }
+
+    func defaultButtonBackground() -> UIColor {
+        return UIColor.white
+    }
+
+    func defaultButtonTitleColor() -> UIColor {
+        return Colors.primary
+    }
+
+    // Border
+    func defaultBorderColor() -> UIColor {
+        return Colors.secondary
+    }
+
+    func defaultDividerColor() -> UIColor {
+        return Colors.secondary
+    }
+
     // MARK: Styles
 
     // MARK: Buttons
     func styleButton(button: UIButton) {
         button.layer.cornerRadius = 5
-        button.backgroundColor = UIColor.white
+        button.backgroundColor = defaultButtonBackground()
         button.layer.borderWidth = 1
-        button.layer.borderColor = Colors.primary.cgColor
-        button.setTitleColor(Colors.primary, for: .normal)
+        button.layer.borderColor = defaultButtonBorderColor()
+        button.setTitleColor(defaultButtonTitleColor(), for: .normal)
     }
 
     // MARK: Containers and dividers
@@ -110,13 +135,13 @@ extension Theme {
     }
 
     func styleDivider(divider: UIView) {
-        divider.backgroundColor = Colors.secondary
+        divider.backgroundColor = defaultDividerColor()
     }
 
     func addBoarder(layer: CALayer, cornerRadius: CGFloat) {
         layer.borderWidth = 1
         layer.cornerRadius = cornerRadius
-        layer.borderColor = UIColor.black.cgColor
+        layer.borderColor = defaultBorderColor().cgColor
     }
 
     // MARK: Static fields
@@ -154,8 +179,10 @@ extension Theme {
 
     // MARK: Input fields
     func styleInput(input: UITextField) {
+        input.textColor = defaultInputFieldTextColor()
+        input.backgroundColor = defaultInputFieldBackground()
+        input.font = defaultInputFieldFont()
         input.layer.cornerRadius = 3
-        input.layer.backgroundColor = Colors.inputBG.cgColor
     }
 
     func styleInputField(field: UITextField, editable: Bool) {
@@ -180,17 +207,13 @@ extension Theme {
 
     // MARK: Shadows
     func addShadow(layer: CALayer) {
-        layer.borderColor = Colors.shadowColor.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowColor = Colors.shadowColor.cgColor
-        layer.shadowOpacity = 1
-        layer.shadowRadius = 3
+        addShadow(to: layer, opacity: 1, height: 2)
     }
 
     func addShadow(to layer: CALayer, opacity: Float, height: Int) {
-        layer.borderColor = Colors.shadowColor.cgColor
+        layer.borderColor = defaultShadowColor()
         layer.shadowOffset = CGSize(width: 0, height: height)
-        layer.shadowColor = Colors.shadowColor.cgColor
+        layer.shadowColor = defaultShadowColor()
         layer.shadowOpacity = opacity
         layer.shadowRadius = 3
     }
