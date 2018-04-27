@@ -14,7 +14,29 @@ import SingleSignOn
 import Realm
 import RealmSwift
 
+protocol LocalizedDescriptionError: Error {
+    var localizedDescription: String { get }
+}
+
+public enum APIError: LocalizedDescriptionError {
+    case unknownError
+    case noNetworkConnectivity
+    case somethingHappened(message: String)
+    case requestFailed(error: Error)
+    
+    var localizedDescription: String {
+        switch self {
+        case .somethingHappened(message: let message):
+            return message
+        default:
+            return "No Error Provided"
+        }
+    }
+}
+
 class APIManager {
+
+    typealias APIRequestCompleted = (_ records: [String:Any]?, _ error: APIError?) -> ()
 
     static let authServices: AuthServices = {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
@@ -30,18 +52,21 @@ class APIManager {
             return ["Content-Type" : "application/json"]
         }
     }
-    
-//    static func request(url: URL) -> URLRequest {
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        if let credentials = authServices.credentials {
-//            request.setValue("\(credentials.accessToken)", forHTTPHeaderField: "Authorization")
-//        }
-//
-//        return request
-//    }
+
+    static func process(response: Alamofire.DataResponse<Any>, completion: APIRequestCompleted) {
+        switch response.result {
+        case .success(let value):
+            if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
+                let err = APIError.somethingHappened(message: "\(String(describing: json["error"] as? String))")
+                print("Request Failed, error = \(err.localizedDescription)")
+                completion(nil, err)
+            }
+            
+            completion(value as? [String: Any], nil)
+        case .failure(let error):
+            completion(nil, APIError.requestFailed(error: error))
+        }
+    }
 
     static func getReferenceData(completion: @escaping (_ success: Bool) -> Void) {
         
@@ -80,26 +105,12 @@ class APIManager {
             return completion(nil, nil)
         }
 
-//        let endpoint = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/plan"
-
         var params = myPlan.toDictionary()
         params["agreementId"] = agreementId
         
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                let j = JSON(value)
-                if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
-                    print("The request failed.")
-                    print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
-                    completion(nil, nil)
-                }
-                
-                completion(value as? [String: Any], nil)
-            case .failure(let error):
-                completion(nil, error)
-            }
+                APIManager.process(response: response, completion: completion)
         }
     }
     
@@ -116,19 +127,7 @@ class APIManager {
 
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
-                
-                switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
-                        print("The request failed.")
-                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
-                        completion(nil, nil)
-                    }
-                    
-                    completion(value as? [String: Any], nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+                APIManager.process(response: response, completion: completion)
         }
     }
 
@@ -148,48 +147,19 @@ class APIManager {
 
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
-
-                switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
-                        print("The request failed.")
-                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
-                        completion(nil, nil)
-                    }
-
-                    completion(value as? [String: Any], nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+                APIManager.process(response: response, completion: completion)
         }
     }
-
-//    static func add(pastures: [Pasture], toPlan planId: String, completion: @escaping (_ pastures: [Pasture]?, _ error: Error?) -> ()) {
+    
+//    static func getAgreements(completion: @escaping APIRequestCompleted) {
 //
-//        let pathKey = ":id"
-//        let path = Constants.API.pasturePath.replacingOccurrences(of: pathKey, with: planId, options: .literal, range: nil)
-//
-//        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+//        guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
 //            return
 //        }
 //
-//        var request = APIManager.request(url: endpoint)
-//        request.httpBody = try! JSONSerialization.data(withJSONObject: pastures.map { $0.toDictionary() })
-//
-//        Alamofire.request(request).responseJSON { response in
-//
-//                switch response.result {
-//                case .success(let value):
-//                    if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
-//                        print("The request failed.")
-//                        print("Error: \(String(describing: json["error"] as? String ?? "No message provided"))")
-//                        completion(nil, nil)
-//                    }
-//
-//                    completion(nil, nil)
-//                case .failure(let error):
-//                    completion(nil, error)
-//                }
+//        Alamofire.request(endpoint, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers())
+//            .responseJSON { response in
+//                APIManager.process(response: response, completion: completion)
 //        }
 //    }
 
@@ -320,28 +290,30 @@ class APIManager {
         return result
     }
 
-    static func getAgreements(completion: @escaping (_ success: Bool,_ rups: [Agreement]?) -> Void) {
+    static func getAgreements(completion: @escaping (_ rups: [Agreement]?, _ error: APIError?) -> Void) {
         
         guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
             return
         }
 
+        // TODO: Update error response type to use APIError (above)
         var agreements: [Agreement] = [Agreement]()
         Alamofire.request(endpoint, method: .get, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 if let error = json["error"].string {
                     print(error)
-                    return completion(false, nil)
+                    let err = APIError.somethingHappened(message: "\(String(describing: error))")
+                    return completion(nil, err)
                 }
 
                 for (_,agreementJSON) in json {
                     agreements.append(handleAgreementJSON(agreementJSON: agreementJSON))
                 }
 
-                return completion(true, agreements)
+                return completion(agreements, nil)
             } else {
-                return completion(false, agreements)
+                return completion(agreements, nil)
             }
         }
     }
@@ -525,27 +497,18 @@ class APIManager {
 }
 
 extension APIManager {
-    static func sync(completion: @escaping (_ done: Bool) -> Void, progress: @escaping (_ text: String) -> Void) {
+    static func sync(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
         
         guard let r = Reachability(), r.connection != .none else {
             progress("Failed while verifying connection")
-            completion(false)
+            completion(APIError.noNetworkConnectivity)
             return
         }
         
+        var myError: APIError? = nil
         var myAgreements: [Agreement]?
         let dispatchGroup = DispatchGroup()
-
-
-        // Feature not yet implemented
-//        dispatchGroup.enter()
-//        progress("Uploading data to the server")
-//        DataServices.shared.uploadDraftRangeUsePlans {
-//            print("done like dinner")
-//            dispatchGroup.leave()
-//        }
-
-
+        
         dispatchGroup.enter()
         progress("Uploading data to the server")
         DataServices.shared.uploadOutboxRangeUsePlans {
@@ -565,16 +528,15 @@ extension APIManager {
 
         dispatchGroup.enter()
         progress("Downloading agreements")
-        getAgreements(completion: { (done, agreements) in
+        getAgreements(completion: { (agreements, error) in
 
-            myAgreements = agreements
-
-            if !done {
-                progress("Failed while downloading agreements")
+            if let error = error {
+                progress("Sync Failed. \(error.localizedDescription)")
+                myError = error
             } else {
+                myAgreements = agreements
                 progress("Completed")
             }
-
             dispatchGroup.leave()
         })
 
@@ -586,133 +548,7 @@ extension APIManager {
                 RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             }
             
-            completion(true)
+            completion(myError)
         }
     }
-
-//    static func uploadRUP(rup: RUP, completion: @escaping (_ done: Bool) -> Void) {
-//        Alamofire.request(planEndpoint, method: .post, parameters: rup.toDictionary(), encoding: JSONEncoding.default, headers: headers())
-//            .responseData{ response in
-//                if response.result.description == "SUCCESS" {
-//                    let json = JSON(response.result.value!)
-//                    if let id = json["id"].int {
-//                        do {
-//                            let realm = try Realm()
-//                            try realm.write {
-//                                rup.remoteId = id
-//                            }
-//                        } catch _ {
-//                            return completion(false)
-//                        }
-//                        let pastures = RUPManager.shared.getPasturesArray(rup: rup)
-//                        recursivePastureUpload(pastures: pastures, planID: id, completion: { (success) in
-//                            if success {
-//                                let schedules = RUPManager.shared.getSchedulesArray(rup: rup)
-//                                recursiveScheduleUpload(schedules: schedules, planID: id, completion: { (success) in
-//                                    if success {
-//                                        return completion(true)
-//                                    } else {
-//                                        return completion(false)
-//                                    }
-//                                })
-//                                return completion(true)
-//                            } else {
-//                                return completion(false)
-//                            }
-//                        })
-//                    } else {
-//                        return completion(false)
-//                    }
-//                } else {
-//                    return completion(false)
-//                }
-//        }
-//    }
-
-//    static func recursiveScheduleUpload(schedules: [Schedule], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-//        if schedules.count <= 0 {
-//            return completion(true)
-//        }
-//
-//        var all = schedules
-//        let schedule = all.last
-//        all.removeLast()
-//        uploadSchedule(schedule: schedule!, planID: planID) { (done) in
-//            if done {
-//                recursiveScheduleUpload(schedules: all, planID: planID, completion: completion)
-//            } else {
-//                return completion(false)
-//            }
-//        }
-//    }
-
-//    static func uploadSchedule(schedule: Schedule, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-//        let url = "\(planEndpoint)/\(planID)/schedule"
-//        let param = schedule.toDictionary()
-//        Alamofire.request(url, method: .post, parameters: param, encoding:  JSONEncoding.default, headers: headers()).responseData { (response) in
-//            if response.result.description == "SUCCESS" {
-//                let json = JSON(response.result.value!)
-//                print(json)
-//                if let id = json["id"].int {
-//                    do {
-//                        let realm = try Realm()
-//                        try realm.write {
-//                            schedule.remoteId = id
-//                        }
-//                        return completion(true)
-//                    } catch _ {
-//                        return completion(false)
-//                    }
-//                } else {
-//                    return completion(false)
-//                }
-//            } else {
-//                return completion(false)
-//            }
-//        }
-//    }
-
-//    static func recursivePastureUpload(pastures: [Pasture], planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-//        if pastures.count <= 0 {
-//            return completion(true)
-//        }
-//
-//        var all = pastures
-//        let pasture = all.last
-//        all.removeLast()
-//        uploadPasture(pasture: pasture!, planID: planID) { (done) in
-//            if done {
-//                recursivePastureUpload(pastures: all, planID: planID, completion: completion)
-//            } else {
-//                return completion(false)
-//            }
-//        }
-//    }
-
-//    static func uploadPasture(pasture: Pasture, planID: Int,completion: @escaping (_ done: Bool) -> Void) {
-//
-//        let url = "\(planEndpoint)/\(planID)/pasture"
-//        let param = pasture.toDictionary()
-//        Alamofire.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers()).responseData { (response) in
-//            if response.result.description == "SUCCESS" {
-//                let json = JSON(response.result.value!)
-//                print(json)
-//                if let id = json["id"].int {
-//                    do {
-//                        let realm = try Realm()
-//                        try realm.write {
-//                            pasture.remoteId = id
-//                        }
-//                        return completion(true)
-//                    } catch _ {
-//                        return completion(false)
-//                    }
-//                } else {
-//                    return completion(false)
-//                }
-//            } else {
-//                return completion(false)
-//            }
-//        }
-//    }
 }
