@@ -14,7 +14,28 @@ import SingleSignOn
 import Realm
 import RealmSwift
 
+protocol LocalizedDescriptionError: Error {
+    var localizedDescription: String { get }
+}
+
+public enum APIError: LocalizedDescriptionError {
+    case unknownError
+    case somethingHappened(message: String)
+    case requestFailed(error: Error)
+    
+    var localizedDescription: String {
+        switch self {
+        case .somethingHappened(message: let message):
+            return message
+        default:
+            return "No Error Provided"
+        }
+    }
+}
+
 class APIManager {
+
+    typealias APIRequestCompleted = (_ records: [String:Any]?, _ error: APIError?) -> ()
 
     static let authServices: AuthServices = {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
@@ -42,6 +63,21 @@ class APIManager {
 //
 //        return request
 //    }
+    
+    static func process(response: Alamofire.DataResponse<Any>, completion: APIRequestCompleted) {
+        switch response.result {
+        case .success(let value):
+            if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
+                let err = APIError.somethingHappened(message: "\(String(describing: json["error"] as? String))")
+                print("Request Failed, error = \(err.localizedDescription)")
+                completion(nil, err)
+            }
+            
+            completion(value as? [String: Any], nil)
+        case .failure(let error):
+            completion(nil, APIError.requestFailed(error: error))
+        }
+    }
 
     static func getReferenceData(completion: @escaping (_ success: Bool) -> Void) {
         
@@ -161,6 +197,18 @@ class APIManager {
                 case .failure(let error):
                     completion(nil, error)
                 }
+        }
+    }
+    
+    static func agreements(completion: @escaping APIRequestCompleted) {
+        
+        guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+        
+        Alamofire.request(endpoint, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers())
+            .responseJSON { response in
+                APIManager.process(response: response, completion: completion)
         }
     }
 
