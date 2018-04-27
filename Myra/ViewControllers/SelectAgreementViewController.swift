@@ -89,7 +89,11 @@ extension SelectAgreementViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(indexPath: indexPath)
-        cell.setup(agreement: agreements[indexPath.row])
+        if indexPath.row % 2 == 0 {
+            cell.setup(agreement: agreements[indexPath.row], bg: Colors.evenCell)
+        } else {
+            cell.setup(agreement: agreements[indexPath.row], bg: Colors.oddCell)
+        }
         return cell
     }
 

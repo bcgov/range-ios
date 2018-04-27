@@ -184,8 +184,7 @@ extension Theme {
     }
 
     func styleInputField(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
-        height.constant = defaultInputFieldHeight()
-        styleInputField(field:field, editable: true)
+        styleInputField(field:field, editable: true, height: height)
         styleFieldHeader(label: header)
     }
 
@@ -215,17 +214,16 @@ extension Theme {
     }
 
     // MARK: Input fields
-    func styleInput(input: UITextField) {
+    func styleInput(input: UITextField, height: NSLayoutConstraint) {
         input.textColor = defaultInputFieldTextColor()
         input.backgroundColor = defaultInputFieldBackground()
         input.font = defaultInputFieldFont()
         input.layer.cornerRadius = 3
+        height.constant = defaultInputFieldHeight()
     }
 
-    func styleInputField(field: UITextField, editable: Bool) {
-        field.textColor = defaultInputFieldTextColor()
-        field.font = defaultInputFieldFont()
-        field.layer.cornerRadius = 3
+    func styleInputField(field: UITextField, editable: Bool, height: NSLayoutConstraint) {
+        styleInput(input: field, height: height)
         if editable {
             field.backgroundColor = defaultInputFieldBackground()
         } else {

@@ -10,21 +10,30 @@ import UIKit
 
 class ScheduleViewController: BaseViewController {
 
+    // MARK: Variables
     var completion: ((_ done: Bool) -> Void)?
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var rup: RUP?
     var popupContainerTag = 200
 
+    // MARK: Outlets
     @IBOutlet weak var scheduleTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
+
+    @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var navbar: UIView!
+    @IBOutlet weak var statusbar: UIView!
+    @IBOutlet weak var backbutton: UIButton!
+    @IBOutlet weak var navbarTitle: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
+        style()
     }
 
     @IBAction func backAction(_ sender: UIButton) {
@@ -128,12 +137,19 @@ class ScheduleViewController: BaseViewController {
 
     func reloadCells() {
         self.tableView.reloadData()
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+        print(self.tableView.frame.height)
     }
 
     func calculateTotals() {
-        self.footerReference?.setValues()
+        self.footerReference?.autofill()
+    }
+
+    // MARK: Styles
+    func style() {
+        styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
+        styleHeader(label: scheduleTitle)
+        styleFooter(label: subtitle)
+        styleDivider(divider: divider)
     }
 }
 

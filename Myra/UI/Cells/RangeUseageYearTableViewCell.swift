@@ -12,6 +12,7 @@ class RangeUseageYearTableViewCell: BaseFormCell {
 
     var usageYear: RangeUsageYear?
 
+    @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var year: UITextField!
     @IBOutlet weak var authAUMs: UITextField!
     @IBOutlet weak var tempIncrease: UITextField!
@@ -56,10 +57,10 @@ class RangeUseageYearTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
-        styleInputField(field: year, editable: false)
-        styleInputField(field: authAUMs, editable: false)
-        styleInputField(field: tempIncrease, editable: false)
-        styleInputField(field: totalNonUse, editable: false)
-        styleInputField(field: totalAnnual, editable: false)
+        styleInputField(field: year, editable: false, height: fieldHeight)
+        styleInputField(field: authAUMs, editable: false, height: fieldHeight)
+        styleInputField(field: tempIncrease, editable: false, height: fieldHeight)
+        styleInputField(field: totalNonUse, editable: false, height: fieldHeight)
+        styleInputField(field: totalAnnual, editable: false, height: fieldHeight)
     }
 }

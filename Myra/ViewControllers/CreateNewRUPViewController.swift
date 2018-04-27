@@ -367,24 +367,20 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getRangeUsageCell(indexPath: IndexPath) -> RangeUsageTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "RangeUsageTableViewCell", for: indexPath) as! RangeUsageTableViewCell
+    func getBasicInfoCell(indexPath: IndexPath) -> BasicInformationTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "BasicInformationTableViewCell", for: indexPath) as! BasicInformationTableViewCell
     }
 
-    func getBasicInfoSectionTwoCell(indexPath: IndexPath) -> BasicInfoSectionTwoTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "BasicInfoSectionTwoTableViewCell", for: indexPath) as! BasicInfoSectionTwoTableViewCell
+    func getPlanInformationCell(indexPath: IndexPath) -> PlanInformationTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PlanInformationTableViewCell", for: indexPath) as! PlanInformationTableViewCell
     }
 
     func getAgreementHoldersCell(indexPath: IndexPath) -> AgreementHoldersTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "AgreementHoldersTableViewCell", for: indexPath) as! AgreementHoldersTableViewCell
     }
 
-    func getBasicInfoCell(indexPath: IndexPath) -> BasicInformationTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "BasicInformationTableViewCell", for: indexPath) as! BasicInformationTableViewCell
-    }
-
-    func getPlanInformationCell(indexPath: IndexPath) -> PlanInformationTableViewCell {
-         return tableView.dequeueReusableCell(withIdentifier: "PlanInformationTableViewCell", for: indexPath) as! PlanInformationTableViewCell
+    func getRangeUsageCell(indexPath: IndexPath) -> RangeUsageTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "RangeUsageTableViewCell", for: indexPath) as! RangeUsageTableViewCell
     }
 
     func getLiveStockIDTableViewCell(indexPath: IndexPath) -> LiveStockIDTableViewCell {
