@@ -8,16 +8,22 @@
 
 import UIKit
 
-class AgreementTableViewCell: UITableViewCell {
+class AgreementTableViewCell: UITableViewCell, Theme {
 
+    @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var rangeNumber: UILabel!
     @IBOutlet weak var agreementHolder: UILabel!
-    @IBOutlet weak var rangeName: UILabel!
 
     func setup(agreement: Agreement) {
         self.rangeNumber.text = "\(agreement.agreementId)"
-        self.agreementHolder.text = ""
-        self.rangeName.text = ""
+        self.agreementHolder.text = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+        style()
+    }
+
+    func style() {
+        styleStaticField(field: rangeNumber)
+        styleStaticField(field: agreementHolder)
+        styleFillButton(button: selectButton)
     }
     
 }

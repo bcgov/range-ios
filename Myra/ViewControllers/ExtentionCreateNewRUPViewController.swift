@@ -13,7 +13,7 @@ import UIKit
 extension CreateNewRUPViewController {
     // MARK: Styles
     func style() {
-        styleHeader()
+        styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranchNameAndNumberLabel)
         styleMenu()
     }
 
@@ -28,18 +28,6 @@ extension CreateNewRUPViewController {
         }
         self.animateIt()
 
-    }
-
-    func styleHeader() {
-        self.headerContainer.backgroundColor = Colors.primary
-        self.addShadow(to: headerContainer.layer, opacity: 0.8, height: 2)
-        self.statusBar.backgroundColor = Colors.primary
-        self.viewTitle.textColor = UIColor.white
-        self.viewTitle.font = Fonts.getPrimaryHeavy(size: 17)
-        self.ranchNameAndNumberLabel.textColor = UIColor.white
-        self.ranchNameAndNumberLabel.font = Fonts.getPrimaryMedium(size: 14)
-        self.saveToDraftButton.setTitleColor(UIColor.white, for: .normal)
-        self.saveToDraftButton.titleLabel?.font = Fonts.getPrimaryHeavy(size: 17)
     }
 
     func styleMenu() {
@@ -63,14 +51,6 @@ extension CreateNewRUPViewController {
         self.submitButtonContainer.layer.cornerRadius = 5
         self.submitButtonContainer.backgroundColor = Colors.primary
         self.submitButtonContainer.layer.borderWidth = 1
-    }
-
-    func styleButton(button: UIButton) {
-        button.layer.cornerRadius = 5
-        button.backgroundColor = UIColor.white
-        button.layer.borderWidth = 1
-        button.layer.borderColor = Colors.primary.cgColor
-        button.setTitleColor(Colors.primary, for: .normal)
     }
 
     func menuBasicInfoOn() {

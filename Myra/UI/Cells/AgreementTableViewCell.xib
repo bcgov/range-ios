@@ -31,38 +31,36 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xx7-E8-g7x">
-                        <rect key="frame" x="120" y="23" width="220" height="21"/>
+                        <rect key="frame" x="120" y="23" width="226" height="21"/>
                         <accessibility key="accessibilityConfiguration" identifier="AgreementAgreementHolder"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYg-qO-FGa">
+                        <rect key="frame" x="364" y="17" width="160" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="220" id="E0j-za-IYN"/>
+                            <constraint firstAttribute="height" constant="32" id="gGa-Rl-WP9"/>
+                            <constraint firstAttribute="width" constant="160" id="rOa-wL-NGS"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kfe-dc-tDO">
-                        <rect key="frame" x="340" y="23" width="202" height="21"/>
-                        <accessibility key="accessibilityConfiguration" identifier="AgreementRangeName"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <state key="normal" title="Select"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Bok-H5-chi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9q7-z0-QQr"/>
-                    <constraint firstItem="Kfe-dc-tDO" firstAttribute="leading" secondItem="xx7-E8-g7x" secondAttribute="trailing" id="BER-6t-Wut"/>
                     <constraint firstItem="Bok-H5-chi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Cbb-z7-zkp"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Kfe-dc-tDO" secondAttribute="trailing" id="Grt-dL-UA8"/>
                     <constraint firstItem="xx7-E8-g7x" firstAttribute="centerY" secondItem="Bok-H5-chi" secondAttribute="centerY" id="KvK-d7-mLt"/>
                     <constraint firstItem="xx7-E8-g7x" firstAttribute="leading" secondItem="Bok-H5-chi" secondAttribute="trailing" id="Vbg-fg-O4l"/>
-                    <constraint firstItem="Kfe-dc-tDO" firstAttribute="centerY" secondItem="xx7-E8-g7x" secondAttribute="centerY" id="saX-QI-vIn"/>
+                    <constraint firstItem="FYg-qO-FGa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aEs-vI-aaE"/>
+                    <constraint firstItem="FYg-qO-FGa" firstAttribute="leading" secondItem="xx7-E8-g7x" secondAttribute="trailing" constant="18" id="b10-2A-1AT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="FYg-qO-FGa" secondAttribute="trailing" constant="18" id="urX-Su-EDZ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="agreementHolder" destination="xx7-E8-g7x" id="eCG-eR-oDj"/>
-                <outlet property="rangeName" destination="Kfe-dc-tDO" id="vqb-eV-iLr"/>
                 <outlet property="rangeNumber" destination="Bok-H5-chi" id="5nH-fL-TQE"/>
+                <outlet property="selectButton" destination="FYg-qO-FGa" id="CZc-0B-G2g"/>
             </connections>
             <point key="canvasLocation" x="155" y="65"/>
         </tableViewCell>
