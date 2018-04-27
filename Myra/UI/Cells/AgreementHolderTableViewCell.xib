@@ -23,16 +23,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="399" height="45"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Agreement Holder" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vsj-IO-Sls">
-                                <rect key="frame" x="0.0" y="0.0" width="209" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="209" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="rSg-YI-97K"/>
+                                    <constraint firstAttribute="height" constant="45" id="rSg-YI-97K"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XI4-kN-Upw">
-                                <rect key="frame" x="229" y="0.0" width="150" height="44"/>
+                                <rect key="frame" x="229" y="0.0" width="150" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="2Uc-9t-vLf"/>
                                 </constraints>
@@ -65,6 +65,7 @@
             <connections>
                 <outlet property="agreementHolder" destination="vsj-IO-Sls" id="A9v-oS-eEX"/>
                 <outlet property="agreementType" destination="XI4-kN-Upw" id="phN-jY-Tlf"/>
+                <outlet property="fieldHeight" destination="rSg-YI-97K" id="dj5-La-X3A"/>
             </connections>
             <point key="canvasLocation" x="-94.5" y="55.5"/>
         </tableViewCell>

@@ -49,9 +49,6 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uVc-TC-kOu">
                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="Uz7-5W-aQy"/>
-                                                </constraints>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -68,9 +65,6 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Temp Increase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LZS-uO-eZN">
                                                 <rect key="frame" x="0.0" y="0.0" width="146.5" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="2vf-zb-wT1"/>
-                                                </constraints>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -87,9 +81,6 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Non-Use" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S19-1h-bNP">
                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="kC6-ad-bfU"/>
-                                                </constraints>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -106,9 +97,6 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Total Annual" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Pc-QN-NtM">
                                                 <rect key="frame" x="0.0" y="0.0" width="147.5" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="4v7-Dv-hBy"/>
-                                                </constraints>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -121,6 +109,12 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="LZS-uO-eZN" firstAttribute="height" secondItem="Q1C-hd-9bp" secondAttribute="height" id="MkV-vc-Aeq"/>
+                                    <constraint firstItem="S19-1h-bNP" firstAttribute="height" secondItem="Q1C-hd-9bp" secondAttribute="height" id="U62-MA-jXE"/>
+                                    <constraint firstItem="uVc-TC-kOu" firstAttribute="height" secondItem="Q1C-hd-9bp" secondAttribute="height" id="e2b-yc-GgK"/>
+                                    <constraint firstItem="7Pc-QN-NtM" firstAttribute="height" secondItem="Q1C-hd-9bp" secondAttribute="height" id="q2I-LU-Eed"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -143,6 +137,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="authAUMs" destination="uVc-TC-kOu" id="S0B-Hi-XZP"/>
+                <outlet property="fieldHeight" destination="5Z7-rw-YAh" id="cYs-xB-i0f"/>
                 <outlet property="tempIncrease" destination="LZS-uO-eZN" id="0yY-8j-f5B"/>
                 <outlet property="totalAnnual" destination="7Pc-QN-NtM" id="5zd-DD-lFa"/>
                 <outlet property="totalNonUse" destination="S19-1h-bNP" id="2Zl-S0-rzF"/>

@@ -12,6 +12,7 @@ class AgreementHolderTableViewCell: BaseFormCell {
 
     // TODO: Clean up
 
+    @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var agreementHolder: UITextField!
     @IBOutlet weak var agreementType: UITextField!
 
@@ -34,8 +35,8 @@ class AgreementHolderTableViewCell: BaseFormCell {
     }
 
     func style() {
-        styleInputField(field: agreementType, editable: false)
-        styleInputField(field: agreementHolder,editable: false)
+        styleInputField(field: agreementType, editable: false, height: fieldHeight)
+        styleInputField(field: agreementHolder,editable: false, height: fieldHeight)
     }
     
 }

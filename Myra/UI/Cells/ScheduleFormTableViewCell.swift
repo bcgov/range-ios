@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class ScheduleFormTableViewCell: UITableViewCell {
+class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
     let cellHeight = 50.0
@@ -24,8 +24,20 @@ class ScheduleFormTableViewCell: UITableViewCell {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var height: NSLayoutConstraint!
 
+    @IBOutlet weak var pasture: UILabel!
+    @IBOutlet weak var livestock: UILabel!
+    @IBOutlet weak var numAnimals: UILabel!
+    @IBOutlet weak var dateIn: UILabel!
+    @IBOutlet weak var dateOut: UILabel!
+    @IBOutlet weak var days: UILabel!
+    @IBOutlet weak var graceDays: UILabel!
+    @IBOutlet weak var PLD: UILabel!
+    @IBOutlet weak var crownAUMs: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
+        print(tableView.frame.height)
         guard let sched = self.schedule else { return }
         do {
             let realm = try Realm()
@@ -53,15 +65,28 @@ class ScheduleFormTableViewCell: UITableViewCell {
         self.schedule = schedule
         height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * cellHeight + 5.0)
         setUpTable()
+        style()
     }
 
     func updateTableHeight() {
-        self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
         height.constant = CGFloat( Double((schedule?.scheduleObjects.count)!) * cellHeight + 5.0)
-
         let parent = self.parentViewController as! ScheduleViewController
         parent.reloadCells()
+    }
+
+    // MARK: Styles
+    func style() {
+        styleFieldHeader(label: pasture)
+        styleFieldHeader(label: livestock)
+        styleFieldHeader(label: numAnimals)
+        styleFieldHeader(label: dateIn)
+        styleFieldHeader(label: dateOut)
+        styleFieldHeader(label: days)
+        styleFieldHeader(label: graceDays)
+        styleFieldHeader(label: PLD)
+        styleFieldHeader(label: crownAUMs)
+        styleHollowButton(button: addButton)
     }
     
 }

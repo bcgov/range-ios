@@ -12,10 +12,12 @@ import RealmSwift
 
 class ScheduleObjectTableViewCell: BaseFormCell {
 
+    // MARK: Variables
     var scheduleObject: ScheduleObject?
-//    var rup: RUP?
     var scheduleViewReference: ScheduleViewController?
 
+    // MARK: Outlets
+    @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var pasture: UITextField!
     @IBOutlet weak var liveStock: UITextField!
     @IBOutlet weak var numberOfAniamls: UITextField!
@@ -25,7 +27,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var graceDays: UITextField!
     @IBOutlet weak var crownAUM: UITextField!
     @IBOutlet weak var pldAUM: UITextField!
-    
+
+    // MARK: Outlet Acions
     @IBAction func lookupPastures(_ sender: Any) {
         let parent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
@@ -64,8 +67,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     } catch _ {
                         fatalError()
                     }
-
-//                    self.scheduleObject = RUPManager.shared.setLiveStockTypeFor(scheduleObject: schObject, liveStock: selectedType.display)
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
@@ -174,21 +175,21 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         }
     }
 
+    // MARK: Functions
     func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController) {
         self.rup = rup
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
-        print(scheduleObject)
         autofill()
-        styleInput(input: pasture)
-        styleInput(input: liveStock)
-        styleInput(input: numberOfAniamls)
-        styleInput(input: dateIn)
-        styleInput(input: dateOut)
-        styleInput(input: days)
-        styleInput(input: graceDays)
-        styleInput(input: crownAUM)
-        styleInput(input: pldAUM)
+        styleInput(input: pasture, height: fieldHeight)
+        styleInput(input: liveStock, height: fieldHeight)
+        styleInput(input: numberOfAniamls, height: fieldHeight)
+        styleInput(input: dateIn, height: fieldHeight)
+        styleInput(input: dateOut, height: fieldHeight)
+        styleInput(input: graceDays, height: fieldHeight)
+        styleInput(input: crownAUM, height: fieldHeight)
+        styleInput(input: pldAUM, height: fieldHeight)
+        styleInput(input: days, height: fieldHeight)
     }
 
     public func dismissKeyboard() {

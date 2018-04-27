@@ -135,7 +135,17 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="PLD" destination="7tm-Q8-2mc" id="vaQ-WP-k2P"/>
+                <outlet property="addButton" destination="BBz-ln-OuS" id="b8h-1m-9ff"/>
+                <outlet property="crownAUMs" destination="9nx-0F-bvF" id="Q5x-a4-xj9"/>
+                <outlet property="dateIn" destination="waI-pN-QOU" id="Knf-Ff-4Ht"/>
+                <outlet property="dateOut" destination="cAR-rn-o2R" id="yaA-on-sIB"/>
+                <outlet property="days" destination="vgg-Hh-1ts" id="Cnu-TM-Nv6"/>
+                <outlet property="graceDays" destination="Xxo-IN-lrt" id="KBi-D1-Siw"/>
                 <outlet property="height" destination="exu-pw-dEj" id="aoh-lH-kLM"/>
+                <outlet property="livestock" destination="0qD-Zh-B5j" id="obb-Dr-CHn"/>
+                <outlet property="numAnimals" destination="Gtj-xP-Ybu" id="cXg-Kj-8Mj"/>
+                <outlet property="pasture" destination="na3-DV-SmI" id="b1q-fR-5yv"/>
                 <outlet property="tableView" destination="A6Y-QC-PtD" id="kVh-dB-oMZ"/>
             </connections>
             <point key="canvasLocation" x="17.5" y="3.5"/>

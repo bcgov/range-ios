@@ -14,7 +14,8 @@ class AgreementTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var rangeNumber: UILabel!
     @IBOutlet weak var agreementHolder: UILabel!
 
-    func setup(agreement: Agreement) {
+    func setup(agreement: Agreement, bg: UIColor) {
+        self.backgroundColor = bg
         self.rangeNumber.text = "\(agreement.agreementId)"
         self.agreementHolder.text = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
         style()

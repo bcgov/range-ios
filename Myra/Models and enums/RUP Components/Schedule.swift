@@ -24,6 +24,7 @@ class Schedule: Object, MyraObject {
 
     @objc dynamic var name: String = ""
     @objc dynamic var year: Int = 2000
+    @objc dynamic var notes: String = ""
     
     var scheduleObjects = List<ScheduleObject>()
 
