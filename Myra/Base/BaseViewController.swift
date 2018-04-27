@@ -277,7 +277,7 @@ extension BaseViewController {
         let descLayerTopPadding = separatorY + 10
         let descLayer = UILabel(frame: CGRect(x: 0, y: descLayerTopPadding, width: descWidth, height: descHeight))
         descLayer.lineBreakMode = .byWordWrapping
-        descLayer.numberOfLines = 1
+        descLayer.numberOfLines = 2
         descLayer.textColor = UIColor.black
         descLayer.attributedText = getSycDescriptionText(text: "")
         descLayer.textAlignment = .center
@@ -460,25 +460,24 @@ extension BaseViewController {
     func sync(completion: @escaping (_ synced: Bool) -> Void) {
         self.beginSyncLoadingAnimation()
         self.hideSyncViewButton()
-        APIManager.sync(completion: { (done) in
-            if done {
-                //                self.endSyncLoadingAnimation()
-                self.successLoadingAnimation()
-                self.endSyncLoadingAnimation()
-                self.updateSyncDescription(text: "Sync completed.")
-                self.showSyncViewButton()
-                self.enableSyncViewButton()
-                return completion(true)
-            } else {
-                self.updateSyncDescription(text: "Sync failed")
+        APIManager.sync(completion: { (error: APIError?) in
+            if let error = error {
+                self.updateSyncDescription(text: "Sync Failed: \(error.localizedDescription)")
                 self.updateSyncButtonTitle(text: "Close")
                 self.endSyncLoadingAnimation()
                 self.failLoadingAnimation()
                 self.showSyncViewButton()
                 self.enableSyncViewButton()
                 return completion(true)
+            } else {
+                // self.endSyncLoadingAnimation()
+                self.successLoadingAnimation()
+                self.endSyncLoadingAnimation()
+                self.updateSyncDescription(text: "Sync Completed.")
+                self.showSyncViewButton()
+                self.enableSyncViewButton()
+                return completion(true)
             }
-
         }) { (progress) in
             self.updateSyncDescription(text: progress)
             //            self.syncTitle.text = progress
@@ -525,8 +524,8 @@ extension BaseViewController {
                     self.present(vc, animated: true, completion: nil)
                     return
                 }
-                //                self.syncing = true
-                //                self.beginSync()
+
+                
                 self.authenticated = true
             })
         }

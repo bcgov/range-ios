@@ -20,6 +20,7 @@ protocol LocalizedDescriptionError: Error {
 
 public enum APIError: LocalizedDescriptionError {
     case unknownError
+    case noNetworkConnectivity
     case somethingHappened(message: String)
     case requestFailed(error: Error)
     
@@ -496,17 +497,18 @@ class APIManager {
 }
 
 extension APIManager {
-    static func sync(completion: @escaping (_ done: Bool) -> Void, progress: @escaping (_ text: String) -> Void) {
+    static func sync(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
         
         guard let r = Reachability(), r.connection != .none else {
             progress("Failed while verifying connection")
-            completion(false)
+            completion(APIError.noNetworkConnectivity)
             return
         }
         
+        var myError: APIError? = nil
         var myAgreements: [Agreement]?
         let dispatchGroup = DispatchGroup()
-
+        
         dispatchGroup.enter()
         progress("Uploading data to the server")
         DataServices.shared.uploadOutboxRangeUsePlans {
@@ -530,11 +532,11 @@ extension APIManager {
 
             if let error = error {
                 progress("Sync Failed. \(error.localizedDescription)")
+                myError = error
             } else {
                 myAgreements = agreements
                 progress("Completed")
             }
-
             dispatchGroup.leave()
         })
 
@@ -546,7 +548,7 @@ extension APIManager {
                 RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             }
             
-            completion(true)
+            completion(myError)
         }
     }
 }
