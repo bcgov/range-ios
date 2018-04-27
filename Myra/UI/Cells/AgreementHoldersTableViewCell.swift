@@ -11,7 +11,7 @@ import UIKit
 class AgreementHoldersTableViewCell: BaseFormCell {
 
     // MARK: Constants
-    let cellHeight = 45
+    static let cellHeight = 45
 
     // MARK: Variables
 
@@ -37,7 +37,7 @@ class AgreementHoldersTableViewCell: BaseFormCell {
         if let p = self.parentViewController as? CreateNewRUPViewController {
             let clients = rup.clients
             let padding = 5
-            heightConstraint.constant = CGFloat((clients.count) * cellHeight + padding)
+            heightConstraint.constant = CGFloat((clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
             p.realodAndGoTo(indexPath: p.basicInformationIndexPath)
         }
     }
