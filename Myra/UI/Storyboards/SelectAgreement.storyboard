@@ -48,6 +48,10 @@
                                     <constraint firstAttribute="height" constant="70" id="yR8-U3-PXy"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVv-QZ-3R0">
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create New RUP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8Z-rs-yyD">
                                 <rect key="frame" x="20" y="110" width="1072" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
@@ -78,21 +82,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Range Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7H-ge-6XK">
-                                <rect key="frame" x="360" y="225" width="752" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxA-xj-6Z2">
-                                <rect key="frame" x="0.0" y="248" width="1112" height="2"/>
+                                <rect key="frame" x="0.0" y="256" width="1112" height="2"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="gfX-E5-jX2"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IO1-fm-XB8">
-                                <rect key="frame" x="20" y="250" width="1072" height="584"/>
+                                <rect key="frame" x="20" y="258" width="1072" height="576"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -103,20 +101,21 @@
                             <constraint firstItem="q8Z-rs-yyD" firstAttribute="top" secondItem="u4R-wU-QOv" secondAttribute="bottom" constant="20" id="Cv6-9K-hlC"/>
                             <constraint firstItem="5Cr-iZ-ABX" firstAttribute="leading" secondItem="q8Z-rs-yyD" secondAttribute="leading" id="DaA-Fn-BKi"/>
                             <constraint firstItem="vxA-xj-6Z2" firstAttribute="leading" secondItem="bS5-sm-VEA" secondAttribute="leading" id="EgO-O9-Xd8"/>
-                            <constraint firstItem="vxA-xj-6Z2" firstAttribute="top" secondItem="w5z-eY-DwW" secondAttribute="bottom" constant="2" id="ExG-lH-rvp"/>
-                            <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="D7H-ge-6XK" secondAttribute="trailing" id="Fbn-0k-I8v"/>
+                            <constraint firstItem="vxA-xj-6Z2" firstAttribute="top" secondItem="w5z-eY-DwW" secondAttribute="bottom" constant="10" id="ExG-lH-rvp"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="q8Z-rs-yyD" secondAttribute="trailing" constant="20" id="GJI-2K-cwE"/>
                             <constraint firstItem="5Cr-iZ-ABX" firstAttribute="top" secondItem="q8Z-rs-yyD" secondAttribute="bottom" constant="10" id="I3D-TN-a8g"/>
                             <constraint firstItem="w5z-eY-DwW" firstAttribute="centerY" secondItem="Dtm-F2-gfp" secondAttribute="centerY" id="NFt-fQ-dJf"/>
+                            <constraint firstItem="IVv-QZ-3R0" firstAttribute="leading" secondItem="bbz-AA-Jye" secondAttribute="leading" id="OXo-wN-DEv"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="u4R-wU-QOv" secondAttribute="trailing" id="PTG-B1-zXF"/>
-                            <constraint firstItem="D7H-ge-6XK" firstAttribute="centerY" secondItem="w5z-eY-DwW" secondAttribute="centerY" id="RXo-uU-he2"/>
+                            <constraint firstItem="u4R-wU-QOv" firstAttribute="top" secondItem="IVv-QZ-3R0" secondAttribute="bottom" id="Tj4-DR-N7V"/>
+                            <constraint firstItem="IVv-QZ-3R0" firstAttribute="top" secondItem="bbz-AA-Jye" secondAttribute="top" id="VmR-FG-Nlf"/>
                             <constraint firstItem="Dtm-F2-gfp" firstAttribute="top" secondItem="5Cr-iZ-ABX" secondAttribute="bottom" constant="50" id="YkK-fN-xGc"/>
-                            <constraint firstItem="D7H-ge-6XK" firstAttribute="leading" secondItem="w5z-eY-DwW" secondAttribute="trailing" id="hFV-e9-CrM"/>
                             <constraint firstItem="u4R-wU-QOv" firstAttribute="top" secondItem="bS5-sm-VEA" secondAttribute="top" id="hWL-EJ-kdn"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="5Cr-iZ-ABX" secondAttribute="trailing" constant="20" id="kh6-s0-5Zz"/>
                             <constraint firstItem="q8Z-rs-yyD" firstAttribute="leading" secondItem="bS5-sm-VEA" secondAttribute="leading" constant="20" id="lah-pr-8mo"/>
                             <constraint firstItem="w5z-eY-DwW" firstAttribute="leading" secondItem="Dtm-F2-gfp" secondAttribute="trailing" id="lvG-kW-hq6"/>
                             <constraint firstItem="u4R-wU-QOv" firstAttribute="leading" secondItem="bS5-sm-VEA" secondAttribute="leading" id="mwr-8g-FtY"/>
+                            <constraint firstAttribute="trailing" secondItem="IVv-QZ-3R0" secondAttribute="trailing" id="s6P-8a-inA"/>
                             <constraint firstItem="IO1-fm-XB8" firstAttribute="leading" secondItem="Dtm-F2-gfp" secondAttribute="leading" id="sFc-sm-PpP"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="bottom" secondItem="IO1-fm-XB8" secondAttribute="bottom" id="vsg-GM-aWc"/>
                             <constraint firstItem="bS5-sm-VEA" firstAttribute="trailing" secondItem="IO1-fm-XB8" secondAttribute="trailing" constant="20" id="wfH-6s-EKV"/>
@@ -125,6 +124,15 @@
                         <viewLayoutGuide key="safeArea" id="bS5-sm-VEA"/>
                     </view>
                     <connections>
+                        <outlet property="agreementHolderHeader" destination="w5z-eY-DwW" id="0TU-6W-5pp"/>
+                        <outlet property="cancelButton" destination="hrX-2Q-EQb" id="rZp-hd-wNe"/>
+                        <outlet property="createNewRupFooter" destination="5Cr-iZ-ABX" id="WNT-gD-Z1U"/>
+                        <outlet property="createNewRupHeader" destination="q8Z-rs-yyD" id="0Qu-vm-CtM"/>
+                        <outlet property="divider" destination="vxA-xj-6Z2" id="tXN-5c-JNF"/>
+                        <outlet property="navBar" destination="u4R-wU-QOv" id="UiQ-TF-rWY"/>
+                        <outlet property="pageTitle" destination="Vzn-y5-que" id="Z03-Sx-iZt"/>
+                        <outlet property="rangeNumberHeader" destination="Dtm-F2-gfp" id="Ad6-Nx-4r6"/>
+                        <outlet property="statusBar" destination="IVv-QZ-3R0" id="gXy-qe-beS"/>
                         <outlet property="tableView" destination="IO1-fm-XB8" id="Alx-WB-DZj"/>
                     </connections>
                 </viewController>

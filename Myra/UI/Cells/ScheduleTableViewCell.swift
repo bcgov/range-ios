@@ -23,15 +23,6 @@ class ScheduleTableViewCell: BaseFormCell {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
-    // MARK: Cell Functions
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
         guard let p = parentReference else { return }
@@ -79,13 +70,8 @@ class ScheduleTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
-        divider.backgroundColor = Colors.secondary
-        sectionTitle.textColor = Colors.primary
-        sectionTitle.font = Fonts.getPrimaryHeavy(size: 34)
-        styleButton(button: addButton)
-        tableView.layer.cornerRadius = 3
-        tableView.layer.borderWidth = 1
-        tableView.layer.borderColor = UIColor(red:0.8, green:0.8, blue:0.8, alpha:1).cgColor
+        styleHollowButton(button: addButton)
+        styleContainer(layer: tableView.layer)
     }
 
     func updateTableHeight() {
@@ -94,7 +80,7 @@ class ScheduleTableViewCell: BaseFormCell {
         let count = rup.schedules.count
         tableHeight.constant = CGFloat( Double(count) * cellHeight + 5.0)
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTO(indexPath: parent.scheduleIndexPath)
+        parent.realodAndGoTo(indexPath: parent.scheduleIndexPath)
     }
     
 }

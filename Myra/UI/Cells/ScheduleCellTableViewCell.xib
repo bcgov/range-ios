@@ -170,6 +170,8 @@
             <viewLayoutGuide key="safeArea" id="Wzq-Jn-ZPd"/>
             <connections>
                 <outlet property="cellContainer" destination="1HG-P7-hIF" id="QD1-V2-UPe"/>
+                <outlet property="copyButton" destination="D6v-7b-mpt" id="plC-Em-Xrr"/>
+                <outlet property="deleteButton" destination="U4E-ND-gat" id="ZuF-4e-ahK"/>
                 <outlet property="leadingOptions" destination="zKE-00-v6p" id="ou7-tT-dvj"/>
                 <outlet property="nameLabel" destination="Mee-NH-aQC" id="3QK-nT-kdy"/>
                 <outlet property="optionsView" destination="gpi-eb-Q6x" id="bNB-uI-tiU"/>

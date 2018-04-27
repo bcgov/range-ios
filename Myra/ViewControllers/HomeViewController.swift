@@ -223,9 +223,10 @@ class HomeViewController: BaseViewController {
     }
 
     func styleCreateButton() {
-        createButton.backgroundColor = Colors.primary
-        createButton.layer.cornerRadius = 5
-        createButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
+        styleFillButton(button: createButton)
+//        createButton.backgroundColor = Colors.primary
+//        createButton.layer.cornerRadius = 5
+//        createButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
     }
 
     func styleFilterContainer() {

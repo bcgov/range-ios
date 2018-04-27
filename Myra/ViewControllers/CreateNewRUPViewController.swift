@@ -17,11 +17,21 @@ enum AcceptedPopupInput {
     case Year
 }
 
+enum FromSection: Int {
+    case BasicInfo = 0
+    case PlanInfo
+    case AgreementHolders
+    case Usage
+    case Pastures
+    case YearlySchedule
+}
+
 class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
     let horizontalMenuWidth: CGFloat = 156
+    let numberOfSections = 6
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool) -> Void )?
@@ -338,8 +348,9 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
         tableView.delegate = self
         tableView.dataSource = self
-//        registerCell(name: "BasicInformationTableViewCell")
-        registerCell(name: "BasicInfoTableViewCell")
+        registerCell(name: "BasicInformationTableViewCell")
+        registerCell(name: "PlanInformationTableViewCell")
+        registerCell(name: "AgreementHoldersTableViewCell")
         registerCell(name: "BasicInfoSectionTwoTableViewCell")
         registerCell(name: "AgreementInformationTableViewCell")
         registerCell(name: "LiveStockIDTableViewCell")
@@ -364,8 +375,16 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "BasicInfoSectionTwoTableViewCell", for: indexPath) as! BasicInfoSectionTwoTableViewCell
     }
 
-    func getBasicInfoCell(indexPath: IndexPath) -> BasicInfoTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "BasicInfoTableViewCell", for: indexPath) as! BasicInfoTableViewCell
+    func getAgreementHoldersCell(indexPath: IndexPath) -> AgreementHoldersTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "AgreementHoldersTableViewCell", for: indexPath) as! AgreementHoldersTableViewCell
+    }
+
+    func getBasicInfoCell(indexPath: IndexPath) -> BasicInformationTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "BasicInformationTableViewCell", for: indexPath) as! BasicInformationTableViewCell
+    }
+
+    func getPlanInformationCell(indexPath: IndexPath) -> PlanInformationTableViewCell {
+         return tableView.dequeueReusableCell(withIdentifier: "PlanInformationTableViewCell", for: indexPath) as! PlanInformationTableViewCell
     }
 
     func getLiveStockIDTableViewCell(indexPath: IndexPath) -> LiveStockIDTableViewCell {
@@ -385,51 +404,52 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let index = indexPath.row
 
-        // this will change. some indexes will be unknown at compile time
-        switch index {
-        case 0:
-            self.basicInformationIndexPath = indexPath
-            let cell = getBasicInfoCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!, parentReference: self)
-            return cell
-        case 1:
-            let cell = getBasicInfoSectionTwoCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-        case 2:
-            self.rangeUsageIndexPath = indexPath
-            let cell = getRangeUsageCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-//        case 3:
-//            self.liveStockIDIndexPath = indexPath
-//            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
-//            cell.setup(mode: mode, rup: rup!)
-//            return cell
-        case 3:
-            self.pasturesIndexPath = indexPath
-            let cell = getPasturesCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-        case 4:
-            self.scheduleIndexPath = indexPath
-            let cell = getScheduleCell(indexPath: indexPath)
-            // passing self reference because cells within this cell's tableview need to call showAlert()
-            cell.setup(rup: rup!, parentReference: self)
-            return cell
-        default:
-            self.mapIndexPath = indexPath
+        if let cellType = FromSection(rawValue: Int(indexPath.row)) {
+
+            switch cellType {
+
+            case .BasicInfo:
+                self.basicInformationIndexPath = indexPath
+                let cell = getBasicInfoCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .PlanInfo:
+                let cell = getPlanInformationCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .AgreementHolders:
+                let cell = getAgreementHoldersCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .Usage:
+                self.rangeUsageIndexPath = indexPath
+                let cell = getRangeUsageCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .Pastures:
+                self.pasturesIndexPath = indexPath
+                let cell = getPasturesCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .YearlySchedule:
+                self.scheduleIndexPath = indexPath
+                let cell = getScheduleCell(indexPath: indexPath)
+                // passing self reference because cells within this cell's tableview need to call showAlert()
+                cell.setup(rup: rup!, parentReference: self)
+                return cell
+            }
+
+        } else {
             return getMapCell(indexPath: indexPath)
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return numberOfSections
     }
 
-    func realodAndGoTO(indexPath: IndexPath) {
+    func realodAndGoTo(indexPath: IndexPath) {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()

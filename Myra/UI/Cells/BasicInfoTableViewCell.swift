@@ -71,7 +71,7 @@ class BasicInfoTableViewCell: UITableViewCell {
         if let r = rup, let p = parentReference {
             let clients = r.clients
             tableHeight.constant = CGFloat((clients.count) * cellHeight + 5)
-            p.realodAndGoTO(indexPath: p.basicInformationIndexPath)
+            p.realodAndGoTo(indexPath: p.basicInformationIndexPath)
 //            p.realodAndGoTO(indexPath: parent.agreementInformationIndexPath)
         }
     }
@@ -150,7 +150,7 @@ extension BasicInfoTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getHolderCell(indexPath: indexPath)
         if let r = rup {
-            cell.setup(client: r.clients[indexPath.row], parentCell: self)
+            cell.setup(client: r.clients[indexPath.row])
         }
         return cell
     }

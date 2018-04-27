@@ -23,13 +23,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="826" height="49.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="RR5-hr-dJa">
-                                <rect key="frame" x="0.0" y="0.0" width="826" height="49.5"/>
+                                <rect key="frame" x="15" y="0.0" width="796" height="49.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEM-gW-nUy" userLabel="input box">
-                                        <rect key="frame" x="0.0" y="0.0" width="153" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="147" height="49.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Year" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q1C-hd-9bp">
-                                                <rect key="frame" x="0.0" y="0.0" width="153.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="5Z7-rw-YAh"/>
                                                 </constraints>
@@ -37,29 +37,18 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rR9-Vz-fhx">
-                                                <rect key="frame" x="0.0" y="44" width="153.5" height="1"/>
-                                                <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="nOc-MF-95u"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="rR9-Vz-fhx" firstAttribute="leading" secondItem="BEM-gW-nUy" secondAttribute="leading" id="2Ii-Cl-0ey"/>
-                                            <constraint firstItem="rR9-Vz-fhx" firstAttribute="top" secondItem="Q1C-hd-9bp" secondAttribute="bottom" id="CCq-Kn-SzZ"/>
                                             <constraint firstAttribute="trailing" secondItem="Q1C-hd-9bp" secondAttribute="trailing" id="HjO-66-C5a"/>
-                                            <constraint firstAttribute="bottom" secondItem="rR9-Vz-fhx" secondAttribute="bottom" id="K51-2r-mEj"/>
-                                            <constraint firstAttribute="trailing" secondItem="rR9-Vz-fhx" secondAttribute="trailing" id="ONT-Zj-XMF"/>
                                             <constraint firstItem="Q1C-hd-9bp" firstAttribute="leading" secondItem="BEM-gW-nUy" secondAttribute="leading" id="Wte-jU-k1L"/>
                                             <constraint firstItem="Q1C-hd-9bp" firstAttribute="top" secondItem="BEM-gW-nUy" secondAttribute="top" id="zhn-f8-sBT"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3yq-sM-bFg" userLabel="input box">
-                                        <rect key="frame" x="168" y="0.0" width="153.5" height="45"/>
+                                        <rect key="frame" x="162" y="0.0" width="147.5" height="49.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Auth AUMs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uVc-TC-kOu">
-                                                <rect key="frame" x="0.0" y="0.0" width="154" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="148" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Uz7-5W-aQy"/>
                                                 </constraints>
@@ -67,36 +56,18 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f07-b7-ble">
-                                                <rect key="frame" x="0.0" y="44" width="154" height="1"/>
-                                                <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="WdD-yJ-s8f"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="uVc-TC-kOu" secondAttribute="trailing" id="4xa-ae-RlJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="f07-b7-ble" secondAttribute="trailing" id="9rW-ea-sTO"/>
-                                            <constraint firstAttribute="bottom" secondItem="f07-b7-ble" secondAttribute="bottom" id="BB3-gW-7uo"/>
                                             <constraint firstItem="uVc-TC-kOu" firstAttribute="top" secondItem="3yq-sM-bFg" secondAttribute="top" id="Z2f-CP-RWM"/>
                                             <constraint firstItem="uVc-TC-kOu" firstAttribute="leading" secondItem="3yq-sM-bFg" secondAttribute="leading" id="abh-OE-nQU"/>
-                                            <constraint firstItem="f07-b7-ble" firstAttribute="top" secondItem="uVc-TC-kOu" secondAttribute="bottom" id="naW-Is-Z0j"/>
-                                            <constraint firstItem="f07-b7-ble" firstAttribute="leading" secondItem="3yq-sM-bFg" secondAttribute="leading" id="xgb-AM-214"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzD-MF-Csd" userLabel="input box">
-                                        <rect key="frame" x="336.5" y="0.0" width="153" height="45"/>
+                                        <rect key="frame" x="324.5" y="0.0" width="147" height="49.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e5B-hP-RGa">
-                                                <rect key="frame" x="0.0" y="44" width="153.5" height="1"/>
-                                                <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="wFs-R4-hb2"/>
-                                                </constraints>
-                                            </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Temp Increase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LZS-uO-eZN">
-                                                <rect key="frame" x="0.0" y="0.0" width="152.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="146.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="2vf-zb-wT1"/>
                                                 </constraints>
@@ -107,19 +78,15 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="LZS-uO-eZN" firstAttribute="top" secondItem="VzD-MF-Csd" secondAttribute="top" id="4pr-XG-WKC"/>
-                                            <constraint firstAttribute="bottom" secondItem="e5B-hP-RGa" secondAttribute="bottom" id="8Li-0c-bwo"/>
                                             <constraint firstAttribute="trailing" secondItem="LZS-uO-eZN" secondAttribute="trailing" id="EMb-R7-xjd"/>
-                                            <constraint firstItem="e5B-hP-RGa" firstAttribute="top" secondItem="LZS-uO-eZN" secondAttribute="bottom" id="KIf-fU-Sw1"/>
-                                            <constraint firstItem="e5B-hP-RGa" firstAttribute="leading" secondItem="VzD-MF-Csd" secondAttribute="leading" id="TpG-zr-9UE"/>
                                             <constraint firstItem="LZS-uO-eZN" firstAttribute="leading" secondItem="VzD-MF-Csd" secondAttribute="leading" id="Xwv-ok-sgc"/>
-                                            <constraint firstAttribute="trailing" secondItem="e5B-hP-RGa" secondAttribute="trailing" id="abX-gQ-O7n"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dF2-A3-2fe" userLabel="input box">
-                                        <rect key="frame" x="504.5" y="0.0" width="153.5" height="45"/>
+                                        <rect key="frame" x="486.5" y="0.0" width="147.5" height="49.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Non-Use" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S19-1h-bNP">
-                                                <rect key="frame" x="0.0" y="0.0" width="154" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="148" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="kC6-ad-bfU"/>
                                                 </constraints>
@@ -127,29 +94,18 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Gf-ht-mqU">
-                                                <rect key="frame" x="0.0" y="44" width="154" height="1"/>
-                                                <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="jUD-eo-Enm"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="S19-1h-bNP" firstAttribute="leading" secondItem="dF2-A3-2fe" secondAttribute="leading" id="A7w-o4-Xmn"/>
-                                            <constraint firstItem="4Gf-ht-mqU" firstAttribute="top" secondItem="S19-1h-bNP" secondAttribute="bottom" id="BvX-xC-Fod"/>
-                                            <constraint firstAttribute="trailing" secondItem="4Gf-ht-mqU" secondAttribute="trailing" id="ED8-Fl-RN3"/>
-                                            <constraint firstItem="4Gf-ht-mqU" firstAttribute="leading" secondItem="dF2-A3-2fe" secondAttribute="leading" id="ILy-G0-Ju8"/>
-                                            <constraint firstAttribute="bottom" secondItem="4Gf-ht-mqU" secondAttribute="bottom" id="SU7-Ig-NXs"/>
                                             <constraint firstItem="S19-1h-bNP" firstAttribute="top" secondItem="dF2-A3-2fe" secondAttribute="top" id="YSv-Q6-iiD"/>
                                             <constraint firstAttribute="trailing" secondItem="S19-1h-bNP" secondAttribute="trailing" id="nuf-S2-muh"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkv-GG-WHJ" userLabel="input box">
-                                        <rect key="frame" x="673" y="0.0" width="153" height="45"/>
+                                        <rect key="frame" x="649" y="0.0" width="147" height="49.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Total Annual" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Pc-QN-NtM">
-                                                <rect key="frame" x="0.0" y="0.0" width="153.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="4v7-Dv-hBy"/>
                                                 </constraints>
@@ -157,22 +113,11 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tee-9d-ZKk">
-                                                <rect key="frame" x="0.0" y="44" width="153.5" height="1"/>
-                                                <color key="backgroundColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="HYV-mC-YOG"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="tee-9d-ZKk" firstAttribute="leading" secondItem="dkv-GG-WHJ" secondAttribute="leading" id="BKY-lH-RvZ"/>
-                                            <constraint firstItem="tee-9d-ZKk" firstAttribute="top" secondItem="7Pc-QN-NtM" secondAttribute="bottom" id="Cci-Cq-yR5"/>
                                             <constraint firstItem="7Pc-QN-NtM" firstAttribute="leading" secondItem="dkv-GG-WHJ" secondAttribute="leading" id="KJo-gf-zZ2"/>
-                                            <constraint firstAttribute="bottom" secondItem="tee-9d-ZKk" secondAttribute="bottom" id="hic-Q2-SIH"/>
                                             <constraint firstAttribute="trailing" secondItem="7Pc-QN-NtM" secondAttribute="trailing" id="otV-Kv-LKO"/>
                                             <constraint firstItem="7Pc-QN-NtM" firstAttribute="top" secondItem="dkv-GG-WHJ" secondAttribute="top" id="otv-qs-uyn"/>
-                                            <constraint firstAttribute="trailing" secondItem="tee-9d-ZKk" secondAttribute="trailing" id="pg6-II-RHu"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -181,9 +126,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RR5-hr-dJa" secondAttribute="bottom" id="3u7-Wa-Yaf"/>
-                            <constraint firstItem="RR5-hr-dJa" firstAttribute="leading" secondItem="5bP-Dj-lgC" secondAttribute="leading" id="Fb9-gF-AZE"/>
+                            <constraint firstItem="RR5-hr-dJa" firstAttribute="leading" secondItem="5bP-Dj-lgC" secondAttribute="leading" constant="15" id="Fb9-gF-AZE"/>
                             <constraint firstAttribute="height" constant="49.5" id="WPS-Lo-Cfn"/>
-                            <constraint firstAttribute="trailing" secondItem="RR5-hr-dJa" secondAttribute="trailing" id="tzy-S3-qH5"/>
+                            <constraint firstAttribute="trailing" secondItem="RR5-hr-dJa" secondAttribute="trailing" constant="15" id="tzy-S3-qH5"/>
                             <constraint firstItem="RR5-hr-dJa" firstAttribute="top" secondItem="5bP-Dj-lgC" secondAttribute="top" id="zlA-Bg-S7Y"/>
                         </constraints>
                     </view>
@@ -197,7 +142,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="auth_AUMs" destination="uVc-TC-kOu" id="S0B-Hi-XZP"/>
+                <outlet property="authAUMs" destination="uVc-TC-kOu" id="S0B-Hi-XZP"/>
                 <outlet property="tempIncrease" destination="LZS-uO-eZN" id="0yY-8j-f5B"/>
                 <outlet property="totalAnnual" destination="7Pc-QN-NtM" id="5zd-DD-lFa"/>
                 <outlet property="totalNonUse" destination="S19-1h-bNP" id="2Zl-S0-rzF"/>

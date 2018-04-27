@@ -26,14 +26,16 @@ class RangeUsageTableViewCell: BaseFormCell {
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var header: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    @IBOutlet weak var yearHeader: UILabel!
+    @IBOutlet weak var authAUMHeader: UILabel!
+    @IBOutlet weak var tempIncreaseHeader: UILabel!
+    @IBOutlet weak var nonUseHeader: UILabel!
+    @IBOutlet weak var totalAnnualHeader: UILabel!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+    // MARK: Cell functions
 
     // MARK: Outlet actions
     @IBAction func addAction(_ sender: Any) {
@@ -60,9 +62,20 @@ class RangeUsageTableViewCell: BaseFormCell {
         }
         heightConstraint.constant = CGFloat( Double(usageYears.count) * cellHeight + 5.0)
         setUpTable()
+        style()
     }
 
     // MARK: Style
+    func style() {
+        styleSubHeader(label: header)
+        styleDivider(divider: divider)
+        styleFieldHeader(label: yearHeader)
+        styleFieldHeader(label: authAUMHeader)
+        styleFieldHeader(label: tempIncreaseHeader)
+        styleFieldHeader(label: nonUseHeader)
+        styleFieldHeader(label: totalAnnualHeader)
+    }
+
     // Calculate table height based on content and
     // reload parent's table view to bottom of
     // the indexpath of current cell
@@ -79,7 +92,7 @@ class RangeUsageTableViewCell: BaseFormCell {
         */
 
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTO(indexPath: parent.rangeUsageIndexPath)
+        parent.realodAndGoTo(indexPath: parent.rangeUsageIndexPath)
     }
 }
 

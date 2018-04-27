@@ -25,10 +25,6 @@ class ScheduleFooterTableViewCell: UITableViewCell {
         setValues()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     func setup(schedule: Schedule, agreementID: String) {
         self.schedule = schedule
         self.agreementID = agreementID

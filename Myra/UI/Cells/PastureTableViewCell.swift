@@ -43,13 +43,7 @@ class PastureTableViewCell: BaseFormCell {
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
-//        addBoarder(layer: containerView.layer)
-//        addBoarder(layer: pastureNotesTextField.layer)
         loaded = true
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 
     // MARK: Outlet Actions

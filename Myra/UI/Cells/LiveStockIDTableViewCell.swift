@@ -21,14 +21,6 @@ class LiveStockIDTableViewCell: BaseFormCell {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     // Mark: Outlet Actions
     @IBAction func addLiveStockAction(_ sender: Any) {
         do {
@@ -54,7 +46,7 @@ class LiveStockIDTableViewCell: BaseFormCell {
         self.tableView.reloadData()
         tableViewHeight.constant = CGFloat((self.rup.liveStockIDs.count) * cellHeight + 5)
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTO(indexPath: parent.liveStockIDIndexPath)
+        parent.realodAndGoTo(indexPath: parent.liveStockIDIndexPath)
     }
 
 //    func setInitialHeight(numberOfFields: Int) {

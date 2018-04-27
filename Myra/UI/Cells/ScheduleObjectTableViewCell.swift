@@ -26,15 +26,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var crownAUM: UITextField!
     @IBOutlet weak var pldAUM: UITextField!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        disableTextFields()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     @IBAction func lookupPastures(_ sender: Any) {
         let parent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()

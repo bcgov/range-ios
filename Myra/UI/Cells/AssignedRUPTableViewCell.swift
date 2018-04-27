@@ -27,10 +27,6 @@ class AssignedRUPTableViewCell: UITableViewCell {
         if rup != nil { setupView(rup: rup!)}
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
         if rup == nil {return}
