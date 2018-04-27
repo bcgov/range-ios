@@ -17,6 +17,15 @@ enum AcceptedPopupInput {
     case Year
 }
 
+enum FromSection: Int {
+    case BasicInfo = 0
+    case PlanInfo
+    case AgreementHolders
+    case Usage
+    case Pastures
+    case YearlySchedule
+}
+
 class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Constants
@@ -395,46 +404,43 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let index = indexPath.row
 
-        // this will change. some indexes will be unknown at compile time
-        switch index {
-        case 0:
-            self.basicInformationIndexPath = indexPath
-            let cell = getBasicInfoCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-        case 1:
-            let cell = getPlanInformationCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-        case 2:
-            let cell = getAgreementHoldersCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-        case 3:
-            self.rangeUsageIndexPath = indexPath
-            let cell = getRangeUsageCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-//        case 3:
-//            self.liveStockIDIndexPath = indexPath
-//            let cell = getLiveStockIDTableViewCell(indexPath: indexPath)
-//            cell.setup(mode: mode, rup: rup!)
-//            return cell
-        case 4:
-            self.pasturesIndexPath = indexPath
-            let cell = getPasturesCell(indexPath: indexPath)
-            cell.setup(mode: mode, rup: rup!)
-            return cell
-        case 5:
-            self.scheduleIndexPath = indexPath
-            let cell = getScheduleCell(indexPath: indexPath)
-            // passing self reference because cells within this cell's tableview need to call showAlert()
-            cell.setup(rup: rup!, parentReference: self)
-            return cell
-        default:
-            self.mapIndexPath = indexPath
+        if let cellType = FromSection(rawValue: Int(indexPath.row)) {
+
+            switch cellType {
+
+            case .BasicInfo:
+                self.basicInformationIndexPath = indexPath
+                let cell = getBasicInfoCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .PlanInfo:
+                let cell = getPlanInformationCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .AgreementHolders:
+                let cell = getAgreementHoldersCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .Usage:
+                self.rangeUsageIndexPath = indexPath
+                let cell = getRangeUsageCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .Pastures:
+                self.pasturesIndexPath = indexPath
+                let cell = getPasturesCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .YearlySchedule:
+                self.scheduleIndexPath = indexPath
+                let cell = getScheduleCell(indexPath: indexPath)
+                // passing self reference because cells within this cell's tableview need to call showAlert()
+                cell.setup(rup: rup!, parentReference: self)
+                return cell
+            }
+
+        } else {
             return getMapCell(indexPath: indexPath)
         }
     }
