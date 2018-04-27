@@ -32,6 +32,7 @@ class SelectAgreementViewController: UIViewController, Theme {
         super.viewDidLoad()
         self.agreements = RUPManager.shared.getAgreementsWithNoRUPs()
         setUpTable()
+        style()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -54,9 +55,13 @@ class SelectAgreementViewController: UIViewController, Theme {
     }
 
     // MARK: Style
-
     func style() {
-        
+        styleNavBar(title: pageTitle, navBar: navBar, statusBar: statusBar, primaryButton: cancelButton, secondaryButton: nil, textLabel: nil)
+        styleHeader(label: createNewRupHeader)
+        styleFooter(label: createNewRupFooter)
+        styleFieldHeader(label: rangeNumberHeader)
+        styleFieldHeader(label: agreementHolderHeader)
+        styleDivider(divider: divider)
     }
 }
 

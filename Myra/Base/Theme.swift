@@ -60,6 +60,14 @@ extension Theme {
         return Fonts.getPrimaryHeavy(size: 34)
     }
 
+    func defaultSectionFooterColor() -> UIColor {
+        return Colors.bodyText
+    }
+
+    func defaultSectionFooterFont() -> UIFont {
+        return Fonts.getPrimary(size: 17)
+    }
+
     // Section Sub Header
     func defaultSectionSubHeaderColor() -> UIColor {
         return Colors.primary
@@ -83,16 +91,28 @@ extension Theme {
     }
 
     // Button
-    func defaultButtonBorderColor() -> CGColor {
+    func defaultHollowButtonBorderColor() -> CGColor {
         return Colors.primary.cgColor
     }
 
-    func defaultButtonBackground() -> UIColor {
+    func defaultHollowButtonBackground() -> UIColor {
         return UIColor.white
     }
 
-    func defaultButtonTitleColor() -> UIColor {
+    func defaultHollowButtonTitleColor() -> UIColor {
         return Colors.primary
+    }
+
+    func defaultFillButtonBorderColor() -> CGColor {
+        return Colors.primary.cgColor
+    }
+
+    func defaultFillButtonBackground() -> UIColor {
+        return Colors.primary
+    }
+
+    func defaultFillButtonTitleColor() -> UIColor {
+        return UIColor.white
     }
 
     // Border
@@ -107,12 +127,20 @@ extension Theme {
     // MARK: Styles
 
     // MARK: Buttons
-    func styleButton(button: UIButton) {
+    func styleHollowButton(button: UIButton) {
+        styleButton(button: button, bg: defaultHollowButtonBackground(), borderColor: defaultHollowButtonBorderColor(), titleColor: defaultHollowButtonTitleColor())
+    }
+
+    func styleFillButton(button: UIButton) {
+        styleButton(button: button, bg: defaultFillButtonBackground(), borderColor: defaultFillButtonBorderColor(), titleColor: defaultFillButtonTitleColor())
+    }
+
+    func styleButton(button: UIButton, bg: UIColor, borderColor: CGColor, titleColor: UIColor) {
         button.layer.cornerRadius = 5
-        button.backgroundColor = defaultButtonBackground()
+        button.backgroundColor = bg
         button.layer.borderWidth = 1
-        button.layer.borderColor = defaultButtonBorderColor()
-        button.setTitleColor(defaultButtonTitleColor(), for: .normal)
+        button.layer.borderColor = borderColor
+        button.setTitleColor(titleColor, for: .normal)
     }
 
     // MARK: Containers and dividers
@@ -171,10 +199,19 @@ extension Theme {
         label.font = defaultSectionSubHeaderFont()
     }
 
-    func styleHeader(label: UILabel, divider: UIView) {
-        styleDivider(divider: divider)
+    func styleHeader(label: UILabel) {
         label.textColor = defaultSectionHeaderColor()
         label.font = defaultSectionHeaderFont()
+    }
+
+    func styleHeader(label: UILabel, divider: UIView) {
+        styleDivider(divider: divider)
+        styleHeader(label: label)
+    }
+
+    func styleFooter(label: UILabel) {
+        label.textColor = defaultSectionFooterColor()
+        label.font = defaultSectionFooterFont()
     }
 
     // MARK: Input fields

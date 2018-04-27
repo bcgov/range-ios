@@ -89,7 +89,7 @@ class PasturesTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
-        styleButton(button: addButton)
+        styleHollowButton(button: addButton)
     }
     
 }
