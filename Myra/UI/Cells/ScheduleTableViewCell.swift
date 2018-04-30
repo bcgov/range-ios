@@ -67,10 +67,6 @@ class ScheduleTableViewCell: BaseFormCell {
         style()
     }
 
-    @objc func contentSizeChanged() {
-        print("yay")
-    }
-
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
