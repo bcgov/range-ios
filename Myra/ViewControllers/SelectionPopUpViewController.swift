@@ -10,11 +10,14 @@ import UIKit
 
 class SelectionPopUpViewController: UIViewController {
 
-    // Mark: Variables
+    // MARK: Constants
+    let cellHeight: CGFloat = 33
+    
+    // MARK: Variables
     var objects: [SelectionPopUpObject] = [SelectionPopUpObject]()
     var completion: ((_ done: Bool,_ result: SelectionPopUpObject?) -> Void )?
 
-    // Mark: Outlets
+    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -34,6 +37,17 @@ class SelectionPopUpViewController: UIViewController {
         self.completion = completion
         self.objects = objects
         setupTable()
+    }
+
+    func getEstimatedHeight() -> Int {
+        // top and bottom padding in cell
+        let padding = 20
+        print(cellHeight)
+        return (objects.count * Int(cellHeight)) + (objects.count * padding)
+    }
+
+    func canDisplayFullContentIn(height: Int) -> Bool {
+        return getEstimatedHeight() <= height
     }
 }
 extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSource {
@@ -58,9 +72,9 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var color = UIColor.lightGray
+        var color = Colors.oddCell
         if indexPath.row % 2 == 0 {
-            color = UIColor.white
+            color = Colors.evenCell
         }
         let cell = getCell(indexPath: indexPath)
         cell.setup(object: objects[indexPath.row], bg: color)

@@ -47,7 +47,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 parent.hidepopup(vc: lookup)
             }
         }
-        parent.showpopup(vc: lookup)
+        parent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
@@ -77,7 +77,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.update()
             }
         }
-        parent.showpopup(vc: lookup)
+        parent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
