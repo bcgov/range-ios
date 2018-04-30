@@ -102,16 +102,15 @@ class BasicInformationTableViewCell: BaseFormCell {
             if let district = zone.districts.last {
                 self.districtValue.text = district.code
             }
+            contactNameValue.text = zone.contactName
+            contactEmailValue.text = zone.contactEmail
+            contactPhoneValue.text = zone.contactPhoneNumber
         }
 
         // Agreement date
         if let start = rup.agreementStartDate,  let end = rup.agreementEndDate {
             self.agreementDateValue.text = "\(start.string()) to \(end.string())"
         }
-
-        // Primary agreement holder
-        let client = RUPManager.shared.getPrimaryAgreementHolderObjectFor(rup: rup)
-        contactNameValue.text = client.name
     }
 
     // MARK: Style
