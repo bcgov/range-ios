@@ -88,7 +88,7 @@
                                     <constraint firstItem="iDS-Qg-6HG" firstAttribute="height" secondItem="rfx-Lw-oWW" secondAttribute="height" id="Wdt-wc-dq5"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AOM-kc-RDP">
+                            <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AOM-kc-RDP">
                                 <rect key="frame" x="0.0" y="121.5" width="432" height="116.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="YMZ-fi-v85">
