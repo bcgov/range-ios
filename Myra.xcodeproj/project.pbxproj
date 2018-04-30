@@ -121,6 +121,7 @@
 		29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0392057299D006CD247 /* DatePickerController.swift */; };
 		29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB03B20572AF6006CD247 /* UIViewController.swift */; };
 		29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */; };
+		29FF2AAB20979E75002C1FAE /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF2AAA20979E75002C1FAE /* Notification.swift */; };
 		56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56873E30207E6D6600C530CA /* DateExtensions.swift */; };
 		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
 		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
@@ -243,6 +244,7 @@
 		29FCB0392057299D006CD247 /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
 		29FCB03B20572AF6006CD247 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePickerController.storyboard; sourceTree = "<group>"; };
+		29FF2AAA20979E75002C1FAE /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		56873E30207E6D6600C530CA /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		56F388A020801757004CDFAE /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
 		56F388A220801763004CDFAE /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 			isa = PBXGroup;
 			children = (
 				56873E30207E6D6600C530CA /* DateExtensions.swift */,
+				29FF2AAA20979E75002C1FAE /* Notification.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -540,7 +543,6 @@
 				293C95BE20335D4100BF1113 /* Frameworks */,
 				293C95BF20335D4100BF1113 /* Resources */,
 				F7EC8CAC0FC2E436DDC3CD70 /* [CP] Embed Pods Frameworks */,
-				81DC737F79D558BFBD3F7045 /* [CP] Copy Pods Resources */,
 				290FF88720638D6900C7DAC0 /* ShellScript */,
 			);
 			buildRules = (
@@ -663,21 +665,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4dc0080275145d547109096fa1840eabb6bd5104 20af85ecd6079c2309421c51ae828909c136e6790e0029cb3f1dc726f25a3cb2";
 		};
-		81DC737F79D558BFBD3F7045 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Myra/Pods-Myra-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F7EC8CAC0FC2E436DDC3CD70 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -777,6 +764,7 @@
 				29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */,
 				29742707204484FB0033BC47 /* AgreementHolderTableViewCell.swift in Sources */,
 				299BD278207BF488004B1D07 /* Constants.swift in Sources */,
+				29FF2AAB20979E75002C1FAE /* Notification.swift in Sources */,
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */,

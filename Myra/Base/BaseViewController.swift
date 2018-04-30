@@ -132,17 +132,20 @@ extension BaseViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
+            self.notifyOrientationChange()
+            self.rotateSync()
             if UIDevice.current.orientation.isLandscape{
-                self.rotateSync()
                 self.whenLandscape()
             } else if UIDevice.current.orientation.isPortrait {
-                self.rotateSync()
                 self.whenPortrait()
             } else {
-                self.rotateSync()
                 self.whenLandscape()
             }
         }
+    }
+
+    func notifyOrientationChange() {
+        NotificationCenter.default.post(name: .screenOrientationChanged, object: nil)
     }
 }
 

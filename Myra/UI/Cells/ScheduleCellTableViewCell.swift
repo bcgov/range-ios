@@ -47,9 +47,10 @@ class ScheduleCellTableViewCell: BaseFormCell {
         self.rup = rup
         style()
         styleBasedOnValidity()
-//        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
-//        swipeLeft.direction = .left
-//        self.view.addGestureRecognizer(swipeLeft)
+    }
+
+    override func orientationChanged(_ notification: NSNotification) {
+        closeOptions("")
     }
 
     func styleBasedOnValidity() {
@@ -97,8 +98,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
     
     @IBAction func optionsAction(_ sender: Any) {
-        let width = optionsView.frame.width
-        self.leadingOptions.constant = 0 - width
+        self.leadingOptions.constant = 0 - optionsView.frame.width
         animateIt()
     }
 
@@ -116,7 +116,6 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
 
     @IBAction func closeOptions(_ sender: Any) {
-//        let width = optionsView.frame.width
         self.leadingOptions.constant = 0
         animateIt()
     }

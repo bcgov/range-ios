@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+extension Notification.Name {
+    static let screenOrientationChanged = Notification.Name("screenOrientationChanged")
+}

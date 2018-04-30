@@ -17,11 +17,11 @@ class BaseFormCell: UITableViewCell, Theme {
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        NotificationCenter.default.addObserver(self, selector: #selector(self.orientationChanged(_:)), name: .screenOrientationChanged, object: nil)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    @objc func orientationChanged(_ notification: NSNotification) {
+
     }
 
     // MARK: Cell Setup
