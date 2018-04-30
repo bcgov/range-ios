@@ -30,7 +30,7 @@ extension MainViewController {
     func chooseInitialView() {
         let lastSync = RealmManager.shared.getLastSyncDate()
         print(lastSync ?? "nil")
-        if lastSync != nil {
+        if lastSync != nil && authServices.isAuthenticated() {
             // Go to home page
             showHomePage()
         } else {
@@ -49,6 +49,8 @@ extension MainViewController {
 
     func showHomePage() {
         let vm = ViewManager()
+        let home = vm.home
+        home.parentReference = self
         add(asChildViewController: vm.home)
     }
 }

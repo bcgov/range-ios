@@ -27,7 +27,6 @@
 		2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83B2034CF850090E7B4 /* ViewManager.swift */; };
 		2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83D2034D6D60090E7B4 /* RUPStatus.swift */; };
 		2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8402034F3880090E7B4 /* BaseViewController.swift */; };
-		292185542065686B006F5EF4 /* HomeSyncExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292185532065686B006F5EF4 /* HomeSyncExtension.swift */; };
 		2926D96E20754E52006250D3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
 		292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
 		292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
@@ -122,6 +121,7 @@
 		29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB03B20572AF6006CD247 /* UIViewController.swift */; };
 		29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */; };
 		29FF2AAB20979E75002C1FAE /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF2AAA20979E75002C1FAE /* Notification.swift */; };
+		29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */; };
 		56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56873E30207E6D6600C530CA /* DateExtensions.swift */; };
 		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
 		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
@@ -148,7 +148,6 @@
 		2920F83B2034CF850090E7B4 /* ViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
 		2920F83D2034D6D60090E7B4 /* RUPStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPStatus.swift; sourceTree = "<group>"; };
 		2920F8402034F3880090E7B4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		292185532065686B006F5EF4 /* HomeSyncExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSyncExtension.swift; sourceTree = "<group>"; };
 		2926D96D20754E52006250D3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestockIdentifierType.swift; sourceTree = "<group>"; };
 		292E65202076AAC6003D4AF0 /* ClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientType.swift; sourceTree = "<group>"; };
@@ -245,6 +244,7 @@
 		29FCB03B20572AF6006CD247 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePickerController.storyboard; sourceTree = "<group>"; };
 		29FF2AAA20979E75002C1FAE /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewExtention.swift; sourceTree = "<group>"; };
 		56873E30207E6D6600C530CA /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		56F388A020801757004CDFAE /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
 		56F388A220801763004CDFAE /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 				2917468820742A7A005F70B4 /* MainViewController.swift */,
 				291746862074279B005F70B4 /* LoginViewController.swift */,
 				293C95C620335D4100BF1113 /* HomeViewController.swift */,
-				292185532065686B006F5EF4 /* HomeSyncExtension.swift */,
+				29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */,
 				29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */,
 				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
 				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
@@ -735,7 +735,6 @@
 				29FCB038205702B3006CD247 /* DateManager.swift in Sources */,
 				56F388A520801FB4004CDFAE /* DataServices.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
-				292185542065686B006F5EF4 /* HomeSyncExtension.swift in Sources */,
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */,
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
@@ -766,6 +765,7 @@
 				299BD278207BF488004B1D07 /* Constants.swift in Sources */,
 				29FF2AAB20979E75002C1FAE /* Notification.swift in Sources */,
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
+				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */,
 				2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */,

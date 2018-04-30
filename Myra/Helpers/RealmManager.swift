@@ -30,18 +30,22 @@ class RealmManager {
     }
 
     func updateLastSyncDate(date: Date, DownloadedReference: Bool) {
-        let query = RealmRequests.getObject(SyncDate.self)
-        if query != nil {
-            for element in query! {
-                RealmRequests.deleteObject(element)
-            }
-        }
+        clearLastSyncDate()
         let syncDate = SyncDate()
         syncDate.fullSync = date
         if DownloadedReference {
             syncDate.refDownload = date
         }
         RealmRequests.saveObject(object: syncDate)
+    }
+
+    func clearLastSyncDate() {
+        let query = RealmRequests.getObject(SyncDate.self)
+        if query != nil {
+            for element in query! {
+                RealmRequests.deleteObject(element)
+            }
+        }
     }
 
     // Reference
