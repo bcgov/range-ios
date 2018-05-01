@@ -40,60 +40,56 @@ class PlanInformationTableViewCell: BaseFormCell {
     @IBAction func planStartAction(_ sender: Any) {
 
         let parent = self.parentViewController as! CreateNewRUPViewController
-        DatePickerController.present(on: parent, minimum: rup.agreementStartDate) { (date) in
-            guard let date = date else { return }
-            self.planStartValue.text = date.string()
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    self.rup.planStartDate = date
-                }
-            } catch _ {
-                fatalError()
-            }
-            if self.planEndValue.text != "" {
-                let endDate = DateManager.from(string: self.planEndValue.text!)
-                if endDate < date {
-                    self.planEndValue.text = DateManager.toString(date: (self.rup.planStartDate)!)
-                    do {
-                        let realm = try Realm()
-                        try realm.write {
-                            self.rup.planEndDate = self.rup.planStartDate
-                        }
-                    } catch _ {
-                        fatalError()
-                    }
-                }
-            }
-        }
+        guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
+        let vm = ViewManager()
+        let picker = vm.datePicker
 
+        picker.setup(between: min, max: max) { (date) in
+            self.handlePlanStartDate(date: date)
+        }
+        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     @IBAction func planEndAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-
+        let vm = ViewManager()
+        let picker = vm.datePicker
+        guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
         if planStartValue.text != "" {
+
             let startDate = DateManager.from(string: planStartValue.text!)
-            DatePickerController.present(on: parent, minimum: startDate, completion: { (date) in
-                guard let date = date else { return }
-                self.planEndValue.text = date.string()
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        self.rup.planEndDate = date
-                    }
-                } catch _ {
-                    fatalError()
-                }
-            })
+            picker.setup(between: startDate, max: max) { (date) in
+                self.handlePlanEndDate(date: date)
+            }
         } else {
-            DatePickerController.present(on: parent, minimum: rup.agreementStartDate) { (date) in
-                guard let date = date else { return }
-                self.planEndValue.text = date.string()
+            picker.setup(between: min, max: max) { (date) in
+                self.handlePlanEndDate(date: date)
+            }
+        }
+        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+    }
+
+
+    // MARK: functions
+
+    func handlePlanStartDate(date: Date) {
+        self.planStartValue.text = date.string()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup.planStartDate = date
+            }
+        } catch _ {
+            fatalError()
+        }
+        if self.planEndValue.text != "" {
+            let endDate = DateManager.from(string: self.planEndValue.text!)
+            if endDate < date {
+                self.planEndValue.text = DateManager.toString(date: (self.rup.planStartDate)!)
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        self.rup.planEndDate = date
+                        self.rup.planEndDate = self.rup.planStartDate
                     }
                 } catch _ {
                     fatalError()
@@ -102,8 +98,20 @@ class PlanInformationTableViewCell: BaseFormCell {
         }
     }
 
+    func handlePlanEndDate(date: Date) {
+        self.planEndValue.text = date.string()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rup.planEndDate = date
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
 
-    // MARK: functions
+
+    // MARK: Setup
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
