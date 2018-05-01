@@ -22,9 +22,8 @@ class RealmManager {
     }
 
     func getLastRefDownload() -> Date? {
-        let query = RealmRequests.getObject(SyncDate.self)
-        if query != nil {
-            return query?.last?.refDownload
+        if let query = RealmRequests.getObject(SyncDate.self) {
+            return query.last?.refDownload
         }
         return nil
     }
@@ -40,9 +39,8 @@ class RealmManager {
     }
 
     func clearLastSyncDate() {
-        let query = RealmRequests.getObject(SyncDate.self)
-        if query != nil {
-            for element in query! {
+        if let query = RealmRequests.getObject(SyncDate.self) {
+            for element in query {
                 RealmRequests.deleteObject(element)
             }
         }
