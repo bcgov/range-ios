@@ -7,11 +7,25 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
 class RealmManager {
     static let shared = RealmManager()
 
     private init() {}
+
+    func clearAllData() {
+
+        do {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.deleteAll()
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
 
     func getLastSyncDate() -> Date? {
         let query = RealmRequests.getObject(SyncDate.self)
@@ -22,26 +36,28 @@ class RealmManager {
     }
 
     func getLastRefDownload() -> Date? {
-        let query = RealmRequests.getObject(SyncDate.self)
-        if query != nil {
-            return query?.last?.refDownload
+        if let query = RealmRequests.getObject(SyncDate.self) {
+            return query.last?.refDownload
         }
         return nil
     }
 
     func updateLastSyncDate(date: Date, DownloadedReference: Bool) {
-        let query = RealmRequests.getObject(SyncDate.self)
-        if query != nil {
-            for element in query! {
-                RealmRequests.deleteObject(element)
-            }
-        }
+        clearLastSyncDate()
         let syncDate = SyncDate()
         syncDate.fullSync = date
         if DownloadedReference {
             syncDate.refDownload = date
         }
         RealmRequests.saveObject(object: syncDate)
+    }
+
+    func clearLastSyncDate() {
+        if let query = RealmRequests.getObject(SyncDate.self) {
+            for element in query {
+                RealmRequests.deleteObject(element)
+            }
+        }
     }
 
     // Reference

@@ -28,6 +28,8 @@ public enum APIError: LocalizedDescriptionError {
         switch self {
         case .somethingHappened(message: let message):
             return message
+        case .noNetworkConnectivity:
+            return "Not Connected to Internet"
         default:
             return "No Error Provided"
         }

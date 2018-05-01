@@ -103,10 +103,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-eb-Q6x">
-                        <rect key="frame" x="567" y="8.5" width="567" height="40"/>
+                        <rect key="frame" x="567" y="8.5" width="417" height="40"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQl-aW-nhQ">
-                                <rect key="frame" x="532" y="-0.5" width="30" height="40"/>
+                                <rect key="frame" x="382" y="-0.5" width="30" height="40"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleOptionsCloseMenu"/>
                                 <state key="normal" title="X">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -116,7 +116,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4E-ND-gat">
-                                <rect key="frame" x="332" y="4.5" width="100" height="30"/>
+                                <rect key="frame" x="182" y="4.5" width="100" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.62303365460000004" blue="0.54890557480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleCellDeleteButton"/>
                                 <state key="normal" title="Delete">
@@ -127,7 +127,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6v-7b-mpt">
-                                <rect key="frame" x="25" y="5" width="100" height="30"/>
+                                <rect key="frame" x="52" y="5" width="100" height="30"/>
                                 <color key="backgroundColor" red="0.0039215686269999999" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleCellCopyButton"/>
                                 <constraints>
@@ -146,9 +146,8 @@
                             <constraint firstItem="U4E-ND-gat" firstAttribute="height" secondItem="D6v-7b-mpt" secondAttribute="height" id="5Qb-2M-H5s"/>
                             <constraint firstItem="HQl-aW-nhQ" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="AQi-bs-mE9"/>
                             <constraint firstItem="U4E-ND-gat" firstAttribute="width" secondItem="D6v-7b-mpt" secondAttribute="width" id="Cv6-h2-63P"/>
-                            <constraint firstItem="U4E-ND-gat" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="D6v-7b-mpt" secondAttribute="trailing" constant="50" id="ONn-Bj-6nv"/>
                             <constraint firstItem="U4E-ND-gat" firstAttribute="centerY" secondItem="D6v-7b-mpt" secondAttribute="centerY" id="e3t-mI-5rE"/>
-                            <constraint firstItem="D6v-7b-mpt" firstAttribute="leading" secondItem="gpi-eb-Q6x" secondAttribute="leading" constant="25" id="iQ2-lw-xnY"/>
+                            <constraint firstItem="U4E-ND-gat" firstAttribute="leading" secondItem="D6v-7b-mpt" secondAttribute="trailing" constant="30" id="lWd-AY-cvb"/>
                             <constraint firstItem="HQl-aW-nhQ" firstAttribute="height" secondItem="gpi-eb-Q6x" secondAttribute="height" id="o72-d6-bbC"/>
                             <constraint firstItem="D6v-7b-mpt" firstAttribute="centerY" secondItem="gpi-eb-Q6x" secondAttribute="centerY" id="vZL-w0-YcR"/>
                             <constraint firstItem="HQl-aW-nhQ" firstAttribute="leading" secondItem="U4E-ND-gat" secondAttribute="trailing" constant="100" id="vzy-2d-KZY"/>
@@ -163,7 +162,7 @@
                     <constraint firstItem="spc-L6-Aaz" firstAttribute="leading" secondItem="l8u-JW-Myj" secondAttribute="leading" id="TGa-BI-ymh"/>
                     <constraint firstItem="spc-L6-Aaz" firstAttribute="top" secondItem="l8u-JW-Myj" secondAttribute="top" id="b1e-lu-qXd"/>
                     <constraint firstAttribute="bottom" secondItem="spc-L6-Aaz" secondAttribute="bottom" id="dfx-u1-vrp"/>
-                    <constraint firstItem="gpi-eb-Q6x" firstAttribute="width" secondItem="spc-L6-Aaz" secondAttribute="width" id="iV0-bZ-B56"/>
+                    <constraint firstItem="gpi-eb-Q6x" firstAttribute="width" secondItem="spc-L6-Aaz" secondAttribute="width" constant="-150" id="iV0-bZ-B56"/>
                     <constraint firstItem="gpi-eb-Q6x" firstAttribute="leading" secondItem="spc-L6-Aaz" secondAttribute="trailing" id="zKE-00-v6p"/>
                 </constraints>
             </tableViewCellContentView>

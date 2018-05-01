@@ -11,6 +11,7 @@ import UIKit
 class selectionPopUpTableViewCell: UITableViewCell {
 
     var object: SelectionPopUpObject?
+
     @IBOutlet weak var label: UILabel!
 
     override func awakeFromNib() {
@@ -29,6 +30,7 @@ class selectionPopUpTableViewCell: UITableViewCell {
         if label != nil {
             label.text = object.display
         }
+        self.label.font = Fonts.getPrimary(size: 17)
         self.backgroundColor = bg
     }
     

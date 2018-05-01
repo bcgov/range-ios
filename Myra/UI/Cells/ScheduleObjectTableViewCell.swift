@@ -47,7 +47,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 parent.hidepopup(vc: lookup)
             }
         }
-        parent.showpopup(vc: lookup)
+        parent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
@@ -77,7 +77,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.update()
             }
         }
-        parent.showpopup(vc: lookup)
+        parent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
@@ -181,15 +181,15 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
         autofill()
+        styleInputField(field: days, editable: false, height: fieldHeight)
+        styleInputField(field: crownAUM, editable: false, height: fieldHeight)
+        styleInputField(field: pldAUM, editable: false, height: fieldHeight)
+        styleInputField(field: graceDays, editable: false, height: fieldHeight)
         styleInput(input: pasture, height: fieldHeight)
         styleInput(input: liveStock, height: fieldHeight)
         styleInput(input: numberOfAniamls, height: fieldHeight)
         styleInput(input: dateIn, height: fieldHeight)
         styleInput(input: dateOut, height: fieldHeight)
-        styleInput(input: graceDays, height: fieldHeight)
-        styleInput(input: crownAUM, height: fieldHeight)
-        styleInput(input: pldAUM, height: fieldHeight)
-        styleInput(input: days, height: fieldHeight)
     }
 
     public func dismissKeyboard() {

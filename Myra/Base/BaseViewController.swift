@@ -81,6 +81,18 @@ class BaseViewController: UIViewController, Theme {
         input.layer.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1).cgColor
     }
 
+    // MARK: Popover
+    func showPopOver(on: UIButton, vc: UIViewController, height: Int, width: Int) {
+        vc.modalPresentationStyle = .popover
+        vc.preferredContentSize = CGSize(width: width, height: height)
+        let popover = vc.popoverPresentationController
+        popover?.backgroundColor = UIColor.white
+        popover?.permittedArrowDirections = .up
+        popover?.sourceView = on
+        popover?.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.maxY, width: 0, height: 0)
+        present(vc, animated: true, completion: nil)
+    }
+
 }
 
 extension BaseViewController {
@@ -132,17 +144,20 @@ extension BaseViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
+            self.notifyOrientationChange()
+            self.rotateSync()
             if UIDevice.current.orientation.isLandscape{
-                self.rotateSync()
                 self.whenLandscape()
             } else if UIDevice.current.orientation.isPortrait {
-                self.rotateSync()
                 self.whenPortrait()
             } else {
-                self.rotateSync()
                 self.whenLandscape()
             }
         }
+    }
+
+    func notifyOrientationChange() {
+        NotificationCenter.default.post(name: .screenOrientationChanged, object: nil)
     }
 }
 
@@ -469,7 +484,7 @@ extension BaseViewController {
                     let message = "Authentication didn't work. Please try again."
 
                     self.showAlert(with: title, message: message)
-
+ 
                     return
                 }
                 self.authenticated = true
@@ -502,6 +517,12 @@ extension BaseViewController {
                 self.authenticated = true
             })
         }
+    }
+
+    func logout() {
+        authServices.logout()
+        RealmManager.shared.clearLastSyncDate()
+        RealmManager.shared.clearAllData()
     }
 
 }
