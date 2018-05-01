@@ -29,6 +29,6 @@ extension HomeViewController {
                 lookup.dismiss(animated: true, completion: nil)
             }
         }
-        showPopOver(on: on, vc: lookup, height: lookup.getEstimatedHeight(), width: 200)
+        showPopOver(on: on, vc: lookup, height: lookup.getEstimatedHeight(), width: 200, arrowColor: nil)
     }
 }

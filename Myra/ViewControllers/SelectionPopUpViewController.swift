@@ -42,6 +42,7 @@ class SelectionPopUpViewController: UIViewController {
     func getEstimatedHeight() -> Int {
         // top and bottom padding in cell
         let padding = 20
+        if objects.count == 0 {return 20}
         return (objects.count * Int(cellHeight)) + (objects.count * padding)
     }
 

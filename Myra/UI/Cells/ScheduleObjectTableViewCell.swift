@@ -110,72 +110,77 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         dismissKeyboard()
         let parent = self.parentViewController as! ScheduleViewController
 
-        DatePickerController.present(on: parent, completion: { (date) in
-            guard let date = date else { return }
-            self.dateIn.text = date.string()
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    self.scheduleObject?.dateIn = date
-                }
-            } catch _ {
-                fatalError()
-            }
-            self.calculateDays()
-            if self.dateOut.text != "" {
-                let endDate = DateManager.from(string: self.dateOut.text!)
-                if endDate < date {
-                    self.dateOut.text = DateManager.toString(date: (self.scheduleObject?.dateIn)!)
-                    do {
-                        let realm = try Realm()
-                        try realm.write {
-                            self.scheduleObject?.dateOut = self.scheduleObject?.dateIn
-                        }
-                    } catch _ {
-                        fatalError()
-                    }
-                    self.calculateDays()
-                }
-            }
-        })
+        let vm = ViewManager()
+        let picker = vm.datePicker
+
+        picker.setup(for: (parent.schedule?.year)!, minDate: nil) { (date) in
+            self.handleDateIn(date: date)
+        }
+        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     @IBAction func dateOutAction(_ sender: Any) {
         dismissKeyboard()
         let parent = self.parentViewController as! ScheduleViewController
+        let vm = ViewManager()
+        let picker = vm.datePicker
+
         if dateIn.text != "" {
             let startDate = DateManager.from(string: dateIn.text!)
-            DatePickerController.present(on: parent, minimum: startDate, completion: { (date) in
-                guard let date = date else { return }
-                self.dateOut.text = date.string()
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        self.scheduleObject?.dateOut = date
-                    }
-                } catch _ {
-                    fatalError()
-                }
-                self.calculateDays()
-            })
+            picker.setup(for: (parent.schedule?.year)!, minDate: startDate) { (date) in
+                self.handleDateOut(date: date)
+            }
         } else {
-            DatePickerController.present(on: parent, completion: { (date) in
-                guard let date = date else { return }
-                self.dateOut.text = date.string()
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        self.scheduleObject?.dateOut = date
-                    }
-                } catch _ {
-                    fatalError()
-                }
-                self.calculateDays()
-            })
+            picker.setup(for: (parent.schedule?.year)!, minDate: nil) { (date) in
+                self.handleDateOut(date: date)
+            }
         }
+        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     // MARK: Functions
+    func handleDateIn(date: Date) {
+        self.dateIn.text = date.string()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.scheduleObject?.dateIn = date
+            }
+        } catch _ {
+            fatalError()
+        }
+        self.calculateDays()
+        if self.dateOut.text != "" {
+            let endDate = DateManager.from(string: self.dateOut.text!)
+            if endDate < date {
+                self.dateOut.text = DateManager.toString(date: (self.scheduleObject?.dateIn)!)
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        self.scheduleObject?.dateOut = self.scheduleObject?.dateIn
+                    }
+                } catch _ {
+                    fatalError()
+                }
+                self.calculateDays()
+            }
+        }
+    }
+
+    func handleDateOut(date: Date) {
+        self.dateOut.text = date.string()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.scheduleObject?.dateOut = date
+            }
+        } catch _ {
+            fatalError()
+        }
+        self.calculateDays()
+    }
+
+    // MARK: Setup
     func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController) {
         self.rup = rup
         self.scheduleObject = scheduleObject

@@ -41,4 +41,8 @@ class ViewManager {
     lazy var lookup: SelectionPopUpViewController = {
         return UIStoryboard(name: "SelectionPopup", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectionPopUp") as! SelectionPopUpViewController
     }()
+
+    lazy var datePicker: DatePickerViewController = {
+        return UIStoryboard(name: "DatePicker", bundle: Bundle.main).instantiateViewController(withIdentifier: "DatePicker") as! DatePickerViewController
+    }()
 }

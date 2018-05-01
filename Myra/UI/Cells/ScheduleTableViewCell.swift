@@ -25,8 +25,39 @@ class ScheduleTableViewCell: BaseFormCell {
 
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
-        guard let p = parentReference else { return }
+        guard let p = parentReference,
+            let start = rup.planStartDate,
+            let end = rup.planEndDate
+            else { return }
+        let vm = ViewManager()
+        let picker = vm.datePicker
 
+        let taken = RUPManager.shared.getScheduleYears(rup: rup)
+
+        picker.setup(for: start, max: end, taken: taken) { (selection) in
+            if RUPManager.shared.isNewScheduleYearValidFor(rup: self.rup, newYear: Int(selection)!) {
+                let schedule = Schedule()
+                schedule.name = selection
+                schedule.year = Int(selection)!
+
+                do {
+                    let realm = try Realm()
+                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                    try realm.write {
+                        aRup.schedules.append(schedule)
+                        realm.add(schedule)
+                    }
+                    self.rup = aRup
+                } catch _ {
+                    fatalError()
+                }
+                self.updateTableHeight()
+            } else {
+                p.showAlert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
+            }
+        }
+        p.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        /*
         p.promptInput(title: "Schedule year", accept: .Year, taken: RUPManager.shared.getScheduleYears(rup: rup)) { (done, name) in
             if done {
                 if name.isInt, let year = Int(name) {
@@ -55,7 +86,7 @@ class ScheduleTableViewCell: BaseFormCell {
                     p.showAlert(with: "Invalid year", message: "")
                 }
             }
-        }
+        }*/
     }
 
     // MARK: Setup

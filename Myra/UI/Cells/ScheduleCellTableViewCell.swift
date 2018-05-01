@@ -64,37 +64,33 @@ class ScheduleCellTableViewCell: BaseFormCell {
     func handleGesture(gesture: UISwipeGestureRecognizer) {    }
 
     func duplicate() {
-        if let sched = schedule {
-            
-            guard let nextYear = RUPManager.shared.getNextScheduleYearFor(from: sched.year, rup: rup) else {
-                parentReference?.parentReference?.showAlert(with: "Invalid year", message: "Cannot insert a valid schedule object within plan start and plan end date")
-                self.leadingOptions.constant = 0
-                animateIt()
-                return
-            }
-            
+        guard let sched = schedule else {return}
+        let vm = ViewManager()
+        let picker = vm.datePicker
+        let taken = RUPManager.shared.getScheduleYears(rup: rup)
+        guard let start = rup.planStartDate, let end = rup.planEndDate else { return }
+        picker.setup(for: start, max: end, taken: taken) { (selection) in
+            guard let year = Int(selection) else {return}
             let copy = Schedule()
-            copy.year = nextYear
-            copy.name = "\(nextYear)"
-            
+            copy.year = year
+            copy.name = selection
             RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
-            
             do {
                 let realm = try Realm()
-                let aRup = realm.objects(RUP.self).filter("localId = %@", rup.localId).first!
+                let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
                 try realm.write {
                     aRup.schedules.append(copy)
                     realm.add(copy)
                 }
-                rup = aRup
+                self.rup = aRup
             } catch _ {
                 fatalError()
             }
+            self.parentReference?.updateTableHeight()
+            self.leadingOptions.constant = 0
+            self.animateIt()
         }
-
-        parentReference?.updateTableHeight()
-        self.leadingOptions.constant = 0
-        animateIt()
+        parentReference?.parentReference?.showPopOver(on: copyButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
     
     @IBAction func optionsAction(_ sender: Any) {
