@@ -117,7 +117,11 @@ extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getYearCell(indexPath: indexPath)
-        cell.setup(usage: usageYears[indexPath.row])
+         if indexPath.row % 2 == 0 {
+            cell.setup(usage: usageYears[indexPath.row], bg: Colors.evenCell)
+         } else {
+            cell.setup(usage: usageYears[indexPath.row], bg: Colors.oddCell)
+        }
         return cell
     }
 

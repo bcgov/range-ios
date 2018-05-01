@@ -382,13 +382,27 @@ class APIManager {
         if let zdes = zoneJSON["description"].string {
             zdesc = zdes
         }
-        if let zcn = zoneJSON["contactName"].string {
-            zcontactName = zcn
+
+        // Zone user
+        let zoneUser = zoneJSON["user"]
+        var firstName = ""
+        var lastName = ""
+
+        if let zoneUserName = zoneUser["givenName"].string {
+            firstName = zoneUserName
         }
-        if let zpn = zoneJSON["contactPhoneNumber"].string {
+
+        if let zoneUserFamilyName = zoneUser["familyName"].string {
+            lastName = zoneUserFamilyName
+        }
+
+        zcontactName = "\(firstName) \(lastName)"
+
+        if let zpn = zoneUser["phone"].string {
             zcontactPhoneNumber = zpn
         }
-        if let zce = zoneJSON["contactEmail"].string {
+
+        if let zce = zoneUser["email"].string {
             zcontactEmail = zce
         }
 
@@ -441,10 +455,9 @@ class APIManager {
                 usageObj.totalNonUse = tnu
             }
 
-            if let yy = usage["year"].string {
-                if yy.isInt {
-                    usageObj.year = Int(yy)!
-                }
+            if let yy = usage["year"].int {
+                usageObj.year = Int(yy)
+
             }
             usages.append(usageObj)
         }
