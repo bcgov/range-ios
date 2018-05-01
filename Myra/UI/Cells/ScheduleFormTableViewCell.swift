@@ -13,7 +13,7 @@ import RealmSwift
 class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
-    let cellHeight = 50.0
+    static let cellHeight = 55.0
 
     // Mark: Variables
     var schedule: Schedule?
@@ -63,14 +63,14 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         self.parentReference = parentReference
         self.rup = rup
         self.schedule = schedule
-        height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * cellHeight + 5.0)
+        height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * ScheduleFormTableViewCell.cellHeight + 5.0)
         setUpTable()
         style()
     }
 
     func updateTableHeight() {
         self.tableView.reloadData()
-        height.constant = CGFloat( Double((schedule?.scheduleObjects.count)!) * cellHeight + 5.0)
+        height.constant = CGFloat( Double((schedule?.scheduleObjects.count)!) * ScheduleFormTableViewCell.cellHeight + 5.0)
         let parent = self.parentViewController as! ScheduleViewController
         parent.reloadCells()
     }

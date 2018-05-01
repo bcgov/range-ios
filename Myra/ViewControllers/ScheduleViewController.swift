@@ -16,6 +16,7 @@ class ScheduleViewController: BaseViewController {
     var schedule: Schedule?
     var rup: RUP?
     var popupContainerTag = 200
+    var popover: UIPopoverPresentationController?
 
     // MARK: Outlets
     @IBOutlet weak var scheduleTitle: UILabel!
@@ -72,20 +73,34 @@ class ScheduleViewController: BaseViewController {
     }
 
     // Mark: Livestock selection popup
-    func showpopup(vc: SelectionPopUpViewController) {
+    func showpopup(vc: SelectionPopUpViewController, on: UIButton) {
+        let popOverWidth = 200
+        var popOverHeight = 300
+        if vc.canDisplayFullContentIn(height: popOverHeight) {
+            popOverHeight =  vc.getEstimatedHeight()
+        }
+        showPopOver(on: on, vc: vc, height: popOverHeight, width: popOverWidth)
+
+        /*
         showWhiteScreen()
         if let whiteView = self.view.viewWithTag(whiteScreenTag) {
+
             let container = getLiveStockPopupHolder()
+            
             whiteView.addSubview(container)
             addChildViewController(vc)
             container.addSubview(vc.view)
             vc.view.frame = container.bounds
             vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             vc.didMove(toParentViewController: self)
-        }
+
+        }*/
     }
 
     func hidepopup(vc: SelectionPopUpViewController) {
+        vc.dismiss(animated: true, completion: nil)
+        return
+            /*
         vc.willMove(toParentViewController: nil)
         vc.view.removeFromSuperview()
         vc.removeFromParentViewController()
@@ -93,6 +108,7 @@ class ScheduleViewController: BaseViewController {
             container.removeFromSuperview()
         }
         removeWhiteScreen()
+        */
     }
 
     func getLiveStockPopupHolder() -> UIView {

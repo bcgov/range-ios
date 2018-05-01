@@ -19,6 +19,7 @@ class HomeViewController: BaseViewController {
     var syncButtonActionTag = 121
 
     // MARK: Variables
+    var parentReference: MainViewController?
     var rups: [RUP] = [RUP]()
 
     var online: Bool = false {
@@ -109,6 +110,10 @@ class HomeViewController: BaseViewController {
         default:
             print("not possible.. why would you link anything else to this?")
         }
+    }
+
+    @IBAction func userAction(_ sender: UIButton) {
+        showLogoutOption(on: sender)
     }
 
     // MARK: Filter

@@ -81,6 +81,12 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLn-Ss-fBW">
                                                 <rect key="frame" x="1057" y="36" width="40" height="40"/>
                                                 <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEt-wZ-uEw">
+                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <connections>
+                                                            <action selector="userAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="FB9-cx-muE"/>
+                                                        </connections>
+                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T23-qv-Zxj">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -92,10 +98,14 @@
                                                 <constraints>
                                                     <constraint firstItem="T23-qv-Zxj" firstAttribute="top" secondItem="GLn-Ss-fBW" secondAttribute="top" id="2bn-fW-jEE"/>
                                                     <constraint firstAttribute="bottom" secondItem="T23-qv-Zxj" secondAttribute="bottom" id="9Vq-Br-2zY"/>
+                                                    <constraint firstItem="HEt-wZ-uEw" firstAttribute="height" secondItem="GLn-Ss-fBW" secondAttribute="height" id="Br1-ew-IxU"/>
+                                                    <constraint firstItem="HEt-wZ-uEw" firstAttribute="centerY" secondItem="GLn-Ss-fBW" secondAttribute="centerY" id="Gqn-W5-z3x"/>
                                                     <constraint firstAttribute="height" constant="40" id="Kaa-1h-ozi"/>
                                                     <constraint firstAttribute="width" constant="40" id="du6-l5-O9e"/>
+                                                    <constraint firstItem="HEt-wZ-uEw" firstAttribute="width" secondItem="GLn-Ss-fBW" secondAttribute="width" id="fMs-Gd-htq"/>
                                                     <constraint firstAttribute="trailing" secondItem="T23-qv-Zxj" secondAttribute="trailing" id="h2V-2M-3vk"/>
                                                     <constraint firstItem="T23-qv-Zxj" firstAttribute="leading" secondItem="GLn-Ss-fBW" secondAttribute="leading" id="oFn-fH-5RP"/>
+                                                    <constraint firstItem="HEt-wZ-uEw" firstAttribute="centerX" secondItem="GLn-Ss-fBW" secondAttribute="centerX" id="ymr-UO-1dU"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwf-Tf-o9i">
