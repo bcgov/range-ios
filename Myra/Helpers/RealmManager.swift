@@ -7,11 +7,25 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
 class RealmManager {
     static let shared = RealmManager()
 
     private init() {}
+
+    func clearAllData() {
+
+        do {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.deleteAll()
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
 
     func getLastSyncDate() -> Date? {
         let query = RealmRequests.getObject(SyncDate.self)
