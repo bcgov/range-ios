@@ -7,11 +7,29 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
 class RealmManager {
     static let shared = RealmManager()
 
     private init() {}
+
+    func clearAllData() {
+        RealmRequests.removeAll(RUP.self)
+        RealmRequests.removeAll(Agreement.self)
+        RealmRequests.removeAll(RangeUsageYear.self)
+        RealmRequests.removeAll(Pasture.self)
+        RealmRequests.removeAll(Client.self)
+        RealmRequests.removeAll(Schedule.self)
+        RealmRequests.removeAll(ScheduleObject.self)
+        RealmRequests.removeAll(Zone.self)
+        RealmRequests.removeAll(District.self)
+        RealmRequests.removeAll(PlantCommunity.self)
+
+        let a = RealmRequests.getObject(Agreement.self)
+        print(a)
+    }
 
     func getLastSyncDate() -> Date? {
         let query = RealmRequests.getObject(SyncDate.self)

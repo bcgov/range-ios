@@ -522,6 +522,7 @@ extension BaseViewController {
     func logout() {
         authServices.logout()
         RealmManager.shared.clearLastSyncDate()
+        RealmManager.shared.clearAllData()
     }
 
 }
