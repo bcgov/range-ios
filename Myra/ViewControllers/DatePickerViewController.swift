@@ -21,6 +21,9 @@ class DatePickerViewController: UIViewController, Theme {
 
     var isListMode: Bool = false
 
+    var min: Date?
+    var max: Date?
+
     var selectedDate: Date? {
         didSet{
             selectButton.alpha = 1
@@ -80,18 +83,21 @@ class DatePickerViewController: UIViewController, Theme {
     // full date selection between specified dates
     func setup(between min: Date, max: Date, completion: @escaping (_ result: Date) -> Void) {
         self.completion = completion
-        picker.minimumDate = min
-        picker.maximumDate = max
+        self.min = min
+        self.max = max
 
         isListMode = false
     }
 
     // Used by schedule page: Only allow dates within year,
-    func setup(year inDate: Date, completion: @escaping (_ result: Date) -> Void) {
+    func setup(for year: Int, minDate: Date?, completion: @escaping (_ result: Date) -> Void) {
         self.completion = completion
-        let year = Calendar.current.component(.year, from: inDate)
-        picker.minimumDate = getFirstDateOf(year: year)
-        picker.maximumDate = getLastDateOf(year: year)
+        if let m = minDate {
+            self.min = m
+        } else {
+            self.min = getFirstDateOf(year: year)
+        }
+        self.max = getLastDateOf(year: year)
 
         isListMode = false
     }
@@ -145,6 +151,10 @@ class DatePickerViewController: UIViewController, Theme {
     }
 
     func showDatePicker() {
+        guard let minDate = min, let maxDate = max else {return}
+        picker.minimumDate = minDate
+        picker.maximumDate = maxDate
+        picker.datePickerMode = .date
         self.picker.alpha = 1
         self.listPicker.alpha = 0
     }
