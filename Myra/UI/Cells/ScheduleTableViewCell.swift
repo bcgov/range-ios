@@ -32,9 +32,9 @@ class ScheduleTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let picker = vm.datePicker
 
-        let take = RUPManager.shared.getScheduleYears(rup: rup)
+        let taken = RUPManager.shared.getScheduleYears(rup: rup)
 
-        picker.setup(for: start, max: end, taken: take) { (selection) in
+        picker.setup(for: start, max: end, taken: taken) { (selection) in
             if RUPManager.shared.isNewScheduleYearValidFor(rup: self.rup, newYear: Int(selection)!) {
                 let schedule = Schedule()
                 schedule.name = selection
