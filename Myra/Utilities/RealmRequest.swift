@@ -57,15 +57,4 @@ struct RealmRequests {
         } catch _ {}
         return nil
     }
-
-    static func removeAll<T: Object>(_ object: T.Type) {
-        do {
-            let realm = try Realm()
-            let objs = realm.objects(object).map{ $0 }
-            let all = Array(objs)
-            for x in all {
-                deleteObject(x)
-            }
-        } catch _ {}
-    }
 }

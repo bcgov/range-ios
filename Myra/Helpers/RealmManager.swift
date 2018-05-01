@@ -16,19 +16,15 @@ class RealmManager {
     private init() {}
 
     func clearAllData() {
-        RealmRequests.removeAll(RUP.self)
-        RealmRequests.removeAll(Agreement.self)
-        RealmRequests.removeAll(RangeUsageYear.self)
-        RealmRequests.removeAll(Pasture.self)
-        RealmRequests.removeAll(Client.self)
-        RealmRequests.removeAll(Schedule.self)
-        RealmRequests.removeAll(ScheduleObject.self)
-        RealmRequests.removeAll(Zone.self)
-        RealmRequests.removeAll(District.self)
-        RealmRequests.removeAll(PlantCommunity.self)
 
-        let a = RealmRequests.getObject(Agreement.self)
-        print(a)
+        do {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.deleteAll()
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
     func getLastSyncDate() -> Date? {
