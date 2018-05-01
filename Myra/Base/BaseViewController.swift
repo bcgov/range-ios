@@ -484,7 +484,7 @@ extension BaseViewController {
                     let message = "Authentication didn't work. Please try again."
 
                     self.showAlert(with: title, message: message)
-
+ 
                     return
                 }
                 self.authenticated = true
@@ -522,6 +522,7 @@ extension BaseViewController {
     func logout() {
         authServices.logout()
         RealmManager.shared.clearLastSyncDate()
+        RealmManager.shared.clearAllData()
     }
 
 }
