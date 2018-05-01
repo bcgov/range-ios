@@ -225,6 +225,7 @@ extension Theme {
     func styleInputField(field: UITextField, editable: Bool, height: NSLayoutConstraint) {
         styleInput(input: field, height: height)
         if editable {
+            field.isUserInteractionEnabled = true
             field.backgroundColor = defaultInputFieldBackground()
         } else {
             field.backgroundColor = UIColor.clear

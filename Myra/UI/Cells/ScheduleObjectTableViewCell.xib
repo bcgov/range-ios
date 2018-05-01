@@ -85,7 +85,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-tM-3Rg" userLabel="input box">
-                                        <rect key="frame" x="153" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="153" y="0.0" width="66.5" height="44.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vv3-Lf-CIF">
                                                 <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
@@ -100,6 +100,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="Vv3-Lf-CIF" firstAttribute="leading" secondItem="rXu-tM-3Rg" secondAttribute="leading" id="Bh2-Qc-wkO"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vv3-Lf-CIF" secondAttribute="bottom" id="X5a-k9-0TY"/>
                                             <constraint firstAttribute="trailing" secondItem="Vv3-Lf-CIF" secondAttribute="trailing" id="bqm-Zz-PaA"/>
                                             <constraint firstItem="Vv3-Lf-CIF" firstAttribute="top" secondItem="rXu-tM-3Rg" secondAttribute="top" id="k28-RV-eP9"/>
                                         </constraints>

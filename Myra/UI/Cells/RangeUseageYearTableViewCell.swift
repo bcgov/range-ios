@@ -30,11 +30,12 @@ class RangeUseageYearTableViewCell: BaseFormCell {
         // Configure the view for the selected state
     }
 
-    func setup(usage: RangeUsageYear) {
+    func setup(usage: RangeUsageYear, bg: UIColor) {
         self.usageYear = usage
         if usageYear?.year != 0 {
             lockFields()
         }
+        self.backgroundColor = bg
         autofill()
         style()
     }

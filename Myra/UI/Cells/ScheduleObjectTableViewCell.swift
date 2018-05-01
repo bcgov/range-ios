@@ -185,9 +185,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         styleInputField(field: crownAUM, editable: false, height: fieldHeight)
         styleInputField(field: pldAUM, editable: false, height: fieldHeight)
         styleInputField(field: graceDays, editable: false, height: fieldHeight)
+        styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
         styleInput(input: pasture, height: fieldHeight)
         styleInput(input: liveStock, height: fieldHeight)
-        styleInput(input: numberOfAniamls, height: fieldHeight)
+//        styleInput(input: numberOfAniamls, height: fieldHeight)
         styleInput(input: dateIn, height: fieldHeight)
         styleInput(input: dateOut, height: fieldHeight)
     }
