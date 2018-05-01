@@ -82,14 +82,14 @@ class BaseViewController: UIViewController, Theme {
     }
 
     // MARK: Popover
-    func showPopOver(on: UIButton, vc: UIViewController, height: Int, width: Int) {
+    func showPopOver(on: UIButton, vc: UIViewController, height: Int, width: Int, arrowColor: UIColor?) {
         vc.modalPresentationStyle = .popover
         vc.preferredContentSize = CGSize(width: width, height: height)
         let popover = vc.popoverPresentationController
-        popover?.backgroundColor = UIColor.white
-        popover?.permittedArrowDirections = .up
+        popover?.backgroundColor = arrowColor ?? UIColor.white
+        popover?.permittedArrowDirections = .any
         popover?.sourceView = on
-        popover?.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.maxY, width: 0, height: 0)
+        popover?.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.midY, width: 0, height: 0)
         present(vc, animated: true, completion: nil)
     }
 

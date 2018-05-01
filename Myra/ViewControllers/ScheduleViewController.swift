@@ -79,7 +79,7 @@ class ScheduleViewController: BaseViewController {
         if vc.canDisplayFullContentIn(height: popOverHeight) {
             popOverHeight =  vc.getEstimatedHeight()
         }
-        showPopOver(on: on, vc: vc, height: popOverHeight, width: popOverWidth)
+        showPopOver(on: on, vc: vc, height: popOverHeight, width: popOverWidth, arrowColor: nil)
 
         /*
         showWhiteScreen()
