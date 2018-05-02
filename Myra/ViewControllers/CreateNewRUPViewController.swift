@@ -313,11 +313,6 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // Mark: Functions
-    func getMapVC() -> CreateViewController {
-        let vm = ViewManager()
-        return vm.create
-    }
-
     func setup(rup: RUP, callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup

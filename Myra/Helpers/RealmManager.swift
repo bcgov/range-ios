@@ -19,7 +19,7 @@ class RealmManager {
 
         do {
             let realm = try! Realm()
-            try! realm.write {
+            try realm.write {
                 realm.deleteAll()
             }
         } catch _ {

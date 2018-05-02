@@ -15,8 +15,6 @@
 		2917468520742765005F70B4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2917468420742765005F70B4 /* Login.storyboard */; };
 		291746872074279B005F70B4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291746862074279B005F70B4 /* LoginViewController.swift */; };
 		2917468920742A7A005F70B4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917468820742A7A005F70B4 /* MainViewController.swift */; };
-		291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9320364BDF00390523 /* CreateViewController.swift */; };
-		291C4D9620364BEF00390523 /* Create.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291C4D9520364BEF00390523 /* Create.storyboard */; };
 		291C4D9B2037631400390523 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9A2037631400390523 /* Polygon.swift */; };
 		291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9C20378A3900390523 /* OpenMapOverlay.swift */; };
 		291CF8322098EAF300B0BCDD /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291CF8312098EAF300B0BCDD /* DatePicker.storyboard */; };
@@ -138,8 +136,6 @@
 		2917468420742765005F70B4 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		291746862074279B005F70B4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2917468820742A7A005F70B4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		291C4D9320364BDF00390523 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
-		291C4D9520364BEF00390523 /* Create.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Create.storyboard; sourceTree = "<group>"; };
 		291C4D9A2037631400390523 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		291C4D9C20378A3900390523 /* OpenMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMapOverlay.swift; sourceTree = "<group>"; };
 		291CF8312098EAF300B0BCDD /* DatePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
@@ -291,7 +287,6 @@
 				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
 				294AC502204F57E800F0FB04 /* ScheduleViewController.swift */,
 				29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */,
-				291C4D9320364BDF00390523 /* CreateViewController.swift */,
 				291CF8332098EBED00B0BCDD /* DatePickerViewController.swift */,
 			);
 			path = ViewControllers;
@@ -502,7 +497,6 @@
 				294AC500204F57CC00F0FB04 /* Schedule.storyboard */,
 				29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */,
 				29A52744205B301400C871F7 /* SelectionPopup.storyboard */,
-				291C4D9520364BEF00390523 /* Create.storyboard */,
 				291CF8312098EAF300B0BCDD /* DatePicker.storyboard */,
 			);
 			path = Storyboards;
@@ -567,7 +561,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Government of British Columbia";
 				TargetAttributes = {
 					293C95C020335D4100BF1113 = {
@@ -626,7 +620,6 @@
 				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
 				29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */,
-				291C4D9620364BEF00390523 /* Create.storyboard in Resources */,
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				29B5F047208E958D003D996D /* sync_icon.json in Resources */,
 				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
@@ -785,7 +778,6 @@
 				29EADF8420603F9C0087593F /* RealmManager.swift in Sources */,
 				29EADF7E206039BC0087593F /* AgreemntType.swift in Sources */,
 				294005862092726D00AA1BDC /* Theme.swift in Sources */,
-				291C4D9420364BDF00390523 /* CreateViewController.swift in Sources */,
 				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
 				2932BB51208567D900579A57 /* MyraObject.swift in Sources */,
 				2932BB57208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift in Sources */,
@@ -838,6 +830,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -845,6 +838,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -895,6 +889,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -902,6 +897,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

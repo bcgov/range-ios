@@ -98,28 +98,6 @@ class DataServices: NSObject {
             return completion()
         }
 
-
-
-//        guard let agreements = try? Realm().objects(Agreement.self).filter("ANY rups.status == 'Outbox'", Constants.Defaults.planId), agreements.count > 0 else {
-//            completion()
-//            return // no plans to upload
-//        }
-//
-//        onUploadCompleted = completion
-//
-//        for agreement in agreements {
-//            let agreementId = agreement.agreementId
-//            queue.addAsyncOperation { done in
-//                guard let myAgreements = try? Realm().objects(Agreement.self).filter("agreementId = %@", agreementId), let myAgreement = myAgreements.first else {
-//                    return
-//                }
-//
-//                self.uploadPlans(forAgreement: myAgreement) { () in
-//                    done()
-//                }
-//            }
-//        }
-
     }
 
     private func upload(plans: [RUP], completion: @escaping () -> Void) {

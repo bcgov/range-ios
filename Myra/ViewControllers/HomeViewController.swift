@@ -229,9 +229,6 @@ class HomeViewController: BaseViewController {
 
     func styleCreateButton() {
         styleFillButton(button: createButton)
-//        createButton.backgroundColor = Colors.primary
-//        createButton.layer.cornerRadius = 5
-//        createButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
     }
 
     func styleFilterContainer() {
@@ -385,11 +382,6 @@ extension HomeViewController {
             self.tableView.reloadData()
         }
         self.present(vc, animated: true, completion: nil)
-    }
-
-    func getMapVC() -> CreateViewController {
-        let vm = ViewManager()
-        return vm.create
     }
 
     func getCreateNewVC() -> CreateNewRUPViewController {
