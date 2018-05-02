@@ -127,9 +127,19 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     func autofill() {
-        self.aumsField.text = "\(pasture?.allowedAUMs ?? 0)"
-        self.deductionFIeld.text = "\(pasture?.privateLandDeduction ?? 0)"
-        self.graceDaysField.text = "\(pasture?.graceDays ?? 3)"
+        if let allowedAumsVal = pasture?.allowedAUMs {
+            self.aumsField.text = "\(allowedAumsVal)"
+        }
+
+        if let pldVal = pasture?.privateLandDeduction {
+            let intPldVal = Int(pldVal)
+            self.deductionFIeld.text = "\(intPldVal)"
+        }
+
+        if let graceDaysVal = pasture?.graceDays {
+            self.graceDaysField.text = "\(graceDaysVal)"
+        }
+        
         self.pastureNotesTextField.text = pasture?.notes
     }
 
