@@ -30,18 +30,8 @@ class AssignedRUPTableViewCell: UITableViewCell {
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
         if rup == nil {return}
-//        if rup?.statusEnum == .Outbox {return}
         let parent = self.parentViewController as! HomeViewController
         parent.editRUP(rup: rup!)
-    }
-
-    @IBAction func debugButton(_ sender: Any) {
-        print(self.rup?.schedules)
-        print("**")
-    }
-
-    // removed
-    @IBAction func ammendAction(_ sender: Any) {
     }
 
     // MARK: Functions
