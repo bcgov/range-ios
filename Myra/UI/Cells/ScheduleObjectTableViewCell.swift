@@ -193,7 +193,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
         styleInput(input: pasture, height: fieldHeight)
         styleInput(input: liveStock, height: fieldHeight)
-//        styleInput(input: numberOfAniamls, height: fieldHeight)
         styleInput(input: dateIn, height: fieldHeight)
         styleInput(input: dateOut, height: fieldHeight)
     }
@@ -209,7 +208,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         // fields that are not filled by user
         fillCurrentValues()
 
-        self.numberOfAniamls.text = "\(scheduleObject?.numberOfAnimals ?? 0)"
+        if let numOfAnimals = scheduleObject?.numberOfAnimals, numOfAnimals != 0 {
+            self.numberOfAniamls.text = "\(numOfAnimals)"
+        }
 
         if let inDate = scheduleObject?.dateIn {
             self.dateIn.text = DateManager.toString(date: inDate)
