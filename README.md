@@ -1,4 +1,5 @@
-![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Icon.png)
+![Alt Text](https://github.com/bcgov/range-ios/blob/master/readmeFiles/Icon.png)
+
 # About My Range Application (MyRA) for iOS (iPad)
 ![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Home.png)
 
