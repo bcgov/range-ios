@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_5" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="s1o-4l-FCS">
+            <objects>
+                <viewController storyboardIdentifier="Login" id="WLz-lO-hN5" customClass="LoginViewController" customModule="Myra" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VFs-hE-nGm">
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sc-y4-3ue">
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Asset_LoginBG" translatesAutoresizingMaskIntoConstraints="NO" id="w6N-HB-q6I">
+                                        <rect key="frame" x="0.0" y="0.0" width="1112" height="824"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-WK-Aeg">
+                                        <rect key="frame" x="311" y="197" width="490" height="440"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Range Application" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUD-RT-8ig">
+                                                <rect key="frame" x="8" y="243" width="474" height="41"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                                <color key="textColor" red="0.13725490200000001" green="0.25098039220000001" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Asset_BCLogo_Color" translatesAutoresizingMaskIntoConstraints="NO" id="q0C-cZ-72U">
+                                                <rect key="frame" x="8" y="45" width="474" height="148"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGV-XT-Rta">
+                                                <rect key="frame" x="105" y="336" width="280" height="54"/>
+                                                <color key="backgroundColor" red="0.13725490200000001" green="0.25098039220000001" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="54" id="hRO-pW-azd"/>
+                                                </constraints>
+                                                <state key="normal" title="Login with IDIR">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginAction:" destination="WLz-lO-hN5" eventType="touchUpInside" id="IBB-UH-dPd"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="440" id="Deu-RV-CYG"/>
+                                            <constraint firstItem="AUD-RT-8ig" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="8" id="K5y-Wn-fPy"/>
+                                            <constraint firstItem="AUD-RT-8ig" firstAttribute="top" secondItem="q0C-cZ-72U" secondAttribute="bottom" constant="50" id="PMe-0Z-anL"/>
+                                            <constraint firstAttribute="bottom" secondItem="mGV-XT-Rta" secondAttribute="bottom" constant="50" id="SRF-sy-LhU"/>
+                                            <constraint firstAttribute="width" constant="490" id="VZU-b7-9Wk"/>
+                                            <constraint firstItem="q0C-cZ-72U" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="8" id="Xoy-TN-QfL"/>
+                                            <constraint firstItem="mGV-XT-Rta" firstAttribute="top" secondItem="AUD-RT-8ig" secondAttribute="bottom" constant="52" id="Yf7-xn-jNy"/>
+                                            <constraint firstItem="q0C-cZ-72U" firstAttribute="top" secondItem="5cZ-WK-Aeg" secondAttribute="top" constant="45" id="gDB-Ge-bU8"/>
+                                            <constraint firstAttribute="trailing" secondItem="AUD-RT-8ig" secondAttribute="trailing" constant="8" id="gEG-YX-z3k"/>
+                                            <constraint firstItem="mGV-XT-Rta" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="105" id="idb-xw-SV5"/>
+                                            <constraint firstAttribute="trailing" secondItem="mGV-XT-Rta" secondAttribute="trailing" constant="105" id="m5O-yQ-OeY"/>
+                                            <constraint firstAttribute="trailing" secondItem="q0C-cZ-72U" secondAttribute="trailing" constant="8" id="rQO-Ay-d7i"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.13725490200000001" green="0.25098039220000001" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="5cZ-WK-Aeg" firstAttribute="centerX" secondItem="6sc-y4-3ue" secondAttribute="centerX" id="KKf-JT-qTb"/>
+                                    <constraint firstItem="5cZ-WK-Aeg" firstAttribute="centerY" secondItem="6sc-y4-3ue" secondAttribute="centerY" id="zis-at-0pC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ybf-pG-d06" firstAttribute="bottom" secondItem="6sc-y4-3ue" secondAttribute="bottom" id="Ai8-1R-2IY"/>
+                            <constraint firstItem="6sc-y4-3ue" firstAttribute="leading" secondItem="VFs-hE-nGm" secondAttribute="leading" id="FyA-Au-fZC"/>
+                            <constraint firstAttribute="trailing" secondItem="6sc-y4-3ue" secondAttribute="trailing" id="crO-eF-cJ3"/>
+                            <constraint firstItem="6sc-y4-3ue" firstAttribute="top" secondItem="VFs-hE-nGm" secondAttribute="top" id="pmZ-bJ-urK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ybf-pG-d06"/>
+                    </view>
+                    <connections>
+                        <outlet property="bgImage" destination="w6N-HB-q6I" id="1MG-gO-RkF"/>
+                        <outlet property="container" destination="5cZ-WK-Aeg" id="2G7-nS-Flp"/>
+                        <outlet property="loginButton" destination="mGV-XT-Rta" id="cN8-cZ-UEW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r0x-6i-4CC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-60" y="-188"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Asset_BCLogo_Color" width="172" height="148"/>
+        <image name="Asset_LoginBG" width="2048" height="1536"/>
+    </resources>
+</document>

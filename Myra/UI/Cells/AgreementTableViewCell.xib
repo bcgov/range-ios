@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="KGk-i7-Jjw" customClass="AgreementTableViewCell" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="562" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="562" height="65.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bok-H5-chi">
+                        <rect key="frame" x="0.0" y="22.5" width="120" height="21"/>
+                        <accessibility key="accessibilityConfiguration" identifier="AgreementRangeNumber"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="120" id="4Lj-EJ-dxs"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xx7-E8-g7x">
+                        <rect key="frame" x="120" y="23" width="226" height="21"/>
+                        <accessibility key="accessibilityConfiguration" identifier="AgreementAgreementHolder"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYg-qO-FGa">
+                        <rect key="frame" x="364" y="17" width="160" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="gGa-Rl-WP9"/>
+                            <constraint firstAttribute="width" constant="160" id="rOa-wL-NGS"/>
+                        </constraints>
+                        <state key="normal" title="Select"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Bok-H5-chi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9q7-z0-QQr"/>
+                    <constraint firstItem="Bok-H5-chi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Cbb-z7-zkp"/>
+                    <constraint firstItem="xx7-E8-g7x" firstAttribute="centerY" secondItem="Bok-H5-chi" secondAttribute="centerY" id="KvK-d7-mLt"/>
+                    <constraint firstItem="xx7-E8-g7x" firstAttribute="leading" secondItem="Bok-H5-chi" secondAttribute="trailing" id="Vbg-fg-O4l"/>
+                    <constraint firstItem="FYg-qO-FGa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aEs-vI-aaE"/>
+                    <constraint firstItem="FYg-qO-FGa" firstAttribute="leading" secondItem="xx7-E8-g7x" secondAttribute="trailing" constant="18" id="b10-2A-1AT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="FYg-qO-FGa" secondAttribute="trailing" constant="18" id="urX-Su-EDZ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="agreementHolder" destination="xx7-E8-g7x" id="eCG-eR-oDj"/>
+                <outlet property="rangeNumber" destination="Bok-H5-chi" id="5nH-fL-TQE"/>
+                <outlet property="selectButton" destination="FYg-qO-FGa" id="CZc-0B-G2g"/>
+            </connections>
+            <point key="canvasLocation" x="155" y="65"/>
+        </tableViewCell>
+    </objects>
+</document>

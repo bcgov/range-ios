@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="52" id="KGk-i7-Jjw" customClass="ScheduleObjectTableViewCell" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="678" height="52"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="678" height="51.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTk-km-mz6">
+                        <rect key="frame" x="0.0" y="0.0" width="678" height="55.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6gD-DT-9GS">
+                                <rect key="frame" x="0.0" y="5" width="678" height="45.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9k-kf-pF9" userLabel="input box">
+                                        <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKY-cO-wEA">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureField"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="c1M-e1-5Px"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToI-k8-8ID">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureField"/>
+                                                <connections>
+                                                    <action selector="lookupPastures:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uUs-3v-6he"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="ToI-k8-8ID" secondAttribute="bottom" id="4SH-8f-21c"/>
+                                            <constraint firstItem="pKY-cO-wEA" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="CTj-SU-2c3"/>
+                                            <constraint firstItem="ToI-k8-8ID" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="EPA-dD-jRa"/>
+                                            <constraint firstItem="ToI-k8-8ID" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="EqJ-fn-Qsb"/>
+                                            <constraint firstAttribute="trailing" secondItem="ToI-k8-8ID" secondAttribute="trailing" id="Rkz-F1-ZA9"/>
+                                            <constraint firstAttribute="trailing" secondItem="pKY-cO-wEA" secondAttribute="trailing" id="qfa-3O-fZ7"/>
+                                            <constraint firstItem="pKY-cO-wEA" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="zsM-gG-aJl"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGv-1C-d90" userLabel="input box">
+                                        <rect key="frame" x="76.5" y="0.0" width="66.5" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uTC-sl-aHj">
+                                                <rect key="frame" x="0.0" y="0.0" width="67" height="44.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectLiveStockField"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-PB-jfn">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectLiveStockButton"/>
+                                                <connections>
+                                                    <action selector="lookupLiveStockType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Ch-pq-dcO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="0lz-PB-jfn" secondAttribute="bottom" id="2yJ-PV-Mt7"/>
+                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="4Q6-he-02C"/>
+                                            <constraint firstAttribute="trailing" secondItem="0lz-PB-jfn" secondAttribute="trailing" id="68Q-qN-rbc"/>
+                                            <constraint firstItem="uTC-sl-aHj" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="9ox-JP-tMF"/>
+                                            <constraint firstItem="uTC-sl-aHj" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="EOk-gT-elR"/>
+                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="FZe-gL-2X9"/>
+                                            <constraint firstAttribute="trailing" secondItem="uTC-sl-aHj" secondAttribute="trailing" id="Wb9-RE-aTr"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-tM-3Rg" userLabel="input box">
+                                        <rect key="frame" x="153" y="0.0" width="66.5" height="44.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vv3-Lf-CIF">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectNumberOfAnimalsField"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="numberOfAnimalsChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="bvm-Pl-ru9"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Vv3-Lf-CIF" firstAttribute="leading" secondItem="rXu-tM-3Rg" secondAttribute="leading" id="Bh2-Qc-wkO"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vv3-Lf-CIF" secondAttribute="bottom" id="X5a-k9-0TY"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vv3-Lf-CIF" secondAttribute="trailing" id="bqm-Zz-PaA"/>
+                                            <constraint firstItem="Vv3-Lf-CIF" firstAttribute="top" secondItem="rXu-tM-3Rg" secondAttribute="top" id="k28-RV-eP9"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIh-gP-aBp" userLabel="input box">
+                                        <rect key="frame" x="229.5" y="0.0" width="66.5" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-AF-6Y3">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mw2-PD-7ur">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateInButton"/>
+                                                <connections>
+                                                    <action selector="dateInAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lbo-YM-bnc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="pDS-AF-6Y3" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="Lkd-Xf-RhZ"/>
+                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="OUL-o9-9Gf"/>
+                                            <constraint firstAttribute="trailing" secondItem="Mw2-PD-7ur" secondAttribute="trailing" id="WuF-e9-3bz"/>
+                                            <constraint firstAttribute="trailing" secondItem="pDS-AF-6Y3" secondAttribute="trailing" id="ceL-wl-Jw1"/>
+                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="ghy-We-Pqn"/>
+                                            <constraint firstAttribute="bottom" secondItem="Mw2-PD-7ur" secondAttribute="bottom" id="oeV-Fv-z5x"/>
+                                            <constraint firstItem="pDS-AF-6Y3" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="whz-mX-ozW"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Jr-2d-abw" userLabel="input box">
+                                        <rect key="frame" x="306" y="0.0" width="66" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2x-t1-I4Z">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2w-1j-MEv">
+                                                <rect key="frame" x="0.0" y="0.0" width="66" height="45.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateOutButton"/>
+                                                <connections>
+                                                    <action selector="dateOutAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rnj-EW-3aX"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="0Dc-qw-Wah"/>
+                                            <constraint firstAttribute="trailing" secondItem="T2x-t1-I4Z" secondAttribute="trailing" id="4LH-jJ-q7W"/>
+                                            <constraint firstItem="T2x-t1-I4Z" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="IS6-VF-RCr"/>
+                                            <constraint firstAttribute="bottom" secondItem="J2w-1j-MEv" secondAttribute="bottom" id="WON-gg-5VD"/>
+                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="diG-sd-kbr"/>
+                                            <constraint firstAttribute="trailing" secondItem="J2w-1j-MEv" secondAttribute="trailing" id="jte-BQ-ueJ"/>
+                                            <constraint firstItem="T2x-t1-I4Z" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="z0K-cL-UBB"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-BZ-b1I" userLabel="input box">
+                                        <rect key="frame" x="382" y="0.0" width="66.5" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UMP-fz-nzB">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDaysLabel"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="UMP-fz-nzB" firstAttribute="leading" secondItem="NLb-BZ-b1I" secondAttribute="leading" id="OSy-St-p1g"/>
+                                            <constraint firstItem="UMP-fz-nzB" firstAttribute="top" secondItem="NLb-BZ-b1I" secondAttribute="top" id="kXW-de-fXV"/>
+                                            <constraint firstAttribute="trailing" secondItem="UMP-fz-nzB" secondAttribute="trailing" id="trz-sG-SIG"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Y-T1-VRZ" userLabel="input box">
+                                        <rect key="frame" x="458.5" y="0.0" width="66.5" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d5o-9U-aHr">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="d5o-9U-aHr" firstAttribute="leading" secondItem="n8Y-T1-VRZ" secondAttribute="leading" id="4NF-NZ-AjG"/>
+                                            <constraint firstItem="d5o-9U-aHr" firstAttribute="top" secondItem="n8Y-T1-VRZ" secondAttribute="top" id="mw0-be-yHL"/>
+                                            <constraint firstAttribute="trailing" secondItem="d5o-9U-aHr" secondAttribute="trailing" id="o9d-MK-4Au"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygS-ay-bXK" userLabel="input box">
+                                        <rect key="frame" x="535" y="0.0" width="66.5" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aps-wf-RPv">
+                                                <rect key="frame" x="0.0" y="0.0" width="67" height="44.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPLDLabel"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="aps-wf-RPv" firstAttribute="leading" secondItem="ygS-ay-bXK" secondAttribute="leading" id="7mH-mc-t7u"/>
+                                            <constraint firstItem="aps-wf-RPv" firstAttribute="top" secondItem="ygS-ay-bXK" secondAttribute="top" id="k47-Qx-ctf"/>
+                                            <constraint firstAttribute="trailing" secondItem="aps-wf-RPv" secondAttribute="trailing" id="nGM-2a-YUH"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXg-CK-MZr" userLabel="input box">
+                                        <rect key="frame" x="611.5" y="0.0" width="66.5" height="45.5"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-os-aVb">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectCrownAUMLabel"/>
+                                                <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="bsA-os-aVb" firstAttribute="leading" secondItem="ZXg-CK-MZr" secondAttribute="leading" id="4YW-XH-IBZ"/>
+                                            <constraint firstItem="bsA-os-aVb" firstAttribute="top" secondItem="ZXg-CK-MZr" secondAttribute="top" id="C78-hu-cfX"/>
+                                            <constraint firstAttribute="trailing" secondItem="bsA-os-aVb" secondAttribute="trailing" id="QoA-Ie-wzS"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="d5o-9U-aHr" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="312-CM-eqi"/>
+                                    <constraint firstItem="UMP-fz-nzB" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="48I-qc-gZN"/>
+                                    <constraint firstItem="T2x-t1-I4Z" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="B6s-q5-z6t"/>
+                                    <constraint firstItem="aps-wf-RPv" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="PDK-jt-xhE"/>
+                                    <constraint firstItem="uTC-sl-aHj" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="PVv-0u-xDy"/>
+                                    <constraint firstItem="Vv3-Lf-CIF" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="RpP-AU-gn2"/>
+                                    <constraint firstItem="pDS-AF-6Y3" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="ezu-0g-cGw"/>
+                                    <constraint firstItem="bsA-os-aVb" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="jlj-l5-a5r"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6gD-DT-9GS" secondAttribute="trailing" id="6Pf-cY-ZV3"/>
+                            <constraint firstAttribute="height" constant="55" id="76D-pv-4gP"/>
+                            <constraint firstItem="6gD-DT-9GS" firstAttribute="top" secondItem="vTk-km-mz6" secondAttribute="top" constant="5" id="NfO-Ep-6b3"/>
+                            <constraint firstAttribute="bottom" secondItem="6gD-DT-9GS" secondAttribute="bottom" constant="5" id="Y6Y-rf-aq3"/>
+                            <constraint firstItem="6gD-DT-9GS" firstAttribute="leading" secondItem="vTk-km-mz6" secondAttribute="leading" id="YjR-7C-Ja8"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="vTk-km-mz6" secondAttribute="trailing" id="Qz0-iY-EGt"/>
+                    <constraint firstItem="vTk-km-mz6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YfH-B1-zOM"/>
+                    <constraint firstAttribute="bottom" secondItem="vTk-km-mz6" secondAttribute="bottom" id="jsg-Ii-9aj"/>
+                    <constraint firstItem="vTk-km-mz6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="w2F-Kq-apj"/>
+                    <constraint firstItem="vTk-km-mz6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yvN-fq-2EY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="crownAUM" destination="bsA-os-aVb" id="4RX-NN-jRV"/>
+                <outlet property="dateIn" destination="pDS-AF-6Y3" id="EVf-Ay-EIp"/>
+                <outlet property="dateOut" destination="T2x-t1-I4Z" id="0ZV-Nz-rJt"/>
+                <outlet property="days" destination="UMP-fz-nzB" id="ewg-oI-qK6"/>
+                <outlet property="fieldHeight" destination="c1M-e1-5Px" id="19h-PX-Qvt"/>
+                <outlet property="graceDays" destination="d5o-9U-aHr" id="aCh-xD-uD6"/>
+                <outlet property="liveStock" destination="uTC-sl-aHj" id="9HY-vb-bdm"/>
+                <outlet property="numberOfAniamls" destination="Vv3-Lf-CIF" id="bxI-of-Z3A"/>
+                <outlet property="pasture" destination="pKY-cO-wEA" id="kPX-6X-PAN"/>
+                <outlet property="pldAUM" destination="aps-wf-RPv" id="Kvu-xW-Taf"/>
+            </connections>
+            <point key="canvasLocation" x="193" y="-202"/>
+        </tableViewCell>
+    </objects>
+</document>
