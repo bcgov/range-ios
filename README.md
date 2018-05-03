@@ -1,3 +1,4 @@
+![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Icon.png)
 # About My Range Application (MyRA) for iOS (iPad)
 ![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Home.png)
 
@@ -22,14 +23,13 @@ For the Alpha Release, the **iOS application** documented here will allow Range 
 ## Features
 
 ### Create and edit RUPs (Range Use Plans)
-![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Opening.gif)
-
+![Alt Text](https://github.com/bcgov/range-ios/blob/master/readmeFiles/Opening.gif)
 
 ### Add Pastures and Schedules to a RUP
-![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Create.gif)
+![Alt Text](https://github.com/bcgov/range-ios/blob/master/readmeFiles/Create.gif)
 
 ### Synchronize changes
-![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Sync.gif)
+![Alt Text](https://github.com/bcgov/range-ios/blob/master/readmeFiles/Sync.gif)
 
 ## How to Contribute
 
