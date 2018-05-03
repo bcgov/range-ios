@@ -57,6 +57,8 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
         } else {
             totalAUMs.textColor = UIColor.black
         }
+
+        self.textView.text = schedule?.notes
     }
 
     // MARK: Styles

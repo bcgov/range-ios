@@ -40,15 +40,18 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PZE-DF-IW6">
                                                 <rect key="frame" x="15" y="43.5" width="270" height="46.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="46.5" id="ao5-Vg-jvB"/>
+                                                </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ygC-Kn-J96">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ygC-Kn-J96">
                                                 <rect key="frame" x="15" y="105" width="270" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALK-pv-FcH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="135" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="30"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="PopUpCancelButton"/>
                                                         <state key="normal" title="Cancel"/>
                                                         <connections>
@@ -56,7 +59,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSY-n3-yhg">
-                                                        <rect key="frame" x="135" y="0.0" width="135" height="30"/>
+                                                        <rect key="frame" x="137.5" y="0.0" width="132.5" height="30"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="PopUpAddButton"/>
                                                         <state key="normal" title="Add"/>
                                                         <connections>
@@ -415,6 +418,9 @@
                         <outlet property="pasturesButton" destination="xXp-HH-Zns" id="HUU-dy-sQC"/>
                         <outlet property="pasturesLabel" destination="cRi-Bb-F5l" id="dVb-F2-Xzs"/>
                         <outlet property="pasturesLowerBar" destination="r7r-Lf-6aR" id="ZQC-me-1tz"/>
+                        <outlet property="popupAddButton" destination="nSY-n3-yhg" id="46b-jM-yNo"/>
+                        <outlet property="popupCancelButton" destination="ALK-pv-FcH" id="Cvv-Vs-5OE"/>
+                        <outlet property="popupInputHeight" destination="ao5-Vg-jvB" id="FdJ-Xw-ETR"/>
                         <outlet property="popupTextField" destination="PZE-DF-IW6" id="yBM-NQ-F45"/>
                         <outlet property="popupTitle" destination="V8y-gh-u7B" id="eYd-3w-fby"/>
                         <outlet property="popupVIew" destination="u51-LQ-Alk" id="Imh-4x-cyB"/>

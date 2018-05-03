@@ -157,12 +157,18 @@ class DatePickerViewController: UIViewController, Theme {
         picker.datePickerMode = .date
         self.picker.alpha = 1
         self.listPicker.alpha = 0
+        picker.setDate(minDate, animated: true)
+        selectedDate = minDate
     }
 
     func showListPicker() {
         self.picker.alpha = 0
         self.listPicker.alpha = 1
         setupListPicker()
+        if listPickerList.count > 0 {
+            listPicker.selectRow(0, inComponent: 0, animated: true)
+            selectedListItem = listPickerList.first
+        }
     }
 
     // MARK: Styles

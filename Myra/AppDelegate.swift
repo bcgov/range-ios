@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         Fabric.with([Crashlytics.self])
         return true
     }
