@@ -1,7 +1,7 @@
 ![Alt Text](https://github.com/bcgov/range-ios/blob/master/readmeFiles/Icon.png)
 
 # About My Range Application (MyRA) for iOS (iPad)
-![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Home.png)
+![Alt Text](https://github.com/bcgov/range-ios/blob/master/readmeFiles/Home.png)
 
 The Range Mobile Pathfinder project is developing a suite of applications to support the sustainable management of rangelands in British Columbia. [Learn more about the Range Program](https://www.for.gov.bc.ca/hra/)
 
