@@ -1,4 +1,5 @@
 # About My Range Application (MyRA) for iOS (iPad)
+![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Home.png)
 
 The Range Mobile Pathfinder project is developing a suite of applications to support the sustainable management of rangelands in British Columbia. [Learn more about the Range Program](https://www.for.gov.bc.ca/hra/)
 
@@ -17,3 +18,15 @@ For the Alpha Release, the **iOS application** documented here will allow Range 
 - [MyRa API Github Repository](https://github.com/bcgov/range-api)
 - [Our current Sprint Backlog is visible on Trello](https://trello.com/b/YxiYOPGU)
 - [See the database Schema on Schema-Spy](http://schema-spy-range-myra-dev.pathfinder.gov.bc.ca/)
+
+## Features
+
+### Create and edit RUPs (Range Use Plans)
+![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Opening.gif)
+
+
+### Add Pastures and Schedules to a RUP
+![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Create.gif)
+
+### Synchronize changes
+![Alt Text](https://github.com/bcgov/range-ios/blob/dev/readmeFiles/Sync.gif)
