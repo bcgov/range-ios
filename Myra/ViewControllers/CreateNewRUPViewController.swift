@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import IQKeyboardManagerSwift
 
 enum AcceptedPopupInput {
     case String
@@ -135,8 +136,10 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet weak var popupTextField: UITextField!
     @IBOutlet weak var grayScreen: UIView!
-
-
+    @IBOutlet weak var popupCancelButton: UIButton!
+    @IBOutlet weak var popupAddButton: UIButton!
+    @IBOutlet weak var popupInputHeight: NSLayoutConstraint!
+    
     // MARK: POP UP
     @IBAction func popupCancel(_ sender: Any) {
         if popupCompletion == nil {return}
@@ -202,7 +205,8 @@ class CreateNewRUPViewController: BaseViewController {
 
     func openPopup() {
         self.tableView.isUserInteractionEnabled = false
-        self.grayScreen.alpha = 0.8
+
+        self.grayScreen.alpha = 1
         self.popupVIew.alpha = 1
     }
 
@@ -212,6 +216,7 @@ class CreateNewRUPViewController: BaseViewController {
         self.popupCompletion = nil
         self.popupVIew.alpha = 0
         self.tableView.isUserInteractionEnabled = true
+        IQKeyboardManager.sharedManager().resignFirstResponder()
     }
     // end of custom popup
 
@@ -313,11 +318,6 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // Mark: Functions
-    func getMapVC() -> CreateViewController {
-        let vm = ViewManager()
-        return vm.create
-    }
-
     func setup(rup: RUP, callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup

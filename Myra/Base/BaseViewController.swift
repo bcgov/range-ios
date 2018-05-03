@@ -12,11 +12,12 @@ import SingleSignOn
 
 class BaseViewController: UIViewController, Theme {
 
+    // MARK: Constants
     let mediumAnimationDuration = 0.5
     let shortAnimationDuration = 0.3
-
-
     let whiteScreenTag = 100
+
+    // MARK: Sync Screen constants
     let syncTitleTag = 101
     let syncDescriptionTag = 102
     let syncButtonTag = 103
@@ -26,13 +27,16 @@ class BaseViewController: UIViewController, Theme {
     let syncFailAnimationTag = 107
     let loadingAnimationTag = 110
 
-    var loading: UIImageView?
-    var loadingImages = [UIImage]()
+    // MARK: Auth constants
     let authServices: AuthServices = {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                             clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
                             idpHint: Constants.SSO.idpHint)
     }()
+
+    // MARK: Variables
+    var loading: UIImageView?
+    var loadingImages = [UIImage]()
 
     var authenticated: Bool = false {
         didSet{
@@ -42,6 +46,8 @@ class BaseViewController: UIViewController, Theme {
         }
     }
 
+    var currentPopOver: UIViewController?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if loadingImages.count != 4 {
@@ -49,11 +55,19 @@ class BaseViewController: UIViewController, Theme {
         }
     }
 
+    // MARK: Event handlers
     func whenSyncClosed() {}
     func whenAuthenticated() {}
-
     func whenLandscape() {}
     func whenPortrait() {}
+    func orientationChanged() {
+        dismissPopOver()
+    }
+
+    func notifyOrientationChange() {
+        orientationChanged()
+        NotificationCenter.default.post(name: .screenOrientationChanged, object: nil)
+    }
 
     // Mark: White screen for popups
     func getWhiteScreen() -> UIView {
@@ -90,7 +104,14 @@ class BaseViewController: UIViewController, Theme {
         popover?.permittedArrowDirections = .any
         popover?.sourceView = on
         popover?.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.midY, width: 0, height: 0)
+        self.currentPopOver = vc
         present(vc, animated: true, completion: nil)
+    }
+
+    func dismissPopOver() {
+        if let popOver = self.currentPopOver {
+            popOver.dismiss(animated: false, completion: nil)
+        }
     }
 
 }
@@ -140,6 +161,7 @@ extension BaseViewController {
         }
     }
 
+    // MARK: Screen Rotation
     // TODO: reposition loading spinner.
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -154,10 +176,6 @@ extension BaseViewController {
                 self.whenLandscape()
             }
         }
-    }
-
-    func notifyOrientationChange() {
-        NotificationCenter.default.post(name: .screenOrientationChanged, object: nil)
     }
 }
 

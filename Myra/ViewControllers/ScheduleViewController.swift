@@ -80,35 +80,11 @@ class ScheduleViewController: BaseViewController {
             popOverHeight =  vc.getEstimatedHeight()
         }
         showPopOver(on: on, vc: vc, height: popOverHeight, width: popOverWidth, arrowColor: nil)
-
-        /*
-        showWhiteScreen()
-        if let whiteView = self.view.viewWithTag(whiteScreenTag) {
-
-            let container = getLiveStockPopupHolder()
-            
-            whiteView.addSubview(container)
-            addChildViewController(vc)
-            container.addSubview(vc.view)
-            vc.view.frame = container.bounds
-            vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            vc.didMove(toParentViewController: self)
-
-        }*/
     }
 
     func hidepopup(vc: SelectionPopUpViewController) {
         vc.dismiss(animated: true, completion: nil)
         return
-            /*
-        vc.willMove(toParentViewController: nil)
-        vc.view.removeFromSuperview()
-        vc.removeFromParentViewController()
-        if let container = self.view.viewWithTag(popupContainerTag) {
-            container.removeFromSuperview()
-        }
-        removeWhiteScreen()
-        */
     }
 
     func getLiveStockPopupHolder() -> UIView {

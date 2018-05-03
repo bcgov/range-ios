@@ -70,10 +70,10 @@ class PasturesTableViewCell: BaseFormCell {
         /*
          Height of Pastures cell =
         */
-        var padding = 7
+        let padding: CGFloat = 7
         var h: CGFloat = 0.0
         for pasture in (rup.pastures) {
-            h = h + computePastureHeight(pasture: pasture) + 7
+            h = h + computePastureHeight(pasture: pasture) + padding
         }
         return h
     }

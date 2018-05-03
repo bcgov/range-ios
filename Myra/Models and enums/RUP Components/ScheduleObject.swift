@@ -48,7 +48,6 @@ class ScheduleObject: Object, MyraObject {
     }
     
     @objc dynamic var pasture: Pasture?
-//    @objc dynamic var type: LiveStockType?
     @objc dynamic var liveStockTypeId: Int = -1
     @objc dynamic var numberOfAnimals: Int = 0
     @objc dynamic var dateIn: Date?

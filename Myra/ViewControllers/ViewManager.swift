@@ -22,10 +22,6 @@ class ViewManager {
         return UIStoryboard(name: "Login", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login") as! LoginViewController
     }()
 
-    lazy var create: CreateViewController = {
-        return UIStoryboard(name: "Create", bundle: Bundle.main).instantiateViewController(withIdentifier: "Create") as! CreateViewController
-    }()
-
     lazy var createRUP: CreateNewRUPViewController = {
         return UIStoryboard(name: "CreateNewRup", bundle: Bundle.main).instantiateViewController(withIdentifier: "CreateNewRup") as! CreateNewRUPViewController
     }()

@@ -229,9 +229,6 @@ class HomeViewController: BaseViewController {
 
     func styleCreateButton() {
         styleFillButton(button: createButton)
-//        createButton.backgroundColor = Colors.primary
-//        createButton.layer.cornerRadius = 5
-//        createButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
     }
 
     func styleFilterContainer() {
@@ -249,16 +246,22 @@ class HomeViewController: BaseViewController {
         makeCircle(view: syncContainer)
         syncContainer.backgroundColor = UIColor.white
 
-        // add animated image
-        let animatedSync = LOTAnimationView(name: "sync_icon")
-        animatedSync.frame = syncContainer.frame
-        animatedSync.center.y = syncButton.center.y
-        animatedSync.center.x = syncButton.center.x
-        animatedSync.contentMode = .scaleAspectFit
-        animatedSync.loopAnimation = false
-        animatedSync.tag = syncButtonAnimationTag
-        self.syncContainer.addSubview(animatedSync)
-        animatedSync.play()
+        // if animation exists, play.
+        if let animation = self.view.viewWithTag(syncButtonAnimationTag) as? LOTAnimationView {
+            animation.loopAnimation = false
+            animation.play()
+        } else {
+            // add animated image
+            let animatedSync = LOTAnimationView(name: "sync_icon")
+            animatedSync.frame = syncContainer.frame
+            animatedSync.center.y = syncButton.center.y
+            animatedSync.center.x = syncButton.center.x
+            animatedSync.contentMode = .scaleAspectFit
+            animatedSync.loopAnimation = false
+            animatedSync.tag = syncButtonAnimationTag
+            self.syncContainer.addSubview(animatedSync)
+            animatedSync.play()
+        }
 
         // Note: now animation overlaps button.. so move the button to top
         if let button = self.view.viewWithTag(syncButtonActionTag) {
@@ -385,11 +388,6 @@ extension HomeViewController {
             self.tableView.reloadData()
         }
         self.present(vc, animated: true, completion: nil)
-    }
-
-    func getMapVC() -> CreateViewController {
-        let vm = ViewManager()
-        return vm.create
     }
 
     func getCreateNewVC() -> CreateNewRUPViewController {

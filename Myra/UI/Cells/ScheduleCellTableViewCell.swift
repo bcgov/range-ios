@@ -74,6 +74,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
             let copy = Schedule()
             copy.year = year
             copy.name = selection
+            copy.notes = sched.notes
             RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
             do {
                 let realm = try Realm()

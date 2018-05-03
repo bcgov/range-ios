@@ -28,7 +28,7 @@ class MainViewController: BaseViewController {
 
 extension MainViewController {
     func chooseInitialView() {
-        if let _ = RealmManager.shared.getLastSyncDate(), authServices.isAuthenticated() {
+        if let _ = RealmManager.shared.getLastSyncDate() {
             // Go to home page
             showHomePage()
         } else {
