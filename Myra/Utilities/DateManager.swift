@@ -15,6 +15,12 @@ class DateManager {
         return dateFormatter.string(from: date)
     }
 
+    static func toStringNoYear(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd"
+        return dateFormatter.string(from: date)
+    }
+
     static func from(string: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"

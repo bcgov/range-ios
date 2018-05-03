@@ -125,8 +125,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let picker = vm.datePicker
 
-        if dateIn.text != "" {
-            let startDate = DateManager.from(string: dateIn.text!)
+        if let s = scheduleObject, let startDate = s.dateIn {
             picker.setup(for: (parent.schedule?.year)!, minDate: startDate) { (date) in
                 self.handleDateOut(date: date)
             }
@@ -140,7 +139,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Functions
     func handleDateIn(date: Date) {
-        self.dateIn.text = date.string()
+        self.dateIn.text = DateManager.toStringNoYear(date: date)
         do {
             let realm = try Realm()
             try realm.write {
@@ -149,11 +148,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
+
         self.calculateDays()
-        if self.dateOut.text != "" {
-            let endDate = DateManager.from(string: self.dateOut.text!)
+        if let s = scheduleObject, let endDate = s.dateOut {
             if endDate < date {
-                self.dateOut.text = DateManager.toString(date: (self.scheduleObject?.dateIn)!)
+                self.dateOut.text =  DateManager.toStringNoYear(date: (self.scheduleObject?.dateIn)!)
                 do {
                     let realm = try Realm()
                     try realm.write {
@@ -168,7 +167,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func handleDateOut(date: Date) {
-        self.dateOut.text = date.string()
+        self.dateOut.text = DateManager.toStringNoYear(date: date)
         do {
             let realm = try Realm()
             try realm.write {
@@ -213,11 +212,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         }
 
         if let inDate = scheduleObject?.dateIn {
-            self.dateIn.text = DateManager.toString(date: inDate)
+            self.dateIn.text = DateManager.toStringNoYear(date: inDate)
         }
 
         if let outDate = scheduleObject?.dateOut {
-            self.dateOut.text = DateManager.toString(date: outDate)
+            self.dateOut.text = DateManager.toStringNoYear(date: outDate)
         }
 
         calculateDays()
@@ -255,10 +254,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func calculateDays() {
-        if self.dateIn.text == "" || self.dateOut.text == "" {return}
+        guard let s = scheduleObject, let din = s.dateIn, let dout = s.dateOut else {return}
         let calendar = NSCalendar.current
-        let date1 = calendar.startOfDay(for: DateManager.from(string: self.dateIn.text!))
-        let date2 = calendar.startOfDay(for: DateManager.from(string: self.dateOut.text!))
+        let date1 = calendar.startOfDay(for: din)
+        let date2 = calendar.startOfDay(for: dout)
         self.days.text = "\(String(describing: DateManager.daysBetween(date1: date1, date2: date2)))"
         update()
     }
