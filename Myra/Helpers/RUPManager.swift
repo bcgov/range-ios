@@ -318,6 +318,14 @@
         }
         RealmRequests.updateObject(to)
     }
+
+    func copyPasture(from: Pasture, to: Pasture) {
+        to.allowedAUMs = from.allowedAUMs
+        to.privateLandDeduction = from.privateLandDeduction
+        to.graceDays = from.graceDays
+        to.notes = from.notes
+        RealmRequests.updateObject(to)
+    }
     
     /*
      Sets a schedule object's related pasture object.

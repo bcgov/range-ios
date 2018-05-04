@@ -220,6 +220,13 @@
                                     <action selector="addPlantCommunityAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5hc-FD-lGN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yy-6Z-4n7">
+                                <rect key="frame" x="652" y="0.0" width="48" height="48"/>
+                                <state key="normal" image="expandicon"/>
+                                <connections>
+                                    <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0hq-vz-jAH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -232,11 +239,13 @@
                             <constraint firstItem="Soa-UZ-bH2" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="Gvs-zO-bxe"/>
                             <constraint firstItem="ncF-tG-42g" firstAttribute="top" secondItem="tAI-sm-UTn" secondAttribute="bottom" constant="8" id="J6f-Q9-QO3"/>
                             <constraint firstItem="EjY-Uy-5TR" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="JZr-YM-Zpt"/>
+                            <constraint firstItem="1yy-6Z-4n7" firstAttribute="top" secondItem="d10-4y-3Jf" secondAttribute="top" id="M1c-xP-y3A"/>
                             <constraint firstItem="kqn-88-dK7" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="Oxo-Kj-ueL"/>
                             <constraint firstItem="E6P-6l-YOY" firstAttribute="centerY" secondItem="Lmo-yi-ffD" secondAttribute="centerY" id="Vvn-9q-1Jh"/>
                             <constraint firstItem="zFx-h9-LGF" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="X2U-vF-yoO"/>
                             <constraint firstItem="zuB-WJ-S4r" firstAttribute="top" secondItem="EjY-Uy-5TR" secondAttribute="bottom" constant="15" id="X7N-F1-oEQ"/>
                             <constraint firstAttribute="trailing" secondItem="tAI-sm-UTn" secondAttribute="trailing" constant="15" id="Zzy-4J-2SE"/>
+                            <constraint firstAttribute="trailing" secondItem="1yy-6Z-4n7" secondAttribute="trailing" id="aLq-YM-QLW"/>
                             <constraint firstItem="E6P-6l-YOY" firstAttribute="leading" secondItem="Lmo-yi-ffD" secondAttribute="trailing" constant="5" id="asZ-Sy-kgp"/>
                             <constraint firstItem="Lmo-yi-ffD" firstAttribute="leading" secondItem="EjY-Uy-5TR" secondAttribute="trailing" constant="5" id="b8y-rg-iL6"/>
                             <constraint firstAttribute="trailing" secondItem="kqn-88-dK7" secondAttribute="trailing" constant="15" id="e7r-dO-CSm"/>
@@ -279,5 +288,6 @@
     </objects>
     <resources>
         <image name="boxUnchecked" width="128" height="128"/>
+        <image name="expandicon" width="48" height="48"/>
     </resources>
 </document>

@@ -98,16 +98,6 @@ extension CreateNewRUPViewController {
         scheduleBoxLeft.backgroundColor = UIColor.clear
     }
 
-    func menuSectionOff(label: UILabel) {
-        label.textColor = UIColor.black
-        label.font = Fonts.getPrimary(size: 15)
-    }
-
-    func menuSectionOn(label: UILabel) {
-        label.textColor = Colors.primary
-        label.font = Fonts.getPrimaryMedium(size: 15)
-    }
-
     // MARK: Animations
     func prepareToAnimate() {
         self.menuContainer.alpha = 0

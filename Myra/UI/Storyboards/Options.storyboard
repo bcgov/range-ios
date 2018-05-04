@@ -18,16 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="egG-CT-q4o">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="egG-CT-q4o">
+                                <rect key="frame" x="2" y="20" width="371" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="QqT-f3-Ghd" firstAttribute="trailing" secondItem="egG-CT-q4o" secondAttribute="trailing" id="DQc-qo-mym"/>
+                            <constraint firstItem="QqT-f3-Ghd" firstAttribute="trailing" secondItem="egG-CT-q4o" secondAttribute="trailing" constant="2" id="DQc-qo-mym"/>
                             <constraint firstItem="egG-CT-q4o" firstAttribute="top" secondItem="QqT-f3-Ghd" secondAttribute="top" id="YsN-xp-q9n"/>
-                            <constraint firstItem="egG-CT-q4o" firstAttribute="leading" secondItem="QqT-f3-Ghd" secondAttribute="leading" id="pst-Dr-S8X"/>
+                            <constraint firstItem="egG-CT-q4o" firstAttribute="leading" secondItem="QqT-f3-Ghd" secondAttribute="leading" constant="2" id="pst-Dr-S8X"/>
                             <constraint firstItem="QqT-f3-Ghd" firstAttribute="bottom" secondItem="egG-CT-q4o" secondAttribute="bottom" id="uSJ-mu-TEi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QqT-f3-Ghd"/>
