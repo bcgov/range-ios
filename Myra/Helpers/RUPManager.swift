@@ -326,6 +326,21 @@
         to.notes = from.notes
         RealmRequests.updateObject(to)
     }
+
+    func deletePasture(pasture: Pasture) {
+        // remove all schedule objects with this pasture
+        do {
+            let realm = try Realm()
+            let scheduleObjects = realm.objects(ScheduleObject.self).filter("pasture = %@", pasture)
+            for object in scheduleObjects {
+                RealmRequests.deleteObject(object)
+            }
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.deleteObject(pasture)
+
+    }
     
     /*
      Sets a schedule object's related pasture object.

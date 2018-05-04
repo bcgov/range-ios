@@ -134,7 +134,7 @@ class PastureTableViewCell: BaseFormCell {
             switch option.type {
             case .Delete:
                 print("delete")
-                RealmRequests.deleteObject(past)
+                RUPManager.shared.deletePasture(pasture: past)
                 parent.updateTableHeight()
             case .Copy:
                 print("copy")
