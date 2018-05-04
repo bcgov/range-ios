@@ -90,10 +90,6 @@ class ScheduleCellTableViewCell: BaseFormCell {
             self.parentReference?.updateTableHeight()
             self.leadingOptions.constant = 0
             self.animateIt()
-            // go to schedule details page
-            parent.parentReference?.showSchedule(object: copy, completion: { done in
-            })
-
         }
         parent.parentReference?.showPopOver(on: copyButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
