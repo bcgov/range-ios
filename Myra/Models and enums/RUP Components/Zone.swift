@@ -28,9 +28,9 @@ class Zone: Object, MyraObject {
     @objc dynamic var code: String = ""
     @objc dynamic var districtId: Int = -1
     @objc dynamic var desc: String = ""
-    @objc dynamic var contactName: String = ""
-    @objc dynamic var contactPhoneNumber: String = ""
-    @objc dynamic var contactEmail: String = ""
+    @objc dynamic var contactName: String = "Not Provided"
+    @objc dynamic var contactPhoneNumber: String = "Not Provided"
+    @objc dynamic var contactEmail: String = "Not Provided"
 
     func set(district: District, id: Int, code: String, districtId: Int, desc: String, contactName: String, contactPhoneNumber: String, contactEmail: String) {
         self.districts.append(district)

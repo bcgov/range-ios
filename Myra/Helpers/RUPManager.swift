@@ -319,6 +319,29 @@
         RealmRequests.updateObject(to)
     }
 
+    func copyScheduleObject(fromObject: ScheduleObject, inSchedule: Schedule) {
+        let new = ScheduleObject()
+        new.pasture = fromObject.pasture
+        new.liveStockTypeId = fromObject.liveStockTypeId
+        new.numberOfAnimals = fromObject.numberOfAnimals
+        new.dateIn = fromObject.dateIn
+        new.dateOut = fromObject.dateOut
+        new.totalAUMs = fromObject.totalAUMs
+        new.pldAUMs = fromObject.pldAUMs
+        new.scheduleDescription = fromObject.scheduleDescription
+
+        RealmRequests.saveObject(object: new)
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                inSchedule.scheduleObjects.append(new)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func copyPasture(from: Pasture, to: Pasture) {
         to.allowedAUMs = from.allowedAUMs
         to.privateLandDeduction = from.privateLandDeduction
@@ -339,7 +362,6 @@
             fatalError()
         }
         RealmRequests.deleteObject(pasture)
-
     }
     
     /*
