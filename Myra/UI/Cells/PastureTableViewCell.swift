@@ -131,16 +131,17 @@ class PastureTableViewCell: BaseFormCell {
 
         // set up and handle call back
         optionsVC.setup(options: options) { (option) in
+            optionsVC.dismiss(animated: true, completion: nil)
             switch option.type {
             case .Delete:
-                print("delete")
-                RUPManager.shared.deletePasture(pasture: past)
-                parent.updateTableHeight()
+                grandParent.showAlert(title: "Are you sure?", description: "Deleting pasture \(past.name) will also remove all schedule elements associated with it", yesButtonTapped: {
+                    RUPManager.shared.deletePasture(pasture: past)
+                    parent.updateTableHeight()
+                }, noButtonTapped: {})
+
             case .Copy:
-                print("copy")
                 self.duplicate()
             }
-            optionsVC.dismiss(animated: true, completion: nil)
         }
 
         // display on parent

@@ -30,58 +30,58 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GqW-LS-yH6">
-                                <rect key="frame" x="0.0" y="33.5" width="675" height="14.5"/>
+                                <rect key="frame" x="0.0" y="33.5" width="633" height="14.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="na3-DV-SmI">
-                                        <rect key="frame" x="0.0" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Livestock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qD-Zh-B5j">
-                                        <rect key="frame" x="76" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="71.5" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of Animals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtj-xP-Ybu">
-                                        <rect key="frame" x="152" y="0.0" width="66.5" height="14.5"/>
+                                        <rect key="frame" x="143" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waI-pN-QOU">
-                                        <rect key="frame" x="228.5" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="214.5" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAR-rn-o2R">
-                                        <rect key="frame" x="304.5" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="286" y="0.0" width="61" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-Hh-1ts">
-                                        <rect key="frame" x="380.5" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="357" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grace Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxo-IN-lrt">
-                                        <rect key="frame" x="456.5" y="0.0" width="66.5" height="14.5"/>
+                                        <rect key="frame" x="428.5" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tm-Q8-2mc">
-                                        <rect key="frame" x="533" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="500" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crown AUMs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nx-0F-bvF">
-                                        <rect key="frame" x="609" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="571.5" y="0.0" width="61.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                             <constraint firstItem="QI7-Hj-vPt" firstAttribute="centerY" secondItem="0yR-Tn-WcF" secondAttribute="centerY" id="bre-Zq-JNV"/>
                             <constraint firstAttribute="height" constant="80" id="e0r-tv-JAn"/>
                             <constraint firstItem="GqW-LS-yH6" firstAttribute="leading" secondItem="0yR-Tn-WcF" secondAttribute="leading" id="jeD-Br-4E0"/>
-                            <constraint firstAttribute="trailing" secondItem="GqW-LS-yH6" secondAttribute="trailing" id="mu0-cx-hUP"/>
+                            <constraint firstAttribute="trailing" secondItem="GqW-LS-yH6" secondAttribute="trailing" constant="42" id="mu0-cx-hUP"/>
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A6Y-QC-PtD">
