@@ -14,6 +14,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Variables
     var scheduleObject: ScheduleObject?
+    var parentCell: ScheduleFormTableViewCell?
     var scheduleViewReference: ScheduleViewController?
 
     // MARK: Outlets
@@ -137,7 +138,38 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
+    @IBAction func optionsAction(_ sender: UIButton) {
+        guard let parent = scheduleViewReference else {return}
+        let vm = ViewManager()
+        let optionsVC = vm.options
+        let options: [Option] = [Option(type: .Copy, display: "Duplicate"), Option(type: .Delete, display: "Delete")]
+        optionsVC.setup(options: options) { (selected) in
+            optionsVC.dismiss(animated: true, completion: nil)
+            switch selected.type {
+            case .Delete:
+                self.deleteEntry()
+            case .Copy:
+                self.copyEntry()
+            }
+        }
+        parent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+    }
+
+
     // MARK: Functions
+    func deleteEntry() {
+        if let scheduleEntry = self.scheduleObject, let parent = self.parentCell {
+            parent.deleteEntry(object: scheduleEntry)
+        }
+
+    }
+
+    func copyEntry() {
+        if let current = self.scheduleObject, let parent = self.parentCell {
+            parent.createEntry(from: current)
+        }
+    }
+
     func handleDateIn(date: Date) {
         self.dateIn.text = DateManager.toStringNoYear(date: date)
         do {
@@ -180,10 +212,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     // MARK: Setup
-    func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController) {
+    func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
         self.rup = rup
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
+        self.parentCell = parentCell
         autofill()
         styleInputField(field: days, editable: false, height: fieldHeight)
         styleInputField(field: crownAUM, editable: false, height: fieldHeight)
@@ -209,14 +242,20 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
         if let numOfAnimals = scheduleObject?.numberOfAnimals, numOfAnimals != 0 {
             self.numberOfAniamls.text = "\(numOfAnimals)"
+        } else {
+            self.dateIn.text = ""
         }
 
         if let inDate = scheduleObject?.dateIn {
             self.dateIn.text = DateManager.toStringNoYear(date: inDate)
+        } else {
+            self.dateIn.text = ""
         }
 
         if let outDate = scheduleObject?.dateOut {
             self.dateOut.text = DateManager.toStringNoYear(date: outDate)
+        } else {
+            self.dateOut.text = ""
         }
 
         calculateDays()
@@ -241,11 +280,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             self.liveStock.text = liveStockObject.name
 
         } else {
+            self.liveStock.text = ""
             print("POSSIBLE ERROR IN fillCurrentValues() -> NO LIVESTOCK FOR CURRENT OBJECT")
         }
 
         if let pasture = scheduleObject?.pasture {
             self.pasture.text = pasture.name
+        } else {
+            self.pasture.text = ""
         }
 
         self.graceDays.text = "\(self.scheduleObject?.graceDays ?? 0)"
