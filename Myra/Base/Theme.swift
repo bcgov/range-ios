@@ -290,4 +290,14 @@ extension Theme {
         label.font = defaultNavBarLabelFont()
     }
 
+    func menuSectionOff(label: UILabel) {
+        label.textColor = UIColor.black
+        label.font = Fonts.getPrimary(size: 15)
+    }
+
+    func menuSectionOn(label: UILabel) {
+        label.textColor = Colors.primary
+        label.font = Fonts.getPrimaryMedium(size: 15)
+    }
+
 }

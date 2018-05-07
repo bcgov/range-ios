@@ -39,7 +39,6 @@ class PastureTableViewCell: BaseFormCell {
     @IBOutlet weak var pldHeader: UILabel!
     @IBOutlet weak var aumHeader: UILabel!
 
-
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -114,12 +113,49 @@ class PastureTableViewCell: BaseFormCell {
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
     }
 
+    @IBAction func optionsAction(_ sender: UIButton) {
+        guard let past = self.pasture, let parent = pastures else {return}
+        // reference to parent's parent
+        /* note:
+         technically if you do self.parent you get the same result.
+         but for clarity, this makes more sense since this is a cell in a tableview cell.
+        */
+        let grandParent = parent.parentViewController as! CreateNewRUPViewController
+
+        // View manager instance to grab options view controller
+        let vm = ViewManager()
+        let optionsVC = vm.options
+
+        // create options for module, in this case copy and delete
+        let options: [Option] = [Option(type: .Copy, display: "Copy"),Option(type: .Delete, display: "Delete")]
+
+        // set up and handle call back
+        optionsVC.setup(options: options) { (option) in
+            optionsVC.dismiss(animated: true, completion: nil)
+            switch option.type {
+            case .Delete:
+                grandParent.showAlert(title: "Are you sure?", description: "Deleting pasture \(past.name) will also remove all schedule elements associated with it", yesButtonTapped: {
+                    RUPManager.shared.deletePasture(pasture: past)
+                    parent.updateTableHeight()
+                }, noButtonTapped: {})
+
+            case .Copy:
+                self.duplicate()
+            }
+        }
+
+        // display on parent
+        grandParent .showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+
+    }
+
     // MARK: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
         self.pastures = pastures
         self.mode = mode
         self.pasture = pasture
         self.pastureNameLabel.text = pasture.name
+        self.rup = pastures.rup
         autofill()
         setupTable()
         self.pastureNotesTextField.delegate = self
@@ -154,6 +190,30 @@ class PastureTableViewCell: BaseFormCell {
         tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + padding)
         if let parent = pastures {
             parent.updateTableHeight()
+        }
+    }
+
+    func duplicate() {
+        guard let past = self.pasture, let parent = pastures else {return}
+        let grandParent = parent.parentViewController as! CreateNewRUPViewController
+        grandParent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
+            if done {
+                let newPasture = Pasture()
+                newPasture.name = name
+                RUPManager.shared.copyPasture(from: past, to: newPasture)
+                do {
+                    let realm = try Realm()
+                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                    try realm.write {
+                        aRup.pastures.append(newPasture)
+                        realm.add(newPasture)
+                    }
+                    self.rup = aRup
+                    parent.updateTableHeight()
+                } catch _ {
+                    fatalError()
+                }
+            }
         }
     }
 

@@ -37,28 +37,49 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
-        print(tableView.frame.height)
-        guard let sched = self.schedule else { return }
+        createEntry(from: nil)
+    }
+
+    // Mark: Functions
+    func createEntry(from: ScheduleObject?) {
+        guard let sched = self.schedule else {return}
         do {
             let realm = try Realm()
             let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
-            try realm.write {
-                let new = ScheduleObject()
-                aSchedule.scheduleObjects.append(new)
-                realm.add(new)
+            if let copyFrom = from {
+                RUPManager.shared.copyScheduleObject(fromObject: copyFrom, inSchedule: aSchedule)
+            } else {
+                try realm.write {
+                    let new = ScheduleObject()
+                    aSchedule.scheduleObjects.append(new)
+                    realm.add(new)
+                }
             }
             self.schedule = aSchedule
-
         } catch _ {
             fatalError()
         }
         // todo: Remove?
         parentReference?.calculateTotals()
-        
+
         updateTableHeight()
     }
 
-    // Mark: Functions
+    func deleteEntry(object: ScheduleObject) {
+        guard let sched = self.schedule else {return}
+        RealmRequests.deleteObject(object)
+        do {
+            let realm = try Realm()
+            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
+            self.schedule = aSchedule
+        } catch _ {
+            fatalError()
+        }
+
+        updateTableHeight()
+    }
+
+    // MARK: Setup
     func setup(schedule: Schedule, rup: RUP, parentReference: ScheduleViewController) {
         self.parentReference = parentReference
         self.rup = rup
@@ -111,8 +132,8 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleObjectCell(indexPath: indexPath)
-        if let object = schedule?.scheduleObjects[indexPath.row] {
-            cell.setup(scheduleObject: object, rup: rup!, scheduleViewReference: parentReference!)
+        if let object = schedule?.scheduleObjects[indexPath.row], let r = self.rup, let schedRef = parentReference {
+            cell.setup(scheduleObject: object, rup: r, scheduleViewReference: schedRef, parentCell: self)
         }
         return cell
     }

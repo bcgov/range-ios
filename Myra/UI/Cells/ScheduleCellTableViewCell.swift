@@ -64,7 +64,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
     func handleGesture(gesture: UISwipeGestureRecognizer) {    }
 
     func duplicate() {
-        guard let sched = schedule else {return}
+        guard let sched = schedule, let parent = parentReference else {return}
         let vm = ViewManager()
         let picker = vm.datePicker
         let taken = RUPManager.shared.getScheduleYears(rup: rup)
@@ -91,7 +91,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
             self.leadingOptions.constant = 0
             self.animateIt()
         }
-        parentReference?.parentReference?.showPopOver(on: copyButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        parent.parentReference?.showPopOver(on: copyButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
     
     @IBAction func optionsAction(_ sender: Any) {

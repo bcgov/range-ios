@@ -318,6 +318,51 @@
         }
         RealmRequests.updateObject(to)
     }
+
+    func copyScheduleObject(fromObject: ScheduleObject, inSchedule: Schedule) {
+        let new = ScheduleObject()
+        new.pasture = fromObject.pasture
+        new.liveStockTypeId = fromObject.liveStockTypeId
+        new.numberOfAnimals = fromObject.numberOfAnimals
+        new.dateIn = fromObject.dateIn
+        new.dateOut = fromObject.dateOut
+        new.totalAUMs = fromObject.totalAUMs
+        new.pldAUMs = fromObject.pldAUMs
+        new.scheduleDescription = fromObject.scheduleDescription
+
+        RealmRequests.saveObject(object: new)
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                inSchedule.scheduleObjects.append(new)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func copyPasture(from: Pasture, to: Pasture) {
+        to.allowedAUMs = from.allowedAUMs
+        to.privateLandDeduction = from.privateLandDeduction
+        to.graceDays = from.graceDays
+        to.notes = from.notes
+        RealmRequests.updateObject(to)
+    }
+
+    func deletePasture(pasture: Pasture) {
+        // remove all schedule objects with this pasture
+        do {
+            let realm = try Realm()
+            let scheduleObjects = realm.objects(ScheduleObject.self).filter("pasture = %@", pasture)
+            for object in scheduleObjects {
+                RealmRequests.deleteObject(object)
+            }
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.deleteObject(pasture)
+    }
     
     /*
      Sets a schedule object's related pasture object.

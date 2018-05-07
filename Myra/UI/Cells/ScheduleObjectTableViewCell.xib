@@ -19,17 +19,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="678" height="51.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrE-0R-AwD">
+                        <rect key="frame" x="636" y="0.0" width="40" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="jcB-JW-6kt"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
+                        <state key="normal" image="expandicon"/>
+                        <connections>
+                            <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MRz-If-xAF"/>
+                        </connections>
+                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTk-km-mz6">
-                        <rect key="frame" x="0.0" y="0.0" width="678" height="55.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="636" height="55.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6gD-DT-9GS">
-                                <rect key="frame" x="0.0" y="5" width="678" height="45.5"/>
+                                <rect key="frame" x="0.0" y="5.5" width="636" height="45"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9k-kf-pF9" userLabel="input box">
-                                        <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="62" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKY-cO-wEA">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureField"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="c1M-e1-5Px"/>
@@ -39,7 +50,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToI-k8-8ID">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureField"/>
                                                 <connections>
                                                     <action selector="lookupPastures:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uUs-3v-6he"/>
@@ -57,17 +68,17 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGv-1C-d90" userLabel="input box">
-                                        <rect key="frame" x="76.5" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="72" y="0.0" width="61.5" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uTC-sl-aHj">
-                                                <rect key="frame" x="0.0" y="0.0" width="67" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectLiveStockField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-PB-jfn">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectLiveStockButton"/>
                                                 <connections>
                                                     <action selector="lookupLiveStockType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Ch-pq-dcO"/>
@@ -85,10 +96,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-tM-3Rg" userLabel="input box">
-                                        <rect key="frame" x="153" y="0.0" width="66.5" height="44.5"/>
+                                        <rect key="frame" x="143.5" y="0.0" width="62" height="44.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vv3-Lf-CIF">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectNumberOfAnimalsField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -106,16 +117,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIh-gP-aBp" userLabel="input box">
-                                        <rect key="frame" x="229.5" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="215.5" y="0.0" width="61.5" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-AF-6Y3">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mw2-PD-7ur">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateInButton"/>
                                                 <connections>
                                                     <action selector="dateInAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lbo-YM-bnc"/>
@@ -133,16 +144,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Jr-2d-abw" userLabel="input box">
-                                        <rect key="frame" x="306" y="0.0" width="66" height="45.5"/>
+                                        <rect key="frame" x="287" y="0.0" width="62" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2x-t1-I4Z">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="44.5"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2w-1j-MEv">
-                                                <rect key="frame" x="0.0" y="0.0" width="66" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateOutButton"/>
                                                 <connections>
                                                     <action selector="dateOutAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rnj-EW-3aX"/>
@@ -160,10 +171,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-BZ-b1I" userLabel="input box">
-                                        <rect key="frame" x="382" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="359" y="0.0" width="61.5" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UMP-fz-nzB">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDaysLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -177,10 +188,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Y-T1-VRZ" userLabel="input box">
-                                        <rect key="frame" x="458.5" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="430.5" y="0.0" width="62" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d5o-9U-aHr">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -193,10 +204,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygS-ay-bXK" userLabel="input box">
-                                        <rect key="frame" x="535" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="502.5" y="0.0" width="61.5" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aps-wf-RPv">
-                                                <rect key="frame" x="0.0" y="0.0" width="67" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPLDLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -210,10 +221,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXg-CK-MZr" userLabel="input box">
-                                        <rect key="frame" x="611.5" y="0.0" width="66.5" height="45.5"/>
+                                        <rect key="frame" x="574" y="0.0" width="62" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-os-aVb">
-                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectCrownAUMLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -250,8 +261,11 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="vTk-km-mz6" secondAttribute="trailing" id="Qz0-iY-EGt"/>
-                    <constraint firstItem="vTk-km-mz6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YfH-B1-zOM"/>
+                    <constraint firstItem="wrE-0R-AwD" firstAttribute="height" secondItem="vTk-km-mz6" secondAttribute="height" id="BNZ-Uz-Enh"/>
+                    <constraint firstAttribute="trailing" secondItem="wrE-0R-AwD" secondAttribute="trailing" constant="2" id="Kr8-Gb-syL"/>
+                    <constraint firstItem="vTk-km-mz6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ayB-1y-kau"/>
+                    <constraint firstItem="wrE-0R-AwD" firstAttribute="centerY" secondItem="vTk-km-mz6" secondAttribute="centerY" id="iOm-Uh-int"/>
+                    <constraint firstItem="wrE-0R-AwD" firstAttribute="leading" secondItem="vTk-km-mz6" secondAttribute="trailing" id="jE9-j2-Lxs"/>
                     <constraint firstAttribute="bottom" secondItem="vTk-km-mz6" secondAttribute="bottom" id="jsg-Ii-9aj"/>
                     <constraint firstItem="vTk-km-mz6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="w2F-Kq-apj"/>
                     <constraint firstItem="vTk-km-mz6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yvN-fq-2EY"/>
@@ -273,4 +287,7 @@
             <point key="canvasLocation" x="193" y="-202"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="expandicon" width="48" height="48"/>
+    </resources>
 </document>
