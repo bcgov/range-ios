@@ -51,6 +51,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
             } else {
                 try realm.write {
                     let new = ScheduleObject()
+                    new.isNew = true
                     aSchedule.scheduleObjects.append(new)
                     realm.add(new)
                 }

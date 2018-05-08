@@ -31,7 +31,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Outlet Acions
     @IBAction func lookupPastures(_ sender: Any) {
-        let parent = self.parentViewController as! ScheduleViewController
+        let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
         lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup)) { (selected, obj) in
@@ -43,16 +43,16 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.update()
                 // fill appropriate fields
                 self.fillCurrentValues()
-                parent.hidepopup(vc: lookup)
+                grandParent.hidepopup(vc: lookup)
             } else {
-                parent.hidepopup(vc: lookup)
+                grandParent.hidepopup(vc: lookup)
             }
         }
-        parent.showpopup(vc: lookup, on: sender as! UIButton)
+        grandParent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
-        let parent = self.parentViewController as! ScheduleViewController
+        let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
         let objects = RealmManager.shared.getLiveStockTypeLookup()
@@ -72,13 +72,13 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
                 self.update()
-                parent.hidepopup(vc: lookup)
+                grandParent.hidepopup(vc: lookup)
             } else {
-                parent.hidepopup(vc: lookup)
+                grandParent.hidepopup(vc: lookup)
                 self.update()
             }
         }
-        parent.showpopup(vc: lookup, on: sender as! UIButton)
+        grandParent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
@@ -109,37 +109,37 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     @IBAction func dateInAction(_ sender: Any) {
         dismissKeyboard()
-        let parent = self.parentViewController as! ScheduleViewController
+        let grandParent = self.parentViewController as! ScheduleViewController
 
         let vm = ViewManager()
         let picker = vm.datePicker
 
-        picker.setup(for: (parent.schedule?.year)!, minDate: nil) { (date) in
+        picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
             self.handleDateIn(date: date)
         }
-        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     @IBAction func dateOutAction(_ sender: Any) {
         dismissKeyboard()
-        let parent = self.parentViewController as! ScheduleViewController
+        let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let picker = vm.datePicker
 
         if let s = scheduleObject, let startDate = s.dateIn {
-            picker.setup(for: (parent.schedule?.year)!, minDate: startDate) { (date) in
+            picker.setup(for: (grandParent.schedule?.year)!, minDate: startDate) { (date) in
                 self.handleDateOut(date: date)
             }
         } else {
-            picker.setup(for: (parent.schedule?.year)!, minDate: nil) { (date) in
+            picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
                 self.handleDateOut(date: date)
             }
         }
-        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
-        guard let parent = scheduleViewReference else {return}
+        guard let grandParent = scheduleViewReference else {return}
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Copy, display: "Duplicate"), Option(type: .Delete, display: "Delete")]
@@ -152,16 +152,22 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.copyEntry()
             }
         }
-        parent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+
+        grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
 
     // MARK: Functions
     func deleteEntry() {
-        if let scheduleEntry = self.scheduleObject, let parent = self.parentCell {
-            parent.deleteEntry(object: scheduleEntry)
+        self.highlightOn()
+        if let current = self.scheduleObject, let parent = self.parentCell, let grandParent = scheduleViewReference {
+            grandParent.showAlert(title: "Delete schedule entry?", description: "", yesButtonTapped: {
+                self.hightlightOff()
+                parent.deleteEntry(object: current)
+            }) {
+                self.hightlightOff()
+            }
         }
-
     }
 
     func copyEntry() {
@@ -211,13 +217,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         self.calculateDays()
     }
 
-    // MARK: Setup
-    func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
-        self.rup = rup
-        self.scheduleObject = scheduleObject
-        self.scheduleViewReference = scheduleViewReference
-        self.parentCell = parentCell
-        autofill()
+    // MARK: Style
+    func style() {
         styleInputField(field: days, editable: false, height: fieldHeight)
         styleInputField(field: crownAUM, editable: false, height: fieldHeight)
         styleInputField(field: pldAUM, editable: false, height: fieldHeight)
@@ -227,6 +228,48 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         styleInput(input: liveStock, height: fieldHeight)
         styleInput(input: dateIn, height: fieldHeight)
         styleInput(input: dateOut, height: fieldHeight)
+    }
+
+    func highlight() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundColor = Colors.secondary
+            self.layoutIfNeeded()
+        }) { (done) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.backgroundColor = UIColor.white
+                    self.layoutIfNeeded()
+                })
+            })
+        }
+    }
+
+    func highlightOn() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundColor = Colors.secondary
+            self.layoutIfNeeded()
+        })
+    }
+
+    func hightlightOff() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundColor = UIColor.white
+            self.layoutIfNeeded()
+        })
+    }
+
+    // MARK: Setup
+    func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
+        self.rup = rup
+        self.scheduleObject = scheduleObject
+        self.scheduleViewReference = scheduleViewReference
+        self.parentCell = parentCell
+        autofill()
+        style()
+        if scheduleObject.isNew {
+            highlight()
+            scheduleObject.setIsNew(to: false)
+        }
     }
 
     public func dismissKeyboard() {
@@ -243,7 +286,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         if let numOfAnimals = scheduleObject?.numberOfAnimals, numOfAnimals != 0 {
             self.numberOfAniamls.text = "\(numOfAnimals)"
         } else {
-            self.dateIn.text = ""
+            self.numberOfAniamls.text = ""
         }
 
         if let inDate = scheduleObject?.dateIn {

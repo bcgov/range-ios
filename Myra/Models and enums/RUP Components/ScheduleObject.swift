@@ -56,6 +56,20 @@ class ScheduleObject: Object, MyraObject {
     @objc dynamic var pldAUMs: Double = 0
     @objc dynamic var scheduleDescription: String = ""
 
+    // Used for highlighting cell
+    @objc dynamic var isNew: Bool = false
+
+    func setIsNew(to: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.isNew = to
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func toDictionary() -> [String : Any]? {
         if let pastureID = pasture?.remoteId, liveStockTypeId != -1, let inDate = dateIn, let outDate = dateOut {
             let schedule: [String: Any] = [
