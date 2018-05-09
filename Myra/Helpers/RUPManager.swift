@@ -186,10 +186,6 @@
     func updateRUPsFor(newAgreement: Agreement) {
         let rupsForAgreement = getRUPsForAgreement(agreementId: newAgreement.agreementId)
         for plan in rupsForAgreement {
-            if plan.rangeName != "" {
-                print("Before \(plan.agreementId)")
-                print(plan.zones)
-            }
             do {
                 let realm = try Realm()
                 try realm.write {
@@ -203,10 +199,6 @@
                 }
             } catch _ {
                 fatalError()
-            }
-            if plan.rangeName != "" {
-                print("After \(plan.agreementId)")
-                print(plan.zones)
             }
             RealmRequests.updateObject(plan)
         }
