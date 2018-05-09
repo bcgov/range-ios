@@ -150,44 +150,106 @@
     // Updates Range use years and zones
     func updateAgreement(with newAgreement: Agreement) {
         let storedAgreement = getAgreement(with: newAgreement.agreementId)
-        if storedAgreement == nil {return}
+        guard let stored = storedAgreement else {return}
 
         do {
             let realm = try Realm()
             try realm.write {
-//                storedAgreement?.zones = newAgreement.zones
-//                storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
                 if newAgreement.zones.count > 0 {
-                    storedAgreement?.zones = newAgreement.zones
-                    storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
-                    updateRUPsFor(agreement: newAgreement)
+                    stored.zones = newAgreement.zones
+                    stored.rangeUsageYears = newAgreement.rangeUsageYears
                 }
             }
-
         } catch _ {
             fatalError()
         }
+
+        // update rups associated with new agreement
+        let rupsForAgreement = getRUPsForAgreement(agreementId: newAgreement.agreementId)
+        for plan in rupsForAgreement {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    if newAgreement.zones.count > 0 {
+                        plan.zones = newAgreement.zones
+                        plan.rangeUsageYears = newAgreement.rangeUsageYears
+                    }
+                }
+            } catch _ {
+                fatalError()
+            }
+        }
+        updateRUPsFor(newAgreement: newAgreement)
         RealmRequests.updateObject(storedAgreement!)
     }
 
-    func updateRUPsFor(agreement: Agreement) {
-        if let rups = RealmRequests.getObject(RUP.self) {
-            for rup in rups {
-                if rup.agreementId == agreement.agreementId {
-                    rup.zones = agreement.zones
-                    rup.rangeUsageYears = agreement.rangeUsageYears
-                }
+    func updateRUPsFor(newAgreement: Agreement) {
+        let rupsForAgreement = getRUPsForAgreement(agreementId: newAgreement.agreementId)
+        for plan in rupsForAgreement {
+            if plan.rangeName != "" {
+                print("Before \(plan.agreementId)")
+                print(plan.zones)
             }
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    if newAgreement.zones.count > 0 {
+                        plan.zones.removeAll()
+                        for zone in newAgreement.zones {
+                            plan.zones.append(zone)
+                        }
+                        plan.rangeUsageYears = newAgreement.rangeUsageYears
+                    }
+                }
+            } catch _ {
+                fatalError()
+            }
+            if plan.rangeName != "" {
+                print("After \(plan.agreementId)")
+                print(plan.zones)
+            }
+            RealmRequests.updateObject(plan)
         }
     }
 
     func diffAgreements(agreements: [Agreement]) {
+
+        // Remove unassigned agreements:
+        removeUnassignedAgreements(newAgreements: agreements)
+
+        // Update existing agreements:
         for agreement in agreements {
             if agreementExists(id: agreement.agreementId) {
                 updateAgreement(with: agreement)
             } else {
                 RealmRequests.saveObject(object: agreement)
             }
+        }
+    }
+
+    func removeUnassignedAgreements(newAgreements: [Agreement]) {
+        // cache new ids
+        var newIds = [String]()
+        for agreement in newAgreements {
+            newIds.append(agreement.agreementId)
+        }
+        // array to hold stored agreements that should be removed
+        var invalidatedAgreements: [Agreement] = [Agreement]()
+        let storedAgreements = getAgreements()
+        for agreement in storedAgreements {
+            if !newIds.contains(agreement.agreementId) {
+                invalidatedAgreements.append(agreement)
+            }
+        }
+        // remove agreements that should be removed
+        for invalid in invalidatedAgreements {
+            // 1st remove all plans that have this agreement id
+            let plans = getRUPsForAgreement(agreementId: invalid.agreementId)
+            for plan in plans {
+                RealmRequests.deleteObject(plan)
+            }
+            // then remove agreement
+            RealmRequests.deleteObject(invalid)
         }
     }
 

@@ -522,7 +522,6 @@ extension APIManager {
         dispatchGroup.enter()
         progress("Uploading data to the server")
         DataServices.shared.uploadOutboxRangeUsePlans {
-            progress("Downloading reference data")
             dispatchGroup.leave()
         }
         
