@@ -90,7 +90,7 @@ class RUP: Object, MyraObject {
             "planStartDate": DateManager.toUTC(date: planStartDate!),
             "planEndDate": DateManager.toUTC(date: planEndDate!),
             "alternativeBusinessName": alternativeName,
-            "status_id": 1
+            "statusId": 1
         ]
     }
 }

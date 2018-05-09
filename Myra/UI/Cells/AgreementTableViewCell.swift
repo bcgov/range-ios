@@ -19,6 +19,7 @@ class AgreementTableViewCell: UITableViewCell, Theme {
         self.rangeNumber.text = "\(agreement.agreementId)"
         self.agreementHolder.text = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
         style()
+        print(agreement.clients.count)
     }
 
     func style() {
