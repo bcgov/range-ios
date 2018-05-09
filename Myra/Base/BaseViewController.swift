@@ -493,6 +493,7 @@ extension BaseViewController {
 
 // MARK: Authentication
 extension BaseViewController {
+    
     func authenticateIfRequred() {
         if !authServices.isAuthenticated() {
             let vc = authServices.viewController() { (credentials, error) in
