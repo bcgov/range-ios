@@ -46,7 +46,11 @@ extension CreateNewRUPViewController {
         self.menuSectionsOff()
         self.menuContainer.layer.cornerRadius = 5
         self.addShadow(to: menuContainer.layer, opacity: 0.8, height: 2)
-        self.styleMenuSubmitButton()
+        if let r = rup, r.isValid {
+            self.styleMenuSubmitButtonOn()
+        } else {
+            self.styleMenuSubmitButtonOFF()
+        }
         self.styleMenuLowerBars()
     }
 
@@ -56,13 +60,26 @@ extension CreateNewRUPViewController {
         self.scheduleLowerBar.alpha = 0.1
     }
 
-    func styleMenuSubmitButton() {
+    func styleMenuSubmitButtonOn() {
         self.reviewAndSubmitLabel.text = "Submit and Review"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
+        self.reviewAndSubmitButton.isEnabled = true
 
         self.submitButtonContainer.layer.cornerRadius = 5
         self.submitButtonContainer.backgroundColor = Colors.primary
         self.submitButtonContainer.layer.borderWidth = 1
+        self.submitButtonContainer.alpha = 1
+    }
+
+    func styleMenuSubmitButtonOFF() {
+        self.reviewAndSubmitLabel.text = "Submit and Review"
+        self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
+        self.reviewAndSubmitButton.isEnabled = false
+
+        self.submitButtonContainer.layer.cornerRadius = 5
+        self.submitButtonContainer.backgroundColor = Colors.primary
+        self.submitButtonContainer.layer.borderWidth = 1
+        self.submitButtonContainer.alpha = 0.5
     }
 
     func menuBasicInfoOn() {

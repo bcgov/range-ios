@@ -67,15 +67,30 @@ class RUP: Object, MyraObject {
         self.ranNumber = Int(splitRan[1]) ?? 0
     }
 
+    var isValid: Bool {
+        if planEndDate == nil ||
+            planEndDate == nil ||
+            rangeName == ""
+        {
+            return false
+        } else {
+            return true
+        }
+    }
+
     func toDictionary() -> [String:Any] {
-        if planEndDate == nil || planEndDate == nil{ return [String:Any]()}
+        // if invalid, return empty dictionary
+        if !isValid {
+            return [String:Any]()
+        }
+
         return [
             "rangeName": rangeName,
             "agreementId": agreementId,
             "planStartDate": DateManager.toUTC(date: planStartDate!),
             "planEndDate": DateManager.toUTC(date: planEndDate!),
             "alternativeBusinessName": alternativeName,
-            "statusId": 1
+            "status_id": 1
         ]
     }
 }
