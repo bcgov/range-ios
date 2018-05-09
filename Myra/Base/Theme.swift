@@ -14,6 +14,15 @@ extension Theme {
 
     // MARK: Constants
 
+    // Sort headers
+    func defaultSortHeaderOnColor() -> UIColor {
+        return Colors.secondary
+    }
+
+    func defaultSortHeaderOffColor() -> UIColor {
+        return Colors.primary
+    }
+
     // Shadow
     func defaultShadowColor() -> CGColor {
         return Colors.shadowColor.cgColor
@@ -191,6 +200,18 @@ extension Theme {
     func styleFieldHeader(label: UILabel) {
         label.textColor = defaultFieldHeaderColor()
         label.font = defaultFieldHeaderFont()
+    }
+
+    func styleFieldHeaderOff(button: UIButton) {
+        button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
+        button.titleLabel?.font = defaultFieldHeaderFont()
+        button.setImage(nil, for: .normal)
+    }
+
+    func styleFieldHeaderOn(button: UIButton) {
+        button.setTitleColor(defaultSortHeaderOnColor(), for: .normal)
+        button.titleLabel?.font = defaultFieldHeaderFont()
+        button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
     }
 
     func styleSubHeader(label: UILabel) {

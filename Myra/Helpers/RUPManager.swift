@@ -202,7 +202,6 @@
 
     func getAgreementsWithNoRUPs() -> [Agreement] {
         let agreements = getAgreements()
-        print(agreements.count)
         var filtered = [Agreement]()
         for agreement in agreements {
             if agreement.rups.count < 1 {
@@ -472,12 +471,7 @@
         let totAUMs = getTotalAUMsFor(schedule: schedule)
         let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
         let allowed = usage?.auth_AUMs ?? 0
-
-        print(totAUMs)
-        print(usage ?? "nil")
-        print(allowed)
         return totAUMs <= Double(allowed)
-
     }
 
     // if livestock with the specified name is not found, returns false
@@ -622,7 +616,6 @@
                 if object.id == -1 {
                     RealmRequests.deleteObject(object)
                 }
-                print(object)
                 if object.code == clientTypeCode {
                     return object
                 }

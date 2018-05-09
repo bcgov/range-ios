@@ -16,6 +16,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     var scheduleObject: ScheduleObject?
     var parentCell: ScheduleFormTableViewCell?
     var scheduleViewReference: ScheduleViewController?
+    var realmNotificationToken: NotificationToken?
 
     // MARK: Outlets
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
@@ -40,6 +41,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 // this function also update calculations for pld and crown fields
                 RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: (obj?.value)!, rup: self.rup)
 
+                // re sort schedule
+                self.parentCell?.sort()
                 self.update()
                 // fill appropriate fields
                 self.fillCurrentValues()
@@ -64,6 +67,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                         let realm = try Realm()
                         try realm.write {
                             self.scheduleObject?.liveStockTypeId = ls.id
+                            self.scheduleObject?.liveStockTypeName = selectedType.display
                         }
                     } catch _ {
                         fatalError()
@@ -71,6 +75,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
+                // re sort schedule
+                self.parentCell?.sort()
                 self.update()
                 grandParent.hidepopup(vc: lookup)
             } else {
@@ -116,6 +122,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
         picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
             self.handleDateIn(date: date)
+            // re sort schedule
+            self.parentCell?.sort()
         }
         grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
@@ -129,10 +137,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         if let s = scheduleObject, let startDate = s.dateIn {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: startDate) { (date) in
                 self.handleDateOut(date: date)
+                // re sort schedule
+                self.parentCell?.sort()
             }
         } else {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
                 self.handleDateOut(date: date)
+                // re sort schedule
+                self.parentCell?.sort()
             }
         }
         grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)

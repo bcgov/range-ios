@@ -115,7 +115,6 @@ class DataServices: NSObject {
                 group.leave()
                 return
             }
-            print(myPlan.toDictionary())
 
             APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
                 guard let response = response, error == nil else {
