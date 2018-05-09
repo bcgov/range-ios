@@ -202,7 +202,6 @@
 
     func getAgreementsWithNoRUPs() -> [Agreement] {
         let agreements = getAgreements()
-        print(agreements.count)
         var filtered = [Agreement]()
         for agreement in agreements {
             if agreement.rups.count < 1 {
@@ -302,13 +301,21 @@
  extension RUPManager {
 
     func copyScheduleObjects(from: Schedule, to: Schedule) {
+        let toYear = to.year
         for object in from.scheduleObjects {
             let new = ScheduleObject()
             new.pasture = object.pasture
             new.liveStockTypeId = object.liveStockTypeId
             new.numberOfAnimals = object.numberOfAnimals
-            new.dateIn = object.dateIn
-            new.dateOut = object.dateOut
+
+            if let dateIn = object.dateIn {
+                 new.dateIn = DateManager.update(date: dateIn, toYear: toYear)
+            }
+
+            if let dateOut = object.dateOut {
+                new.dateOut = DateManager.update(date: dateOut, toYear: toYear)
+            }
+
             new.totalAUMs = object.totalAUMs
             new.pldAUMs = object.pldAUMs
             new.scheduleDescription = object.scheduleDescription
@@ -329,6 +336,7 @@
         new.totalAUMs = fromObject.totalAUMs
         new.pldAUMs = fromObject.pldAUMs
         new.scheduleDescription = fromObject.scheduleDescription
+        new.isNew = true
 
         RealmRequests.saveObject(object: new)
 
@@ -463,12 +471,7 @@
         let totAUMs = getTotalAUMsFor(schedule: schedule)
         let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
         let allowed = usage?.auth_AUMs ?? 0
-
-        print(totAUMs)
-        print(usage ?? "nil")
-        print(allowed)
         return totAUMs <= Double(allowed)
-
     }
 
     // if livestock with the specified name is not found, returns false
@@ -613,7 +616,6 @@
                 if object.id == -1 {
                     RealmRequests.deleteObject(object)
                 }
-                print(object)
                 if object.code == clientTypeCode {
                     return object
                 }

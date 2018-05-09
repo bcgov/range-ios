@@ -21,47 +21,68 @@ class ScheduleCellTableViewCell: BaseFormCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var optionsView: UIView!
 
+    @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var copyButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
 
     @IBOutlet weak var leadingOptions: NSLayoutConstraint!
 
-    // MARK: Actions
+    // MARK: Outlet Actions
     @IBAction func copyAtion(_ sender: Any) {
         duplicate()
     }
 
     @IBAction func deleteAction(_ sender: Any) {
+        delete()
+    }
+
+    @IBAction func optionsAction(_ sender: Any) {
+        showOptions()
+//        self.leadingOptions.constant = 0 - optionsView.frame.width
+//        animateIt()
+    }
+
+    @IBAction func closeOptions(_ sender: Any) {
+        self.leadingOptions.constant = 0
+        animateIt()
+    }
+
+    @IBAction func detailAction(_ sender: Any) {
+        // refenrece to create page.
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        grandParent.showSchedule(object: schedule!, completion: { done in
+            self.styleBasedOnValidity()
+        })
+    }
+
+    // MARK: Functions
+    func showOptions() {
+        // refenrece to create page.
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        let vm = ViewManager()
+        let optionsVC = vm.options
+        let options: [Option] = [Option(type: .Delete, display: "Delete"), Option(type: .Copy, display: "Copy")]
+        optionsVC.setup(options: options) { (selected) in
+            optionsVC.dismiss(animated: false, completion: nil)
+            switch selected.type {
+            case .Delete:
+                self.delete()
+            case .Copy:
+                self.duplicate()
+            }
+        }
+        grandParent.showPopOver(on: optionsButton, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+    }
+
+    func delete() {
         if let s = schedule, let p = parentReference {
-            RealmRequests.deleteObject(s)
-            p.updateTableHeight()
-            self.leadingOptions.constant = 0
-            animateIt()
+            let grandParent = self.parentViewController as! CreateNewRUPViewController
+            grandParent.showAlert(title: "Are you sure?", description: "Deleting the \(s.year) schedule will also delete all of its entries", yesButtonTapped: {
+                RealmRequests.deleteObject(s)
+                p.updateTableHeight()
+            }) {}
         }
     }
-
-    func setup(rup: RUP, schedule: Schedule, parentReference: ScheduleTableViewCell) {
-        self.schedule = schedule
-        if nameLabel != nil { nameLabel.text = schedule.name }
-        self.parentReference = parentReference
-        self.rup = rup
-        style()
-        styleBasedOnValidity()
-    }
-
-    override func orientationChanged(_ notification: NSNotification) {
-        closeOptions("")
-    }
-
-    func styleBasedOnValidity() {
-        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup.agreementId)) {
-            styleValid()
-        } else {
-            styleInvalid()
-        }
-    }
-    
-    func handleGesture(gesture: UISwipeGestureRecognizer) {    }
 
     func duplicate() {
         guard let sched = schedule, let parent = parentReference else {return}
@@ -91,32 +112,24 @@ class ScheduleCellTableViewCell: BaseFormCell {
             self.leadingOptions.constant = 0
             self.animateIt()
         }
-        parent.parentReference?.showPopOver(on: copyButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        parent.parentReference?.showPopOver(on: optionsButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
     
-    @IBAction func optionsAction(_ sender: Any) {
-        self.leadingOptions.constant = 0 - optionsView.frame.width
-        animateIt()
+    // MARK: Setup
+    func setup(rup: RUP, schedule: Schedule, parentReference: ScheduleTableViewCell) {
+        self.schedule = schedule
+        if nameLabel != nil { nameLabel.text = schedule.name }
+        self.parentReference = parentReference
+        self.rup = rup
+        style()
+        styleBasedOnValidity()
     }
 
-    @IBAction func detailAction(_ sender: Any) {
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.showSchedule(object: schedule!, completion: { done in
-            self.styleBasedOnValidity()
-        })
+    override func orientationChanged(_ notification: NSNotification) {
+        closeOptions("")
     }
 
-    func animateIt() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.layoutIfNeeded()
-        })
-    }
-
-    @IBAction func closeOptions(_ sender: Any) {
-        self.leadingOptions.constant = 0
-        animateIt()
-    }
-
+    // MARK: Styles
     func style() {
         styleContainer(view: cellContainer)
         styleHollowButton(button: deleteButton)
@@ -130,5 +143,19 @@ class ScheduleCellTableViewCell: BaseFormCell {
     func styleValid() {
         nameLabel.textColor = UIColor.black
         cellContainer.layer.borderColor = UIColor.black.cgColor
+    }
+
+    func styleBasedOnValidity() {
+        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup.agreementId)) {
+            styleValid()
+        } else {
+            styleInvalid()
+        }
+    }
+
+    func animateIt() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.layoutIfNeeded()
+        })
     }
 }

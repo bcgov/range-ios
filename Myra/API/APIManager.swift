@@ -145,8 +145,6 @@ class APIManager {
         var params = schedule.toDictionary()
         params["plan_id"] = planId
 
-        print(params)
-
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
                 APIManager.process(response: response, completion: completion)
@@ -304,7 +302,6 @@ class APIManager {
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 if let error = json["error"].string {
-                    print(error)
                     let err = APIError.somethingHappened(message: "\(String(describing: error))")
                     return completion(nil, err)
                 }
@@ -504,8 +501,6 @@ class APIManager {
         }
 
         agreement.zones.append(zone)
-
-        print(agreement)
 
         return agreement
     }

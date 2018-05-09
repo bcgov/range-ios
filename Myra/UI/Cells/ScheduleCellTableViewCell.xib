@@ -173,6 +173,7 @@
                 <outlet property="deleteButton" destination="U4E-ND-gat" id="ZuF-4e-ahK"/>
                 <outlet property="leadingOptions" destination="zKE-00-v6p" id="ou7-tT-dvj"/>
                 <outlet property="nameLabel" destination="Mee-NH-aQC" id="3QK-nT-kdy"/>
+                <outlet property="optionsButton" destination="boe-1c-INy" id="b9O-6i-55c"/>
                 <outlet property="optionsView" destination="gpi-eb-Q6x" id="bNB-uI-tiU"/>
             </connections>
             <point key="canvasLocation" x="-126.5" y="286.5"/>
