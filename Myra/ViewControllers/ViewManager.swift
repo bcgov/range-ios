@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 
 class ViewManager {
-//    static let shared = ViewManager()
-//    
-//    private init() {}
 
     lazy var home: HomeViewController = {
         return UIStoryboard(name: "Home", bundle: Bundle.main).instantiateViewController(withIdentifier: "Home") as! HomeViewController
@@ -40,5 +37,9 @@ class ViewManager {
 
     lazy var datePicker: DatePickerViewController = {
         return UIStoryboard(name: "DatePicker", bundle: Bundle.main).instantiateViewController(withIdentifier: "DatePicker") as! DatePickerViewController
+    }()
+
+    lazy var options: OptionsViewController = {
+        return UIStoryboard(name: "Options", bundle: Bundle.main).instantiateViewController(withIdentifier: "Options") as! OptionsViewController
     }()
 }

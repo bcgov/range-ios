@@ -49,4 +49,10 @@ class DateManager {
         return(components.day ?? -1)
     }
 
+    static func update(date: Date, toYear: Int) -> Date {
+        var component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        component.year = toYear
+        return Calendar.current.date(from: component)!
+    }
+
 }

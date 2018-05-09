@@ -59,6 +59,18 @@ class CreateNewRUPViewController: BaseViewController {
 
     var mode: FormMode = .Create
 
+    var realmNotificationToken: NotificationToken?
+
+    var planIsValid: Bool = false {
+        didSet {
+            if planIsValid {
+                self.styleMenuSubmitButtonOn()
+            } else {
+                self.styleMenuSubmitButtonOFF()
+            }
+        }
+    }
+
     // pop up for adding pastures and years
     var acceptedPopupInput: AcceptedPopupInput = .String
     var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
@@ -220,7 +232,6 @@ class CreateNewRUPViewController: BaseViewController {
     }
     // end of custom popup
 
-
     // MARK: ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -235,22 +246,6 @@ class CreateNewRUPViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         openingAnimations()
-    }
-
-    // MARK: Setup
-    func autofill() {
-        let num = rup?.agreementId ?? ""
-        let name = rup?.rangeName ?? ""
-        ranchNameAndNumberLabel.text = "\(num) | \(name)"
-    }
-
-    func catchAction(notification:Notification) {
-        if !reloading {
-            self.tableView.reloadData()
-            self.reloading = true
-        } else {
-            self.reloading = false
-        }
     }
 
     // MARK: Outlet Actions
@@ -318,6 +313,7 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // Mark: Functions
+    // MARK: Setup
     func setup(rup: RUP, callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup
@@ -330,8 +326,33 @@ class CreateNewRUPViewController: BaseViewController {
             fatalError()
         }
         setUpTable()
+
+        self.realmNotificationToken = rup.observe { (change) in
+            switch change {
+            case .error(_):
+                print("Error in rup change")
+            case .change(_):
+                self.planIsValid = rup.isValid
+            case .deleted:
+                print("RUP deleted")
+            }
+        }
     }
 
+    func autofill() {
+        let num = rup?.agreementId ?? ""
+        let name = rup?.rangeName ?? ""
+        ranchNameAndNumberLabel.text = "\(num) | \(name)"
+    }
+
+    func catchAction(notification:Notification) {
+        if !reloading {
+            self.tableView.reloadData()
+            self.reloading = true
+        } else {
+            self.reloading = false
+        }
+    }
     override func whenLandscape() {
         setMenuSize()
     }

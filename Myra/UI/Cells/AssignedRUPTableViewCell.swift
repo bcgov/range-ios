@@ -49,11 +49,11 @@ class AssignedRUPTableViewCell: UITableViewCell {
         switch rup.statusEnum {
         case .Completed:
             self.statusText.text = "Completed"
-            infoButton.alpha = 1
+            infoButton.alpha = 0
             setStatusGreen()
         case .Pending:
             self.statusText.text = "Submitted"
-            infoButton.alpha = 1
+            infoButton.alpha = 0
             setStatusRed()
         case .Draft:
             self.statusText.text = "Draft"
@@ -62,7 +62,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
             setStatusRed()
         case .Outbox:
             self.statusText.text = "Outbox"
-            infoButton.alpha = 1
+            infoButton.alpha = 0
             setStatusGray()
         }
     }

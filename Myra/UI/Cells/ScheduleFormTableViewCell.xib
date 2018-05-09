@@ -30,58 +30,123 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GqW-LS-yH6">
-                                <rect key="frame" x="0.0" y="33.5" width="675" height="14.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="633" height="80"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="na3-DV-SmI">
-                                        <rect key="frame" x="0.0" y="0.0" width="66" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Livestock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qD-Zh-B5j">
-                                        <rect key="frame" x="76" y="0.0" width="66" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of Animals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtj-xP-Ybu">
-                                        <rect key="frame" x="152" y="0.0" width="66.5" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waI-pN-QOU">
-                                        <rect key="frame" x="228.5" y="0.0" width="66" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAR-rn-o2R">
-                                        <rect key="frame" x="304.5" y="0.0" width="66" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d16-zD-Ddj">
+                                        <rect key="frame" x="0.0" y="0.0" width="61.5" height="80"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTh-r8-ntq" userLabel="Pasture">
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="80"/>
+                                                <state key="normal" title="Pasture"/>
+                                                <connections>
+                                                    <action selector="sortPasture:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lmU-cR-RVT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="NTh-r8-ntq" firstAttribute="leading" secondItem="d16-zD-Ddj" secondAttribute="leading" id="15z-dU-R9P"/>
+                                            <constraint firstItem="NTh-r8-ntq" firstAttribute="top" secondItem="d16-zD-Ddj" secondAttribute="top" id="DRN-Pi-C9C"/>
+                                            <constraint firstAttribute="bottom" secondItem="NTh-r8-ntq" secondAttribute="bottom" id="cZU-fd-I7R"/>
+                                            <constraint firstAttribute="trailing" secondItem="NTh-r8-ntq" secondAttribute="trailing" id="tSg-1k-Nvo"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uig-tZ-da7">
+                                        <rect key="frame" x="71.5" y="0.0" width="61.5" height="80"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ro-9u-d9v">
+                                                <rect key="frame" x="-0.5" y="0.0" width="62" height="80"/>
+                                                <state key="normal" title="Livestock"/>
+                                                <connections>
+                                                    <action selector="sortLiveStock:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jMW-Br-lal"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="3ro-9u-d9v" secondAttribute="bottom" id="BHC-6m-6CL"/>
+                                            <constraint firstItem="3ro-9u-d9v" firstAttribute="leading" secondItem="uig-tZ-da7" secondAttribute="leading" id="H3f-Fp-l5I"/>
+                                            <constraint firstAttribute="trailing" secondItem="3ro-9u-d9v" secondAttribute="trailing" id="Yxm-y6-QkR"/>
+                                            <constraint firstItem="3ro-9u-d9v" firstAttribute="top" secondItem="uig-tZ-da7" secondAttribute="top" id="pyG-k8-ybr"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJD-Fi-a6Q">
+                                        <rect key="frame" x="143" y="0.0" width="61.5" height="80"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6v-48-Muu">
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="80"/>
+                                                <state key="normal" title="# of Animals"/>
+                                                <connections>
+                                                    <action selector="sortNumber:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="N1d-Nl-VXJ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="L6v-48-Muu" firstAttribute="top" secondItem="BJD-Fi-a6Q" secondAttribute="top" id="Phc-KV-8kc"/>
+                                            <constraint firstAttribute="trailing" secondItem="L6v-48-Muu" secondAttribute="trailing" id="ixc-by-XXm"/>
+                                            <constraint firstItem="L6v-48-Muu" firstAttribute="leading" secondItem="BJD-Fi-a6Q" secondAttribute="leading" id="miy-uH-Udg"/>
+                                            <constraint firstAttribute="bottom" secondItem="L6v-48-Muu" secondAttribute="bottom" id="ukh-nc-sio"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfg-hF-1xh">
+                                        <rect key="frame" x="214.5" y="0.0" width="61.5" height="80"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOK-2J-nbK">
+                                                <rect key="frame" x="-0.5" y="0.0" width="62" height="80"/>
+                                                <state key="normal" title="Date In"/>
+                                                <connections>
+                                                    <action selector="sortDateIn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r7G-km-uEk"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="qOK-2J-nbK" firstAttribute="top" secondItem="Rfg-hF-1xh" secondAttribute="top" id="9nM-QN-NWx"/>
+                                            <constraint firstAttribute="bottom" secondItem="qOK-2J-nbK" secondAttribute="bottom" id="g3p-Ld-eN9"/>
+                                            <constraint firstAttribute="trailing" secondItem="qOK-2J-nbK" secondAttribute="trailing" id="hkF-JB-fSI"/>
+                                            <constraint firstItem="qOK-2J-nbK" firstAttribute="leading" secondItem="Rfg-hF-1xh" secondAttribute="leading" id="wn5-rW-YHC"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Df0-pu-epB">
+                                        <rect key="frame" x="286" y="0.0" width="61" height="80"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7o-Z9-cuH">
+                                                <rect key="frame" x="0.0" y="0.0" width="61" height="80"/>
+                                                <state key="normal" title="Date Out"/>
+                                                <connections>
+                                                    <action selector="sortDateOut:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lCY-nh-fSB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="h7o-Z9-cuH" secondAttribute="bottom" id="6Ac-hW-emb"/>
+                                            <constraint firstAttribute="trailing" secondItem="h7o-Z9-cuH" secondAttribute="trailing" id="HrM-Bl-6dv"/>
+                                            <constraint firstItem="h7o-Z9-cuH" firstAttribute="leading" secondItem="Df0-pu-epB" secondAttribute="leading" id="olp-JC-86o"/>
+                                            <constraint firstItem="h7o-Z9-cuH" firstAttribute="top" secondItem="Df0-pu-epB" secondAttribute="top" id="yFg-kJ-D9E"/>
+                                        </constraints>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-Hh-1ts">
-                                        <rect key="frame" x="380.5" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="357" y="0.0" width="61.5" height="80"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grace Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxo-IN-lrt">
-                                        <rect key="frame" x="456.5" y="0.0" width="66.5" height="14.5"/>
+                                        <rect key="frame" x="428.5" y="0.0" width="61.5" height="80"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tm-Q8-2mc">
-                                        <rect key="frame" x="533" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="500" y="0.0" width="61.5" height="80"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crown AUMs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nx-0F-bvF">
-                                        <rect key="frame" x="609" y="0.0" width="66" height="14.5"/>
+                                        <rect key="frame" x="571.5" y="0.0" width="61.5" height="80"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -90,12 +155,14 @@
                             </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="GqW-LS-yH6" firstAttribute="top" secondItem="0yR-Tn-WcF" secondAttribute="top" id="0yY-of-FNi"/>
                             <constraint firstItem="GqW-LS-yH6" firstAttribute="centerY" secondItem="0yR-Tn-WcF" secondAttribute="centerY" id="Iht-PQ-os1"/>
                             <constraint firstItem="QI7-Hj-vPt" firstAttribute="leading" secondItem="0yR-Tn-WcF" secondAttribute="leading" id="LRe-Yk-Wca"/>
+                            <constraint firstAttribute="bottom" secondItem="GqW-LS-yH6" secondAttribute="bottom" id="N1B-4Q-Z5R"/>
                             <constraint firstItem="QI7-Hj-vPt" firstAttribute="centerY" secondItem="0yR-Tn-WcF" secondAttribute="centerY" id="bre-Zq-JNV"/>
                             <constraint firstAttribute="height" constant="80" id="e0r-tv-JAn"/>
                             <constraint firstItem="GqW-LS-yH6" firstAttribute="leading" secondItem="0yR-Tn-WcF" secondAttribute="leading" id="jeD-Br-4E0"/>
-                            <constraint firstAttribute="trailing" secondItem="GqW-LS-yH6" secondAttribute="trailing" id="mu0-cx-hUP"/>
+                            <constraint firstAttribute="trailing" secondItem="GqW-LS-yH6" secondAttribute="trailing" constant="42" id="mu0-cx-hUP"/>
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A6Y-QC-PtD">
@@ -138,17 +205,17 @@
                 <outlet property="PLD" destination="7tm-Q8-2mc" id="vaQ-WP-k2P"/>
                 <outlet property="addButton" destination="BBz-ln-OuS" id="b8h-1m-9ff"/>
                 <outlet property="crownAUMs" destination="9nx-0F-bvF" id="Q5x-a4-xj9"/>
-                <outlet property="dateIn" destination="waI-pN-QOU" id="Knf-Ff-4Ht"/>
-                <outlet property="dateOut" destination="cAR-rn-o2R" id="yaA-on-sIB"/>
+                <outlet property="dateIn" destination="qOK-2J-nbK" id="1MQ-AC-cTu"/>
+                <outlet property="dateOut" destination="h7o-Z9-cuH" id="R0l-qp-AGv"/>
                 <outlet property="days" destination="vgg-Hh-1ts" id="Cnu-TM-Nv6"/>
                 <outlet property="graceDays" destination="Xxo-IN-lrt" id="KBi-D1-Siw"/>
                 <outlet property="height" destination="exu-pw-dEj" id="aoh-lH-kLM"/>
-                <outlet property="livestock" destination="0qD-Zh-B5j" id="obb-Dr-CHn"/>
-                <outlet property="numAnimals" destination="Gtj-xP-Ybu" id="cXg-Kj-8Mj"/>
-                <outlet property="pasture" destination="na3-DV-SmI" id="b1q-fR-5yv"/>
+                <outlet property="livestock" destination="3ro-9u-d9v" id="tV0-hN-WFp"/>
+                <outlet property="numAnimals" destination="L6v-48-Muu" id="Rii-Cr-RfF"/>
+                <outlet property="pasture" destination="NTh-r8-ntq" id="7f1-sb-U4u"/>
                 <outlet property="tableView" destination="A6Y-QC-PtD" id="kVh-dB-oMZ"/>
             </connections>
-            <point key="canvasLocation" x="17.5" y="3.5"/>
+            <point key="canvasLocation" x="116" y="-1"/>
         </tableViewCell>
     </objects>
 </document>

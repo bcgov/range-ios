@@ -27,6 +27,9 @@ class AgreementHoldersTableViewCell: BaseFormCell {
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
+        let clients = rup.clients
+        let padding = 5
+        heightConstraint.constant = CGFloat((clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
         style()
         setUpTable()
     }

@@ -202,7 +202,6 @@
 
     func getAgreementsWithNoRUPs() -> [Agreement] {
         let agreements = getAgreements()
-        print(agreements.count)
         var filtered = [Agreement]()
         for agreement in agreements {
             if agreement.rups.count < 1 {
@@ -302,13 +301,21 @@
  extension RUPManager {
 
     func copyScheduleObjects(from: Schedule, to: Schedule) {
+        let toYear = to.year
         for object in from.scheduleObjects {
             let new = ScheduleObject()
             new.pasture = object.pasture
             new.liveStockTypeId = object.liveStockTypeId
             new.numberOfAnimals = object.numberOfAnimals
-            new.dateIn = object.dateIn
-            new.dateOut = object.dateOut
+
+            if let dateIn = object.dateIn {
+                 new.dateIn = DateManager.update(date: dateIn, toYear: toYear)
+            }
+
+            if let dateOut = object.dateOut {
+                new.dateOut = DateManager.update(date: dateOut, toYear: toYear)
+            }
+
             new.totalAUMs = object.totalAUMs
             new.pldAUMs = object.pldAUMs
             new.scheduleDescription = object.scheduleDescription
@@ -317,6 +324,52 @@
             to.scheduleObjects.append(new)
         }
         RealmRequests.updateObject(to)
+    }
+
+    func copyScheduleObject(fromObject: ScheduleObject, inSchedule: Schedule) {
+        let new = ScheduleObject()
+        new.pasture = fromObject.pasture
+        new.liveStockTypeId = fromObject.liveStockTypeId
+        new.numberOfAnimals = fromObject.numberOfAnimals
+        new.dateIn = fromObject.dateIn
+        new.dateOut = fromObject.dateOut
+        new.totalAUMs = fromObject.totalAUMs
+        new.pldAUMs = fromObject.pldAUMs
+        new.scheduleDescription = fromObject.scheduleDescription
+        new.isNew = true
+
+        RealmRequests.saveObject(object: new)
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                inSchedule.scheduleObjects.append(new)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func copyPasture(from: Pasture, to: Pasture) {
+        to.allowedAUMs = from.allowedAUMs
+        to.privateLandDeduction = from.privateLandDeduction
+        to.graceDays = from.graceDays
+        to.notes = from.notes
+        RealmRequests.updateObject(to)
+    }
+
+    func deletePasture(pasture: Pasture) {
+        // remove all schedule objects with this pasture
+        do {
+            let realm = try Realm()
+            let scheduleObjects = realm.objects(ScheduleObject.self).filter("pasture = %@", pasture)
+            for object in scheduleObjects {
+                RealmRequests.deleteObject(object)
+            }
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.deleteObject(pasture)
     }
     
     /*
@@ -418,12 +471,7 @@
         let totAUMs = getTotalAUMsFor(schedule: schedule)
         let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
         let allowed = usage?.auth_AUMs ?? 0
-
-        print(totAUMs)
-        print(usage ?? "nil")
-        print(allowed)
         return totAUMs <= Double(allowed)
-
     }
 
     // if livestock with the specified name is not found, returns false
@@ -568,7 +616,6 @@
                 if object.id == -1 {
                     RealmRequests.deleteObject(object)
                 }
-                print(object)
                 if object.code == clientTypeCode {
                     return object
                 }

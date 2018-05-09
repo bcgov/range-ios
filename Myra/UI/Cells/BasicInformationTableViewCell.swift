@@ -105,6 +105,11 @@ class BasicInformationTableViewCell: BaseFormCell {
             contactNameValue.text = zone.contactName
             contactEmailValue.text = zone.contactEmail
             contactPhoneValue.text = zone.contactPhoneNumber
+
+            // TODO: Remove. it's temporary
+            if contactPhoneValue.text == "" {
+                contactPhoneValue.text = "Not Provided"
+            }
         }
 
         // Agreement date

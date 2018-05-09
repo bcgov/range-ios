@@ -14,6 +14,15 @@ extension Theme {
 
     // MARK: Constants
 
+    // Sort headers
+    func defaultSortHeaderOnColor() -> UIColor {
+        return Colors.secondary
+    }
+
+    func defaultSortHeaderOffColor() -> UIColor {
+        return Colors.primary
+    }
+
     // Shadow
     func defaultShadowColor() -> CGColor {
         return Colors.shadowColor.cgColor
@@ -193,6 +202,18 @@ extension Theme {
         label.font = defaultFieldHeaderFont()
     }
 
+    func styleFieldHeaderOff(button: UIButton) {
+        button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
+        button.titleLabel?.font = defaultFieldHeaderFont()
+        button.setImage(nil, for: .normal)
+    }
+
+    func styleFieldHeaderOn(button: UIButton) {
+        button.setTitleColor(defaultSortHeaderOnColor(), for: .normal)
+        button.titleLabel?.font = defaultFieldHeaderFont()
+        button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
+    }
+
     func styleSubHeader(label: UILabel) {
         label.textColor = defaultSectionSubHeaderColor()
         label.font = defaultSectionSubHeaderFont()
@@ -288,6 +309,16 @@ extension Theme {
     func styleNavBarLabel(label: UILabel) {
         label.textColor = UIColor.white
         label.font = defaultNavBarLabelFont()
+    }
+
+    func menuSectionOff(label: UILabel) {
+        label.textColor = UIColor.black
+        label.font = Fonts.getPrimary(size: 15)
+    }
+
+    func menuSectionOn(label: UILabel) {
+        label.textColor = Colors.primary
+        label.font = Fonts.getPrimaryMedium(size: 15)
     }
 
 }
