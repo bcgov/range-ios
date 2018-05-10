@@ -206,12 +206,17 @@ extension Theme {
         button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
         button.titleLabel?.font = defaultFieldHeaderFont()
         button.setImage(nil, for: .normal)
+        // reset insets
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
     }
 
     func styleFieldHeaderOn(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOnColor(), for: .normal)
         button.titleLabel?.font = defaultFieldHeaderFont()
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
+        // set button image on the right
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, (0.0 - (button.imageView?.frame.size.width)!), 0, (button.imageView?.frame.size.width)!);
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, (button.titleLabel?.frame.size.width)!, 0, (0.0 - (button.titleLabel?.frame.size.width)!))
     }
 
     func styleSubHeader(label: UILabel) {
