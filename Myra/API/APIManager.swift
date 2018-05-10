@@ -553,7 +553,6 @@ extension APIManager {
             if let agreements = myAgreements {
                 progress("Updating stored data")
                 RUPManager.shared.diffAgreements(agreements: agreements)
-                progress("Completed")
                 RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             }
             

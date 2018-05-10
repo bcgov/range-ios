@@ -225,23 +225,19 @@
         for agreement in newAgreements {
             newIds.append(agreement.agreementId)
         }
-        // array to hold stored agreements that should be removed
-        var invalidatedAgreements: [Agreement] = [Agreement]()
+
         let storedAgreements = getAgreements()
         for agreement in storedAgreements {
+            // if stored agreement id was not pulled from server,
             if !newIds.contains(agreement.agreementId) {
-                invalidatedAgreements.append(agreement)
+                // 1st remove all plans that have this agreement id
+                let plans = getRUPsForAgreement(agreementId: agreement.agreementId)
+                for plan in plans {
+                    RealmRequests.deleteObject(plan)
+                }
+                // then remove agreement
+                RealmRequests.deleteObject(agreement)
             }
-        }
-        // remove agreements that should be removed
-        for invalid in invalidatedAgreements {
-            // 1st remove all plans that have this agreement id
-            let plans = getRUPsForAgreement(agreementId: invalid.agreementId)
-            for plan in plans {
-                RealmRequests.deleteObject(plan)
-            }
-            // then remove agreement
-            RealmRequests.deleteObject(invalid)
         }
     }
 
