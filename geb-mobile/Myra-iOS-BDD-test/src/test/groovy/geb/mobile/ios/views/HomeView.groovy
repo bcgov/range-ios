@@ -6,11 +6,17 @@ class HomeView extends IosBaseView {
 
     static content = {
 
-        createButton {$("//XCUIElementTypeButton[@name=\" + Create New RUP \"]")}
+        syncButton {$("#SyncButton")}
+        createButton {$("#CreateRupButton")}
+
+//        TODO: add ID
+        syncStatusField {$("#SyncTimeStamp")}
+
+        emptyTable {$("//XCUIElementTypeTable[@name=\"Empty list\"]")}
         rangeTable {$("#XCUIElementTypeTable")}
         rangeTableCells {$("#XCUIElementTypeCell")}
         completedTableCells {$("//XCUIElementTypeStaticText[@name=\"Completed\"]")}
 
-
+        viewEditButtons {$("#EditOrViewButton")}
     }
 }

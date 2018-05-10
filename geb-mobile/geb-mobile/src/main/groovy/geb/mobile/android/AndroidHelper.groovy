@@ -252,6 +252,4 @@ class AndroidHelper {
         }
         false
     }
-
-
 }

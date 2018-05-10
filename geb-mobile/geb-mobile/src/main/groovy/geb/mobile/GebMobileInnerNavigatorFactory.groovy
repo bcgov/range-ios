@@ -20,7 +20,7 @@ import org.openqa.selenium.remote.CapabilityType
 /**
  *
  *
- * shelly notes:! here
+ * Shelly notes:
  * This Factory decides, which NonEmptyNavigator will be created for the WebElements from the Driver
  * This is not always clear, cause
  *

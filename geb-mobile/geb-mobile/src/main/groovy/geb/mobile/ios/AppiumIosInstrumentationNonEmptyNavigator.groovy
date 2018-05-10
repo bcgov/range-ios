@@ -11,18 +11,20 @@ import io.appium.java_client.ios.IOSElement
 import org.apache.commons.lang3.NotImplementedException
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
+import org.openqa.selenium.WebDriver
 
 /**
  * Created by gmueksch on 23.06.14.
- */
-
-
-/**
- * Locator strategies:
  *
- * From WebDriver:
+ *
+ * Shelly notes:
+ * -> Locator strategies
+ * From Appium:
  *      className           -- starting with "XCUIElementType-xxx"
  *      xpath               -- from XML page source
+ *
+ * From WebDriver:
+ *      CssSelector         -- Starting with @
  *
  *  From the platform specific:
  *      .findElementsByIosUIAutomation()     -- using the iOS Instruments framework
@@ -67,6 +69,13 @@ class AppiumIosInstrumentationNonEmptyNavigator extends AbstractMobileNonEmptyNa
                log.info "Using ID"
                 return (navigatorFor(driver.findElements(By.id(value))))
             }
+        }
+
+        //Css Selector (For webview):
+        else if (selectorString.startsWith("@")) {
+            log.info "Using cssSelector"
+            value = selectorString.substring(1)
+            return navigatorFor(driver.findElements(By.cssSelector(value)))
         }
 
         //Resource ID:
@@ -158,4 +167,9 @@ class AppiumIosInstrumentationNonEmptyNavigator extends AbstractMobileNonEmptyNa
     Navigator leftShift(Object value) {
         throw new NotImplementedException()
     }
+
+//    @Override
+//    void scroll() {
+//        driver.
+//    }
 }
