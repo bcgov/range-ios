@@ -31,7 +31,7 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
-    let horizontalMenuWidth: CGFloat = 156
+    let portraitMenuWidth: CGFloat = 156
     let numberOfSections = 6
 
     // MARK: Variables
@@ -57,7 +57,7 @@ class CreateNewRUPViewController: BaseViewController {
 
     var reloading: Bool = false
 
-    var mode: FormMode = .Create
+    var mode: FormMode = .View
 
     var realmNotificationToken: NotificationToken?
 
@@ -250,14 +250,14 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup?.statusEnum = .Draft
-            }
-        } catch _ {
-            fatalError()
-        }
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                self.rup?.statusEnum = .Draft
+//            }
+//        } catch _ {
+//            fatalError()
+//        }
         RealmRequests.updateObject(self.rup!)
         self.dismiss(animated: true) {
             if self.parentCallBack != nil {
@@ -314,17 +314,25 @@ class CreateNewRUPViewController: BaseViewController {
 
     // Mark: Functions
     // MARK: Setup
-    func setup(rup: RUP, callBack: @escaping ((_ close: Bool) -> Void )) {
+    func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup?.statusEnum = .Draft
+        self.mode = mode
+
+        switch mode {
+        case .View:
+            break
+        case .Edit:
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.rup?.statusEnum = .Draft
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
         }
+
         setUpTable()
 
         self.realmNotificationToken = rup.observe { (change) in
@@ -453,7 +461,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 self.scheduleIndexPath = indexPath
                 let cell = getScheduleCell(indexPath: indexPath)
                 // passing self reference because cells within this cell's tableview need to call showAlert()
-                cell.setup(rup: rup!, parentReference: self)
+                cell.setup(mode: mode, rup: rup!, parentReference: self)
                 return cell
             }
 
@@ -516,7 +524,7 @@ extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
          let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.setup(rup: rup!, schedule: object, completion: completion)
+        schedule.setup(mode: mode, rup: rup!, schedule: object, completion: completion)
         self.present(schedule, animated: true, completion: nil)
     }
 }

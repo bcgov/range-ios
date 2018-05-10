@@ -380,11 +380,19 @@ extension HomeViewController {
 // Functions to handle displaying views
 extension HomeViewController {
 
-    // present rup details in ammend mode
     func editRUP(rup: RUP) {
         let vm = ViewManager()
         let vc = vm.createRUP
-        vc.setup(rup: rup) { (closed) in
+        vc.setup(rup: rup, mode: .Edit) { (closed) in
+            self.tableView.reloadData()
+        }
+        self.present(vc, animated: true, completion: nil)
+    }
+
+    func viewRUP(rup: RUP) {
+        let vm = ViewManager()
+        let vc = vm.createRUP
+        vc.setup(rup: rup, mode: .View) { (closed) in
             self.tableView.reloadData()
         }
         self.present(vc, animated: true, completion: nil)

@@ -102,7 +102,7 @@ extension SelectAgreementViewController: UITableViewDelegate, UITableViewDataSou
         let rup = RUPManager.shared.genRUP(forAgreement: agreements[indexPath.row])
         let vm = ViewManager()
         let createVC = vm.createRUP
-        createVC.setup(rup: rup, callBack: {closed in
+        createVC.setup(rup: rup, mode: .Edit, callBack: {closed in
             self.dismiss(animated: true, completion: {
                 if self.parentCallBack != nil {
                     return self.parentCallBack!(true)

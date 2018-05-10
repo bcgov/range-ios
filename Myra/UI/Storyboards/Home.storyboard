@@ -33,6 +33,7 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ONLINE MODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTL-Bd-dqg">
                                                 <rect key="frame" x="20" y="10" width="101.5" height="18"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Connectivity Label"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -83,6 +84,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEt-wZ-uEw">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="Account Button"/>
                                                         <connections>
                                                             <action selector="userAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="FB9-cx-muE"/>
                                                         </connections>

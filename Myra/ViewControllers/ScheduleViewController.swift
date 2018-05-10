@@ -15,6 +15,7 @@ class ScheduleViewController: BaseViewController {
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var rup: RUP?
+    var mode: FormMode = .View
     var popupContainerTag = 200
     var popover: UIPopoverPresentationController?
 
@@ -29,6 +30,7 @@ class ScheduleViewController: BaseViewController {
     @IBOutlet weak var backbutton: UIButton!
     @IBOutlet weak var navbarTitle: UILabel!
 
+    // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
@@ -37,6 +39,7 @@ class ScheduleViewController: BaseViewController {
         style()
     }
 
+    // MARK: Outlet Actions
     @IBAction func backAction(_ sender: UIButton) {
         if let r = self.rup {
             RealmRequests.updateObject(r)
@@ -46,8 +49,10 @@ class ScheduleViewController: BaseViewController {
         })
     }
 
-    func setup(rup: RUP, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
+    // MARK: Setup
+    func setup(mode: FormMode, rup: RUP, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         self.rup = rup
+        self.mode = mode
         self.schedule = schedule
         self.completion = completion
         let scheduleObjects = schedule.scheduleObjects
@@ -72,7 +77,8 @@ class ScheduleViewController: BaseViewController {
         self.subtitle.text = "\(ranNumber) | \(agreementHolder) | \(rangeName)"
     }
 
-    // Mark: Livestock selection popup
+    // MARK: Livestock selection popup
+    // ****** CURRENTLY UNUSED: Using popover instead
     func showpopup(vc: SelectionPopUpViewController, on: UIButton) {
         let popOverWidth = 200
         var popOverHeight = 300
@@ -119,6 +125,7 @@ class ScheduleViewController: BaseViewController {
         }
     }
 
+    // MARK: Event handlers
     override func whenLandscape() {
         rotatePopup()
     }
@@ -144,6 +151,7 @@ class ScheduleViewController: BaseViewController {
     }
 }
 
+// MARK: Tableview
 extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
@@ -171,11 +179,11 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         switch index {
         case 0:
             let cell = getScheduleCell(indexPath: indexPath)
-            cell.setup(schedule: schedule!, rup: rup!, parentReference: self)
+            cell.setup(mode: mode, schedule: schedule!, rup: rup!, parentReference: self)
             return cell
         case 1:
             let cell = getScheduleFooterCell(indexPath: indexPath)
-            cell.setup(schedule: schedule!, agreementID: (rup?.agreementId)!)
+            cell.setup(mode: mode, schedule: schedule!, agreementID: (rup?.agreementId)!)
             self.footerReference = cell
             return cell
         default:

@@ -39,6 +39,7 @@ class PastureTableViewCell: BaseFormCell {
     @IBOutlet weak var pldHeader: UILabel!
     @IBOutlet weak var aumHeader: UILabel!
 
+    @IBOutlet weak var options: UIButton!
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -160,6 +161,14 @@ class PastureTableViewCell: BaseFormCell {
         setupTable()
         self.pastureNotesTextField.delegate = self
         style()
+        switch mode {
+        case .View:
+            options.isEnabled = false
+            options.alpha = 0
+        case .Edit:
+            options.isEnabled = true
+            options.alpha = 1
+        }
     }
 
     func autofill() {
@@ -177,6 +186,10 @@ class PastureTableViewCell: BaseFormCell {
         }
         
         self.pastureNotesTextField.text = pasture?.notes
+
+        if self.mode == .View && self.pastureNotesTextField.text == "" {
+            self.pastureNotesTextField.text = "Notes not provided"
+        }
     }
 
     func getCellHeight() -> CGSize {
@@ -219,10 +232,18 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Styles
     func style() {
-        styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
-        styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
-        styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
-        styleInputField(field: pastureNotesTextField, header: pastureNotesHeader)
+        switch mode {
+        case .View:
+            styleInputFieldReadOnly(field: aumsField, header: aumHeader, height: fieldHeight)
+            styleInputFieldReadOnly(field: deductionFIeld, header: pldHeader, height: fieldHeight)
+            styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
+            styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
+        case .Edit:
+            styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
+            styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
+            styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
+            styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
+        }
         styleContainer(view: containerView)
         styleSubHeader(label: pastureNameHeader)
         styleSubHeader(label: pastureNameLabel)
@@ -250,7 +271,7 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
-        cell.setup(mode: .Create, plantCommunity: (self.pasture?.plantCommunities[indexPath.row])!)
+        cell.setup(mode: mode, plantCommunity: (self.pasture?.plantCommunities[indexPath.row])!)
         return cell
     }
 

@@ -275,6 +275,7 @@
                 <outlet property="fieldHeight" destination="0Cp-Wk-7rx" id="FnW-99-hEQ"/>
                 <outlet property="graceDaysField" destination="Y8J-IT-yrY" id="vN7-hI-ML5"/>
                 <outlet property="graceDaysHeader" destination="4Rd-em-TrO" id="hNu-yJ-eCU"/>
+                <outlet property="options" destination="1yy-6Z-4n7" id="wRd-1D-lKq"/>
                 <outlet property="pastureNameHeader" destination="Lmo-yi-ffD" id="bmP-Dn-x26"/>
                 <outlet property="pastureNameLabel" destination="E6P-6l-YOY" id="QYI-5O-1I1"/>
                 <outlet property="pastureNotesHeader" destination="zFx-h9-LGF" id="yiC-qO-Tkt"/>

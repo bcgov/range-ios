@@ -29,9 +29,13 @@ class AssignedRUPTableViewCell: UITableViewCell {
 
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
-        if rup == nil {return}
+        guard let plan = rup else {return}
         let parent = self.parentViewController as! HomeViewController
-        parent.editRUP(rup: rup!)
+        if rup?.statusEnum == .Pending || rup?.statusEnum == .Outbox || rup?.statusEnum == .Completed {
+            parent.viewRUP(rup: plan)
+        } else if rup?.statusEnum == .Draft {
+            parent.editRUP(rup: plan)
+        }
     }
 
     // MARK: Functions
@@ -46,25 +50,34 @@ class AssignedRUPTableViewCell: UITableViewCell {
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
+        self.statusText.text = rup.status
+        infoButton.alpha = 1
+        if rup.statusEnum == .Draft {
+            infoButton.setTitle("Edit", for: .normal)
+        } else {
+            infoButton.setTitle("View", for: .normal)
+        }
+        /*
         switch rup.statusEnum {
         case .Completed:
-            self.statusText.text = "Completed"
+//            self.statusText.text = "Completed"
             infoButton.alpha = 0
             setStatusGreen()
         case .Pending:
-            self.statusText.text = "Submitted"
+//            self.statusText.text = "Pending"
             infoButton.alpha = 0
             setStatusRed()
         case .Draft:
-            self.statusText.text = "Draft"
+//            self.statusText.text = "Draft"
             infoButton.setTitle("Edit", for: .normal)
             infoButton.alpha = 1
             setStatusRed()
         case .Outbox:
-            self.statusText.text = "Outbox"
+//            self.statusText.text = "Outbox"
             infoButton.alpha = 0
             setStatusGray()
         }
+        */
     }
 
     // MARK: Styles

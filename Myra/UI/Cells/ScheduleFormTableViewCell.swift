@@ -25,6 +25,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     static let cellHeight = 55.0
 
     // Mark: Variables
+    var mode: FormMode = .View
     var schedule: Schedule?
     var rup: RUP?
     var parentReference: ScheduleViewController?
@@ -108,13 +109,22 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Setup
-    func setup(schedule: Schedule, rup: RUP, parentReference: ScheduleViewController) {
+    func setup(mode: FormMode,schedule: Schedule, rup: RUP, parentReference: ScheduleViewController) {
         self.parentReference = parentReference
         self.rup = rup
+        self.mode = mode
         self.schedule = schedule
         height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * ScheduleFormTableViewCell.cellHeight + 5.0)
         setUpTable()
         style()
+        switch mode {
+        case .View:
+            addButton.isEnabled = false
+            addButton.alpha = 0
+        case .Edit:
+            addButton.isEnabled = true
+            addButton.alpha = 1
+        }
     }
 
     func updateTableHeight() {
@@ -299,7 +309,7 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleObjectCell(indexPath: indexPath)
         if let sched = self.schedule, let r = self.rup, let schedRef = parentReference, sched.scheduleObjects.count > indexPath.row {
-            cell.setup(scheduleObject: sched.scheduleObjects[indexPath.row], rup: r, scheduleViewReference: schedRef, parentCell: self)
+            cell.setup(mode: mode, scheduleObject: sched.scheduleObjects[indexPath.row], rup: r, scheduleViewReference: schedRef, parentCell: self)
         }
         return cell
     }

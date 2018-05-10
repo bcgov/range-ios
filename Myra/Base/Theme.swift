@@ -192,11 +192,6 @@ extension Theme {
         field.font = defaultInputFieldFont()
     }
 
-    func styleInputField(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
-        styleInputField(field:field, editable: true, height: height)
-        styleFieldHeader(label: header)
-    }
-
     func styleFieldHeader(label: UILabel) {
         label.textColor = defaultFieldHeaderColor()
         label.font = defaultFieldHeaderFont()
@@ -240,9 +235,28 @@ extension Theme {
     }
 
     // MARK: Input fields
+    func styleInputField(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
+        styleInputField(field:field, editable: true, height: height)
+        styleFieldHeader(label: header)
+    }
+
+    func styleInputFieldReadOnly(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
+        styleInputField(field:field, editable: false, height: height)
+        styleFieldHeader(label: header)
+    }
+
     func styleInput(input: UITextField, height: NSLayoutConstraint) {
         input.textColor = defaultInputFieldTextColor()
         input.backgroundColor = defaultInputFieldBackground()
+        input.font = defaultInputFieldFont()
+        input.layer.cornerRadius = 3
+        height.constant = defaultInputFieldHeight()
+    }
+
+    func styleInputReadOnly(input: UITextField, height: NSLayoutConstraint) {
+        input.isUserInteractionEnabled = false
+        input.textColor = defaultInputFieldTextColor()
+        input.backgroundColor = UIColor.clear
         input.font = defaultInputFieldFont()
         input.layer.cornerRadius = 3
         height.constant = defaultInputFieldHeight()
@@ -259,11 +273,23 @@ extension Theme {
         }
     }
 
-    func styleInputField(field: UITextView, header: UILabel) {
+    func styleTextviewInputField(field: UITextView, header: UILabel) {
+        field.isEditable = true
         field.textColor = defaultInputFieldTextColor()
         field.backgroundColor = defaultInputFieldBackground()
         field.font = defaultInputFieldFont()
         field.layer.cornerRadius = 3
+        styleFieldHeader(label: header)
+    }
+
+    func styleTextviewInputFieldReadOnly(field: UITextView, header: UILabel) {
+        field.isEditable = false
+        field.textColor = defaultInputFieldTextColor()
+        field.backgroundColor = UIColor.clear
+        field.font = defaultInputFieldFont()
+        field.layer.cornerRadius = 3
+        field.layer.borderColor = Colors.bodyText.cgColor
+        field.layer.borderWidth = 1
         styleFieldHeader(label: header)
     }
 
