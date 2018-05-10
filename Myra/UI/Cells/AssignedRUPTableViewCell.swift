@@ -23,8 +23,8 @@ class AssignedRUPTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        style()
         if rup != nil { setupView(rup: rup!)}
+        style()
     }
 
     // MARK: Outlet Actions
@@ -39,9 +39,10 @@ class AssignedRUPTableViewCell: UITableViewCell {
     }
 
     // MARK: Functions
-    func set(rup: RUP, color: UIColor) {
+    func setup(rup: RUP, color: UIColor) {
         self.rup = rup
         setupView(rup: rup)
+        style()
         self.backgroundColor = color
     }
 

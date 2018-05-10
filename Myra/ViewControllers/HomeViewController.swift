@@ -353,9 +353,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let index = indexPath.row
         let cell = getAssignedRupCell(indexPath: indexPath)
         if index % 2 == 0 {
-            cell.set(rup: rups[index], color: Colors.evenCell)
+            cell.setup(rup: rups[index], color: Colors.evenCell)
         } else {
-            cell.set(rup: rups[index], color: Colors.oddCell)
+            cell.setup(rup: rups[index], color: Colors.oddCell)
         }
         return cell
     }

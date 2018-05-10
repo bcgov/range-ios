@@ -63,6 +63,21 @@ class SelectAgreementViewController: UIViewController, Theme {
         styleFieldHeader(label: agreementHolderHeader)
         styleDivider(divider: divider)
     }
+
+    // MARK: Selection
+    func createPlanFor(agreement: Agreement) {
+        let rup = RUPManager.shared.genRUP(forAgreement: agreement)
+        let vm = ViewManager()
+        let createVC = vm.createRUP
+        createVC.setup(rup: rup, mode: .Edit, callBack: {closed in
+            self.dismiss(animated: true, completion: {
+                if self.parentCallBack != nil {
+                    return self.parentCallBack!(true)
+                }
+            })
+        })
+        self.present(createVC, animated: true, completion: nil)
+    }
 }
 
 
@@ -96,21 +111,5 @@ extension SelectAgreementViewController: UITableViewDelegate, UITableViewDataSou
         }
         return cell
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let rup = RUPManager.shared.genRUP(forAgreement: agreements[indexPath.row])
-        let vm = ViewManager()
-        let createVC = vm.createRUP
-        createVC.setup(rup: rup, mode: .Edit, callBack: {closed in
-            self.dismiss(animated: true, completion: {
-                if self.parentCallBack != nil {
-                    return self.parentCallBack!(true)
-                }
-            })
-        })
-        self.present(createVC, animated: true, completion: nil)
-    }
-
 }
 
