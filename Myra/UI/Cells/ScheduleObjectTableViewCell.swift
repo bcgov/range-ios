@@ -308,15 +308,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             liveStockButton.isEnabled = false
             dateInButton.isEnabled = false
             dateOutButton.isEnabled = false
-//            pasture.isUserInteractionEnabled = false
-//            liveStock.isUserInteractionEnabled = false
-//            numberOfAniamls.isUserInteractionEnabled = false
-//            dateIn.isUserInteractionEnabled = false
-//            dateOut.isUserInteractionEnabled = false
-//            days.isUserInteractionEnabled = false
-//            graceDays.isUserInteractionEnabled = false
-//            crownAUM.isUserInteractionEnabled = false
-//            pldAUM.isUserInteractionEnabled = false
             numberOfAniamls.isUserInteractionEnabled = false
         case .Edit:
             options.isEnabled = true
@@ -325,15 +316,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             liveStockButton.isEnabled = true
             dateInButton.isEnabled = true
             dateOutButton.isEnabled = true
-//            pasture.isUserInteractionEnabled =  true
-//            liveStock.isUserInteractionEnabled =  true
-//            numberOfAniamls.isUserInteractionEnabled =  true
-//            dateIn.isUserInteractionEnabled = true
-//            dateOut.isUserInteractionEnabled = true
-//            days.isUserInteractionEnabled = true
-//            graceDays.isUserInteractionEnabled = true
-//            crownAUM.isUserInteractionEnabled = true
-//            pldAUM.isUserInteractionEnabled = true
             numberOfAniamls.isUserInteractionEnabled = true
         }
     }

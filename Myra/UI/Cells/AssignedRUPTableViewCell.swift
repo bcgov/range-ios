@@ -31,9 +31,9 @@ class AssignedRUPTableViewCell: UITableViewCell {
     @IBAction func viewAction(_ sender: Any) {
         guard let plan = rup else {return}
         let parent = self.parentViewController as! HomeViewController
-        if rup?.statusEnum == .Pending || rup?.statusEnum == .Outbox || rup?.statusEnum == .Completed {
+        if plan.statusEnum == .Pending || plan.statusEnum == .Outbox || plan.statusEnum == .Completed {
             parent.viewRUP(rup: plan)
-        } else if rup?.statusEnum == .Draft {
+        } else if plan.statusEnum == .Draft {
             parent.editRUP(rup: plan)
         }
     }
@@ -46,44 +46,33 @@ class AssignedRUPTableViewCell: UITableViewCell {
     }
 
     func setupView(rup: RUP) {
-        infoButton.alpha = 0
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
         self.statusText.text = rup.status
-        infoButton.alpha = 1
         if rup.statusEnum == .Draft {
             infoButton.setTitle("Edit", for: .normal)
         } else {
             infoButton.setTitle("View", for: .normal)
         }
-        /*
-        switch rup.statusEnum {
-        case .Completed:
-//            self.statusText.text = "Completed"
-            infoButton.alpha = 0
-            setStatusGreen()
-        case .Pending:
-//            self.statusText.text = "Pending"
-            infoButton.alpha = 0
-            setStatusRed()
-        case .Draft:
-//            self.statusText.text = "Draft"
-            infoButton.setTitle("Edit", for: .normal)
-            infoButton.alpha = 1
-            setStatusRed()
-        case .Outbox:
-//            self.statusText.text = "Outbox"
-            infoButton.alpha = 0
-            setStatusGray()
-        }
-        */
+
     }
 
     // MARK: Styles
     func style() {
         makeCircle(view: statusLight)
         styleButton(button: infoButton)
+        guard let plan = self.rup else {return}
+        switch plan.statusEnum {
+        case .Completed:
+            setStatusGreen()
+        case .Pending:
+            setStatusYellow()
+        case .Draft:
+            setStatusRed()
+        case .Outbox:
+            setStatusGray()
+        }
     }
 
     func styleButton(button: UIButton) {

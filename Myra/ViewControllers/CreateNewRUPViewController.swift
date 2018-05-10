@@ -250,15 +250,8 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                self.rup?.statusEnum = .Draft
-//            }
-//        } catch _ {
-//            fatalError()
-//        }
-        RealmRequests.updateObject(self.rup!)
+        guard let plan = self.rup else {return}
+        RealmRequests.updateObject(plan)
         self.dismiss(animated: true) {
             if self.parentCallBack != nil {
                 return self.parentCallBack!(true)
