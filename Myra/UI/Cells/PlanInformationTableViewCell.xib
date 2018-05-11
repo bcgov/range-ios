@@ -178,6 +178,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="divider" destination="Krs-iF-qXF" id="0fF-hv-Xl7"/>
+                <outlet property="endDateButton" destination="rlr-tQ-h6q" id="PyK-KX-zBd"/>
                 <outlet property="exemptionHeader" destination="aGP-eS-KYJ" id="D2z-g2-kal"/>
                 <outlet property="exemptionValue" destination="QaU-Gg-B31" id="UBY-kd-SRb"/>
                 <outlet property="extendedHeader" destination="ubv-Er-E65" id="vWp-08-bwe"/>
@@ -188,6 +189,7 @@
                 <outlet property="planEndValue" destination="iDS-Qg-6HG" id="hyt-YI-NUv"/>
                 <outlet property="planStartHeader" destination="3IT-yt-au1" id="sdN-7A-6IW"/>
                 <outlet property="planStartValue" destination="rfx-Lw-oWW" id="MAs-J2-Zyt"/>
+                <outlet property="startDateButton" destination="XGA-3X-6g6" id="Ily-pn-fh7"/>
             </connections>
             <point key="canvasLocation" x="169" y="180"/>
         </tableViewCell>

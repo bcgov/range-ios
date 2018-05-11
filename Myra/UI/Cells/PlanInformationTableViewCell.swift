@@ -34,11 +34,11 @@ class PlanInformationTableViewCell: BaseFormCell {
     
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     
-    // MARK: Cell functions
+    @IBOutlet weak var endDateButton: UIButton!
+    @IBOutlet weak var startDateButton: UIButton!
 
     // MARK: Outlet actions
     @IBAction func planStartAction(_ sender: Any) {
-
         let parent = self.parentViewController as! CreateNewRUPViewController
         guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
         let vm = ViewManager()
@@ -71,7 +71,6 @@ class PlanInformationTableViewCell: BaseFormCell {
 
 
     // MARK: functions
-
     func handlePlanStartDate(date: Date) {
         self.planStartValue.text = date.string()
         do {
@@ -110,11 +109,18 @@ class PlanInformationTableViewCell: BaseFormCell {
         }
     }
 
-
     // MARK: Setup
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
+        switch mode {
+        case .View:
+            startDateButton.isEnabled = false
+            endDateButton.isEnabled = false
+        case .Edit:
+            startDateButton.isEnabled = true
+            endDateButton.isEnabled = true
+        }
         style()
         autoFill()
     }
@@ -137,10 +143,18 @@ class PlanInformationTableViewCell: BaseFormCell {
     }
 
     func styleFields() {
-        styleInputField(field: planStartValue, header: planStartHeader, height: fieldHeight)
-        styleInputField(field: planEndValue, header: planEndHeader, height: fieldHeight)
-        styleInputField(field: exemptionValue, header: exemptionHeader, height: fieldHeight)
-        styleInputField(field: extendedValue, header: extendedHeader, height: fieldHeight)
+        switch mode {
+        case .View:
+            styleInputFieldReadOnly(field: planStartValue, header: planStartHeader, height: fieldHeight)
+            styleInputFieldReadOnly(field: planEndValue, header: planEndHeader, height: fieldHeight)
+            styleInputFieldReadOnly(field: exemptionValue, header: exemptionHeader, height: fieldHeight)
+            styleInputFieldReadOnly(field: extendedValue, header: extendedHeader, height: fieldHeight)
+        case .Edit:
+            styleInputField(field: planStartValue, header: planStartHeader, height: fieldHeight)
+            styleInputField(field: planEndValue, header: planEndHeader, height: fieldHeight)
+            styleInputField(field: exemptionValue, header: exemptionHeader, height: fieldHeight)
+            styleInputField(field: extendedValue, header: extendedHeader, height: fieldHeight)
+        }
     }
     
 }

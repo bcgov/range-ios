@@ -275,13 +275,18 @@
             <connections>
                 <outlet property="crownAUM" destination="bsA-os-aVb" id="4RX-NN-jRV"/>
                 <outlet property="dateIn" destination="pDS-AF-6Y3" id="EVf-Ay-EIp"/>
+                <outlet property="dateInButton" destination="Mw2-PD-7ur" id="0jV-gq-4ku"/>
                 <outlet property="dateOut" destination="T2x-t1-I4Z" id="0ZV-Nz-rJt"/>
+                <outlet property="dateOutButton" destination="J2w-1j-MEv" id="HZs-Wu-BpK"/>
                 <outlet property="days" destination="UMP-fz-nzB" id="ewg-oI-qK6"/>
                 <outlet property="fieldHeight" destination="c1M-e1-5Px" id="19h-PX-Qvt"/>
                 <outlet property="graceDays" destination="d5o-9U-aHr" id="aCh-xD-uD6"/>
                 <outlet property="liveStock" destination="uTC-sl-aHj" id="9HY-vb-bdm"/>
+                <outlet property="liveStockButton" destination="0lz-PB-jfn" id="Y23-l3-2re"/>
                 <outlet property="numberOfAniamls" destination="Vv3-Lf-CIF" id="bxI-of-Z3A"/>
+                <outlet property="options" destination="wrE-0R-AwD" id="IIo-qG-fUS"/>
                 <outlet property="pasture" destination="pKY-cO-wEA" id="kPX-6X-PAN"/>
+                <outlet property="pastureButton" destination="ToI-k8-8ID" id="fRO-bi-VV7"/>
                 <outlet property="pldAUM" destination="aps-wf-RPv" id="Kvu-xW-Taf"/>
             </connections>
             <point key="canvasLocation" x="193" y="-202"/>
