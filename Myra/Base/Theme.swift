@@ -254,6 +254,7 @@ extension Theme {
     }
 
     func styleInputReadOnly(input: UITextField, height: NSLayoutConstraint) {
+        input.borderStyle = .none
         input.isUserInteractionEnabled = false
         input.textColor = defaultInputFieldTextColor()
         input.backgroundColor = UIColor.clear
@@ -268,6 +269,7 @@ extension Theme {
             field.isUserInteractionEnabled = true
             field.backgroundColor = defaultInputFieldBackground()
         } else {
+            field.borderStyle = .none
             field.backgroundColor = UIColor.clear
             field.isUserInteractionEnabled = false
         }

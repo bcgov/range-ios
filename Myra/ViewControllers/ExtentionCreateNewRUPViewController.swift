@@ -71,7 +71,7 @@ extension CreateNewRUPViewController {
     }
 
     func styleMenuSubmitButtonOn() {
-        self.reviewAndSubmitLabel.text = "Submit and Review"
+        self.reviewAndSubmitLabel.text = "Review and Submit"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
         self.reviewAndSubmitButton.isEnabled = true
 
@@ -82,7 +82,7 @@ extension CreateNewRUPViewController {
     }
 
     func styleMenuSubmitButtonOFF() {
-        self.reviewAndSubmitLabel.text = "Submit and Review"
+        self.reviewAndSubmitLabel.text = "Review and Submit"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
         self.reviewAndSubmitButton.isEnabled = false
 

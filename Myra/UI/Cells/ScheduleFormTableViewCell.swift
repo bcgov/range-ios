@@ -92,6 +92,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         }
         // todo: Remove?
         parentReference?.calculateTotals()
+        parentReference?.validate()
         sort()
     }
 

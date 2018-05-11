@@ -42,7 +42,7 @@
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybV-9w-RlV">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybV-9w-RlV">
                                                 <rect key="frame" x="0.0" y="44" width="216.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureAUMField"/>
                                                 <constraints>
@@ -86,7 +86,7 @@
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-R6-cNE">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-R6-cNE">
                                                 <rect key="frame" x="0.0" y="44" width="217" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureDeductionField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -127,7 +127,7 @@
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8J-IT-yrY">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8J-IT-yrY">
                                                 <rect key="frame" x="0.0" y="44" width="216.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureGraceDaysField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

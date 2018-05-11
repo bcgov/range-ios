@@ -283,6 +283,11 @@ class CreateNewRUPViewController: BaseViewController {
     */
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
+        let validity = RUPManager.shared.isValid(rup: rup!)
+        if !validity.0 {
+            showAlert(with: "Plan is invalid", message: validity.1)
+            return
+        }
         closingAnimations()
         showAlert(title: "Confirm", description: "You will not be able to edit this rup after submission", yesButtonTapped: {
             // Yes tapped

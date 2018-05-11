@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ScheduleViewController: BaseViewController {
 
@@ -19,6 +21,8 @@ class ScheduleViewController: BaseViewController {
     var popupContainerTag = 200
     var popover: UIPopoverPresentationController?
 
+    var realmNotificationToken: NotificationToken?
+
     // MARK: Outlets
     @IBOutlet weak var scheduleTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
@@ -30,6 +34,10 @@ class ScheduleViewController: BaseViewController {
     @IBOutlet weak var backbutton: UIButton!
     @IBOutlet weak var navbarTitle: UILabel!
 
+    @IBOutlet weak var bannerLabel: UILabel!
+    @IBOutlet weak var bannerHeight: NSLayoutConstraint!
+    @IBOutlet weak var banner: UIView!
+
     // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +45,11 @@ class ScheduleViewController: BaseViewController {
         setTitle()
         setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
         style()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        validate()
     }
 
     // MARK: Outlet Actions
@@ -62,6 +75,17 @@ class ScheduleViewController: BaseViewController {
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: rup.agreementId, agreementHolder: "", rangeName: rup.rangeName)
+
+        self.realmNotificationToken = schedule.observe { (change) in
+            switch change {
+            case .error(_):
+                print("Error in rup change")
+            case .change(_):
+                self.validate()
+            case .deleted:
+                print("RUP deleted")
+            }
+        }
     }
 
     func setTitle() {
@@ -148,6 +172,54 @@ class ScheduleViewController: BaseViewController {
         styleHeader(label: scheduleTitle)
         styleFooter(label: subtitle)
         styleDivider(divider: divider)
+    }
+
+    // MARK: Banner
+    func openBanner(message: String) {
+        UIView.animate(withDuration: shortAnimationDuration, animations: {
+            self.bannerLabel.textColor = Colors.primary
+            self.banner.backgroundColor = Colors.secondaryBg.withAlphaComponent(1)
+            self.bannerHeight.constant = 50
+            self.bannerLabel.text = message
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                UIView.animate(withDuration: self.mediumAnimationDuration, animations: {
+                    self.bannerLabel.textColor = Colors.primaryConstrast
+                    self.view.layoutIfNeeded()
+                })
+            })
+        }
+    }
+
+    func closeBanner() {
+        self.bannerHeight.constant = 0
+        animateIt()
+    }
+
+    // MARK: Validation
+    func validate() {
+        guard let current = schedule, let plan = rup else {return}
+        let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: plan.agreementId)
+        if !valid.0 {
+            openBanner(message: valid.1)
+        } else {
+            closeBanner()
+        }
+    }
+
+    func highlightBanner() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.bannerLabel.textColor = Colors.primary.withAlphaComponent(0.5)
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.bannerLabel.textColor = Colors.primary.withAlphaComponent(1)
+                    self.view.layoutIfNeeded()
+                })
+            })
+        }
     }
 }
 

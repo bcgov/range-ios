@@ -18,6 +18,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     var scheduleViewReference: ScheduleViewController?
     var realmNotificationToken: NotificationToken?
 
+    var inputFields: [UITextField] = [UITextField]()
+    var computedFields: [UITextField] = [UITextField]()
+    var fields: [UITextField] = [UITextField]()
+
     // MARK: Outlets
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var pasture: UITextField!
@@ -237,30 +241,56 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
-        switch mode {
-        case .View:
-            styleInputField(field: numberOfAniamls, editable: false, height: fieldHeight)
-            styleInputReadOnly(input: pasture, height: fieldHeight)
-            styleInputReadOnly(input: liveStock, height: fieldHeight)
-            styleInputReadOnly(input: dateIn, height: fieldHeight)
-            styleInputReadOnly(input: dateOut, height: fieldHeight)
-        case .Edit:
-            styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
-            styleInput(input: pasture, height: fieldHeight)
-            styleInput(input: liveStock, height: fieldHeight)
-            styleInput(input: dateIn, height: fieldHeight)
-            styleInput(input: dateOut, height: fieldHeight)
+
+        // Group fields, to call style functions iteratively.
+        // note: numberOfAniamls is different from the rest: accepts input
+        if inputFields.isEmpty {
+            self.inputFields = [pasture, liveStock, dateIn, dateIn, dateOut]
+        }
+        if computedFields.isEmpty {
+            self.computedFields = [days, crownAUM, pldAUM, graceDays]
+        }
+        if fields.isEmpty {
+            fields.append(contentsOf: inputFields)
+            fields.append(contentsOf: computedFields)
+            fields.append(numberOfAniamls)
         }
 
-        styleInputField(field: days, editable: false, height: fieldHeight)
-        styleInputField(field: crownAUM, editable: false, height: fieldHeight)
-        styleInputField(field: pldAUM, editable: false, height: fieldHeight)
-        styleInputField(field: graceDays, editable: false, height: fieldHeight)
+        let fontSize: CGFloat = 12
+
+        // First style using theme styles
+        switch mode {
+        case .View:
+            for field in inputFields {
+                styleInputReadOnly(input: field, height: fieldHeight)
+            }
+
+            // note: numberOfAniamls is different from the rest: accepts input
+            styleInputField(field: numberOfAniamls, editable: false, height: fieldHeight)
+
+        case .Edit:
+            for field in inputFields {
+                styleInput(input: field, height: fieldHeight)
+            }
+
+            // note: numberOfAniamls is different from the rest: accepts input
+            styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
+        }
+
+        // Computed fields look the same regardless of mode
+        for field in computedFields {
+            styleInputField(field: field, editable: false, height: fieldHeight)
+        }
+
+        // This cell needs smaller fonts, so change all fonts:
+        for field in fields {
+            field.font = Fonts.getPrimary(size: fontSize)
+        }
     }
 
     func highlight() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundColor = Colors.secondary
+            self.backgroundColor = Colors.secondary.withAlphaComponent(0.75)
             self.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -274,7 +304,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     func highlightOn() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundColor = Colors.secondary
+            self.backgroundColor = Colors.secondary.withAlphaComponent(0.75)
             self.layoutIfNeeded()
         })
     }
@@ -320,6 +350,12 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         }
     }
 
+    func validate() {
+        if let scheduleVC = scheduleViewReference {
+            scheduleVC.validate()
+        }
+    }
+
     public func dismissKeyboard() {
         if scheduleViewReference == nil { return }
         scheduleViewReference?.view.endEditing(true)
@@ -360,6 +396,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
         // call calculate total on parent
         scheduleViewReference?.calculateTotals()
+        self.validate()
     }
 
     func fillCurrentValues() {
