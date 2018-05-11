@@ -57,7 +57,7 @@ class ScheduleViewController: BaseViewController {
         self.completion = completion
         let scheduleObjects = schedule.scheduleObjects
         for object in scheduleObjects {
-            RUPManager.shared.calculate(scheduleObject: object)
+            RUPManager.shared.calculateScheduleEntry(scheduleObject: object)
         }
         setUpTable()
         setTitle()

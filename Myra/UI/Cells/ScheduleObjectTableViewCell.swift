@@ -355,7 +355,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     // update calculations
     func update() {
         if scheduleObject == nil {return}
-        RUPManager.shared.calculate(scheduleObject: (scheduleObject)!)
+        RUPManager.shared.calculateScheduleEntry(scheduleObject: (scheduleObject)!)
         self.fillCurrentValues()
 
         // call calculate total on parent
