@@ -12,7 +12,7 @@ class PlantCommunityTableViewCell: UITableViewCell {
 
     // Variables:
     var plantCommunity: PlantCommunity = PlantCommunity()
-    var mode: FormMode = .Create
+    var mode: FormMode = .View
     
     override func awakeFromNib() {
         super.awakeFromNib()

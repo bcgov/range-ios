@@ -25,6 +25,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
     @IBOutlet weak var copyButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
 
+    @IBOutlet weak var optionsIcon: UIView!
     @IBOutlet weak var leadingOptions: NSLayoutConstraint!
 
     // MARK: Outlet Actions
@@ -116,11 +117,22 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
     
     // MARK: Setup
-    func setup(rup: RUP, schedule: Schedule, parentReference: ScheduleTableViewCell) {
+    func setup(mode: FormMode, rup: RUP, schedule: Schedule, parentReference: ScheduleTableViewCell) {
         self.schedule = schedule
         if nameLabel != nil { nameLabel.text = schedule.name }
         self.parentReference = parentReference
         self.rup = rup
+        self.mode = mode
+        switch mode {
+        case .View:
+            optionsIcon.alpha = 0
+            optionsButton.alpha = 0
+            optionsButton.isEnabled = false
+        case .Edit:
+            optionsIcon.alpha = 1
+            optionsButton.alpha = 1
+            optionsButton.isEnabled = true
+        }
         style()
         styleBasedOnValidity()
     }

@@ -12,7 +12,7 @@ class BaseFormCell: UITableViewCell, Theme {
 
     // MARK: Variables
     var rup: RUP = RUP()
-    var mode: FormMode = .Create
+    var mode: FormMode = .View
 
     // MARK: Cell functions
     override func awakeFromNib() {

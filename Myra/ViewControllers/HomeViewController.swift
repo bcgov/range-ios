@@ -353,9 +353,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let index = indexPath.row
         let cell = getAssignedRupCell(indexPath: indexPath)
         if index % 2 == 0 {
-            cell.set(rup: rups[index], color: Colors.evenCell)
+            cell.setup(rup: rups[index], color: Colors.evenCell)
         } else {
-            cell.set(rup: rups[index], color: Colors.oddCell)
+            cell.setup(rup: rups[index], color: Colors.oddCell)
         }
         return cell
     }
@@ -380,11 +380,19 @@ extension HomeViewController {
 // Functions to handle displaying views
 extension HomeViewController {
 
-    // present rup details in ammend mode
     func editRUP(rup: RUP) {
         let vm = ViewManager()
         let vc = vm.createRUP
-        vc.setup(rup: rup) { (closed) in
+        vc.setup(rup: rup, mode: .Edit) { (closed) in
+            self.tableView.reloadData()
+        }
+        self.present(vc, animated: true, completion: nil)
+    }
+
+    func viewRUP(rup: RUP) {
+        let vm = ViewManager()
+        let vc = vm.createRUP
+        vc.setup(rup: rup, mode: .View) { (closed) in
             self.tableView.reloadData()
         }
         self.present(vc, animated: true, completion: nil)

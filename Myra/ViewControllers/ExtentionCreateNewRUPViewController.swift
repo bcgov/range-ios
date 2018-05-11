@@ -16,6 +16,16 @@ extension CreateNewRUPViewController {
         stylePopUp()
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranchNameAndNumberLabel)
         styleMenu()
+        switch mode {
+        case .View:
+            self.viewTitle.text = "View Plan"
+            self.saveToDraftButton.setTitle("Close", for: .normal)
+            self.submitButtonContainer.alpha = 0
+        case .Edit:
+            self.viewTitle.text = "Create New RUP"
+            self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
+            self.submitButtonContainer.alpha = 1
+        }
     }
 
     // TODO: Temporary.. come up with a better, resusable popup for inputs
@@ -36,7 +46,7 @@ extension CreateNewRUPViewController {
         if UIDevice.current.orientation.isLandscape{
             self.menuWidth.constant = self.landscapeMenuWidh
         } else {
-            self.menuWidth.constant = self.horizontalMenuWidth
+            self.menuWidth.constant = self.portraitMenuWidth
         }
         self.animateIt()
 
@@ -155,7 +165,7 @@ extension CreateNewRUPViewController {
                 if UIDevice.current.orientation.isLandscape{
                     self.menuWidth.constant = self.landscapeMenuWidh
                 } else if UIDevice.current.orientation.isPortrait {
-                    self.menuWidth.constant = self.horizontalMenuWidth
+                    self.menuWidth.constant = self.portraitMenuWidth
                 } else {
                     self.menuWidth.constant = self.landscapeMenuWidh
                 }
