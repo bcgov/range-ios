@@ -10,16 +10,24 @@ import UIKit
 
 class AgreementTableViewCell: UITableViewCell, Theme {
 
+    var agreement: Agreement?
+
     @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var rangeNumber: UILabel!
     @IBOutlet weak var agreementHolder: UILabel!
+
+    @IBAction func selectAction(_ sender: UIButton) {
+        guard let current = agreement else {return}
+        let parent = self.parentViewController as! SelectAgreementViewController
+        parent.createPlanFor(agreement: current)
+    }
 
     func setup(agreement: Agreement, bg: UIColor) {
         self.backgroundColor = bg
         self.rangeNumber.text = "\(agreement.agreementId)"
         self.agreementHolder.text = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
         style()
-        print(agreement.clients.count)
+        self.agreement = agreement
     }
 
     func style() {

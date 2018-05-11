@@ -10,6 +10,5 @@ import Foundation
 
 enum FormMode {
     case View
-    case Create
     case Edit
 }

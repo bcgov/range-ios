@@ -127,8 +127,14 @@ class BasicInformationTableViewCell: BaseFormCell {
     }
 
     func styleFields() {
-        styleInputField(field: altBusinessNameValue, header: altBusinessNameHeader, height: inputFieldHeight)
-        styleInputField(field: rangeNameValue, header: rangeNameHeader, height: inputFieldHeight)
+        switch mode {
+        case .View:
+            styleInputFieldReadOnly(field: altBusinessNameValue, header: altBusinessNameHeader, height: inputFieldHeight)
+            styleInputFieldReadOnly(field: rangeNameValue, header: rangeNameHeader, height: inputFieldHeight)
+        case .Edit:
+            styleInputField(field: altBusinessNameValue, header: altBusinessNameHeader, height: inputFieldHeight)
+            styleInputField(field: rangeNameValue, header: rangeNameHeader, height: inputFieldHeight)
+        }
 
         styleStaticField(field: districtValue, header: districtHeader)
         styleStaticField(field: zoneValue, header: zoneHeader)

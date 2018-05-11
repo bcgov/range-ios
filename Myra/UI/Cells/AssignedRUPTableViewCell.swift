@@ -23,54 +23,57 @@ class AssignedRUPTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        style()
         if rup != nil { setupView(rup: rup!)}
+        style()
     }
 
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
-        if rup == nil {return}
+        guard let plan = rup else {return}
         let parent = self.parentViewController as! HomeViewController
-        parent.editRUP(rup: rup!)
+        if plan.statusEnum == .Pending || plan.statusEnum == .Outbox || plan.statusEnum == .Completed {
+            parent.viewRUP(rup: plan)
+        } else if plan.statusEnum == .Draft {
+            parent.editRUP(rup: plan)
+        }
     }
 
     // MARK: Functions
-    func set(rup: RUP, color: UIColor) {
+    func setup(rup: RUP, color: UIColor) {
         self.rup = rup
         setupView(rup: rup)
+        style()
         self.backgroundColor = color
     }
 
     func setupView(rup: RUP) {
-        infoButton.alpha = 0
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
-        switch rup.statusEnum {
-        case .Completed:
-            self.statusText.text = "Completed"
-            infoButton.alpha = 0
-            setStatusGreen()
-        case .Pending:
-            self.statusText.text = "Submitted"
-            infoButton.alpha = 0
-            setStatusRed()
-        case .Draft:
-            self.statusText.text = "Draft"
+        self.statusText.text = rup.status
+        if rup.statusEnum == .Draft {
             infoButton.setTitle("Edit", for: .normal)
-            infoButton.alpha = 1
-            setStatusRed()
-        case .Outbox:
-            self.statusText.text = "Outbox"
-            infoButton.alpha = 0
-            setStatusGray()
+        } else {
+            infoButton.setTitle("View", for: .normal)
         }
+
     }
 
     // MARK: Styles
     func style() {
         makeCircle(view: statusLight)
         styleButton(button: infoButton)
+        guard let plan = self.rup else {return}
+        switch plan.statusEnum {
+        case .Completed:
+            setStatusGreen()
+        case .Pending:
+            setStatusYellow()
+        case .Draft:
+            setStatusRed()
+        case .Outbox:
+            setStatusGray()
+        }
     }
 
     func styleButton(button: UIButton) {

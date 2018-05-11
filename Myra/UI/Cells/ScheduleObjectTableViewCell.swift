@@ -30,6 +30,12 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var crownAUM: UITextField!
     @IBOutlet weak var pldAUM: UITextField!
 
+    @IBOutlet weak var options: UIButton!
+    @IBOutlet weak var pastureButton: UIButton!
+    @IBOutlet weak var liveStockButton: UIButton!
+    @IBOutlet weak var dateInButton: UIButton!
+    @IBOutlet weak var dateOutButton: UIButton!
+
     // MARK: Outlet Acions
     @IBAction func lookupPastures(_ sender: Any) {
         let grandParent = self.parentViewController as! ScheduleViewController
@@ -231,15 +237,25 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
+        switch mode {
+        case .View:
+            styleInputField(field: numberOfAniamls, editable: false, height: fieldHeight)
+            styleInputReadOnly(input: pasture, height: fieldHeight)
+            styleInputReadOnly(input: liveStock, height: fieldHeight)
+            styleInputReadOnly(input: dateIn, height: fieldHeight)
+            styleInputReadOnly(input: dateOut, height: fieldHeight)
+        case .Edit:
+            styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
+            styleInput(input: pasture, height: fieldHeight)
+            styleInput(input: liveStock, height: fieldHeight)
+            styleInput(input: dateIn, height: fieldHeight)
+            styleInput(input: dateOut, height: fieldHeight)
+        }
+
         styleInputField(field: days, editable: false, height: fieldHeight)
         styleInputField(field: crownAUM, editable: false, height: fieldHeight)
         styleInputField(field: pldAUM, editable: false, height: fieldHeight)
         styleInputField(field: graceDays, editable: false, height: fieldHeight)
-        styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
-        styleInput(input: pasture, height: fieldHeight)
-        styleInput(input: liveStock, height: fieldHeight)
-        styleInput(input: dateIn, height: fieldHeight)
-        styleInput(input: dateOut, height: fieldHeight)
     }
 
     func highlight() {
@@ -271,8 +287,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     // MARK: Setup
-    func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
+    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
         self.rup = rup
+        self.mode = mode
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
         self.parentCell = parentCell
@@ -281,6 +298,25 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         if scheduleObject.isNew {
             highlight()
             scheduleObject.setIsNew(to: false)
+        }
+
+        switch mode {
+        case .View:
+            options.isEnabled = false
+            options.alpha = 0
+            pastureButton.isEnabled = false
+            liveStockButton.isEnabled = false
+            dateInButton.isEnabled = false
+            dateOutButton.isEnabled = false
+            numberOfAniamls.isUserInteractionEnabled = false
+        case .Edit:
+            options.isEnabled = true
+            options.alpha = 1
+            pastureButton.isEnabled = true
+            liveStockButton.isEnabled = true
+            dateInButton.isEnabled = true
+            dateOutButton.isEnabled = true
+            numberOfAniamls.isUserInteractionEnabled = true
         }
     }
 

@@ -53,6 +53,14 @@ class PasturesTableViewCell: BaseFormCell {
     override func setup(mode: FormMode, rup: RUP) {
         self.rup = rup
         self.mode = mode
+        switch mode {
+        case .View:
+            addButton.isEnabled = false
+            addButton.alpha = 0
+        case .Edit:
+            addButton.isEnabled = true
+            addButton.alpha = 1
+        }
         tableHeight.constant = computeHeight()
         setUpTable()
         style()
