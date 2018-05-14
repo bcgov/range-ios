@@ -15,6 +15,7 @@ extension CreateNewRUPViewController {
     func style() {
         stylePopUp()
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranchNameAndNumberLabel)
+        StyleNavBarButton(button: cancelButton)
         styleMenu()
         switch mode {
         case .View:
@@ -49,7 +50,6 @@ extension CreateNewRUPViewController {
             self.menuWidth.constant = self.portraitMenuWidth
         }
         self.animateIt()
-
     }
 
     func styleMenu() {

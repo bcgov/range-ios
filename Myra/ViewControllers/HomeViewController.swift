@@ -332,7 +332,7 @@ class HomeViewController: BaseViewController {
     }
 }
 
-// Functions to handle TableView
+// MARK: TableView functions
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         tableView.delegate = self
@@ -363,7 +363,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rups.count
     }
-
 }
 
 // Functions to handle retrival of rups
@@ -381,17 +380,16 @@ extension HomeViewController {
 extension HomeViewController {
 
     func editRUP(rup: RUP) {
-        let vm = ViewManager()
-        let vc = vm.createRUP
+        let vc = getCreateNewVC()
+
         vc.setup(rup: rup, mode: .Edit) { (closed) in
-            self.tableView.reloadData()
+            self.getRUPs()
         }
         self.present(vc, animated: true, completion: nil)
     }
 
     func viewRUP(rup: RUP) {
-        let vm = ViewManager()
-        let vc = vm.createRUP
+        let vc = getCreateNewVC()
         vc.setup(rup: rup, mode: .View) { (closed) in
             self.tableView.reloadData()
         }

@@ -121,20 +121,29 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#RAN07878  |  Range Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqq-yl-p8l">
-                                        <rect key="frame" x="20" y="29.5" width="180.5" height="17"/>
+                                        <rect key="frame" x="76" y="29.5" width="180.5" height="17"/>
                                         <accessibility key="accessibilityConfiguration" identifier="RangeNameLabel"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvu-os-1VU">
+                                        <rect key="frame" x="20" y="23" width="48" height="30"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelAction:" destination="q34-99-p1g" eventType="touchUpInside" id="f1F-53-jhk"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9076380076142132" green="0.9076380076142132" blue="0.9076380076142132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="8z7-dn-Qms"/>
+                                    <constraint firstItem="Dvu-os-1VU" firstAttribute="leading" secondItem="LiW-fN-wXA" secondAttribute="leading" constant="20" id="GL9-8p-sn6"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="JIU-mi-aTR"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="Tw7-5j-4oq"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerX" secondItem="LiW-fN-wXA" secondAttribute="centerX" id="XjG-Fk-FEt"/>
-                                    <constraint firstItem="wqq-yl-p8l" firstAttribute="leading" secondItem="LiW-fN-wXA" secondAttribute="leading" constant="20" id="bvG-uI-OOG"/>
+                                    <constraint firstItem="wqq-yl-p8l" firstAttribute="leading" secondItem="Dvu-os-1VU" secondAttribute="trailing" constant="8" id="aER-Ds-9Qd"/>
+                                    <constraint firstItem="Dvu-os-1VU" firstAttribute="centerY" secondItem="wqq-yl-p8l" secondAttribute="centerY" id="iFU-FS-ynA"/>
                                     <constraint firstAttribute="trailing" secondItem="y4Y-I5-Z9f" secondAttribute="trailing" constant="20" id="wP8-Rl-j5D"/>
                                     <constraint firstItem="y4Y-I5-Z9f" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="zKQ-IC-cBi"/>
                                 </constraints>
@@ -406,6 +415,7 @@
                         <outlet property="basicInfoButton" destination="Cnc-y9-eVo" id="BHQ-dQ-7Id"/>
                         <outlet property="basicInfoLabel" destination="GaR-3e-EY9" id="thX-Hh-MHV"/>
                         <outlet property="basicInfoLowerBar" destination="0tp-9d-QmI" id="3gE-LA-tuh"/>
+                        <outlet property="cancelButton" destination="Dvu-os-1VU" id="Qr9-Gy-ZAR"/>
                         <outlet property="grayScreen" destination="Se1-jo-p5U" id="PMt-pd-X55"/>
                         <outlet property="headerContainer" destination="LiW-fN-wXA" id="ZG8-ts-hF9"/>
                         <outlet property="headerHeight" destination="8z7-dn-Qms" id="VR7-fi-AJq"/>

@@ -55,6 +55,8 @@ class CreateNewRUPViewController: BaseViewController {
 
     var rup: RUP?
 
+    var copy: RUP?
+
     var reloading: Bool = false
 
     var mode: FormMode = .View
@@ -85,6 +87,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var ranchNameAndNumberLabel: UILabel!
     @IBOutlet weak var saveToDraftButton: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
+    @IBOutlet weak var cancelButton: UIButton!
 
     // Side Menu
     @IBOutlet weak var menuContainer: UIView!
@@ -282,6 +285,20 @@ class CreateNewRUPViewController: BaseViewController {
     }
     */
 
+    @IBAction func cancelAction(_ sender: UIButton) {
+        if let new: RUP = self.copy, let old: RUP = self.rup {
+            RealmRequests.saveObject(object: new)
+            old.deleteEntries()
+            RealmRequests.deleteObject(old)
+            // Dismiss view controller
+            self.dismiss(animated: true) {
+                if self.parentCallBack != nil {
+                    return self.parentCallBack!(true)
+                }
+            }
+        }
+    }
+
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
         let validity = RUPManager.shared.isValid(rup: rup!)
         if !validity.0 {
@@ -310,7 +327,7 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
 
-    // Mark: Functions
+    // MARK: Functions
     // MARK: Setup
     func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
@@ -321,6 +338,12 @@ class CreateNewRUPViewController: BaseViewController {
         case .View:
             break
         case .Edit:
+            /*
+             Create copy.
+             If cancel is pressed, store copy and delete rup
+             Otherwise don't save the Plan copy object.
+             */
+            self.copy = rup.copy()
             do {
                 let realm = try Realm()
                 try realm.write {
