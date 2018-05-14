@@ -71,6 +71,7 @@ class RUP: Object, MyraObject {
     func copy() -> RUP {
         let plan = RUP()
 
+        // Copy values
         plan.remoteId = self.remoteId
         plan.info = self.info
         plan.primaryAgreementHolderFirstName = self.primaryAgreementHolderFirstName
@@ -87,12 +88,18 @@ class RUP: Object, MyraObject {
         plan.typeId = self.typeId
         plan.ranNumber = self.ranNumber
 
-        // to copy objects in lists
+        // Copy objects in lists:
+
+        // Copy Pastures first, because Schedule objects will need to refence them.
         for object in self.pastures {
             plan.pastures.append(object.copy())
         }
 
-        // Note: Schedule objects will lose their reference to pasture during copy
+        /*
+         Note: Schedule objects will lose their reference to pasture during copy
+         So we pass the plan so that copy() function of schedule entry can find
+         reference to the new pasture object with the same name
+        */
         for object in self.schedules {
             plan.schedules.append(object.copy(in: plan))
         }
