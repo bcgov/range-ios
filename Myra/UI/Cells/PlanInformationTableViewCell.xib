@@ -143,12 +143,14 @@
                     </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGA-3X-6g6">
                         <rect key="frame" x="30" y="80.5" width="212" height="45"/>
+                        <accessibility key="accessibilityConfiguration" identifier="PlanStartDateButton"/>
                         <connections>
                             <action selector="planStartAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ljr-rR-Mze"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlr-tQ-h6q">
                         <rect key="frame" x="250" y="80.5" width="212" height="45"/>
+                        <accessibility key="accessibilityConfiguration" identifier="PlanEndDateButton"/>
                         <connections>
                             <action selector="planEndAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ywk-Lr-hZK"/>
                         </connections>

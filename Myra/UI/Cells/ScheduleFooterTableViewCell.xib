@@ -96,6 +96,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2OH-RE-W1v">
                                 <rect key="frame" x="8" y="121" width="577" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ScheduleNotesField"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="15y-W9-WcE"/>
                                 </constraints>

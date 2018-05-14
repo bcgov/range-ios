@@ -129,6 +129,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvu-os-1VU">
                                         <rect key="frame" x="20" y="23" width="48" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="CreatePageCancelButton"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="cancelAction:" destination="q34-99-p1g" eventType="touchUpInside" id="f1F-53-jhk"/>

@@ -21,6 +21,7 @@
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrE-0R-AwD">
                         <rect key="frame" x="636" y="0.0" width="40" height="55"/>
+                        <accessibility key="accessibilityConfiguration" identifier="ScheduleEntryOptionsButton"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="jcB-JW-6kt"/>
                         </constraints>
