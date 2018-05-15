@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -144,7 +145,7 @@
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="Tw7-5j-4oq"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerX" secondItem="LiW-fN-wXA" secondAttribute="centerX" id="XjG-Fk-FEt"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="leading" secondItem="Dvu-os-1VU" secondAttribute="trailing" constant="8" id="aER-Ds-9Qd"/>
-                                    <constraint firstItem="Dvu-os-1VU" firstAttribute="centerY" secondItem="wqq-yl-p8l" secondAttribute="centerY" id="iFU-FS-ynA"/>
+                                    <constraint firstItem="Dvu-os-1VU" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="f6P-9f-Gvp"/>
                                     <constraint firstAttribute="trailing" secondItem="y4Y-I5-Z9f" secondAttribute="trailing" constant="20" id="wP8-Rl-j5D"/>
                                     <constraint firstItem="y4Y-I5-Z9f" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="zKQ-IC-cBi"/>
                                 </constraints>
@@ -168,11 +169,11 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XmL-jh-GYF">
                                                         <rect key="frame" x="5" y="15" width="245" height="24"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="yMB-tA-4nU" userLabel="box">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Pastures" translatesAutoresizingMaskIntoConstraints="NO" id="yMB-tA-4nU" userLabel="box">
                                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="24" id="Lly-7K-ANj"/>
-                                                                    <constraint firstAttribute="width" constant="24" id="n8D-IK-vfI"/>
+                                                                    <constraint firstAttribute="height" constant="24" id="DMN-yv-2Xa"/>
+                                                                    <constraint firstAttribute="width" secondItem="yMB-tA-4nU" secondAttribute="height" multiplier="1:1" id="dBJ-hE-lKO"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GaR-3e-EY9">
@@ -211,6 +212,7 @@
                                                     <constraint firstItem="Cnc-y9-eVo" firstAttribute="top" secondItem="OjJ-Xr-NcD" secondAttribute="top" id="eNi-Iu-5zR"/>
                                                     <constraint firstItem="XmL-jh-GYF" firstAttribute="leading" secondItem="OjJ-Xr-NcD" secondAttribute="leading" constant="5" id="gOj-NE-6eL"/>
                                                     <constraint firstAttribute="bottom" secondItem="0tp-9d-QmI" secondAttribute="bottom" constant="8" id="i8r-wi-RvL"/>
+                                                    <constraint firstAttribute="height" constant="64" id="mm3-TK-vIc"/>
                                                     <constraint firstItem="Cnc-y9-eVo" firstAttribute="leading" secondItem="OjJ-Xr-NcD" secondAttribute="leading" id="rW5-3Z-sFw"/>
                                                     <constraint firstItem="p02-3N-m7s" firstAttribute="leading" secondItem="OjJ-Xr-NcD" secondAttribute="leading" id="str-Qw-QiN"/>
                                                     <constraint firstItem="0tp-9d-QmI" firstAttribute="leading" secondItem="OjJ-Xr-NcD" secondAttribute="leading" id="z87-za-uNF"/>
@@ -229,11 +231,16 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mma-uf-2VF">
                                                         <rect key="frame" x="5" y="15" width="245" height="24"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="Oxp-dt-sOe" userLabel="box">
-                                                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Pastures" translatesAutoresizingMaskIntoConstraints="NO" id="Oxp-dt-sOe" userLabel="box">
+                                                                <rect key="frame" x="0.0" y="0.0" width="24.5" height="24"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" priority="750" constant="24" id="CB9-iK-vFa"/>
+                                                                    <constraint firstAttribute="width" secondItem="Oxp-dt-sOe" secondAttribute="height" multiplier="1:1" id="eqx-YO-3fe"/>
+                                                                </constraints>
+                                                                <viewLayoutGuide key="safeArea" id="z6e-V5-3II"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pastures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRi-Bb-F5l">
-                                                                <rect key="frame" x="32" y="0.0" width="213" height="24"/>
+                                                                <rect key="frame" x="32.5" y="0.0" width="212.5" height="24"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -286,10 +293,14 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XU5-sX-ack">
                                                         <rect key="frame" x="5" y="15" width="245" height="24"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-hU-iNr" userLabel="box">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Pastures" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-hU-iNr" userLabel="box">
                                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" priority="750" constant="24" id="9Wf-zD-T5s"/>
+                                                                    <constraint firstAttribute="width" secondItem="Plg-hU-iNr" secondAttribute="height" multiplier="1:1" id="lrf-SG-ADi"/>
+                                                                </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNV-aY-TOR">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedules" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNV-aY-TOR">
                                                                 <rect key="frame" x="32" y="0.0" width="213" height="24"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <nil key="textColor"/>
@@ -335,6 +346,10 @@
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxChecked" translatesAutoresizingMaskIntoConstraints="NO" id="OZ4-VG-b7q" userLabel="box">
                                                         <rect key="frame" x="59" y="20" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="OZ4-VG-b7q" secondAttribute="height" multiplier="1:1" id="6NP-Tj-Dv0"/>
+                                                            <constraint firstAttribute="height" constant="24" id="g0K-qC-RUZ"/>
+                                                        </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review and Submit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5o-je-xWY">
                                                         <rect key="frame" x="85" y="24" width="115.5" height="16"/>
@@ -360,14 +375,6 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Plg-hU-iNr" firstAttribute="width" secondItem="yMB-tA-4nU" secondAttribute="width" id="HKr-qk-2Hv"/>
-                                            <constraint firstItem="Oxp-dt-sOe" firstAttribute="height" secondItem="yMB-tA-4nU" secondAttribute="height" id="NTO-0w-1oC"/>
-                                            <constraint firstItem="OZ4-VG-b7q" firstAttribute="width" secondItem="yMB-tA-4nU" secondAttribute="width" id="OWK-pf-ZcH"/>
-                                            <constraint firstItem="OZ4-VG-b7q" firstAttribute="height" secondItem="yMB-tA-4nU" secondAttribute="height" id="Zfp-G4-Vk0"/>
-                                            <constraint firstItem="Oxp-dt-sOe" firstAttribute="width" secondItem="yMB-tA-4nU" secondAttribute="width" id="vwN-6t-5xl"/>
-                                            <constraint firstItem="Plg-hU-iNr" firstAttribute="height" secondItem="yMB-tA-4nU" secondAttribute="height" id="xI6-5Y-zd5"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -460,6 +467,6 @@
     </scenes>
     <resources>
         <image name="boxChecked" width="128" height="128"/>
-        <image name="boxUnchecked" width="128" height="128"/>
+        <image name="icon_Pastures" width="32" height="32"/>
     </resources>
 </document>

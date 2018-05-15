@@ -108,7 +108,7 @@ class RUP: Object, MyraObject {
         plan.clients = self.clients
         plan.zones = self.zones
         plan.rangeUsageYears = self.rangeUsageYears
-
+        
         return plan
     }
 

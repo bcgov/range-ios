@@ -159,7 +159,10 @@ class ScheduleViewController: BaseViewController {
     }
 
     func reloadCells() {
-        self.tableView.reloadData()
+        self.view.layoutIfNeeded()
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+//        self.tableView.reloadData()
     }
 
     func calculateTotals() {

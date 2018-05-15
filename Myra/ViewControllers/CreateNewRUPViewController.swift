@@ -287,9 +287,25 @@ class CreateNewRUPViewController: BaseViewController {
 
     @IBAction func cancelAction(_ sender: UIButton) {
         if let new: RUP = self.copy, let old: RUP = self.rup {
+            // save copy
             RealmRequests.saveObject(object: new)
+
+            //  add plan to appropriate agreement
+            let agreement = RUPManager.shared.getAgreement(with: new.agreementId)
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    agreement?.rups.append(new)
+                }
+
+            } catch _ {
+                fatalError()
+            }
+
+            // remove modified RUP object
             old.deleteEntries()
             RealmRequests.deleteObject(old)
+            
             // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
@@ -333,6 +349,7 @@ class CreateNewRUPViewController: BaseViewController {
         self.parentCallBack = callBack
         self.rup = rup
         self.mode = mode
+        self.copy = nil
 
         switch mode {
         case .View:

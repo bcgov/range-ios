@@ -139,6 +139,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         }
 
         self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
         height.constant = CGFloat( Double((self.schedule?.scheduleObjects.count)!) * ScheduleFormTableViewCell.cellHeight + 5.0)
         if let parent = self.parentReference {
             parent.reloadCells()

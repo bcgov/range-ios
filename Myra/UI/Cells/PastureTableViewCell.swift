@@ -40,6 +40,7 @@ class PastureTableViewCell: BaseFormCell {
     @IBOutlet weak var aumHeader: UILabel!
 
     @IBOutlet weak var options: UIButton!
+
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,6 +59,7 @@ class PastureTableViewCell: BaseFormCell {
         }
         updateTableHeight()
     }
+    
     @IBAction func aumChanged(_ sender: UITextField) {
         do {
             let realm = try Realm()
@@ -83,7 +85,9 @@ class PastureTableViewCell: BaseFormCell {
             let realm = try Realm()
             try realm.write {
                 if (deductionFIeld.text?.isDouble)! {
-                    self.pasture?.privateLandDeduction = Double(deductionFIeld.text!)!
+                    let doubleValue = Double(deductionFIeld.text!)!
+                    let toInt = Int(doubleValue)
+                    self.pasture?.privateLandDeduction = Double(toInt)
                     deductionFIeld.textColor = UIColor.black
                 } else {
                     deductionFIeld.textColor = UIColor.red
