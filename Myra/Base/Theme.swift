@@ -36,7 +36,7 @@ extension Theme {
 
     // Input Field
     func defaultInputFieldHeight() -> CGFloat {
-        return 55
+        return 45
     }
 
     func defaultInputFieldBackground () -> UIColor {
