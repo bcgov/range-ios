@@ -98,7 +98,7 @@ class ScheduleViewController: BaseViewController {
 
     func setSubtitle(ranNumber: String, agreementHolder: String, rangeName: String) {
         if self.subtitle == nil { return }
-        self.subtitle.text = "\(ranNumber) | \(agreementHolder) | \(rangeName)"
+        self.subtitle.text = "\(ranNumber) | \(rangeName)"
     }
 
     // MARK: Livestock selection popup
@@ -159,7 +159,10 @@ class ScheduleViewController: BaseViewController {
     }
 
     func reloadCells() {
-        self.tableView.reloadData()
+        self.view.layoutIfNeeded()
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+//        self.tableView.reloadData()
     }
 
     func calculateTotals() {

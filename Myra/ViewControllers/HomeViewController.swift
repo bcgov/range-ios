@@ -119,6 +119,11 @@ class HomeViewController: BaseViewController {
     // MARK: Filter
     func filterByAll() {
         filterButtonOn(button: allFilter)
+        let plans = RUPManager.shared.getRUPs()
+        // Clean up the local DB
+        for plan in plans where plan.isNew {
+            RealmRequests.deleteObject(plan)
+        }
         self.rups = RUPManager.shared.getRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
@@ -382,7 +387,7 @@ extension HomeViewController {
     func editRUP(rup: RUP) {
         let vc = getCreateNewVC()
 
-        vc.setup(rup: rup, mode: .Edit) { (closed) in
+        vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
             self.getRUPs()
         }
         self.present(vc, animated: true, completion: nil)
@@ -390,7 +395,7 @@ extension HomeViewController {
 
     func viewRUP(rup: RUP) {
         let vc = getCreateNewVC()
-        vc.setup(rup: rup, mode: .View) { (closed) in
+        vc.setup(rup: rup, mode: .View) { closed, cancel in
             self.tableView.reloadData()
         }
         self.present(vc, animated: true, completion: nil)
