@@ -43,7 +43,8 @@ class Schedule: Object, MyraObject {
     func toDictionary()  -> [String:Any] {
         let schedule: [String: Any] = [
             "year": year,
-            "grazingScheduleEntries" : getEntriesDictionary()
+            "grazingScheduleEntries" : getEntriesDictionary(),
+            "narative" : notes
         ]
 
         return schedule

@@ -69,7 +69,13 @@ class SelectAgreementViewController: UIViewController, Theme {
         let rup = RUPManager.shared.genRUP(forAgreement: agreement)
         let vm = ViewManager()
         let createVC = vm.createRUP
-        createVC.setup(rup: rup, mode: .Edit, callBack: {closed in
+        createVC.setup(rup: rup, mode: .Edit, callBack: {closed, cancel  in
+            if cancel {
+//                for plan in agreement.rups {
+//                    plan.deleteEntries()
+//                    RealmRequests.deleteObject(plan)
+//                }
+            }
             self.dismiss(animated: true, completion: {
                 if self.parentCallBack != nil {
                     return self.parentCallBack!(true)

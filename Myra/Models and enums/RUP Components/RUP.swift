@@ -48,6 +48,8 @@ class RUP: Object, MyraObject {
     @objc dynamic var typeId: Int = 0
     @objc dynamic var ranNumber = 0
 
+    @objc dynamic var isNew = false
+
     var rangeUsageYears = List<RangeUsageYear>()
     var liveStockIDs = List<LiveStockID>()
     var pastures = List<Pasture>()
@@ -87,6 +89,7 @@ class RUP: Object, MyraObject {
         plan.updatedAt = self.updatedAt
         plan.typeId = self.typeId
         plan.ranNumber = self.ranNumber
+        plan.isNew = self.isNew
 
         // Copy objects in lists:
 

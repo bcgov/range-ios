@@ -52,7 +52,7 @@
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToI-k8-8ID">
                                                 <rect key="frame" x="0.0" y="0.0" width="62" height="34"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureField"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureButton"/>
                                                 <connections>
                                                     <action selector="lookupPastures:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uUs-3v-6he"/>
                                                 </connections>
@@ -122,13 +122,14 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-AF-6Y3">
                                                 <rect key="frame" x="0.0" y="0.0" width="61.5" height="44"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateInField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mw2-PD-7ur">
                                                 <rect key="frame" x="0.0" y="0.0" width="61.5" height="34"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateInButton"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateInButton"/>
                                                 <connections>
                                                     <action selector="dateInAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lbo-YM-bnc"/>
                                                 </connections>
@@ -149,13 +150,14 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2x-t1-I4Z">
                                                 <rect key="frame" x="0.0" y="0.0" width="62.5" height="44"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateOutField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2w-1j-MEv">
                                                 <rect key="frame" x="0.0" y="0.0" width="62" height="34"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateOutButton"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateOutButton"/>
                                                 <connections>
                                                     <action selector="dateOutAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rnj-EW-3aX"/>
                                                 </connections>
@@ -193,6 +195,7 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d5o-9U-aHr">
                                                 <rect key="frame" x="0.0" y="0.0" width="62" height="44"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectGraceDaysLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>

@@ -35,7 +35,7 @@ class CreateNewRUPViewController: BaseViewController {
     let numberOfSections = 6
 
     // MARK: Variables
-    var parentCallBack: ((_ close: Bool) -> Void )?
+    var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
 
     /* need to hold the inxedpath of sections to be able to scroll back to them.
        at this point, the indexpaths of the sections may not be known, and change
@@ -254,10 +254,18 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                plan.isNew = false
+            }
+        } catch _ {
+            fatalError()
+        }
         RealmRequests.updateObject(plan)
         self.dismiss(animated: true) {
             if self.parentCallBack != nil {
-                return self.parentCallBack!(true)
+                return self.parentCallBack!(true, false)
             }
         }
     }
@@ -265,12 +273,15 @@ class CreateNewRUPViewController: BaseViewController {
     @IBAction func basicInfoAction(_ sender: UIButton) {
         tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
     }
+
     @IBAction func pasturesAction(_ sender: UIButton) {
         tableView.scrollToRow(at: pasturesIndexPath, at: .top, animated: true)
     }
+
     @IBAction func scheduleAction(_ sender: UIButton) {
         tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
     }
+
     /*
     @IBAction func ministersIssuesAction(_ sender: UIButton) {
     }
@@ -287,29 +298,39 @@ class CreateNewRUPViewController: BaseViewController {
 
     @IBAction func cancelAction(_ sender: UIButton) {
         if let new: RUP = self.copy, let old: RUP = self.rup {
-            // save copy
-            RealmRequests.saveObject(object: new)
 
-            //  add plan to appropriate agreement
-            let agreement = RUPManager.shared.getAgreement(with: new.agreementId)
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    agreement?.rups.append(new)
+            // If is not new (not just created from agreement)
+            // Store the copy created before changes.
+            if !old.isNew {
+                // save copy
+                RealmRequests.saveObject(object: new)
+
+                //  add plan to appropriate agreement
+                let agreement = RUPManager.shared.getAgreement(with: new.agreementId)
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        agreement?.rups.append(new)
+                    }
+                } catch _ {
+                    fatalError()
                 }
-
-            } catch _ {
-                fatalError()
+                // remove modified RUP object
+                old.deleteEntries()
+                RealmRequests.deleteObject(old)
             }
+            // ELSE it you came here from agreement selection, and changed your mind.
+            // dont store any rup
 
             // remove modified RUP object
-            old.deleteEntries()
-            RealmRequests.deleteObject(old)
-            
+//            old.deleteEntries()
+//            RealmRequests.deleteObject(old)
+
+            self.realmNotificationToken?.invalidate()
             // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
-                    return self.parentCallBack!(true)
+                    return self.parentCallBack!(true, true)
                 }
             }
         }
@@ -334,7 +355,7 @@ class CreateNewRUPViewController: BaseViewController {
             // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
-                    return self.parentCallBack!(true)
+                    return self.parentCallBack!(true, false)
                 }
             }
         }) {
@@ -345,7 +366,7 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Functions
     // MARK: Setup
-    func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool) -> Void )) {
+    func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup
         self.mode = mode

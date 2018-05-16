@@ -296,6 +296,7 @@
             let realm = try Realm()
             try realm.write {
                 forAgreement.rups.append(rup)
+                rup.isNew = true
             }
         } catch _ {
             fatalError()
