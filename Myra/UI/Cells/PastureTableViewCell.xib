@@ -222,6 +222,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yy-6Z-4n7">
                                 <rect key="frame" x="652" y="0.0" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
                                 <state key="normal" image="expandicon"/>
                                 <connections>
                                     <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0hq-vz-jAH"/>

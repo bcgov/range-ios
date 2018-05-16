@@ -15,12 +15,14 @@ extension CreateNewRUPViewController {
     func style() {
         stylePopUp()
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranchNameAndNumberLabel)
+        StyleNavBarButton(button: cancelButton)
         styleMenu()
         switch mode {
         case .View:
             self.viewTitle.text = "View Plan"
             self.saveToDraftButton.setTitle("Close", for: .normal)
             self.submitButtonContainer.alpha = 0
+            self.cancelButton.alpha = 0
         case .Edit:
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
@@ -49,7 +51,6 @@ extension CreateNewRUPViewController {
             self.menuWidth.constant = self.portraitMenuWidth
         }
         self.animateIt()
-
     }
 
     func styleMenu() {

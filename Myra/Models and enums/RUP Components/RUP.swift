@@ -16,9 +16,6 @@ class RUP: Object, MyraObject {
         return UUID().uuidString
     }()
 
-    // if remoteId == -1, it has not been "synced"
-    @objc dynamic var remoteId: Int = -1
-
     override class func primaryKey() -> String? {
         return "localId"
     }
@@ -31,6 +28,9 @@ class RUP: Object, MyraObject {
             status = newValue.rawValue
         }
     }
+
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
 
     @objc dynamic var info: String = ""
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
@@ -47,6 +47,8 @@ class RUP: Object, MyraObject {
     @objc dynamic var updatedAt: Date?
     @objc dynamic var typeId: Int = 0
     @objc dynamic var ranNumber = 0
+
+    @objc dynamic var isNew = false
 
     var rangeUsageYears = List<RangeUsageYear>()
     var liveStockIDs = List<LiveStockID>()
@@ -66,6 +68,64 @@ class RUP: Object, MyraObject {
         self.rangeUsageYears = agreement.rangeUsageYears
         let splitRan = agreementId.split(separator: "N")
         self.ranNumber = Int(splitRan[1]) ?? 0
+    }
+
+    func copy() -> RUP {
+        let plan = RUP()
+
+        // Copy values
+        plan.remoteId = self.remoteId
+        plan.info = self.info
+        plan.primaryAgreementHolderFirstName = self.primaryAgreementHolderFirstName
+        plan.primaryAgreementHolderLastName = self.primaryAgreementHolderLastName
+        plan.status = self.status
+        plan.agreementId = self.agreementId
+        plan.planStartDate = self.planStartDate
+        plan.planEndDate = self.planEndDate
+        plan.agreementStartDate = self.agreementStartDate
+        plan.agreementEndDate = self.agreementEndDate
+        plan.rangeName = self.rangeName
+        plan.alternativeName = self.alternativeName
+        plan.updatedAt = self.updatedAt
+        plan.typeId = self.typeId
+        plan.ranNumber = self.ranNumber
+        plan.isNew = self.isNew
+
+        // Copy objects in lists:
+
+        // Copy Pastures first, because Schedule objects will need to refence them.
+        for object in self.pastures {
+            plan.pastures.append(object.copy())
+        }
+
+        /*
+         Note: Schedule objects will lose their reference to pasture during copy
+         So we pass the plan so that copy() function of schedule entry can find
+         reference to the new pasture object with the same name
+        */
+        for object in self.schedules {
+            plan.schedules.append(object.copy(in: plan))
+        }
+
+        // Cients, zones and Range usage years should not be deletable/editable, so no need to call copy() on them
+        plan.clients = self.clients
+        plan.zones = self.zones
+        plan.rangeUsageYears = self.rangeUsageYears
+        
+        return plan
+    }
+
+    func deleteEntries() {
+        /*
+         when deleting, we need to remove all pastures and schedule objects manually.
+        */
+        for object in self.pastures {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.schedules {
+            RealmRequests.deleteObject(object)
+        }
     }
 
     var isValid: Bool {

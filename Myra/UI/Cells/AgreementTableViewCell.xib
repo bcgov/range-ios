@@ -39,6 +39,7 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYg-qO-FGa">
                         <rect key="frame" x="364" y="17" width="160" height="32"/>
+                        <accessibility key="accessibilityConfiguration" identifier="SelectAgreementButton"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="gGa-Rl-WP9"/>
                             <constraint firstAttribute="width" constant="160" id="rOa-wL-NGS"/>

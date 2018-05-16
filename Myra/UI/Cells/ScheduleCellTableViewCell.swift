@@ -19,24 +19,12 @@ class ScheduleCellTableViewCell: BaseFormCell {
     // MARK: Outlets
     @IBOutlet weak var cellContainer: UIView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var optionsView: UIView!
 
     @IBOutlet weak var optionsButton: UIButton!
-    @IBOutlet weak var copyButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
 
     @IBOutlet weak var optionsIcon: UIView!
-    @IBOutlet weak var leadingOptions: NSLayoutConstraint!
 
     // MARK: Outlet Actions
-    @IBAction func copyAtion(_ sender: Any) {
-        duplicate()
-    }
-
-    @IBAction func deleteAction(_ sender: Any) {
-        delete()
-    }
-
     @IBAction func optionsAction(_ sender: Any) {
         showOptions()
 //        self.leadingOptions.constant = 0 - optionsView.frame.width
@@ -44,7 +32,6 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
 
     @IBAction func closeOptions(_ sender: Any) {
-        self.leadingOptions.constant = 0
         animateIt()
     }
 
@@ -62,7 +49,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let optionsVC = vm.options
-        let options: [Option] = [Option(type: .Delete, display: "Delete"), Option(type: .Copy, display: "Copy")]
+        let options: [Option] = [Option(type: .Copy, display: "Copy"), Option(type: .Delete, display: "Delete")]
         optionsVC.setup(options: options) { (selected) in
             optionsVC.dismiss(animated: false, completion: nil)
             switch selected.type {
@@ -110,7 +97,6 @@ class ScheduleCellTableViewCell: BaseFormCell {
                 fatalError()
             }
             self.parentReference?.updateTableHeight()
-            self.leadingOptions.constant = 0
             self.animateIt()
         }
         parent.parentReference?.showPopOver(on: optionsButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
@@ -144,8 +130,6 @@ class ScheduleCellTableViewCell: BaseFormCell {
     // MARK: Styles
     func style() {
         styleContainer(view: cellContainer)
-        styleHollowButton(button: deleteButton)
-        styleHollowButton(button: copyButton)
     }
 
     func styleInvalid() {

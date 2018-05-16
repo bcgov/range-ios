@@ -85,6 +85,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
+                RealmRequests.updateObject(self.scheduleObject!)
                 // re sort schedule
                 self.parentCell?.sort()
                 self.update()
@@ -164,7 +165,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let grandParent = scheduleViewReference else {return}
         let vm = ViewManager()
         let optionsVC = vm.options
-        let options: [Option] = [Option(type: .Copy, display: "Duplicate"), Option(type: .Delete, display: "Delete")]
+        let options: [Option] = [Option(type: .Copy, display: "Copy"), Option(type: .Delete, display: "Delete")]
         optionsVC.setup(options: options) { (selected) in
             optionsVC.dismiss(animated: true, completion: nil)
             switch selected.type {

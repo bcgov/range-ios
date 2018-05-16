@@ -37,6 +37,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTh-r8-ntq" userLabel="Pasture">
                                                 <rect key="frame" x="0.0" y="0.0" width="61.5" height="80"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="FilterPasture"/>
                                                 <state key="normal" title="Pasture"/>
                                                 <connections>
                                                     <action selector="sortPasture:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lmU-cR-RVT"/>
@@ -56,6 +57,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ro-9u-d9v">
                                                 <rect key="frame" x="-0.5" y="0.0" width="62" height="80"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="FilterLiveStock"/>
                                                 <state key="normal" title="Livestock"/>
                                                 <connections>
                                                     <action selector="sortLiveStock:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jMW-Br-lal"/>
@@ -75,6 +77,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6v-48-Muu">
                                                 <rect key="frame" x="0.0" y="0.0" width="61.5" height="80"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="FilterNumberOfAnimals"/>
                                                 <state key="normal" title="# of Animals"/>
                                                 <connections>
                                                     <action selector="sortNumber:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="N1d-Nl-VXJ"/>
@@ -94,6 +97,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOK-2J-nbK">
                                                 <rect key="frame" x="-0.5" y="0.0" width="62" height="80"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="FilterDateIn"/>
                                                 <state key="normal" title="Date In"/>
                                                 <connections>
                                                     <action selector="sortDateIn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r7G-km-uEk"/>
@@ -113,6 +117,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7o-Z9-cuH">
                                                 <rect key="frame" x="0.0" y="0.0" width="61" height="80"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="FilterDateOut"/>
                                                 <state key="normal" title="Date Out"/>
                                                 <connections>
                                                     <action selector="sortDateOut:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lCY-nh-fSB"/>
