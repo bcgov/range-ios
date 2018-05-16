@@ -28,10 +28,23 @@ class Schedule: Object, MyraObject {
     
     var scheduleObjects = List<ScheduleObject>()
 
+    func copy(in plan: RUP) -> Schedule {
+        let schedule = Schedule()
+        schedule.name = self.name
+        schedule.year = self.year
+        schedule.notes = self.notes
+        for object in self.scheduleObjects {
+            schedule.scheduleObjects.append(object.copy(in: plan))
+        }
+
+        return schedule
+    }
+
     func toDictionary()  -> [String:Any] {
         let schedule: [String: Any] = [
             "year": year,
-            "grazingScheduleEntries" : getEntriesDictionary()
+            "grazingScheduleEntries" : getEntriesDictionary(),
+            "narative" : notes
         ]
 
         return schedule

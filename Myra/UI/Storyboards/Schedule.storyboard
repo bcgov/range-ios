@@ -89,11 +89,30 @@
                                     <constraint firstAttribute="height" constant="2" id="fd1-cf-YdD"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kcx-xp-Grr">
+                                <rect key="frame" x="0.0" y="181" width="1024" height="0.0"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Zf-ew-zaR">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="9Zf-ew-zaR" secondAttribute="bottom" id="PNr-iL-Nh8"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Zf-ew-zaR" secondAttribute="trailing" id="YeO-A7-hYZ"/>
+                                    <constraint firstItem="9Zf-ew-zaR" firstAttribute="top" secondItem="kcx-xp-Grr" secondAttribute="top" id="d5Z-3j-j3J"/>
+                                    <constraint firstItem="9Zf-ew-zaR" firstAttribute="leading" secondItem="kcx-xp-Grr" secondAttribute="leading" id="d8Y-yb-2aI"/>
+                                    <constraint firstAttribute="height" id="uQJ-7r-WY3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Kaq-uy-hhf" firstAttribute="leading" secondItem="iZg-Hf-HvY" secondAttribute="leading" id="3Ua-Ou-wzN"/>
-                            <constraint firstItem="FfS-yq-3AT" firstAttribute="top" secondItem="fez-Bx-tHC" secondAttribute="bottom" id="5IN-yD-ZfM"/>
+                            <constraint firstItem="kcx-xp-Grr" firstAttribute="leading" secondItem="ktd-tc-bzf" secondAttribute="leading" id="6Fb-f0-kdX"/>
                             <constraint firstItem="fez-Bx-tHC" firstAttribute="top" secondItem="mvf-uz-dBk" secondAttribute="bottom" constant="5" id="7of-Da-mOt"/>
                             <constraint firstItem="g6e-Bh-kSx" firstAttribute="top" secondItem="Kaq-uy-hhf" secondAttribute="bottom" id="E4a-8u-7yc"/>
                             <constraint firstItem="mvf-uz-dBk" firstAttribute="leading" secondItem="ktd-tc-bzf" secondAttribute="leading" id="FhP-Zx-Fx1"/>
@@ -101,7 +120,10 @@
                             <constraint firstItem="ktd-tc-bzf" firstAttribute="trailing" secondItem="fez-Bx-tHC" secondAttribute="trailing" id="KAr-j4-sCB"/>
                             <constraint firstItem="ktd-tc-bzf" firstAttribute="trailing" secondItem="g6e-Bh-kSx" secondAttribute="trailing" id="LR1-pJ-2B9"/>
                             <constraint firstItem="mvf-uz-dBk" firstAttribute="top" secondItem="g6e-Bh-kSx" secondAttribute="bottom" id="LyO-yc-3qg"/>
+                            <constraint firstItem="ktd-tc-bzf" firstAttribute="trailing" secondItem="kcx-xp-Grr" secondAttribute="trailing" id="MgD-H5-bx8"/>
+                            <constraint firstItem="FfS-yq-3AT" firstAttribute="top" secondItem="kcx-xp-Grr" secondAttribute="bottom" id="UPq-GV-KXn"/>
                             <constraint firstItem="FfS-yq-3AT" firstAttribute="leading" secondItem="ktd-tc-bzf" secondAttribute="leading" id="ZAW-CA-6cn"/>
+                            <constraint firstItem="kcx-xp-Grr" firstAttribute="top" secondItem="fez-Bx-tHC" secondAttribute="bottom" id="dis-zs-uoa"/>
                             <constraint firstItem="fez-Bx-tHC" firstAttribute="leading" secondItem="ktd-tc-bzf" secondAttribute="leading" id="hrL-6R-K8U"/>
                             <constraint firstAttribute="trailing" secondItem="Kaq-uy-hhf" secondAttribute="trailing" id="jhv-oT-NFp"/>
                             <constraint firstItem="g6e-Bh-kSx" firstAttribute="leading" secondItem="ktd-tc-bzf" secondAttribute="leading" id="kq6-5a-ttN"/>
@@ -114,6 +136,9 @@
                     </view>
                     <connections>
                         <outlet property="backbutton" destination="AUX-3I-mjR" id="bsB-aF-vRz"/>
+                        <outlet property="banner" destination="kcx-xp-Grr" id="oXy-UU-JOw"/>
+                        <outlet property="bannerHeight" destination="uQJ-7r-WY3" id="g4o-p3-UJO"/>
+                        <outlet property="bannerLabel" destination="9Zf-ew-zaR" id="Lgn-BL-vyi"/>
                         <outlet property="divider" destination="fez-Bx-tHC" id="YiF-Rp-pnA"/>
                         <outlet property="navbar" destination="g6e-Bh-kSx" id="WMa-Zi-VvS"/>
                         <outlet property="navbarTitle" destination="Jou-D4-QLk" id="vQy-7E-z2n"/>

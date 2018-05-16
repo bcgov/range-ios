@@ -42,6 +42,16 @@ class Pasture: Object, MyraObject {
 
     var plantCommunities = List<PlantCommunity>()
 
+    func copy() -> Pasture {
+        let pasture = Pasture()
+        pasture.name = self.name
+        pasture.allowedAUMs = self.allowedAUMs
+        pasture.privateLandDeduction = self.privateLandDeduction
+        pasture.graceDays = self.graceDays
+        pasture.notes = self.notes
+        return pasture
+    }
+
     func toDictionary() -> [String:Any] {
         return [
             "name": name,

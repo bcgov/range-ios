@@ -32,6 +32,20 @@
  // MARK: RUP / Agreement
  extension RUPManager {
 
+    func isValid(rup: RUP) -> (Bool, String) {
+        // check required fields
+        if !rup.isValid {return (false, "Missing required fields")}
+
+        // check validity of schedules
+        for element in rup.schedules {
+            if !isScheduleValid(schedule: element, agreementID: rup.agreementId) {
+                return (false, "Plan has an invalid schedule")
+            }
+        }
+
+        return (true, "")
+    }
+
     func getRUP(with id: Int) -> RUP? {
         if rupExists(id: id) {
             let storedRups = RealmRequests.getObject(RUP.self)
@@ -282,6 +296,7 @@
             let realm = try Realm()
             try realm.write {
                 forAgreement.rups.append(rup)
+                rup.isNew = true
             }
         } catch _ {
             fatalError()
@@ -560,18 +575,52 @@
         let totAUMs = getTotalAUMsFor(schedule: schedule)
         let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
         let allowed = usage?.auth_AUMs ?? 0
-        /*
-         criteria 1: Schedule must have at least 1 valid entry.
-         We Can rely on the toDictionary function of the schedule.
-         if schedule objects are incomplete, toDictionary returns an empty
-         dictionary
-         */
-        if schedule.toDictionary().isEmpty {
+        if !scheduleHasValidEntries(schedule: schedule, agreementID: agreementID) {
             return false
         }
-
         // Last criteria: Total AUMs are within allowed AUMs for that year
         return totAUMs <= Double(allowed)
+    }
+
+    func scheduleHasValidEntries(schedule: Schedule, agreementID: String) -> Bool {
+        /*
+          - Schedule must have at least 1 valid entry.
+          - Schedule entries must be valid.
+         We Can rely on the toDictionary function of the schedule.
+         if schedule objects are incomplete, toDictionary returns an empty
+         array for key "grazingScheduleEntries"
+         */
+        let dictionary = schedule.toDictionary()
+        let grazingEntries: [[String: Any]] = dictionary["grazingScheduleEntries"] as! [[String: Any]]
+        if schedule.scheduleObjects.count < 1 || grazingEntries.count != schedule.scheduleObjects.count {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    // Returns error messages
+    func validateSchedule(schedule: Schedule, agreementID: String) -> (Bool, String) {
+        if schedule.scheduleObjects.count < 1 {
+            return (false, "Schedule must have at least 1 entry")
+        }
+        let dictionary = schedule.toDictionary()
+        let grazingEntries: [[String: Any]] = dictionary["grazingScheduleEntries"] as! [[String: Any]]
+        if grazingEntries.count != schedule.scheduleObjects.count {
+            return (false, "Schedule has one or more invalid entries")
+        }
+
+        /*
+         is valid schedule does check the above criteria,
+         but if those have passed, and this still fails,
+         its means that the total aums are more than the allowed aums
+        */
+        if !isScheduleValid(schedule: schedule, agreementID: agreementID) {
+            return (false, "Total AUMs exceed the allowed amount for the this year")
+        }
+
+        return (true, "")
+
     }
 
     // if livestock with the specified name is not found, returns false

@@ -195,11 +195,13 @@ extension Theme {
     func styleFieldHeader(label: UILabel) {
         label.textColor = defaultFieldHeaderColor()
         label.font = defaultFieldHeaderFont()
+        label.font = Fonts.getPrimaryHeavy(size: 12)
     }
 
     func styleFieldHeaderOff(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
-        button.titleLabel?.font = defaultFieldHeaderFont()
+//        button.titleLabel?.font = defaultFieldHeaderFont()
+        button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
         button.setImage(nil, for: .normal)
         // reset insets
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
@@ -207,7 +209,8 @@ extension Theme {
 
     func styleFieldHeaderOn(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOnColor(), for: .normal)
-        button.titleLabel?.font = defaultFieldHeaderFont()
+//        button.titleLabel?.font = defaultFieldHeaderFont()
+        button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
         // set button image on the right
         button.titleEdgeInsets = UIEdgeInsetsMake(0, (0.0 - (button.imageView?.frame.size.width)!), 0, (button.imageView?.frame.size.width)!);
@@ -254,6 +257,7 @@ extension Theme {
     }
 
     func styleInputReadOnly(input: UITextField, height: NSLayoutConstraint) {
+        input.borderStyle = .none
         input.isUserInteractionEnabled = false
         input.textColor = defaultInputFieldTextColor()
         input.backgroundColor = UIColor.clear
@@ -268,6 +272,7 @@ extension Theme {
             field.isUserInteractionEnabled = true
             field.backgroundColor = defaultInputFieldBackground()
         } else {
+            field.borderStyle = .none
             field.backgroundColor = UIColor.clear
             field.isUserInteractionEnabled = false
         }

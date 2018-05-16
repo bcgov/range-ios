@@ -119,6 +119,11 @@ class HomeViewController: BaseViewController {
     // MARK: Filter
     func filterByAll() {
         filterButtonOn(button: allFilter)
+        let plans = RUPManager.shared.getRUPs()
+        // Clean up the local DB
+        for plan in plans where plan.isNew {
+            RealmRequests.deleteObject(plan)
+        }
         self.rups = RUPManager.shared.getRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
@@ -332,7 +337,7 @@ class HomeViewController: BaseViewController {
     }
 }
 
-// Functions to handle TableView
+// MARK: TableView functions
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         tableView.delegate = self
@@ -363,7 +368,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rups.count
     }
-
 }
 
 // Functions to handle retrival of rups
@@ -381,18 +385,17 @@ extension HomeViewController {
 extension HomeViewController {
 
     func editRUP(rup: RUP) {
-        let vm = ViewManager()
-        let vc = vm.createRUP
-        vc.setup(rup: rup, mode: .Edit) { (closed) in
-            self.tableView.reloadData()
+        let vc = getCreateNewVC()
+
+        vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
+            self.getRUPs()
         }
         self.present(vc, animated: true, completion: nil)
     }
 
     func viewRUP(rup: RUP) {
-        let vm = ViewManager()
-        let vc = vm.createRUP
-        vc.setup(rup: rup, mode: .View) { (closed) in
+        let vc = getCreateNewVC()
+        vc.setup(rup: rup, mode: .View) { closed, cancel in
             self.tableView.reloadData()
         }
         self.present(vc, animated: true, completion: nil)
