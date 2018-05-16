@@ -96,7 +96,6 @@ class HomeViewController: BaseViewController {
         authenticateIfRequred()
     }
 
-
     @IBAction func filterAction(_ sender: UIButton) {
         switch sender {
         case allFilter:
@@ -118,51 +117,53 @@ class HomeViewController: BaseViewController {
 
     // MARK: Filter
     func filterByAll() {
+        loadRUPs()
         filterButtonOn(button: allFilter)
-        let plans = RUPManager.shared.getRUPs()
-        // Clean up the local DB
-        for plan in plans where plan.isNew {
-            RealmRequests.deleteObject(plan)
-        }
         self.rups = RUPManager.shared.getRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
     }
 
     func filterByDrafts() {
+        loadRUPs()
         filterButtonOn(button: draftsFilter)
         self.rups = RUPManager.shared.getDraftRups()
         self.tableView.reloadData()
     }
 
     func filterByPending() {
+        loadRUPs()
         filterButtonOn(button: pendingFilter)
         self.rups = RUPManager.shared.getPendingRups()
         self.tableView.reloadData()
     }
 
     func filterByCompleted() {
+        loadRUPs()
         filterButtonOn(button: completedFilter)
         self.rups = RUPManager.shared.getCompletedRups()
         self.tableView.reloadData()
     }
 
     func sortByAgreementHolder() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
     }
 
     func sortByRangeName() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.rangeName < $1.rangeName})
     }
 
     func sortByStatus() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.status < $1.status})
     }
 
     func sortByRangeNumber() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
     }
-
 
     // MARK: setup
     /*
@@ -193,6 +194,18 @@ class HomeViewController: BaseViewController {
         }
         setUpTable()
         filterByAll()
+    }
+
+    func loadRUPs() {
+        let plans = RUPManager.shared.getRUPs()
+        /*
+         Clean up the local DB by removing plans that were created
+         from agreements but cancelled.
+        */
+        for plan in plans where plan.isNew {
+            RealmRequests.deleteObject(plan)
+        }
+        self.rups = RUPManager.shared.getRUPs()
     }
 
     // MARK: Styles
@@ -374,7 +387,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController {
 
     func getRUPs()  {
-        let rups = RUPManager.shared.getRUPs()
+        loadRUPs()
         // sort by last name
         self.rups = rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
         filterByAll()

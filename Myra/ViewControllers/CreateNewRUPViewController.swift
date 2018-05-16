@@ -322,11 +322,6 @@ class CreateNewRUPViewController: BaseViewController {
             // ELSE it you came here from agreement selection, and changed your mind.
             // dont store any rup
 
-            // remove modified RUP object
-//            old.deleteEntries()
-//            RealmRequests.deleteObject(old)
-
-            self.realmNotificationToken?.invalidate()
             // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
