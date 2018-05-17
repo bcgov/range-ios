@@ -22,7 +22,7 @@ enum ScheduleSort {
 class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
-    static let cellHeight = 45.0
+    static let cellHeight = 47.0
 
     // Mark: Variables
     var mode: FormMode = .View
@@ -50,6 +50,21 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var PLD: UILabel!
     @IBOutlet weak var crownAUMs: UILabel!
     @IBOutlet weak var addButton: UIButton!
+
+
+    // Hacky fix for sort icons on the right of buttons
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        self.isUserInteractionEnabled = false
+        if superview != nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.style()
+                self.isUserInteractionEnabled = true
+            }
+        } else {
+            self.isUserInteractionEnabled = true
+        }
+    }
 
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
@@ -183,6 +198,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     }
 
     func switchOffSortHeaders() {
+        self.layoutIfNeeded()
         styleFieldHeaderOff(button: pasture)
         styleFieldHeaderOff(button: livestock)
         styleFieldHeaderOff(button: dateIn)
@@ -224,6 +240,11 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         }
         updateTableHeight()
         self.isUserInteractionEnabled = true
+    }
+
+    func clearSort() {
+        self.currentSort = .None
+        self.sort()
     }
 }
 
