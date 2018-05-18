@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 import Realm
 import RealmSwift
 
@@ -288,6 +289,36 @@ class DataServices: NSObject {
                         group.leave()
                     } catch {
                         fatalError() // just for now.
+                    }
+                }
+            }
+        }
+
+        group.notify(queue: .main) {
+            completion()
+        }
+    }
+
+    func updateStatuses(forPlans plans: [RUP], completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+        for plan in plans {
+            let planId = "\(plan.localId)"
+            group.enter()
+
+            guard let planObject = DataServices.plan(withLocalId: planId) else {
+                group.leave()
+                return completion()
+            }
+            APIManager.getPlanStatus(forPlan: planObject) { (response) in
+                if response.result.description == "SUCCESS", let value = response.result.value {
+                    let json = JSON(value)
+                    guard let id = json["plan"]["statusId"].int else {
+                        group.leave()
+                        return completion()
+                    }
+                    if let refetchPlanObject = DataServices.plan(withLocalId: planId) {
+                        refetchPlanObject.updateStatusId(newID: id)
+                        group.leave()
                     }
                 }
             }

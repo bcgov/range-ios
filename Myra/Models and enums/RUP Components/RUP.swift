@@ -46,7 +46,9 @@ class RUP: Object, MyraObject {
     @objc dynamic var alternativeName: String = ""
     @objc dynamic var updatedAt: Date?
     @objc dynamic var typeId: Int = 0
-    @objc dynamic var ranNumber = 0
+    @objc dynamic var ranNumber: Int = 0
+    @objc dynamic var statusId: Int = 0
+    @objc dynamic var statusIdValue: String = ""
 
     @objc dynamic var isNew = false
 
@@ -68,6 +70,20 @@ class RUP: Object, MyraObject {
         self.rangeUsageYears = agreement.rangeUsageYears
         let splitRan = agreementId.split(separator: "N")
         self.ranNumber = Int(splitRan[1]) ?? 0
+    }
+
+    func updateStatusId(newID: Int) {
+        let statusObject = RUPManager.shared.getStatus(forId: newID)
+        guard let obj = statusObject else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                statusId = newID
+                statusIdValue = obj.name
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
     func copy() -> RUP {

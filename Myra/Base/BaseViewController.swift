@@ -97,6 +97,7 @@ class BaseViewController: UIViewController, Theme {
 
     // MARK: Popover
     func showPopOver(on: UIButton, vc: UIViewController, height: Int, width: Int, arrowColor: UIColor?) {
+        self.view.endEditing(true)
         vc.modalPresentationStyle = .popover
         vc.preferredContentSize = CGSize(width: width, height: height)
         let popover = vc.popoverPresentationController

@@ -332,7 +332,17 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
-        let validity = RUPManager.shared.isValid(rup: rup!)
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                plan.isNew = false
+            }
+        } catch _ {
+            fatalError()
+        }
+
+        let validity = RUPManager.shared.isValid(rup: plan)
         if !validity.0 {
             showAlert(with: "Plan is invalid", message: validity.1)
             return
@@ -343,9 +353,8 @@ class CreateNewRUPViewController: BaseViewController {
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.rup?.statusEnum = .Outbox
+                    plan.statusEnum = .Outbox
                 }
-                
             } catch _ {}
             // Dismiss view controller
             self.dismiss(animated: true) {

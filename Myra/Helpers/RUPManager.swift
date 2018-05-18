@@ -32,6 +32,15 @@
  // MARK: RUP / Agreement
  extension RUPManager {
 
+    func getStatus(forId id: Int) -> PlanStatus? {
+        do {
+            let realm = try Realm()
+            let statuses = realm.objects(PlanStatus.self).filter("id = %@", id)
+            return statuses.first
+        } catch _ {}
+        return nil
+    }
+
     func isValid(rup: RUP) -> (Bool, String) {
         // check required fields
         if !rup.isValid {return (false, "Missing required fields")}
@@ -287,6 +296,12 @@
             return Array(objs)
         } catch _ {}
         return [RUP]()
+    }
+
+    func getSubmittedPlans() -> [RUP] {
+        var plans = getCompletedRups()
+        plans.append(contentsOf: getPendingRups())
+        return plans
     }
 
     func genRUP(forAgreement: Agreement) -> RUP {
