@@ -40,6 +40,7 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
         self.schedule = schedule
         self.agreementID = agreementID
         self.textView.text = schedule.notes
+        style()
         autofill()
     }
 

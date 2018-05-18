@@ -16,7 +16,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     var scheduleObject: ScheduleObject?
     var parentCell: ScheduleFormTableViewCell?
     var scheduleViewReference: ScheduleViewController?
-    var realmNotificationToken: NotificationToken?
 
     var inputFields: [UITextField] = [UITextField]()
     var computedFields: [UITextField] = [UITextField]()
@@ -51,9 +50,18 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 // this function also update calculations for pld and crown fields
                 RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: (obj?.value)!, rup: self.rup)
 
-                // re sort schedule
-                self.parentCell?.sort()
                 self.update()
+                // Clear sort headers
+                self.parentCell?.clearSort()
+                // NOTE: you can simply use this if you want to sort on change
+                // and highlight the cell that moved
+                /*
+                 // if current sorting on parent is set to this field's type
+                 if self.parentCell?.currentSort == .Pasture {
+                 // this will hightlight cell
+                 self.scheduleObject?.setIsNew(to: true)
+                 }
+                */
                 // fill appropriate fields
                 self.fillCurrentValues()
                 grandParent.hidepopup(vc: lookup)
@@ -86,9 +94,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
                 RealmRequests.updateObject(self.scheduleObject!)
-                // re sort schedule
-                self.parentCell?.sort()
                 self.update()
+                // Clear sort headers
+                self.parentCell?.clearSort()
                 grandParent.hidepopup(vc: lookup)
             } else {
                 grandParent.hidepopup(vc: lookup)
@@ -117,10 +125,17 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 try realm.write {
                     self.scheduleObject?.numberOfAnimals = 0
                 }
+                // if current sorting on parent is set to this field's type
+                if self.parentCell?.currentSort == .Number {
+                    // this will hightlight cell
+                    self.scheduleObject?.setIsNew(to: true)
+                }
             } catch _ {
                 fatalError()
             }
         }
+        // Clear sort headers
+        self.parentCell?.clearSort()
         update()
     }
 
@@ -133,8 +148,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
         picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
             self.handleDateIn(date: date)
-            // re sort schedule
-            self.parentCell?.sort()
+            // Clear sort headers
+            self.parentCell?.clearSort()
         }
         grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
@@ -148,14 +163,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         if let s = scheduleObject, let startDate = s.dateIn {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: startDate) { (date) in
                 self.handleDateOut(date: date)
-                // re sort schedule
-                self.parentCell?.sort()
+                // Clear sort headers
+                self.parentCell?.clearSort()
             }
         } else {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
                 self.handleDateOut(date: date)
-                // re sort schedule
-                self.parentCell?.sort()
+                // Clear sort headers
+                self.parentCell?.clearSort()
             }
         }
         grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
@@ -305,7 +320,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     func highlightOn() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundColor = Colors.secondary.withAlphaComponent(0.75)
+            self.backgroundColor = Colors.secondary.withAlphaComponent(0.5)
             self.layoutIfNeeded()
         })
     }

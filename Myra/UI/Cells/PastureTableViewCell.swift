@@ -77,7 +77,6 @@ class PastureTableViewCell: BaseFormCell {
         }
 
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
-
     }
 
     @IBAction func landDeductionChanged(_ sender: UITextField) {
@@ -176,20 +175,17 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     func autofill() {
-        if let allowedAumsVal = pasture?.allowedAUMs {
-            self.aumsField.text = "\(allowedAumsVal)"
-        }
+        guard let p = self.pasture else {return}
 
-        if let pldVal = pasture?.privateLandDeduction {
-            let intPldVal = Int(pldVal)
-            self.deductionFIeld.text = "\(intPldVal)"
-        }
+        self.aumsField.text = "\(p.allowedAUMs)"
+        self.deductionFIeld.text = "\(Int(p.privateLandDeduction))"
+        self.graceDaysField.text = "\(p.graceDays)"
 
-        if let graceDaysVal = pasture?.graceDays {
-            self.graceDaysField.text = "\(graceDaysVal)"
+        self.pastureNotesTextField.text = p.notes
+
+        if p.allowedAUMs == -1 {
+            self.aumsField.text = "not set"
         }
-        
-        self.pastureNotesTextField.text = pasture?.notes
 
         if self.mode == .View && self.pastureNotesTextField.text == "" {
             self.pastureNotesTextField.text = "Notes not provided"

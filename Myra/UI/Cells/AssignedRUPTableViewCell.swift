@@ -50,7 +50,11 @@ class AssignedRUPTableViewCell: UITableViewCell {
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
-        self.statusText.text = rup.status
+        if rup.statusIdValue != "" {
+            self.statusText.text = rup.statusIdValue
+        } else {
+            self.statusText.text = rup.status
+        }
         if rup.statusEnum == .Draft {
             infoButton.setTitle("Edit", for: .normal)
         } else {

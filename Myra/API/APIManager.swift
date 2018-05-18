@@ -70,6 +70,22 @@ class APIManager {
         }
     }
 
+    static func getPlanStatus(forPlan plan: RUP, completion: @escaping (_ response: Alamofire.DataResponse<Data>) -> Void) {
+        let id = plan.remoteId
+        let endpoint = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/plan/\(id)"
+
+        Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
+             return completion(response)
+//            if response.result.description == "SUCCESS", let value = response.result.value {
+//                let json = JSON(value)
+//                guard let id = json["plan"]["statusId"].int else {return completion(false)}
+//                plan.updateStatusId(newID: id)
+//                return completion(true)
+//            }
+//            return completion(false)
+        }
+    }
+
     static func getReferenceData(completion: @escaping (_ success: Bool) -> Void) {
         
         guard let endpoint = URL(string: Constants.API.referencePath, relativeTo: Constants.API.baseURL!) else {
@@ -102,7 +118,6 @@ class APIManager {
             return
         }
 
-        // Were on a new thread now !
         guard let myPlan = DataServices.plan(withLocalId: plan.localId) else {
             return completion(nil, nil)
         }
@@ -518,25 +533,24 @@ extension APIManager {
         var myError: APIError? = nil
         var myAgreements: [Agreement]?
         let dispatchGroup = DispatchGroup()
-        
-        dispatchGroup.enter()
+
         progress("Uploading data to the server")
+        dispatchGroup.enter()
         DataServices.shared.uploadOutboxRangeUsePlans {
             dispatchGroup.leave()
         }
-        
-        dispatchGroup.enter()
+
         progress("Downloading reference data")
+        dispatchGroup.enter()
         getReferenceData(completion: { (success) in
             if (!success) {
                 progress("Failed while downloading reference data")
             }
-
             dispatchGroup.leave()
         })
 
-        dispatchGroup.enter()
         progress("Downloading agreements")
+        dispatchGroup.enter()
         getAgreements(completion: { (agreements, error) in
 
             if let error = error {
@@ -544,18 +558,24 @@ extension APIManager {
                 myError = error
             } else {
                 myAgreements = agreements
-                progress("Completed")
+//                progress("Completed")
             }
             dispatchGroup.leave()
         })
 
+        progress("Updating plan statuses")
+        dispatchGroup.enter()
+        DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
+            dispatchGroup.leave()
+        }
+
+        progress("Updating stored data")
         dispatchGroup.notify(queue: .main) {
             if let agreements = myAgreements {
                 progress("Updating stored data")
                 RUPManager.shared.diffAgreements(agreements: agreements)
                 RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             }
-            
             completion(myError)
         }
     }
