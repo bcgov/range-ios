@@ -82,6 +82,10 @@ class BasicInformationTableViewCell: BaseFormCell {
         }
     }
 
+    @IBAction func beginEdit(_ sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
     // MARK: Functions
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode

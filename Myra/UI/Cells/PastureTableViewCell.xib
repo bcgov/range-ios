@@ -53,6 +53,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 <connections>
                                                     <action selector="aumChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="Sss-OT-UkU"/>
+                                                    <action selector="beginEditAUM:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="4gb-9G-e6y"/>
                                                 </connections>
                                             </textField>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLs-f5-2Hy">
@@ -93,6 +94,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
+                                                    <action selector="beginEditDeduction:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="Huv-pX-qwd"/>
                                                     <action selector="landDeductionChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="4L2-e3-4jW"/>
                                                 </connections>
                                             </textField>
@@ -134,6 +136,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
+                                                    <action selector="beginEditGraceDays:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="Nbs-ch-xrb"/>
                                                     <action selector="graceDaysChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="dqD-Qt-elM"/>
                                                 </connections>
                                             </textField>

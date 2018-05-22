@@ -48,6 +48,19 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Outlet Actions
+
+    @IBAction func beginEditAUM(_ sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
+    @IBAction func beginEditDeduction(_ sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
+    @IBAction func beginEditGraceDays(_ sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
     @IBAction func addPlantCommunityAction(_ sender: Any) {
         do {
             let realm = try Realm()

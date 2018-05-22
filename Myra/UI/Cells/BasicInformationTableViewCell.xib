@@ -141,6 +141,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
+                                                            <action selector="beginEdit:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="BPE-Mw-TSg"/>
                                                             <action selector="nameEdited:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="0Fq-EN-sWR"/>
                                                         </connections>
                                                     </textField>
@@ -166,6 +167,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
+                                                            <action selector="beginEdit:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="Yhe-fU-7Zy"/>
                                                             <action selector="businessNameEdited:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="qbD-Ll-kYs"/>
                                                         </connections>
                                                     </textField>

@@ -40,6 +40,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var dateOutButton: UIButton!
 
     // MARK: Outlet Acions
+
     @IBAction func lookupPastures(_ sender: Any) {
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
@@ -106,14 +107,19 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         grandParent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
+    // for number of animals field
+    @IBAction func highlightField(_ sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
-        let curr = numberOfAniamls.text
-        if (curr?.isInt)! {
+        guard let curr = numberOfAniamls.text else {return}
+        if (curr.isInt) {
             numberOfAniamls.textColor = UIColor.black
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.scheduleObject?.numberOfAnimals = Int(curr!)!
+                    self.scheduleObject?.numberOfAnimals = Int(curr)!
                 }
             } catch _ {
                 fatalError()
@@ -134,6 +140,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 fatalError()
             }
         }
+    }
+
+    @IBAction func numberOfAnimalsSelected(_ sender: UITextField) {
         // Clear sort headers
         self.parentCell?.clearSort()
         update()
