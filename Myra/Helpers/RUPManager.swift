@@ -26,7 +26,6 @@
         }
         return ""
     }
-    
  }
 
  // MARK: RUP / Agreement

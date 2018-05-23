@@ -34,6 +34,7 @@ class RangeUsageTableViewCell: BaseFormCell {
     @IBOutlet weak var tempIncreaseHeader: UILabel!
     @IBOutlet weak var nonUseHeader: UILabel!
     @IBOutlet weak var totalAnnualHeader: UILabel!
+    @IBOutlet weak var warningLabel: UILabel!
 
     // MARK: Cell functions
 
@@ -55,10 +56,16 @@ class RangeUsageTableViewCell: BaseFormCell {
         self.mode = mode
         self.rup = rup
         self.usageYears = [RangeUsageYear]()
-        for usage in rup.rangeUsageYears {
-            if usage.year >= (rup.agreementStartDate?.yearOfDate())! && usage.year <= (rup.agreementEndDate?.yearOfDate())! {
+        if let plansStart = rup.planStartDate, let planEnd = rup.planEndDate {
+            for usage in rup.rangeUsageYears where usage.year >= plansStart.yearOfDate()! && usage.year <= planEnd.yearOfDate()!  {
                 usageYears.append(usage)
             }
+            warningLabel.text = ""
+            self.tableView.layoutIfNeeded()
+            self.tableView.reloadData()
+        } else {
+            // show message
+            warningLabel.text = "Plan start and end dates have not been selected yet"
         }
         heightConstraint.constant = CGFloat( Double(usageYears.count) * cellHeight + 5.0)
         setUpTable()
@@ -67,6 +74,8 @@ class RangeUsageTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
+        warningLabel.font = Fonts.getPrimary(size: 15)
+        warningLabel.textColor = Colors.secondary
         styleSubHeader(label: header)
         styleDivider(divider: divider)
         styleFieldHeader(label: yearHeader)

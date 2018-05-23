@@ -95,6 +95,8 @@ class PlanInformationTableViewCell: BaseFormCell {
                 }
             }
         }
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.realodAndGoTo(indexPath: parent.basicInformationIndexPath)
     }
 
     func handlePlanEndDate(date: Date) {
@@ -107,6 +109,8 @@ class PlanInformationTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.realodAndGoTo(indexPath: parent.basicInformationIndexPath)
     }
 
     // MARK: Setup

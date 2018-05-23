@@ -76,13 +76,6 @@ class APIManager {
 
         Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
              return completion(response)
-//            if response.result.description == "SUCCESS", let value = response.result.value {
-//                let json = JSON(value)
-//                guard let id = json["plan"]["statusId"].int else {return completion(false)}
-//                plan.updateStatusId(newID: id)
-//                return completion(true)
-//            }
-//            return completion(false)
         }
     }
 
@@ -252,7 +245,7 @@ class APIManager {
     }
 
     static func handleLiveStockType(json: JSON) -> [Object] {
-        var result = [Object]()
+        var result = [LiveStockType]()
         for (_,item) in json {
             let obj = LiveStockType()
             if let name = item["name"].string {
@@ -266,7 +259,9 @@ class APIManager {
             }
             result.append(obj)
         }
-        return result
+
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
     }
 
     static func handleAgreementStatus(json: JSON) -> [Object] {
