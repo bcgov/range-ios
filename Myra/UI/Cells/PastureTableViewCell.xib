@@ -23,6 +23,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d10-4y-3Jf">
                         <rect key="frame" x="5" y="16" width="700" height="389"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yy-6Z-4n7">
+                                <rect key="frame" x="652" y="0.0" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
+                                <state key="normal" image="expandicon"/>
+                                <connections>
+                                    <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0hq-vz-jAH"/>
+                                </connections>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="EjY-Uy-5TR">
                                 <rect key="frame" x="15" y="14.5" width="22" height="22"/>
                                 <constraints>
@@ -197,20 +205,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plant Communities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncF-tG-42g">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plant Communities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncF-tG-42g">
                                 <rect key="frame" x="15" y="299" width="670" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kqn-88-dK7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kqn-88-dK7">
                                 <rect key="frame" x="15" y="327.5" width="670" height="5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="1TJ-O3-kaG"/>
                                 </constraints>
                             </tableView>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soa-UZ-bH2">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soa-UZ-bH2">
                                 <rect key="frame" x="15" y="340.5" width="162" height="32"/>
                                 <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -221,14 +229,6 @@
                                 </state>
                                 <connections>
                                     <action selector="addPlantCommunityAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5hc-FD-lGN"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yy-6Z-4n7">
-                                <rect key="frame" x="652" y="0.0" width="48" height="48"/>
-                                <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
-                                <state key="normal" image="expandicon"/>
-                                <connections>
-                                    <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0hq-vz-jAH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -272,6 +272,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addPlantCommunityButton" destination="Soa-UZ-bH2" id="ZWf-Ky-xo9"/>
+                <outlet property="addPlantCommunityButtonHeight" destination="2De-4q-qF0" id="KKh-qy-wlc"/>
                 <outlet property="aumHeader" destination="j97-0l-Yxy" id="iBu-VD-bBS"/>
                 <outlet property="aumsField" destination="ybV-9w-RlV" id="C16-ka-a3e"/>
                 <outlet property="containerView" destination="d10-4y-3Jf" id="Rtt-QY-yFx"/>
@@ -284,6 +286,7 @@
                 <outlet property="pastureNameLabel" destination="E6P-6l-YOY" id="QYI-5O-1I1"/>
                 <outlet property="pastureNotesHeader" destination="zFx-h9-LGF" id="yiC-qO-Tkt"/>
                 <outlet property="pastureNotesTextField" destination="tAI-sm-UTn" id="FX3-I3-frs"/>
+                <outlet property="plantCommunitiesLabel" destination="ncF-tG-42g" id="Gl6-Qn-8k6"/>
                 <outlet property="pldHeader" destination="Wje-rC-PmX" id="wBk-Qq-Tpi"/>
                 <outlet property="tableHeight" destination="1TJ-O3-kaG" id="kdf-Ud-ilS"/>
                 <outlet property="tableView" destination="kqn-88-dK7" id="fCv-Vf-tS5"/>

@@ -91,12 +91,13 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="boe-1c-INy" secondAttribute="bottom" id="5iy-bi-eJ3"/>
                             <constraint firstItem="ZMC-Sw-4M4" firstAttribute="centerY" secondItem="1HG-P7-hIF" secondAttribute="centerY" id="6HK-Yv-yIf"/>
-                            <constraint firstAttribute="height" constant="56.5" id="Bwe-qe-mL7"/>
                             <constraint firstAttribute="trailing" secondItem="boe-1c-INy" secondAttribute="trailing" id="ERD-Y0-6MM"/>
                             <constraint firstItem="boe-1c-INy" firstAttribute="top" secondItem="spc-L6-Aaz" secondAttribute="top" id="M9s-ED-BcY"/>
                             <constraint firstItem="ZMC-Sw-4M4" firstAttribute="height" secondItem="1HG-P7-hIF" secondAttribute="height" id="Y0v-bX-3BX"/>
                             <constraint firstItem="1HG-P7-hIF" firstAttribute="centerY" secondItem="spc-L6-Aaz" secondAttribute="centerY" id="aTE-KK-y9v"/>
+                            <constraint firstItem="1HG-P7-hIF" firstAttribute="top" secondItem="spc-L6-Aaz" secondAttribute="top" constant="8" id="cNP-Sq-2E9"/>
                             <constraint firstItem="boe-1c-INy" firstAttribute="leading" secondItem="1HG-P7-hIF" secondAttribute="trailing" id="chj-Fx-gC7"/>
+                            <constraint firstAttribute="bottom" secondItem="1HG-P7-hIF" secondAttribute="bottom" constant="8" id="cta-3m-4GZ"/>
                             <constraint firstAttribute="trailing" secondItem="ZMC-Sw-4M4" secondAttribute="trailing" constant="10" id="npf-Od-PoO"/>
                             <constraint firstItem="ZMC-Sw-4M4" firstAttribute="leading" secondItem="1HG-P7-hIF" secondAttribute="trailing" constant="40" id="ttg-H5-f3K"/>
                             <constraint firstItem="1HG-P7-hIF" firstAttribute="leading" secondItem="spc-L6-Aaz" secondAttribute="leading" constant="15" id="ugw-o4-Rmr"/>
