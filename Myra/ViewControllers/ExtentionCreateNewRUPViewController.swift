@@ -15,7 +15,20 @@ extension CreateNewRUPViewController {
     func style() {
         stylePopUp()
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranchNameAndNumberLabel)
+        StyleNavBarButton(button: cancelButton)
         styleMenu()
+        switch mode {
+        case .View:
+            self.viewTitle.text = "View Plan"
+            self.saveToDraftButton.setTitle("Close", for: .normal)
+            self.submitButtonContainer.alpha = 0
+            ranchNameAndNumberLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
+            cancelButton.removeFromSuperview()
+        case .Edit:
+            self.viewTitle.text = "Create New RUP"
+            self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
+            self.submitButtonContainer.alpha = 1
+        }
     }
 
     // TODO: Temporary.. come up with a better, resusable popup for inputs
@@ -36,10 +49,9 @@ extension CreateNewRUPViewController {
         if UIDevice.current.orientation.isLandscape{
             self.menuWidth.constant = self.landscapeMenuWidh
         } else {
-            self.menuWidth.constant = self.horizontalMenuWidth
+            self.menuWidth.constant = self.portraitMenuWidth
         }
         self.animateIt()
-
     }
 
     func styleMenu() {
@@ -61,7 +73,7 @@ extension CreateNewRUPViewController {
     }
 
     func styleMenuSubmitButtonOn() {
-        self.reviewAndSubmitLabel.text = "Submit and Review"
+        self.reviewAndSubmitLabel.text = "Review and Submit"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
         self.reviewAndSubmitButton.isEnabled = true
 
@@ -72,7 +84,7 @@ extension CreateNewRUPViewController {
     }
 
     func styleMenuSubmitButtonOFF() {
-        self.reviewAndSubmitLabel.text = "Submit and Review"
+        self.reviewAndSubmitLabel.text = "Review and Submit"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
         self.reviewAndSubmitButton.isEnabled = false
 
@@ -155,7 +167,7 @@ extension CreateNewRUPViewController {
                 if UIDevice.current.orientation.isLandscape{
                     self.menuWidth.constant = self.landscapeMenuWidh
                 } else if UIDevice.current.orientation.isPortrait {
-                    self.menuWidth.constant = self.horizontalMenuWidth
+                    self.menuWidth.constant = self.portraitMenuWidth
                 } else {
                     self.menuWidth.constant = self.landscapeMenuWidh
                 }

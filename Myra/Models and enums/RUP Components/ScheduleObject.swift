@@ -49,7 +49,7 @@ class ScheduleObject: Object, MyraObject {
     
     @objc dynamic var pasture: Pasture?
     @objc dynamic var liveStockTypeId: Int = -1
-    // name user for sorting
+    // name used for sorting
     @objc dynamic var liveStockTypeName: String = ""
     @objc dynamic var numberOfAnimals: Int = 0
     @objc dynamic var dateIn: Date?
@@ -70,6 +70,30 @@ class ScheduleObject: Object, MyraObject {
         } catch _ {
             fatalError()
         }
+    }
+
+    func copy(in plan: RUP) -> ScheduleObject {
+        let entry = ScheduleObject()
+
+        /*
+         When copying a plan, schedule objects lose their reference to pastures
+         because copied pastures have new ids/addresses.
+         so we need to find the new pasture from the rup that has passed
+         */
+        for object in plan.pastures where object.name == self.pastureName {
+            entry.pasture = object
+        }
+        entry.liveStockTypeId = self.liveStockTypeId
+        entry.liveStockTypeName = self.liveStockTypeName
+        entry.numberOfAnimals = self.numberOfAnimals
+        entry.dateIn = self.dateIn
+        entry.dateOut = self.dateOut
+        entry.totalAUMs = self.totalAUMs
+        entry.pldAUMs = self.pldAUMs
+        entry.scheduleDescription = self.scheduleDescription
+        entry.isNew = self.isNew
+
+        return entry
     }
 
     func toDictionary() -> [String : Any]? {

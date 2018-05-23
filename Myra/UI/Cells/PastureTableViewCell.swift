@@ -39,6 +39,8 @@ class PastureTableViewCell: BaseFormCell {
     @IBOutlet weak var pldHeader: UILabel!
     @IBOutlet weak var aumHeader: UILabel!
 
+    @IBOutlet weak var options: UIButton!
+
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,6 +48,23 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Outlet Actions
+
+    @IBAction func beginEditAUM(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @IBAction func beginEditDeduction(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @IBAction func beginEditGraceDays(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @objc private func selectRange(sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
     @IBAction func addPlantCommunityAction(_ sender: Any) {
         do {
             let realm = try Realm()
@@ -57,6 +76,7 @@ class PastureTableViewCell: BaseFormCell {
         }
         updateTableHeight()
     }
+    
     @IBAction func aumChanged(_ sender: UITextField) {
         do {
             let realm = try Realm()
@@ -74,7 +94,6 @@ class PastureTableViewCell: BaseFormCell {
         }
 
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
-
     }
 
     @IBAction func landDeductionChanged(_ sender: UITextField) {
@@ -82,7 +101,9 @@ class PastureTableViewCell: BaseFormCell {
             let realm = try Realm()
             try realm.write {
                 if (deductionFIeld.text?.isDouble)! {
-                    self.pasture?.privateLandDeduction = Double(deductionFIeld.text!)!
+                    let doubleValue = Double(deductionFIeld.text!)!
+                    let toInt = Int(doubleValue)
+                    self.pasture?.privateLandDeduction = Double(toInt)
                     deductionFIeld.textColor = UIColor.black
                 } else {
                     deductionFIeld.textColor = UIColor.red
@@ -160,23 +181,32 @@ class PastureTableViewCell: BaseFormCell {
         setupTable()
         self.pastureNotesTextField.delegate = self
         style()
+        switch mode {
+        case .View:
+            options.isEnabled = false
+            options.alpha = 0
+        case .Edit:
+            options.isEnabled = true
+            options.alpha = 1
+        }
     }
 
     func autofill() {
-        if let allowedAumsVal = pasture?.allowedAUMs {
-            self.aumsField.text = "\(allowedAumsVal)"
+        guard let p = self.pasture else {return}
+
+        self.aumsField.text = "\(p.allowedAUMs)"
+        self.deductionFIeld.text = "\(Int(p.privateLandDeduction))"
+        self.graceDaysField.text = "\(p.graceDays)"
+
+        self.pastureNotesTextField.text = p.notes
+
+        if p.allowedAUMs == -1 {
+            self.aumsField.text = "not set"
         }
 
-        if let pldVal = pasture?.privateLandDeduction {
-            let intPldVal = Int(pldVal)
-            self.deductionFIeld.text = "\(intPldVal)"
+        if self.mode == .View && self.pastureNotesTextField.text == "" {
+            self.pastureNotesTextField.text = "Notes not provided"
         }
-
-        if let graceDaysVal = pasture?.graceDays {
-            self.graceDaysField.text = "\(graceDaysVal)"
-        }
-        
-        self.pastureNotesTextField.text = pasture?.notes
     }
 
     func getCellHeight() -> CGSize {
@@ -219,10 +249,18 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Styles
     func style() {
-        styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
-        styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
-        styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
-        styleInputField(field: pastureNotesTextField, header: pastureNotesHeader)
+        switch mode {
+        case .View:
+            styleInputFieldReadOnly(field: aumsField, header: aumHeader, height: fieldHeight)
+            styleInputFieldReadOnly(field: deductionFIeld, header: pldHeader, height: fieldHeight)
+            styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
+            styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
+        case .Edit:
+            styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
+            styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
+            styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
+            styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
+        }
         styleContainer(view: containerView)
         styleSubHeader(label: pastureNameHeader)
         styleSubHeader(label: pastureNameLabel)
@@ -250,7 +288,7 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
-        cell.setup(mode: .Create, plantCommunity: (self.pasture?.plantCommunities[indexPath.row])!)
+        cell.setup(mode: mode, plantCommunity: (self.pasture?.plantCommunities[indexPath.row])!)
         return cell
     }
 

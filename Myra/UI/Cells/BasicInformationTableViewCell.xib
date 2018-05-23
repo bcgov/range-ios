@@ -133,6 +133,7 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X0P-OQ-Cji">
                                                         <rect key="frame" x="0.0" y="32.5" width="353" height="45"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="RangeNameField"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="Zds-1Z-rR4"/>
                                                         </constraints>
@@ -140,6 +141,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
+                                                            <action selector="beginEdit:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="BPE-Mw-TSg"/>
                                                             <action selector="nameEdited:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="0Fq-EN-sWR"/>
                                                         </connections>
                                                     </textField>
@@ -160,10 +162,12 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Eo-gA-yhK">
                                                         <rect key="frame" x="0.0" y="33" width="25" height="45"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="AlternativeBusinessNameField"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
+                                                            <action selector="beginEdit:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="Yhe-fU-7Zy"/>
                                                             <action selector="businessNameEdited:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="qbD-Ll-kYs"/>
                                                         </connections>
                                                     </textField>

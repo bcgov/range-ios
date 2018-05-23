@@ -22,10 +22,12 @@ enum ScheduleSort {
 class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
-    static let cellHeight = 55.0
+    static let cellHeight = 47.0
 
     // Mark: Variables
+    var mode: FormMode = .View
     var schedule: Schedule?
+    var objects: [ScheduleObject] = [ScheduleObject]()
     var rup: RUP?
     var parentReference: ScheduleViewController?
     var currentSort: ScheduleSort = .None {
@@ -48,6 +50,21 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var PLD: UILabel!
     @IBOutlet weak var crownAUMs: UILabel!
     @IBOutlet weak var addButton: UIButton!
+
+
+    // Hacky fix for sort icons on the right of buttons
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        self.isUserInteractionEnabled = false
+        if superview != nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.style()
+                self.isUserInteractionEnabled = true
+            }
+        } else {
+            self.isUserInteractionEnabled = true
+        }
+    }
 
     // Mark: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
@@ -89,9 +106,19 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+        self.setObjects()
         // todo: Remove?
         parentReference?.calculateTotals()
+        parentReference?.validate()
         sort()
+    }
+
+    func setObjects() {
+        guard let sched = self.schedule else {return}
+        self.objects.removeAll()
+        for item in sched.scheduleObjects {
+            objects.append(item)
+        }
     }
 
     func deleteEntry(object: ScheduleObject) {
@@ -104,17 +131,28 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+        self.setObjects()
         sort()
     }
 
     // MARK: Setup
-    func setup(schedule: Schedule, rup: RUP, parentReference: ScheduleViewController) {
+    func setup(mode: FormMode,schedule: Schedule, rup: RUP, parentReference: ScheduleViewController) {
         self.parentReference = parentReference
         self.rup = rup
+        self.mode = mode
         self.schedule = schedule
+        self.setObjects()
         height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * ScheduleFormTableViewCell.cellHeight + 5.0)
         setUpTable()
         style()
+        switch mode {
+        case .View:
+            addButton.isEnabled = false
+            addButton.alpha = 0
+        case .Edit:
+            addButton.isEnabled = true
+            addButton.alpha = 1
+        }
     }
 
     func updateTableHeight() {
@@ -128,6 +166,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         }
 
         self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
         height.constant = CGFloat( Double((self.schedule?.scheduleObjects.count)!) * ScheduleFormTableViewCell.cellHeight + 5.0)
         if let parent = self.parentReference {
             parent.reloadCells()
@@ -159,121 +198,53 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     }
 
     func switchOffSortHeaders() {
+        self.layoutIfNeeded()
         styleFieldHeaderOff(button: pasture)
         styleFieldHeaderOff(button: livestock)
         styleFieldHeaderOff(button: dateIn)
         styleFieldHeaderOff(button: dateOut)
         styleFieldHeaderOff(button: numAnimals)
+        self.layoutIfNeeded()
     }
 
     func switchOnSortHeader(button: UIButton) {
         styleFieldHeaderOn(button: button)
+        self.layoutIfNeeded()
     }
 
     // MARK: Sort
 
     // Note: Sort() calls updateTableHeight()
     func sort() {
+        self.isUserInteractionEnabled = false
         switchOffSortHeaders()
-        guard let current = schedule else {return}
+        guard let sched = self.schedule else {return}
         switch currentSort {
         case .Pasture:
             switchOnSortHeader(button: pasture)
-            let sorted: [ScheduleObject] = (schedule?.scheduleObjects.sorted(by: {$0.pasture?.name ?? "" <  $1.pasture?.name ?? ""}))!
-            do {
-                let realm = try Realm()
-                let temp = realm.objects(Schedule.self).filter("localId = %@", current.localId).first!
-                try realm.write {
-                    temp.scheduleObjects.removeAll()
-                    for item in sorted {
-                        temp.scheduleObjects.append(item)
-                    }
-                }
-                self.schedule = temp
-            } catch _ {
-                fatalError()
-            }
+            self.objects = sched.scheduleObjects.sorted(by: {$0.pasture?.name ?? "" <  $1.pasture?.name ?? ""})
         case .LiveStock:
             switchOnSortHeader(button: livestock)
-            let sorted: [ScheduleObject] = (schedule?.scheduleObjects.sorted(by: {$0.liveStockTypeName  <  $1.liveStockTypeName }))!
-            do {
-                let realm = try Realm()
-                let temp = realm.objects(Schedule.self).filter("localId = %@", current.localId).first!
-                try realm.write {
-                    temp.scheduleObjects.removeAll()
-                    for item in sorted {
-                        temp.scheduleObjects.append(item)
-                    }
-                }
-                self.schedule = temp
-            } catch _ {
-                fatalError()
-            }
+            self.objects = sched.scheduleObjects.sorted(by: {$0.liveStockTypeId  <  $1.liveStockTypeId })
         case .DateIn:
             switchOnSortHeader(button: dateIn)
-            let sorted: [ScheduleObject] = (schedule?.scheduleObjects.sorted(by: {$0.dateIn ?? Date() <  $1.dateIn ?? Date()}))!
-            let list: List<ScheduleObject> = List<ScheduleObject>()
-            for item in sorted {
-                list.append(item)
-            }
-            do {
-                let realm = try Realm()
-                let temp = realm.objects(Schedule.self).filter("localId = %@", current.localId).first!
-                try realm.write {
-                    temp.scheduleObjects.removeAll()
-                    for item in sorted {
-                        temp.scheduleObjects.append(item)
-                    }
-                }
-                self.schedule = temp
-            } catch _ {
-                fatalError()
-            }
-
+            self.objects = sched.scheduleObjects.sorted(by: {$0.dateIn ?? Date() <  $1.dateIn ?? Date()})
         case .DateOut:
             switchOnSortHeader(button: dateOut)
-            let sorted: [ScheduleObject] = (schedule?.scheduleObjects.sorted(by: {$0.dateOut ?? Date() <  $1.dateOut ?? Date()}))!
-            let list: List<ScheduleObject> = List<ScheduleObject>()
-            for item in sorted {
-                list.append(item)
-            }
-            do {
-                let realm = try Realm()
-                let temp = realm.objects(Schedule.self).filter("localId = %@", current.localId).first!
-                try realm.write {
-                    temp.scheduleObjects.removeAll()
-                    for item in sorted {
-                        temp.scheduleObjects.append(item)
-                    }
-                }
-                self.schedule = temp
-            } catch _ {
-                fatalError()
-            }
+            self.objects = sched.scheduleObjects.sorted(by: {$0.dateOut ?? Date() <  $1.dateOut ?? Date()})
         case .Number:
             switchOnSortHeader(button: numAnimals)
-            let sorted: [ScheduleObject] = (schedule?.scheduleObjects.sorted(by: {$0.numberOfAnimals <  $1.numberOfAnimals}))!
-            let list: List<ScheduleObject> = List<ScheduleObject>()
-            for item in sorted {
-                list.append(item)
-            }
-            do {
-                let realm = try Realm()
-                let temp = realm.objects(Schedule.self).filter("localId = %@", current.localId).first!
-                try realm.write {
-                    temp.scheduleObjects.removeAll()
-                    for item in sorted {
-                        temp.scheduleObjects.append(item)
-                    }
-                }
-                self.schedule = temp
-            } catch _ {
-                fatalError()
-            }
+            self.objects = sched.scheduleObjects.sorted(by: {$0.numberOfAnimals <  $1.numberOfAnimals})
         case .None:
             break
         }
         updateTableHeight()
+        self.isUserInteractionEnabled = true
+    }
+
+    func clearSort() {
+        self.currentSort = .None
+        self.sort()
     }
 }
 
@@ -299,13 +270,12 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleObjectCell(indexPath: indexPath)
         if let sched = self.schedule, let r = self.rup, let schedRef = parentReference, sched.scheduleObjects.count > indexPath.row {
-            cell.setup(scheduleObject: sched.scheduleObjects[indexPath.row], rup: r, scheduleViewReference: schedRef, parentCell: self)
+            cell.setup(mode: mode, scheduleObject: objects[indexPath.row], rup: r, scheduleViewReference: schedRef, parentCell: self)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return schedule?.scheduleObjects.count ?? 0
+        return objects.count
     }
-
 }

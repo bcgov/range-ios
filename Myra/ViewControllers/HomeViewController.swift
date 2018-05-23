@@ -96,7 +96,6 @@ class HomeViewController: BaseViewController {
         authenticateIfRequred()
     }
 
-
     @IBAction func filterAction(_ sender: UIButton) {
         switch sender {
         case allFilter:
@@ -118,6 +117,7 @@ class HomeViewController: BaseViewController {
 
     // MARK: Filter
     func filterByAll() {
+        loadRUPs()
         filterButtonOn(button: allFilter)
         self.rups = RUPManager.shared.getRUPs()
         sortByRangeNumber()
@@ -125,39 +125,45 @@ class HomeViewController: BaseViewController {
     }
 
     func filterByDrafts() {
+        loadRUPs()
         filterButtonOn(button: draftsFilter)
         self.rups = RUPManager.shared.getDraftRups()
         self.tableView.reloadData()
     }
 
     func filterByPending() {
+        loadRUPs()
         filterButtonOn(button: pendingFilter)
         self.rups = RUPManager.shared.getPendingRups()
         self.tableView.reloadData()
     }
 
     func filterByCompleted() {
+        loadRUPs()
         filterButtonOn(button: completedFilter)
         self.rups = RUPManager.shared.getCompletedRups()
         self.tableView.reloadData()
     }
 
     func sortByAgreementHolder() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
     }
 
     func sortByRangeName() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.rangeName < $1.rangeName})
     }
 
     func sortByStatus() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.status < $1.status})
     }
 
     func sortByRangeNumber() {
+        loadRUPs()
         self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
     }
-
 
     // MARK: setup
     /*
@@ -188,6 +194,18 @@ class HomeViewController: BaseViewController {
         }
         setUpTable()
         filterByAll()
+    }
+
+    func loadRUPs() {
+        let plans = RUPManager.shared.getRUPs()
+        /*
+         Clean up the local DB by removing plans that were created
+         from agreements but cancelled.
+        */
+        for plan in plans where plan.isNew {
+            RealmRequests.deleteObject(plan)
+        }
+        self.rups = RUPManager.shared.getRUPs()
     }
 
     // MARK: Styles
@@ -332,7 +350,7 @@ class HomeViewController: BaseViewController {
     }
 }
 
-// Functions to handle TableView
+// MARK: TableView functions
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         tableView.delegate = self
@@ -353,9 +371,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let index = indexPath.row
         let cell = getAssignedRupCell(indexPath: indexPath)
         if index % 2 == 0 {
-            cell.set(rup: rups[index], color: Colors.evenCell)
+            cell.setup(rup: rups[index], color: Colors.evenCell)
         } else {
-            cell.set(rup: rups[index], color: Colors.oddCell)
+            cell.setup(rup: rups[index], color: Colors.oddCell)
         }
         return cell
     }
@@ -363,14 +381,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rups.count
     }
-
 }
 
 // Functions to handle retrival of rups
 extension HomeViewController {
 
     func getRUPs()  {
-        let rups = RUPManager.shared.getRUPs()
+        loadRUPs()
         // sort by last name
         self.rups = rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
         filterByAll()
@@ -380,11 +397,18 @@ extension HomeViewController {
 // Functions to handle displaying views
 extension HomeViewController {
 
-    // present rup details in ammend mode
     func editRUP(rup: RUP) {
-        let vm = ViewManager()
-        let vc = vm.createRUP
-        vc.setup(rup: rup) { (closed) in
+        let vc = getCreateNewVC()
+
+        vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
+            self.getRUPs()
+        }
+        self.present(vc, animated: true, completion: nil)
+    }
+
+    func viewRUP(rup: RUP) {
+        let vc = getCreateNewVC()
+        vc.setup(rup: rup, mode: .View) { closed, cancel in
             self.tableView.reloadData()
         }
         self.present(vc, animated: true, completion: nil)

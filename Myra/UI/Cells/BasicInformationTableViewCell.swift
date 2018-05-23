@@ -82,6 +82,14 @@ class BasicInformationTableViewCell: BaseFormCell {
         }
     }
 
+    @IBAction func beginEdit(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @objc private func selectRange(sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
     // MARK: Functions
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
@@ -127,8 +135,14 @@ class BasicInformationTableViewCell: BaseFormCell {
     }
 
     func styleFields() {
-        styleInputField(field: altBusinessNameValue, header: altBusinessNameHeader, height: inputFieldHeight)
-        styleInputField(field: rangeNameValue, header: rangeNameHeader, height: inputFieldHeight)
+        switch mode {
+        case .View:
+            styleInputFieldReadOnly(field: altBusinessNameValue, header: altBusinessNameHeader, height: inputFieldHeight)
+            styleInputFieldReadOnly(field: rangeNameValue, header: rangeNameHeader, height: inputFieldHeight)
+        case .Edit:
+            styleInputField(field: altBusinessNameValue, header: altBusinessNameHeader, height: inputFieldHeight)
+            styleInputField(field: rangeNameValue, header: rangeNameHeader, height: inputFieldHeight)
+        }
 
         styleStaticField(field: districtValue, header: districtHeader)
         styleStaticField(field: zoneValue, header: zoneHeader)

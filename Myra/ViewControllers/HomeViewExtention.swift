@@ -19,12 +19,13 @@ extension HomeViewController {
         objects.append(logoutOption)
         lookup.setup(objects: objects) { (selected, obj) in
             if selected, let selection = obj {
-                if selection.value == logoutOption.value, let p = self.parentReference {
-                    self.logout()
-                    p.removeCurrentVCAndReload()
-                }
-                
                 lookup.dismiss(animated: true, completion: nil)
+                if selection.value == logoutOption.value, let p = self.parentReference {
+                    self.showAlert(title: "Are you sure?", description: "Logging out will delete all plans in draft mode", yesButtonTapped: {
+                        self.logout()
+                        p.removeCurrentVCAndReload()
+                    }, noButtonTapped: {})
+                }
             } else {
                 lookup.dismiss(animated: true, completion: nil)
             }

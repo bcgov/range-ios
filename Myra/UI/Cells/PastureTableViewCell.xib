@@ -36,13 +36,13 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOu-zn-fVu" userLabel="input box">
                                         <rect key="frame" x="0.0" y="0.0" width="216.5" height="95"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allowable AUM's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j97-0l-Yxy">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allowable AUMs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j97-0l-Yxy">
                                                 <rect key="frame" x="0.0" y="0.0" width="216.5" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybV-9w-RlV">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybV-9w-RlV">
                                                 <rect key="frame" x="0.0" y="44" width="216.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureAUMField"/>
                                                 <constraints>
@@ -53,6 +53,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 <connections>
                                                     <action selector="aumChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="Sss-OT-UkU"/>
+                                                    <action selector="beginEditAUM:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="4gb-9G-e6y"/>
                                                 </connections>
                                             </textField>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLs-f5-2Hy">
@@ -86,13 +87,14 @@
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-R6-cNE">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-R6-cNE">
                                                 <rect key="frame" x="0.0" y="44" width="217" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureDeductionField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
+                                                    <action selector="beginEditDeduction:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="Huv-pX-qwd"/>
                                                     <action selector="landDeductionChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="4L2-e3-4jW"/>
                                                 </connections>
                                             </textField>
@@ -127,13 +129,14 @@
                                                 <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8J-IT-yrY">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8J-IT-yrY">
                                                 <rect key="frame" x="0.0" y="44" width="216.5" height="50"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="PastureGraceDaysField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
+                                                    <action selector="beginEditGraceDays:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="Nbs-ch-xrb"/>
                                                     <action selector="graceDaysChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="dqD-Qt-elM"/>
                                                 </connections>
                                             </textField>
@@ -222,6 +225,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yy-6Z-4n7">
                                 <rect key="frame" x="652" y="0.0" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
                                 <state key="normal" image="expandicon"/>
                                 <connections>
                                     <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0hq-vz-jAH"/>
@@ -275,6 +279,7 @@
                 <outlet property="fieldHeight" destination="0Cp-Wk-7rx" id="FnW-99-hEQ"/>
                 <outlet property="graceDaysField" destination="Y8J-IT-yrY" id="vN7-hI-ML5"/>
                 <outlet property="graceDaysHeader" destination="4Rd-em-TrO" id="hNu-yJ-eCU"/>
+                <outlet property="options" destination="1yy-6Z-4n7" id="wRd-1D-lKq"/>
                 <outlet property="pastureNameHeader" destination="Lmo-yi-ffD" id="bmP-Dn-x26"/>
                 <outlet property="pastureNameLabel" destination="E6P-6l-YOY" id="QYI-5O-1I1"/>
                 <outlet property="pastureNotesHeader" destination="zFx-h9-LGF" id="yiC-qO-Tkt"/>

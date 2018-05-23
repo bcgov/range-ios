@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ScheduleViewController: BaseViewController {
 
@@ -15,8 +17,11 @@ class ScheduleViewController: BaseViewController {
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var rup: RUP?
+    var mode: FormMode = .View
     var popupContainerTag = 200
     var popover: UIPopoverPresentationController?
+
+    var realmNotificationToken: NotificationToken?
 
     // MARK: Outlets
     @IBOutlet weak var scheduleTitle: UILabel!
@@ -29,6 +34,11 @@ class ScheduleViewController: BaseViewController {
     @IBOutlet weak var backbutton: UIButton!
     @IBOutlet weak var navbarTitle: UILabel!
 
+    @IBOutlet weak var bannerLabel: UILabel!
+    @IBOutlet weak var bannerHeight: NSLayoutConstraint!
+    @IBOutlet weak var banner: UIView!
+
+    // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
@@ -37,6 +47,12 @@ class ScheduleViewController: BaseViewController {
         style()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        validate()
+    }
+
+    // MARK: Outlet Actions
     @IBAction func backAction(_ sender: UIButton) {
         if let r = self.rup {
             RealmRequests.updateObject(r)
@@ -46,17 +62,30 @@ class ScheduleViewController: BaseViewController {
         })
     }
 
-    func setup(rup: RUP, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
+    // MARK: Setup
+    func setup(mode: FormMode, rup: RUP, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         self.rup = rup
+        self.mode = mode
         self.schedule = schedule
         self.completion = completion
         let scheduleObjects = schedule.scheduleObjects
         for object in scheduleObjects {
-            RUPManager.shared.calculate(scheduleObject: object)
+            RUPManager.shared.calculateScheduleEntry(scheduleObject: object)
         }
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: rup.agreementId, agreementHolder: "", rangeName: rup.rangeName)
+
+        self.realmNotificationToken = schedule.observe { (change) in
+            switch change {
+            case .error(_):
+                print("Error in rup change")
+            case .change(_):
+                self.validate()
+            case .deleted:
+                print("RUP deleted")
+            }
+        }
     }
 
     func setTitle() {
@@ -69,10 +98,11 @@ class ScheduleViewController: BaseViewController {
 
     func setSubtitle(ranNumber: String, agreementHolder: String, rangeName: String) {
         if self.subtitle == nil { return }
-        self.subtitle.text = "\(ranNumber) | \(agreementHolder) | \(rangeName)"
+        self.subtitle.text = "\(ranNumber) | \(rangeName)"
     }
 
-    // Mark: Livestock selection popup
+    // MARK: Livestock selection popup
+    // ****** CURRENTLY UNUSED: Using popover instead
     func showpopup(vc: SelectionPopUpViewController, on: UIButton) {
         let popOverWidth = 200
         var popOverHeight = 300
@@ -119,6 +149,7 @@ class ScheduleViewController: BaseViewController {
         }
     }
 
+    // MARK: Event handlers
     override func whenLandscape() {
         rotatePopup()
     }
@@ -128,7 +159,10 @@ class ScheduleViewController: BaseViewController {
     }
 
     func reloadCells() {
-        self.tableView.reloadData()
+        self.view.layoutIfNeeded()
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+//        self.tableView.reloadData()
     }
 
     func calculateTotals() {
@@ -142,8 +176,57 @@ class ScheduleViewController: BaseViewController {
         styleFooter(label: subtitle)
         styleDivider(divider: divider)
     }
+
+    // MARK: Banner
+    func openBanner(message: String) {
+        UIView.animate(withDuration: shortAnimationDuration, animations: {
+            self.bannerLabel.textColor = Colors.primary
+            self.banner.backgroundColor = Colors.secondaryBg.withAlphaComponent(1)
+            self.bannerHeight.constant = 50
+            self.bannerLabel.text = message
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                UIView.animate(withDuration: self.mediumAnimationDuration, animations: {
+                    self.bannerLabel.textColor = Colors.primaryConstrast
+                    self.view.layoutIfNeeded()
+                })
+            })
+        }
+    }
+
+    func closeBanner() {
+        self.bannerHeight.constant = 0
+        animateIt()
+    }
+
+    // MARK: Validation
+    func validate() {
+        guard let current = schedule, let plan = rup else {return}
+        let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: plan.agreementId)
+        if !valid.0 {
+            openBanner(message: valid.1)
+        } else {
+            closeBanner()
+        }
+    }
+
+    func highlightBanner() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.bannerLabel.textColor = Colors.primary.withAlphaComponent(0.5)
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.bannerLabel.textColor = Colors.primary.withAlphaComponent(1)
+                    self.view.layoutIfNeeded()
+                })
+            })
+        }
+    }
 }
 
+// MARK: Tableview
 extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
@@ -171,11 +254,11 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         switch index {
         case 0:
             let cell = getScheduleCell(indexPath: indexPath)
-            cell.setup(schedule: schedule!, rup: rup!, parentReference: self)
+            cell.setup(mode: mode, schedule: schedule!, rup: rup!, parentReference: self)
             return cell
         case 1:
             let cell = getScheduleFooterCell(indexPath: indexPath)
-            cell.setup(schedule: schedule!, agreementID: (rup?.agreementId)!)
+            cell.setup(mode: mode, schedule: schedule!, agreementID: (rup?.agreementId)!)
             self.footerReference = cell
             return cell
         default:

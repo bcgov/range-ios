@@ -31,11 +31,11 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
-    let horizontalMenuWidth: CGFloat = 156
+    let portraitMenuWidth: CGFloat = 156
     let numberOfSections = 6
 
     // MARK: Variables
-    var parentCallBack: ((_ close: Bool) -> Void )?
+    var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
 
     /* need to hold the inxedpath of sections to be able to scroll back to them.
        at this point, the indexpaths of the sections may not be known, and change
@@ -55,9 +55,11 @@ class CreateNewRUPViewController: BaseViewController {
 
     var rup: RUP?
 
+    var copy: RUP?
+
     var reloading: Bool = false
 
-    var mode: FormMode = .Create
+    var mode: FormMode = .View
 
     var realmNotificationToken: NotificationToken?
 
@@ -85,6 +87,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var ranchNameAndNumberLabel: UILabel!
     @IBOutlet weak var saveToDraftButton: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
+    @IBOutlet weak var cancelButton: UIButton!
 
     // Side Menu
     @IBOutlet weak var menuContainer: UIView!
@@ -250,18 +253,19 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
+        guard let plan = self.rup else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                self.rup?.statusEnum = .Draft
+                plan.isNew = false
             }
         } catch _ {
             fatalError()
         }
-        RealmRequests.updateObject(self.rup!)
+        RealmRequests.updateObject(plan)
         self.dismiss(animated: true) {
             if self.parentCallBack != nil {
-                return self.parentCallBack!(true)
+                return self.parentCallBack!(true, false)
             }
         }
     }
@@ -269,12 +273,15 @@ class CreateNewRUPViewController: BaseViewController {
     @IBAction func basicInfoAction(_ sender: UIButton) {
         tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
     }
+
     @IBAction func pasturesAction(_ sender: UIButton) {
         tableView.scrollToRow(at: pasturesIndexPath, at: .top, animated: true)
     }
+
     @IBAction func scheduleAction(_ sender: UIButton) {
         tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
     }
+
     /*
     @IBAction func ministersIssuesAction(_ sender: UIButton) {
     }
@@ -289,21 +296,70 @@ class CreateNewRUPViewController: BaseViewController {
     }
     */
 
+    @IBAction func cancelAction(_ sender: UIButton) {
+        if let new: RUP = self.copy, let old: RUP = self.rup {
+
+            // If is not new (not just created from agreement)
+            // Store the copy created before changes.
+            if !old.isNew {
+                // save copy
+                RealmRequests.saveObject(object: new)
+
+                //  add plan to appropriate agreement
+                let agreement = RUPManager.shared.getAgreement(with: new.agreementId)
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        agreement?.rups.append(new)
+                    }
+                } catch _ {
+                    fatalError()
+                }
+                // remove modified RUP object
+                old.deleteEntries()
+                RealmRequests.deleteObject(old)
+            }
+            // ELSE it you came here from agreement selection, and changed your mind.
+            // dont store any rup
+
+            // Dismiss view controller
+            self.dismiss(animated: true) {
+                if self.parentCallBack != nil {
+                    return self.parentCallBack!(true, true)
+                }
+            }
+        }
+    }
+
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                plan.isNew = false
+            }
+        } catch _ {
+            fatalError()
+        }
+
+        let validity = RUPManager.shared.isValid(rup: plan)
+        if !validity.0 {
+            showAlert(with: "Plan is invalid", message: validity.1)
+            return
+        }
         closingAnimations()
         showAlert(title: "Confirm", description: "You will not be able to edit this rup after submission", yesButtonTapped: {
             // Yes tapped
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.rup?.statusEnum = .Outbox
+                    plan.statusEnum = .Outbox
                 }
-                
             } catch _ {}
             // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
-                    return self.parentCallBack!(true)
+                    return self.parentCallBack!(true, false)
                 }
             }
         }) {
@@ -312,19 +368,34 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
 
-    // Mark: Functions
+    // MARK: Functions
     // MARK: Setup
-    func setup(rup: RUP, callBack: @escaping ((_ close: Bool) -> Void )) {
+    func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup?.statusEnum = .Draft
+        self.mode = mode
+        self.copy = nil
+
+        switch mode {
+        case .View:
+            break
+        case .Edit:
+            /*
+             Create copy.
+             If cancel is pressed, store copy and delete rup
+             Otherwise don't save the Plan copy object.
+             */
+            self.copy = rup.copy()
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.rup?.statusEnum = .Draft
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
         }
+
         setUpTable()
 
         self.realmNotificationToken = rup.observe { (change) in
@@ -453,7 +524,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 self.scheduleIndexPath = indexPath
                 let cell = getScheduleCell(indexPath: indexPath)
                 // passing self reference because cells within this cell's tableview need to call showAlert()
-                cell.setup(rup: rup!, parentReference: self)
+                cell.setup(mode: mode, rup: rup!, parentReference: self)
                 return cell
             }
 
@@ -516,7 +587,7 @@ extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
          let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.setup(rup: rup!, schedule: object, completion: completion)
+        schedule.setup(mode: mode, rup: rup!, schedule: object, completion: completion)
         self.present(schedule, animated: true, completion: nil)
     }
 }

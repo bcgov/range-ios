@@ -32,6 +32,7 @@
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4TG-ju-cyf">
                                 <rect key="frame" x="0.0" y="165" width="250" height="35"/>
+                                <accessibility key="accessibilityConfiguration" identifier="PickerSelectButton"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="NKr-wW-5gP"/>
                                 </constraints>

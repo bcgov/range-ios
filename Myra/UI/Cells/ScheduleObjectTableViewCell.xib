@@ -19,39 +19,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="678" height="51.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrE-0R-AwD">
-                        <rect key="frame" x="636" y="0.0" width="40" height="55"/>
+                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrE-0R-AwD">
+                        <rect key="frame" x="636" y="5.5" width="40" height="44"/>
+                        <accessibility key="accessibilityConfiguration" identifier="ScheduleEntryOptionsButton"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="jcB-JW-6kt"/>
                         </constraints>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                         <state key="normal" image="expandicon"/>
                         <connections>
                             <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MRz-If-xAF"/>
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTk-km-mz6">
-                        <rect key="frame" x="0.0" y="0.0" width="636" height="55.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="636" height="45"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6gD-DT-9GS">
-                                <rect key="frame" x="0.0" y="5.5" width="636" height="45"/>
+                                <rect key="frame" x="0.0" y="5.5" width="636" height="34.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9k-kf-pF9" userLabel="input box">
-                                        <rect key="frame" x="0.0" y="0.0" width="62" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="62" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKY-cO-wEA">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKY-cO-wEA">
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureField"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="c1M-e1-5Px"/>
-                                                </constraints>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToI-k8-8ID">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureField"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="43.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPastureButton"/>
                                                 <connections>
                                                     <action selector="lookupPastures:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uUs-3v-6he"/>
                                                 </connections>
@@ -59,26 +56,29 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="ToI-k8-8ID" secondAttribute="bottom" id="4SH-8f-21c"/>
-                                            <constraint firstItem="pKY-cO-wEA" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="CTj-SU-2c3"/>
+                                            <constraint firstAttribute="bottom" secondItem="pKY-cO-wEA" secondAttribute="bottom" id="BOd-27-Ohg"/>
                                             <constraint firstItem="ToI-k8-8ID" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="EPA-dD-jRa"/>
                                             <constraint firstItem="ToI-k8-8ID" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="EqJ-fn-Qsb"/>
+                                            <constraint firstAttribute="trailing" secondItem="pKY-cO-wEA" secondAttribute="trailing" id="QYg-uy-393"/>
                                             <constraint firstAttribute="trailing" secondItem="ToI-k8-8ID" secondAttribute="trailing" id="Rkz-F1-ZA9"/>
-                                            <constraint firstAttribute="trailing" secondItem="pKY-cO-wEA" secondAttribute="trailing" id="qfa-3O-fZ7"/>
-                                            <constraint firstItem="pKY-cO-wEA" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="zsM-gG-aJl"/>
+                                            <constraint firstItem="pKY-cO-wEA" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="Xfb-HD-hLh"/>
+                                            <constraint firstItem="pKY-cO-wEA" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="i2U-ub-8eL"/>
+                                            <constraint firstAttribute="height" constant="44" id="p2f-cR-VGh"/>
+                                            <constraint firstItem="pKY-cO-wEA" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="tiz-8V-faT"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGv-1C-d90" userLabel="input box">
-                                        <rect key="frame" x="72" y="0.0" width="61.5" height="45"/>
+                                        <rect key="frame" x="72" y="0.0" width="61.5" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uTC-sl-aHj">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uTC-sl-aHj">
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectLiveStockField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-PB-jfn">
-                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="43.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectLiveStockButton"/>
                                                 <connections>
                                                     <action selector="lookupLiveStockType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Ch-pq-dcO"/>
@@ -86,95 +86,102 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="0lz-PB-jfn" secondAttribute="bottom" id="2yJ-PV-Mt7"/>
-                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="4Q6-he-02C"/>
-                                            <constraint firstAttribute="trailing" secondItem="0lz-PB-jfn" secondAttribute="trailing" id="68Q-qN-rbc"/>
-                                            <constraint firstItem="uTC-sl-aHj" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="9ox-JP-tMF"/>
-                                            <constraint firstItem="uTC-sl-aHj" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="EOk-gT-elR"/>
-                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="FZe-gL-2X9"/>
-                                            <constraint firstAttribute="trailing" secondItem="uTC-sl-aHj" secondAttribute="trailing" id="Wb9-RE-aTr"/>
+                                            <constraint firstAttribute="bottom" secondItem="uTC-sl-aHj" secondAttribute="bottom" id="0oj-Ap-Bya"/>
+                                            <constraint firstItem="uTC-sl-aHj" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="EDM-3f-w2l"/>
+                                            <constraint firstItem="uTC-sl-aHj" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="HSc-tI-Q9A"/>
+                                            <constraint firstAttribute="trailing" secondItem="0lz-PB-jfn" secondAttribute="trailing" id="Tuk-qF-Sef"/>
+                                            <constraint firstAttribute="trailing" secondItem="uTC-sl-aHj" secondAttribute="trailing" id="Y7e-TD-IQh"/>
+                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="fDJ-Do-6n8"/>
+                                            <constraint firstAttribute="bottom" secondItem="0lz-PB-jfn" secondAttribute="bottom" id="oP2-2r-srJ"/>
+                                            <constraint firstItem="0lz-PB-jfn" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="owj-ej-2mb"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-tM-3Rg" userLabel="input box">
-                                        <rect key="frame" x="143.5" y="0.0" width="62" height="44.5"/>
+                                        <rect key="frame" x="143.5" y="0.0" width="62" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vv3-Lf-CIF">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vv3-Lf-CIF">
+                                                <rect key="frame" x="-0.5" y="0.5" width="62" height="43.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectNumberOfAnimalsField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
+                                                    <action selector="highlightField:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="70R-iN-0HX"/>
                                                     <action selector="numberOfAnimalsChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="bvm-Pl-ru9"/>
+                                                    <action selector="numberOfAnimalsSelected:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="0D2-0m-aAt"/>
                                                 </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="Vv3-Lf-CIF" firstAttribute="leading" secondItem="rXu-tM-3Rg" secondAttribute="leading" id="Bh2-Qc-wkO"/>
-                                            <constraint firstAttribute="bottom" secondItem="Vv3-Lf-CIF" secondAttribute="bottom" id="X5a-k9-0TY"/>
-                                            <constraint firstAttribute="trailing" secondItem="Vv3-Lf-CIF" secondAttribute="trailing" id="bqm-Zz-PaA"/>
-                                            <constraint firstItem="Vv3-Lf-CIF" firstAttribute="top" secondItem="rXu-tM-3Rg" secondAttribute="top" id="k28-RV-eP9"/>
+                                            <constraint firstItem="Vv3-Lf-CIF" firstAttribute="leading" secondItem="rXu-tM-3Rg" secondAttribute="leading" id="2mX-QY-swH"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vv3-Lf-CIF" secondAttribute="bottom" id="Rfn-Tp-omv"/>
+                                            <constraint firstItem="Vv3-Lf-CIF" firstAttribute="top" secondItem="rXu-tM-3Rg" secondAttribute="top" id="ZZH-OK-Y88"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vv3-Lf-CIF" secondAttribute="trailing" id="vMh-B1-cjB"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIh-gP-aBp" userLabel="input box">
-                                        <rect key="frame" x="215.5" y="0.0" width="61.5" height="45"/>
+                                        <rect key="frame" x="215.5" y="0.0" width="61.5" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-AF-6Y3">
-                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-AF-6Y3">
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateInField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mw2-PD-7ur">
-                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateInButton"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="43.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateInButton"/>
                                                 <connections>
                                                     <action selector="dateInAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lbo-YM-bnc"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="pDS-AF-6Y3" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="Lkd-Xf-RhZ"/>
-                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="OUL-o9-9Gf"/>
-                                            <constraint firstAttribute="trailing" secondItem="Mw2-PD-7ur" secondAttribute="trailing" id="WuF-e9-3bz"/>
-                                            <constraint firstAttribute="trailing" secondItem="pDS-AF-6Y3" secondAttribute="trailing" id="ceL-wl-Jw1"/>
-                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="ghy-We-Pqn"/>
-                                            <constraint firstAttribute="bottom" secondItem="Mw2-PD-7ur" secondAttribute="bottom" id="oeV-Fv-z5x"/>
-                                            <constraint firstItem="pDS-AF-6Y3" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="whz-mX-ozW"/>
+                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="BPd-aL-Wou"/>
+                                            <constraint firstAttribute="trailing" secondItem="pDS-AF-6Y3" secondAttribute="trailing" id="I8K-kl-naq"/>
+                                            <constraint firstItem="Mw2-PD-7ur" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="Plw-Qm-ePe"/>
+                                            <constraint firstAttribute="bottom" secondItem="Mw2-PD-7ur" secondAttribute="bottom" id="WOh-70-Oz3"/>
+                                            <constraint firstItem="pDS-AF-6Y3" firstAttribute="leading" secondItem="uIh-gP-aBp" secondAttribute="leading" id="fSR-QG-bZJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="Mw2-PD-7ur" secondAttribute="trailing" id="rxc-tD-akj"/>
+                                            <constraint firstAttribute="bottom" secondItem="pDS-AF-6Y3" secondAttribute="bottom" id="t6d-8W-QlW"/>
+                                            <constraint firstItem="pDS-AF-6Y3" firstAttribute="top" secondItem="uIh-gP-aBp" secondAttribute="top" id="tTl-3x-0yK"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Jr-2d-abw" userLabel="input box">
-                                        <rect key="frame" x="287" y="0.0" width="62" height="45"/>
+                                        <rect key="frame" x="287" y="0.0" width="62" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2x-t1-I4Z">
-                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2x-t1-I4Z">
+                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="44"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateOutField"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2w-1j-MEv">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectAuthDateOutButton"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="43.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDateOutButton"/>
                                                 <connections>
                                                     <action selector="dateOutAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rnj-EW-3aX"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="0Dc-qw-Wah"/>
-                                            <constraint firstAttribute="trailing" secondItem="T2x-t1-I4Z" secondAttribute="trailing" id="4LH-jJ-q7W"/>
-                                            <constraint firstItem="T2x-t1-I4Z" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="IS6-VF-RCr"/>
-                                            <constraint firstAttribute="bottom" secondItem="J2w-1j-MEv" secondAttribute="bottom" id="WON-gg-5VD"/>
-                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="diG-sd-kbr"/>
-                                            <constraint firstAttribute="trailing" secondItem="J2w-1j-MEv" secondAttribute="trailing" id="jte-BQ-ueJ"/>
-                                            <constraint firstItem="T2x-t1-I4Z" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="z0K-cL-UBB"/>
+                                            <constraint firstItem="T2x-t1-I4Z" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="4ht-tU-2wr"/>
+                                            <constraint firstItem="T2x-t1-I4Z" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="7As-0g-2an"/>
+                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="leading" secondItem="1Jr-2d-abw" secondAttribute="leading" id="KIw-26-CWu"/>
+                                            <constraint firstAttribute="bottom" secondItem="J2w-1j-MEv" secondAttribute="bottom" id="SbC-y6-8gg"/>
+                                            <constraint firstAttribute="trailing" secondItem="J2w-1j-MEv" secondAttribute="trailing" id="dFN-OX-qve"/>
+                                            <constraint firstAttribute="bottom" secondItem="T2x-t1-I4Z" secondAttribute="bottom" id="vWJ-cb-Hsd"/>
+                                            <constraint firstAttribute="trailing" secondItem="T2x-t1-I4Z" secondAttribute="trailing" id="zhh-IZ-XwR"/>
+                                            <constraint firstItem="J2w-1j-MEv" firstAttribute="top" secondItem="1Jr-2d-abw" secondAttribute="top" id="zxp-wC-BYy"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-BZ-b1I" userLabel="input box">
-                                        <rect key="frame" x="359" y="0.0" width="61.5" height="45"/>
+                                        <rect key="frame" x="359" y="0.0" width="61.5" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UMP-fz-nzB">
-                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UMP-fz-nzB">
+                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="44"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectDaysLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -182,32 +189,35 @@
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="UMP-fz-nzB" firstAttribute="leading" secondItem="NLb-BZ-b1I" secondAttribute="leading" id="OSy-St-p1g"/>
-                                            <constraint firstItem="UMP-fz-nzB" firstAttribute="top" secondItem="NLb-BZ-b1I" secondAttribute="top" id="kXW-de-fXV"/>
-                                            <constraint firstAttribute="trailing" secondItem="UMP-fz-nzB" secondAttribute="trailing" id="trz-sG-SIG"/>
+                                            <constraint firstAttribute="trailing" secondItem="UMP-fz-nzB" secondAttribute="trailing" id="7jJ-iX-0iT"/>
+                                            <constraint firstItem="UMP-fz-nzB" firstAttribute="top" secondItem="NLb-BZ-b1I" secondAttribute="top" id="EAo-gn-mK2"/>
+                                            <constraint firstAttribute="bottom" secondItem="UMP-fz-nzB" secondAttribute="bottom" id="XcL-at-Ebf"/>
+                                            <constraint firstItem="UMP-fz-nzB" firstAttribute="leading" secondItem="NLb-BZ-b1I" secondAttribute="leading" id="xWt-kw-rBZ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8Y-T1-VRZ" userLabel="input box">
-                                        <rect key="frame" x="430.5" y="0.0" width="62" height="45"/>
+                                        <rect key="frame" x="430.5" y="0.0" width="62" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d5o-9U-aHr">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d5o-9U-aHr">
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectGraceDaysLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="d5o-9U-aHr" firstAttribute="leading" secondItem="n8Y-T1-VRZ" secondAttribute="leading" id="4NF-NZ-AjG"/>
-                                            <constraint firstItem="d5o-9U-aHr" firstAttribute="top" secondItem="n8Y-T1-VRZ" secondAttribute="top" id="mw0-be-yHL"/>
-                                            <constraint firstAttribute="trailing" secondItem="d5o-9U-aHr" secondAttribute="trailing" id="o9d-MK-4Au"/>
+                                            <constraint firstItem="d5o-9U-aHr" firstAttribute="leading" secondItem="n8Y-T1-VRZ" secondAttribute="leading" id="Jwh-pF-Ka5"/>
+                                            <constraint firstAttribute="bottom" secondItem="d5o-9U-aHr" secondAttribute="bottom" id="ihl-Wl-jjl"/>
+                                            <constraint firstAttribute="trailing" secondItem="d5o-9U-aHr" secondAttribute="trailing" id="jwO-GB-Nti"/>
+                                            <constraint firstItem="d5o-9U-aHr" firstAttribute="top" secondItem="n8Y-T1-VRZ" secondAttribute="top" id="rZA-Vc-fm2"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygS-ay-bXK" userLabel="input box">
-                                        <rect key="frame" x="502.5" y="0.0" width="61.5" height="45"/>
+                                        <rect key="frame" x="502.5" y="0.0" width="61.5" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aps-wf-RPv">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aps-wf-RPv">
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectPLDLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -215,16 +225,17 @@
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="aps-wf-RPv" firstAttribute="leading" secondItem="ygS-ay-bXK" secondAttribute="leading" id="7mH-mc-t7u"/>
-                                            <constraint firstItem="aps-wf-RPv" firstAttribute="top" secondItem="ygS-ay-bXK" secondAttribute="top" id="k47-Qx-ctf"/>
-                                            <constraint firstAttribute="trailing" secondItem="aps-wf-RPv" secondAttribute="trailing" id="nGM-2a-YUH"/>
+                                            <constraint firstAttribute="bottom" secondItem="aps-wf-RPv" secondAttribute="bottom" id="8Jg-oJ-oKi"/>
+                                            <constraint firstAttribute="trailing" secondItem="aps-wf-RPv" secondAttribute="trailing" id="BFW-T2-dyo"/>
+                                            <constraint firstItem="aps-wf-RPv" firstAttribute="leading" secondItem="ygS-ay-bXK" secondAttribute="leading" id="YAb-ya-nbp"/>
+                                            <constraint firstItem="aps-wf-RPv" firstAttribute="top" secondItem="ygS-ay-bXK" secondAttribute="top" id="oev-Bn-cpb"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXg-CK-MZr" userLabel="input box">
-                                        <rect key="frame" x="574" y="0.0" width="62" height="45"/>
+                                        <rect key="frame" x="574" y="0.0" width="62" height="44"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-os-aVb">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-os-aVb">
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="44"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleObjectCrownAUMLabel"/>
                                                 <color key="textColor" red="0.2000022233" green="0.19999703760000001" blue="0.1999980807" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -232,28 +243,37 @@
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="bsA-os-aVb" firstAttribute="leading" secondItem="ZXg-CK-MZr" secondAttribute="leading" id="4YW-XH-IBZ"/>
-                                            <constraint firstItem="bsA-os-aVb" firstAttribute="top" secondItem="ZXg-CK-MZr" secondAttribute="top" id="C78-hu-cfX"/>
-                                            <constraint firstAttribute="trailing" secondItem="bsA-os-aVb" secondAttribute="trailing" id="QoA-Ie-wzS"/>
+                                            <constraint firstAttribute="trailing" secondItem="bsA-os-aVb" secondAttribute="trailing" id="5dL-UE-CJj"/>
+                                            <constraint firstItem="bsA-os-aVb" firstAttribute="leading" secondItem="ZXg-CK-MZr" secondAttribute="leading" id="Htu-i5-tNI"/>
+                                            <constraint firstItem="bsA-os-aVb" firstAttribute="top" secondItem="ZXg-CK-MZr" secondAttribute="top" id="OgW-rB-Cdc"/>
+                                            <constraint firstAttribute="bottom" secondItem="bsA-os-aVb" secondAttribute="bottom" id="sOm-nr-MRI"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="d5o-9U-aHr" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="312-CM-eqi"/>
-                                    <constraint firstItem="UMP-fz-nzB" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="48I-qc-gZN"/>
-                                    <constraint firstItem="T2x-t1-I4Z" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="B6s-q5-z6t"/>
-                                    <constraint firstItem="aps-wf-RPv" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="PDK-jt-xhE"/>
-                                    <constraint firstItem="uTC-sl-aHj" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="PVv-0u-xDy"/>
-                                    <constraint firstItem="Vv3-Lf-CIF" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="RpP-AU-gn2"/>
-                                    <constraint firstItem="pDS-AF-6Y3" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="ezu-0g-cGw"/>
-                                    <constraint firstItem="bsA-os-aVb" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="jlj-l5-a5r"/>
+                                    <constraint firstItem="RGv-1C-d90" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="2sF-u9-cfU"/>
+                                    <constraint firstItem="ygS-ay-bXK" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="963-Vc-TPm"/>
+                                    <constraint firstItem="NLb-BZ-b1I" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="D34-Di-F5W"/>
+                                    <constraint firstItem="bsA-os-aVb" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="EqL-46-DDh"/>
+                                    <constraint firstItem="UMP-fz-nzB" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="GQ6-Uc-j7s"/>
+                                    <constraint firstItem="ZXg-CK-MZr" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="I9f-10-uyS"/>
+                                    <constraint firstItem="uTC-sl-aHj" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="LSL-3C-pxf"/>
+                                    <constraint firstItem="aps-wf-RPv" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="QxZ-uy-G0L"/>
+                                    <constraint firstItem="Vv3-Lf-CIF" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="Yl4-DV-V0c"/>
+                                    <constraint firstItem="pDS-AF-6Y3" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="bEA-0l-9PA"/>
+                                    <constraint firstItem="1Jr-2d-abw" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="dsn-wb-LcV"/>
+                                    <constraint firstItem="uIh-gP-aBp" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="eYx-y2-TW0"/>
+                                    <constraint firstItem="rXu-tM-3Rg" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="gZz-C2-iO1"/>
+                                    <constraint firstItem="n8Y-T1-VRZ" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="gpl-nq-3VR"/>
+                                    <constraint firstItem="d5o-9U-aHr" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="jv6-r5-uem"/>
+                                    <constraint firstItem="T2x-t1-I4Z" firstAttribute="height" secondItem="pKY-cO-wEA" secondAttribute="height" id="xAh-RH-mMV"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="6gD-DT-9GS" secondAttribute="trailing" id="6Pf-cY-ZV3"/>
-                            <constraint firstAttribute="height" constant="55" id="76D-pv-4gP"/>
+                            <constraint firstAttribute="height" constant="45" id="76D-pv-4gP"/>
                             <constraint firstItem="6gD-DT-9GS" firstAttribute="top" secondItem="vTk-km-mz6" secondAttribute="top" constant="5" id="NfO-Ep-6b3"/>
                             <constraint firstAttribute="bottom" secondItem="6gD-DT-9GS" secondAttribute="bottom" constant="5" id="Y6Y-rf-aq3"/>
                             <constraint firstItem="6gD-DT-9GS" firstAttribute="leading" secondItem="vTk-km-mz6" secondAttribute="leading" id="YjR-7C-Ja8"/>
@@ -261,10 +281,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="wrE-0R-AwD" firstAttribute="height" secondItem="vTk-km-mz6" secondAttribute="height" id="BNZ-Uz-Enh"/>
+                    <constraint firstItem="wrE-0R-AwD" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="Dgf-PE-9wO"/>
                     <constraint firstAttribute="trailing" secondItem="wrE-0R-AwD" secondAttribute="trailing" constant="2" id="Kr8-Gb-syL"/>
+                    <constraint firstItem="wrE-0R-AwD" firstAttribute="centerY" secondItem="f9k-kf-pF9" secondAttribute="centerY" id="ZGe-A4-gNl"/>
                     <constraint firstItem="vTk-km-mz6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ayB-1y-kau"/>
-                    <constraint firstItem="wrE-0R-AwD" firstAttribute="centerY" secondItem="vTk-km-mz6" secondAttribute="centerY" id="iOm-Uh-int"/>
                     <constraint firstItem="wrE-0R-AwD" firstAttribute="leading" secondItem="vTk-km-mz6" secondAttribute="trailing" id="jE9-j2-Lxs"/>
                     <constraint firstAttribute="bottom" secondItem="vTk-km-mz6" secondAttribute="bottom" id="jsg-Ii-9aj"/>
                     <constraint firstItem="vTk-km-mz6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="w2F-Kq-apj"/>
@@ -275,13 +295,18 @@
             <connections>
                 <outlet property="crownAUM" destination="bsA-os-aVb" id="4RX-NN-jRV"/>
                 <outlet property="dateIn" destination="pDS-AF-6Y3" id="EVf-Ay-EIp"/>
+                <outlet property="dateInButton" destination="Mw2-PD-7ur" id="0jV-gq-4ku"/>
                 <outlet property="dateOut" destination="T2x-t1-I4Z" id="0ZV-Nz-rJt"/>
+                <outlet property="dateOutButton" destination="J2w-1j-MEv" id="HZs-Wu-BpK"/>
                 <outlet property="days" destination="UMP-fz-nzB" id="ewg-oI-qK6"/>
-                <outlet property="fieldHeight" destination="c1M-e1-5Px" id="19h-PX-Qvt"/>
+                <outlet property="fieldHeight" destination="p2f-cR-VGh" id="PKz-kM-NaC"/>
                 <outlet property="graceDays" destination="d5o-9U-aHr" id="aCh-xD-uD6"/>
                 <outlet property="liveStock" destination="uTC-sl-aHj" id="9HY-vb-bdm"/>
+                <outlet property="liveStockButton" destination="0lz-PB-jfn" id="Y23-l3-2re"/>
                 <outlet property="numberOfAniamls" destination="Vv3-Lf-CIF" id="bxI-of-Z3A"/>
+                <outlet property="options" destination="wrE-0R-AwD" id="IIo-qG-fUS"/>
                 <outlet property="pasture" destination="pKY-cO-wEA" id="kPX-6X-PAN"/>
+                <outlet property="pastureButton" destination="ToI-k8-8ID" id="fRO-bi-VV7"/>
                 <outlet property="pldAUM" destination="aps-wf-RPv" id="Kvu-xW-Taf"/>
             </connections>
             <point key="canvasLocation" x="193" y="-202"/>

@@ -11,53 +11,9 @@
  import RealmSwift
 
  class RUPManager {
+
     static let shared = RUPManager()
     private init() {}
-
-    func rupHasScheduleForYear(rup: RUP, year: Int) -> Bool {
-        let schedules = rup.schedules
-        for schedule in schedules {
-            if schedule.year == year {
-                return true
-            }
-        }
-        return false
-    }
-
-    func getPastureNames(rup: RUP) -> [String] {
-        var names = [String]()
-        for pasture in rup.pastures {
-            names.append(pasture.name)
-        }
-        return names
-    }
-
-    func getPasturesLookup(rup: RUP) -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        let names = getPastureNames(rup: rup)
-        for name in names {
-            returnArray.append(SelectionPopUpObject(display: name, value: name))
-        }
-        return returnArray
-    }
-
-    func getPastureNamed(name: String, rup: RUP) -> Pasture? {
-        for pasture in rup.pastures {
-            if pasture.name == name {
-                return pasture
-            }
-        }
-        return nil
-    }
-
-    func getScheduleYears(rup: RUP) -> [String] {
-        let schedules = rup.schedules
-        var years = [String]()
-        for schedule in schedules {
-            years.append("\(schedule.year)")
-        }
-        return years
-    }
 
     func getType(id: Int) -> String {
         let types = RealmRequests.getObject(AgreementType.self)
@@ -70,11 +26,33 @@
         }
         return ""
     }
-    
  }
 
- // rup / agreement
+ // MARK: RUP / Agreement
  extension RUPManager {
+
+    func getStatus(forId id: Int) -> PlanStatus? {
+        do {
+            let realm = try Realm()
+            let statuses = realm.objects(PlanStatus.self).filter("id = %@", id)
+            return statuses.first
+        } catch _ {}
+        return nil
+    }
+
+    func isValid(rup: RUP) -> (Bool, String) {
+        // check required fields
+        if !rup.isValid {return (false, "Missing required fields")}
+
+        // check validity of schedules
+        for element in rup.schedules {
+            if !isScheduleValid(schedule: element, agreementID: rup.agreementId) {
+                return (false, "Plan has an invalid schedule")
+            }
+        }
+
+        return (true, "")
+    }
 
     func getRUP(with id: Int) -> RUP? {
         if rupExists(id: id) {
@@ -150,43 +128,93 @@
     // Updates Range use years and zones
     func updateAgreement(with newAgreement: Agreement) {
         let storedAgreement = getAgreement(with: newAgreement.agreementId)
-        if storedAgreement == nil {return}
+        guard let stored = storedAgreement else {return}
 
         do {
             let realm = try Realm()
             try realm.write {
-//                storedAgreement?.zones = newAgreement.zones
-//                storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
                 if newAgreement.zones.count > 0 {
-                    storedAgreement?.zones = newAgreement.zones
-                    storedAgreement?.rangeUsageYears = newAgreement.rangeUsageYears
-                    updateRUPsFor(agreement: newAgreement)
+                    stored.zones = newAgreement.zones
+                    stored.rangeUsageYears = newAgreement.rangeUsageYears
                 }
             }
-
         } catch _ {
             fatalError()
         }
+
+        // update rups associated with new agreement
+        let rupsForAgreement = getRUPsForAgreement(agreementId: newAgreement.agreementId)
+        for plan in rupsForAgreement {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    if newAgreement.zones.count > 0 {
+                        plan.zones = newAgreement.zones
+                        plan.rangeUsageYears = newAgreement.rangeUsageYears
+                    }
+                }
+            } catch _ {
+                fatalError()
+            }
+        }
+        updateRUPsFor(newAgreement: newAgreement)
         RealmRequests.updateObject(storedAgreement!)
     }
 
-    func updateRUPsFor(agreement: Agreement) {
-        if let rups = RealmRequests.getObject(RUP.self) {
-            for rup in rups {
-                if rup.agreementId == agreement.agreementId {
-                    rup.zones = agreement.zones
-                    rup.rangeUsageYears = agreement.rangeUsageYears
+    func updateRUPsFor(newAgreement: Agreement) {
+        let rupsForAgreement = getRUPsForAgreement(agreementId: newAgreement.agreementId)
+        for plan in rupsForAgreement {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    if newAgreement.zones.count > 0 {
+                        plan.zones.removeAll()
+                        for zone in newAgreement.zones {
+                            plan.zones.append(zone)
+                        }
+                        plan.rangeUsageYears = newAgreement.rangeUsageYears
+                    }
                 }
+            } catch _ {
+                fatalError()
             }
+            RealmRequests.updateObject(plan)
         }
     }
 
     func diffAgreements(agreements: [Agreement]) {
+
+        // Remove unassigned agreements:
+        removeUnassignedAgreements(newAgreements: agreements)
+
+        // Update existing agreements:
         for agreement in agreements {
             if agreementExists(id: agreement.agreementId) {
                 updateAgreement(with: agreement)
             } else {
                 RealmRequests.saveObject(object: agreement)
+            }
+        }
+    }
+
+    func removeUnassignedAgreements(newAgreements: [Agreement]) {
+        // cache new ids
+        var newIds = [String]()
+        for agreement in newAgreements {
+            newIds.append(agreement.agreementId)
+        }
+
+        let storedAgreements = getAgreements()
+        for agreement in storedAgreements {
+            // if stored agreement id was not pulled from server,
+            if !newIds.contains(agreement.agreementId) {
+                // 1st remove all plans that have this agreement id
+                let plans = getRUPsForAgreement(agreementId: agreement.agreementId)
+                for plan in plans {
+                    RealmRequests.deleteObject(plan)
+                }
+                // then remove agreement
+                RealmRequests.deleteObject(agreement)
             }
         }
     }
@@ -269,6 +297,12 @@
         return [RUP]()
     }
 
+    func getSubmittedPlans() -> [RUP] {
+        var plans = getCompletedRups()
+        plans.append(contentsOf: getPendingRups())
+        return plans
+    }
+
     func genRUP(forAgreement: Agreement) -> RUP {
         let rup = RUP()
         rup.setFrom(agreement: forAgreement)
@@ -276,6 +310,7 @@
             let realm = try Realm()
             try realm.write {
                 forAgreement.rups.append(rup)
+                rup.isNew = true
             }
         } catch _ {
             fatalError()
@@ -284,21 +319,133 @@
         return rup
     }
 
-    func getUsageFor(year: Int, agreementId: String) -> RangeUsageYear? {
-        guard let usage = RealmRequests.getObject(RangeUsageYear.self) else {
-            return nil
+    func getPrimaryAgreementHolderObjectFor(rup: RUP) -> Client {
+        for client in rup.clients {
+            if client.clientTypeCode == "A" {
+                return client
+            }
         }
+        return Client()
+    }
 
-        let results = usage.filter { (usageForYear) in
-            return usageForYear.agreementId == agreementId && usageForYear.year == year
+    func getPrimaryAgreementHolderFor(rup: RUP) -> String {
+        for client in rup.clients {
+            if client.clientTypeCode == "A" {
+                return client.name
+            }
         }
-        
-        return results.first
+        return ""
+    }
+
+    func getPrimaryAgreementHolderFor(agreement: Agreement) -> String {
+        for client in agreement.clients {
+            if client.clientTypeCode == "A" {
+                return client.name
+            }
+        }
+        return ""
     }
  }
 
- // Schedule
+ // MARK: Pasture
  extension RUPManager {
+    func getPasturesArray(rup: RUP) -> [Pasture] {
+        let ps = rup.pastures
+        var returnVal = [Pasture]()
+        for p in ps {
+            returnVal.append(p)
+        }
+        return returnVal
+    }
+
+    func copyPasture(from: Pasture, to: Pasture) {
+        to.allowedAUMs = from.allowedAUMs
+        to.privateLandDeduction = from.privateLandDeduction
+        to.graceDays = from.graceDays
+        to.notes = from.notes
+        RealmRequests.updateObject(to)
+    }
+
+    func deletePasture(pasture: Pasture) {
+        // remove all schedule objects with this pasture
+        do {
+            let realm = try Realm()
+            let scheduleObjects = realm.objects(ScheduleObject.self).filter("pasture = %@", pasture)
+            for object in scheduleObjects {
+                RealmRequests.deleteObject(object)
+            }
+        } catch _ {
+            fatalError()
+        }
+        RealmRequests.deleteObject(pasture)
+    }
+
+    /*
+     Sets a schedule object's related pasture object.
+     used in lookupPastures in ScheduleObjectTableViewCell and
+     should be re used in the future if a rup is downloaded.
+     the calculations in the other functions in this extention
+     rely on schedule objects being able to reference their assigned pastures.
+     */
+    func setPastureOn(scheduleObject: ScheduleObject, pastureName: String, rup: RUP) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                scheduleObject.pasture = getPastureNamed(name: pastureName, rup: rup)
+            }
+        } catch _ {
+            fatalError()
+        }
+        calculateScheduleEntry(scheduleObject: scheduleObject)
+    }
+
+    func getPastureNames(rup: RUP) -> [String] {
+        var names = [String]()
+        for pasture in rup.pastures {
+            names.append(pasture.name)
+        }
+        return names
+    }
+
+    func getPasturesLookup(rup: RUP) -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        let names = getPastureNames(rup: rup)
+        for name in names {
+            returnArray.append(SelectionPopUpObject(display: name, value: name))
+        }
+        return returnArray
+    }
+
+    func getPastureNamed(name: String, rup: RUP) -> Pasture? {
+        for pasture in rup.pastures {
+            if pasture.name == name {
+                return pasture
+            }
+        }
+        return nil
+    }
+ }
+
+ // MARK: Schedule
+ extension RUPManager {
+    func getScheduleYears(rup: RUP) -> [String] {
+        let schedules = rup.schedules
+        var years = [String]()
+        for schedule in schedules {
+            years.append("\(schedule.year)")
+        }
+        return years
+    }
+
+    func rupHasScheduleForYear(rup: RUP, year: Int) -> Bool {
+        let schedules = rup.schedules
+        for schedule in schedules {
+            if schedule.year == year {
+                return true
+            }
+        }
+        return false
+    }
 
     func copyScheduleObjects(from: Schedule, to: Schedule) {
         let toYear = to.year
@@ -350,48 +497,19 @@
         }
     }
 
-    func copyPasture(from: Pasture, to: Pasture) {
-        to.allowedAUMs = from.allowedAUMs
-        to.privateLandDeduction = from.privateLandDeduction
-        to.graceDays = from.graceDays
-        to.notes = from.notes
-        RealmRequests.updateObject(to)
+    func getUsageFor(year: Int, agreementId: String) -> RangeUsageYear? {
+        guard let usage = RealmRequests.getObject(RangeUsageYear.self) else {
+            return nil
+        }
+
+        let results = usage.filter { (usageForYear) in
+            return usageForYear.agreementId == agreementId && usageForYear.year == year
+        }
+
+        return results.first
     }
 
-    func deletePasture(pasture: Pasture) {
-        // remove all schedule objects with this pasture
-        do {
-            let realm = try Realm()
-            let scheduleObjects = realm.objects(ScheduleObject.self).filter("pasture = %@", pasture)
-            for object in scheduleObjects {
-                RealmRequests.deleteObject(object)
-            }
-        } catch _ {
-            fatalError()
-        }
-        RealmRequests.deleteObject(pasture)
-    }
-    
-    /*
-     Sets a schedule object's related pasture object.
-     used in lookupPastures in ScheduleObjectTableViewCell and
-     should be re used in the future if a rup is downloaded.
-     the calculations in the other functions in this extention
-     rely on schedule objects being able to reference their assigned pastures.
-     */
-    func setPastureOn(scheduleObject: ScheduleObject, pastureName: String, rup: RUP) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                scheduleObject.pasture = getPastureNamed(name: pastureName, rup: rup)
-            }
-        } catch _ {
-            fatalError()
-        }
-        calculate(scheduleObject: scheduleObject)
-    }
-
-    func calculate(scheduleObject: ScheduleObject) {
+    func calculateScheduleEntry(scheduleObject: ScheduleObject) {
         calculateTotalAUMsFor(scheduleObject: scheduleObject)
         calculatePLDFor(scheduleObject: scheduleObject)
     }
@@ -471,7 +589,52 @@
         let totAUMs = getTotalAUMsFor(schedule: schedule)
         let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
         let allowed = usage?.auth_AUMs ?? 0
+        if !scheduleHasValidEntries(schedule: schedule, agreementID: agreementID) {
+            return false
+        }
+        // Last criteria: Total AUMs are within allowed AUMs for that year
         return totAUMs <= Double(allowed)
+    }
+
+    func scheduleHasValidEntries(schedule: Schedule, agreementID: String) -> Bool {
+        /*
+          - Schedule must have at least 1 valid entry.
+          - Schedule entries must be valid.
+         We Can rely on the toDictionary function of the schedule.
+         if schedule objects are incomplete, toDictionary returns an empty
+         array for key "grazingScheduleEntries"
+         */
+        let dictionary = schedule.toDictionary()
+        let grazingEntries: [[String: Any]] = dictionary["grazingScheduleEntries"] as! [[String: Any]]
+        if schedule.scheduleObjects.count < 1 || grazingEntries.count != schedule.scheduleObjects.count {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    // Returns error messages
+    func validateSchedule(schedule: Schedule, agreementID: String) -> (Bool, String) {
+        if schedule.scheduleObjects.count < 1 {
+            return (false, "Schedule must have at least 1 entry")
+        }
+        let dictionary = schedule.toDictionary()
+        let grazingEntries: [[String: Any]] = dictionary["grazingScheduleEntries"] as! [[String: Any]]
+        if grazingEntries.count != schedule.scheduleObjects.count {
+            return (false, "Schedule has one or more invalid entries")
+        }
+
+        /*
+         is valid schedule does check the above criteria,
+         but if those have passed, and this still fails,
+         its means that the total aums are more than the allowed aums
+        */
+        if !isScheduleValid(schedule: schedule, agreementID: agreementID) {
+            return (false, "Total AUMs exceed the allowed amount for the this year")
+        }
+
+        return (true, "")
+
     }
 
     // if livestock with the specified name is not found, returns false
@@ -487,15 +650,6 @@
         } catch _ {
             fatalError()
         }
-    }
-
-    func getPasturesArray(rup: RUP) -> [Pasture] {
-        let ps = rup.pastures
-        var returnVal = [Pasture]()
-        for p in ps {
-            returnVal.append(p)
-        }
-        return returnVal
     }
 
     func getSchedulesArray(rup: RUP) -> [Schedule] {
@@ -528,7 +682,7 @@
         return true
     }
 
-    func getNextScheduleYearFor(from: Int,rup: RUP) -> Int? {
+    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int? {
         // String array of years current schedule objects
         let years = rup.schedules.map({ (schedule) in
             return schedule.year
@@ -566,22 +720,10 @@
         if let scheduleObjects = query {
             for object in scheduleObjects {
                 if object.pasture?.localId == pasture.localId {
-                    calculate(scheduleObject: object)
+                    calculateScheduleEntry(scheduleObject: object)
                 }
             }
         }
-    }
-
-    func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
-        let query = RealmRequests.getObject(AgreementExemptionStatus.self)
-        if let all = query {
-            for object in all {
-                if object.id == id {
-                    return object
-                }
-            }
-        }
-        return AgreementExemptionStatus()
     }
 
 //    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
@@ -596,34 +738,10 @@
 //        return LivestockIdentifierType()
 //    }
 
-    func getPlanStatusFor(id: Int) -> PlanStatus {
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.id == id {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
+ }
 
-    func getClientTypeFor(clientTypeCode: String) -> ClientType {
-        let query = RealmRequests.getObject(ClientType.self)
-        if let all = query {
-            for object in all {
-                // while you're at it, clean up invalid data..
-                if object.id == -1 {
-                    RealmRequests.deleteObject(object)
-                }
-                if object.code == clientTypeCode {
-                    return object
-                }
-            }
-        }
-        return ClientType()
-    }
-
+ // MARK: Reference Data
+ extension RUPManager {
     func getAllReferenceData() -> [Object] {
         var objects = [Object]()
 
@@ -652,6 +770,41 @@
         return objects
     }
 
+    func storeNewReferenceData(objects: [Object]) {
+        for object in objects {
+            RealmRequests.saveObject(object: object)
+        }
+    }
+
+    func updateReferenceData(objects: [Object]) {
+        clearStoredReferenceData()
+        storeNewReferenceData(objects: objects)
+    }
+
+    func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
+        let query = RealmRequests.getObject(AgreementExemptionStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return AgreementExemptionStatus()
+    }
+
+    func getPlanStatusFor(id: Int) -> PlanStatus {
+        let query = RealmRequests.getObject(PlanStatus.self)
+        if let all = query {
+            for object in all {
+                if object.id == id {
+                    return object
+                }
+            }
+        }
+        return PlanStatus()
+    }
+
     func clearStoredReferenceData() {
         let objects = getAllReferenceData()
         removeAllObjectsIn(query: objects)
@@ -664,41 +817,19 @@
         }
     }
 
-    func storeNewReferenceData(objects: [Object]) {
-        for object in objects {
-            RealmRequests.saveObject(object: object)
-        }
-    }
-
-    func updateReferenceData(objects: [Object]) {
-        clearStoredReferenceData()
-        storeNewReferenceData(objects: objects)
-    }
-
-    func getPrimaryAgreementHolderObjectFor(rup: RUP) -> Client {
-        for client in rup.clients {
-            if client.clientTypeCode == "A" {
-                return client
+    func getClientTypeFor(clientTypeCode: String) -> ClientType {
+        let query = RealmRequests.getObject(ClientType.self)
+        if let all = query {
+            for object in all {
+                // while you're at it, clean up invalid data..
+                if object.id == -1 {
+                    RealmRequests.deleteObject(object)
+                }
+                if object.code == clientTypeCode {
+                    return object
+                }
             }
         }
-        return Client()
-    }
-
-    func getPrimaryAgreementHolderFor(rup: RUP) -> String {
-        for client in rup.clients {
-            if client.clientTypeCode == "A" {
-                return client.name
-            }
-        }
-        return ""
-    }
-
-    func getPrimaryAgreementHolderFor(agreement: Agreement) -> String {
-        for client in agreement.clients {
-            if client.clientTypeCode == "A" {
-                return client.name
-            }
-        }
-        return ""
+        return ClientType()
     }
  }

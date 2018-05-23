@@ -15,6 +15,7 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
     // MARK: Variables
     var schedule: Schedule?
     var agreementID: String = " "
+    var mode: FormMode = .View
 
     // MARK: Outlets
     @IBOutlet weak var totalBox: UIView!
@@ -34,10 +35,12 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Functions
-    func setup(schedule: Schedule, agreementID: String) {
+    func setup(mode: FormMode, schedule: Schedule, agreementID: String) {
+        self.mode = mode
         self.schedule = schedule
         self.agreementID = agreementID
         self.textView.text = schedule.notes
+        style()
         autofill()
     }
 
@@ -59,12 +62,20 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
         }
 
         self.textView.text = schedule?.notes
+        if self.mode == .View && self.textView.text == "" {
+            self.textView.text = "Description not provided"
+        }
     }
 
     // MARK: Styles
     func style() {
+        switch mode {
+        case .View:
+            styleTextviewInputFieldReadOnly(field: textView, header: scheduleDescriptionHeader)
+        case .Edit:
+            styleTextviewInputField(field: textView, header: scheduleDescriptionHeader)
+        }
         styleDivider(divider: divider)
-        styleInputField(field: textView, header: scheduleDescriptionHeader)
         styleFieldHeader(label: authorizedAUMs)
         styleFieldHeader(label: totalAUMs)
         styleBox(layer: totalBox.layer)

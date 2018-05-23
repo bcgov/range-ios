@@ -16,7 +16,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     var scheduleObject: ScheduleObject?
     var parentCell: ScheduleFormTableViewCell?
     var scheduleViewReference: ScheduleViewController?
-    var realmNotificationToken: NotificationToken?
+
+    var inputFields: [UITextField] = [UITextField]()
+    var computedFields: [UITextField] = [UITextField]()
+    var fields: [UITextField] = [UITextField]()
 
     // MARK: Outlets
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
@@ -30,7 +33,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var crownAUM: UITextField!
     @IBOutlet weak var pldAUM: UITextField!
 
+    @IBOutlet weak var options: UIButton!
+    @IBOutlet weak var pastureButton: UIButton!
+    @IBOutlet weak var liveStockButton: UIButton!
+    @IBOutlet weak var dateInButton: UIButton!
+    @IBOutlet weak var dateOutButton: UIButton!
+
     // MARK: Outlet Acions
+
     @IBAction func lookupPastures(_ sender: Any) {
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
@@ -41,9 +51,18 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 // this function also update calculations for pld and crown fields
                 RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: (obj?.value)!, rup: self.rup)
 
-                // re sort schedule
-                self.parentCell?.sort()
                 self.update()
+                // Clear sort headers
+                self.parentCell?.clearSort()
+                // NOTE: you can simply use this if you want to sort on change
+                // and highlight the cell that moved
+                /*
+                 // if current sorting on parent is set to this field's type
+                 if self.parentCell?.currentSort == .Pasture {
+                 // this will hightlight cell
+                 self.scheduleObject?.setIsNew(to: true)
+                 }
+                */
                 // fill appropriate fields
                 self.fillCurrentValues()
                 grandParent.hidepopup(vc: lookup)
@@ -75,9 +94,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
-                // re sort schedule
-                self.parentCell?.sort()
+                RealmRequests.updateObject(self.scheduleObject!)
                 self.update()
+                // Clear sort headers
+                self.parentCell?.clearSort()
                 grandParent.hidepopup(vc: lookup)
             } else {
                 grandParent.hidepopup(vc: lookup)
@@ -87,14 +107,23 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         grandParent.showpopup(vc: lookup, on: sender as! UIButton)
     }
 
+    // for number of animals field
+    @IBAction func highlightField(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @objc private func selectRange(sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
-        let curr = numberOfAniamls.text
-        if (curr?.isInt)! {
+        guard let curr = numberOfAniamls.text else {return}
+        if (curr.isInt) {
             numberOfAniamls.textColor = UIColor.black
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.scheduleObject?.numberOfAnimals = Int(curr!)!
+                    self.scheduleObject?.numberOfAnimals = Int(curr)!
                 }
             } catch _ {
                 fatalError()
@@ -106,10 +135,20 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 try realm.write {
                     self.scheduleObject?.numberOfAnimals = 0
                 }
+                // if current sorting on parent is set to this field's type
+                if self.parentCell?.currentSort == .Number {
+                    // this will hightlight cell
+                    self.scheduleObject?.setIsNew(to: true)
+                }
             } catch _ {
                 fatalError()
             }
         }
+    }
+
+    @IBAction func numberOfAnimalsSelected(_ sender: UITextField) {
+        // Clear sort headers
+        self.parentCell?.clearSort()
         update()
     }
 
@@ -122,8 +161,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
         picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
             self.handleDateIn(date: date)
-            // re sort schedule
-            self.parentCell?.sort()
+            // Clear sort headers
+            self.parentCell?.clearSort()
         }
         grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
@@ -137,14 +176,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         if let s = scheduleObject, let startDate = s.dateIn {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: startDate) { (date) in
                 self.handleDateOut(date: date)
-                // re sort schedule
-                self.parentCell?.sort()
+                // Clear sort headers
+                self.parentCell?.clearSort()
             }
         } else {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
                 self.handleDateOut(date: date)
-                // re sort schedule
-                self.parentCell?.sort()
+                // Clear sort headers
+                self.parentCell?.clearSort()
             }
         }
         grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
@@ -154,7 +193,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let grandParent = scheduleViewReference else {return}
         let vm = ViewManager()
         let optionsVC = vm.options
-        let options: [Option] = [Option(type: .Copy, display: "Duplicate"), Option(type: .Delete, display: "Delete")]
+        let options: [Option] = [Option(type: .Copy, display: "Copy"), Option(type: .Delete, display: "Delete")]
         optionsVC.setup(options: options) { (selected) in
             optionsVC.dismiss(animated: true, completion: nil)
             switch selected.type {
@@ -231,20 +270,56 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
-        styleInputField(field: days, editable: false, height: fieldHeight)
-        styleInputField(field: crownAUM, editable: false, height: fieldHeight)
-        styleInputField(field: pldAUM, editable: false, height: fieldHeight)
-        styleInputField(field: graceDays, editable: false, height: fieldHeight)
-        styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
-        styleInput(input: pasture, height: fieldHeight)
-        styleInput(input: liveStock, height: fieldHeight)
-        styleInput(input: dateIn, height: fieldHeight)
-        styleInput(input: dateOut, height: fieldHeight)
+
+        // Group fields, to call style functions iteratively.
+        // note: numberOfAniamls is different from the rest: accepts input
+        if inputFields.isEmpty {
+            self.inputFields = [pasture, liveStock, dateIn, dateIn, dateOut]
+        }
+        if computedFields.isEmpty {
+            self.computedFields = [days, crownAUM, pldAUM, graceDays]
+        }
+        if fields.isEmpty {
+            fields.append(contentsOf: inputFields)
+            fields.append(contentsOf: computedFields)
+            fields.append(numberOfAniamls)
+        }
+
+        let fontSize: CGFloat = 12
+
+        // First style using theme styles
+        switch mode {
+        case .View:
+            for field in inputFields {
+                styleInputReadOnly(input: field, height: fieldHeight)
+            }
+
+            // note: numberOfAniamls is different from the rest: accepts input
+            styleInputField(field: numberOfAniamls, editable: false, height: fieldHeight)
+
+        case .Edit:
+            for field in inputFields {
+                styleInput(input: field, height: fieldHeight)
+            }
+
+            // note: numberOfAniamls is different from the rest: accepts input
+            styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
+        }
+
+        // Computed fields look the same regardless of mode
+        for field in computedFields {
+            styleInputField(field: field, editable: false, height: fieldHeight)
+        }
+
+        // This cell needs smaller fonts, so change all fonts:
+        for field in fields {
+            field.font = Fonts.getPrimary(size: fontSize)
+        }
     }
 
     func highlight() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundColor = Colors.secondary
+            self.backgroundColor = Colors.secondary.withAlphaComponent(0.75)
             self.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -258,7 +333,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     func highlightOn() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundColor = Colors.secondary
+            self.backgroundColor = Colors.secondary.withAlphaComponent(0.5)
             self.layoutIfNeeded()
         })
     }
@@ -271,8 +346,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     // MARK: Setup
-    func setup(scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
+    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
         self.rup = rup
+        self.mode = mode
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
         self.parentCell = parentCell
@@ -281,6 +357,31 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         if scheduleObject.isNew {
             highlight()
             scheduleObject.setIsNew(to: false)
+        }
+
+        switch mode {
+        case .View:
+            options.isEnabled = false
+            options.alpha = 0
+            pastureButton.isEnabled = false
+            liveStockButton.isEnabled = false
+            dateInButton.isEnabled = false
+            dateOutButton.isEnabled = false
+            numberOfAniamls.isUserInteractionEnabled = false
+        case .Edit:
+            options.isEnabled = true
+            options.alpha = 1
+            pastureButton.isEnabled = true
+            liveStockButton.isEnabled = true
+            dateInButton.isEnabled = true
+            dateOutButton.isEnabled = true
+            numberOfAniamls.isUserInteractionEnabled = true
+        }
+    }
+
+    func validate() {
+        if let scheduleVC = scheduleViewReference {
+            scheduleVC.validate()
         }
     }
 
@@ -319,11 +420,12 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     // update calculations
     func update() {
         if scheduleObject == nil {return}
-        RUPManager.shared.calculate(scheduleObject: (scheduleObject)!)
+        RUPManager.shared.calculateScheduleEntry(scheduleObject: (scheduleObject)!)
         self.fillCurrentValues()
 
         // call calculate total on parent
         scheduleViewReference?.calculateTotals()
+        self.validate()
     }
 
     func fillCurrentValues() {

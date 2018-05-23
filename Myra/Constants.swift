@@ -9,8 +9,6 @@
 import Foundation
 
 struct Constants {
-    static let minYear = 1990
-    static let maxYear = 2100
     
     struct Defaults {
         static let planId = -1
