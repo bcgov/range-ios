@@ -28,7 +28,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7C-yZ-K2f">
-                        <rect key="frame" x="30" y="22" width="663" height="108"/>
+                        <rect key="frame" x="30" y="22" width="52" height="108"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -157,23 +157,30 @@
                             <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0HH-lP-QZv"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxi-XC-cKY">
+                        <rect key="frame" x="361.5" y="76" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="6TW-bK-TgF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2IU-DL-vyc"/>
                     <constraint firstItem="G51-pE-cj3" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="8md-9a-FXl"/>
                     <constraint firstItem="ra1-ca-LQ4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="D4n-xj-nzB"/>
+                    <constraint firstItem="Zxi-XC-cKY" firstAttribute="centerY" secondItem="W7C-yZ-K2f" secondAttribute="centerY" id="FjA-eh-72j"/>
                     <constraint firstItem="W7C-yZ-K2f" firstAttribute="top" secondItem="6TW-bK-TgF" secondAttribute="bottom" constant="20" id="PLc-l5-SqL"/>
                     <constraint firstItem="1sj-Lf-txe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Vqc-Be-ut5"/>
                     <constraint firstItem="W7C-yZ-K2f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="WVe-ui-CPa"/>
                     <constraint firstItem="G51-pE-cj3" firstAttribute="top" secondItem="ra1-ca-LQ4" secondAttribute="bottom" id="dzf-iU-EmL"/>
                     <constraint firstItem="ra1-ca-LQ4" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="eEy-hX-GQH"/>
+                    <constraint firstItem="Zxi-XC-cKY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="eMc-l6-4n6"/>
                     <constraint firstItem="ra1-ca-LQ4" firstAttribute="top" secondItem="W7C-yZ-K2f" secondAttribute="bottom" constant="10" id="f60-yK-wuZ"/>
                     <constraint firstAttribute="trailing" secondItem="6TW-bK-TgF" secondAttribute="trailing" constant="15" id="f77-mJ-c94"/>
                     <constraint firstItem="G51-pE-cj3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="jmo-BM-btw"/>
                     <constraint firstItem="1sj-Lf-txe" firstAttribute="top" secondItem="G51-pE-cj3" secondAttribute="bottom" constant="5" id="mL5-ma-rWf"/>
                     <constraint firstItem="6TW-bK-TgF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="nDj-m1-JCJ"/>
                     <constraint firstAttribute="bottom" secondItem="1sj-Lf-txe" secondAttribute="bottom" constant="5" id="wHL-DF-kOB"/>
-                    <constraint firstAttribute="trailing" secondItem="W7C-yZ-K2f" secondAttribute="trailing" constant="30" id="z9G-Eb-nXJ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -186,6 +193,7 @@
                 <outlet property="tableView" destination="G51-pE-cj3" id="7ka-tt-kc1"/>
                 <outlet property="tempIncreaseHeader" destination="GPV-P1-aDC" id="xDn-rN-2oy"/>
                 <outlet property="totalAnnualHeader" destination="gLd-is-Vsf" id="65P-d1-CEv"/>
+                <outlet property="warningLabel" destination="Zxi-XC-cKY" id="eo2-Ht-X5I"/>
                 <outlet property="yearHeader" destination="0nr-9e-fab" id="0cw-nG-NnQ"/>
             </connections>
             <point key="canvasLocation" x="96" y="-31"/>

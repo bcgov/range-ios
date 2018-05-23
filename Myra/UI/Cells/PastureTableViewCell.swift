@@ -50,14 +50,18 @@ class PastureTableViewCell: BaseFormCell {
     // MARK: Outlet Actions
 
     @IBAction func beginEditAUM(_ sender: UITextField) {
-        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
     }
 
     @IBAction func beginEditDeduction(_ sender: UITextField) {
-        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
     }
 
     @IBAction func beginEditGraceDays(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @objc private func selectRange(sender: UITextField) {
         sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
     }
 

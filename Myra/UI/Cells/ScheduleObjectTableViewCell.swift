@@ -109,6 +109,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // for number of animals field
     @IBAction func highlightField(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @objc private func selectRange(sender: UITextField) {
         sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
     }
 
