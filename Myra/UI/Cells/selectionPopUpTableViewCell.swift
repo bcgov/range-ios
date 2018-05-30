@@ -13,6 +13,7 @@ class selectionPopUpTableViewCell: UITableViewCell {
     var object: SelectionPopUpObject?
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var checkIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +33,14 @@ class selectionPopUpTableViewCell: UITableViewCell {
         }
         self.label.font = Fonts.getPrimary(size: 17)
         self.backgroundColor = bg
+    }
+
+    func select() {
+        checkIcon.alpha = 1
+    }
+
+    func deSelect() {
+        checkIcon.alpha = 0
     }
     
 }

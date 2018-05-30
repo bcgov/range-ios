@@ -109,12 +109,28 @@ class BaseViewController: UIViewController, Theme {
         present(vc, animated: true, completion: nil)
     }
 
+    // dismisses the last popover added
     func dismissPopOver() {
         if let popOver = self.currentPopOver {
             popOver.dismiss(animated: false, completion: nil)
         }
     }
 
+    // dismisses the specified vc
+    func hidepopup(vc: SelectionPopUpViewController) {
+        vc.dismiss(animated: true, completion: nil)
+        return
+    }
+
+    // wrapper for showPopOver() more easily
+    func showPopUp(vc: SelectionPopUpViewController, on: UIButton) {
+        let popOverWidth = 200
+        var popOverHeight = 300
+        if vc.canDisplayFullContentIn(height: popOverHeight) {
+            popOverHeight =  vc.getEstimatedHeight()
+        }
+        showPopOver(on: on, vc: vc, height: popOverHeight, width: popOverWidth, arrowColor: nil)
+    }
 }
 
 extension BaseViewController {

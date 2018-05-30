@@ -72,7 +72,11 @@ class APIManager {
 
     static func getPlanStatus(forPlan plan: RUP, completion: @escaping (_ response: Alamofire.DataResponse<Data>) -> Void) {
         let id = plan.remoteId
-        let endpoint = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/plan/\(id)"
+//        let endpoint = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/plan/\(id)"
+        let planPath = "\(Constants.API.planPath)\(id)"
+        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
 
         Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
              return completion(response)

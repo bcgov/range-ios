@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="407" id="KGk-i7-Jjw" customClass="MinisterIssuesTableViewCell" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="568" height="407"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="568" height="406.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4V7-N7-YU7" userLabel="Head">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="80"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minister’s Issues and Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMK-XH-ewQ">
+                                <rect key="frame" x="15" y="30.5" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cx0-mR-oui">
+                                <rect key="frame" x="363" y="19" width="190" height="42"/>
+                                <color key="backgroundColor" red="0.60784906149999995" green="0.6078355312" blue="0.60783821339999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <accessibility key="accessibilityConfiguration" identifier="AddPastureButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="H9I-ON-xG4"/>
+                                    <constraint firstAttribute="width" constant="190" id="MmG-db-8K4"/>
+                                </constraints>
+                                <state key="normal" title="+ Add Issue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="k4h-aS-751"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyc-Bs-gNs">
+                                <rect key="frame" x="15" y="78" width="538" height="2"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="OM2-D3-AUH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Cx0-mR-oui" secondAttribute="trailing" constant="15" id="E85-rH-f1o"/>
+                            <constraint firstItem="zyc-Bs-gNs" firstAttribute="leading" secondItem="4V7-N7-YU7" secondAttribute="leading" constant="15" id="QIn-Gj-pcY"/>
+                            <constraint firstItem="Cx0-mR-oui" firstAttribute="leading" secondItem="HMK-XH-ewQ" secondAttribute="trailing" constant="5" id="bSd-Uw-Eu7"/>
+                            <constraint firstAttribute="trailing" secondItem="zyc-Bs-gNs" secondAttribute="trailing" constant="15" id="ldx-tY-4FL"/>
+                            <constraint firstAttribute="bottom" secondItem="zyc-Bs-gNs" secondAttribute="bottom" id="pA6-Wn-3UE"/>
+                            <constraint firstItem="HMK-XH-ewQ" firstAttribute="centerY" secondItem="Cx0-mR-oui" secondAttribute="centerY" id="u9w-7Q-oIG"/>
+                            <constraint firstItem="Cx0-mR-oui" firstAttribute="centerY" secondItem="4V7-N7-YU7" secondAttribute="centerY" id="vDS-1f-JDs"/>
+                            <constraint firstAttribute="height" constant="80" id="vIb-WY-cEI"/>
+                            <constraint firstItem="HMK-XH-ewQ" firstAttribute="leading" secondItem="4V7-N7-YU7" secondAttribute="leading" constant="15" id="wsd-QE-LsV"/>
+                        </constraints>
+                    </view>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="20B-IM-wGN">
+                        <rect key="frame" x="15" y="130" width="538" height="277"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="750" id="4HC-aq-sIx"/>
+                        </constraints>
+                    </tableView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzR-fh-r2p">
+                        <rect key="frame" x="35" y="80" width="498" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="DTu-DQ-K0r"/>
+                        </constraints>
+                        <string key="text">Note: Any action that would result in a range development cannot be conducted until an authorization (separate to this RUP) is obtained.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="20B-IM-wGN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="7gC-0p-udC"/>
+                    <constraint firstItem="VzR-fh-r2p" firstAttribute="top" secondItem="4V7-N7-YU7" secondAttribute="bottom" id="JPF-ve-hgg"/>
+                    <constraint firstItem="4V7-N7-YU7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RtZ-hv-kuz"/>
+                    <constraint firstItem="4V7-N7-YU7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Tm3-ka-qTQ"/>
+                    <constraint firstItem="20B-IM-wGN" firstAttribute="top" secondItem="VzR-fh-r2p" secondAttribute="bottom" id="Twh-WE-rsM"/>
+                    <constraint firstAttribute="trailing" secondItem="4V7-N7-YU7" secondAttribute="trailing" id="VpO-u8-Px7"/>
+                    <constraint firstAttribute="trailing" secondItem="20B-IM-wGN" secondAttribute="trailing" constant="15" id="ZgO-h1-byB"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VzR-fh-r2p" secondAttribute="trailing" constant="15" id="kQ4-qu-pKJ"/>
+                    <constraint firstItem="VzR-fh-r2p" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="qMc-cQ-0rV"/>
+                    <constraint firstAttribute="bottom" secondItem="20B-IM-wGN" secondAttribute="bottom" id="sKz-Au-93I"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addButton" destination="Cx0-mR-oui" id="b97-pw-ALD"/>
+                <outlet property="divider" destination="zyc-Bs-gNs" id="kyo-OG-j6L"/>
+                <outlet property="subtitle" destination="VzR-fh-r2p" id="LPK-Ir-M5R"/>
+                <outlet property="tableHeight" destination="4HC-aq-sIx" id="dUm-Uj-4xq"/>
+                <outlet property="tableView" destination="20B-IM-wGN" id="2V7-uc-gk2"/>
+                <outlet property="titleLabel" destination="HMK-XH-ewQ" id="E0d-vt-xrI"/>
+            </connections>
+            <point key="canvasLocation" x="231" y="257.5"/>
+        </tableViewCell>
+    </objects>
+</document>

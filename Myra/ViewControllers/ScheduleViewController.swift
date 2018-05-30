@@ -102,21 +102,6 @@ class ScheduleViewController: BaseViewController {
     }
 
     // MARK: Livestock selection popup
-    // ****** CURRENTLY UNUSED: Using popover instead
-    func showpopup(vc: SelectionPopUpViewController, on: UIButton) {
-        let popOverWidth = 200
-        var popOverHeight = 300
-        if vc.canDisplayFullContentIn(height: popOverHeight) {
-            popOverHeight =  vc.getEstimatedHeight()
-        }
-        showPopOver(on: on, vc: vc, height: popOverHeight, width: popOverWidth, arrowColor: nil)
-    }
-
-    func hidepopup(vc: SelectionPopUpViewController) {
-        vc.dismiss(animated: true, completion: nil)
-        return
-    }
-
     func getLiveStockPopupHolder() -> UIView {
         let layerWidth: CGFloat = (self.view.frame.width / 4)
         let layerHeight: CGFloat = (self.view.frame.height / 2)
