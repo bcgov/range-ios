@@ -8,12 +8,16 @@
 
 import UIKit
 
-class PlantCommunityTableViewCell: UITableViewCell {
+class PlantCommunityTableViewCell: BaseFormCell {
+
+    @IBOutlet weak var container: UIView!
+    @IBOutlet weak var header: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    
 
     // Variables:
     var plantCommunity: PlantCommunity = PlantCommunity()
-    var mode: FormMode = .View
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // adds border
@@ -45,9 +49,11 @@ class PlantCommunityTableViewCell: UITableViewCell {
 // styles
 extension PlantCommunityTableViewCell {
     func style() {
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.black.cgColor
-
+        roundCorners(layer: container.layer)
+        addShadow(to: container.layer, opacity:defaultContainerShadowOpacity(), height: defaultContainershadowHeight())
+        styleSubHeader(label: header)
+        styleSubHeader(label: nameLabel)
+        styleTextviewInputField(field: descriptionTextView, header: nameLabel)
 
     }
 }

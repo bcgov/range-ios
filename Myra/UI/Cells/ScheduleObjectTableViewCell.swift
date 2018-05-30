@@ -66,11 +66,12 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 // fill appropriate fields
                 self.fillCurrentValues()
                 grandParent.hidepopup(vc: lookup)
+                grandParent.dismissPopOver()
             } else {
-                grandParent.hidepopup(vc: lookup)
+                grandParent.dismissPopOver()
             }
         }
-        grandParent.showpopup(vc: lookup, on: sender as! UIButton)
+        grandParent.showPopUp(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
@@ -104,7 +105,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.update()
             }
         }
-        grandParent.showpopup(vc: lookup, on: sender as! UIButton)
+        grandParent.showPopUp(vc: lookup, on: sender as! UIButton)
     }
 
     // for number of animals field

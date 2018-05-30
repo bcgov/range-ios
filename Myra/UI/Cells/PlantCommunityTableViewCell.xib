@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,13 +41,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ljh-kM-bUJ">
-                                <rect key="frame" x="15" y="34" width="409" height="58"/>
-                                <string key="text">A plant community (sometimes "phytocoenosis" or "phytocenosis") is a collection or association of plant species within a designated geographical unit, which forms a relatively uniform patch, distinguishable from neighboring patches of different vegetation types.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.60000586509999998" green="0.59999251369999995" blue="0.59999519589999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7y9-gX-gRg">
+                                <rect key="frame" x="15" y="37" width="409" height="55"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5D8-5i-YoW">
                                 <rect key="frame" x="439" y="44" width="12" height="12"/>
                                 <constraints>
@@ -64,16 +64,16 @@
                             <constraint firstItem="FRJ-yD-bJr" firstAttribute="leading" secondItem="S4G-Md-pJi" secondAttribute="trailing" constant="10" id="60F-yO-8eD"/>
                             <constraint firstItem="S4G-Md-pJi" firstAttribute="leading" secondItem="S17-Tb-AhF" secondAttribute="leading" constant="15" id="CWP-pO-Lz5"/>
                             <constraint firstAttribute="height" constant="100" id="GL6-91-Fwm"/>
-                            <constraint firstAttribute="bottom" secondItem="Ljh-kM-bUJ" secondAttribute="bottom" constant="8" id="Mzo-rb-Gul"/>
-                            <constraint firstItem="5D8-5i-YoW" firstAttribute="leading" secondItem="Ljh-kM-bUJ" secondAttribute="trailing" constant="15" id="Sqg-8z-TDn"/>
+                            <constraint firstAttribute="bottom" secondItem="7y9-gX-gRg" secondAttribute="bottom" constant="8" id="HW3-0b-xAu"/>
+                            <constraint firstItem="7y9-gX-gRg" firstAttribute="leading" secondItem="S17-Tb-AhF" secondAttribute="leading" constant="15" id="L16-yF-qS9"/>
                             <constraint firstItem="5D8-5i-YoW" firstAttribute="centerY" secondItem="S17-Tb-AhF" secondAttribute="centerY" id="V2J-8H-IbH"/>
-                            <constraint firstItem="Ljh-kM-bUJ" firstAttribute="top" secondItem="FRJ-yD-bJr" secondAttribute="bottom" constant="5" id="cin-8U-BvH"/>
+                            <constraint firstItem="5D8-5i-YoW" firstAttribute="leading" secondItem="7y9-gX-gRg" secondAttribute="trailing" constant="15" id="adW-05-jIt"/>
                             <constraint firstItem="yFt-pz-cmJ" firstAttribute="centerY" secondItem="FRJ-yD-bJr" secondAttribute="centerY" id="ftw-Gd-YOg"/>
                             <constraint firstItem="yFt-pz-cmJ" firstAttribute="leading" secondItem="FRJ-yD-bJr" secondAttribute="trailing" constant="5" id="lAm-9r-eK2"/>
                             <constraint firstAttribute="trailing" secondItem="5D8-5i-YoW" secondAttribute="trailing" constant="2" id="rPt-jI-YhF"/>
                             <constraint firstItem="S4G-Md-pJi" firstAttribute="top" secondItem="S17-Tb-AhF" secondAttribute="top" constant="15" id="rxp-PW-DtL"/>
                             <constraint firstItem="FRJ-yD-bJr" firstAttribute="centerY" secondItem="S4G-Md-pJi" secondAttribute="centerY" id="vOL-8i-CkV"/>
-                            <constraint firstItem="Ljh-kM-bUJ" firstAttribute="leading" secondItem="S17-Tb-AhF" secondAttribute="leading" constant="15" id="wbY-PI-b04"/>
+                            <constraint firstItem="7y9-gX-gRg" firstAttribute="top" secondItem="yFt-pz-cmJ" secondAttribute="bottom" constant="8" id="xyX-bb-1hG"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -86,6 +86,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="container" destination="S17-Tb-AhF" id="6v8-JV-4Q6"/>
+                <outlet property="descriptionTextView" destination="7y9-gX-gRg" id="k5b-K4-mSm"/>
+                <outlet property="header" destination="FRJ-yD-bJr" id="tZW-GP-DJL"/>
+                <outlet property="nameLabel" destination="yFt-pz-cmJ" id="rdC-oX-CZC"/>
+            </connections>
             <point key="canvasLocation" x="147.5" y="76.5"/>
         </tableViewCell>
     </objects>

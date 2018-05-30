@@ -82,7 +82,7 @@ class BasicInformationTableViewCell: BaseFormCell {
         }
     }
 
-    @IBAction func beginEdit(_ sender: UITextField) {
+    @IBAction func beginEditName(_ sender: UITextField) {
         perform(#selector(selectRange), with: sender, afterDelay: 0.01)
     }
 

@@ -25,6 +25,7 @@ enum FromSection: Int {
     case Usage
     case Pastures
     case YearlySchedule
+    case MinistersIssues
 }
 
 class CreateNewRUPViewController: BaseViewController {
@@ -32,7 +33,7 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
     let portraitMenuWidth: CGFloat = 156
-    let numberOfSections = 6
+    let numberOfSections = 7
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
@@ -450,6 +451,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         registerCell(name: "PasturesTableViewCell")
         registerCell(name: "MapTableViewCell")
         registerCell(name: "ScheduleTableViewCell")
+        registerCell(name: "MinisterIssuesTableViewCell")
     }
 
     @objc func doThisWhenNotify() { return }
@@ -485,6 +487,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
     func getScheduleCell(indexPath: IndexPath) -> ScheduleTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "ScheduleTableViewCell", for: indexPath) as! ScheduleTableViewCell
+    }
+
+    func getMinistersIssuesCell(indexPath: IndexPath) -> MinisterIssuesTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "MinisterIssuesTableViewCell", for: indexPath) as! MinisterIssuesTableViewCell
     }
 
     func getMapCell(indexPath: IndexPath) -> MapTableViewCell {
@@ -525,6 +531,11 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 let cell = getScheduleCell(indexPath: indexPath)
                 // passing self reference because cells within this cell's tableview need to call showAlert()
                 cell.setup(mode: mode, rup: rup!, parentReference: self)
+                return cell
+            case .MinistersIssues:
+                self.minsterActionsIndexPath = indexPath
+                let cell = getMinistersIssuesCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
                 return cell
             }
 
