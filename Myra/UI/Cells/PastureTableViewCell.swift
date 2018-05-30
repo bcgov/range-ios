@@ -41,6 +41,10 @@ class PastureTableViewCell: BaseFormCell {
 
     @IBOutlet weak var options: UIButton!
 
+    @IBOutlet weak var addPlantCommunityButton: UIButton!
+    @IBOutlet weak var addPlantCommunityButtonHeight: NSLayoutConstraint!
+
+    @IBOutlet weak var plantCommunitiesLabel: UILabel!
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -255,15 +259,26 @@ class PastureTableViewCell: BaseFormCell {
             styleInputFieldReadOnly(field: deductionFIeld, header: pldHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
+            addPlantCommunityButton.alpha = 0
+            addPlantCommunityButtonHeight.constant = 0
         case .Edit:
             styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
             styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
             styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
+            styleHollowButton(button: addPlantCommunityButton)
         }
+
         styleContainer(view: containerView)
         styleSubHeader(label: pastureNameHeader)
         styleSubHeader(label: pastureNameLabel)
+        styleSubHeader(label: plantCommunitiesLabel)
+
+        // TEMP - HIDE PLANT COMMUNITY
+        addPlantCommunityButton.alpha = 0
+        addPlantCommunityButtonHeight.constant = 0
+        plantCommunitiesLabel.alpha = 0
+        // END OF TEMP
     }
 }
 

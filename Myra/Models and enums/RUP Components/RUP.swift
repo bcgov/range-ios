@@ -56,6 +56,7 @@ class RUP: Object, MyraObject {
     var liveStockIDs = List<LiveStockID>()
     var pastures = List<Pasture>()
     var schedules = List<Schedule>()
+    var ministerIssues = List<MinisterIssue>()
     // we cant store nested realm objects, so we need to store the zone in list
     var zones = List<Zone>()
     var clients = List<Client>()

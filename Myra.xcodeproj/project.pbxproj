@@ -33,6 +33,8 @@
 		292197DA209CD152004A5011 /* OptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292197D8209CD152004A5011 /* OptionsTableViewCell.xib */; };
 		292197DC209CD19D004A5011 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292197DB209CD19D004A5011 /* Option.swift */; };
 		292197DE209CD295004A5011 /* OptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292197DD209CD295004A5011 /* OptionType.swift */; };
+		29230FF220BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */; };
+		29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */; };
 		2926D96E20754E52006250D3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
 		292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
 		292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
@@ -71,6 +73,12 @@
 		2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270D2044949B0033BC47 /* LiveStockID.swift */; };
 		297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297427102044969A0033BC47 /* LiveStockTableViewCell.swift */; };
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
+		299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */; };
+		299491EE20B62588005FCF94 /* MinisterIssuesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */; };
+		299491F020B62763005FCF94 /* MinisterIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EF20B62763005FCF94 /* MinisterIssue.swift */; };
+		299491F320B628F6005FCF94 /* MinisterIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491F120B628F6005FCF94 /* MinisterIssueTableViewCell.swift */; };
+		299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */; };
+		299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */; };
 		299BD278207BF488004B1D07 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BD277207BF488004B1D07 /* Constants.swift */; };
 		29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A52744205B301400C871F7 /* SelectionPopup.storyboard */; };
 		29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */; };
@@ -160,6 +168,8 @@
 		292197D8209CD152004A5011 /* OptionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsTableViewCell.xib; sourceTree = "<group>"; };
 		292197DB209CD19D004A5011 /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		292197DD209CD295004A5011 /* OptionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionType.swift; sourceTree = "<group>"; };
+		29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinistersIssueActionTableViewCell.swift; sourceTree = "<group>"; };
+		29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinistersIssueActionTableViewCell.xib; sourceTree = "<group>"; };
 		2926D96D20754E52006250D3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestockIdentifierType.swift; sourceTree = "<group>"; };
 		292E65202076AAC6003D4AF0 /* ClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientType.swift; sourceTree = "<group>"; };
@@ -200,6 +210,12 @@
 		2974270D2044949B0033BC47 /* LiveStockID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockID.swift; sourceTree = "<group>"; };
 		297427102044969A0033BC47 /* LiveStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockTableViewCell.swift; sourceTree = "<group>"; };
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
+		299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssuesTableViewCell.swift; sourceTree = "<group>"; };
+		299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinisterIssuesTableViewCell.xib; sourceTree = "<group>"; };
+		299491EF20B62763005FCF94 /* MinisterIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssue.swift; sourceTree = "<group>"; };
+		299491F120B628F6005FCF94 /* MinisterIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueTableViewCell.swift; sourceTree = "<group>"; };
+		299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinisterIssueTableViewCell.xib; sourceTree = "<group>"; };
+		299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueAction.swift; sourceTree = "<group>"; };
 		299BD277207BF488004B1D07 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		29A52744205B301400C871F7 /* SelectionPopup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectionPopup.storyboard; sourceTree = "<group>"; };
 		29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpViewController.swift; sourceTree = "<group>"; };
@@ -380,6 +396,8 @@
 				2920F82C2034BFCA0090E7B4 /* RUP.swift */,
 				29E0D924203F449700193FA0 /* RangeUsageYear.swift */,
 				29E0D92C203F5F6F00193FA0 /* Pasture.swift */,
+				299491EF20B62763005FCF94 /* MinisterIssue.swift */,
+				299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */,
 				29E0D936203F65FD00193FA0 /* PlantCommunity.swift */,
 				2926D96D20754E52006250D3 /* Client.swift */,
 				2962B0E9204F167C00F71B9C /* Schedule.swift */,
@@ -500,6 +518,12 @@
 				29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */,
 				292197D7209CD152004A5011 /* OptionsTableViewCell.swift */,
 				292197D8209CD152004A5011 /* OptionsTableViewCell.xib */,
+				299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */,
+				299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */,
+				299491F120B628F6005FCF94 /* MinisterIssueTableViewCell.swift */,
+				299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */,
+				29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */,
+				29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -617,6 +641,8 @@
 				29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */,
 				29EA02992069565C0076403B /* checked_done_.json in Resources */,
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
+				29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */,
+				299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */,
 				29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */,
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
@@ -639,6 +665,7 @@
 				29400580208FCD5700AA1BDC /* PlanInformationTableViewCell.xib in Resources */,
 				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
+				299491EE20B62588005FCF94 /* MinisterIssuesTableViewCell.xib in Resources */,
 				29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */,
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				29B5F047208E958D003D996D /* sync_icon.json in Resources */,
@@ -730,6 +757,7 @@
 			files = (
 				2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */,
 				29A52750205B322700C871F7 /* selectionPopUpTableViewCell.swift in Sources */,
+				299491F020B62763005FCF94 /* MinisterIssue.swift in Sources */,
 				29FB97C1204DCB5B005297B9 /* AgeementHolderType.swift in Sources */,
 				2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */,
 				292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */,
@@ -746,6 +774,7 @@
 				292E65252076AB12003D4AF0 /* AgreementExemptionStatus.swift in Sources */,
 				2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */,
 				2962320920472D7500F1CEBF /* Date.swift in Sources */,
+				299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */,
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				292197D9209CD152004A5011 /* OptionsTableViewCell.swift in Sources */,
@@ -776,6 +805,7 @@
 				291CF8342098EBED00B0BCDD /* DatePickerViewController.swift in Sources */,
 				292197D0209CD037004A5011 /* OptionsViewController.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
+				299491F320B628F6005FCF94 /* MinisterIssueTableViewCell.swift in Sources */,
 				290A531E2053503A005F5019 /* APIManager.swift in Sources */,
 				29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */,
 				29EA02A320697E6F0076403B /* Agreement.swift in Sources */,
@@ -803,11 +833,13 @@
 				29EADF7E206039BC0087593F /* AgreemntType.swift in Sources */,
 				294005862092726D00AA1BDC /* Theme.swift in Sources */,
 				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
+				29230FF220BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift in Sources */,
 				2932BB51208567D900579A57 /* MyraObject.swift in Sources */,
 				2932BB57208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift in Sources */,
 				2920F8352034C8540090E7B4 /* View.swift in Sources */,
 				29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
+				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
 				2920F8332034C8380090E7B4 /* Color.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
 				292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */,

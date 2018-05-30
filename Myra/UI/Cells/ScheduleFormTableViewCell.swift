@@ -22,7 +22,7 @@ enum ScheduleSort {
 class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
-    static let cellHeight = 47.0
+    static let cellHeight = 55.0
 
     // Mark: Variables
     var mode: FormMode = .View
