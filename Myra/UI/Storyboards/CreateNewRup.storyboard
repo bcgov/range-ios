@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -155,7 +155,7 @@
                                 <rect key="frame" x="10" y="105" width="265" height="653"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-3T-mac">
-                                        <rect key="frame" x="5" y="20" width="255" height="271"/>
+                                        <rect key="frame" x="5" y="20" width="255" height="340"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-Xr-NcD" userLabel="side menu item">
                                                 <rect key="frame" x="0.0" y="0.0" width="255" height="64"/>
@@ -330,8 +330,65 @@
                                                     <constraint firstAttribute="trailing" secondItem="wmk-yH-6yx" secondAttribute="trailing" id="lyH-dM-rBU"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rec-4X-Frs" userLabel="side menu item">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPY-Q2-W6j" userLabel="side menu item">
                                                 <rect key="frame" x="0.0" y="207" width="255" height="64"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT4-ue-Lmm" userLabel="bottom separator">
+                                                        <rect key="frame" x="0.0" y="54" width="255" height="2"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="2" id="uHA-Sx-UgC"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Pastures" translatesAutoresizingMaskIntoConstraints="NO" id="D0w-VK-eED" userLabel="box">
+                                                        <rect key="frame" x="4" y="20" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="qhJ-EG-ABI"/>
+                                                            <constraint firstAttribute="width" secondItem="D0w-VK-eED" secondAttribute="height" multiplier="1:1" id="ylB-aH-Ea7"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minister's Issues and Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64o-UP-xz9">
+                                                        <rect key="frame" x="33" y="23" width="217" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvk-A4-RXm">
+                                                        <rect key="frame" x="0.0" y="0.0" width="255" height="54"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="ScheduleSectionButton"/>
+                                                        <connections>
+                                                            <action selector="scheduleAction:" destination="q34-99-p1g" eventType="touchUpInside" id="Vjt-F9-Blu"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISJ-BE-mIx">
+                                                        <rect key="frame" x="0.0" y="4" width="2" height="46"/>
+                                                        <color key="backgroundColor" red="0.91764705879999997" green="0.68627450980000004" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="2" id="CH6-cO-Z8s"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="ISJ-BE-mIx" firstAttribute="top" secondItem="fPY-Q2-W6j" secondAttribute="top" constant="4" id="24Z-er-eim"/>
+                                                    <constraint firstItem="64o-UP-xz9" firstAttribute="leading" secondItem="D0w-VK-eED" secondAttribute="trailing" constant="5" id="AUl-7F-0Va"/>
+                                                    <constraint firstItem="D0w-VK-eED" firstAttribute="centerY" secondItem="fPY-Q2-W6j" secondAttribute="centerY" id="C5H-nF-Rh1"/>
+                                                    <constraint firstItem="ISJ-BE-mIx" firstAttribute="leading" secondItem="fPY-Q2-W6j" secondAttribute="leading" id="EhX-RO-t7y"/>
+                                                    <constraint firstItem="tT4-ue-Lmm" firstAttribute="leading" secondItem="fPY-Q2-W6j" secondAttribute="leading" id="JYa-1e-JTZ"/>
+                                                    <constraint firstItem="D0w-VK-eED" firstAttribute="leading" secondItem="ISJ-BE-mIx" secondAttribute="trailing" constant="2" id="LxE-G2-6gQ"/>
+                                                    <constraint firstItem="tT4-ue-Lmm" firstAttribute="top" secondItem="ISJ-BE-mIx" secondAttribute="bottom" constant="4" id="eQ8-gg-LDs"/>
+                                                    <constraint firstItem="qvk-A4-RXm" firstAttribute="top" secondItem="fPY-Q2-W6j" secondAttribute="top" id="gms-h2-szr"/>
+                                                    <constraint firstItem="qvk-A4-RXm" firstAttribute="leading" secondItem="fPY-Q2-W6j" secondAttribute="leading" id="hiT-Po-k8s"/>
+                                                    <constraint firstItem="64o-UP-xz9" firstAttribute="centerY" secondItem="fPY-Q2-W6j" secondAttribute="centerY" id="jqA-fX-1f6"/>
+                                                    <constraint firstAttribute="bottom" secondItem="tT4-ue-Lmm" secondAttribute="bottom" constant="8" id="mJd-Jb-coq"/>
+                                                    <constraint firstItem="tT4-ue-Lmm" firstAttribute="top" secondItem="qvk-A4-RXm" secondAttribute="bottom" id="noL-k9-TbZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="tT4-ue-Lmm" secondAttribute="trailing" id="s5Q-IR-3HM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="64o-UP-xz9" secondAttribute="trailing" constant="5" id="th8-Ne-dby"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qvk-A4-RXm" secondAttribute="trailing" id="vi3-xu-4Uq"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rec-4X-Frs" userLabel="side menu item">
+                                                <rect key="frame" x="0.0" y="276" width="255" height="64"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxChecked" translatesAutoresizingMaskIntoConstraints="NO" id="OZ4-VG-b7q" userLabel="box">
                                                         <rect key="frame" x="59" y="20" width="24" height="24"/>
@@ -419,6 +476,12 @@
                         <outlet property="menuContainer" destination="BNq-BJ-ffb" id="vbz-ps-hB7"/>
                         <outlet property="menuLeading" destination="9fa-7f-Hru" id="tYH-Y5-xeN"/>
                         <outlet property="menuWidth" destination="sRQ-hC-noE" id="TyW-Rr-gsP"/>
+                        <outlet property="ministersIssuesBox" destination="fPY-Q2-W6j" id="dFh-Ko-QpF"/>
+                        <outlet property="ministersIssuesBoxImage" destination="D0w-VK-eED" id="xFL-yx-AgU"/>
+                        <outlet property="ministersIssuesBoxLeft" destination="ISJ-BE-mIx" id="rtm-Cl-mLX"/>
+                        <outlet property="ministersIssuesButton" destination="qvk-A4-RXm" id="xtF-wo-eP9"/>
+                        <outlet property="ministersIssuesLabel" destination="64o-UP-xz9" id="3Cw-qx-R3V"/>
+                        <outlet property="ministersIssuesLowerBar" destination="tT4-ue-Lmm" id="a5q-PQ-ajG"/>
                         <outlet property="pastureBoxLeft" destination="FIV-14-zRo" id="DhM-EP-e3g"/>
                         <outlet property="pasturesBox" destination="cOw-MZ-UPs" id="8jR-tO-uCr"/>
                         <outlet property="pasturesBoxImage" destination="Oxp-dt-sOe" id="AvY-lV-gYy"/>

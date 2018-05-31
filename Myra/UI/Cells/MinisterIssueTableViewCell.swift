@@ -12,6 +12,9 @@ import RealmSwift
 
 class MinisterIssueTableViewCell: BaseFormCell {
 
+    // MARK: Contants
+    let actionCellHeight: CGFloat = 158
+
     // MARK: Variables
     var issue: MinisterIssue?
     var parentCell: MinisterIssuesTableViewCell?
@@ -37,6 +40,10 @@ class MinisterIssueTableViewCell: BaseFormCell {
 
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var actionsHeader: UILabel!
+
+    @IBOutlet weak var addPasturesButton: UIButton!
+    @IBOutlet weak var pasturesButton: UIButton!
+    @IBOutlet weak var optionsButton: UIButton!
 
     // MARK: Outlet actions
 
@@ -88,7 +95,13 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
         grandParent.showPopUp(vc: lookup, on: sender)
     }
-    
+
+    @IBAction func addActionAction(_ sender: UIButton) {
+        guard let i = self.issue else {return}
+        i.addAction()
+        updateTableHeight()
+    }
+
     // MARK: Functions
     // MARK: Setup
     func setup(issue: MinisterIssue, mode: FormMode, rup: RUP, parent: MinisterIssuesTableViewCell) {
@@ -99,8 +112,10 @@ class MinisterIssueTableViewCell: BaseFormCell {
         detailsValue.delegate = self
         objectiveValue.delegate = self
         descriptionValue.delegate = self
+        setUpTable()
         style()
         autofill()
+        tableHeight.constant = computeTableHeight()
     }
 
     func autofill() {
@@ -116,20 +131,57 @@ class MinisterIssueTableViewCell: BaseFormCell {
         descriptionValue.text = i.desc
     }
 
+    func computeTableHeight() -> CGFloat {
+        guard let i = self.issue else {return 0}
+        return actionCellHeight * CGFloat(i.actions.count)
+    }
+
+    func updateTableHeight() {
+        guard let parent = self.parentCell else {return}
+        self.tableView.reloadData()
+        tableView.layoutIfNeeded()
+        tableHeight.constant = computeTableHeight()
+        parent.updateTableHeight()
+    }
+
     // MARK: Style
     func style() {
         styleContainer(view: containerView)
         styleSubHeader(label: issueTypeHeader)
         styleSubHeader(label: issueTypeValue)
-        styleFillButton(button: addButton)
         styleStaticField(field: pastureValue, header: pastureHeader)
-        styleTextviewInputField(field: detailsValue, header: detailsHeader)
-        styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
-        styleTextviewInputField(field: descriptionValue, header: descriptionHeader)
-        styleHeader(label: actionsHeader)
+         styleSubHeader(label: actionsHeader)
+        switch self.mode {
+        case .View:
+            optionsButton.alpha = 0
+            pasturesButton.isUserInteractionEnabled = false
+            addButton.alpha = 0
+            addPasturesButton.alpha = 0
+            styleTextviewInputFieldReadOnly(field: detailsValue, header: detailsHeader)
+            styleTextviewInputFieldReadOnly(field: objectiveValue, header: objectiveHeader)
+            styleTextviewInputFieldReadOnly(field: descriptionValue, header: descriptionHeader)
+        case .Edit:
+            styleFillButton(button: addPasturesButton)
+            styleFillButton(button: addButton)
+            styleTextviewInputField(field: detailsValue, header: detailsHeader)
+            styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
+            styleTextviewInputField(field: descriptionValue, header: descriptionHeader)
+        }
     }
 
     // MARK: Utilities
+    func deleteAction(action: MinisterIssueAction) {
+        guard let i = self.issue else {return}
+        RealmRequests.deleteObject(action)
+        do {
+            let realm = try Realm()
+            let anIssue = realm.objects(MinisterIssue.self).filter("localId = %@", i.localId).first!
+            self.issue = anIssue
+        } catch _ {
+            fatalError()
+        }
+        updateTableHeight()
+    }
     func duplicate() {
 
     }
@@ -176,11 +228,15 @@ extension MinisterIssueTableViewCell: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let i = issue else { return UITableViewCell()}
         let cell = getIssueCell(indexPath: indexPath)
-        cell.setup(action: i.actions[indexPath.row],mode: mode, rup: rup)
+        cell.setup(action: i.actions[indexPath.row], parent: self, mode: mode, rup: rup)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rup.ministerIssues.count
+        if let i = issue {
+            return i.actions.count
+        } else {
+            return 0
+        }
     }
 }

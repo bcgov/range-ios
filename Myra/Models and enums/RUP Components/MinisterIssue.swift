@@ -95,4 +95,15 @@ class MinisterIssue: Object, MyraObject {
             fatalError()
         }
     }
+
+    func addAction() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.actions.append(MinisterIssueAction())
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
 }

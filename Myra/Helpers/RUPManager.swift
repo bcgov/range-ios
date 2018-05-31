@@ -740,7 +740,7 @@
 
  }
 
- // MARK: Minister's Issues
+ // MARK: Minister's Issues and actions
  extension RUPManager {
     func removeIssue(issue: MinisterIssue) {
         for action in issue.actions {

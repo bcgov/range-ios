@@ -87,9 +87,8 @@ class PasturesTableViewCell: BaseFormCell {
     }
 
     func computePastureHeight(pasture: Pasture) -> CGFloat {
-        // 395 is the right number but clearly needed more padding
 //        let staticHeight: CGFloat = 395
-        let staticHeight: CGFloat = 410
+        let staticHeight: CGFloat = 385
         let pastureHeight: CGFloat = 105
         return (staticHeight + pastureHeight * CGFloat(pasture.plantCommunities.count))
     }

@@ -25,7 +25,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
 
-    // misleading name. this adds an issue. its the adding action of an issue.
+    // misleading name. this adds an issue. its the action of adding an issue.
     @IBAction func addAction(_ sender: UIButton) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
@@ -54,43 +54,6 @@ class MinisterIssuesTableViewCell: BaseFormCell {
             }
         }
         parent.showPopUp(vc: lookup, on: sender)
-
-        /*
-        let newIssue = MinisterIssue()
-        do {
-            let realm = try Realm()
-            let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
-            try realm.write {
-                aRup.ministerIssues.append(newIssue)
-                realm.add(newIssue)
-            }
-            self.rup = aRup
-        } catch _ {
-            fatalError()
-        }
-        self.updateTableHeight()
-        */
-        /*
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.promptInput(title: "Type", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
-            if done {
-                let newPasture = Pasture()
-                newPasture.name = name
-                do {
-                    let realm = try Realm()
-                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
-                    try realm.write {
-                        aRup.pastures.append(newPasture)
-                        realm.add(newPasture)
-                    }
-                    self.rup = aRup
-                } catch _ {
-                    fatalError()
-                }
-                self.updateTableHeight()
-            }
-        }
-        */
     }
 
     // MARK: Setup
@@ -111,7 +74,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         tableView.layoutIfNeeded()
         tableHeight.constant = computeHeight()
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTo(indexPath: parent.minsterActionsIndexPath)
+        parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
     }
 
     func computeHeight() -> CGFloat {
@@ -131,19 +94,21 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         /*
          This module has Action cells
         */
-
-//        let staticHeight: CGFloat = 410
-        let staticHeight: CGFloat = 660
-        let actionHeight: CGFloat = 105
+        let staticHeight: CGFloat = 670
+        let actionHeight: CGFloat = 158
         return (staticHeight + (actionHeight * CGFloat(issue.actions.count)))
-//        return (staticHeight + contentHeight)
     }
 
     // MARK: Style
     func style() {
         styleHeader(label: titleLabel, divider: divider)
-        styleHollowButton(button: addButton)
         styleSubHeader(label: subtitle)
+        switch self.mode {
+        case .View:
+            self.addButton.alpha = 0
+        case .Edit:
+            styleHollowButton(button: addButton)
+        }
     }
     
 }

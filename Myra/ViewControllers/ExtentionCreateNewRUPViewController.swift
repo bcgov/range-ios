@@ -42,6 +42,7 @@ extension CreateNewRUPViewController {
         styleHollowButton(button: popupAddButton)
     }
 
+    // MARK: Side Menu
     func setMenuSize() {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
             self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
@@ -66,12 +67,7 @@ extension CreateNewRUPViewController {
         self.styleMenuLowerBars()
     }
 
-    func styleMenuLowerBars() {
-        self.basicInfoLowerBar.alpha = 0.1
-        self.pasturesLowerBar.alpha = 0.1
-        self.scheduleLowerBar.alpha = 0.1
-    }
-
+    // MARK: Submit Button
     func styleMenuSubmitButtonOn() {
         self.reviewAndSubmitLabel.text = "Review and Submit"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
@@ -92,6 +88,15 @@ extension CreateNewRUPViewController {
         self.submitButtonContainer.backgroundColor = Colors.primary
         self.submitButtonContainer.layer.borderWidth = 1
         self.submitButtonContainer.alpha = 0.5
+    }
+
+    // MARK: Menu Items
+
+    func styleMenuLowerBars() {
+        self.basicInfoLowerBar.alpha = 0.1
+        self.pasturesLowerBar.alpha = 0.1
+        self.scheduleLowerBar.alpha = 0.1
+        self.ministersIssuesLowerBar.alpha = 0.1
     }
 
     func menuBasicInfoOn() {
@@ -115,16 +120,30 @@ extension CreateNewRUPViewController {
         scheduleBoxImage.image = #imageLiteral(resourceName: "icon_Schedule")
     }
 
+    func menuMinistersIssuesOn() {
+        menuSectionsOff()
+        ministersIssuesBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: ministersIssuesLabel)
+        ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation")
+    }
+
     func menuSectionsOff() {
         menuSectionOff(label: basicInfoLabel)
         basicInfoBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation_off")
         basicInfoBoxLeft.backgroundColor = UIColor.clear
+
         menuSectionOff(label: pasturesLabel)
         pasturesBoxImage.image = #imageLiteral(resourceName: "icon_Pastures_off")
         pastureBoxLeft.backgroundColor = UIColor.clear
+
         menuSectionOff(label: scheduleLabel)
         scheduleBoxImage.image = #imageLiteral(resourceName: "icon_Schedule_off")
         scheduleBoxLeft.backgroundColor = UIColor.clear
+
+        menuSectionOff(label: ministersIssuesLabel)
+        ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation_off")
+        ministersIssuesBoxLeft.backgroundColor = UIColor.clear
+
     }
 
     // MARK: Animations
