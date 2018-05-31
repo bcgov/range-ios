@@ -16,7 +16,7 @@ class PastureTableViewCell: BaseFormCell {
     let plantCommunityCellHeight = 100
 
     // MARK: Variables
-    var pastures: PasturesTableViewCell?
+    var parentCell: PasturesTableViewCell?
     var pasture: Pasture?
     var loaded: Bool = false
 
@@ -97,7 +97,7 @@ class PastureTableViewCell: BaseFormCell {
             fatalError()
         }
 
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
     }
 
     @IBAction func landDeductionChanged(_ sender: UITextField) {
@@ -117,7 +117,7 @@ class PastureTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
     }
 
     @IBAction func graceDaysChanged(_ sender: UITextField) {
@@ -135,11 +135,11 @@ class PastureTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (pastures?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
-        guard let past = self.pasture, let parent = pastures else {return}
+        guard let past = self.pasture, let parent = parentCell else {return}
         // reference to parent's parent
         /* note:
          technically if you do self.parent you get the same result.
@@ -170,13 +170,13 @@ class PastureTableViewCell: BaseFormCell {
         }
 
         // display on parent
-        grandParent .showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+        grandParent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
 
     }
 
     // MARK: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
-        self.pastures = pastures
+        self.parentCell = pastures
         self.mode = mode
         self.pasture = pasture
         self.pastureNameLabel.text = pasture.name
@@ -222,13 +222,13 @@ class PastureTableViewCell: BaseFormCell {
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
         tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + padding)
-        if let parent = pastures {
+        if let parent = parentCell {
             parent.updateTableHeight()
         }
     }
 
     func duplicate() {
-        guard let past = self.pasture, let parent = pastures else {return}
+        guard let past = self.pasture, let parent = parentCell else {return}
         let grandParent = parent.parentViewController as! CreateNewRUPViewController
         grandParent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
             if done {

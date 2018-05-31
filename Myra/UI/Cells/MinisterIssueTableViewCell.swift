@@ -14,6 +14,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Variables
     var issue: MinisterIssue?
+    var parentCell: MinisterIssuesTableViewCell?
 
     // MARK: Outlets
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
@@ -38,6 +39,28 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var actionsHeader: UILabel!
 
     // MARK: Outlet actions
+
+    @IBAction func optionsAction(_ sender: UIButton) {
+        guard let i = self.issue, let parent = self.parentCell else {return}
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        let vm = ViewManager()
+        let optionsVC = vm.options
+        let options: [Option] = [Option(type: .Delete, display: "Delete"), Option(type: .Delete, display: "Copy")]
+        optionsVC.setup(options: options) { (selected) in
+            optionsVC.dismiss(animated: true, completion: nil)
+            switch selected.type {
+            case .Delete:
+                grandParent.showAlert(title: "Are you sure?", description: "Would you like to remove this issue and all actions associated to it?", yesButtonTapped: {
+                    RUPManager.shared.removeIssue(issue: i)
+                    parent.updateTableHeight()
+                }, noButtonTapped: {})
+            case .Copy:
+                self.duplicate()
+            }
+        }
+
+        grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+    }
 
     @IBAction func pasturesAction(_ sender: UIButton) {
         guard let i = issue else {return}
@@ -68,15 +91,29 @@ class MinisterIssueTableViewCell: BaseFormCell {
     
     // MARK: Functions
     // MARK: Setup
-    func setup(issue: MinisterIssue, mode: FormMode, rup: RUP) {
+    func setup(issue: MinisterIssue, mode: FormMode, rup: RUP, parent: MinisterIssuesTableViewCell) {
         self.rup = rup
         self.mode = mode
         self.issue = issue
+        self.parentCell = parent
         detailsValue.delegate = self
         objectiveValue.delegate = self
         descriptionValue.delegate = self
         style()
         autofill()
+    }
+
+    func autofill() {
+        guard let i = self.issue else {return}
+        var pastures = ""
+        for pasture in i.pastures {
+            pastures = "\(pastures)\(pasture.name), "
+        }
+        pastureValue.text = pastures
+        issueTypeValue.text = i.issueType
+        detailsValue.text = i.details
+        objectiveValue.text = i.objective
+        descriptionValue.text = i.desc
     }
 
     // MARK: Style
@@ -92,18 +129,9 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleHeader(label: actionsHeader)
     }
 
-    // MARK:
-    func autofill() {
-        guard let i = self.issue else {return}
-        var pastures = ""
-        for pasture in i.pastures {
-            pastures = "\(pastures)\(pasture.name), "
-        }
-        pastureValue.text = pastures
-        issueTypeValue.text = i.issueType
-        detailsValue.text = i.details
-        objectiveValue.text = i.objective
-        descriptionValue.text = i.desc
+    // MARK: Utilities
+    func duplicate() {
+
     }
 }
 

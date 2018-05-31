@@ -85,7 +85,7 @@ class SelectionPopUpViewController: UIViewController, Theme {
     func getEstimatedHeight() -> Int {
         // top and bottom padding in cell
         let padding = 20
-        if objects.count == 0 {return 20}
+        if objects.count == 0 {return padding}
         var total = (objects.count * Int(cellHeight)) + (objects.count * padding)
         if multiSelect {
             // add button height

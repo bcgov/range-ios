@@ -740,6 +740,17 @@
 
  }
 
+ // MARK: Minister's Issues
+ extension RUPManager {
+    func removeIssue(issue: MinisterIssue) {
+        for action in issue.actions {
+            RealmRequests.deleteObject(action)
+        }
+        RealmRequests.deleteObject(issue)
+    }
+ }
+
+
  // MARK: Reference Data
  extension RUPManager {
     func getAllReferenceData() -> [Object] {

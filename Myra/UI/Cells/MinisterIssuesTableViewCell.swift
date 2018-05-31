@@ -168,7 +168,7 @@ extension MinisterIssuesTableViewCell: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getIssueCell(indexPath: indexPath)
-        cell.setup(issue: rup.ministerIssues[indexPath.row],mode: mode, rup: rup)
+        cell.setup(issue: rup.ministerIssues[indexPath.row],mode: mode, rup: rup, parent: self)
         return cell
     }
 
