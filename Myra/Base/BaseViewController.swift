@@ -117,7 +117,7 @@ class BaseViewController: UIViewController, Theme {
         popover?.backgroundColor = arrowColor ?? UIColor.white
         popover?.permittedArrowDirections = .any
         popover?.sourceView = inView
-        popover?.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.midY, width: 0, height: 0)
+        popover?.sourceRect = CGRect(x: on.frame.midX, y: on.frame.midY, width: 0, height: 0)
         self.currentPopOver = vc
         present(vc, animated: true, completion: nil)
     }
