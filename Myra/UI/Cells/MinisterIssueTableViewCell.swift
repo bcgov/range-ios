@@ -51,7 +51,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let optionsVC = vm.options
-        let options: [Option] = [Option(type: .Delete, display: "Delete"), Option(type: .Delete, display: "Copy")]
+        let options: [Option] = [Option(type: .Delete, display: "Delete")]
         optionsVC.setup(options: options) { (selected) in
             optionsVC.dismiss(animated: true, completion: nil)
             switch selected.type {
