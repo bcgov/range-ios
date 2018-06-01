@@ -68,8 +68,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
         grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
-
-
     @IBAction func pasturesAction(_ sender: UIButton) {
         guard let i = issue else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController

@@ -69,9 +69,11 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         self.tableView.reloadData()
         tableView.layoutIfNeeded()
         tableHeight.constant = computeHeight()
+        let parent = self.parentViewController as! CreateNewRUPViewController
         if scrollToBottom {
-            let parent = self.parentViewController as! CreateNewRUPViewController
             parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
+        } else {
+            parent.realodAndGoTo(indexPath: parent.minsterActionsIndexPath)
         }
     }
 
