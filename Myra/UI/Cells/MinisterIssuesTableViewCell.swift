@@ -30,9 +30,8 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        let option1 = SelectionPopUpObject(display: "first thing", value: "first thing")
-        let option2 = SelectionPopUpObject(display: "second thing", value: "second thing")
-        lookup.setup(objects: [option1, option2]) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+            parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
                 newIssue.issueType = option.display
@@ -47,10 +46,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                 } catch _ {
                     fatalError()
                 }
-                parent.dismissPopOver()
-                self.updateTableHeight()
-            } else {
-                parent.dismissPopOver()
+                self.updateTableHeight(scrollToBottom: true)
             }
         }
         parent.showPopUp(vc: lookup, on: sender)
@@ -69,12 +65,14 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     }
 
     // MARK: Functions
-    func updateTableHeight() {
+    func updateTableHeight(scrollToBottom: Bool) {
         self.tableView.reloadData()
         tableView.layoutIfNeeded()
         tableHeight.constant = computeHeight()
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
+        if scrollToBottom {
+            let parent = self.parentViewController as! CreateNewRUPViewController
+            parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
+        }
     }
 
     func computeHeight() -> CGFloat {

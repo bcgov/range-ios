@@ -109,6 +109,19 @@ class BaseViewController: UIViewController, Theme {
         present(vc, animated: true, completion: nil)
     }
 
+    func showPopOver(on: CALayer, inView: UIView, vc: UIViewController, height: Int, width: Int, arrowColor: UIColor?) {
+        self.view.endEditing(true)
+        vc.modalPresentationStyle = .popover
+        vc.preferredContentSize = CGSize(width: width, height: height)
+        let popover = vc.popoverPresentationController
+        popover?.backgroundColor = arrowColor ?? UIColor.white
+        popover?.permittedArrowDirections = .any
+        popover?.sourceView = inView
+        popover?.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.midY, width: 0, height: 0)
+        self.currentPopOver = vc
+        present(vc, animated: true, completion: nil)
+    }
+
     // dismisses the last popover added
     func dismissPopOver() {
         if let popOver = self.currentPopOver {
@@ -130,6 +143,15 @@ class BaseViewController: UIViewController, Theme {
             popOverHeight =  vc.getEstimatedHeight()
         }
         showPopOver(on: on, vc: vc, height: popOverHeight, width: popOverWidth, arrowColor: nil)
+    }
+
+    func showPopUp(vc: SelectionPopUpViewController, on: CALayer, inView: UIView) {
+        let popOverWidth = 200
+        var popOverHeight = 300
+        if vc.canDisplayFullContentIn(height: popOverHeight) {
+            popOverHeight =  vc.getEstimatedHeight()
+        }
+        showPopOver(on: on, inView: inView, vc: vc, height: popOverHeight, width: popOverWidth, arrowColor: nil)
     }
 }
 

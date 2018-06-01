@@ -46,7 +46,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var optionsButton: UIButton!
 
     // MARK: Outlet actions
-
     @IBAction func optionsAction(_ sender: UIButton) {
         guard let i = self.issue, let parent = self.parentCell else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController
@@ -59,7 +58,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             case .Delete:
                 grandParent.showAlert(title: "Are you sure?", description: "Would you like to remove this issue and all actions associated to it?", yesButtonTapped: {
                     RUPManager.shared.removeIssue(issue: i)
-                    parent.updateTableHeight()
+                    parent.updateTableHeight(scrollToBottom: false)
                 }, noButtonTapped: {})
             case .Copy:
                 self.duplicate()
@@ -68,6 +67,8 @@ class MinisterIssueTableViewCell: BaseFormCell {
 
         grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
+
+
 
     @IBAction func pasturesAction(_ sender: UIButton) {
         guard let i = issue else {return}
@@ -99,7 +100,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBAction func addActionAction(_ sender: UIButton) {
         guard let i = self.issue else {return}
         i.addAction()
-        updateTableHeight()
+        updateTableHeight(scrollToBottom: false)
     }
 
     // MARK: Functions
@@ -116,14 +117,45 @@ class MinisterIssueTableViewCell: BaseFormCell {
         style()
         autofill()
         tableHeight.constant = computeTableHeight()
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(changeIssueTypeAction))
+        issueTypeValue.addGestureRecognizer(tap)
+    }
+
+    @objc func changeIssueTypeAction(sender:UITapGestureRecognizer) {
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        let vm = ViewManager()
+        let lookup = vm.lookup
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+            grandParent.dismissPopOver()
+            if selected, let option = selection {
+                if let i = self.issue {
+                    i.set(issueType: option.display)
+                    self.autofill()
+                }
+                self.updateTableHeight(scrollToBottom: false)
+            }
+        }
+        grandParent.showPopUp(vc: lookup, on: issueTypeValue.layer, inView: containerView)
     }
 
     func autofill() {
         guard let i = self.issue else {return}
+        // Grab pastures and style string
         var pastures = ""
         for pasture in i.pastures {
             pastures = "\(pastures)\(pasture.name), "
         }
+        // Remove last space and comma
+        pastures = pastures.trimmingCharacters(in: .whitespaces)
+        if pastures.count > 1 {
+            pastures = String(pastures.dropLast())
+        }
+        pastures = pastures.replacingLastOccurrenceOfString(",", with: ", and")
+        if pastures.count > 1 {
+            pastures = "\(pastures)."
+        }
+        // Fill values
         pastureValue.text = pastures
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
@@ -136,12 +168,12 @@ class MinisterIssueTableViewCell: BaseFormCell {
         return actionCellHeight * CGFloat(i.actions.count)
     }
 
-    func updateTableHeight() {
+    func updateTableHeight(scrollToBottom: Bool) {
         guard let parent = self.parentCell else {return}
         self.tableView.reloadData()
         tableView.layoutIfNeeded()
         tableHeight.constant = computeTableHeight()
-        parent.updateTableHeight()
+        parent.updateTableHeight(scrollToBottom: scrollToBottom)
     }
 
     // MARK: Style
@@ -150,7 +182,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleSubHeader(label: issueTypeHeader)
         styleSubHeader(label: issueTypeValue)
         styleStaticField(field: pastureValue, header: pastureHeader)
-         styleSubHeader(label: actionsHeader)
+        styleSubHeader(label: actionsHeader)
         switch self.mode {
         case .View:
             optionsButton.alpha = 0
@@ -163,6 +195,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         case .Edit:
             styleFillButton(button: addPasturesButton)
             styleFillButton(button: addButton)
+            makeCircle(button: addPasturesButton)
             styleTextviewInputField(field: detailsValue, header: detailsHeader)
             styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
             styleTextviewInputField(field: descriptionValue, header: descriptionHeader)
@@ -180,7 +213,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        updateTableHeight()
+        updateTableHeight(scrollToBottom: false)
     }
     func duplicate() {
 

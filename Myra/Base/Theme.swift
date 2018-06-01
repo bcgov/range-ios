@@ -161,6 +161,14 @@ extension Theme {
         view.layer.cornerRadius = view.frame.size.height/2
     }
 
+    func makeCircle(button: UIButton) {
+        makeCircle(layer: button.layer, height: button.bounds.height)
+    }
+
+    func makeCircle(layer: CALayer, height: CGFloat) {
+        layer.cornerRadius = height/2
+    }
+
     func styleContainer(view: UIView) {
         roundCorners(layer: view.layer)
         addShadow(to: view.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight())
