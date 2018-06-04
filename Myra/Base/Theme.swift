@@ -313,7 +313,7 @@ extension Theme {
     }
 
     func addShadow(to layer: CALayer, opacity: Float, height: Int) {
-        layer.borderColor = defaultShadowColor()
+//        layer.borderColor = defaultShadowColor()
         layer.shadowOffset = CGSize(width: 0, height: height)
         layer.shadowColor = defaultShadowColor()
         layer.shadowOpacity = opacity

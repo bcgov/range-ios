@@ -12,9 +12,13 @@ class SelectionPopUpObject {
     var display: String = ""
     var value: String = ""
 
-    init(display: String, value: String) {
+    init(display: String, value: String? = nil) {
+        if let v = value {
+            self.value = v
+        } else {
+            self.value = display
+        }
         self.display = display
-        self.value = value
     }
 }
 

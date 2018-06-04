@@ -97,8 +97,17 @@ class MinisterIssueTableViewCell: BaseFormCell {
 
     @IBAction func addActionAction(_ sender: UIButton) {
         guard let i = self.issue else {return}
-        i.addAction()
-        updateTableHeight(scrollToBottom: false)
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        let vm = ViewManager()
+        let lookup = vm.lookup
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions()) { (selected, selection) in
+            parent.dismissPopOver()
+            if selected, let option = selection {
+                i.addAction(type: option.display)
+                self.updateTableHeight(scrollToBottom: false)
+            }
+        }
+        parent.showPopUp(vc: lookup, on: sender)
     }
 
     // MARK: Functions
@@ -194,6 +203,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             styleFillButton(button: addPasturesButton)
             styleFillButton(button: addButton)
             makeCircle(button: addPasturesButton)
+            addShadow(layer: addPasturesButton.layer)
             styleTextviewInputField(field: detailsValue, header: detailsHeader)
             styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
             styleTextviewInputField(field: descriptionValue, header: descriptionHeader)

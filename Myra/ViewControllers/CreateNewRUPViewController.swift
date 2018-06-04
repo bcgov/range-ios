@@ -615,6 +615,8 @@ extension CreateNewRUPViewController {
         self.popupCompletion = completion
         self.popupTitle.textColor = UIColor.black
         self.openPopup()
+        
+        self.popupTextField.becomeFirstResponder()
     }
 }
 

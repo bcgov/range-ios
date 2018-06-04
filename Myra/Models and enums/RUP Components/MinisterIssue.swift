@@ -96,11 +96,13 @@ class MinisterIssue: Object, MyraObject {
         }
     }
 
-    func addAction() {
+    func addAction(type: String) {
+        let new = MinisterIssueAction()
+        new.header = type
         do {
             let realm = try Realm()
             try realm.write {
-                self.actions.append(MinisterIssueAction())
+                self.actions.append(new)
             }
         } catch _ {
             fatalError()

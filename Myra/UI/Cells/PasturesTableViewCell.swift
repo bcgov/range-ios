@@ -29,6 +29,7 @@ class PasturesTableViewCell: BaseFormCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
+        
         parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
             if done {
                 let newPasture = Pasture()

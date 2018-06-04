@@ -10,12 +10,14 @@ import UIKit
 import IQKeyboardManagerSwift
 import Fabric
 import Crashlytics
+import Realm
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var realmNotificationToken: NotificationToken?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -27,6 +29,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         Fabric.with([Crashlytics.self])
+
+        do {
+            let realm = try Realm()
+            self.realmNotificationToken = realm.observe { notification, realm in
+                print("change observed")
+                let outbox = RUPManager.shared.getOutboxRups()
+                if outbox.count > 0 {
+                    print("sync NOW!")
+                }
+            }
+        } catch _ {
+            fatalError()
+        }
+
+
         return true
     }
 
