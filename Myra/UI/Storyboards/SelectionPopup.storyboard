@@ -19,11 +19,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fzb-v5-igl">
-                                <rect key="frame" x="0.0" y="28" width="375" height="604"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="612"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kg5-FW-Bej">
-                                <rect key="frame" x="8" y="28" width="359" height="0.0"/>
+                                <rect key="frame" x="8" y="20" width="359" height="0.0"/>
                                 <accessibility key="accessibilityConfiguration" identifier="popUpCancelButton"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="yyf-qx-QEZ"/>
@@ -52,7 +52,7 @@
                             <constraint firstItem="Kg5-FW-Bej" firstAttribute="leading" secondItem="RlO-sw-BSW" secondAttribute="leading" constant="8" id="4Dk-co-I1U"/>
                             <constraint firstItem="RlO-sw-BSW" firstAttribute="trailing" secondItem="dJa-s4-vpX" secondAttribute="trailing" id="6Vs-1A-9aC"/>
                             <constraint firstItem="fzb-v5-igl" firstAttribute="trailing" secondItem="RlO-sw-BSW" secondAttribute="trailing" id="7Jd-ed-Ldq"/>
-                            <constraint firstItem="Kg5-FW-Bej" firstAttribute="top" secondItem="RlO-sw-BSW" secondAttribute="top" constant="8" id="HZU-Jc-giL"/>
+                            <constraint firstItem="Kg5-FW-Bej" firstAttribute="top" secondItem="RlO-sw-BSW" secondAttribute="top" id="HZU-Jc-giL"/>
                             <constraint firstItem="RlO-sw-BSW" firstAttribute="bottom" secondItem="dJa-s4-vpX" secondAttribute="bottom" id="NMr-L2-Ymc"/>
                             <constraint firstItem="fzb-v5-igl" firstAttribute="top" secondItem="Kg5-FW-Bej" secondAttribute="bottom" id="VLr-Rb-VUN"/>
                             <constraint firstItem="dJa-s4-vpX" firstAttribute="leading" secondItem="RlO-sw-BSW" secondAttribute="leading" id="YfM-BO-MnJ"/>

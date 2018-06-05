@@ -55,4 +55,10 @@ class DateManager {
         return Calendar.current.date(from: component)!
     }
 
+    static func fiveYearsLater(date: Date) -> Date {
+        var component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        component.year = component.year! + 5
+        return Calendar.current.date(from: component)!
+    }
+
 }

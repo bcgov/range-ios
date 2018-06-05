@@ -161,6 +161,14 @@ extension Theme {
         view.layer.cornerRadius = view.frame.size.height/2
     }
 
+    func makeCircle(button: UIButton) {
+        makeCircle(layer: button.layer, height: button.bounds.height)
+    }
+
+    func makeCircle(layer: CALayer, height: CGFloat) {
+        layer.cornerRadius = height/2
+    }
+
     func styleContainer(view: UIView) {
         roundCorners(layer: view.layer)
         addShadow(to: view.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight())
@@ -294,7 +302,7 @@ extension Theme {
         field.backgroundColor = UIColor.clear
         field.font = defaultInputFieldFont()
         field.layer.cornerRadius = 3
-        field.layer.borderColor = Colors.bodyText.cgColor
+        field.layer.borderColor = Colors.shadowColor.cgColor
         field.layer.borderWidth = 1
         styleFieldHeader(label: header)
     }
@@ -305,7 +313,7 @@ extension Theme {
     }
 
     func addShadow(to layer: CALayer, opacity: Float, height: Int) {
-        layer.borderColor = defaultShadowColor()
+//        layer.borderColor = defaultShadowColor()
         layer.shadowOffset = CGSize(width: 0, height: height)
         layer.shadowColor = defaultShadowColor()
         layer.shadowOpacity = opacity

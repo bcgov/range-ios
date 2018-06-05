@@ -19,6 +19,7 @@ class MinisterIssue: Object, MyraObject {
     @objc dynamic var remoteId: Int = -1
 
     @objc dynamic var issueType: String = ""
+    @objc dynamic var issueTypeID: Int = -1
     @objc dynamic var details: String = ""
     @objc dynamic var objective: String = ""
     @objc dynamic var desc: String = ""
@@ -94,5 +95,28 @@ class MinisterIssue: Object, MyraObject {
         } catch _ {
             fatalError()
         }
+    }
+
+    func addAction(type: MinisterIssueActionType) {
+        let new = MinisterIssueAction()
+        new.actionType = type.name
+        new.actionTypeID = type.id
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.actions.append(new)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func toDictionary() -> [String:Any] {
+        return [
+            "detail": self.details,
+            "objective": self.objective,
+            "identified": true,
+            "issueTypeId": self.issueTypeID,
+        ]
     }
 }

@@ -54,7 +54,7 @@
         return (true, "")
     }
 
-    func getRUP(with id: Int) -> RUP? {
+    func getRUP(withId id: Int) -> RUP? {
         if rupExists(id: id) {
             let storedRups = RealmRequests.getObject(RUP.self)
             for stored in storedRups! {
@@ -82,7 +82,7 @@
     // so only pass in the newly downloaded agreement
     // TODO: Refactor - schema change
     func updateRUP(with newRUP: RUP) {
-        let storedRUP = getRUP(with: newRUP.remoteId)
+        let storedRUP = getRUP(withId: newRUP.remoteId)
         if storedRUP == nil {return}
 
         do {
@@ -740,6 +740,17 @@
 
  }
 
+ // MARK: Minister's Issues and actions
+ extension RUPManager {
+    func removeIssue(issue: MinisterIssue) {
+        for action in issue.actions {
+            RealmRequests.deleteObject(action)
+        }
+        RealmRequests.deleteObject(issue)
+    }
+ }
+
+
  // MARK: Reference Data
  extension RUPManager {
     func getAllReferenceData() -> [Object] {
@@ -831,5 +842,49 @@
             }
         }
         return ClientType()
+    }
+
+    func getMinistersIssueTypesOptions() -> [SelectionPopUpObject] {
+        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
+        guard let query = RealmRequests.getObject(MinisterIssueType.self) else {return options}
+
+        for item in query {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
+        return options
+    }
+
+    func getMinistersIssueActionsOptions() -> [SelectionPopUpObject] {
+        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
+        guard let query = RealmRequests.getObject(MinisterIssueActionType.self) else {return options}
+
+        for item in query {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
+        return options
+    }
+
+    func getIssueType(named: String) -> MinisterIssueType? {
+        do {
+            let realm = try Realm()
+            if let obj = realm.objects(MinisterIssueType.self).filter("name = %@", named).first {
+                return obj
+            }
+        } catch _ {
+            fatalError()
+        }
+        return nil
+    }
+
+    func getIssueActionType(named: String) -> MinisterIssueActionType? {
+        do {
+            let realm = try Realm()
+            if let obj = realm.objects(MinisterIssueActionType.self).filter("name = %@", named).first {
+                return obj
+            }
+        } catch _ {
+            fatalError()
+        }
+        return nil
     }
  }

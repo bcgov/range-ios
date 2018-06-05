@@ -101,7 +101,7 @@ class RangeUsageTableViewCell: BaseFormCell {
         */
 
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTo(indexPath: parent.rangeUsageIndexPath)
+        parent.reloadAndGoTo(indexPath: parent.rangeUsageIndexPath)
     }
 }
 

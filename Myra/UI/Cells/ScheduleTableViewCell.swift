@@ -95,7 +95,7 @@ class ScheduleTableViewCell: BaseFormCell {
         let count = rup.schedules.count
         tableHeight.constant = CGFloat( Double(count) * cellHeight + 5.0)
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTo(indexPath: parent.scheduleIndexPath)
+        parent.reloadAndGoTo(indexPath: parent.scheduleIndexPath)
     }
     
 }

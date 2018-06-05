@@ -25,72 +25,34 @@ class MinisterIssuesTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
 
-    // misleading name. this adds an issue. its the adding action of an issue.
+    // misleading name. this adds an issue. its the action of adding an issue.
     @IBAction func addAction(_ sender: UIButton) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        let option1 = SelectionPopUpObject(display: "first thing", value: "first thing")
-        let option2 = SelectionPopUpObject(display: "second thing", value: "second thing")
-        lookup.setup(objects: [option1, option2]) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+            parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
-                newIssue.issueType = option.display
-                do {
-                    let realm = try Realm()
-                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
-                    try realm.write {
-                        aRup.ministerIssues.append(newIssue)
-                        realm.add(newIssue)
+                if let type = RUPManager.shared.getIssueType(named: option.display) {
+                    newIssue.issueType = type.name
+                    newIssue.issueTypeID = type.id
+                    do {
+                        let realm = try Realm()
+                        let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                        try realm.write {
+                            aRup.ministerIssues.append(newIssue)
+                            realm.add(newIssue)
+                        }
+                        self.rup = aRup
+                    } catch _ {
+                        fatalError()
                     }
-                    self.rup = aRup
-                } catch _ {
-                    fatalError()
                 }
-                parent.dismissPopOver()
-                self.updateTableHeight()
-            } else {
-                parent.dismissPopOver()
+                self.updateTableHeight(scrollToBottom: true)
             }
         }
         parent.showPopUp(vc: lookup, on: sender)
-
-        /*
-        let newIssue = MinisterIssue()
-        do {
-            let realm = try Realm()
-            let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
-            try realm.write {
-                aRup.ministerIssues.append(newIssue)
-                realm.add(newIssue)
-            }
-            self.rup = aRup
-        } catch _ {
-            fatalError()
-        }
-        self.updateTableHeight()
-        */
-        /*
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.promptInput(title: "Type", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
-            if done {
-                let newPasture = Pasture()
-                newPasture.name = name
-                do {
-                    let realm = try Realm()
-                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
-                    try realm.write {
-                        aRup.pastures.append(newPasture)
-                        realm.add(newPasture)
-                    }
-                    self.rup = aRup
-                } catch _ {
-                    fatalError()
-                }
-                self.updateTableHeight()
-            }
-        }
-        */
     }
 
     // MARK: Setup
@@ -106,12 +68,16 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     }
 
     // MARK: Functions
-    func updateTableHeight() {
+    func updateTableHeight(scrollToBottom: Bool) {
         self.tableView.reloadData()
         tableView.layoutIfNeeded()
         tableHeight.constant = computeHeight()
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTo(indexPath: parent.minsterActionsIndexPath)
+        if scrollToBottom {
+            parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
+        } else {
+            parent.reloadAndGoTo(indexPath: parent.minsterActionsIndexPath)
+        }
     }
 
     func computeHeight() -> CGFloat {
@@ -131,19 +97,21 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         /*
          This module has Action cells
         */
-
-//        let staticHeight: CGFloat = 410
-        let staticHeight: CGFloat = 660
-        let actionHeight: CGFloat = 105
+        let staticHeight: CGFloat = 670
+        let actionHeight: CGFloat = 158
         return (staticHeight + (actionHeight * CGFloat(issue.actions.count)))
-//        return (staticHeight + contentHeight)
     }
 
     // MARK: Style
     func style() {
         styleHeader(label: titleLabel, divider: divider)
-        styleHollowButton(button: addButton)
         styleSubHeader(label: subtitle)
+        switch self.mode {
+        case .View:
+            self.addButton.alpha = 0
+        case .Edit:
+            styleHollowButton(button: addButton)
+        }
     }
     
 }
@@ -168,7 +136,7 @@ extension MinisterIssuesTableViewCell: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getIssueCell(indexPath: indexPath)
-        cell.setup(issue: rup.ministerIssues[indexPath.row],mode: mode, rup: rup)
+        cell.setup(issue: rup.ministerIssues[indexPath.row],mode: mode, rup: rup, parent: self)
         return cell
     }
 

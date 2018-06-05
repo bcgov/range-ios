@@ -10,6 +10,8 @@ import UIKit
 import Reachability
 import SingleSignOn
 import Lottie
+import RealmSwift
+import Realm
 
 class HomeViewController: BaseViewController {
 
@@ -19,6 +21,7 @@ class HomeViewController: BaseViewController {
     var syncButtonActionTag = 121
 
     // MARK: Variables
+    var realmNotificationToken: NotificationToken?
     var parentReference: MainViewController?
     var rups: [RUP] = [RUP]()
 
@@ -80,6 +83,11 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupReachabilityNotification()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.endChangeListener()
     }
 
     // MARK: Outlet actions
@@ -194,6 +202,30 @@ class HomeViewController: BaseViewController {
         }
         setUpTable()
         filterByAll()
+
+        beginChangeListener()
+    }
+
+    func beginChangeListener() {
+        // Listener used for autosync:
+        // If db has changed in this view, there probably was an autosync.
+        do {
+            let realm = try Realm()
+            self.realmNotificationToken = realm.observe { notification, realm in
+                print("change observed")
+                self.loadRUPs()
+                self.tableView.reloadData()
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func endChangeListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            print("Stopped Listening :(")
+        }
     }
 
     func loadRUPs() {
@@ -454,6 +486,7 @@ extension HomeViewController {
             syncButton.isEnabled = true
             self.connectivityLabel.text = "ONLINE MODE"
             self.connectivityLight.backgroundColor = UIColor.green
+            DataServices.shared.autoSync()
         } else {
             self.syncContainer.alpha = 0
             syncButton.isEnabled = false

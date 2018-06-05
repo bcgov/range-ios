@@ -41,7 +41,7 @@ class AgreementHoldersTableViewCell: BaseFormCell {
             let clients = rup.clients
             let padding = 5
             heightConstraint.constant = CGFloat((clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
-            p.realodAndGoTo(indexPath: p.basicInformationIndexPath)
+            p.reloadAndGoTo(indexPath: p.basicInformationIndexPath)
         }
     }
 
