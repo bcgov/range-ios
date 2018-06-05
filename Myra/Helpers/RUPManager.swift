@@ -740,6 +740,17 @@
 
  }
 
+ // MARK: Minister's Issues and actions
+ extension RUPManager {
+    func removeIssue(issue: MinisterIssue) {
+        for action in issue.actions {
+            RealmRequests.deleteObject(action)
+        }
+        RealmRequests.deleteObject(issue)
+    }
+ }
+
+
  // MARK: Reference Data
  extension RUPManager {
     func getAllReferenceData() -> [Object] {
@@ -831,5 +842,23 @@
             }
         }
         return ClientType()
+    }
+
+    func getMinistersIssueTypesOptions() -> [SelectionPopUpObject] {
+        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
+        let option1 = SelectionPopUpObject(display: "first thing")
+        let option2 = SelectionPopUpObject(display: "second thing")
+        options.append(option1)
+        options.append(option2)
+        return options
+    }
+
+    func getMinistersIssueActionsOptions() -> [SelectionPopUpObject] {
+        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
+        let option1 = SelectionPopUpObject(display: "action type 1")
+        let option2 = SelectionPopUpObject(display: "action type 2")
+        options.append(option1)
+        options.append(option2)
+        return options
     }
  }

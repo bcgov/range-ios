@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,32 +23,35 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFu-vC-XIP">
                         <rect key="frame" x="5" y="5" width="784" height="658.5"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cP-lR-hOo">
-                                <rect key="frame" x="736" y="3.5" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cP-lR-hOo" userLabel="Options">
+                                <rect key="frame" x="736" y="-1.5" width="48" height="48"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
                                 <state key="normal" image="expandicon"/>
+                                <connections>
+                                    <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tvw-IM-PG9"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="KwM-Un-eNk">
-                                <rect key="frame" x="15" y="16.5" width="22" height="22"/>
+                                <rect key="frame" x="15" y="11.5" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="2wD-lF-4Uw"/>
                                     <constraint firstAttribute="height" constant="22" id="iaY-iK-2it"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RangelandHealth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAG-7C-Plo">
-                                <rect key="frame" x="133.5" y="17" width="131" height="20.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RangelandHealth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAG-7C-Plo">
+                                <rect key="frame" x="133.5" y="12" width="131" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issue Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZV-7r-TlB">
-                                <rect key="frame" x="42" y="15" width="86.5" height="24.5"/>
+                                <rect key="frame" x="42" y="15" width="86.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ic4-oC-PgZ">
-                                <rect key="frame" x="15" y="422.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="412.5" width="754" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="cRC-jf-5C8"/>
                                 </constraints>
@@ -56,7 +60,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KcZ-o0-fJV">
-                                <rect key="frame" x="15" y="460.5" width="754" height="100"/>
+                                <rect key="frame" x="15" y="450.5" width="754" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureNotesField"/>
                                 <constraints>
@@ -66,7 +70,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-ad-sZ5">
-                                <rect key="frame" x="15" y="568.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="558.5" width="754" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="eBi-5h-aBc"/>
                                 </constraints>
@@ -75,24 +79,28 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3mn-yU-uEe">
-                                <rect key="frame" x="15" y="598.5" width="754" height="5"/>
+                                <rect key="frame" x="15" y="588.5" width="754" height="5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="LRc-I4-Xrg"/>
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JX8-Jh-KFS">
-                                <rect key="frame" x="15" y="611.5" width="89" height="32"/>
+                                <rect key="frame" x="15" y="601.5" width="192" height="42"/>
                                 <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="iR8-us-zsy"/>
+                                    <constraint firstAttribute="width" constant="192" id="RQk-Ay-kco"/>
+                                    <constraint firstAttribute="height" constant="42" id="iR8-us-zsy"/>
                                 </constraints>
                                 <state key="normal" title="+ Add Action">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="addActionAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jQS-Ye-05n"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJ9-Cn-TjI">
-                                <rect key="frame" x="15" y="130.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="120.5" width="754" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="w91-42-hDc"/>
                                 </constraints>
@@ -101,7 +109,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1I7-iq-koh">
-                                <rect key="frame" x="15" y="168.5" width="754" height="100"/>
+                                <rect key="frame" x="15" y="158.5" width="754" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureNotesField"/>
                                 <constraints>
@@ -111,7 +119,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Objective" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVZ-eL-ShS">
-                                <rect key="frame" x="15" y="276.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="266.5" width="754" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uC6-nd-dXx"/>
                                 </constraints>
@@ -120,7 +128,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0y6-8O-mEI">
-                                <rect key="frame" x="15" y="314.5" width="754" height="100"/>
+                                <rect key="frame" x="15" y="304.5" width="754" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureNotesField"/>
                                 <constraints>
@@ -130,7 +138,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pastures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvB-BY-9lU">
-                                <rect key="frame" x="15" y="54.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="44.5" width="754" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="e55-5D-qjx"/>
                                 </constraints>
@@ -139,7 +147,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgL-LU-V8g">
-                                <rect key="frame" x="15" y="92.5" width="754" height="30"/>
+                                <rect key="frame" x="63" y="83" width="706" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="vyy-6m-Vbn"/>
                                 </constraints>
@@ -147,10 +155,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpJ-v3-yTn">
-                                <rect key="frame" x="15" y="92" width="754" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpJ-v3-yTn" userLabel="Pasture">
+                                <rect key="frame" x="63" y="83" width="706" height="30"/>
                                 <connections>
                                     <action selector="pasturesAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tO6-a4-LBs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTy-J0-Nzg">
+                                <rect key="frame" x="15" y="78" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gTy-J0-Nzg" secondAttribute="height" multiplier="1:1" id="TQg-xh-u1e"/>
+                                    <constraint firstAttribute="width" constant="40" id="mbs-6t-pPd"/>
+                                </constraints>
+                                <state key="normal" title="+"/>
+                                <connections>
+                                    <action selector="pasturesAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MQg-Y0-ndM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -161,13 +180,13 @@
                             <constraint firstItem="jFB-ad-sZ5" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="2Xh-t0-RV0"/>
                             <constraint firstAttribute="trailing" secondItem="Ic4-oC-PgZ" secondAttribute="trailing" constant="15" id="5uo-we-UFc"/>
                             <constraint firstItem="QpJ-v3-yTn" firstAttribute="centerX" secondItem="LgL-LU-V8g" secondAttribute="centerX" id="7Lc-RF-i7w"/>
+                            <constraint firstItem="gTy-J0-Nzg" firstAttribute="centerY" secondItem="QpJ-v3-yTn" secondAttribute="centerY" id="As3-YO-oUt"/>
                             <constraint firstAttribute="trailing" secondItem="CVZ-eL-ShS" secondAttribute="trailing" constant="15" id="BRm-fa-T8p"/>
                             <constraint firstItem="lZV-7r-TlB" firstAttribute="top" secondItem="EFu-vC-XIP" secondAttribute="top" constant="15" id="DOI-s1-0zW"/>
                             <constraint firstItem="NvB-BY-9lU" firstAttribute="top" secondItem="lZV-7r-TlB" secondAttribute="bottom" constant="15" id="Dzy-yt-DpT"/>
                             <constraint firstAttribute="trailing" secondItem="5cP-lR-hOo" secondAttribute="trailing" id="EGs-WJ-bFh"/>
                             <constraint firstItem="JX8-Jh-KFS" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="Elp-mm-UpH"/>
                             <constraint firstItem="PAG-7C-Plo" firstAttribute="centerY" secondItem="lZV-7r-TlB" secondAttribute="centerY" id="FTV-TO-tJx"/>
-                            <constraint firstItem="LgL-LU-V8g" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="HCh-yh-NR7"/>
                             <constraint firstItem="3mn-yU-uEe" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="HQx-fx-NXl"/>
                             <constraint firstAttribute="trailing" secondItem="3mn-yU-uEe" secondAttribute="trailing" constant="15" id="Haa-j8-MSh"/>
                             <constraint firstItem="KwM-Un-eNk" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="KTz-hG-rbT"/>
@@ -175,6 +194,7 @@
                             <constraint firstItem="Ic4-oC-PgZ" firstAttribute="top" secondItem="0y6-8O-mEI" secondAttribute="bottom" constant="8" id="QRe-dJ-Li3"/>
                             <constraint firstItem="NvB-BY-9lU" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="Taw-tf-33W"/>
                             <constraint firstItem="1I7-iq-koh" firstAttribute="top" secondItem="mJ9-Cn-TjI" secondAttribute="bottom" constant="8" id="ThX-6v-dU9"/>
+                            <constraint firstItem="LgL-LU-V8g" firstAttribute="leading" secondItem="gTy-J0-Nzg" secondAttribute="trailing" constant="8" id="UAb-gA-z97"/>
                             <constraint firstItem="QpJ-v3-yTn" firstAttribute="centerY" secondItem="LgL-LU-V8g" secondAttribute="centerY" id="UI3-v9-gs5"/>
                             <constraint firstAttribute="trailing" secondItem="1I7-iq-koh" secondAttribute="trailing" constant="15" id="VFd-5l-jIM"/>
                             <constraint firstItem="KcZ-o0-fJV" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="Xsh-wp-Qmj"/>
@@ -201,6 +221,7 @@
                             <constraint firstAttribute="trailing" secondItem="mJ9-Cn-TjI" secondAttribute="trailing" constant="15" id="t6Z-ZX-1QG"/>
                             <constraint firstItem="PAG-7C-Plo" firstAttribute="leading" secondItem="lZV-7r-TlB" secondAttribute="trailing" constant="5" id="tCB-qX-OUV"/>
                             <constraint firstItem="KcZ-o0-fJV" firstAttribute="top" secondItem="Ic4-oC-PgZ" secondAttribute="bottom" constant="8" id="toO-iB-R7Z"/>
+                            <constraint firstItem="gTy-J0-Nzg" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="wj3-v4-49u"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -215,6 +236,7 @@
             <connections>
                 <outlet property="actionsHeader" destination="jFB-ad-sZ5" id="AzV-Jh-4Xv"/>
                 <outlet property="addButton" destination="JX8-Jh-KFS" id="oED-It-0KM"/>
+                <outlet property="addPasturesButton" destination="gTy-J0-Nzg" id="A50-ZM-c9v"/>
                 <outlet property="containerView" destination="EFu-vC-XIP" id="yZO-X6-vhH"/>
                 <outlet property="descriptionHeader" destination="Ic4-oC-PgZ" id="6A7-2k-F5S"/>
                 <outlet property="descriptionValue" destination="KcZ-o0-fJV" id="q2z-v1-SLx"/>
@@ -224,8 +246,10 @@
                 <outlet property="issueTypeValue" destination="PAG-7C-Plo" id="NJO-Wz-o9M"/>
                 <outlet property="objectiveHeader" destination="CVZ-eL-ShS" id="itd-nP-zvt"/>
                 <outlet property="objectiveValue" destination="0y6-8O-mEI" id="1dT-0R-4vb"/>
+                <outlet property="optionsButton" destination="5cP-lR-hOo" id="uI0-jl-u5z"/>
                 <outlet property="pastureHeader" destination="NvB-BY-9lU" id="Bez-vl-qUv"/>
                 <outlet property="pastureValue" destination="LgL-LU-V8g" id="NSZ-sh-pBT"/>
+                <outlet property="pasturesButton" destination="QpJ-v3-yTn" id="k8s-yw-s7X"/>
                 <outlet property="tableHeight" destination="LRc-I4-Xrg" id="eVz-kO-f5G"/>
                 <outlet property="tableView" destination="3mn-yU-uEe" id="1jX-ki-emH"/>
             </connections>

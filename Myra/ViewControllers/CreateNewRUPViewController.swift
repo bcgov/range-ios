@@ -116,11 +116,14 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var scheduleLowerBar: UIView!
     @IBOutlet weak var scheduleBoxLeft: UIView!
 
-
-    /*
+    @IBOutlet weak var ministersIssuesBox: UIView!
     @IBOutlet weak var ministersIssuesLabel: UILabel!
     @IBOutlet weak var ministersIssuesButton: UIButton!
     @IBOutlet weak var ministersIssuesBoxImage: UIImageView!
+    @IBOutlet weak var ministersIssuesLowerBar: UIView!
+    @IBOutlet weak var ministersIssuesBoxLeft: UIView!
+
+    /*
 
     @IBOutlet weak var invasivePlantsLabel: UILabel!
     @IBOutlet weak var invasivePlantsButton: UIButton!
@@ -283,9 +286,10 @@ class CreateNewRUPViewController: BaseViewController {
         tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
     }
 
-    /*
     @IBAction func ministersIssuesAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: minsterActionsIndexPath, at: .top, animated: true)
     }
+    /*
     @IBAction func invasivePlantsAction(_ sender: UIButton) {
     }
     @IBAction func additionalRequirementsAction(_ sender: UIButton) {
@@ -534,6 +538,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 return cell
             case .MinistersIssues:
                 self.minsterActionsIndexPath = indexPath
+                self.minsterActionsIndexPath = indexPath
                 let cell = getMinistersIssuesCell(indexPath: indexPath)
                 cell.setup(mode: mode, rup: rup!)
                 return cell
@@ -552,7 +557,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
-//        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
     func deepReload(indexPath: IndexPath) {
@@ -560,24 +564,45 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
+    func realodAndGoToBottomOf(indexPath: IndexPath) {
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+        self.tableView.layoutIfNeeded()
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
+            // select the first indexPath
             var indexPath = indexPaths[0]
+
+            // If there are 3 or more visible cells, pick the middle
             if indexPaths.count > 1 {
-                indexPath = indexPaths[1]
+                let count = indexPaths.count
+                indexPath = indexPaths[count/2]
             }
-          if indexPaths.count > 2 {
-               indexPath = indexPaths[2]
-           }
-          if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
-               menuBasicInfoOn()
-           } else if indexPath == pasturesIndexPath {
-               menuPastureOn()
-           } else if indexPath == scheduleIndexPath {
-              menuScheduleOn()
-          }
-      }
-  }
+
+            // if there are 2 visible cells, find the most visible
+            if indexPaths.count == 2 {
+                let visibleRect = CGRect(origin: tableView.contentOffset, size: tableView.bounds.size)
+                let visiblePoint = CGPoint(x:visibleRect.midX, y:visibleRect.midY)
+                if let i = tableView.indexPathForRow(at: visiblePoint) {
+                    indexPath = i
+                }
+            }
+
+            // Switch it on
+            if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
+                menuBasicInfoOn()
+            } else if indexPath == pasturesIndexPath {
+                menuPastureOn()
+            } else if indexPath == scheduleIndexPath {
+                menuScheduleOn()
+            } else if indexPath == minsterActionsIndexPath {
+                menuMinistersIssuesOn()
+            }
+        }
+    }
 }
 
 // MARK: Input Prompt
@@ -590,6 +615,8 @@ extension CreateNewRUPViewController {
         self.popupCompletion = completion
         self.popupTitle.textColor = UIColor.black
         self.openPopup()
+        
+        self.popupTextField.becomeFirstResponder()
     }
 }
 
