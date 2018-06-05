@@ -11,12 +11,14 @@ import Alamofire
 import SwiftyJSON
 import Realm
 import RealmSwift
+import Reachability
 
 class DataServices: NSObject {
     
     typealias UploadCompleted = () -> Void
     
     internal static let shared = DataServices()
+
     private let queue: OperationQueue = {
         let q = OperationQueue()
         q.maxConcurrentOperationCount = 1 // serial queue
@@ -24,11 +26,57 @@ class DataServices: NSObject {
         return q
     }()
     internal var onUploadCompleted: UploadCompleted?
+
+    // auto sync vars
+    var realmNotificationToken: NotificationToken?
+    var isSynchronizing: Bool = false
     
     override init() {
         super.init()
         
         queue.addObserver(self, forKeyPath: "operations", options: .new, context: nil)
+    }
+
+    func beginAutoSyncListener() {
+        print("Listening!")
+        do {
+            let realm = try Realm()
+            self.realmNotificationToken = realm.observe { notification, realm in
+                print("change observed")
+                self.autoSync()
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func autoSync() {
+        guard let r = Reachability() else {return}
+        if r.connection == .none {
+            print("But you're offline so bye")
+            return
+        }
+        print("You're Online")
+//        DispatchQueue.global(qos: .background).async {
+            if self.isSynchronizing {return}
+            if RUPManager.shared.getOutboxRups().count > 0 {
+                print("Upload Outbox now!")
+                self.isSynchronizing = true
+                self.uploadOutboxRangeUsePlans {
+                    print("uploaded outbox alerts")
+                    self.isSynchronizing = false
+                }
+            } else {
+                print("But nothing in outbox")
+        }
+//        }
+    }
+
+    func endAutoSyncListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            print("Stopped Listening :(")
+        }
     }
     
     static func plan(withLocalId localId: String) -> RUP? {
@@ -46,6 +94,24 @@ class DataServices: NSObject {
         }
         
         return pasture
+    }
+
+    static func ministersIssue(withLocalId localId: String) -> MinisterIssue? {
+        guard let issues = try? Realm().objects(MinisterIssue.self).filter("localId = %@", localId), let issue = issues.first else {
+
+            return nil
+        }
+
+        return issue
+    }
+
+    static func ministersIssueAction(withLocalId localId: String) -> MinisterIssueAction? {
+        guard let actions = try? Realm().objects(MinisterIssueAction.self).filter("localId = %@", localId), let action = actions.first else {
+
+            return nil
+        }
+
+        return action
     }
 
     static func schedule(withLocalId localId: String) -> Schedule? {
@@ -134,20 +200,22 @@ class DataServices: NSObject {
                         try realm.write {
                             myPlanAgain.remoteId = response["id"] as! Int
                         }
-
                         self.uploadPastures(forPlan: plan, completion: {
                             self.uploadSchedules(forPlan: plan, completion: {
-                                if plan.statusEnum == .Outbox {
-                                    do {
-                                        let realm = try Realm()
-                                        try realm.write {
-                                            plan.statusEnum = .Pending
+                                self.uploadMinistersIssues(forPlan: plan, completion: {
+                                    // Set status to Pending
+                                    if plan.statusEnum == .Outbox {
+                                        do {
+                                            let realm = try Realm()
+                                            try realm.write {
+                                                plan.statusEnum = .Pending
+                                            }
+                                        } catch _ {
+                                            fatalError()
                                         }
-                                    } catch _ {
-                                        fatalError()
                                     }
-                                }
-                                group.leave()
+                                    group.leave()
+                                })
                             })
                         })
                     } catch {
@@ -214,6 +282,84 @@ class DataServices: NSObject {
             })
         }
         
+        group.notify(queue: .main) {
+            completion()
+        }
+    }
+
+    private func uploadMinistersIssues(forPlan plan: RUP, completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+        for issue in plan.ministerIssues {
+            let issueId = issue.localId
+            let planId = "\(plan.remoteId)"
+
+            group.enter()
+
+            guard let myIssue = DataServices.ministersIssue(withLocalId: issueId) else {
+                group.leave()
+                return
+            }
+
+            APIManager.add(issue: myIssue, toPlan: planId) { (response, error) in
+                guard let response = response, error == nil else {
+                    fatalError()
+                }
+
+                // Were on a new thread now !
+                if let myNewIssue = DataServices.ministersIssue(withLocalId: issueId), let realm = try? Realm() {
+                    do {
+                        try realm.write {
+                            myNewIssue.remoteId = response["id"] as! Int
+                        }
+                    } catch {
+                        fatalError() // just for now.
+                    }
+
+                    // Upload actions
+                    DataServices.shared.uploadMinistersIssueActions(forIssue: myNewIssue, inPlan: planId, completion: {
+                        group.leave()
+                    })
+                }
+
+            }
+        }
+
+        group.notify(queue: .main) {
+            completion()
+        }
+    }
+
+    private func uploadMinistersIssueActions(forIssue issue: MinisterIssue, inPlan planId: String, completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+        for action in issue.actions {
+            let actionId = action.localId
+            let issueId = "\(issue.remoteId)"
+
+            group.enter()
+
+            guard let myAction = DataServices.ministersIssueAction(withLocalId: actionId) else {
+                group.leave()
+                return
+            }
+
+            APIManager.add(action: myAction, toIssue: issueId, inPlan: planId) { (response, error) in
+                guard let response = response, error == nil else {
+                    fatalError()
+                }
+
+                // Were on a new thread now !
+                if let myNewAction = DataServices.ministersIssueAction(withLocalId: actionId), let realm = try? Realm() {
+                    do {
+                        try realm.write {
+                            myNewAction.remoteId = response["id"] as! Int
+                        }
+                        group.leave()
+                    } catch {
+                        fatalError() // just for now.
+                    }
+                }
+            }
+        }
         group.notify(queue: .main) {
             completion()
         }

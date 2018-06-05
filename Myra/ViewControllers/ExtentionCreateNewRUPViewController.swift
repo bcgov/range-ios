@@ -124,7 +124,7 @@ extension CreateNewRUPViewController {
         menuSectionsOff()
         ministersIssuesBoxLeft.backgroundColor = Colors.secondary
         menuSectionOn(label: ministersIssuesLabel)
-        ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation")
+        ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_MinistersIssues")
     }
 
     func menuSectionsOff() {
@@ -141,7 +141,7 @@ extension CreateNewRUPViewController {
         scheduleBoxLeft.backgroundColor = UIColor.clear
 
         menuSectionOff(label: ministersIssuesLabel)
-        ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation_off")
+        ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_MinistersIssues_off")
         ministersIssuesBoxLeft.backgroundColor = UIColor.clear
 
     }

@@ -101,6 +101,8 @@ class APIManager {
                 newReference.append(contentsOf: handleClientType(json:json["CLIENT_TYPE"]))
                 newReference.append(contentsOf: handlePlanStatus(json:json["PLAN_STATUS"]))
                 newReference.append(contentsOf: handleAgreementExeptionStatus(json: json["AGREEMENT_EXEMPTION_STATUS"]))
+                newReference.append(contentsOf: handleMinisterIssueType(json: json["MINISTER_ISSUE_TYPE"]))
+                newReference.append(contentsOf: handleMinisterIssueActionType(json: json["MINISTER_ISSUE_ACTION_TYPE"]))
                 RUPManager.shared.updateReferenceData(objects: newReference)
                 return completion(true)
             }else {
@@ -138,6 +140,52 @@ class APIManager {
         }
         
         let params = pasture.toDictionary()
+
+        Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
+            .responseJSON { response in
+                APIManager.process(response: response, completion: completion)
+        }
+    }
+
+    static func add(issue: MinisterIssue, toPlan planId: String, completion: @escaping (_ pasture: [String:Any]?, _ error: Error?) -> ()) {
+
+        let pathKey = ":id"
+        let path = Constants.API.issuePath.replacingOccurrences(of: pathKey, with: planId, options: .literal, range: nil)
+
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+
+        var params = issue.toDictionary()
+
+        // get pasture remote ids
+        var pastureIds: [Int] = [Int]()
+        for pasture in issue.pastures {
+            pastureIds.append(pasture.remoteId)
+        }
+
+        params["pastures"] = pastureIds
+        params["plan_id"] = planId
+
+        Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
+            .responseJSON { response in
+                APIManager.process(response: response, completion: completion)
+        }
+    }
+
+    static func add(action: MinisterIssueAction, toIssue issueId: String, inPlan planId: String, completion: @escaping (_ pasture: [String:Any]?, _ error: Error?) -> ()) {
+        let issuePathKey = ":issueId?"
+        let planPathKey = ":planId?"
+        let path1 = Constants.API.actionPath.replacingOccurrences(of: issuePathKey, with: issueId, options: .literal, range: nil)
+        let path = path1.replacingOccurrences(of: planPathKey, with: planId, options: .literal, range: nil)
+
+
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+
+        let params = action.toDictionary()
+
 
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
             .responseJSON { response in
@@ -264,6 +312,44 @@ class APIManager {
             result.append(obj)
         }
 
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
+    static func handleMinisterIssueType(json: JSON) -> [Object] {
+        var result = [MinisterIssueType]()
+        for (_,item) in json {
+            let obj = MinisterIssueType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
+    static func handleMinisterIssueActionType(json: JSON) -> [Object] {
+        var result = [MinisterIssueActionType]()
+        for (_,item) in json {
+            let obj = MinisterIssueActionType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
         // sort
         return result.sorted(by: { $0.id < $1.id })
     }

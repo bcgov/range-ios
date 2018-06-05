@@ -22,7 +22,9 @@ class MinisterIssueAction: Object, MyraObject {
         return "localId"
     }
 
-    @objc dynamic var header: String = "Fencing: This is temporaty text"
+
+    @objc dynamic var actionTypeID: Int = -1
+    @objc dynamic var actionType: String = ""
     @objc dynamic var desc: String = ""
 
     func set(desc: String) {
@@ -34,5 +36,12 @@ class MinisterIssueAction: Object, MyraObject {
         } catch _ {
             fatalError()
         }
+    }
+
+    func toDictionary() -> [String:Any] {
+        return [
+            "detail": self.desc,
+            "actionTypeId": self.actionTypeID,
+        ]
     }
 }

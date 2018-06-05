@@ -419,6 +419,7 @@ class CreateNewRUPViewController: BaseViewController {
         let num = rup?.agreementId ?? ""
         let name = rup?.rangeName ?? ""
         ranchNameAndNumberLabel.text = "\(num) | \(name)"
+        highlighCurrentModuleInMenu()
     }
 
     func catchAction(notification:Notification) {
@@ -553,15 +554,22 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return numberOfSections
     }
 
-    func realodAndGoTo(indexPath: IndexPath) {
+    /*
+    func reload(indexPath: IndexPath? = [0,0], bottom: Bool? = false) {
+
+        // Reload and go to bottom of specified indexpath
+        if let b = bottom, let i = indexPath, b == true {
+            realodAndGoToBottomOf(indexPath: i)
+            return
+        }
+    }
+ */
+
+    func reloadAndGoTo(indexPath: IndexPath) {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
-    }
-
-    func deepReload(indexPath: IndexPath) {
-        self.tableView.reloadData()
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        highlighCurrentModuleInMenu()
     }
 
     func realodAndGoToBottomOf(indexPath: IndexPath) {
@@ -569,9 +577,21 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        highlighCurrentModuleInMenu()
+    }
+
+    // deep reload reloads tableview. other reload functions dont
+    func deepReload(indexPath: IndexPath) {
+        self.tableView.reloadData()
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        highlighCurrentModuleInMenu()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        highlighCurrentModuleInMenu()
+    }
+
+    func highlighCurrentModuleInMenu() {
         if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
             // select the first indexPath
             var indexPath = indexPaths[0]

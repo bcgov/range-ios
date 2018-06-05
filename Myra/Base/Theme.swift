@@ -302,7 +302,7 @@ extension Theme {
         field.backgroundColor = UIColor.clear
         field.font = defaultInputFieldFont()
         field.layer.cornerRadius = 3
-        field.layer.borderColor = Colors.bodyText.cgColor
+        field.layer.borderColor = Colors.shadowColor.cgColor
         field.layer.borderWidth = 1
         styleFieldHeader(label: header)
     }

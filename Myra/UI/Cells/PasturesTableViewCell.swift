@@ -72,7 +72,7 @@ class PasturesTableViewCell: BaseFormCell {
         tableView.layoutIfNeeded()
         tableHeight.constant = computeHeight()
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTo(indexPath: parent.pasturesIndexPath)
+        parent.reloadAndGoTo(indexPath: parent.pasturesIndexPath)
     }
 
     func computeHeight() -> CGFloat {

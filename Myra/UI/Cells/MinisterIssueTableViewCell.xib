@@ -23,7 +23,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFu-vC-XIP">
                         <rect key="frame" x="5" y="5" width="784" height="658.5"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cP-lR-hOo" userLabel="Options">
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cP-lR-hOo" userLabel="Options">
                                 <rect key="frame" x="736" y="-1.5" width="48" height="48"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
                                 <state key="normal" image="expandicon"/>
@@ -31,7 +31,7 @@
                                     <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tvw-IM-PG9"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxUnchecked" translatesAutoresizingMaskIntoConstraints="NO" id="KwM-Un-eNk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_ministers" translatesAutoresizingMaskIntoConstraints="NO" id="KwM-Un-eNk">
                                 <rect key="frame" x="15" y="11.5" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="2wD-lF-4Uw"/>
@@ -172,10 +172,18 @@
                                     <action selector="pasturesAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MQg-Y0-ndM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNs-Pp-mIQ">
+                                <rect key="frame" x="269.5" y="11" width="12" height="22"/>
+                                <state key="normal" image="icon_edit"/>
+                                <connections>
+                                    <action selector="editTypeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gp6-zZ-ghw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1I7-iq-koh" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="0Gx-BU-4aC"/>
+                            <constraint firstItem="eNs-Pp-mIQ" firstAttribute="centerY" secondItem="PAG-7C-Plo" secondAttribute="centerY" id="0Mg-VN-JhX"/>
                             <constraint firstItem="CVZ-eL-ShS" firstAttribute="top" secondItem="1I7-iq-koh" secondAttribute="bottom" constant="8" id="0Op-ZW-GUW"/>
                             <constraint firstItem="jFB-ad-sZ5" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="2Xh-t0-RV0"/>
                             <constraint firstAttribute="trailing" secondItem="Ic4-oC-PgZ" secondAttribute="trailing" constant="15" id="5uo-we-UFc"/>
@@ -221,6 +229,7 @@
                             <constraint firstAttribute="trailing" secondItem="mJ9-Cn-TjI" secondAttribute="trailing" constant="15" id="t6Z-ZX-1QG"/>
                             <constraint firstItem="PAG-7C-Plo" firstAttribute="leading" secondItem="lZV-7r-TlB" secondAttribute="trailing" constant="5" id="tCB-qX-OUV"/>
                             <constraint firstItem="KcZ-o0-fJV" firstAttribute="top" secondItem="Ic4-oC-PgZ" secondAttribute="bottom" constant="8" id="toO-iB-R7Z"/>
+                            <constraint firstItem="eNs-Pp-mIQ" firstAttribute="leading" secondItem="PAG-7C-Plo" secondAttribute="trailing" constant="5" id="udw-Wl-5sI"/>
                             <constraint firstItem="gTy-J0-Nzg" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="wj3-v4-49u"/>
                         </constraints>
                     </view>
@@ -236,12 +245,14 @@
             <connections>
                 <outlet property="actionsHeader" destination="jFB-ad-sZ5" id="AzV-Jh-4Xv"/>
                 <outlet property="addButton" destination="JX8-Jh-KFS" id="oED-It-0KM"/>
+                <outlet property="addPastureButtonWidth" destination="mbs-6t-pPd" id="7l6-zB-ncJ"/>
                 <outlet property="addPasturesButton" destination="gTy-J0-Nzg" id="A50-ZM-c9v"/>
                 <outlet property="containerView" destination="EFu-vC-XIP" id="yZO-X6-vhH"/>
                 <outlet property="descriptionHeader" destination="Ic4-oC-PgZ" id="6A7-2k-F5S"/>
                 <outlet property="descriptionValue" destination="KcZ-o0-fJV" id="q2z-v1-SLx"/>
                 <outlet property="detailsHeader" destination="mJ9-Cn-TjI" id="oWh-cD-NH8"/>
                 <outlet property="detailsValue" destination="1I7-iq-koh" id="tgG-vA-hAw"/>
+                <outlet property="editButton" destination="eNs-Pp-mIQ" id="Z8E-aS-umE"/>
                 <outlet property="issueTypeHeader" destination="lZV-7r-TlB" id="Im4-2s-FcH"/>
                 <outlet property="issueTypeValue" destination="PAG-7C-Plo" id="NJO-Wz-o9M"/>
                 <outlet property="objectiveHeader" destination="CVZ-eL-ShS" id="itd-nP-zvt"/>
@@ -257,7 +268,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="boxUnchecked" width="128" height="128"/>
         <image name="expandicon" width="48" height="48"/>
+        <image name="icon_edit" width="12" height="12"/>
+        <image name="icon_ministers" width="24" height="24"/>
     </resources>
 </document>

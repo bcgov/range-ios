@@ -34,17 +34,20 @@ class MinisterIssuesTableViewCell: BaseFormCell {
             parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
-                newIssue.issueType = option.display
-                do {
-                    let realm = try Realm()
-                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
-                    try realm.write {
-                        aRup.ministerIssues.append(newIssue)
-                        realm.add(newIssue)
+                if let type = RUPManager.shared.getIssueType(named: option.display) {
+                    newIssue.issueType = type.name
+                    newIssue.issueTypeID = type.id
+                    do {
+                        let realm = try Realm()
+                        let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                        try realm.write {
+                            aRup.ministerIssues.append(newIssue)
+                            realm.add(newIssue)
+                        }
+                        self.rup = aRup
+                    } catch _ {
+                        fatalError()
                     }
-                    self.rup = aRup
-                } catch _ {
-                    fatalError()
                 }
                 self.updateTableHeight(scrollToBottom: true)
             }
@@ -73,7 +76,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         if scrollToBottom {
             parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
         } else {
-            parent.realodAndGoTo(indexPath: parent.minsterActionsIndexPath)
+            parent.reloadAndGoTo(indexPath: parent.minsterActionsIndexPath)
         }
     }
 
