@@ -58,7 +58,8 @@ class PlanInformationTableViewCell: BaseFormCell {
         if planStartValue.text != "" {
 
             let startDate = DateManager.from(string: planStartValue.text!)
-            picker.setup(between: startDate, max: max) { (date) in
+            let maxEnd = DateManager.fiveYearsLater(date: startDate)
+            picker.setup(between: startDate, max: maxEnd) { (date) in
                 self.handlePlanEndDate(date: date)
             }
         } else {
@@ -66,9 +67,9 @@ class PlanInformationTableViewCell: BaseFormCell {
                 self.handlePlanEndDate(date: date)
             }
         }
+        
         parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
-
 
     // MARK: functions
     func handlePlanStartDate(date: Date) {
@@ -83,7 +84,9 @@ class PlanInformationTableViewCell: BaseFormCell {
         }
         if self.planEndValue.text != "" {
             let endDate = DateManager.from(string: self.planEndValue.text!)
-            if endDate < date {
+            let endYear = endDate.yearOfDate()!
+            let startYear = date.yearOfDate()!
+            if endDate < date || (endYear - startYear) > 5 {
                 self.planEndValue.text = DateManager.toString(date: (self.rup.planStartDate)!)
                 do {
                     let realm = try Realm()
@@ -95,8 +98,9 @@ class PlanInformationTableViewCell: BaseFormCell {
                 }
             }
         }
+
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTo(indexPath: parent.basicInformationIndexPath)
+        parent.reloadAndGoTo(indexPath: parent.basicInformationIndexPath)
     }
 
     func handlePlanEndDate(date: Date) {
@@ -110,7 +114,7 @@ class PlanInformationTableViewCell: BaseFormCell {
             fatalError()
         }
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.realodAndGoTo(indexPath: parent.basicInformationIndexPath)
+        parent.reloadAndGoTo(indexPath: parent.basicInformationIndexPath)
     }
 
     // MARK: Setup

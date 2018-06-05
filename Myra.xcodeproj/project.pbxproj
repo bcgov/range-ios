@@ -57,6 +57,8 @@
 		294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC4FE204F3C5500F0FB04 /* RUPManager.swift */; };
 		294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294AC500204F57CC00F0FB04 /* Schedule.storyboard */; };
 		294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC502204F57E800F0FB04 /* ScheduleViewController.swift */; };
+		2958AC1C20C60381005C7900 /* MinisterIssueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958AC1B20C60381005C7900 /* MinisterIssueType.swift */; };
+		2958AC1E20C603B7005C7900 /* MinisterIssueActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958AC1D20C603B7005C7900 /* MinisterIssueActionType.swift */; };
 		296232052047293A00F1CEBF /* FormMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296232042047293A00F1CEBF /* FormMode.swift */; };
 		2962320920472D7500F1CEBF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962320820472D7500F1CEBF /* Date.swift */; };
 		2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */; };
@@ -194,6 +196,8 @@
 		294AC4FE204F3C5500F0FB04 /* RUPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPManager.swift; sourceTree = "<group>"; };
 		294AC500204F57CC00F0FB04 /* Schedule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Schedule.storyboard; sourceTree = "<group>"; };
 		294AC502204F57E800F0FB04 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		2958AC1B20C60381005C7900 /* MinisterIssueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueType.swift; sourceTree = "<group>"; };
+		2958AC1D20C603B7005C7900 /* MinisterIssueActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueActionType.swift; sourceTree = "<group>"; };
 		296232042047293A00F1CEBF /* FormMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormMode.swift; sourceTree = "<group>"; };
 		2962320820472D7500F1CEBF /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
@@ -329,8 +333,8 @@
 				2932BB5320866C5D00579A57 /* RUP Components */,
 				29EADF7C206039A90087593F /* Reference data objects */,
 				29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */,
-				290FF88520635F1F00C7DAC0 /* SyncDate.swift */,
 				2974270D2044949B0033BC47 /* LiveStockID.swift */,
+				290FF88520635F1F00C7DAC0 /* SyncDate.swift */,
 				292197DB209CD19D004A5011 /* Option.swift */,
 			);
 			path = "Models and enums";
@@ -460,6 +464,8 @@
 				292E65202076AAC6003D4AF0 /* ClientType.swift */,
 				292E65222076AAF3003D4AF0 /* PlanStatus.swift */,
 				292E65242076AB12003D4AF0 /* AgreementExemptionStatus.swift */,
+				2958AC1B20C60381005C7900 /* MinisterIssueType.swift */,
+				2958AC1D20C603B7005C7900 /* MinisterIssueActionType.swift */,
 			);
 			path = "Reference data objects";
 			sourceTree = "<group>";
@@ -766,6 +772,7 @@
 				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
 				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,
 				2962B0EE204F2FBB00F71B9C /* LiveStockType.swift in Sources */,
+				2958AC1C20C60381005C7900 /* MinisterIssueType.swift in Sources */,
 				296232052047293A00F1CEBF /* FormMode.swift in Sources */,
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
 				29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */,
@@ -798,6 +805,7 @@
 				294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */,
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
 				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
+				2958AC1E20C603B7005C7900 /* MinisterIssueActionType.swift in Sources */,
 				2940057F208FCD5700AA1BDC /* PlanInformationTableViewCell.swift in Sources */,
 				56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */,
 				29400583208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift in Sources */,

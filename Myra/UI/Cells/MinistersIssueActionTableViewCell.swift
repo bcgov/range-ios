@@ -19,7 +19,8 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     @IBOutlet weak var header: UILabel!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var optionsButton: UIButton!
-    
+    @IBOutlet weak var optionsButtonWidth: NSLayoutConstraint!
+
     // MARK: Outlet Actions
     @IBAction func optionsAction(_ sender: UIButton) {
         guard let a = self.action, let parent = self.parentCell else {return}
@@ -57,7 +58,10 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     func autofill() {
         guard let a = self.action else {return}
         self.desc.text = a.desc
-        self.header.text = a.header
+        self.header.text = a.actionType
+        if self.mode == .View {
+            setDefaultValueIfEmpty(field: desc)
+        }
     }
 
     // MARK: Style
@@ -68,6 +72,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         case .View:
             optionsButton.alpha = 0
             styleTextviewInputFieldReadOnly(field: desc, header: header)
+            optionsButtonWidth.constant = 0
         case .Edit:
             styleTextviewInputField(field: desc, header: header)
         }

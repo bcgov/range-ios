@@ -20,10 +20,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAs-qj-E84">
-                        <rect key="frame" x="5" y="5" width="792" height="148"/>
+                        <rect key="frame" x="5" y="5" width="842" height="148"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mq6-gW-y6P">
-                                <rect key="frame" x="5" y="5" width="782" height="30"/>
+                                <rect key="frame" x="10" y="5" width="827" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="TDg-Zn-5R6"/>
                                 </constraints>
@@ -32,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="59k-0v-oqR">
-                                <rect key="frame" x="5" y="43" width="782" height="100"/>
+                                <rect key="frame" x="10" y="43" width="774" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="z7m-9c-rzF"/>
@@ -41,38 +41,38 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBR-4s-god">
+                                <rect key="frame" x="789" y="50" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="S6x-aG-79c"/>
+                                </constraints>
+                                <state key="normal" image="expandicon"/>
+                                <connections>
+                                    <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HI6-BA-gXV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Mq6-gW-y6P" secondAttribute="trailing" constant="5" id="5xg-Op-vNv"/>
+                            <constraint firstAttribute="trailing" secondItem="OBR-4s-god" secondAttribute="trailing" constant="5" id="6n8-4p-5nm"/>
                             <constraint firstAttribute="bottom" secondItem="59k-0v-oqR" secondAttribute="bottom" constant="5" id="Eiv-B9-FKp"/>
                             <constraint firstItem="59k-0v-oqR" firstAttribute="top" secondItem="Mq6-gW-y6P" secondAttribute="bottom" constant="8" id="KZV-JM-q0d"/>
-                            <constraint firstItem="Mq6-gW-y6P" firstAttribute="leading" secondItem="rAs-qj-E84" secondAttribute="leading" constant="5" id="TUV-a6-x3D"/>
-                            <constraint firstItem="59k-0v-oqR" firstAttribute="leading" secondItem="rAs-qj-E84" secondAttribute="leading" constant="5" id="ZQy-sf-V6e"/>
-                            <constraint firstAttribute="trailing" secondItem="59k-0v-oqR" secondAttribute="trailing" constant="5" id="a9T-ZZ-wBF"/>
+                            <constraint firstItem="OBR-4s-god" firstAttribute="centerY" secondItem="rAs-qj-E84" secondAttribute="centerY" id="OBE-eD-Noc"/>
+                            <constraint firstItem="Mq6-gW-y6P" firstAttribute="leading" secondItem="rAs-qj-E84" secondAttribute="leading" constant="10" id="TUV-a6-x3D"/>
+                            <constraint firstItem="59k-0v-oqR" firstAttribute="leading" secondItem="rAs-qj-E84" secondAttribute="leading" constant="10" id="ZQy-sf-V6e"/>
                             <constraint firstAttribute="height" constant="148" id="d0v-N1-bYf"/>
                             <constraint firstItem="Mq6-gW-y6P" firstAttribute="top" secondItem="rAs-qj-E84" secondAttribute="top" constant="5" id="imO-xY-jMw"/>
+                            <constraint firstItem="OBR-4s-god" firstAttribute="leading" secondItem="59k-0v-oqR" secondAttribute="trailing" constant="5" id="tLL-IQ-1oc"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBR-4s-god">
-                        <rect key="frame" x="802" y="0.0" width="40" height="48"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="bQZ-4e-W2s"/>
-                        </constraints>
-                        <state key="normal" image="expandicon"/>
-                        <connections>
-                            <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HI6-BA-gXV"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="OBR-4s-god" firstAttribute="leading" secondItem="rAs-qj-E84" secondAttribute="trailing" constant="5" id="6Ow-ke-tuz"/>
-                    <constraint firstItem="OBR-4s-god" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JTX-of-5sH"/>
-                    <constraint firstItem="OBR-4s-god" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NNy-9J-cGv"/>
                     <constraint firstItem="rAs-qj-E84" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="age-t2-yIU"/>
-                    <constraint firstAttribute="trailing" secondItem="OBR-4s-god" secondAttribute="trailing" constant="10" id="dAe-iy-Hug"/>
                     <constraint firstAttribute="bottom" secondItem="rAs-qj-E84" secondAttribute="bottom" constant="5" id="fIq-m4-Lq7"/>
+                    <constraint firstAttribute="trailing" secondItem="rAs-qj-E84" secondAttribute="trailing" constant="5" id="jlB-W4-vm6"/>
                     <constraint firstItem="rAs-qj-E84" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ltS-5w-6ZN"/>
+                    <constraint firstItem="rAs-qj-E84" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ufN-iC-aNt"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -81,6 +81,7 @@
                 <outlet property="desc" destination="59k-0v-oqR" id="Wvg-0Q-Tg6"/>
                 <outlet property="header" destination="Mq6-gW-y6P" id="LNZ-1d-HiQ"/>
                 <outlet property="optionsButton" destination="OBR-4s-god" id="b6E-gQ-Sl6"/>
+                <outlet property="optionsButtonWidth" destination="S6x-aG-79c" id="oEv-Tm-6N1"/>
             </connections>
             <point key="canvasLocation" x="300" y="158.5"/>
         </tableViewCell>

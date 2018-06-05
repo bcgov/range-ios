@@ -29,4 +29,16 @@ class BaseFormCell: UITableViewCell, Theme {
         self.rup = rup
         self.mode = mode
     }
+
+    func setDefaultValueIfEmpty(field: UITextView) {
+        if field.text == "" {
+            field.text = "Not provided."
+        }
+    }
+
+    func setDefaultValueIfEmpty(field: UILabel) {
+        if field.text == "" {
+            field.text = "Not provided."
+        }
+    }
 }

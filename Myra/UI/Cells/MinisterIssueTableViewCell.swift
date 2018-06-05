@@ -23,6 +23,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var editButton: UIButton!
 
     @IBOutlet weak var issueTypeHeader: UILabel!
     @IBOutlet weak var issueTypeValue: UILabel!
@@ -41,6 +42,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var actionsHeader: UILabel!
 
+    @IBOutlet weak var addPastureButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var addPasturesButton: UIButton!
     @IBOutlet weak var pasturesButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
@@ -103,11 +105,17 @@ class MinisterIssueTableViewCell: BaseFormCell {
         lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions()) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
-                i.addAction(type: option.display)
-                self.updateTableHeight(scrollToBottom: false)
+                if let type = RUPManager.shared.getIssueActionType(named: option.display) {
+                    i.addAction(type: type)
+                    self.updateTableHeight(scrollToBottom: false)
+                }
             }
         }
         parent.showPopUp(vc: lookup, on: sender)
+    }
+
+    @IBAction func editTypeAction(_ sender: UIButton) {
+        editType()
     }
 
     // MARK: Functions
@@ -125,11 +133,17 @@ class MinisterIssueTableViewCell: BaseFormCell {
         autofill()
         tableHeight.constant = computeTableHeight()
 
-        let tap = UITapGestureRecognizer(target: self, action: #selector(changeIssueTypeAction))
-        issueTypeValue.addGestureRecognizer(tap)
+        if mode == .Edit {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(changeIssueTypeAction))
+            issueTypeValue.addGestureRecognizer(tap)
+        }
     }
 
     @objc func changeIssueTypeAction(sender:UITapGestureRecognizer) {
+        editType()
+    }
+
+    func editType(){
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
@@ -162,12 +176,24 @@ class MinisterIssueTableViewCell: BaseFormCell {
         if pastures.count > 1 {
             pastures = "\(pastures)."
         }
+
+        // if there are only 2 pasture, remove comma
+        if i.pastures.count == 2 {
+            pastures = pastures.replacingLastOccurrenceOfString(",", with: "")
+        }
         // Fill values
         pastureValue.text = pastures
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
         descriptionValue.text = i.desc
+
+        if self.mode == .View {
+            setDefaultValueIfEmpty(field: pastureValue)
+            setDefaultValueIfEmpty(field: detailsValue)
+            setDefaultValueIfEmpty(field: objectiveValue)
+            setDefaultValueIfEmpty(field: descriptionValue)
+        }
     }
 
     func computeTableHeight() -> CGFloat {
@@ -192,10 +218,12 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleSubHeader(label: actionsHeader)
         switch self.mode {
         case .View:
+            addPastureButtonWidth.constant = 0
             optionsButton.alpha = 0
-            pasturesButton.isUserInteractionEnabled = false
             addButton.alpha = 0
             addPasturesButton.alpha = 0
+            editButton.alpha = 0
+            pasturesButton.isUserInteractionEnabled = false
             styleTextviewInputFieldReadOnly(field: detailsValue, header: detailsHeader)
             styleTextviewInputFieldReadOnly(field: objectiveValue, header: objectiveHeader)
             styleTextviewInputFieldReadOnly(field: descriptionValue, header: descriptionHeader)

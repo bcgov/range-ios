@@ -30,19 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         Fabric.with([Crashlytics.self])
 
-        do {
-            let realm = try Realm()
-            self.realmNotificationToken = realm.observe { notification, realm in
-                print("change observed")
-                let outbox = RUPManager.shared.getOutboxRups()
-                if outbox.count > 0 {
-                    print("sync NOW!")
-                }
-            }
-        } catch _ {
-            fatalError()
-        }
-
+        DataServices.shared.beginAutoSyncListener()
 
         return true
     }
@@ -55,10 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        DataServices.shared.endAutoSyncListener()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        DataServices.shared.beginAutoSyncListener()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
