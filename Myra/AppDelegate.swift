@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         Fabric.with([Crashlytics.self])
 
-        DataServices.shared.beginAutoSyncListener()
+        DataServices.shared.beginAutoSyncListener() 
 
         return true
     }
