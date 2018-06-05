@@ -13,7 +13,7 @@ import RealmSwift
 class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Contants
-    let actionCellHeight: CGFloat = 158
+    let actionCellHeight: CGFloat = 162
 
     // MARK: Variables
     var issue: MinisterIssue?

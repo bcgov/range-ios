@@ -185,7 +185,11 @@ class DataServices: NSObject {
 
             APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
                 guard let response = response, error == nil else {
-                    fatalError()
+
+                    // TODO: HANDLE THIS
+//                    fatalError()
+                    completion()
+                    return
                 }
 
                 // Were on a new thread now !

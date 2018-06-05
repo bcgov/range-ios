@@ -98,9 +98,7 @@ class PlanInformationTableViewCell: BaseFormCell {
                 }
             }
         }
-
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAndGoTo(indexPath: parent.basicInformationIndexPath)
+        reloadParentIfDatesAreSet()
     }
 
     func handlePlanEndDate(date: Date) {
@@ -113,8 +111,15 @@ class PlanInformationTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAndGoTo(indexPath: parent.basicInformationIndexPath)
+        reloadParentIfDatesAreSet()
+    }
+
+    // this will load usage years
+    func reloadParentIfDatesAreSet() {
+        if self.planEndValue.text != "" && self.planStartValue.text != "" {
+            let parent = self.parentViewController as! CreateNewRUPViewController
+            parent.reloadAndGoTo(indexPath: parent.basicInformationIndexPath)
+        }
     }
 
     // MARK: Setup

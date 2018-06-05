@@ -96,6 +96,8 @@ class BasicInformationTableViewCell: BaseFormCell {
         self.rup = rup
         style()
         autofill()
+        self.rangeNameValue.delegate = self
+        self.altBusinessNameValue.delegate = self
     }
 
     func autofill() {
