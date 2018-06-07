@@ -846,8 +846,7 @@
 
     func getMinistersIssueTypesOptions() -> [SelectionPopUpObject] {
         var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        guard let query = RealmRequests.getObject(MinisterIssueType.self) else {return options}
-
+        let query = RealmManager.shared.getIssueType()
         for item in query {
             options.append(SelectionPopUpObject(display: item.name))
         }
@@ -856,8 +855,7 @@
 
     func getMinistersIssueActionsOptions() -> [SelectionPopUpObject] {
         var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        guard let query = RealmRequests.getObject(MinisterIssueActionType.self) else {return options}
-
+        let query = RealmManager.shared.getIssueActionType()
         for item in query {
             options.append(SelectionPopUpObject(display: item.name))
         }

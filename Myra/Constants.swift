@@ -38,6 +38,7 @@ struct Constants {
     }
 
 
+
     // test
     /*
     struct API {
@@ -48,6 +49,8 @@ struct Constants {
         static let referencePath = "reference/"
         static let agreementPath = "agreement/"
         static let schedulePath = "plan/:id/schedule"
+        static let issuePath = "plan/:id/issue"
+        static let actionPath = "plan/:planId?/issue/:issueId?/action"
     }
 
     struct SSO {

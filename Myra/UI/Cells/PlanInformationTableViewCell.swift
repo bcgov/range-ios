@@ -118,7 +118,7 @@ class PlanInformationTableViewCell: BaseFormCell {
     func reloadParentIfDatesAreSet() {
         if self.planEndValue.text != "" && self.planStartValue.text != "" {
             let parent = self.parentViewController as! CreateNewRUPViewController
-            parent.reloadAndGoTo(indexPath: parent.basicInformationIndexPath)
+            parent.reloadAt(indexPath: parent.basicInformationIndexPath)
         }
     }
 

@@ -76,7 +76,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         if scrollToBottom {
             parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
         } else {
-            parent.reloadAndGoTo(indexPath: parent.minsterActionsIndexPath)
+            parent.reloadAt(indexPath: parent.minsterActionsIndexPath)
         }
     }
 
@@ -97,7 +97,8 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         /*
          This module has Action cells
         */
-        let staticHeight: CGFloat = 670
+//        let staticHeight: CGFloat = 670
+        let staticHeight: CGFloat = 670 - 146
         let actionHeight: CGFloat = 162
         return (staticHeight + (actionHeight * CGFloat(issue.actions.count)))
     }

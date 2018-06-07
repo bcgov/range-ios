@@ -32,7 +32,7 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
-    let portraitMenuWidth: CGFloat = 156
+    let portraitMenuWidth: CGFloat = 64
     let numberOfSections = 7
 
     // MARK: Variables
@@ -101,6 +101,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var basicInfoButton: UIButton!
     @IBOutlet weak var basicInfoBoxImage: UIImageView!
     @IBOutlet weak var basicInfoBoxLeft: UIView!
+    @IBOutlet weak var basicInfoIconLeading: NSLayoutConstraint!
 
     @IBOutlet weak var pasturesBox: UIView!
     @IBOutlet weak var pasturesLabel: UILabel!
@@ -108,6 +109,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var pasturesBoxImage: UIImageView!
     @IBOutlet weak var pasturesLowerBar: UIView!
     @IBOutlet weak var pastureBoxLeft: UIView!
+    @IBOutlet weak var pasturesIconLeading: NSLayoutConstraint!
 
     @IBOutlet weak var scheduleBox: UIView!
     @IBOutlet weak var scheduleLabel: UILabel!
@@ -115,6 +117,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var scheduleBoxImage: UIImageView!
     @IBOutlet weak var scheduleLowerBar: UIView!
     @IBOutlet weak var scheduleBoxLeft: UIView!
+    @IBOutlet weak var scheduleIconLeading: NSLayoutConstraint!
 
     @IBOutlet weak var ministersIssuesBox: UIView!
     @IBOutlet weak var ministersIssuesLabel: UILabel!
@@ -122,6 +125,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var ministersIssuesBoxImage: UIImageView!
     @IBOutlet weak var ministersIssuesLowerBar: UIView!
     @IBOutlet weak var ministersIssuesBoxLeft: UIView!
+    @IBOutlet weak var ministersIssuesIconLeading: NSLayoutConstraint!
 
     /*
 
@@ -146,7 +150,12 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var reviewAndSubmitButton: UIButton!
     @IBOutlet weak var reviewAndSubmitBoxImage: UIImageView!
     @IBOutlet weak var submitButtonContainer: UIView!
-    
+    @IBOutlet weak var submitButtonIconWidth: NSLayoutConstraint!
+
+    @IBOutlet weak var submitAndReviewLabelCenterY: NSLayoutConstraint!
+
+    @IBOutlet weak var requiredFieldNeededLabel: UILabel!
+
     // Body
     @IBOutlet weak var tableView: UITableView!
 
@@ -432,8 +441,10 @@ class CreateNewRUPViewController: BaseViewController {
     }
     override func whenLandscape() {
         setMenuSize()
+//        styleLandscapeMenu()
     }
     override func whenPortrait() {
+//        stylePortaitMenu()
         setMenuSize()
     }
 
@@ -551,10 +562,11 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        reload(indexPath: nil)
         return numberOfSections
     }
 
-    /*
+
     func reload(indexPath: IndexPath? = [0,0], bottom: Bool? = false) {
 
         // Reload and go to bottom of specified indexpath
@@ -563,12 +575,25 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             return
         }
     }
- */
 
-    func reloadAndGoTo(indexPath: IndexPath) {
+
+    func reloadAt(indexPath: IndexPath) {
+//        guard let plan = self.rup else {return}
+//        do {
+//            let realm = try Realm()
+//            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+//            self.rup = aRup
+//        } catch _ {
+//            fatalError()
+//        }
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
+
+//        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+//        self.tableView.layoutIfNeeded()
+
+        
         highlighCurrentModuleInMenu()
     }
 

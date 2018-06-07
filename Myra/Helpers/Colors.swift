@@ -22,5 +22,6 @@ class Colors {
     static let secondaryBg = UIColor(hex: "#FAFAFA")
     static let oddCell = UIColor(hex: "#FAFAFA")
     static let evenCell = UIColor(hex: "#FFFFFF")
+    static let invalid = UIColor(hex: "#ED6237")
     static let shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5)
 }
