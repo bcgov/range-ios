@@ -101,32 +101,27 @@
 
     func getAgreement(with id: String) -> Agreement? {
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
-            for storedAgreement in storedAgreements {
-                if storedAgreement.agreementId == id {
-                    return storedAgreement
-                }
+            for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
+                return storedAgreement
             }
         }
         return nil
     }
 
     func agreementExists(id: String) -> Bool {
-        if let storedAgreements = RealmRequests.getObject(Agreement.self) {
-            for storedAgreement in storedAgreements {
-                if storedAgreement.agreementId == id {
-                    return true
-                }
-            }
+        if let _ = getAgreement(with: id) {
+            return true
+        } else {
+            return false
         }
-        return false
     }
 
     func planExists(remoteId: Int) -> Bool {
-        if let _ = planWith(remoteId: remoteId) {return true}
+        if let _ = getPlanWith(remoteId: remoteId) {return true}
         return false
     }
 
-    func planWith(remoteId: Int) -> RUP? {
+    func getPlanWith(remoteId: Int) -> RUP? {
         guard let plans = RealmRequests.getObject(RUP.self) else {return nil}
         for plan in plans {
             if plan.remoteId == remoteId {

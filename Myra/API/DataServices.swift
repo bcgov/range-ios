@@ -457,9 +457,6 @@ class DataServices: NSObject {
 
             guard let planObject = DataServices.plan(withLocalId: planId) else {
                 group.leave()
-//                group.notify(queue: .main) {
-//                    return completion()
-//                }
                 return
             }
             APIManager.getPlanStatus(forPlan: planObject) { (response) in
