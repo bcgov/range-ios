@@ -38,7 +38,7 @@ class DataServices: NSObject {
     }
 
     func beginAutoSyncListener() {
-        print("Listening!")
+        print("Listening to db changes in DataServices!")
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
@@ -47,6 +47,13 @@ class DataServices: NSObject {
             }
         } catch _ {
             fatalError()
+        }
+    }
+
+    func endAutoSyncListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            print("Stopped Listening :(")
         }
     }
 
@@ -70,13 +77,6 @@ class DataServices: NSObject {
                 print("But nothing in outbox")
         }
 //        }
-    }
-
-    func endAutoSyncListener() {
-        if let token = self.realmNotificationToken {
-            token.invalidate()
-            print("Stopped Listening :(")
-        }
     }
     
     static func plan(withLocalId localId: String) -> RUP? {

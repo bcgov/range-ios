@@ -98,9 +98,18 @@ class RUP: Object, MyraObject {
         self.agreementStartDate = agreement.agreementStartDate
         self.agreementEndDate = agreement.agreementEndDate
         self.typeId = agreement.typeId
-        self.clients = agreement.clients
-        self.zones = agreement.zones
-        self.rangeUsageYears = agreement.rangeUsageYears
+        for c in agreement.clients {
+            self.clients.append(c)
+        }
+        for z in agreement.zones {
+            self.zones.append(z)
+        }
+//        self.clients = agreement.clients
+//        self.zones = agreement.zones
+        for y in agreement.rangeUsageYears {
+            self.rangeUsageYears.append(y)
+        }
+//        self.rangeUsageYears = agreement.rangeUsageYears
         let splitRan = agreementId.split(separator: "N")
         self.ranNumber = Int(splitRan[1]) ?? 0
     }

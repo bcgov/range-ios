@@ -412,12 +412,17 @@ class CreateNewRUPViewController: BaseViewController {
 
         setUpTable()
 
-        self.realmNotificationToken = rup.observe { (change) in
+        beginChangeListener()
+    }
+
+    func beginChangeListener() {
+        guard let r = self.rup else { return}
+        self.realmNotificationToken = r.observe { (change) in
             switch change {
             case .error(_):
                 print("Error in rup change")
             case .change(_):
-                self.planIsValid = rup.isValid
+                self.planIsValid = r.isValid
             case .deleted:
                 print("RUP deleted")
             }
