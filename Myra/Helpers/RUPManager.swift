@@ -189,19 +189,19 @@
     func updateRUPsFor(agreement: Agreement) {
         let rupsForAgreement = getRUPsForAgreement(agreementId: agreement.agreementId)
         for plan in rupsForAgreement {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    if agreement.zones.count > 0 {
+            if agreement.zones.count > 0 {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
                         plan.zones.removeAll()
                         for zone in agreement.zones {
                             plan.zones.append(zone)
                         }
                         plan.rangeUsageYears = agreement.rangeUsageYears
                     }
+                } catch _ {
+                    fatalError()
                 }
-            } catch _ {
-                fatalError()
             }
             RealmRequests.updateObject(plan)
         }
@@ -483,7 +483,7 @@
             new.numberOfAnimals = object.numberOfAnimals
 
             if let dateIn = object.dateIn {
-                 new.dateIn = DateManager.update(date: dateIn, toYear: toYear)
+                new.dateIn = DateManager.update(date: dateIn, toYear: toYear)
             }
 
             if let dateOut = object.dateOut {
@@ -549,16 +549,16 @@
             let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: liveStockId)
             auFactor = liveStockObject.auFactor
         } else {
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        scheduleObject.totalAUMs = 0.0
-                    }
-                } catch _ {
-                    fatalError()
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    scheduleObject.totalAUMs = 0.0
                 }
-                return
+            } catch _ {
+                fatalError()
             }
+            return
+        }
 
         // otherwise continue...
         let numberOfAnimals = Double(scheduleObject.numberOfAnimals)
@@ -625,8 +625,8 @@
 
     func scheduleHasValidEntries(schedule: Schedule, agreementID: String) -> Bool {
         /*
-          - Schedule must have at least 1 valid entry.
-          - Schedule entries must be valid.
+         - Schedule must have at least 1 valid entry.
+         - Schedule entries must be valid.
          We Can rely on the toDictionary function of the schedule.
          if schedule objects are incomplete, toDictionary returns an empty
          array for key "grazingScheduleEntries"
@@ -655,7 +655,7 @@
          is valid schedule does check the above criteria,
          but if those have passed, and this still fails,
          its means that the total aums are more than the allowed aums
-        */
+         */
         if !isScheduleValid(schedule: schedule, agreementID: agreementID) {
             return (false, "Total AUMs exceed the allowed amount for the this year")
         }
@@ -753,17 +753,17 @@
         }
     }
 
-//    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
-//        let query = RealmRequests.getObject(LivestockIdentifierType.self)
-//        if let all = query {
-//            for object in all {
-//                if object.id == id {
-//                    return object
-//                }
-//            }
-//        }
-//        return LivestockIdentifierType()
-//    }
+    //    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
+    //        let query = RealmRequests.getObject(LivestockIdentifierType.self)
+    //        if let all = query {
+    //            for object in all {
+    //                if object.id == id {
+    //                    return object
+    //                }
+    //            }
+    //        }
+    //        return LivestockIdentifierType()
+    //    }
 
  }
 

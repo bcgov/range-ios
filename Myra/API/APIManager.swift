@@ -408,7 +408,6 @@ class APIManager {
 
                 for (_,agreementJSON) in json {
                     agreements.append(Agreement(json: agreementJSON))
-//                    agreements.append(handleAgreementJSON(agreementJSON: agreementJSON))
                 }
 
                 return completion(agreements, nil)
