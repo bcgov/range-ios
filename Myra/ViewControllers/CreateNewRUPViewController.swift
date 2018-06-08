@@ -403,7 +403,7 @@ class CreateNewRUPViewController: BaseViewController {
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.rup?.statusEnum = .Draft
+                    self.rup?.statusEnum = .LocalDraft
                 }
             } catch _ {
                 fatalError()

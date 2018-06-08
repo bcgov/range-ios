@@ -165,7 +165,7 @@ class HomeViewController: BaseViewController {
 
     func sortByStatus() {
         loadRUPs()
-        self.rups = self.rups.sorted(by: {$0.status < $1.status})
+        self.rups = self.rups.sorted(by: {$0.getStatus().rawValue < $1.getStatus().rawValue})
     }
 
     func sortByRangeNumber() {
@@ -359,6 +359,7 @@ class HomeViewController: BaseViewController {
     // MARK: Sync
     override func whenAuthenticated() {
         self.syncing = true
+        self.endChangeListener()
         sync { (synced) in
             self.loadHome()
         }

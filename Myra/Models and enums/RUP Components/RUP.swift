@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class RUP: Object, MyraObject {
 
@@ -22,7 +23,12 @@ class RUP: Object, MyraObject {
 
     var statusEnum: RUPStatus {
         get {
-            return RUPStatus(rawValue: status)!
+            if let s = RUPStatus(rawValue: status) {
+                return s
+            } else {
+                return .Unknown
+            }
+//            return RUPStatus(rawValue: status)!
         }
         set {
             status = newValue.rawValue
@@ -35,7 +41,9 @@ class RUP: Object, MyraObject {
     @objc dynamic var info: String = ""
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
     @objc dynamic var primaryAgreementHolderLastName: String = ""
-    @objc dynamic var status: String = RUPStatus.Draft.rawValue
+
+    // Local status
+    @objc dynamic var status: String = RUPStatus.LocalDraft.rawValue
 
     @objc dynamic var agreementId: String = ""
     @objc dynamic var planStartDate: Date?
@@ -47,6 +55,8 @@ class RUP: Object, MyraObject {
     @objc dynamic var updatedAt: Date?
     @objc dynamic var typeId: Int = 0
     @objc dynamic var ranNumber: Int = 0
+
+    // Remote status
     @objc dynamic var statusId: Int = 0
     @objc dynamic var statusIdValue: String = ""
 
@@ -60,6 +70,29 @@ class RUP: Object, MyraObject {
     // we cant store nested realm objects, so we need to store the zone in list
     var zones = List<Zone>()
     var clients = List<Client>()
+
+    func getStatus() -> RUPStatus {
+        // if it's a local draft
+        if self.statusEnum == .LocalDraft {
+            return self.statusEnum
+        }
+
+        // if there is a remote status, use it
+        if let temp = RUPManager.shared.getStatus(forId: statusId) {
+            var statusName = temp.name.trimmingCharacters(in: .whitespaces)
+            // Remote Draft status means its a client's draft
+            if statusName == "Draft" { statusName = "ClientDraft"}
+            guard let result = RUPStatus(rawValue: statusName) else {
+                return .Unknown
+            }
+            return result
+        // otherwise use local status
+        } else {
+            return self.statusEnum
+        }
+
+
+    }
     
     func setFrom(agreement: Agreement) {
         self.agreementId = agreement.agreementId
@@ -156,6 +189,15 @@ class RUP: Object, MyraObject {
         }
     }
 
+    func pastureWith(remoteId: Int) -> Pasture? {
+        for pasture in pastures {
+            if pasture.remoteId == remoteId {
+                return pasture
+            }
+        }
+        return nil
+    }
+
     func toDictionary() -> [String:Any] {
         // if invalid, return empty dictionary
         if !isValid {
@@ -170,5 +212,53 @@ class RUP: Object, MyraObject {
             "alternativeBusinessName": alternativeName,
             "statusId": 1
         ]
+    }
+
+    func populateFrom(json: JSON) {
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let planStart = json["planStartDate"].string {
+            self.planStartDate = DateManager.fromUTC(string: planStart)
+        }
+
+        if let planEndDate = json["planEndDate"].string {
+            self.planEndDate = DateManager.fromUTC(string: planEndDate)
+        }
+
+        if let rangeName = json["rangeName"].string {
+            self.rangeName = rangeName
+        }
+        
+        if let statusId = json["statusId"].int, let statusObject = RUPManager.shared.getStatus(forId: statusId) {
+            // set remote status
+            self.statusId = statusId
+            self.statusIdValue = statusObject.name
+            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces)
+
+            // set local status
+            if let result = RUPStatus(rawValue: statusName) {
+                self.statusEnum = result
+            } else {
+                self.statusEnum = .Unknown
+            }
+        }
+
+        let pastures = json["pastures"]
+        for pasture in pastures {
+            self.pastures.append(Pasture(json: pasture.1))
+        }
+
+        let issues = json["ministerIssues"]
+        for issue in issues {
+            self.ministerIssues.append(MinisterIssue(json: issue.1))
+        }
+
+        let grazingSchedules = json["grazingSchedules"]
+        for element in grazingSchedules {
+            self.schedules.append(Schedule(json: element.1, plan: self))
+        }
+        RealmRequests.saveObject(object: self)
     }
 }

@@ -482,6 +482,8 @@
 		29EB8443203DEE8600D73F6B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */,
+				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
 				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
 				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
 				29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */,
@@ -518,8 +520,6 @@
 				29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */,
 				29EB8449203E15D600D73F6B /* MapTableViewCell.swift */,
 				29EB844A203E15D600D73F6B /* MapTableViewCell.xib */,
-				29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */,
-				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
 				29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */,
 				29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */,
 				292197D7209CD152004A5011 /* OptionsTableViewCell.swift */,

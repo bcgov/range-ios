@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class MinisterIssue: Object, MyraObject {
 
@@ -23,6 +24,7 @@ class MinisterIssue: Object, MyraObject {
     @objc dynamic var details: String = ""
     @objc dynamic var objective: String = ""
     @objc dynamic var desc: String = ""
+    @objc dynamic var identified: Bool = false
 
     override class func primaryKey() -> String? {
         return "localId"
@@ -118,5 +120,38 @@ class MinisterIssue: Object, MyraObject {
             "identified": true,
             "issueTypeId": self.issueTypeID,
         ]
+    }
+
+    convenience init(json: JSON) {
+         self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let typeName = json["ministerIssueType"]["name"].string {
+            self.issueType = typeName
+        }
+
+        if let issueTypeId = json["issueTypeId"].int {
+            self.issueTypeID = issueTypeId
+        }
+
+        if let objective = json["objective"].string {
+            self.objective = objective
+        }
+
+        if let detail = json["detail"].string {
+            self.details = detail
+        }
+
+        if let identified = json["identified"].bool {
+            self.identified = identified
+        }
+
+        let actions = json["ministerIssueActions"]
+
+        for action in actions {
+            self.actions.append(MinisterIssueAction(json: action.1))
+        }
     }
 }

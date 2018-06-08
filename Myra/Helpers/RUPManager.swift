@@ -125,6 +125,21 @@
         return false
     }
 
+    func planExists(remoteId: Int) -> Bool {
+        if let p = planWith(remoteId: remoteId) {return true}
+        return false
+    }
+
+    func planWith(remoteId: Int) -> RUP? {
+        guard let plans = RealmRequests.getObject(RUP.self) else {return nil}
+        for plan in plans {
+            if plan.remoteId == remoteId {
+                return plan
+            }
+        }
+        return nil
+    }
+
     // Updates Range use years and zones
     func updateAgreement(with newAgreement: Agreement) {
         let storedAgreement = getAgreement(with: newAgreement.agreementId)
@@ -264,7 +279,7 @@
     func getDraftRups() -> [RUP] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(RUP.self).filter("status == 'Draft'").map{ $0 }
+            let objs = realm.objects(RUP.self).filter("status == 'LocalDraft'").map{ $0 }
             return Array(objs)
         } catch _ {}
         return [RUP]()
@@ -388,10 +403,12 @@
      rely on schedule objects being able to reference their assigned pastures.
      */
     func setPastureOn(scheduleObject: ScheduleObject, pastureName: String, rup: RUP) {
+        guard let pasture = getPastureNamed(name: pastureName, rup: rup) else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                scheduleObject.pasture = getPastureNamed(name: pastureName, rup: rup)
+                scheduleObject.pasture = pasture
+                scheduleObject.graceDays = pasture.graceDays
             }
         } catch _ {
             fatalError()

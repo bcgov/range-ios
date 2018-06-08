@@ -116,7 +116,7 @@ extension CreateNewRUPViewController {
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
         self.reviewAndSubmitButton.isEnabled = false
         self.requiredFieldNeededLabel.alpha = 1
-        self.requiredFieldNeededLabel.text = "Complete all required fields"
+        self.requiredFieldNeededLabel.text = "Missing required fields"
         self.styleFieldHeader(label: self.requiredFieldNeededLabel)
         self.requiredFieldNeededLabel.textColor = Colors.invalid
 

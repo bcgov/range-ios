@@ -457,14 +457,20 @@ class DataServices: NSObject {
 
             guard let planObject = DataServices.plan(withLocalId: planId) else {
                 group.leave()
-                return completion()
+//                group.notify(queue: .main) {
+//                    return completion()
+//                }
+                return
             }
             APIManager.getPlanStatus(forPlan: planObject) { (response) in
                 if response.result.description == "SUCCESS", let value = response.result.value {
                     let json = JSON(value)
                     guard let id = json["plan"]["statusId"].int else {
                         group.leave()
-                        return completion()
+//                        group.notify(queue: .main) {
+//                            return completion()
+//                        }
+                        return
                     }
                     if let refetchPlanObject = DataServices.plan(withLocalId: planId) {
                         refetchPlanObject.updateStatusId(newID: id)

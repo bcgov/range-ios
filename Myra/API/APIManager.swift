@@ -439,7 +439,7 @@ class APIManager {
             agreementEndDate = DateManager.fromUTC(string: dateEnd)
         }
 
-        if let type = agreementJSON["typeId"].int {
+        if let type = agreementJSON["agreementTypeId"].int {
             typeId = type
         }
 
@@ -451,7 +451,7 @@ class APIManager {
             updatedAt = DateManager.fromUTC(string: dateUpdate)
         }
 
-        if let exemptionStatusNumber = agreementJSON["exemptionStatusId"].int {
+        if let exemptionStatusNumber = agreementJSON["agreementExemptionStatusId"].int {
             exemptionStatusId = exemptionStatusNumber
         }
 
@@ -602,6 +602,17 @@ class APIManager {
 
         agreement.zones.append(zone)
 
+        let plansJSON = agreementJSON["plans"]
+        if let planJSON = plansJSON.first, let planRemoteId = planJSON.1["id"].int {
+            if let p = RUPManager.shared.planWith(remoteId: planRemoteId) {
+                RealmRequests.deleteObject(p)
+            }
+            let plan = RUP()
+            plan.setFrom(agreement: agreement)
+            plan.populateFrom(json: planJSON.1)
+            agreement.rups.append(plan)
+        }
+        
         return agreement
     }
 }
@@ -614,6 +625,8 @@ extension APIManager {
             completion(APIError.noNetworkConnectivity)
             return
         }
+
+        DataServices.shared.endAutoSyncListener()
         
         var myError: APIError? = nil
         var myAgreements: [Agreement]?
@@ -661,6 +674,7 @@ extension APIManager {
                 RUPManager.shared.diffAgreements(agreements: agreements)
                 RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             }
+            DataServices.shared.beginAutoSyncListener()
             completion(myError)
         }
     }
