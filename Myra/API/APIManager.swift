@@ -407,7 +407,8 @@ class APIManager {
                 }
 
                 for (_,agreementJSON) in json {
-                    agreements.append(handleAgreementJSON(agreementJSON: agreementJSON))
+                    agreements.append(Agreement(json: agreementJSON))
+//                    agreements.append(handleAgreementJSON(agreementJSON: agreementJSON))
                 }
 
                 return completion(agreements, nil)
@@ -415,205 +416,6 @@ class APIManager {
                 return completion(agreements, nil)
             }
         }
-    }
-
-    static func handleAgreementJSON(agreementJSON: JSON) -> Agreement {
-        // Agreement Object vars
-        var agreementId: String = ""
-        var agreementStartDate: Date?
-        var agreementEndDate: Date?
-        var typeId: Int = -1
-        var exemptionStatusId: Int = -1
-        var createdAt: Date?
-        var updatedAt: Date?
-
-        if let i = agreementJSON["id"].string {
-            agreementId = i
-        }
-
-        if let dateStart = agreementJSON["agreementStartDate"].string {
-            agreementStartDate = DateManager.fromUTC(string: dateStart)
-        }
-
-        if let dateEnd = agreementJSON["agreementEndDate"].string {
-            agreementEndDate = DateManager.fromUTC(string: dateEnd)
-        }
-
-        if let type = agreementJSON["agreementTypeId"].int {
-            typeId = type
-        }
-
-        if let dateCreate = agreementJSON["createdAt"].string {
-            createdAt = DateManager.fromUTC(string: dateCreate)
-        }
-
-        if let dateUpdate = agreementJSON["updatedAt"].string {
-            updatedAt = DateManager.fromUTC(string: dateUpdate)
-        }
-
-        if let exemptionStatusNumber = agreementJSON["agreementExemptionStatusId"].int {
-            exemptionStatusId = exemptionStatusNumber
-        }
-
-        // Zone object
-        let zoneJSON = agreementJSON["zone"]
-
-        var zid: Int = -1
-        var zcode: String = ""
-        var zdistrictId: Int = -1
-        var zdesc: String = ""
-
-        var zcontactName = ""
-        var zcontactPhoneNumber = ""
-        var zcontactEmail = ""
-
-        if let zd = zoneJSON["id"].int {
-            zid = zd
-        }
-        if let zc = zoneJSON["code"].string {
-            zcode = zc
-        }
-        if let zdid = zoneJSON["districtId"].int {
-            zdistrictId = zdid
-        }
-        if let zdes = zoneJSON["description"].string {
-            zdesc = zdes
-        }
-
-        // Zone user
-        let zoneUser = zoneJSON["user"]
-        var firstName = ""
-        var lastName = ""
-
-        if let zoneUserName = zoneUser["givenName"].string {
-            firstName = zoneUserName
-        }
-
-        if let zoneUserFamilyName = zoneUser["familyName"].string {
-            lastName = zoneUserFamilyName
-        }
-
-        zcontactName = "\(firstName) \(lastName)"
-
-        if let zpn = zoneUser["phone"].string {
-            zcontactPhoneNumber = zpn
-        }
-
-        if let zce = zoneUser["email"].string {
-            zcontactEmail = zce
-        }
-
-        // District object
-        let districtJSON = zoneJSON["district"]
-        var did: Int = -1
-        var ddesc: String = ""
-        var dcode: String = ""
-
-
-        if let distId = districtJSON["id"].int {
-            did = distId
-        }
-        if let distDesc = districtJSON["description"].string {
-            ddesc = distDesc
-        }
-        if let distCode = districtJSON["code"].string {
-            dcode = distCode
-        }
-
-        let district = District()
-        district.set(id: did, code: dcode, desc: ddesc)
-
-        let zone = Zone()
-        zone.set(district: district, id: zid, code: zcode, districtId: zdistrictId, desc: zdesc, contactName: zcontactName, contactPhoneNumber: zcontactPhoneNumber, contactEmail: zcontactEmail)
-
-        // Usage year objects
-        var usages: [RangeUsageYear] = [RangeUsageYear]()
-        let usageJSON = agreementJSON["usage"]
-        for (_,usage) in usageJSON {
-            let usageObj = RangeUsageYear()
-            usageObj.agreementId = agreementId
-            if let authAUM = usage["authorizedAum"].int {
-                usageObj.auth_AUMs = authAUM
-            }
-
-            if let uid = usage["id"].int {
-                usageObj.id = uid
-            }
-
-            if let tAU = usage["totalAnnualUse"].int{
-                usageObj.totalAnnual = tAU
-            }
-
-            if let ti = usage["temporaryIncrease"].int {
-                usageObj.tempIncrease = ti
-            }
-
-            if let tnu = usage["totalNonUse"].int {
-                usageObj.totalNonUse = tnu
-            }
-
-            if let yy = usage["year"].int {
-                usageObj.year = Int(yy)
-
-            }
-            usages.append(usageObj)
-        }
-
-        let sortedUsages = usages.sorted(by: { $0.year < $1.year })
-
-        // Clients
-        let clientsJSON = agreementJSON["clients"]
-        var clients: [Client] = [Client]()
-        for (_,clientJSON) in clientsJSON {
-            let client = Client()
-            
-            if let cid = clientJSON["id"].string {
-                client.id = cid
-            }
-
-            if let cname = clientJSON["name"].string {
-                client.name = cname
-            }
-
-            if let clocationCode = clientJSON["locationCode"].string {
-                client.locationCode = clocationCode
-            }
-
-            if let cstart = clientJSON["startDate"].string {
-                client.startDate = DateManager.fromUTC(string: cstart)
-            }
-
-            if let cclientTypeCode = clientJSON["clientTypeCode"].string {
-                client.clientTypeCode = cclientTypeCode
-            }
-            clients.append(client)
-        }
-
-        let agreement = Agreement()
-        agreement.set(agreementId: agreementId, agreementStartDate: agreementStartDate!, agreementEndDate: agreementEndDate!, typeId: typeId, exemptionStatusId: exemptionStatusId, createdAt: createdAt, updatedAt: updatedAt)
-
-        for usage in sortedUsages {
-            agreement.rangeUsageYears.append(usage)
-        }
-
-        for client in clients {
-            agreement.clients.append(client)
-        }
-
-        agreement.zones.append(zone)
-
-        let plansJSON = agreementJSON["plans"]
-        if let planJSON = plansJSON.first, let planRemoteId = planJSON.1["id"].int {
-            if let p = RUPManager.shared.planWith(remoteId: planRemoteId) {
-                RealmRequests.deleteObject(p)
-            }
-            let plan = RUP()
-            plan.setFrom(agreement: agreement)
-            plan.populateFrom(json: planJSON.1)
-            agreement.rups.append(plan)
-        }
-        
-        return agreement
     }
 }
 
@@ -629,51 +431,45 @@ extension APIManager {
         DataServices.shared.endAutoSyncListener()
         
         var myError: APIError? = nil
-        var myAgreements: [Agreement]?
         let dispatchGroup = DispatchGroup()
 
-        progress("Uploading data to the server")
         dispatchGroup.enter()
+        progress("Uploading data to the server")
         DataServices.shared.uploadOutboxRangeUsePlans {
             dispatchGroup.leave()
         }
 
-        progress("Downloading reference data")
         dispatchGroup.enter()
+        progress("Downloading reference data")
         getReferenceData(completion: { (success) in
             if (!success) {
                 progress("Failed while downloading reference data")
             }
+
             dispatchGroup.leave()
         })
 
-        progress("Downloading agreements")
         dispatchGroup.enter()
+        progress("Downloading agreements")
         getAgreements(completion: { (agreements, error) in
 
             if let error = error {
                 progress("Sync Failed. \(error.localizedDescription)")
                 myError = error
-            } else {
-                myAgreements = agreements
-//                progress("Completed")
             }
+
             dispatchGroup.leave()
         })
 
-        progress("Updating plan statuses")
         dispatchGroup.enter()
+        progress("Updating plan statuses")
         DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
             dispatchGroup.leave()
         }
 
-        progress("Updating stored data")
         dispatchGroup.notify(queue: .main) {
-            if let agreements = myAgreements {
-                progress("Updating stored data")
-                RUPManager.shared.diffAgreements(agreements: agreements)
-                RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
-            }
+            progress("Updating local data")
+            RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             DataServices.shared.beginAutoSyncListener()
             completion(myError)
         }

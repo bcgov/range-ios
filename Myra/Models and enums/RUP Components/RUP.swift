@@ -21,6 +21,10 @@ class RUP: Object, MyraObject {
         return "localId"
     }
 
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
+
+
     var statusEnum: RUPStatus {
         get {
             if let s = RUPStatus(rawValue: status) {
@@ -28,15 +32,11 @@ class RUP: Object, MyraObject {
             } else {
                 return .Unknown
             }
-//            return RUPStatus(rawValue: status)!
         }
         set {
             status = newValue.rawValue
         }
     }
-
-    // if remoteId == -1, it has not been "synced"
-    @objc dynamic var remoteId: Int = -1
 
     @objc dynamic var info: String = ""
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
@@ -90,7 +90,6 @@ class RUP: Object, MyraObject {
         } else {
             return self.statusEnum
         }
-
 
     }
     
@@ -259,6 +258,6 @@ class RUP: Object, MyraObject {
         for element in grazingSchedules {
             self.schedules.append(Schedule(json: element.1, plan: self))
         }
-        RealmRequests.saveObject(object: self)
+//        RealmRequests.saveObject(object: self)
     }
 }

@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class Client: Object {
     @objc dynamic var localId: String = {
@@ -31,5 +32,29 @@ class Client: Object {
         self.locationCode = locationCode
         self.startDate = startDate
         self.clientTypeCode = clientTypeCode
+    }
+
+    convenience init(json: JSON) {
+        self.init()
+
+        if let cid = json["id"].string {
+            self.id = cid
+        }
+
+        if let cname = json["name"].string {
+            self.name = cname
+        }
+
+        if let clocationCode = json["locationCode"].string {
+            self.locationCode = clocationCode
+        }
+
+        if let cstart = json["startDate"].string {
+            self.startDate = DateManager.fromUTC(string: cstart)
+        }
+
+        if let cclientTypeCode = json["clientTypeCode"].string {
+            self.clientTypeCode = cclientTypeCode
+        }
     }
 }
