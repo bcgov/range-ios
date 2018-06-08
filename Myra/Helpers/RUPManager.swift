@@ -100,13 +100,10 @@
     }
 
     func getAgreement(with id: String) -> Agreement? {
-        if agreementExists(id: id) {
-            let storedAgreements = RealmRequests.getObject(Agreement.self)
-            if storedAgreements != nil {
-                for storedAgreement in storedAgreements! {
-                    if storedAgreement.agreementId == id {
-                        return storedAgreement
-                    }
+        if let storedAgreements = RealmRequests.getObject(Agreement.self) {
+            for storedAgreement in storedAgreements {
+                if storedAgreement.agreementId == id {
+                    return storedAgreement
                 }
             }
         }
@@ -114,9 +111,8 @@
     }
 
     func agreementExists(id: String) -> Bool {
-        let storedAgreements = RealmRequests.getObject(Agreement.self)
-        if storedAgreements != nil {
-            for storedAgreement in storedAgreements! {
+        if let storedAgreements = RealmRequests.getObject(Agreement.self) {
+            for storedAgreement in storedAgreements {
                 if storedAgreement.agreementId == id {
                     return true
                 }
