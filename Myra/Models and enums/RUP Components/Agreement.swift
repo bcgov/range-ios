@@ -85,11 +85,7 @@ class Agreement: Object, MyraObject {
         for (_,clientJSON) in clientsJSON {
             self.clients.append(Client(json: clientJSON))
         }
-
-        for usage in sortedUsages {
-            self.rangeUsageYears.append(usage)
-        }
-
+        
         // Plan
         let plansJSON = json["plans"]
         if let planJSON = plansJSON.first, let planRemoteId = planJSON.1["id"].int {

@@ -135,7 +135,7 @@
     func updateAgreement(with newAgreement: Agreement) {
         guard let stored = getAgreement(with: newAgreement.agreementId) else {return}
 
-        // Grab zones and range use years
+        // Grab zones, range use years
         if newAgreement.zones.count > 0 {
             do {
                 let realm = try Realm()
@@ -147,8 +147,6 @@
                 fatalError()
             }
         }
-
-        updateRUPsFor(agreement: stored)
 
         if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum != .LocalDraft {
             // if agreement has a plan in local draft state, leave it be
@@ -174,12 +172,13 @@
             print("Possible error: Agreement with id \(stored.agreementId) has multiple plans")
         }
 
+        updateRUPsFor(agreement: stored)
+
         RealmRequests.updateObject(stored)
     }
 
     func updateRUPsFor(agreement: Agreement) {
-        let rupsForAgreement = getRUPsForAgreement(agreementId: agreement.agreementId)
-        for plan in rupsForAgreement {
+        for plan in agreement.rups {
             if agreement.zones.count > 0 {
                 do {
                     let realm = try Realm()
@@ -188,7 +187,10 @@
                         for zone in agreement.zones {
                             plan.zones.append(zone)
                         }
-                        plan.rangeUsageYears = agreement.rangeUsageYears
+                        plan.rangeUsageYears.removeAll()
+                        for year in agreement.rangeUsageYears {
+                            plan.rangeUsageYears.append(year)
+                        }
                     }
                 } catch _ {
                     fatalError()
