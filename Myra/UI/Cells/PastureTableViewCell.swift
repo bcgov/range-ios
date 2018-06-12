@@ -70,15 +70,37 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     @IBAction func addPlantCommunityAction(_ sender: Any) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.pasture?.plantCommunities.append(PlantCommunity())
+        let button: UIButton = sender as! UIButton
+        let vm = ViewManager()
+        let lookup = vm.lookup
+        
+        lookup.setup(objects: RUPManager.shared.getPlanCommunityTypeOptions()) { (selected, selection) in
+            lookup.dismiss(animated: true, completion: nil)
+            if selected, let option = selection {
+                let pc = PlantCommunity()
+                pc.name = option.display
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        self.pasture?.plantCommunities.append(pc)
+                    }
+                } catch _ {
+                    fatalError()
+                }
+                self.updateTableHeight()
             }
-        } catch _ {
-            fatalError()
         }
-        updateTableHeight()
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.showPopUp(vc: lookup, on: button)
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                self.pasture?.plantCommunities.append(PlantCommunity())
+//            }
+//        } catch _ {
+//            fatalError()
+//        }
+//        updateTableHeight()
     }
     
     @IBAction func aumChanged(_ sender: UITextField) {

@@ -117,11 +117,20 @@ class MinisterIssue: Object, MyraObject {
             "detail": self.details,
             "objective": self.objective,
             "identified": true,
+            "pastures" : getPastureIds(),
             "issueTypeId": self.issueTypeID,
         ]
     }
 
-    convenience init(json: JSON) {
+    func getPastureIds() -> [Int] {
+        var pastureIds: [Int] = [Int]()
+        for pasture in pastures {
+             pastureIds.append(pasture.remoteId)
+        }
+        return pastureIds
+    }
+
+    convenience init(json: JSON, plan: RUP) {
         self.init()
         if let id = json["id"].int {
             self.remoteId = id
@@ -145,6 +154,15 @@ class MinisterIssue: Object, MyraObject {
 
         if let identified = json["identified"].bool {
             self.identified = identified
+        }
+
+        let pastureIds = json["pastures"]
+        for (_, id) in pastureIds {
+            if let pastureId = id.int {
+                for pasture in plan.pastures where  pasture.remoteId == pastureId {
+                    self.pastures.append(pasture)
+                }
+            }
         }
 
         let actions = json["ministerIssueActions"]

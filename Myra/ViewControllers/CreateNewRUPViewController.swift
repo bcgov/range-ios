@@ -567,18 +567,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        reload(indexPath: nil)
         return numberOfSections
     }
 
 
-    func reload(indexPath: IndexPath? = [0,0], bottom: Bool? = false) {
-
-        // Reload and go to bottom of specified indexpath
-        if let b = bottom, let i = indexPath, b == true {
-            realodAndGoToBottomOf(indexPath: i)
-            return
-        }
+    func reload(indexPath: IndexPath) {
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
 
