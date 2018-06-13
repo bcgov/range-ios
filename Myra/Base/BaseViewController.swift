@@ -334,7 +334,7 @@ extension BaseViewController {
         // button
         let buttonHeight: CGFloat = 50
         let buttonWidth: CGFloat = 100
-        let buttonButtomPadding: CGFloat = 5
+        let buttonButtomPadding: CGFloat = 10
         let button = UIButton(frame: CGRect(x: (layer.frame.width/2) - (buttonWidth/2), y: layerHeight - buttonHeight - buttonButtomPadding, width: buttonWidth, height: buttonHeight))
         button.backgroundColor = .white
         button.layer.borderWidth = 2
@@ -349,7 +349,7 @@ extension BaseViewController {
         layer.addSubview(button)
 
         let spinnerWidth: CGFloat = 200
-        let animationView = LOTAnimationView(name: "spinner_")
+        let animationView = LOTAnimationView(name: "spinner2_")
         animationView.frame = CGRect(x: (layer.frame.width/2) - (spinnerWidth/2), y: (layer.frame.height/2) - (spinnerWidth/2), width: spinnerWidth, height: spinnerWidth)
         animationView.contentMode = .scaleAspectFit
         animationView.loopAnimation = true
@@ -410,9 +410,11 @@ extension BaseViewController {
     }
 
     func updateSyncDescription(text: String) {
-        if let viewWithTag = self.view.viewWithTag(syncDescriptionTag) as? UILabel {
-            viewWithTag.attributedText = getSycDescriptionText(text: text)
-            viewWithTag.textAlignment = .center
+        DispatchQueue.main.async {
+            if let viewWithTag = self.view.viewWithTag(self.syncDescriptionTag) as? UILabel {
+                viewWithTag.attributedText = self.getSycDescriptionText(text: text)
+                viewWithTag.textAlignment = .center
+            }
         }
     }
 

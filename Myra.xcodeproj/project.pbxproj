@@ -87,6 +87,7 @@
 		29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */; };
 		29A52750205B322700C871F7 /* selectionPopUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */; };
 		29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */; };
+		29A97A7D20CEF0B6002F2D9A /* spinner2_.json in Resources */ = {isa = PBXBuildFile; fileRef = 29A97A7C20CEF0B5002F2D9A /* spinner2_.json */; };
 		29B5F047208E958D003D996D /* sync_icon.json in Resources */ = {isa = PBXBuildFile; fileRef = 29B5F046208E958D003D996D /* sync_icon.json */; };
 		29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */; };
 		29B5F04B208F9F12003D996D /* BasicInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29B5F049208F9F12003D996D /* BasicInformationTableViewCell.xib */; };
@@ -226,6 +227,7 @@
 		29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpObject.swift; sourceTree = "<group>"; };
 		29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectionPopUpTableViewCell.swift; sourceTree = "<group>"; };
 		29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = selectionPopUpTableViewCell.xib; sourceTree = "<group>"; };
+		29A97A7C20CEF0B5002F2D9A /* spinner2_.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spinner2_.json; sourceTree = "<group>"; };
 		29B5F046208E958D003D996D /* sync_icon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sync_icon.json; sourceTree = "<group>"; };
 		29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationTableViewCell.swift; sourceTree = "<group>"; };
 		29B5F049208F9F12003D996D /* BasicInformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInformationTableViewCell.xib; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				29EA029E2069664B0076403B /* x_pop.json */,
 				29EA02982069565B0076403B /* checked_done_.json */,
 				29B5F046208E958D003D996D /* sync_icon.json */,
+				29A97A7C20CEF0B5002F2D9A /* spinner2_.json */,
 				29EA02A020696A710076403B /* spinner_.json */,
 				56F3889F2080173C004CDFAE /* API */,
 				2920F8312034C7870090E7B4 /* Utilities */,
@@ -482,6 +485,8 @@
 		29EB8443203DEE8600D73F6B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */,
+				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
 				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
 				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
 				29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */,
@@ -518,8 +523,6 @@
 				29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */,
 				29EB8449203E15D600D73F6B /* MapTableViewCell.swift */,
 				29EB844A203E15D600D73F6B /* MapTableViewCell.xib */,
-				29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */,
-				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
 				29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */,
 				29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */,
 				292197D7209CD152004A5011 /* OptionsTableViewCell.swift */,
@@ -657,6 +660,7 @@
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
 				291CF8322098EAF300B0BCDD /* DatePicker.storyboard in Resources */,
 				292197CE209CCF65004A5011 /* Options.storyboard in Resources */,
+				29A97A7D20CEF0B6002F2D9A /* spinner2_.json in Resources */,
 				29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */,
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,

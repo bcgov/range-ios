@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class Zone: Object, MyraObject {
 
@@ -32,14 +33,44 @@ class Zone: Object, MyraObject {
     @objc dynamic var contactPhoneNumber: String = "Not Provided"
     @objc dynamic var contactEmail: String = "Not Provided"
 
-    func set(district: District, id: Int, code: String, districtId: Int, desc: String, contactName: String, contactPhoneNumber: String, contactEmail: String) {
-        self.districts.append(district)
-        self.id = id
-        self.code = code
-        self.districtId = districtId
-        self.desc = desc
-        self.contactName = contactName
-        self.contactEmail = contactEmail
-        self.contactPhoneNumber = contactPhoneNumber
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.id = id
+        }
+        if let code = json["code"].string {
+            self.code = code
+        }
+        if let districtId = json["districtId"].int {
+            self.districtId = districtId
+        }
+        if let desc = json["description"].string {
+            self.desc = desc
+        }
+
+        // Zone user
+        let zoneUser = json["user"]
+        var firstName = ""
+        var lastName = ""
+
+        if let zoneUserName = zoneUser["givenName"].string {
+            firstName = zoneUserName
+        }
+
+        if let zoneUserFamilyName = zoneUser["familyName"].string {
+            lastName = zoneUserFamilyName
+        }
+
+        self.contactName = "\(firstName) \(lastName)"
+
+        if let contactPhoneNumber = zoneUser["phone"].string {
+            self.contactPhoneNumber = contactPhoneNumber
+        }
+
+        if let contactEmail = zoneUser["email"].string {
+            self.contactEmail = contactEmail
+        }
+        
+        self.districts.append(District(json: json["district"]))
     }
 }

@@ -36,9 +36,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var objectiveHeader: UILabel!
     @IBOutlet weak var objectiveValue: UITextView!
 
-    @IBOutlet weak var descriptionHeader: UILabel!
-    @IBOutlet weak var descriptionValue: UITextView!
-
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var actionsHeader: UILabel!
 
@@ -80,8 +77,9 @@ class MinisterIssueTableViewCell: BaseFormCell {
         for pasture in i.pastures {
             selected.append(SelectionPopUpObject(display: pasture.name, value: pasture.name))
         }
-        lookup.setup(multiSelect: true, selected: selected, objects: pastureNames) { (selected, selections) in
-            if selected, let selected = selections {
+        
+        lookup.setupLive(header: "select something",selected: selected, objects: pastureNames) { (selections) in
+            if let selected = selections  {
                 i.clearPastures()
                 for selection in selected {
                     if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
@@ -89,11 +87,22 @@ class MinisterIssueTableViewCell: BaseFormCell {
                     }
                 }
                 self.autofill()
-                grandParent.hidepopup(vc: lookup)
-            } else {
-                grandParent.hidepopup(vc: lookup)
             }
         }
+//        lookup.setup(multiSelect: true, selected: selected, objects: pastureNames) { (selected, selections) in
+//            if selected, let selected = selections {
+//                i.clearPastures()
+//                for selection in selected {
+//                    if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
+//                        i.addPasture(pasture: pasture)
+//                    }
+//                }
+//                self.autofill()
+//                grandParent.hidepopup(vc: lookup)
+//            } else {
+//                grandParent.hidepopup(vc: lookup)
+//            }
+//        }
         grandParent.showPopUp(vc: lookup, on: sender)
     }
 
@@ -127,7 +136,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
         self.parentCell = parent
         detailsValue.delegate = self
         objectiveValue.delegate = self
-        descriptionValue.delegate = self
         setUpTable()
         style()
         autofill()
@@ -186,13 +194,11 @@ class MinisterIssueTableViewCell: BaseFormCell {
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
-        descriptionValue.text = i.desc
 
         if self.mode == .View {
             setDefaultValueIfEmpty(field: pastureValue)
             setDefaultValueIfEmpty(field: detailsValue)
             setDefaultValueIfEmpty(field: objectiveValue)
-            setDefaultValueIfEmpty(field: descriptionValue)
         }
     }
 
@@ -226,7 +232,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
             pasturesButton.isUserInteractionEnabled = false
             styleTextviewInputFieldReadOnly(field: detailsValue, header: detailsHeader)
             styleTextviewInputFieldReadOnly(field: objectiveValue, header: objectiveHeader)
-            styleTextviewInputFieldReadOnly(field: descriptionValue, header: descriptionHeader)
         case .Edit:
             styleFillButton(button: addPasturesButton)
             styleFillButton(button: addButton)
@@ -234,7 +239,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
             addShadow(layer: addPasturesButton.layer)
             styleTextviewInputField(field: detailsValue, header: detailsHeader)
             styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
-            styleTextviewInputField(field: descriptionValue, header: descriptionHeader)
         }
     }
 
@@ -267,8 +271,6 @@ extension MinisterIssueTableViewCell: UITextViewDelegate {
             i.set(details: textView.text)
         case objectiveValue:
             i.set(objective: textView.text)
-        case descriptionValue:
-            i.set(desc: textView.text)
         default:
             return
         }

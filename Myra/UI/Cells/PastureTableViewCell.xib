@@ -222,10 +222,11 @@
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soa-UZ-bH2">
-                                <rect key="frame" x="15" y="340.5" width="162" height="32"/>
+                                <rect key="frame" x="15" y="340.5" width="200" height="32"/>
                                 <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="2De-4q-qF0"/>
+                                    <constraint firstAttribute="width" constant="200" id="fPF-Tj-YjG"/>
                                 </constraints>
                                 <state key="normal" title="+ Add Plant Community">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

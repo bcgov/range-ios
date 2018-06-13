@@ -21,13 +21,13 @@ extension CreateNewRUPViewController {
         case .View:
             self.viewTitle.text = "View Plan"
             self.saveToDraftButton.setTitle("Close", for: .normal)
+            self.ranchNameAndNumberLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
+            self.cancelButton.removeFromSuperview()
             self.submitButtonContainer.alpha = 0
-            ranchNameAndNumberLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
-            cancelButton.removeFromSuperview()
+            self.requiredFieldNeededLabel.alpha = 0
         case .Edit:
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
-            self.submitButtonContainer.alpha = 1
         }
     }
 
@@ -48,11 +48,46 @@ extension CreateNewRUPViewController {
             self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
         }
         if UIDevice.current.orientation.isLandscape{
-            self.menuWidth.constant = self.landscapeMenuWidh
+            styleLandscapeMenu()
+        } else if UIDevice.current.orientation.isPortrait {
+            stylePortaitMenu()
         } else {
-            self.menuWidth.constant = self.portraitMenuWidth
+            styleLandscapeMenu()
         }
         self.animateIt()
+    }
+
+    func styleLandscapeMenu() {
+        self.menuWidth.constant = self.landscapeMenuWidh
+        setMenuLabelsAlpha(to: 1)
+        setMenuIconLeadings(to: 2)
+        reviewAndSubmitButton.setImage(.none, for: .normal)
+        self.reviewAndSubmitBoxImage.alpha = 1
+    }
+
+    func stylePortaitMenu() {
+        self.menuWidth.constant = self.portraitMenuWidth
+        setMenuLabelsAlpha(to: 0)
+        reviewAndSubmitButton.setImage(#imageLiteral(resourceName: "icon_check_white"), for: .normal)
+        let imgWidth: CGFloat = 24
+        let leftBar: CGFloat = 12
+        setMenuIconLeadings(to: (portraitMenuWidth - imgWidth - leftBar)/2)
+        self.reviewAndSubmitBoxImage.alpha = 0
+    }
+
+    func setMenuIconLeadings(to: CGFloat) {
+        basicInfoIconLeading.constant = to
+        pasturesIconLeading.constant = to
+        scheduleIconLeading.constant = to
+        ministersIssuesIconLeading.constant = to
+    }
+
+    func setMenuLabelsAlpha(to alpha: CGFloat) {
+        basicInfoLabel.alpha = alpha
+        pasturesLabel.alpha = alpha
+        scheduleLabel.alpha = alpha
+        ministersIssuesLabel.alpha = alpha
+        reviewAndSubmitLabel.alpha = alpha
     }
 
     func styleMenu() {
@@ -69,9 +104,10 @@ extension CreateNewRUPViewController {
 
     // MARK: Submit Button
     func styleMenuSubmitButtonOn() {
-        self.reviewAndSubmitLabel.text = "Review and Submit"
+        self.reviewAndSubmitLabel.text = "Submit to client"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
         self.reviewAndSubmitButton.isEnabled = true
+        self.requiredFieldNeededLabel.alpha = 0
 
         self.submitButtonContainer.layer.cornerRadius = 5
         self.submitButtonContainer.backgroundColor = Colors.primary
@@ -80,9 +116,13 @@ extension CreateNewRUPViewController {
     }
 
     func styleMenuSubmitButtonOFF() {
-        self.reviewAndSubmitLabel.text = "Review and Submit"
+        self.reviewAndSubmitLabel.text = "Submit to client"
         self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
         self.reviewAndSubmitButton.isEnabled = false
+        self.requiredFieldNeededLabel.alpha = 1
+        self.requiredFieldNeededLabel.text = "Missing required fields"
+        self.styleFieldHeader(label: self.requiredFieldNeededLabel)
+        self.requiredFieldNeededLabel.textColor = Colors.invalid
 
         self.submitButtonContainer.layer.cornerRadius = 5
         self.submitButtonContainer.backgroundColor = Colors.primary

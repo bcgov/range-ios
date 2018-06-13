@@ -116,10 +116,12 @@ class PlanInformationTableViewCell: BaseFormCell {
 
     // this will load usage years
     func reloadParentIfDatesAreSet() {
-        if self.planEndValue.text != "" && self.planStartValue.text != "" {
+        
+//        if self.planEndValue.text != "" && self.planStartValue.text != "" {
             let parent = self.parentViewController as! CreateNewRUPViewController
-            parent.reloadAndGoTo(indexPath: parent.basicInformationIndexPath)
-        }
+        parent.reload(indexPath: parent.rangeUsageIndexPath)
+//            parent.reloadAt(indexPath: parent.basicInformationIndexPath)
+//        }
     }
 
     // MARK: Setup

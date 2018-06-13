@@ -19,6 +19,7 @@ struct Constants {
     struct API {
         static let maxConcurentEndpointRequests = 3
         static let baseURL = URL(string: "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")
+//        static let baseURL = URL(string: "http://10.10.10.190:8000/api/v1/")
         static let referencePath = "reference/"
         static let planPath = "plan/"
         static let pasturePath = "plan/:id/pasture"
@@ -38,6 +39,7 @@ struct Constants {
     }
 
 
+
     // test
     /*
     struct API {
@@ -48,6 +50,8 @@ struct Constants {
         static let referencePath = "reference/"
         static let agreementPath = "agreement/"
         static let schedulePath = "plan/:id/schedule"
+        static let issuePath = "plan/:id/issue"
+        static let actionPath = "plan/:planId?/issue/:issueId?/action"
     }
 
     struct SSO {

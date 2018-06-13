@@ -31,10 +31,10 @@ class AssignedRUPTableViewCell: UITableViewCell {
     @IBAction func viewAction(_ sender: Any) {
         guard let plan = rup else {return}
         let parent = self.parentViewController as! HomeViewController
-        if plan.statusEnum == .Pending || plan.statusEnum == .Outbox || plan.statusEnum == .Completed {
-            parent.viewRUP(rup: plan)
-        } else if plan.statusEnum == .Draft {
+        if plan.getStatus() == .LocalDraft {
             parent.editRUP(rup: plan)
+        } else {
+            parent.viewRUP(rup: plan)
         }
     }
 
@@ -50,17 +50,12 @@ class AssignedRUPTableViewCell: UITableViewCell {
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
-        if rup.statusIdValue != "" {
-            self.statusText.text = rup.statusIdValue
-        } else {
-            self.statusText.text = rup.status
-        }
-        if rup.statusEnum == .Draft {
+        self.statusText.text = rup.getStatus().rawValue.convertFromCamelCase()
+        if rup.statusEnum == .LocalDraft {
             infoButton.setTitle("Edit", for: .normal)
         } else {
             infoButton.setTitle("View", for: .normal)
         }
-
     }
 
     // MARK: Styles
@@ -68,14 +63,22 @@ class AssignedRUPTableViewCell: UITableViewCell {
         makeCircle(view: statusLight)
         styleButton(button: infoButton)
         guard let plan = self.rup else {return}
-        switch plan.statusEnum {
+        switch plan.getStatus() {
         case .Completed:
             setStatusGreen()
         case .Pending:
             setStatusYellow()
-        case .Draft:
+        case .LocalDraft:
             setStatusRed()
         case .Outbox:
+            setStatusGray()
+        case .Created:
+            setStatusYellow()
+        case .ChangeRequested:
+            setStatusGray()
+        case .ClientDraft:
+            setStatusRed()
+        case .Unknown:
             setStatusGray()
         }
     }

@@ -38,15 +38,27 @@ class DataServices: NSObject {
     }
 
     func beginAutoSyncListener() {
-        print("Listening!")
+        print("Listening to db changes in DataServices!")
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
                 print("change observed")
+                /*
+                 AutoSync will do a query of all RUPs to find outbox drafts
+                 since this get triggered even when selecting a pacture on a
+                 schedule entry of a schedule element, it's inefficient to perform that query.
+                */
                 self.autoSync()
             }
         } catch _ {
             fatalError()
+        }
+    }
+
+    func endAutoSyncListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            print("Stopped Listening :(")
         }
     }
 
@@ -70,13 +82,6 @@ class DataServices: NSObject {
                 print("But nothing in outbox")
         }
 //        }
-    }
-
-    func endAutoSyncListener() {
-        if let token = self.realmNotificationToken {
-            token.invalidate()
-            print("Stopped Listening :(")
-        }
     }
     
     static func plan(withLocalId localId: String) -> RUP? {
@@ -457,14 +462,17 @@ class DataServices: NSObject {
 
             guard let planObject = DataServices.plan(withLocalId: planId) else {
                 group.leave()
-                return completion()
+                return
             }
             APIManager.getPlanStatus(forPlan: planObject) { (response) in
                 if response.result.description == "SUCCESS", let value = response.result.value {
                     let json = JSON(value)
                     guard let id = json["plan"]["statusId"].int else {
                         group.leave()
-                        return completion()
+//                        group.notify(queue: .main) {
+//                            return completion()
+//                        }
+                        return
                     }
                     if let refetchPlanObject = DataServices.plan(withLocalId: planId) {
                         refetchPlanObject.updateStatusId(newID: id)

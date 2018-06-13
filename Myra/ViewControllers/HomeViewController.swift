@@ -165,7 +165,7 @@ class HomeViewController: BaseViewController {
 
     func sortByStatus() {
         loadRUPs()
-        self.rups = self.rups.sorted(by: {$0.status < $1.status})
+        self.rups = self.rups.sorted(by: {$0.getStatus().rawValue < $1.getStatus().rawValue})
     }
 
     func sortByRangeNumber() {
@@ -209,10 +209,11 @@ class HomeViewController: BaseViewController {
     func beginChangeListener() {
         // Listener used for autosync:
         // If db has changed in this view, there probably was an autosync.
+        print("Listening to db changes in HomeVC!")
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
-                print("change observed")
+                print("change observed in homeVC")
                 self.loadRUPs()
                 self.tableView.reloadData()
             }
@@ -224,7 +225,7 @@ class HomeViewController: BaseViewController {
     func endChangeListener() {
         if let token = self.realmNotificationToken {
             token.invalidate()
-            print("Stopped Listening :(")
+            print("Stopped Listening in homeVC:(")
         }
     }
 
@@ -359,6 +360,7 @@ class HomeViewController: BaseViewController {
     // MARK: Sync
     override func whenAuthenticated() {
         self.syncing = true
+        self.endChangeListener()
         sync { (synced) in
             self.loadHome()
         }
