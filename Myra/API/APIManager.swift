@@ -159,12 +159,12 @@ class APIManager {
         var params = issue.toDictionary()
 
         // get pasture remote ids
-        var pastureIds: [Int] = [Int]()
-        for pasture in issue.pastures {
-            pastureIds.append(pasture.remoteId)
-        }
-
-        params["pastures"] = pastureIds
+//        var pastureIds: [Int] = [Int]()
+//        for pasture in issue.pastures {
+//            pastureIds.append(pasture.remoteId)
+//        }
+//
+//        params["pastures"] = pastureIds
         params["plan_id"] = planId
 
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
@@ -390,7 +390,7 @@ class APIManager {
         return result
     }
 
-    static func getAgreements(completion: @escaping (_ rups: [Agreement]?, _ error: APIError?) -> Void) {
+    static func getAgreements(completion: @escaping (_ rups: [Agreement]?, _ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
         
         guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
             return
@@ -405,12 +405,13 @@ class APIManager {
                     let err = APIError.somethingHappened(message: "\(String(describing: error))")
                     return completion(nil, err)
                 }
-
-                for (_,agreementJSON) in json {
-                    agreements.append(Agreement(json: agreementJSON))
+                progress("Processing Agreements")
+                DispatchQueue.global(qos: .background).async {
+                    for (_,agreementJSON) in json {
+                        agreements.append(Agreement(json: agreementJSON))
+                    }
+                     return completion(agreements, nil)
                 }
-
-                return completion(agreements, nil)
             } else {
                 return completion(agreements, nil)
             }
@@ -419,6 +420,7 @@ class APIManager {
 }
 
 extension APIManager {
+
     static func sync(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
         
         guard let r = Reachability(), r.connection != .none else {
@@ -433,14 +435,14 @@ extension APIManager {
         let dispatchGroup = DispatchGroup()
 
         dispatchGroup.enter()
-        progress("Uploading data to the server")
         DataServices.shared.uploadOutboxRangeUsePlans {
+            progress("Downloading Reference Data")
             dispatchGroup.leave()
         }
 
         dispatchGroup.enter()
-        progress("Downloading reference data")
         getReferenceData(completion: { (success) in
+            progress("Downloading agreements")
             if (!success) {
                 progress("Failed while downloading reference data")
             }
@@ -449,19 +451,16 @@ extension APIManager {
         })
 
         dispatchGroup.enter()
-        progress("Downloading agreements")
         getAgreements(completion: { (agreements, error) in
-
+            progress("Updating plans")
             if let error = error {
                 progress("Sync Failed. \(error.localizedDescription)")
                 myError = error
             }
-
             dispatchGroup.leave()
-        })
+        }, progress: progress)
 
         dispatchGroup.enter()
-        progress("Updating plan statuses")
         DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
             dispatchGroup.leave()
         }

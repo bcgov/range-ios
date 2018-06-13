@@ -17,7 +17,8 @@ class PlantCommunityTableViewCell: BaseFormCell {
     
 
     // Variables:
-    var plantCommunity: PlantCommunity = PlantCommunity()
+    var plantCommunity: PlantCommunity?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // adds border
@@ -27,8 +28,14 @@ class PlantCommunityTableViewCell: BaseFormCell {
     func setup(mode: FormMode, plantCommunity: PlantCommunity) {
         self.mode = mode
         self.plantCommunity = plantCommunity
-        setupNotifications()
-        notifyReload()
+//        setupNotifications()
+//        notifyReload()
+        autofill()
+    }
+
+    func autofill() {
+        guard let pc = self.plantCommunity else {return}
+        self.nameLabel.text = pc.name
     }
 
     func setupNotifications() {

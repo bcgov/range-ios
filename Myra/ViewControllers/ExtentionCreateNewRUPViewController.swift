@@ -21,8 +21,10 @@ extension CreateNewRUPViewController {
         case .View:
             self.viewTitle.text = "View Plan"
             self.saveToDraftButton.setTitle("Close", for: .normal)
-            ranchNameAndNumberLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
-            cancelButton.removeFromSuperview()
+            self.ranchNameAndNumberLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
+            self.cancelButton.removeFromSuperview()
+            self.submitButtonContainer.alpha = 0
+            self.requiredFieldNeededLabel.alpha = 0
         case .Edit:
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
@@ -47,8 +49,10 @@ extension CreateNewRUPViewController {
         }
         if UIDevice.current.orientation.isLandscape{
             styleLandscapeMenu()
-        } else {
+        } else if UIDevice.current.orientation.isPortrait {
             stylePortaitMenu()
+        } else {
+            styleLandscapeMenu()
         }
         self.animateIt()
     }

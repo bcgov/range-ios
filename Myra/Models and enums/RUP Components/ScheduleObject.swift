@@ -94,6 +94,7 @@ class ScheduleObject: Object, MyraObject {
         entry.pldAUMs = self.pldAUMs
         entry.scheduleDescription = self.scheduleDescription
         entry.isNew = self.isNew
+        entry.graceDays = self.graceDays
 
         return entry
     }
@@ -105,6 +106,7 @@ class ScheduleObject: Object, MyraObject {
                 "endDate": DateManager.toUTC(date: outDate),
                 "dateIn": DateManager.toUTC(date: inDate),
                 "dateOut": DateManager.toUTC(date: outDate),
+                "graceDays": graceDays,
                 "livestockCount": numberOfAnimals,
                 "livestockTypeId": liveStockTypeId,
                 "pastureId": pastureID

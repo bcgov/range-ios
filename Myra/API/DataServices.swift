@@ -43,6 +43,11 @@ class DataServices: NSObject {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
                 print("change observed")
+                /*
+                 AutoSync will do a query of all RUPs to find outbox drafts
+                 since this get triggered even when selecting a pacture on a
+                 schedule entry of a schedule element, it's inefficient to perform that query.
+                */
                 self.autoSync()
             }
         } catch _ {

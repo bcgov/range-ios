@@ -77,8 +77,9 @@ class MinisterIssueTableViewCell: BaseFormCell {
         for pasture in i.pastures {
             selected.append(SelectionPopUpObject(display: pasture.name, value: pasture.name))
         }
-        lookup.setup(multiSelect: true, selected: selected, objects: pastureNames) { (selected, selections) in
-            if selected, let selected = selections {
+        
+        lookup.setupLive(header: "select something",selected: selected, objects: pastureNames) { (selections) in
+            if let selected = selections  {
                 i.clearPastures()
                 for selection in selected {
                     if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
@@ -86,11 +87,22 @@ class MinisterIssueTableViewCell: BaseFormCell {
                     }
                 }
                 self.autofill()
-                grandParent.hidepopup(vc: lookup)
-            } else {
-                grandParent.hidepopup(vc: lookup)
             }
         }
+//        lookup.setup(multiSelect: true, selected: selected, objects: pastureNames) { (selected, selections) in
+//            if selected, let selected = selections {
+//                i.clearPastures()
+//                for selection in selected {
+//                    if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
+//                        i.addPasture(pasture: pasture)
+//                    }
+//                }
+//                self.autofill()
+//                grandParent.hidepopup(vc: lookup)
+//            } else {
+//                grandParent.hidepopup(vc: lookup)
+//            }
+//        }
         grandParent.showPopUp(vc: lookup, on: sender)
     }
 

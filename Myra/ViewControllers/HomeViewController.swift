@@ -213,7 +213,7 @@ class HomeViewController: BaseViewController {
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
-                print("change observed")
+                print("change observed in homeVC")
                 self.loadRUPs()
                 self.tableView.reloadData()
             }

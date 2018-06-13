@@ -41,6 +41,33 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Outlet Acions
 
+    @IBAction func editGraceDays(_ sender: UITextField) {
+        guard let entry = scheduleObject, let text = sender.text else {return}
+        if text.isInt {
+            sender.textColor = UIColor.black
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    entry.graceDays = Int(text)!
+                }
+            } catch _ {
+                fatalError()
+            }
+        } else {
+            sender.textColor = UIColor.red
+            if let p = entry.pasture {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        entry.graceDays = p.graceDays
+                    }
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
+    }
+
     @IBAction func lookupPastures(_ sender: Any) {
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
@@ -108,6 +135,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         grandParent.showPopUp(vc: lookup, on: sender as! UIButton)
     }
 
+    // for grace days
+    @IBAction func highlightGraceDays(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
     // for number of animals field
     @IBAction func highlightField(_ sender: UITextField) {
         perform(#selector(selectRange), with: sender, afterDelay: 0.01)
@@ -275,10 +306,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         // Group fields, to call style functions iteratively.
         // note: numberOfAniamls is different from the rest: accepts input
         if inputFields.isEmpty {
-            self.inputFields = [pasture, liveStock, dateIn, dateIn, dateOut]
+            self.inputFields = [pasture, liveStock, dateIn, dateIn, dateOut, graceDays]
         }
         if computedFields.isEmpty {
-            self.computedFields = [days, crownAUM, pldAUM, graceDays]
+            self.computedFields = [days, crownAUM, pldAUM]
         }
         if fields.isEmpty {
             fields.append(contentsOf: inputFields)
@@ -392,28 +423,33 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func autofill() {
-        if scheduleObject == nil {return}
+        guard let obj = scheduleObject else {
+            return
+        }
 
         // fields that are not filled by user
         fillCurrentValues()
 
-        if let numOfAnimals = scheduleObject?.numberOfAnimals, numOfAnimals != 0 {
+        let numOfAnimals = obj.numberOfAnimals
+        if numOfAnimals != 0 {
             self.numberOfAniamls.text = "\(numOfAnimals)"
         } else {
             self.numberOfAniamls.text = ""
         }
 
-        if let inDate = scheduleObject?.dateIn {
+        if let inDate = obj.dateIn {
             self.dateIn.text = DateManager.toStringNoYear(date: inDate)
         } else {
             self.dateIn.text = ""
         }
 
-        if let outDate = scheduleObject?.dateOut {
+        if let outDate = obj.dateOut {
             self.dateOut.text = DateManager.toStringNoYear(date: outDate)
         } else {
             self.dateOut.text = ""
         }
+
+        self.graceDays.text = "\(obj.graceDays)"
 
         calculateDays()
     }
