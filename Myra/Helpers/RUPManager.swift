@@ -486,6 +486,7 @@
             new.totalAUMs = object.totalAUMs
             new.pldAUMs = object.pldAUMs
             new.scheduleDescription = object.scheduleDescription
+            new.graceDays = object.graceDays
 
             RealmRequests.saveObject(object: new)
             to.scheduleObjects.append(new)
@@ -503,6 +504,7 @@
         new.totalAUMs = fromObject.totalAUMs
         new.pldAUMs = fromObject.pldAUMs
         new.scheduleDescription = fromObject.scheduleDescription
+        new.graceDays = fromObject.graceDays
         new.isNew = true
 
         RealmRequests.saveObject(object: new)
@@ -904,5 +906,13 @@
             fatalError()
         }
         return nil
+    }
+
+    func getPlanCommunityTypeOptions() -> [SelectionPopUpObject] {
+        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
+        options.append(SelectionPopUpObject(display: "Pinegrass"))
+        options.append(SelectionPopUpObject(display: "Something"))
+        options.append(SelectionPopUpObject(display: "Something else"))
+        return options
     }
  }

@@ -55,6 +55,7 @@ class RangeUsageTableViewCell: BaseFormCell {
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
+        setUpTable()
         self.usageYears = [RangeUsageYear]()
         if let plansStart = rup.planStartDate, let planEnd = rup.planEndDate {
             for usage in rup.rangeUsageYears where usage.year >= plansStart.yearOfDate()! && usage.year <= planEnd.yearOfDate()!  {
@@ -68,7 +69,6 @@ class RangeUsageTableViewCell: BaseFormCell {
             warningLabel.text = "Plan start and end dates have not been selected yet"
         }
         heightConstraint.constant = CGFloat( Double(usageYears.count) * cellHeight + 5.0)
-        setUpTable()
         style()
     }
 

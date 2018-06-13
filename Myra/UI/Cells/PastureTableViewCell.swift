@@ -13,7 +13,7 @@ import RealmSwift
 class PastureTableViewCell: BaseFormCell {
 
     // MARK: Constants
-    let plantCommunityCellHeight = 100
+    let plantCommunityCellHeight = 110
 
     // MARK: Variables
     var parentCell: PasturesTableViewCell?
@@ -70,15 +70,37 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     @IBAction func addPlantCommunityAction(_ sender: Any) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.pasture?.plantCommunities.append(PlantCommunity())
+        let button: UIButton = sender as! UIButton
+        let vm = ViewManager()
+        let lookup = vm.lookup
+        
+        lookup.setup(objects: RUPManager.shared.getPlanCommunityTypeOptions()) { (selected, selection) in
+            lookup.dismiss(animated: true, completion: nil)
+            if selected, let option = selection {
+                let pc = PlantCommunity()
+                pc.name = option.display
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        self.pasture?.plantCommunities.append(pc)
+                    }
+                } catch _ {
+                    fatalError()
+                }
+                self.updateTableHeight()
             }
-        } catch _ {
-            fatalError()
         }
-        updateTableHeight()
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.showPopUp(vc: lookup, on: button)
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                self.pasture?.plantCommunities.append(PlantCommunity())
+//            }
+//        } catch _ {
+//            fatalError()
+//        }
+//        updateTableHeight()
     }
     
     @IBAction func aumChanged(_ sender: UITextField) {
@@ -211,6 +233,9 @@ class PastureTableViewCell: BaseFormCell {
         if self.mode == .View && self.pastureNotesTextField.text == "" {
             self.pastureNotesTextField.text = "Notes not provided"
         }
+
+        let padding = 5
+        tableHeight.constant = CGFloat((p.plantCommunities.count) * plantCommunityCellHeight + padding)
     }
 
     func getCellHeight() -> CGSize {
@@ -275,9 +300,9 @@ class PastureTableViewCell: BaseFormCell {
         styleSubHeader(label: plantCommunitiesLabel)
 
         // TEMP - HIDE PLANT COMMUNITY
-        addPlantCommunityButton.alpha = 0
-        addPlantCommunityButtonHeight.constant = 0
-        plantCommunitiesLabel.alpha = 0
+//        addPlantCommunityButton.alpha = 0
+//        addPlantCommunityButtonHeight.constant = 0
+//        plantCommunitiesLabel.alpha = 0
         // END OF TEMP
     }
 }
