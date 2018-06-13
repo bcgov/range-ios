@@ -12,19 +12,26 @@ class SelectionPopUpViewController: UIViewController, Theme {
 
     // MARK: Constants
     let cellHeight: CGFloat = 33
-    let buttonHeight: CGFloat = 42
+    let buttonHeightConstant: CGFloat = 42
+    let headerHeightConstant: CGFloat = 35
     
     // MARK: Variables
     var objects: [SelectionPopUpObject] = [SelectionPopUpObject]()
     var completion: ((_ done: Bool,_ result: SelectionPopUpObject?) -> Void )?
     var multiCompletion: ((_ done: Bool,_ result: [SelectionPopUpObject]?) -> Void )?
+    var liveMultiCompletion: ((_ result: [SelectionPopUpObject]?) -> Void )?
     var multiSelect: Bool = false
+    var liveMultiSelect: Bool = false
     var selectedIndexes: [Int] = [Int]()
+
+    var headerTxt: String = ""
 
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var selectButtonHeight: NSLayoutConstraint!
+    @IBOutlet weak var header: UILabel!
+    @IBOutlet weak var headerHeight: NSLayoutConstraint!
 
     // MARK: ViewController Functions
     override func viewDidLoad() {
@@ -52,24 +59,28 @@ class SelectionPopUpViewController: UIViewController, Theme {
     }
 
     func sendBack() {
-        guard let callback = multiCompletion else {return}
         var selected = [SelectionPopUpObject]()
         for i in selectedIndexes {
             selected.append(objects[i])
         }
-        return callback(true, selected)
+        if multiSelect, let callback = multiCompletion {
+            return callback(true, selected)
+        } else if liveMultiSelect, let liveCallBack = liveMultiCompletion {
+            liveCallBack(selected)
+        }
     }
 
     // MARK: Functions
     // MARK: Setup
-    func setup(objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
+    func setup(header: String? = "", objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
         self.completion = completion
         self.objects = objects
+        self.headerTxt = header ?? ""
         setupTable()
     }
 
-    func setup(multiSelect: Bool, selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: [SelectionPopUpObject]?) -> Void) {
-        self.multiSelect = multiSelect
+    func setupMulti(header: String? = "", selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: [SelectionPopUpObject]?) -> Void) {
+        self.multiSelect = true
         self.multiCompletion = completion
         self.objects = objects
 
@@ -79,6 +90,22 @@ class SelectionPopUpViewController: UIViewController, Theme {
                 selectedIndexes.append(index)
             }
         }
+        self.headerTxt = header ?? ""
+        setupTable()
+    }
+
+    func setupLive(header: String? = "", selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ result: [SelectionPopUpObject]?) -> Void) {
+        self.liveMultiSelect = true
+        self.liveMultiCompletion = completion
+        self.objects = objects
+
+        // find already selected indexes
+        for (index,element) in objects.enumerated() {
+            for item in selected where element.value == item.value {
+                selectedIndexes.append(index)
+            }
+        }
+        self.headerTxt = header ?? ""
         setupTable()
     }
 
@@ -89,7 +116,11 @@ class SelectionPopUpViewController: UIViewController, Theme {
         var total = (objects.count * Int(cellHeight)) + (objects.count * padding)
         if multiSelect {
             // add button height
-            total += Int(buttonHeight)
+            total += Int(buttonHeightConstant)
+        }
+        if liveMultiSelect {
+            // add header height
+            total += Int(headerHeightConstant)
         }
         return total
     }
@@ -102,11 +133,18 @@ class SelectionPopUpViewController: UIViewController, Theme {
     func style() {
         guard let btnHeight = selectButtonHeight else {return}
         if multiSelect {
-            btnHeight.constant = buttonHeight
+            btnHeight.constant = buttonHeightConstant
             styleFillButton(button: selectButton)
         } else {
             btnHeight.constant = 0
             selectButton.alpha = 0
+        }
+        if headerTxt.count > 0 {
+            self.header.text = headerTxt
+            styleSubHeader(label: header)
+            headerHeight.constant = 35
+        } else {
+            headerHeight.constant = 0
         }
     }
 }
@@ -141,7 +179,7 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
         let cell = getCell(indexPath: indexPath)
         cell.setup(object: objects[indexPath.row], bg: color)
         // if element should be selected
-        if multiSelect{
+        if multiSelect || liveMultiSelect {
             if selectedIndexes.contains(indexPath.row) {
                 cell.select()
             } else {
@@ -153,7 +191,8 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // if multi select is not enabled, return selection
-        if !multiSelect {
+
+        if !multiSelect && !liveMultiSelect {
             guard let callback = completion else {return}
             return callback(true, objects[indexPath.row])
         } else {
@@ -167,6 +206,10 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
                 selectedIndexes.append(indexPath.row)
             }
             self.tableView.reloadData()
+        }
+
+        if liveMultiSelect {
+            sendBack()
         }
     }
 

@@ -260,7 +260,7 @@ class RUP: Object, MyraObject {
 
         let issues = json["ministerIssues"]
         for issue in issues {
-            self.ministerIssues.append(MinisterIssue(json: issue.1))
+            self.ministerIssues.append(MinisterIssue(json: issue.1, plan: self))
         }
 
         let grazingSchedules = json["grazingSchedules"]

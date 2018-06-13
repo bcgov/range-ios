@@ -907,4 +907,12 @@
         }
         return nil
     }
+
+    func getPlanCommunityTypeOptions() -> [SelectionPopUpObject] {
+        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
+        options.append(SelectionPopUpObject(display: "Pinegrass"))
+        options.append(SelectionPopUpObject(display: "Something"))
+        options.append(SelectionPopUpObject(display: "Something else"))
+        return options
+    }
  }

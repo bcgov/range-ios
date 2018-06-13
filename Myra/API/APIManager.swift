@@ -159,12 +159,12 @@ class APIManager {
         var params = issue.toDictionary()
 
         // get pasture remote ids
-        var pastureIds: [Int] = [Int]()
-        for pasture in issue.pastures {
-            pastureIds.append(pasture.remoteId)
-        }
-
-        params["pastures"] = pastureIds
+//        var pastureIds: [Int] = [Int]()
+//        for pasture in issue.pastures {
+//            pastureIds.append(pasture.remoteId)
+//        }
+//
+//        params["pastures"] = pastureIds
         params["plan_id"] = planId
 
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())
