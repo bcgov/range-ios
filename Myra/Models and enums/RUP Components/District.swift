@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class District: Object, MyraObject {
 
@@ -31,6 +32,19 @@ class District: Object, MyraObject {
         self.id = id
         self.code = code
         self.desc = desc
+    }
+
+    convenience init(json: JSON) {
+        self.init()
+        if let distId = json["id"].int {
+            self.id = distId
+        }
+        if let distDesc = json["description"].string {
+            self.desc = distDesc
+        }
+        if let distCode = json["code"].string {
+            self.code = distCode
+        }
     }
 
 }

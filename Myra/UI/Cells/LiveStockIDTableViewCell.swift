@@ -46,7 +46,7 @@ class LiveStockIDTableViewCell: BaseFormCell {
         self.tableView.reloadData()
         tableViewHeight.constant = CGFloat((self.rup.liveStockIDs.count) * cellHeight + 5)
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAndGoTo(indexPath: parent.liveStockIDIndexPath)
+        parent.reloadAt(indexPath: parent.liveStockIDIndexPath)
     }
 
 //    func setInitialHeight(numberOfFields: Int) {

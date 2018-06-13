@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class ScheduleObject: Object, MyraObject {
 
@@ -36,7 +37,7 @@ class ScheduleObject: Object, MyraObject {
             return (pasture?.name)!
         }
     }
-    var graceDays: Int {
+    var pastureGraceDays: Int {
         if pasture == nil {
             return 0
         } else {
@@ -57,6 +58,7 @@ class ScheduleObject: Object, MyraObject {
     @objc dynamic var totalAUMs: Double = 0
     @objc dynamic var pldAUMs: Double = 0
     @objc dynamic var scheduleDescription: String = ""
+    @objc dynamic var graceDays: Int = 0
 
     // Used for highlighting cell
     @objc dynamic var isNew: Bool = false
@@ -111,6 +113,43 @@ class ScheduleObject: Object, MyraObject {
         } else {
             return nil
         }
+    }
+
+    convenience init(json: JSON, plan: RUP) {
+        self.init()
+        
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let pastureId = json["pastureId"].int, let pasture = plan.pastureWith(remoteId: pastureId) {
+            self.pasture = pasture
+        }
+
+        if let livestockCount = json["livestockCount"].int {
+            self.numberOfAnimals = livestockCount
+        }
+
+        if let livestockTypeId = json["livestockTypeId"].int {
+            self.liveStockTypeId = livestockTypeId
+        }
+
+        if let livestockTypeName = json["livestockType"]["name"].string {
+            self.liveStockTypeName = livestockTypeName
+        }
+
+        if let gDays = json["graceDays"].int {
+            self.graceDays = gDays
+        }
+
+        if let dateIn = json["dateIn"].string {
+            self.dateIn = DateManager.fromUTC(string: dateIn)
+        }
+
+        if let dateOut = json["dateOut"].string {
+            self.dateOut = DateManager.fromUTC(string: dateOut)
+        }
+
     }
 
 }

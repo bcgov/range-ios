@@ -62,17 +62,15 @@ class RealmManager {
 
     // Reference
     func clearReferenceData() {
-        let one = getAgreementTypes()
-        let two = getAgreementStatuses()
-        let three = getLiveStockType()
-        for x in one {
-            RealmRequests.deleteObject(x)
-        }
-        for x2 in two {
-            RealmRequests.deleteObject(x2)
-        }
-        for x3 in three {
-            RealmRequests.deleteObject(x3)
+        var reference: [Object] = [Object]()
+        reference.append(contentsOf: getAgreementTypes())
+        reference.append(contentsOf: getAgreementStatuses())
+        reference.append(contentsOf: getLiveStockType())
+        reference.append(contentsOf: getIssueType())
+        reference.append(contentsOf: getIssueActionType())
+
+        for element in reference {
+            RealmRequests.deleteObject(element)
         }
     }
     
@@ -100,6 +98,25 @@ class RealmManager {
             return query!
         } else {
             return [LiveStockType]()
+        }
+    }
+
+    func getIssueType() -> [MinisterIssueType] {
+        let query = RealmRequests.getObject(MinisterIssueType.self)
+        if query != nil {
+            return query!
+        } else {
+            return [MinisterIssueType]()
+        }
+
+    }
+
+    func getIssueActionType() -> [MinisterIssueActionType] {
+        let query = RealmRequests.getObject(MinisterIssueActionType.self)
+        if query != nil {
+            return query!
+        } else {
+            return [MinisterIssueActionType]()
         }
     }
 

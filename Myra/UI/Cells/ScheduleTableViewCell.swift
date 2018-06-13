@@ -37,7 +37,6 @@ class ScheduleTableViewCell: BaseFormCell {
         picker.setup(for: start, max: end, taken: taken) { (selection) in
             if RUPManager.shared.isNewScheduleYearValidFor(rup: self.rup, newYear: Int(selection)!) {
                 let schedule = Schedule()
-                schedule.name = selection
                 schedule.year = Int(selection)!
 
                 do {
@@ -95,7 +94,7 @@ class ScheduleTableViewCell: BaseFormCell {
         let count = rup.schedules.count
         tableHeight.constant = CGFloat( Double(count) * cellHeight + 5.0)
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAndGoTo(indexPath: parent.scheduleIndexPath)
+        parent.reloadAt(indexPath: parent.scheduleIndexPath)
     }
     
 }

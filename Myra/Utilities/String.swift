@@ -30,4 +30,15 @@ extension String {
         return self
     }
 
+    func convertFromCamelCase() -> String {
+        return unicodeScalars.reduce("") {
+            if CharacterSet.uppercaseLetters.contains($1) {
+                if $0.count > 0 {
+                    return ($0 + " " + String($1))
+                }
+            }
+            return $0 + String($1)
+        }
+    }
+
 }

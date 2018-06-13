@@ -9,8 +9,12 @@
 import Foundation
 
 enum RUPStatus: String {
-    case Draft
+    case LocalDraft
     case Pending
     case Completed
     case Outbox
+    case Created
+    case ChangeRequested
+    case ClientDraft
+    case Unknown
 }

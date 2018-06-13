@@ -36,9 +36,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var objectiveHeader: UILabel!
     @IBOutlet weak var objectiveValue: UITextView!
 
-    @IBOutlet weak var descriptionHeader: UILabel!
-    @IBOutlet weak var descriptionValue: UITextView!
-
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var actionsHeader: UILabel!
 
@@ -127,7 +124,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
         self.parentCell = parent
         detailsValue.delegate = self
         objectiveValue.delegate = self
-        descriptionValue.delegate = self
         setUpTable()
         style()
         autofill()
@@ -186,13 +182,11 @@ class MinisterIssueTableViewCell: BaseFormCell {
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
-        descriptionValue.text = i.desc
 
         if self.mode == .View {
             setDefaultValueIfEmpty(field: pastureValue)
             setDefaultValueIfEmpty(field: detailsValue)
             setDefaultValueIfEmpty(field: objectiveValue)
-            setDefaultValueIfEmpty(field: descriptionValue)
         }
     }
 
@@ -226,7 +220,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
             pasturesButton.isUserInteractionEnabled = false
             styleTextviewInputFieldReadOnly(field: detailsValue, header: detailsHeader)
             styleTextviewInputFieldReadOnly(field: objectiveValue, header: objectiveHeader)
-            styleTextviewInputFieldReadOnly(field: descriptionValue, header: descriptionHeader)
         case .Edit:
             styleFillButton(button: addPasturesButton)
             styleFillButton(button: addButton)
@@ -234,7 +227,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
             addShadow(layer: addPasturesButton.layer)
             styleTextviewInputField(field: detailsValue, header: detailsHeader)
             styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
-            styleTextviewInputField(field: descriptionValue, header: descriptionHeader)
         }
     }
 
@@ -267,8 +259,6 @@ extension MinisterIssueTableViewCell: UITextViewDelegate {
             i.set(details: textView.text)
         case objectiveValue:
             i.set(objective: textView.text)
-        case descriptionValue:
-            i.set(desc: textView.text)
         default:
             return
         }

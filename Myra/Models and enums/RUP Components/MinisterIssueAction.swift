@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class MinisterIssueAction: Object, MyraObject {
 
@@ -43,5 +44,24 @@ class MinisterIssueAction: Object, MyraObject {
             "detail": self.desc,
             "actionTypeId": self.actionTypeID,
         ]
+    }
+
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let detail = json["detail"].string {
+            self.desc = detail
+        }
+
+        if let typeName = json["ministerIssueActionType"]["name"].string {
+            self.actionType = typeName
+        }
+
+        if let actionTypeId = json["actionTypeId"].int {
+            self.actionTypeID = actionTypeId
+        }
     }
 }
