@@ -69,7 +69,6 @@ class Pasture: Object, MyraObject {
 
     convenience init(json: JSON) {
         self.init()
-//    func setFromJSON(json: JSON){
         if let id = json["id"].int {
             self.remoteId = id
         }

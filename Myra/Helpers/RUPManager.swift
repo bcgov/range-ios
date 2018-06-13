@@ -100,37 +100,28 @@
     }
 
     func getAgreement(with id: String) -> Agreement? {
-        if agreementExists(id: id) {
-            let storedAgreements = RealmRequests.getObject(Agreement.self)
-            if storedAgreements != nil {
-                for storedAgreement in storedAgreements! {
-                    if storedAgreement.agreementId == id {
-                        return storedAgreement
-                    }
-                }
+        if let storedAgreements = RealmRequests.getObject(Agreement.self) {
+            for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
+                return storedAgreement
             }
         }
         return nil
     }
 
     func agreementExists(id: String) -> Bool {
-        let storedAgreements = RealmRequests.getObject(Agreement.self)
-        if storedAgreements != nil {
-            for storedAgreement in storedAgreements! {
-                if storedAgreement.agreementId == id {
-                    return true
-                }
-            }
+        if let _ = getAgreement(with: id) {
+            return true
+        } else {
+            return false
         }
-        return false
     }
 
     func planExists(remoteId: Int) -> Bool {
-        if let p = planWith(remoteId: remoteId) {return true}
+        if let _ = getPlanWith(remoteId: remoteId) {return true}
         return false
     }
 
-    func planWith(remoteId: Int) -> RUP? {
+    func getPlanWith(remoteId: Int) -> RUP? {
         guard let plans = RealmRequests.getObject(RUP.self) else {return nil}
         for plan in plans {
             if plan.remoteId == remoteId {
@@ -142,56 +133,66 @@
 
     // Updates Range use years and zones
     func updateAgreement(with newAgreement: Agreement) {
-        let storedAgreement = getAgreement(with: newAgreement.agreementId)
-        guard let stored = storedAgreement else {return}
+        guard let stored = getAgreement(with: newAgreement.agreementId) else {return}
 
-        do {
-            let realm = try Realm()
-            try realm.write {
-                if newAgreement.zones.count > 0 {
+        // Grab zones and range use years
+        if newAgreement.zones.count > 0 {
+            do {
+                let realm = try Realm()
+                try realm.write {
                     stored.zones = newAgreement.zones
                     stored.rangeUsageYears = newAgreement.rangeUsageYears
                 }
-            }
-        } catch _ {
-            fatalError()
-        }
-
-        // update rups associated with new agreement
-        let rupsForAgreement = getRUPsForAgreement(agreementId: newAgreement.agreementId)
-        for plan in rupsForAgreement {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    if newAgreement.zones.count > 0 {
-                        plan.zones = newAgreement.zones
-                        plan.rangeUsageYears = newAgreement.rangeUsageYears
-                    }
-                }
             } catch _ {
                 fatalError()
             }
         }
-        updateRUPsFor(newAgreement: newAgreement)
-        RealmRequests.updateObject(storedAgreement!)
+
+        updateRUPsFor(agreement: stored)
+
+        if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum != .LocalDraft {
+            // if agreement has a plan in local draft state, leave it be
+
+            // TODO: CHECK WHICH IS NEWER
+
+        } else {
+            // Otherwise if new agreement has a plan downloaded with it, store it
+            if !newAgreement.rups.isEmpty, let plan = newAgreement.rups.first {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        stored.rups.append(plan)
+                    }
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
+
+        // TEMPORARY
+        if stored.rups.count > 1 {
+            print("Possible error: Agreement with id \(stored.agreementId) has multiple plans")
+        }
+
+        RealmRequests.updateObject(stored)
     }
 
-    func updateRUPsFor(newAgreement: Agreement) {
-        let rupsForAgreement = getRUPsForAgreement(agreementId: newAgreement.agreementId)
+    func updateRUPsFor(agreement: Agreement) {
+        let rupsForAgreement = getRUPsForAgreement(agreementId: agreement.agreementId)
         for plan in rupsForAgreement {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    if newAgreement.zones.count > 0 {
+            if agreement.zones.count > 0 {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
                         plan.zones.removeAll()
-                        for zone in newAgreement.zones {
+                        for zone in agreement.zones {
                             plan.zones.append(zone)
                         }
-                        plan.rangeUsageYears = newAgreement.rangeUsageYears
+                        plan.rangeUsageYears = agreement.rangeUsageYears
                     }
+                } catch _ {
+                    fatalError()
                 }
-            } catch _ {
-                fatalError()
             }
             RealmRequests.updateObject(plan)
         }
@@ -473,7 +474,7 @@
             new.numberOfAnimals = object.numberOfAnimals
 
             if let dateIn = object.dateIn {
-                 new.dateIn = DateManager.update(date: dateIn, toYear: toYear)
+                new.dateIn = DateManager.update(date: dateIn, toYear: toYear)
             }
 
             if let dateOut = object.dateOut {
@@ -539,16 +540,16 @@
             let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: liveStockId)
             auFactor = liveStockObject.auFactor
         } else {
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        scheduleObject.totalAUMs = 0.0
-                    }
-                } catch _ {
-                    fatalError()
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    scheduleObject.totalAUMs = 0.0
                 }
-                return
+            } catch _ {
+                fatalError()
             }
+            return
+        }
 
         // otherwise continue...
         let numberOfAnimals = Double(scheduleObject.numberOfAnimals)
@@ -615,8 +616,8 @@
 
     func scheduleHasValidEntries(schedule: Schedule, agreementID: String) -> Bool {
         /*
-          - Schedule must have at least 1 valid entry.
-          - Schedule entries must be valid.
+         - Schedule must have at least 1 valid entry.
+         - Schedule entries must be valid.
          We Can rely on the toDictionary function of the schedule.
          if schedule objects are incomplete, toDictionary returns an empty
          array for key "grazingScheduleEntries"
@@ -645,7 +646,7 @@
          is valid schedule does check the above criteria,
          but if those have passed, and this still fails,
          its means that the total aums are more than the allowed aums
-        */
+         */
         if !isScheduleValid(schedule: schedule, agreementID: agreementID) {
             return (false, "Total AUMs exceed the allowed amount for the this year")
         }
@@ -743,17 +744,17 @@
         }
     }
 
-//    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
-//        let query = RealmRequests.getObject(LivestockIdentifierType.self)
-//        if let all = query {
-//            for object in all {
-//                if object.id == id {
-//                    return object
-//                }
-//            }
-//        }
-//        return LivestockIdentifierType()
-//    }
+    //    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
+    //        let query = RealmRequests.getObject(LivestockIdentifierType.self)
+    //        if let all = query {
+    //            for object in all {
+    //                if object.id == id {
+    //                    return object
+    //                }
+    //            }
+    //        }
+    //        return LivestockIdentifierType()
+    //    }
 
  }
 

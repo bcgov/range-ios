@@ -12,10 +12,13 @@ import RealmSwift
 import SwiftyJSON
 
 class MinisterIssue: Object, MyraObject {
-
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
+
+    override class func primaryKey() -> String? {
+        return "localId"
+    }
 
     @objc dynamic var remoteId: Int = -1
 
@@ -25,10 +28,6 @@ class MinisterIssue: Object, MyraObject {
     @objc dynamic var objective: String = ""
     @objc dynamic var desc: String = ""
     @objc dynamic var identified: Bool = false
-
-    override class func primaryKey() -> String? {
-        return "localId"
-    }
 
     var actions = List<MinisterIssueAction>()
     var pastures = List<Pasture>()
@@ -123,7 +122,7 @@ class MinisterIssue: Object, MyraObject {
     }
 
     convenience init(json: JSON) {
-         self.init()
+        self.init()
         if let id = json["id"].int {
             self.remoteId = id
         }
