@@ -82,7 +82,7 @@ class Pasture: Object, MyraObject {
         }
 
         if let pld = json["pldPercent"].double {
-            self.privateLandDeduction = pld
+            self.privateLandDeduction = (pld * 100)
         }
 
         if let graceDays = json["graceDays"].int {

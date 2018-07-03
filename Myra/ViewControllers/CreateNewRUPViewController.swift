@@ -430,10 +430,27 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     func autofill() {
-        let num = rup?.agreementId ?? ""
-        let name = rup?.rangeName ?? ""
-        ranchNameAndNumberLabel.text = "\(num) | \(name)"
-        highlighCurrentModuleInMenu()
+        self.setBarInfoBasedOnOrientation()
+        highlightCurrentModuleInMenu()
+    }
+
+    func setBarInfoBasedOnOrientation() {
+        guard let p = rup else { return }
+        let num = p.agreementId
+        let name = p.rangeName
+        var holder = ""
+
+        if let agreement = RUPManager.shared.getAgreement(with: p.agreementId) {
+            holder = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+        }
+
+        if UIDevice.current.orientation.isPortrait ||  UIDevice.current.orientation.isFlat {
+            ranchNameAndNumberLabel.text = "\(num) | \(name)"
+        } else {
+            ranchNameAndNumberLabel.text = "\(num) | \(name) | \(holder)"
+        }
+
+        animateIt()
     }
 
     func catchAction(notification:Notification) {
@@ -446,11 +463,13 @@ class CreateNewRUPViewController: BaseViewController {
     }
     override func whenLandscape() {
         setMenuSize()
+        setBarInfoBasedOnOrientation()
 //        styleLandscapeMenu()
     }
     override func whenPortrait() {
 //        stylePortaitMenu()
         setMenuSize()
+        setBarInfoBasedOnOrientation()
     }
 
 }
@@ -593,7 +612,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 //        self.tableView.layoutIfNeeded()
 
         
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
     func realodAndGoToBottomOf(indexPath: IndexPath) {
@@ -601,21 +620,21 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
     // deep reload reloads tableview. other reload functions dont
     func deepReload(indexPath: IndexPath) {
         self.tableView.reloadData()
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
-    func highlighCurrentModuleInMenu() {
+    func highlightCurrentModuleInMenu() {
         if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
             // select the first indexPath
             var indexPath = indexPaths[0]

@@ -112,7 +112,9 @@ class APIManager {
     }
     
     static func add(plan: RUP, toAgreement agreementId: String, completion: @escaping (_ plan: [String: Any]?, _ error: Error?) -> ()) {
-        
+
+//        planWithIdPath
+
         guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL!) else {
             return
         }
@@ -128,6 +130,36 @@ class APIManager {
             .responseJSON { response in
                 APIManager.process(response: response, completion: completion)
         }
+    }
+
+    static func completeUpload(plan: RUP,toAgreement agreementId: String, completion: @escaping (_ plan: [String: Any]?, _ error: Error?) -> ()) {
+
+        guard let myPlan = DataServices.plan(withLocalId: plan.localId) else {
+            return completion(nil, nil)
+        }
+
+        let path = "\(Constants.API.planPath)/\(myPlan.remoteId)"
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+
+        var params: [String:Any]  = [String:Any]()
+        params["uploaded"] = true
+
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = HTTPMethod.put.rawValue
+        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+        request.httpBody = data
+
+        Alamofire.request(request).responseJSON { response in
+            APIManager.process(response: response, completion: completion)
+        }
+//        Alamofire.request(endpoint, method: .put, parameters: params, encoding: URLEncoding.httpBody, headers:  headers()).responseJSON { response in
+//             APIManager.process(response: response, completion: completion)
+//        }
+
     }
     
     static func add(pasture: Pasture, toPlan planId: String, completion: @escaping (_ pasture: [String:Any]?, _ error: Error?) -> ()) {
@@ -158,13 +190,6 @@ class APIManager {
 
         var params = issue.toDictionary()
 
-        // get pasture remote ids
-//        var pastureIds: [Int] = [Int]()
-//        for pasture in issue.pastures {
-//            pastureIds.append(pasture.remoteId)
-//        }
-//
-//        params["pastures"] = pastureIds
         params["plan_id"] = planId
 
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers())

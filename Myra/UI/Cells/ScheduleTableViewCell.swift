@@ -22,6 +22,8 @@ class ScheduleTableViewCell: BaseFormCell {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
+    @IBOutlet weak var message: UILabel!
+    @IBOutlet weak var messageContainer: UIView!
 
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
@@ -76,8 +78,15 @@ class ScheduleTableViewCell: BaseFormCell {
             addButton.alpha = 1
         }
 
-        tableHeight.constant = CGFloat( Double(rup.schedules.count) * cellHeight + 5.0)
-        setUpTable()
+        if rup.getStatus() == .ClientDraft {
+            messageContainer.alpha = 1
+            styleSubHeader(label: message)
+            tableHeight.constant = 100
+            message.text = "Awaiting input from client"
+        } else {
+            tableHeight.constant = CGFloat( Double(rup.schedules.count) * cellHeight + 5.0)
+            setUpTable()
+        }
         style()
     }
 

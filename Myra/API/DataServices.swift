@@ -212,18 +212,23 @@ class DataServices: NSObject {
                         self.uploadPastures(forPlan: plan, completion: {
                             self.uploadSchedules(forPlan: plan, completion: {
                                 self.uploadMinistersIssues(forPlan: plan, completion: {
+                                    // set plan uploaded boolean flag to true because last element was sent
+                                    APIManager.completeUpload(plan: plan, toAgreement: agreementId, completion: { (response, error) in
+                                        self.completeUpload(plan: plan)
+                                        group.leave()
+                                    })
                                     // Set status to Pending
-                                    if plan.statusEnum == .Outbox {
-                                        do {
-                                            let realm = try Realm()
-                                            try realm.write {
-                                                plan.statusEnum = .Pending
-                                            }
-                                        } catch _ {
-                                            fatalError()
-                                        }
-                                    }
-                                    group.leave()
+//                                    if plan.statusEnum == .Outbox {
+//                                        do {
+//                                            let realm = try Realm()
+//                                            try realm.write {
+//                                                plan.statusEnum = .Pending
+//                                            }
+//                                        } catch _ {
+//                                            fatalError()
+//                                        }
+//                                    }
+//                                    group.leave()
                                 })
                             })
                         })
@@ -238,6 +243,21 @@ class DataServices: NSObject {
         group.notify(queue: .main) {
             completion()
         }
+    }
+
+    private func completeUpload(plan: RUP) {
+        // Set status to Pending
+        if plan.statusEnum == .Outbox {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    plan.statusEnum = .Pending
+                }
+            } catch _ {
+                fatalError()
+            }
+        }
+//        group.leave()
     }
     
     private func uploadPlans(forAgreement agreement: Agreement, completion: @escaping () -> Void) {
@@ -352,6 +372,8 @@ class DataServices: NSObject {
             }
 
             APIManager.add(action: myAction, toIssue: issueId, inPlan: planId) { (response, error) in
+                print(response)
+
                 guard let response = response, error == nil else {
                     fatalError()
                 }
