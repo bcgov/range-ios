@@ -38,6 +38,8 @@ class ScheduleViewController: BaseViewController {
     @IBOutlet weak var bannerHeight: NSLayoutConstraint!
     @IBOutlet weak var banner: UIView!
 
+    
+
     // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +59,12 @@ class ScheduleViewController: BaseViewController {
         if let r = self.rup {
             RealmRequests.updateObject(r)
         }
+
         self.dismiss(animated: true, completion: {
-            return self.completion!(true)
+            if let callback = self.completion {
+                return callback(true)
+            }
+//            return self.completion!(true)
         })
     }
 

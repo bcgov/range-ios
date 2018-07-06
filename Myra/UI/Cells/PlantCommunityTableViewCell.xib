@@ -56,6 +56,9 @@
                                 <state key="normal" title="&gt;">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="detailsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7LD-Z8-pO0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

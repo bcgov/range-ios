@@ -217,7 +217,7 @@ class RUP: Object, MyraObject {
             "agreementId": agreementId,
             "planStartDate": DateManager.toUTC(date: planStartDate!),
             "planEndDate": DateManager.toUTC(date: planEndDate!),
-            "alternativeBusinessName": alternativeName,
+            "altBusinessName": alternativeName,
             "statusId": 1
         ]
     }
@@ -237,6 +237,10 @@ class RUP: Object, MyraObject {
 
         if let rangeName = json["rangeName"].string {
             self.rangeName = rangeName
+        }
+
+        if let altName = json["altBusinessName"].string {
+            self.alternativeName = altName
         }
         
         if let statusId = json["statusId"].int, let statusObject = RUPManager.shared.getStatus(forId: statusId) {

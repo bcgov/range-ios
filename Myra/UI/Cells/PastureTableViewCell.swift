@@ -328,7 +328,8 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
-        cell.setup(mode: mode, plantCommunity: (self.pasture?.plantCommunities[indexPath.row])!)
+        guard let p = self.pasture else {return cell}
+        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p)
         return cell
     }
 

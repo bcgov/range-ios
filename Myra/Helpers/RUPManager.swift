@@ -444,6 +444,26 @@
         }
         return nil
     }
+
+    func getPlantCommunityAspectLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+
+        for i in 0...3 {
+            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
+        }
+
+        return returnArray
+    }
+
+    func getPlantCommunityElevationLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+
+        for i in 0...3 {
+            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
+        }
+
+        return returnArray
+    }
  }
 
  // MARK: Schedule

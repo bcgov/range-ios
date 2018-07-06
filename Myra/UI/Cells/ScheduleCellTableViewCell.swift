@@ -36,9 +36,10 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
 
     @IBAction func detailAction(_ sender: Any) {
+        guard let sched = self.schedule else {return}
         // refenrece to create page.
         let grandParent = self.parentViewController as! CreateNewRUPViewController
-        grandParent.showSchedule(object: schedule!, completion: { done in
+        grandParent.showSchedule(object: sched, completion: { done in
             self.styleBasedOnValidity()
         })
     }

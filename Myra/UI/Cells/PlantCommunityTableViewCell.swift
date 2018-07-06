@@ -10,24 +10,38 @@ import UIKit
 
 class PlantCommunityTableViewCell: BaseFormCell {
 
+    // MARK: Outlets
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var header: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
-    
 
-    // Variables:
+    // MARK: Variables
     var plantCommunity: PlantCommunity?
+    var pasture: Pasture?
 
+    // MARK: ViewController functions
     override func awakeFromNib() {
         super.awakeFromNib()
         // adds border
         style()
     }
 
-    func setup(mode: FormMode, plantCommunity: PlantCommunity) {
+    // MARK: Outlet Actions
+
+    @IBAction func detailsAction(_ sender: UIButton) {
+        guard let community = self.plantCommunity, let p = self.pasture else {return}
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        grandParent.showPlantCommunity(pasture: p, plantCommunity: community) { (done) in
+            print("validate here")
+        }
+    }
+
+    // MARK: Setup
+    func setup(mode: FormMode, plantCommunity: PlantCommunity, pasture: Pasture) {
         self.mode = mode
         self.plantCommunity = plantCommunity
+        self.pasture = pasture
 //        setupNotifications()
 //        notifyReload()
         autofill()
@@ -51,6 +65,8 @@ class PlantCommunityTableViewCell: BaseFormCell {
     func notifyReload() {
          NotificationCenter.default.post(name: .reload, object: self, userInfo: ["reload": true])
     }
+
+
 }
 
 // styles

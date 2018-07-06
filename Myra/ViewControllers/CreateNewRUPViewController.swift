@@ -683,12 +683,20 @@ extension CreateNewRUPViewController {
     }
 }
 
-// MARK: Schedule View
+// MARK: Details pages
 extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
-         let vm = ViewManager()
+        guard let plan = self.rup else {return}
+        let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.setup(mode: mode, rup: rup!, schedule: object, completion: completion)
+        schedule.setup(mode: mode, rup: plan, schedule: object, completion: completion)
         self.present(schedule, animated: true, completion: nil)
+    }
+
+    func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+        let vm = ViewManager()
+        let plantCommunityDetails = vm.plantCommunity
+        plantCommunityDetails.setup(mode: mode, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
+        self.present(plantCommunityDetails, animated: true, completion: nil)
     }
 }
