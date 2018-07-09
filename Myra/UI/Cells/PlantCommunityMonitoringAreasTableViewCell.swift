@@ -12,18 +12,16 @@ import RealmSwift
 
 class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
 
-    // MARK: Outlets
-    @IBOutlet weak var sectionTitle: UILabel!
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var height: NSLayoutConstraint!
-
-    @IBOutlet weak var addButton: UIButton!
-    
     // MARK: Variables
     var mode: FormMode = .View
     var plantCommunity: PlantCommunity?
     var parentReference: PlantCommunityViewController?
+
+    // MARK: Outlets
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var height: NSLayoutConstraint!
+
+    @IBOutlet weak var addButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -105,7 +103,6 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
 
     // MARK: Styles
     func style() {
-        styleSubHeader(label: sectionTitle)
         styleHollowButton(button: addButton)
     }
     

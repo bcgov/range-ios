@@ -41,8 +41,13 @@
 		29227B5E20EEAA850042B88E /* TextEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29227B5D20EEAA850042B88E /* TextEntry.storyboard */; };
 		29227B6020EEAAC00042B88E /* TextEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */; };
 		29227B6220EEAD540042B88E /* TextEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6120EEAD540042B88E /* TextEntry.swift */; };
-		29227B6520EFE8940042B88E /* PlantCommunityPastureActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6320EFE8940042B88E /* PlantCommunityPastureActionsViewController.swift */; };
-		29227B6620EFE8940042B88E /* PlantCommunityPastureActionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B6420EFE8940042B88E /* PlantCommunityPastureActionsViewController.xib */; };
+		29227B6920EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */; };
+		29227B6A20EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */; };
+		29227B6C20EFF15C0042B88E /* CustomSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */; };
+		29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B6D20F0057C0042B88E /* CustomSectionHeader.xib */; };
+		29227B7120F00EF00042B88E /* PlantCommunityActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6F20F00EF00042B88E /* PlantCommunityActionTableViewCell.swift */; };
+		29227B7220F00EF00042B88E /* PlantCommunityActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B7020F00EF00042B88E /* PlantCommunityActionTableViewCell.xib */; };
+		29227B7420F013F90042B88E /* PastureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B7320F013F90042B88E /* PastureAction.swift */; };
 		29230FF220BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */; };
 		29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */; };
 		2926D96E20754E52006250D3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
@@ -193,8 +198,13 @@
 		29227B5D20EEAA850042B88E /* TextEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TextEntry.storyboard; sourceTree = "<group>"; };
 		29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntryViewController.swift; sourceTree = "<group>"; };
 		29227B6120EEAD540042B88E /* TextEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntry.swift; sourceTree = "<group>"; };
-		29227B6320EFE8940042B88E /* PlantCommunityPastureActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityPastureActionsViewController.swift; sourceTree = "<group>"; };
-		29227B6420EFE8940042B88E /* PlantCommunityPastureActionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityPastureActionsViewController.xib; sourceTree = "<group>"; };
+		29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityPastureActionsTableViewCell.swift; sourceTree = "<group>"; };
+		29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityPastureActionsTableViewCell.xib; sourceTree = "<group>"; };
+		29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionHeader.swift; sourceTree = "<group>"; };
+		29227B6D20F0057C0042B88E /* CustomSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSectionHeader.xib; sourceTree = "<group>"; };
+		29227B6F20F00EF00042B88E /* PlantCommunityActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityActionTableViewCell.swift; sourceTree = "<group>"; };
+		29227B7020F00EF00042B88E /* PlantCommunityActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityActionTableViewCell.xib; sourceTree = "<group>"; };
+		29227B7320F013F90042B88E /* PastureAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastureAction.swift; sourceTree = "<group>"; };
 		29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinistersIssueActionTableViewCell.swift; sourceTree = "<group>"; };
 		29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinistersIssueActionTableViewCell.xib; sourceTree = "<group>"; };
 		2926D96D20754E52006250D3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
@@ -442,6 +452,7 @@
 				29FCB0332056EF47006CD247 /* Zone.swift */,
 				29FCB0352056EF95006CD247 /* District.swift */,
 				29227B5720EE95A50042B88E /* MonitoringArea.swift */,
+				29227B7320F013F90042B88E /* PastureAction.swift */,
 			);
 			path = "RUP Components";
 			sourceTree = "<group>";
@@ -510,6 +521,8 @@
 			children = (
 				29EB8444203DEEAE00D73F6B /* Storyboards */,
 				29EB8443203DEE8600D73F6B /* Cells */,
+				29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */,
+				29227B6D20F0057C0042B88E /* CustomSectionHeader.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -571,8 +584,10 @@
 				29227B5420EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib */,
 				29227B5920EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift */,
 				29227B5A20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib */,
-				29227B6320EFE8940042B88E /* PlantCommunityPastureActionsViewController.swift */,
-				29227B6420EFE8940042B88E /* PlantCommunityPastureActionsViewController.xib */,
+				29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */,
+				29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */,
+				29227B6F20F00EF00042B88E /* PlantCommunityActionTableViewCell.swift */,
+				29227B7020F00EF00042B88E /* PlantCommunityActionTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -694,7 +709,6 @@
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
 				29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */,
 				299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */,
-				29227B6620EFE8940042B88E /* PlantCommunityPastureActionsViewController.xib in Resources */,
 				29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */,
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
@@ -704,6 +718,7 @@
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
 				29227B5E20EEAA850042B88E /* TextEntry.storyboard in Resources */,
+				29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */,
 				29227B5620EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib in Resources */,
 				291CF8322098EAF300B0BCDD /* DatePicker.storyboard in Resources */,
 				292197CE209CCF65004A5011 /* Options.storyboard in Resources */,
@@ -721,6 +736,8 @@
 				29400584208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib in Resources */,
 				29174683207426E2005F70B4 /* Home.storyboard in Resources */,
 				29400580208FCD5700AA1BDC /* PlanInformationTableViewCell.xib in Resources */,
+				29227B6A20EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib in Resources */,
+				29227B7220F00EF00042B88E /* PlantCommunityActionTableViewCell.xib in Resources */,
 				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
 				299491EE20B62588005FCF94 /* MinisterIssuesTableViewCell.xib in Resources */,
@@ -820,6 +837,7 @@
 				2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */,
 				292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */,
 				29DA8AA52059A8DA00139AD1 /* String.swift in Sources */,
+				29227B7120F00EF00042B88E /* PlantCommunityActionTableViewCell.swift in Sources */,
 				290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */,
 				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
 				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,
@@ -837,6 +855,7 @@
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				292197D9209CD152004A5011 /* OptionsTableViewCell.swift in Sources */,
+				29227B7420F013F90042B88E /* PastureAction.swift in Sources */,
 				2932BB4F2085209000579A57 /* Fonts.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,
 				2917468920742A7A005F70B4 /* MainViewController.swift in Sources */,
@@ -849,6 +868,7 @@
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */,
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
+				29227B6920EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift in Sources */,
 				291746872074279B005F70B4 /* LoginViewController.swift in Sources */,
 				29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */,
 				56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */,
@@ -876,6 +896,7 @@
 				29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */,
 				29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */,
 				29227B6020EEAAC00042B88E /* TextEntryViewController.swift in Sources */,
+				29227B6C20EFF15C0042B88E /* CustomSectionHeader.swift in Sources */,
 				29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */,
 				29EE75D7205053030061B18D /* ScheduleObjectTableViewCell.swift in Sources */,
 				29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */,
@@ -906,7 +927,6 @@
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
 				29227B6220EEAD540042B88E /* TextEntry.swift in Sources */,
-				29227B6520EFE8940042B88E /* PlantCommunityPastureActionsViewController.swift in Sources */,
 				2920F8332034C8380090E7B4 /* Color.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
 				292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */,

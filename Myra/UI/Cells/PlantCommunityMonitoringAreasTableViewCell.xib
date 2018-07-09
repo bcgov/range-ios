@@ -20,17 +20,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="625" height="238.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitoring Areas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3BY-6a-Jpc">
-                        <rect key="frame" x="28" y="8" width="569" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="opc-PX-X6h"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kN2-BI-6Ba">
-                        <rect key="frame" x="20" y="53" width="585" height="142.5"/>
+                        <rect key="frame" x="20" y="0.0" width="585" height="195.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="750" id="250-QD-HhX"/>
@@ -51,20 +42,16 @@
                 <constraints>
                     <constraint firstItem="YTT-FD-stR" firstAttribute="top" secondItem="kN2-BI-6Ba" secondAttribute="bottom" constant="5" id="3cS-RP-dIt"/>
                     <constraint firstItem="YTT-FD-stR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="ARG-xx-YRy"/>
-                    <constraint firstItem="kN2-BI-6Ba" firstAttribute="top" secondItem="3BY-6a-Jpc" secondAttribute="bottom" constant="5" id="BRE-XR-vb9"/>
                     <constraint firstAttribute="trailingMargin" secondItem="kN2-BI-6Ba" secondAttribute="trailing" id="Guf-CI-Fwc"/>
-                    <constraint firstItem="3BY-6a-Jpc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Oy4-Bt-xbc"/>
+                    <constraint firstItem="kN2-BI-6Ba" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LIR-u8-cyP"/>
                     <constraint firstAttribute="bottom" secondItem="YTT-FD-stR" secondAttribute="bottom" constant="8" id="Rq4-qo-QOB"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="3BY-6a-Jpc" secondAttribute="trailing" constant="8" id="Z9O-TA-cg9"/>
                     <constraint firstItem="kN2-BI-6Ba" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="bJB-aZ-y0G"/>
-                    <constraint firstItem="3BY-6a-Jpc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="cU0-w5-2Qy"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addButton" destination="YTT-FD-stR" id="Fga-pm-nxE"/>
                 <outlet property="height" destination="250-QD-HhX" id="jyF-GC-6cw"/>
-                <outlet property="sectionTitle" destination="3BY-6a-Jpc" id="B5z-wT-kRC"/>
                 <outlet property="tableView" destination="kN2-BI-6Ba" id="u4S-6A-nL0"/>
             </connections>
             <point key="canvasLocation" x="-10.5" y="44.5"/>

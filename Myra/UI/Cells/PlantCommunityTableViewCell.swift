@@ -28,7 +28,6 @@ class PlantCommunityTableViewCell: BaseFormCell {
     }
 
     // MARK: Outlet Actions
-
     @IBAction func detailsAction(_ sender: UIButton) {
         guard let community = self.plantCommunity, let p = self.pasture else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController

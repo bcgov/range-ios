@@ -158,9 +158,13 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         if self.tableView == nil { return }
         tableView.delegate = self
         tableView.dataSource = self
+        
         registerCell(name: "PlanCommunityBasicInfoTableViewCell")
         registerCell(name: "PlantCommunityMonitoringAreasTableViewCell")
-//        registerCell(name: "ScheduleFooterTableViewCell")
+        registerCell(name: "PlantCommunityPastureActionsTableViewCell")
+
+        let nib = UINib(nibName: "CustomSectionHeader", bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: "CustomSectionHeader")
     }
 
     func registerCell(name: String) {
@@ -176,32 +180,70 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         return tableView.dequeueReusableCell(withIdentifier: "PlantCommunityMonitoringAreasTableViewCell", for: indexPath) as! PlantCommunityMonitoringAreasTableViewCell
     }
 
+    func getPastureActionsCell(indexPath: IndexPath) -> PlantCommunityPastureActionsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PlantCommunityPastureActionsTableViewCell", for: indexPath) as! PlantCommunityPastureActionsTableViewCell
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let community = self.plantCommunity else {return getBasicInfoCell(indexPath: indexPath)}
-        let index = indexPath.row
-        switch index {
+        switch indexPath.section {
         case 0:
             let cell = getBasicInfoCell(indexPath: indexPath)
             cell.setup(mode: mode, plantCommunity: community)
             return cell
-//            let cell = getScheduleCell(indexPath: indexPath)
-//            cell.setup(mode: mode, schedule: schedule!, rup: rup!, parentReference: self)
-//            return cell
         case 1:
             let cell = getMonitoringAreasCell(indexPath: indexPath)
             cell.setup(plantCommunity: community, mode: mode, parentReference: self)
             return cell
-//            let cell = getScheduleFooterCell(indexPath: indexPath)
-//            cell.setup(mode: mode, schedule: schedule!, agreementID: (rup?.agreementId)!)
-//            self.footerReference = cell
-//            return cell
+        case 2:
+            let cell = getPastureActionsCell(indexPath: indexPath)
+            cell.setup(plantCommunity: community, mode: mode, parentReference: self)
+            return cell
         default:
             return getBasicInfoCell(indexPath: indexPath)
         }
     }
 
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+//        case 0:
+//            return ""
+//        case 1:
+//            return "Monitoring Areas"
+//        case 3:
+//            return "PastureActions"
+//        default:
+//            return ""
+//        }
+//    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var sectionTitle = ""
+        switch section {
+        case 0:
+            sectionTitle =  "Basic Plant Community Information"
+        case 1:
+            sectionTitle =  "Monitoring Areas"
+        case 2:
+            sectionTitle =  "Pasture Actions"
+        default:
+            sectionTitle =  ""
+        }
+        
+        // Dequeue with the reuse identifier
+        let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
+        let header = cell as! CustomSectionHeader
+        header.setup(title: sectionTitle)
+
+        return cell
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
 
 }

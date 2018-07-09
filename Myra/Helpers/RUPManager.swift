@@ -464,6 +464,19 @@
 
         return returnArray
     }
+
+    func getPastureActionLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+
+        returnArray.append(SelectionPopUpObject(display: "Herding"))
+        returnArray.append(SelectionPopUpObject(display: "Timing"))
+
+        for i in 3...6 {
+            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
+        }
+
+        return returnArray
+    }
  }
 
  // MARK: Schedule
