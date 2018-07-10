@@ -184,7 +184,6 @@
             <connections>
                 <outlet property="actionField" destination="kNF-Tm-gCk" id="V77-gs-bNd"/>
                 <outlet property="descriptionField" destination="6a6-Ag-qeO" id="TVk-j5-5ng"/>
-                <outlet property="noGrazePeriodEnd" destination="4oa-01-eY6" id="Nve-PW-LTg"/>
                 <outlet property="noGrazeSectionHeight" destination="4X4-Xl-U6L" id="NZd-bq-2rb"/>
                 <outlet property="optionsButton" destination="Iil-Xw-QIq" id="6dq-Dx-qOX"/>
             </connections>

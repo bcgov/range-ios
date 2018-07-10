@@ -271,9 +271,10 @@ class CreateNewRUPViewController: BaseViewController {
             let realm = try Realm()
             try realm.write {
                 plan.isNew = false
+                plan.locallyUpdatedAt = Date()
             }
         } catch _ {
-            fatalError()
+            fatalError() 
         }
         RealmRequests.updateObject(plan)
         self.dismiss(animated: true) {

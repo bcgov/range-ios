@@ -138,7 +138,7 @@ class APIManager {
             return completion(nil, nil)
         }
 
-        let path = "\(Constants.API.planPath)/\(myPlan.remoteId)"
+        let path = "\(Constants.API.planPath)\(myPlan.remoteId)"
         guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
             return
         }
@@ -146,16 +146,20 @@ class APIManager {
         var params: [String:Any]  = [String:Any]()
         params["uploaded"] = true
 
-
         var request = URLRequest(url: endpoint)
         request.httpMethod = HTTPMethod.put.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        if let creds = authServices.credentials {
+            let token = creds.accessToken
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
         request.httpBody = data
 
         Alamofire.request(request).responseJSON { response in
             APIManager.process(response: response, completion: completion)
         }
+        
 //        Alamofire.request(endpoint, method: .put, parameters: params, encoding: URLEncoding.httpBody, headers:  headers()).responseJSON { response in
 //             APIManager.process(response: response, completion: completion)
 //        }
@@ -464,6 +468,12 @@ extension APIManager {
             progress("Downloading Reference Data")
             dispatchGroup.leave()
         }
+
+//        dispatchGroup.enter()
+//        DataServices.shared.uploadLocalDrafts {
+//            progress("Uploading local drafts")
+//            dispatchGroup.leave()
+//        }
 
         dispatchGroup.enter()
         getReferenceData(completion: { (success) in

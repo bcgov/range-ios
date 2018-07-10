@@ -37,6 +37,9 @@ class DataServices: NSObject {
         queue.addObserver(self, forKeyPath: "operations", options: .new, context: nil)
     }
 
+    // TODO:
+//    func put(url: String, )
+
     func beginAutoSyncListener() {
         print("Listening to db changes in DataServices!")
         do {
@@ -167,6 +170,15 @@ class DataServices: NSObject {
         let outboxPlans = RUPManager.shared.getOutboxRups()
 //        onUploadCompleted = completion
         self.upload(plans: outboxPlans) {
+            return completion()
+        }
+
+    }
+
+    internal func uploadLocalDrafts(completion: @escaping () -> Void) {
+
+        let drafts = RUPManager.shared.getDraftRups()
+        self.upload(plans: drafts) {
             return completion()
         }
 
