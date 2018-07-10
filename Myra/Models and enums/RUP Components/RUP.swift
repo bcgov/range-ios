@@ -45,6 +45,12 @@ class RUP: Object, MyraObject {
     // Local status
     @objc dynamic var status: String = RUPStatus.LocalDraft.rawValue
 
+    // Set this date when save is pressed in create page
+    // Note: if app has crashed, changes are saved but this date is not updated
+    // TODO: consider note above
+    @objc dynamic var locallyUpdatedAt: Date?
+    @objc dynamic var remotelyCreatedAt: Date?
+
     @objc dynamic var agreementId: String = ""
     @objc dynamic var planStartDate: Date?
     @objc dynamic var planEndDate: Date?
@@ -60,6 +66,7 @@ class RUP: Object, MyraObject {
     @objc dynamic var statusId: Int = 0
     @objc dynamic var statusIdValue: String = ""
 
+    // isNew flag is used to check if it has just been created from an agreement
     @objc dynamic var isNew = false
 
     var rangeUsageYears = List<RangeUsageYear>()
@@ -81,8 +88,8 @@ class RUP: Object, MyraObject {
         if let temp = RUPManager.shared.getStatus(forId: statusId) {
             var statusName = temp.name.trimmingCharacters(in: .whitespaces)
             // Remote Draft status means its a client's draft
-            if statusName == "Draft" { statusName = "ClientDraft"}
-            guard let result = RUPStatus(rawValue: statusName) else {
+            if statusName == "Draft" { statusName = "ClientDraft" }
+            guard let result = RUPStatus(rawValue: statusName.removeWhitespace()) else {
                 return .Unknown
             }
             return result
@@ -211,14 +218,23 @@ class RUP: Object, MyraObject {
         if !isValid {
             return [String:Any]()
         }
-
+        /*
+         Set status to staff draft if this plan is a local draft
+         Set status to Created is plan needs to be uploaded
+         */
+        var currStatusId = 1
+        if self.status == RUPStatus.LocalDraft.rawValue {
+             currStatusId = RUPManager.shared.getStaffDraftPlanStatus().id
+        } else if self.status == RUPStatus.Outbox.rawValue {
+            currStatusId = RUPManager.shared.getCreatedPlanStatus().id
+        }
         return [
             "rangeName": rangeName,
             "agreementId": agreementId,
             "planStartDate": DateManager.toUTC(date: planStartDate!),
             "planEndDate": DateManager.toUTC(date: planEndDate!),
-            "alternativeBusinessName": alternativeName,
-            "statusId": 1
+            "altBusinessName": alternativeName,
+            "statusId": currStatusId
         ]
     }
 
@@ -235,8 +251,16 @@ class RUP: Object, MyraObject {
             self.planEndDate = DateManager.fromUTC(string: planEndDate)
         }
 
+        if let planEndDate = json["createdAt"].string {
+            self.remotelyCreatedAt = DateManager.fromUTC(string: planEndDate)
+        }
+
         if let rangeName = json["rangeName"].string {
             self.rangeName = rangeName
+        }
+
+        if let altName = json["altBusinessName"].string {
+            self.alternativeName = altName
         }
         
         if let statusId = json["statusId"].int, let statusObject = RUPManager.shared.getStatus(forId: statusId) {
@@ -244,11 +268,12 @@ class RUP: Object, MyraObject {
             self.statusId = statusId
             self.statusIdValue = statusObject.name
             let statusName = statusObject.name.trimmingCharacters(in: .whitespaces)
-
+            let newTry = statusName.removeWhitespace()
             // set local status
-            if let result = RUPStatus(rawValue: statusName) {
+            if let result = RUPStatus(rawValue: newTry) {
                 self.statusEnum = result
             } else {
+                print(newTry)
                 self.statusEnum = .Unknown
             }
         }

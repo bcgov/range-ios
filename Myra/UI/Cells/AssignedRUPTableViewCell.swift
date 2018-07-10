@@ -31,7 +31,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
     @IBAction func viewAction(_ sender: Any) {
         guard let plan = rup else {return}
         let parent = self.parentViewController as! HomeViewController
-        if plan.getStatus() == .LocalDraft {
+        if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
             parent.editRUP(rup: plan)
         } else {
             parent.viewRUP(rup: plan)
@@ -51,7 +51,7 @@ class AssignedRUPTableViewCell: UITableViewCell {
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
         self.statusText.text = rup.getStatus().rawValue.convertFromCamelCase()
-        if rup.statusEnum == .LocalDraft {
+        if rup.getStatus() == .LocalDraft || rup.getStatus() == .StaffDraft {
             infoButton.setTitle("Edit", for: .normal)
         } else {
             infoButton.setTitle("View", for: .normal)
@@ -80,6 +80,8 @@ class AssignedRUPTableViewCell: UITableViewCell {
             setStatusRed()
         case .Unknown:
             setStatusGray()
+        case .StaffDraft:
+            setStatusGreen()
         }
     }
 

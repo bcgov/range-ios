@@ -16,6 +16,7 @@ class BaseViewController: UIViewController, Theme {
     let mediumAnimationDuration = 0.5
     let shortAnimationDuration = 0.3
     let whiteScreenTag = 100
+    let inputViewContainerTag = 201
 
     // MARK: Sync Screen constants
     let syncTitleTag = 101
@@ -93,6 +94,26 @@ class BaseViewController: UIViewController, Theme {
     func styleInput(input: UITextField) {
         input.layer.cornerRadius = 3
         input.layer.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1).cgColor
+    }
+
+    // MARK: Input container
+    func getInputViewContainer() -> UIView {
+        // white screen
+        let layerWidth: CGFloat = 300
+        let layerHeight: CGFloat = 150
+        let layer = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: layerWidth, height: layerHeight))
+        layer.layer.cornerRadius = 5
+        layer.backgroundColor = UIColor.white
+        layer.layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.layer.shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
+        layer.layer.shadowOpacity = 1
+        layer.layer.shadowRadius = 10
+        layer.center.x = self.view.center.x
+        layer.center.y = self.view.center.y
+        layer.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        layer.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        layer.tag = inputViewContainerTag
+        return layer
     }
 
     // MARK: Popover

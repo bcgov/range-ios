@@ -30,16 +30,7 @@
 
  // MARK: RUP / Agreement
  extension RUPManager {
-
-    func getStatus(forId id: Int) -> PlanStatus? {
-        do {
-            let realm = try Realm()
-            let statuses = realm.objects(PlanStatus.self).filter("id = %@", id)
-            return statuses.first
-        } catch _ {}
-        return nil
-    }
-
+    
     func isValid(rup: RUP) -> (Bool, String) {
         // check required fields
         if !rup.isValid {return (false, "Missing required fields")}
@@ -148,10 +139,18 @@
             }
         }
 
-        if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum != .LocalDraft {
+        if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum == .LocalDraft {
             // if agreement has a plan in local draft state, leave it be
 
             // TODO: CHECK WHICH IS NEWER
+            if let remote =  newAgreement.rups.first, let remoteDate = remote.remotelyCreatedAt , let localDate = plan.locallyUpdatedAt {
+                if localDate > remoteDate {
+                    print("local is newer")
+                } else {
+                    print("remote is newer")
+                }
+                print("**")
+            }
 
         } else {
             // Otherwise if new agreement has a plan downloaded with it, store it
@@ -443,6 +442,39 @@
             }
         }
         return nil
+    }
+
+    func getPlantCommunityAspectLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+
+        for i in 0...3 {
+            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
+        }
+
+        return returnArray
+    }
+
+    func getPlantCommunityElevationLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+
+        for i in 0...3 {
+            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
+        }
+
+        return returnArray
+    }
+
+    func getPastureActionLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+
+        returnArray.append(SelectionPopUpObject(display: "Herding"))
+        returnArray.append(SelectionPopUpObject(display: "Timing"))
+
+        for i in 3...6 {
+            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
+        }
+
+        return returnArray
     }
  }
 
@@ -807,6 +839,39 @@
         for object in objects {
             RealmRequests.saveObject(object: object)
         }
+    }
+
+    func getStaffDraftPlanStatus() -> PlanStatus {
+        let query = RealmRequests.getObject(PlanStatus.self)
+        if let all = query {
+            for object in all {
+                if object.code.lowercased() == "sd"  {
+                    return object
+                }
+            }
+        }
+        return PlanStatus()
+    }
+
+    func getCreatedPlanStatus() -> PlanStatus {
+        let query = RealmRequests.getObject(PlanStatus.self)
+        if let all = query {
+            for object in all {
+                if object.code.lowercased() == "c"  {
+                    return object
+                }
+            }
+        }
+        return PlanStatus()
+    }
+
+    func getStatus(forId id: Int) -> PlanStatus? {
+        do {
+            let realm = try Realm()
+            let statuses = realm.objects(PlanStatus.self).filter("id = %@", id)
+            return statuses.first
+        } catch _ {}
+        return nil
     }
 
     func updateReferenceData(objects: [Object]) {

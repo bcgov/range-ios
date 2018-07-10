@@ -27,6 +27,10 @@ class ViewManager {
         return UIStoryboard(name: "Schedule", bundle: Bundle.main).instantiateViewController(withIdentifier: "Schedule") as! ScheduleViewController
     }()
 
+    lazy var plantCommunity: PlantCommunityViewController = {
+        return UIStoryboard(name: "PlantCommunity", bundle: Bundle.main).instantiateViewController(withIdentifier: "PlantCommunity") as! PlantCommunityViewController
+    }()
+
     lazy var selectAgreement: SelectAgreementViewController = {
         return UIStoryboard(name: "SelectAgreement", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectAgreement") as! SelectAgreementViewController
     }()
@@ -41,5 +45,9 @@ class ViewManager {
 
     lazy var options: OptionsViewController = {
         return UIStoryboard(name: "Options", bundle: Bundle.main).instantiateViewController(withIdentifier: "Options") as! OptionsViewController
+    }()
+
+    lazy var textEntry: TextEntryViewController = {
+        return UIStoryboard(name: "TextEntry", bundle: Bundle.main).instantiateViewController(withIdentifier: "TextEntry") as! TextEntryViewController
     }()
 }

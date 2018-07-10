@@ -271,9 +271,10 @@ class CreateNewRUPViewController: BaseViewController {
             let realm = try Realm()
             try realm.write {
                 plan.isNew = false
+                plan.locallyUpdatedAt = Date()
             }
         } catch _ {
-            fatalError()
+            fatalError() 
         }
         RealmRequests.updateObject(plan)
         self.dismiss(animated: true) {
@@ -430,10 +431,27 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     func autofill() {
-        let num = rup?.agreementId ?? ""
-        let name = rup?.rangeName ?? ""
-        ranchNameAndNumberLabel.text = "\(num) | \(name)"
-        highlighCurrentModuleInMenu()
+        self.setBarInfoBasedOnOrientation()
+        highlightCurrentModuleInMenu()
+    }
+
+    func setBarInfoBasedOnOrientation() {
+        guard let p = rup else { return }
+        let num = p.agreementId
+        let name = p.rangeName
+        var holder = ""
+
+        if let agreement = RUPManager.shared.getAgreement(with: p.agreementId) {
+            holder = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+        }
+
+        if UIDevice.current.orientation.isPortrait ||  UIDevice.current.orientation.isFlat {
+            ranchNameAndNumberLabel.text = "\(num) | \(name)"
+        } else {
+            ranchNameAndNumberLabel.text = "\(num) | \(name) | \(holder)"
+        }
+
+        animateIt()
     }
 
     func catchAction(notification:Notification) {
@@ -446,11 +464,13 @@ class CreateNewRUPViewController: BaseViewController {
     }
     override func whenLandscape() {
         setMenuSize()
+        setBarInfoBasedOnOrientation()
 //        styleLandscapeMenu()
     }
     override func whenPortrait() {
 //        stylePortaitMenu()
         setMenuSize()
+        setBarInfoBasedOnOrientation()
     }
 
 }
@@ -593,7 +613,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 //        self.tableView.layoutIfNeeded()
 
         
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
     func realodAndGoToBottomOf(indexPath: IndexPath) {
@@ -601,21 +621,21 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
     // deep reload reloads tableview. other reload functions dont
     func deepReload(indexPath: IndexPath) {
         self.tableView.reloadData()
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        highlighCurrentModuleInMenu()
+        highlightCurrentModuleInMenu()
     }
 
-    func highlighCurrentModuleInMenu() {
+    func highlightCurrentModuleInMenu() {
         if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
             // select the first indexPath
             var indexPath = indexPaths[0]
@@ -664,12 +684,20 @@ extension CreateNewRUPViewController {
     }
 }
 
-// MARK: Schedule View
+// MARK: Details pages
 extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
-         let vm = ViewManager()
+        guard let plan = self.rup else {return}
+        let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.setup(mode: mode, rup: rup!, schedule: object, completion: completion)
+        schedule.setup(mode: mode, rup: plan, schedule: object, completion: completion)
         self.present(schedule, animated: true, completion: nil)
+    }
+
+    func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+        let vm = ViewManager()
+        let plantCommunityDetails = vm.plantCommunity
+        plantCommunityDetails.setup(mode: mode, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
+        self.present(plantCommunityDetails, animated: true, completion: nil)
     }
 }

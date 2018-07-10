@@ -145,18 +145,11 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * ScheduleFormTableViewCell.cellHeight + 5.0)
         setUpTable()
         style()
-        switch mode {
-        case .View:
-            addButton.isEnabled = false
-            addButton.alpha = 0
-        case .Edit:
-            addButton.isEnabled = true
-            addButton.alpha = 1
-        }
     }
 
     func updateTableHeight() {
-        guard let sched = self.schedule else {return}
+        guard let sched = self.schedule, let parent = self.parentReference else {return}
+        
         do {
             let realm = try Realm()
             let temp = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
@@ -168,9 +161,9 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
         height.constant = CGFloat( Double((self.schedule?.scheduleObjects.count)!) * ScheduleFormTableViewCell.cellHeight + 5.0)
-        if let parent = self.parentReference {
-            parent.reloadCells()
-        }
+
+        parent.reloadCells()
+
     }
 
     // MARK: Styles
@@ -195,6 +188,14 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         styleFieldHeader(label: PLD)
         styleFieldHeader(label: crownAUMs)
         styleHollowButton(button: addButton)
+        switch mode {
+        case .View:
+            addButton.isEnabled = false
+            addButton.alpha = 0
+        case .Edit:
+            addButton.isEnabled = true
+            addButton.alpha = 1
+        }
     }
 
     func switchOffSortHeaders() {

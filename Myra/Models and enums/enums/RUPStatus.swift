@@ -16,5 +16,6 @@ enum RUPStatus: String {
     case Created
     case ChangeRequested
     case ClientDraft
+    case StaffDraft
     case Unknown
 }

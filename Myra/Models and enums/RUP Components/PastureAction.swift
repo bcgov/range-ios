@@ -1,8 +1,8 @@
 //
-//  PlantCommunity.swift
+//  PastureAction.swift
 //  Myra
 //
-//  Created by Amir Shayegh on 2018-02-22.
+//  Created by Amir Shayegh on 2018-07-06.
 //  Copyright © 2018 Government of British Columbia. All rights reserved.
 //
 
@@ -10,8 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class PlantCommunity: Object, MyraObject {
-
+class PastureAction: Object, MyraObject {
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
@@ -23,7 +22,8 @@ class PlantCommunity: Object, MyraObject {
         return "localId"
     }
 
-    @objc dynamic var name: String = ""
-    var monitoringAreas = List<MonitoringArea>()
-
+    @objc dynamic var details: String = ""
+    @objc dynamic var action: String = ""
+    @objc dynamic var noGrazeDateIn: Date?
+    @objc dynamic var noGrazeDateOut: Date?
 }

@@ -123,15 +123,18 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#RAN07878  |  Range Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqq-yl-p8l">
-                                        <rect key="frame" x="76" y="29.5" width="180.5" height="17"/>
+                                        <rect key="frame" x="88" y="29.5" width="358.5" height="17"/>
                                         <accessibility key="accessibilityConfiguration" identifier="RangeNameLabel"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvu-os-1VU">
-                                        <rect key="frame" x="20" y="23" width="48" height="30"/>
+                                        <rect key="frame" x="20" y="23" width="60" height="30"/>
                                         <accessibility key="accessibilityConfiguration" identifier="CreatePageCancelButton"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="n55-u6-nfa"/>
+                                        </constraints>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="cancelAction:" destination="q34-99-p1g" eventType="touchUpInside" id="f1F-53-jhk"/>
@@ -141,6 +144,7 @@
                                 <color key="backgroundColor" red="0.9076380076142132" green="0.9076380076142132" blue="0.9076380076142132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="8z7-dn-Qms"/>
+                                    <constraint firstItem="4Ob-oN-R5i" firstAttribute="leading" secondItem="wqq-yl-p8l" secondAttribute="trailing" constant="2" id="DM8-E8-abj"/>
                                     <constraint firstItem="Dvu-os-1VU" firstAttribute="leading" secondItem="LiW-fN-wXA" secondAttribute="leading" constant="20" id="GL9-8p-sn6"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="JIU-mi-aTR"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="Tw7-5j-4oq"/>

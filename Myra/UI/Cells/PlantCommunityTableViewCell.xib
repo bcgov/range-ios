@@ -56,6 +56,15 @@
                                 <state key="normal" title="&gt;">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="detailsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7LD-Z8-pO0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aki-VJ-yLI">
+                                <rect key="frame" x="0.0" y="0.0" width="451" height="100"/>
+                                <connections>
+                                    <action selector="detailsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vHj-nu-p2Y"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,11 +73,15 @@
                             <constraint firstItem="S4G-Md-pJi" firstAttribute="leading" secondItem="S17-Tb-AhF" secondAttribute="leading" constant="15" id="CWP-pO-Lz5"/>
                             <constraint firstAttribute="height" constant="100" id="GL6-91-Fwm"/>
                             <constraint firstAttribute="bottom" secondItem="7y9-gX-gRg" secondAttribute="bottom" constant="8" id="HW3-0b-xAu"/>
+                            <constraint firstItem="aki-VJ-yLI" firstAttribute="centerX" secondItem="S17-Tb-AhF" secondAttribute="centerX" id="KjU-rm-NzQ"/>
                             <constraint firstItem="7y9-gX-gRg" firstAttribute="leading" secondItem="S17-Tb-AhF" secondAttribute="leading" constant="15" id="L16-yF-qS9"/>
+                            <constraint firstItem="aki-VJ-yLI" firstAttribute="height" secondItem="S17-Tb-AhF" secondAttribute="height" id="Ngd-RV-kKl"/>
+                            <constraint firstItem="aki-VJ-yLI" firstAttribute="width" secondItem="S17-Tb-AhF" secondAttribute="width" id="UgL-3y-br4"/>
                             <constraint firstItem="5D8-5i-YoW" firstAttribute="centerY" secondItem="S17-Tb-AhF" secondAttribute="centerY" id="V2J-8H-IbH"/>
                             <constraint firstItem="5D8-5i-YoW" firstAttribute="leading" secondItem="7y9-gX-gRg" secondAttribute="trailing" constant="15" id="adW-05-jIt"/>
                             <constraint firstItem="yFt-pz-cmJ" firstAttribute="centerY" secondItem="FRJ-yD-bJr" secondAttribute="centerY" id="ftw-Gd-YOg"/>
                             <constraint firstItem="yFt-pz-cmJ" firstAttribute="leading" secondItem="FRJ-yD-bJr" secondAttribute="trailing" constant="5" id="lAm-9r-eK2"/>
+                            <constraint firstItem="aki-VJ-yLI" firstAttribute="centerY" secondItem="S17-Tb-AhF" secondAttribute="centerY" id="lXU-h7-iJs"/>
                             <constraint firstAttribute="trailing" secondItem="5D8-5i-YoW" secondAttribute="trailing" constant="2" id="rPt-jI-YhF"/>
                             <constraint firstItem="S4G-Md-pJi" firstAttribute="top" secondItem="S17-Tb-AhF" secondAttribute="top" constant="15" id="rxp-PW-DtL"/>
                             <constraint firstItem="FRJ-yD-bJr" firstAttribute="centerY" secondItem="S4G-Md-pJi" secondAttribute="centerY" id="vOL-8i-CkV"/>

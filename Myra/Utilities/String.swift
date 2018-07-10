@@ -41,4 +41,8 @@ extension String {
         }
     }
 
+    func removeWhitespace() -> String {
+        return self.replacingOccurrences(of: " ", with: "")
+    }
+
 }

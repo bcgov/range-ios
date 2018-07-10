@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -86,16 +86,38 @@
                             <action selector="addScheduleAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YPR-dj-oZq"/>
                         </connections>
                     </button>
+                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4uC-po-oNn">
+                        <rect key="frame" x="35" y="106" width="537" height="98.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5Q-Na-SBn">
+                                <rect key="frame" x="0.0" y="38" width="537" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="l5Q-Na-SBn" firstAttribute="centerX" secondItem="4uC-po-oNn" secondAttribute="centerX" id="M30-ii-sHO"/>
+                            <constraint firstItem="l5Q-Na-SBn" firstAttribute="leading" secondItem="4uC-po-oNn" secondAttribute="leading" id="YHX-Z8-p9Q"/>
+                            <constraint firstItem="l5Q-Na-SBn" firstAttribute="centerY" secondItem="4uC-po-oNn" secondAttribute="centerY" id="fbm-Id-12J"/>
+                            <constraint firstAttribute="trailing" secondItem="l5Q-Na-SBn" secondAttribute="trailing" id="uow-rS-r3l"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ejs-zW-dy7" firstAttribute="top" secondItem="G0g-gh-W40" secondAttribute="bottom" constant="15" id="2rt-Dj-FY0"/>
+                    <constraint firstItem="4uC-po-oNn" firstAttribute="centerX" secondItem="ejs-zW-dy7" secondAttribute="centerX" id="6R1-C1-Nif"/>
+                    <constraint firstItem="4uC-po-oNn" firstAttribute="width" secondItem="ejs-zW-dy7" secondAttribute="width" id="AG2-zK-u10"/>
                     <constraint firstItem="ejs-zW-dy7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="J6h-aW-Ash"/>
                     <constraint firstItem="G0g-gh-W40" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="S2D-RW-TLM"/>
                     <constraint firstItem="G0g-gh-W40" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="VuN-ga-4nA"/>
                     <constraint firstItem="3NW-40-cC0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="etk-2B-onQ"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ejs-zW-dy7" secondAttribute="trailing" constant="15" id="fw0-XM-mMw"/>
                     <constraint firstAttribute="bottom" secondItem="3NW-40-cC0" secondAttribute="bottom" constant="5" id="g5R-oI-fF8"/>
+                    <constraint firstItem="4uC-po-oNn" firstAttribute="centerY" secondItem="ejs-zW-dy7" secondAttribute="centerY" id="gT5-RY-nBN"/>
                     <constraint firstItem="3NW-40-cC0" firstAttribute="top" secondItem="ejs-zW-dy7" secondAttribute="bottom" constant="5" id="hu4-j2-J0f"/>
+                    <constraint firstItem="4uC-po-oNn" firstAttribute="height" secondItem="ejs-zW-dy7" secondAttribute="height" id="tnH-FF-9C8"/>
                     <constraint firstAttribute="trailing" secondItem="G0g-gh-W40" secondAttribute="trailing" constant="15" id="wIa-4b-7Lu"/>
                 </constraints>
             </tableViewCellContentView>
@@ -103,6 +125,8 @@
             <connections>
                 <outlet property="addButton" destination="7aU-Ev-sHh" id="jVi-VJ-FZp"/>
                 <outlet property="divider" destination="42w-oR-hhy" id="Swo-A7-bwZ"/>
+                <outlet property="message" destination="l5Q-Na-SBn" id="e3V-ai-LQW"/>
+                <outlet property="messageContainer" destination="4uC-po-oNn" id="GhW-69-Fur"/>
                 <outlet property="sectionTitle" destination="JNy-FA-tou" id="kEf-yM-RjO"/>
                 <outlet property="tableHeight" destination="0I4-LE-U2p" id="j97-Hd-MWh"/>
                 <outlet property="tableView" destination="ejs-zW-dy7" id="SMq-bK-oos"/>

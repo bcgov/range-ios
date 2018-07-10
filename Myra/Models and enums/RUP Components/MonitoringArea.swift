@@ -1,8 +1,8 @@
 //
-//  PlantCommunity.swift
+//  MonitoringArea.swift
 //  Myra
 //
-//  Created by Amir Shayegh on 2018-02-22.
+//  Created by Amir Shayegh on 2018-07-05.
 //  Copyright © 2018 Government of British Columbia. All rights reserved.
 //
 
@@ -10,8 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class PlantCommunity: Object, MyraObject {
-
+class MonitoringArea: Object, MyraObject {
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
@@ -24,6 +23,5 @@ class PlantCommunity: Object, MyraObject {
     }
 
     @objc dynamic var name: String = ""
-    var monitoringAreas = List<MonitoringArea>()
-
+    
 }

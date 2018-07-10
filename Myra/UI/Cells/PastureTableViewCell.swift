@@ -285,7 +285,7 @@ class PastureTableViewCell: BaseFormCell {
             styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
             addPlantCommunityButton.alpha = 0
-            addPlantCommunityButtonHeight.constant = 0
+//            addPlantCommunityButtonHeight.constant = 0
         case .Edit:
             styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
             styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
@@ -328,7 +328,8 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
-        cell.setup(mode: mode, plantCommunity: (self.pasture?.plantCommunities[indexPath.row])!)
+        guard let p = self.pasture else {return cell}
+        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p)
         return cell
     }
 

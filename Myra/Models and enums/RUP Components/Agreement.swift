@@ -88,7 +88,9 @@ class Agreement: Object, MyraObject {
         
         // Plan
         let plansJSON = json["plans"]
+
         if let planJSON = plansJSON.first, let planRemoteId = planJSON.1["id"].int {
+            // if a plan with thr same remore id exists, delete it and store the new one
             if let p = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
                 RealmRequests.deleteObject(p)
             }
