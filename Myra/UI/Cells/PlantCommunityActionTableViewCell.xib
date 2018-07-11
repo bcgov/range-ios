@@ -126,6 +126,9 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="198" id="Mqc-gO-saA"/>
                                                                 </constraints>
+                                                                <connections>
+                                                                    <action selector="noGrazePeriodBegin:" destination="Bul-Ru-1yC" eventType="touchUpInside" id="762-Eu-not"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -159,6 +162,9 @@
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdN-Tq-9Oh">
                                                                 <rect key="frame" x="0.0" y="0.0" width="198" height="50.5"/>
+                                                                <connections>
+                                                                    <action selector="noGrazePeriodEnd:" destination="Bul-Ru-1yC" eventType="touchUpInside" id="xVD-gW-TXG"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -69,11 +69,78 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
     }
 
     @IBAction func noGrazePeriodBegin(_ sender: UIButton) {
+        guard let parent = self.parentReference, let plan = parent.plan else {return}
 
+        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else { return }
+
+        let vm = ViewManager()
+        let picker = vm.datePicker
+
+        picker.setup(between: planStart, max: planEnd) { (date) in
+            self.handleDateIn(date: date)
+        }
+        parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     @IBAction func noGrazePeriodEnd(_ sender: UIButton) {
+        guard let parent = self.parentReference, let plan = parent.plan , let act = self.action else {return}
 
+        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else { return }
+
+        var min = planStart
+
+        if let noGrazeIn = act.noGrazeDateIn {
+            min = noGrazeIn
+        }
+
+        let vm = ViewManager()
+        let picker = vm.datePicker
+
+        picker.setup(between: min, max: planEnd) { (date) in
+            self.handleDateOut(date: date)
+        }
+        parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+    }
+
+    func handleDateIn(date: Date) {
+        guard let act = self.action else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                act.noGrazeDateIn = date
+            }
+        } catch _ {
+            fatalError()
+        }
+
+        if let dateOut = act.noGrazeDateOut {
+            if dateOut < date {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        act.noGrazeDateOut = date
+                    }
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
+
+        autoFill()
+    }
+
+    func handleDateOut(date: Date) {
+        guard let act = self.action else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                act.noGrazeDateOut = date
+            }
+        } catch _ {
+            fatalError()
+        }
+
+        autoFill()
     }
     
 
@@ -94,6 +161,15 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
             showNoGrazeSection()
         } else {
             hideNoGrazeSection()
+        }
+
+        self.descriptionField.text = current.details
+        if let dateIn = current.noGrazeDateIn {
+            self.noGrazeIn.text = dateIn.string()
+        }
+
+        if let dateOut = current.noGrazeDateOut {
+            self.noGrazeOut.text = dateOut.string()
         }
     }
 
@@ -129,6 +205,11 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
             styleInputField(field: noGrazeOut, header: noGrazePeriodLabel, height: inputFieldHeight)
             styleTextviewInputField(field: descriptionField, header: descriptionHeader)
         }
+    }
+
+    public func dismissKeyboard() {
+        guard let parent = self.parentReference else { return }
+        parent.view.endEditing(true)
     }
 }
 

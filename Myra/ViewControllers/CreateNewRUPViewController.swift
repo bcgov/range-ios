@@ -704,9 +704,10 @@ extension CreateNewRUPViewController {
     }
 
     func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+        guard let plan = self.rup else {return}
         let vm = ViewManager()
         let plantCommunityDetails = vm.plantCommunity
-        plantCommunityDetails.setup(mode: mode, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
+        plantCommunityDetails.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
         self.present(plantCommunityDetails, animated: true, completion: nil)
     }
 }
