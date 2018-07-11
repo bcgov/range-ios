@@ -24,6 +24,31 @@ class PlantCommunity: Object, MyraObject {
     }
 
     @objc dynamic var name: String = ""
+    @objc dynamic var aspect: String = ""
+    @objc dynamic var elevation: String = ""
+    @objc dynamic var notes: String = ""
+    @objc dynamic var communityURL: String = ""
+    @objc dynamic var purposeOfAction: String = ""
     var monitoringAreas = List<MonitoringArea>()
+    var pastureActions = List<PastureAction>()
 
+    func copy() -> PlantCommunity {
+        let new = PlantCommunity()
+        new.name = self.name
+        new.aspect = self.aspect
+        new.elevation = self.elevation
+        new.notes = self.notes
+        new.communityURL = self.communityURL
+        new.purposeOfAction = self.purposeOfAction
+
+        for object in self.monitoringAreas {
+            new.monitoringAreas.append(object.copy())
+        }
+
+        for object in self.pastureActions {
+            new.pastureActions.append(object.copy())
+        }
+
+        return new
+    }
 }

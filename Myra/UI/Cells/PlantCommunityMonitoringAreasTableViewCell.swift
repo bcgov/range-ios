@@ -52,13 +52,11 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
                     fatalError()
                 }
                 parent.removeWhiteScreen()
-                textEntry.view.removeFromSuperview()
-                textEntry.removeFromParentViewController()
+                textEntry.remove()
                 self.updateTableHeight()
             } else {
                 parent.removeWhiteScreen()
-                textEntry.view.removeFromSuperview()
-                textEntry.removeFromParentViewController()
+                textEntry.remove()
             }
         }
         parent.showTextEntry(vc: textEntry)
@@ -128,7 +126,7 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getMonitoringAreaCell(indexPath: indexPath)
-        if let pc = self.plantCommunity {
+        if let pc = self.plantCommunity{
             cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode)
         }
         return cell

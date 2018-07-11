@@ -64,4 +64,13 @@ class MinisterIssueAction: Object, MyraObject {
             self.actionTypeID = actionTypeId
         }
     }
+
+    func copy() -> MinisterIssueAction {
+        let new = MinisterIssueAction()
+        new.remoteId = self.remoteId
+        new.actionType = self.actionType
+        new.actionTypeID = self.actionTypeID
+        new.desc = self.desc
+        return new
+    }
 }

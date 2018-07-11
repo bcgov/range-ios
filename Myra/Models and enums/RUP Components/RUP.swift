@@ -172,6 +172,10 @@ class RUP: Object, MyraObject {
             plan.schedules.append(object.copy(in: plan))
         }
 
+        for object in self.ministerIssues {
+            plan.ministerIssues.append(object.copy())
+        }
+
         // Cients, zones and Range usage years should not be deletable/editable, so no need to call copy() on them
         plan.clients = self.clients
         plan.zones = self.zones

@@ -267,16 +267,25 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}
+
+        let agreement = RUPManager.shared.getAgreement(with: plan.agreementId)
+
         do {
             let realm = try Realm()
             try realm.write {
                 plan.isNew = false
                 plan.locallyUpdatedAt = Date()
+                if agreement != nil {
+                    agreement?.rups.append(plan)
+
+                }
             }
         } catch _ {
             fatalError() 
         }
+        
         RealmRequests.updateObject(plan)
+        
         self.dismiss(animated: true) {
             if self.parentCallBack != nil {
                 return self.parentCallBack!(true, false)

@@ -31,13 +31,28 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
         super.setSelected(selected, animated: animated)
     }
 
+    @IBAction func addAction(_ sender: UIButton) {
+        guard let p = self.plantCommunity else {return}
+
+        do {
+            let realm = try Realm()
+            let temp = realm.objects(PlantCommunity.self).filter("localId = %@", p.localId).first!
+            try realm.write {
+                temp.pastureActions.append(PastureAction())
+            }
+            self.plantCommunity = temp
+        } catch _ {
+            fatalError()
+        }
+        updateTableHeight()
+    }
 
     // MARK: Setup
     func setup(plantCommunity: PlantCommunity, mode: FormMode, parentReference: PlantCommunityViewController) {
         self.plantCommunity = plantCommunity
         self.mode = mode
         self.parentReference = parentReference
-        self.height.constant = CGFloat( plantCommunity.monitoringAreas.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
+        self.height.constant = CGFloat( plantCommunity.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
         setUpTable()
         style()
     }
@@ -55,8 +70,8 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
 
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
-        self.height.constant = CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
-
+        self.height.constant = CGFloat(p.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
+        
         parent.reload()
     }
 
@@ -87,12 +102,16 @@ extension PlantCommunityPastureActionsTableViewCell: UITableViewDelegate, UITabl
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getActionCell(indexPath: indexPath)
+        if let pc = self.plantCommunity, let parent = self.parentReference {
+            cell.setup(mode: self.mode, action: pc.pastureActions[indexPath.row], parentReference: parent)
+        }
+
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let p = self.plantCommunity {
-            return p.monitoringAreas.count
+            return p.pastureActions.count
         } else {
             return 0
         }

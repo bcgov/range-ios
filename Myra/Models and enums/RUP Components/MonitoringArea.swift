@@ -23,5 +23,11 @@ class MonitoringArea: Object, MyraObject {
     }
 
     @objc dynamic var name: String = ""
-    
+
+    func copy() -> MonitoringArea {
+        let new = MonitoringArea()
+        new.name = self.name
+
+        return new
+    }
 }

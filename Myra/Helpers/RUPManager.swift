@@ -92,6 +92,9 @@
 
     func getAgreement(with id: String) -> Agreement? {
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
+            for storeda in storedAgreements where storeda.agreementId == id {
+                print("\(storeda.agreementId) has \(storeda.rups.count) rup ")
+            }
             for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
                 return storedAgreement
             }
@@ -456,10 +459,16 @@
 
     func getPlantCommunityElevationLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-
-        for i in 0...3 {
-            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
-        }
+        returnArray.append(SelectionPopUpObject(display: "500"))
+        returnArray.append(SelectionPopUpObject(display: "500-699"))
+        returnArray.append(SelectionPopUpObject(display: "700-899"))
+        returnArray.append(SelectionPopUpObject(display: "900-1099"))
+        returnArray.append(SelectionPopUpObject(display: "1100-1299"))
+        returnArray.append(SelectionPopUpObject(display: "1300-1500"))
+        returnArray.append(SelectionPopUpObject(display: ">1500"))
+//        for i in 0...3 {
+//            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
+//        }
 
         return returnArray
     }

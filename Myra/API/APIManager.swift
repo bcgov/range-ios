@@ -469,11 +469,11 @@ extension APIManager {
             dispatchGroup.leave()
         }
 
-//        dispatchGroup.enter()
-//        DataServices.shared.uploadLocalDrafts {
-//            progress("Uploading local drafts")
-//            dispatchGroup.leave()
-//        }
+        dispatchGroup.enter()
+        DataServices.shared.uploadLocalDrafts {
+            progress("Uploading local drafts")
+            dispatchGroup.leave()
+        }
 
         dispatchGroup.enter()
         getReferenceData(completion: { (success) in

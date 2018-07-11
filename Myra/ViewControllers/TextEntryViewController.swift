@@ -104,5 +104,10 @@ class TextEntryViewController: UIViewController, Theme {
         self.view.backgroundColor = UIColor.white
     }
 
+    func remove() {
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
+    }
+
 
 }

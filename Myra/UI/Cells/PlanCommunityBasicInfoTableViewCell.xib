@@ -161,6 +161,9 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="communityURLChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="GQl-oO-Dnn"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -182,6 +185,9 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="purposeOfActionsChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="ub0-IM-OQW"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>

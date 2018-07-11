@@ -44,11 +44,13 @@ class PlantCommunityTableViewCell: BaseFormCell {
 //        setupNotifications()
 //        notifyReload()
         autofill()
+        descriptionTextView.isUserInteractionEnabled = false
     }
 
     func autofill() {
         guard let pc = self.plantCommunity else {return}
         self.nameLabel.text = pc.name
+        descriptionTextView.text = pc.notes
     }
 
     func setupNotifications() {

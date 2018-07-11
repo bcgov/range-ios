@@ -189,7 +189,7 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         switch indexPath.section {
         case 0:
             let cell = getBasicInfoCell(indexPath: indexPath)
-            cell.setup(mode: mode, plantCommunity: community)
+            cell.setup(plantCommunity: community, mode: mode, parentReference: self)
             return cell
         case 1:
             let cell = getMonitoringAreasCell(indexPath: indexPath)
