@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class PlantCommunityViewController: BaseViewController {
 
@@ -97,6 +99,7 @@ class PlantCommunityViewController: BaseViewController {
     }
 
     func reload() {
+        self.view.layoutIfNeeded()
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
     }

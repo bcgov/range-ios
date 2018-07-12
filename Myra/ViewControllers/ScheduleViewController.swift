@@ -149,11 +149,10 @@ class ScheduleViewController: BaseViewController {
         rotatePopup()
     }
 
-    func reloadCells() {
+    func reload() {
         self.view.layoutIfNeeded()
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
-//        self.tableView.reloadData()
     }
 
     func calculateTotals() {

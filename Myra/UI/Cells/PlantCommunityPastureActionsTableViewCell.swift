@@ -71,7 +71,7 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
         self.height.constant = CGFloat(p.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
-        
+        self.layoutIfNeeded()
         parent.reload()
     }
 
@@ -103,7 +103,7 @@ extension PlantCommunityPastureActionsTableViewCell: UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getActionCell(indexPath: indexPath)
         if let pc = self.plantCommunity, let parent = self.parentReference {
-            cell.setup(mode: self.mode, action: pc.pastureActions[indexPath.row], parentReference: parent)
+            cell.setup(mode: self.mode, action: pc.pastureActions[indexPath.row], parentReference: parent, parentCellRefenrece: self)
         }
 
         return cell

@@ -13,13 +13,14 @@ import RealmSwift
 class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
-    static let cellHeight = 271.0
+    static let cellHeight = 255.0
 
     // MARK: Variables
     var mode: FormMode = .View
     var flag = false
     var action: PastureAction?
     var parentReference: PlantCommunityViewController?
+    var parentCellReference: PlantCommunityPastureActionsTableViewCell?
 
     // MARK: Outlets
 //    @IBOutlet weak var noGrazeSectionHeight: NSLayoutConstraint!
@@ -46,6 +47,28 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Outlet Actions
+
+    @IBAction func optionsAction(_ sender: UIButton) {
+        guard let act = self.action, let parent = self.parentReference, let parentCell = self.parentCellReference else {return}
+        let vm = ViewManager()
+        let optionsVC = vm.options
+
+        let options: [Option] = [Option(type: .Delete, display: "Delete")]
+        optionsVC.setup(options: options) { (option) in
+            optionsVC.dismiss(animated: true, completion: nil)
+            switch option.type {
+            case .Delete:
+                parent.showAlert(title: "Confirmation", description: "Would you like to delete this pasture action?", yesButtonTapped: {
+                    RealmManager.shared.deletePastureAction(object: act)
+                    parentCell.updateTableHeight()
+                }, noButtonTapped: {})
+            case .Copy:
+                print("copy not implemented")
+            }
+        }
+        parent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+    }
+
     @IBAction func actionFieldAction(_ sender: UIButton) {
         guard let current = action, let parent = self.parentReference else {return}
         let vm = ViewManager()
@@ -142,13 +165,13 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
 
         autoFill()
     }
-    
 
     // MARK: Setup
-    func setup(mode: FormMode, action: PastureAction, parentReference: PlantCommunityViewController) {
+    func setup(mode: FormMode, action: PastureAction, parentReference: PlantCommunityViewController, parentCellRefenrece: PlantCommunityPastureActionsTableViewCell) {
         self.mode = mode
         self.action = action
         self.parentReference = parentReference
+        self.parentCellReference = parentCellRefenrece
         style()
         autoFill()
         descriptionField.delegate = self
