@@ -43,7 +43,7 @@ class TextEntryViewController: UIViewController, Theme {
         if let c = self.callBack, inputIsValid {
             c(true, value)
             remove()
-        } else if input.text == "" {
+        } else if input.text?.removeWhitespace() == "" {
             invalidInput(message: "Please enter a value")
         }
     }
@@ -51,7 +51,7 @@ class TextEntryViewController: UIViewController, Theme {
     @IBAction func inputChanged(_ sender: UITextField) {
         if let text = sender.text {
             // has value
-            if text == "" {
+            if text.removeWhitespace() == "" {
                 invalidInput(message: "Please enter a value")
                 return
             } else {

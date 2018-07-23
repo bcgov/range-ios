@@ -44,7 +44,27 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var pasturesButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
 
+    @IBOutlet weak var identifiedByMinisterLabel: UILabel!
+    @IBOutlet weak var identifiedByMinisterImage: UIImageView!
+    @IBOutlet weak var identifiedByMinisterImageHolder: UIView!
+    @IBOutlet weak var identifiedByMinisterButton: UIButton!
+
+
     // MARK: Outlet actions
+
+    @IBAction func identifiedByMinisterAction(_ sender: UIButton) {
+        guard let i = self.issue else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                i.identified = !i.identified
+            }
+        } catch _ {
+            fatalError()
+        }
+        autofill()
+    }
+
     @IBAction func optionsAction(_ sender: UIButton) {
         guard let i = self.issue, let parent = self.parentCell else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController
@@ -193,11 +213,17 @@ class MinisterIssueTableViewCell: BaseFormCell {
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
+        if i.identified {
+            styleRadioOn(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+        } else {
+            styleRadioOff(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+        }
 
         if self.mode == .View {
             setDefaultValueIfEmpty(field: pastureValue)
             setDefaultValueIfEmpty(field: detailsValue)
             setDefaultValueIfEmpty(field: objectiveValue)
+
         }
     }
 
@@ -221,8 +247,10 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleSubHeader(label: issueTypeValue)
         styleStaticField(field: pastureValue, header: pastureHeader)
         styleSubHeader(label: actionsHeader)
+        styleFieldHeader(label: identifiedByMinisterLabel)
         switch self.mode {
         case .View:
+            identifiedByMinisterButton.isEnabled = false
             addPastureButtonWidth.constant = 0
             optionsButton.alpha = 0
             addButton.alpha = 0
