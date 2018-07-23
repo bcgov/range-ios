@@ -239,9 +239,10 @@ class PastureTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        let padding = 5
+
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
+        let padding = 5
         tableHeight.constant = CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
         if let parent = parentCell {
             parent.updateTableHeight()

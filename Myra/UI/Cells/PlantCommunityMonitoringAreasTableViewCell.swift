@@ -37,7 +37,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.setup(on: parent) { (accepted, value) in
+        textEntry.setup(on: parent, header: "Monitoring Area Name") { (accepted, value) in
             if accepted {
                 let newMonitoringArea = MonitoringArea()
                 newMonitoringArea.name = value

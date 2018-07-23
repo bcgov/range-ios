@@ -216,7 +216,7 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
                 let vm = ViewManager()
                 let textEntry = vm.textEntry
                 parent.dismissPopOver()
-                textEntry.setup(on: parent) { (accepted, value) in
+                textEntry.setup(on: parent, header: "Other") { (accepted, value) in
                     if accepted {
                         return callback(true, SelectionPopUpObject(display: value))
                     } 

@@ -56,7 +56,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.setup(on: parent) { (accepted, value) in
+        textEntry.setup(on: parent, header: "Aspect") { (accepted, value) in
             if accepted {
                 do {
                     let realm = try Realm()
@@ -113,6 +113,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                     fatalError()
                 }
                 self.autofill()
+                self.reloadParent()
             }
         }
     }

@@ -12,11 +12,13 @@ class TextEntryViewController: UIViewController, Theme {
 
     // MARK: Variables
     var parentVC: BaseViewController?
+    var header: String = ""
     var value: String = ""
     var taken: [String] = [String]()
     var object: TestEntry?
     var callBack: ((_ add: Bool, _ value: String) -> Void )?
     var acceptedPopupInput: AcceptedPopupInput = .String
+    var inputIsValid: Bool = false
 
     // MARK: Outlets
     @IBOutlet weak var titleLabel: UILabel!
@@ -38,9 +40,11 @@ class TextEntryViewController: UIViewController, Theme {
     }
 
     @IBAction func addAction(_ sender: UIButton) {
-        if let c = self.callBack {
+        if let c = self.callBack, inputIsValid {
             c(true, value)
             remove()
+        } else if input.text == "" {
+            invalidInput(message: "Please enter a value")
         }
     }
 
@@ -48,14 +52,12 @@ class TextEntryViewController: UIViewController, Theme {
         if let text = sender.text {
             // has value
             if text == "" {
-                titleLabel.text = "Please enter a value"
-                titleLabel.textColor = UIColor.red
+                invalidInput(message: "Please enter a value")
                 return
             } else {
                 // value is not duplicate
                 if taken.contains(text) {
-                    titleLabel.text = "Duplicate value"
-                    titleLabel.textColor = UIColor.red
+                    invalidInput(message: "Duplicate value")
                     return
                 } else {
                     // value is in correct format
@@ -66,15 +68,15 @@ class TextEntryViewController: UIViewController, Theme {
                         if text.isDouble {
                             self.value = text
                         } else {
-                            titleLabel.text = "Invalid value"
-                            titleLabel.textColor = UIColor.red
+                            invalidInput(message: "Invalid value")
+                            return
                         }
                     case .Integer:
                         if text.isInt {
                             self.value = text
                         } else {
-                            titleLabel.text = "Invalid value"
-                            titleLabel.textColor = UIColor.red
+                            invalidInput(message: "Invalid value")
+                            return
                         }
                     case .Year:
                         if text.isInt {
@@ -82,22 +84,36 @@ class TextEntryViewController: UIViewController, Theme {
                             if (year > 2000) && (year < 2100) {
                                 self.value = text
                             } else {
-                                titleLabel.text = "Invalid Year"
-                                titleLabel.textColor = UIColor.red
+                                invalidInput(message: "Invalid Year")
+                                return
                             }
                         } else {
-                            titleLabel.text = "Invalid value"
-                            titleLabel.textColor = UIColor.red
+                            invalidInput(message: "Invalid value")
+                            return
                         }
                     }
                 }
             }
+            validInput()
         }
     }
 
-    func setup(on: BaseViewController, completion: @escaping (_ add: Bool, _ value: String) -> Void) {
+    func invalidInput(message: String) {
+        inputIsValid = false
+        titleLabel.text = message
+        titleLabel.textColor = UIColor.red
+    }
+
+    func validInput() {
+        inputIsValid = true
+        titleLabel.text = header
+        styleFieldHeader(label: titleLabel)
+    }
+
+    func setup(on: BaseViewController, header: String, completion: @escaping (_ add: Bool, _ value: String) -> Void) {
         self.callBack = completion
         self.parentVC = on
+        self.header = header
         display()
     }
 
