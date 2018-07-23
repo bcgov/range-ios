@@ -37,7 +37,6 @@ class PlantCommunityViewController: BaseViewController {
     @IBOutlet weak var banner: UIView!
 
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
     
     // MARK: ViewController functions
     override func viewDidLoad() {
@@ -57,17 +56,17 @@ class PlantCommunityViewController: BaseViewController {
         })
     }
 
-    @IBAction func deleteAction(_ sender: Any) {
-        guard let pc = self.plantCommunity else{ return }
-        showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
-            RealmManager.shared.deletePlantCommunity(object: pc)
-            self.dismiss(animated: true, completion: {
-                if let callback = self.completion {
-                    return callback(true)
-                }
-            })
-        }, noButtonTapped: {})
-    }
+//    @IBAction func deleteAction(_ sender: Any) {
+//        guard let pc = self.plantCommunity else{ return }
+//        showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
+//            RealmManager.shared.deletePlantCommunity(object: pc)
+//            self.dismiss(animated: true, completion: {
+//                if let callback = self.completion {
+//                    return callback(true)
+//                }
+//            })
+//        }, noButtonTapped: {})
+//    }
 
 
     // MARK: Setup
@@ -113,7 +112,7 @@ class PlantCommunityViewController: BaseViewController {
 
     // MARK: Styles
     func style() {
-        styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: deleteButton, textLabel: nil)
+        styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
         styleHeader(label: pageTitle)
         styleFooter(label: subtitle)
         styleDivider(divider: divider)

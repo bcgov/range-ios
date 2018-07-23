@@ -512,6 +512,14 @@
         return returnArray
     }
 
+    func getPlantCommunityPurposeOfActionsLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Establish"))
+        returnArray.append(SelectionPopUpObject(display: "Maintain"))
+        returnArray.append(SelectionPopUpObject(display: "Other"))
+        return returnArray
+    }
+
     func getRangeLandHealthLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
         returnArray.append(SelectionPopUpObject(display: "Highly at risk"))

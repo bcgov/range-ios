@@ -33,7 +33,6 @@ class MonitoringAreaViewController: BaseViewController {
     @IBOutlet weak var banner: UIView!
 
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,17 +51,17 @@ class MonitoringAreaViewController: BaseViewController {
         })
     }
 
-    @IBAction func deleteAction(_ sender: Any) {
-        guard let ma = self.monitoringArea else{ return }
-        showAlert(title: "Would you like to delete this Monitoring Area?", description: "all data entered on this page will be lost", yesButtonTapped: {
-            RealmManager.shared.deleteMonitoringArea(object: ma)
-            self.dismiss(animated: true, completion: {
-                if let callback = self.completion {
-                    return callback(true)
-                }
-            })
-        }, noButtonTapped: {})
-    }
+//    @IBAction func deleteAction(_ sender: Any) {
+//        guard let ma = self.monitoringArea else{ return }
+//        showAlert(title: "Would you like to delete this Monitoring Area?", description: "all data entered on this page will be lost", yesButtonTapped: {
+//            RealmManager.shared.deleteMonitoringArea(object: ma)
+//            self.dismiss(animated: true, completion: {
+//                if let callback = self.completion {
+//                    return callback(true)
+//                }
+//            })
+//        }, noButtonTapped: {})
+//    }
 
     // MARK: Setup
     func setup(mode: FormMode, plan: RUP, plantCommunity: PlantCommunity, monitoringArea: MonitoringArea, completion: @escaping (_ done: Bool) -> Void) {
@@ -97,7 +96,7 @@ class MonitoringAreaViewController: BaseViewController {
 
     // MARK: Styles
     func style() {
-        styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: deleteButton, textLabel: nil)
+        styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
         styleHeader(label: pageTitle)
         styleFooter(label: subtitle)
         styleDivider(divider: divider)

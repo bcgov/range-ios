@@ -37,25 +37,12 @@
                                             <action selector="backAction:" destination="OLt-JX-sDW" eventType="touchUpInside" id="pV0-jY-fAQ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLo-eR-PEw">
-                                        <rect key="frame" x="959" y="0.0" width="45" height="70"/>
-                                        <state key="normal" title="Delete">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deleteAction:" destination="OLt-JX-sDW" eventType="touchUpInside" id="IWz-qD-fgQ"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="DLh-4m-qsK"/>
-                                    <constraint firstAttribute="trailing" secondItem="dLo-eR-PEw" secondAttribute="trailing" constant="20" id="FBE-wk-FPd"/>
                                     <constraint firstItem="gE4-RS-FVi" firstAttribute="leading" secondItem="xei-VZ-n6M" secondAttribute="leading" constant="20" id="H7r-cU-gQL"/>
-                                    <constraint firstItem="dLo-eR-PEw" firstAttribute="centerY" secondItem="xei-VZ-n6M" secondAttribute="centerY" id="Nux-Ww-6VP"/>
-                                    <constraint firstItem="dLo-eR-PEw" firstAttribute="top" secondItem="xei-VZ-n6M" secondAttribute="top" id="R4I-hN-A0L"/>
                                     <constraint firstItem="gE4-RS-FVi" firstAttribute="top" secondItem="xei-VZ-n6M" secondAttribute="top" id="SEl-Fa-rAA"/>
-                                    <constraint firstAttribute="bottom" secondItem="dLo-eR-PEw" secondAttribute="bottom" id="Uwn-w1-vDg"/>
                                     <constraint firstItem="gE4-RS-FVi" firstAttribute="centerY" secondItem="xei-VZ-n6M" secondAttribute="centerY" id="VTw-VK-SBh"/>
                                     <constraint firstItem="zcf-UG-a0z" firstAttribute="centerX" secondItem="xei-VZ-n6M" secondAttribute="centerX" id="lEd-4F-zHw"/>
                                     <constraint firstItem="zcf-UG-a0z" firstAttribute="centerY" secondItem="xei-VZ-n6M" secondAttribute="centerY" id="p7i-8w-9jT"/>
@@ -165,7 +152,6 @@
                         <outlet property="banner" destination="aek-yd-zuv" id="fEa-JD-B4a"/>
                         <outlet property="bannerHeight" destination="Uy7-fi-9Rk" id="Deq-oc-GtU"/>
                         <outlet property="bannerLabel" destination="nbs-jN-bFg" id="GMv-rZ-3jo"/>
-                        <outlet property="deleteButton" destination="dLo-eR-PEw" id="WWR-Cd-FQz"/>
                         <outlet property="divider" destination="cAt-Hb-M9R" id="5dT-6w-BiJ"/>
                         <outlet property="navbar" destination="xei-VZ-n6M" id="gfW-uj-u23"/>
                         <outlet property="navbarTitle" destination="zcf-UG-a0z" id="Z64-hr-GEO"/>
