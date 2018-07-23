@@ -159,4 +159,45 @@ class RealmManager {
     }
     // END OF Reference
 
+    // MARK: Deleting objects
+    func deletePastureAction(object: PastureAction) {
+        do {
+            let realm = try Realm()
+            if let temp = realm.objects(PastureAction.self).filter("localId = %@", object.localId).first {
+                RealmRequests.deleteObject(temp)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func deleteMonitoringArea(object: MonitoringArea) {
+        do {
+            let realm = try Realm()
+            if let temp = realm.objects(MonitoringArea.self).filter("localId = %@", object.localId).first {
+                RealmRequests.deleteObject(temp)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func deletePlantCommunity(object: PlantCommunity) {
+        do {
+            let realm = try Realm()
+            if let temp = realm.objects(PlantCommunity.self).filter("localId = %@", object.localId).first {
+                for action in temp.pastureActions {
+                    deletePastureAction(object: action)
+                }
+
+                for area in temp.monitoringAreas {
+                    deleteMonitoringArea(object: area)
+                }
+
+                RealmRequests.deleteObject(temp)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
 }

@@ -88,10 +88,10 @@ class APIManager {
         guard let endpoint = URL(string: Constants.API.referencePath, relativeTo: Constants.API.baseURL!) else {
             return
         }
-        
-        RealmManager.shared.clearReferenceData()
+
         Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
+                RealmManager.shared.clearReferenceData()
                 let json = JSON(response.result.value!)
                 var newReference = [Object]()
                 newReference.append(contentsOf: handleLiveStockType(json: json["LIVESTOCK_TYPE"]))
@@ -469,17 +469,20 @@ extension APIManager {
             dispatchGroup.leave()
         }
 
-//        dispatchGroup.enter()
-//        DataServices.shared.uploadLocalDrafts {
-//            progress("Uploading local drafts")
-//            dispatchGroup.leave()
-//        }
+        dispatchGroup.enter()
+        DataServices.shared.uploadLocalDrafts {
+            progress("Uploading local drafts")
+            dispatchGroup.leave()
+        }
 
         dispatchGroup.enter()
         getReferenceData(completion: { (success) in
             progress("Downloading agreements")
             if (!success) {
                 progress("Failed while downloading reference data")
+                dispatchGroup.leave()
+                dispatchGroup.suspend()
+                completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
             }
 
             dispatchGroup.leave()
@@ -491,6 +494,9 @@ extension APIManager {
             if let error = error {
                 progress("Sync Failed. \(error.localizedDescription)")
                 myError = error
+                dispatchGroup.leave()
+                dispatchGroup.suspend()
+                completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
             }
             dispatchGroup.leave()
         }, progress: progress)

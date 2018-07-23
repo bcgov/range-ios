@@ -171,4 +171,24 @@ class MinisterIssue: Object, MyraObject {
             self.actions.append(MinisterIssueAction(json: action.1))
         }
     }
+
+    func copy() -> MinisterIssue {
+        let new = MinisterIssue()
+        new.remoteId = self.remoteId
+        new.issueType = self.issueType
+        new.issueTypeID = self.issueTypeID
+        new.details = self.details
+        new.objective = self.objective
+        new.desc = self.desc
+        new.identified = self.identified
+
+        for object in self.actions {
+            new.actions.append(object.copy())
+        }
+
+        for object in self.pastures {
+            new.pastures.append(object.copy())
+        }
+        return new
+    }
 }

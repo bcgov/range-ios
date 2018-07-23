@@ -58,7 +58,10 @@ class PlanInformationTableViewCell: BaseFormCell {
         if planStartValue.text != "" {
 
             let startDate = DateManager.from(string: planStartValue.text!)
-            let maxEnd = DateManager.fiveYearsLater(date: startDate)
+            var maxEnd = DateManager.fiveYearsLater(date: startDate)
+            if maxEnd > max {
+                maxEnd = max
+            }
             picker.setup(between: startDate, max: maxEnd) { (date) in
                 self.handlePlanEndDate(date: date)
             }
@@ -116,12 +119,8 @@ class PlanInformationTableViewCell: BaseFormCell {
 
     // this will load usage years
     func reloadParentIfDatesAreSet() {
-        
-//        if self.planEndValue.text != "" && self.planStartValue.text != "" {
-            let parent = self.parentViewController as! CreateNewRUPViewController
+        let parent = self.parentViewController as! CreateNewRUPViewController
         parent.reload(indexPath: parent.rangeUsageIndexPath)
-//            parent.reloadAt(indexPath: parent.basicInformationIndexPath)
-//        }
     }
 
     // MARK: Setup

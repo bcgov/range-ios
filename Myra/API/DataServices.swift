@@ -384,7 +384,6 @@ class DataServices: NSObject {
             }
 
             APIManager.add(action: myAction, toIssue: issueId, inPlan: planId) { (response, error) in
-                print(response)
 
                 guard let response = response, error == nil else {
                     fatalError()

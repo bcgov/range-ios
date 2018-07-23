@@ -29,7 +29,7 @@ class LoginViewController: BaseViewController {
         authenticateIfRequred()
     }
 
-    override func whenAuthenticated() {
+    override func onAuthenticationSuccess() {
         self.view.isUserInteractionEnabled = false
         self.view.addSubview(getSyncView())
         sync { (synced) in

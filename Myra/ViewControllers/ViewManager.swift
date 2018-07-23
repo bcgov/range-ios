@@ -31,6 +31,10 @@ class ViewManager {
         return UIStoryboard(name: "PlantCommunity", bundle: Bundle.main).instantiateViewController(withIdentifier: "PlantCommunity") as! PlantCommunityViewController
     }()
 
+    lazy var monitoringArea: MonitoringAreaViewController = {
+        return UIStoryboard(name: "MonitoringArea", bundle: Bundle.main).instantiateViewController(withIdentifier: "MonitoringArea") as! MonitoringAreaViewController
+    }()
+
     lazy var selectAgreement: SelectAgreementViewController = {
         return UIStoryboard(name: "SelectAgreement", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectAgreement") as! SelectAgreementViewController
     }()

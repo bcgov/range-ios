@@ -267,16 +267,25 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlet Actions
     @IBAction func saveToDraftAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}
+
+        let agreement = RUPManager.shared.getAgreement(with: plan.agreementId)
+
         do {
             let realm = try Realm()
             try realm.write {
                 plan.isNew = false
                 plan.locallyUpdatedAt = Date()
+                if agreement != nil {
+                    agreement?.rups.append(plan)
+
+                }
             }
         } catch _ {
             fatalError() 
         }
+        
         RealmRequests.updateObject(plan)
+        
         self.dismiss(animated: true) {
             if self.parentCallBack != nil {
                 return self.parentCallBack!(true, false)
@@ -597,14 +606,14 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
 
     func reloadAt(indexPath: IndexPath) {
-//        guard let plan = self.rup else {return}
-//        do {
-//            let realm = try Realm()
-//            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
-//            self.rup = aRup
-//        } catch _ {
-//            fatalError()
-//        }
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+            self.rup = aRup
+        } catch _ {
+            fatalError()
+        }
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
@@ -617,6 +626,14 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func realodAndGoToBottomOf(indexPath: IndexPath) {
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+            self.rup = aRup
+        } catch _ {
+            fatalError()
+        }
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
@@ -695,9 +712,10 @@ extension CreateNewRUPViewController {
     }
 
     func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+        guard let plan = self.rup else {return}
         let vm = ViewManager()
         let plantCommunityDetails = vm.plantCommunity
-        plantCommunityDetails.setup(mode: mode, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
+        plantCommunityDetails.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
         self.present(plantCommunityDetails, animated: true, completion: nil)
     }
 }

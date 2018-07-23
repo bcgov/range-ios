@@ -149,15 +149,15 @@ class ScheduleViewController: BaseViewController {
         rotatePopup()
     }
 
-    func reloadCells() {
+    func reload() {
         self.view.layoutIfNeeded()
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
-//        self.tableView.reloadData()
     }
 
     func calculateTotals() {
-        self.footerReference?.autofill()
+        guard let footer = footerReference else {return}
+        footer.autofill()
     }
 
     // MARK: Styles

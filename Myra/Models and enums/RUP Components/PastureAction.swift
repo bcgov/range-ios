@@ -26,4 +26,13 @@ class PastureAction: Object, MyraObject {
     @objc dynamic var action: String = ""
     @objc dynamic var noGrazeDateIn: Date?
     @objc dynamic var noGrazeDateOut: Date?
+
+    func copy() -> PastureAction {
+        let new = PastureAction()
+        new.details = self.details
+        new.action = self.action
+        new.noGrazeDateIn = self.noGrazeDateIn
+        new.noGrazeDateOut = self.noGrazeDateOut
+        return new
+    }
 }

@@ -44,7 +44,27 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var pasturesButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
 
+    @IBOutlet weak var identifiedByMinisterLabel: UILabel!
+    @IBOutlet weak var identifiedByMinisterImage: UIImageView!
+    @IBOutlet weak var identifiedByMinisterImageHolder: UIView!
+    @IBOutlet weak var identifiedByMinisterButton: UIButton!
+
+
     // MARK: Outlet actions
+
+    @IBAction func identifiedByMinisterAction(_ sender: UIButton) {
+        guard let i = self.issue else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                i.identified = !i.identified
+            }
+        } catch _ {
+            fatalError()
+        }
+        autofill()
+    }
+
     @IBAction func optionsAction(_ sender: UIButton) {
         guard let i = self.issue, let parent = self.parentCell else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController
@@ -111,7 +131,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions()) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
                 if let type = RUPManager.shared.getIssueActionType(named: option.display) {
@@ -120,7 +140,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 }
             }
         }
-        parent.showPopUp(vc: lookup, on: sender)
     }
 
     @IBAction func editTypeAction(_ sender: UIButton) {
@@ -155,7 +174,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setupSimple(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
             grandParent.dismissPopOver()
             if selected, let option = selection {
                 if let i = self.issue {
@@ -194,11 +213,17 @@ class MinisterIssueTableViewCell: BaseFormCell {
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
+        if i.identified {
+            styleRadioOn(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+        } else {
+            styleRadioOff(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+        }
 
         if self.mode == .View {
             setDefaultValueIfEmpty(field: pastureValue)
             setDefaultValueIfEmpty(field: detailsValue)
             setDefaultValueIfEmpty(field: objectiveValue)
+
         }
     }
 
@@ -222,8 +247,10 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleSubHeader(label: issueTypeValue)
         styleStaticField(field: pastureValue, header: pastureHeader)
         styleSubHeader(label: actionsHeader)
+        styleFieldHeader(label: identifiedByMinisterLabel)
         switch self.mode {
         case .View:
+            identifiedByMinisterButton.isEnabled = false
             addPastureButtonWidth.constant = 0
             optionsButton.alpha = 0
             addButton.alpha = 0
