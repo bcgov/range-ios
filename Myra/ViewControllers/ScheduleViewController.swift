@@ -156,7 +156,8 @@ class ScheduleViewController: BaseViewController {
     }
 
     func calculateTotals() {
-        self.footerReference?.autofill()
+        guard let footer = footerReference else {return}
+        footer.autofill()
     }
 
     // MARK: Styles

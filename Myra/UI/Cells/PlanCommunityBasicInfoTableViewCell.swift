@@ -26,9 +26,14 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var communityURLField: UITextField!
 
     @IBOutlet weak var purposeOfActionHeader: UILabel!
-    @IBOutlet weak var purposeOfActionField: UITextField!
 
     @IBOutlet weak var inputFieldHeight: NSLayoutConstraint!
+
+    // custom radio
+    @IBOutlet weak var actionsRadioLeftView: UIView!
+    @IBOutlet weak var actionsRadioRightView: UIView!
+    @IBOutlet weak var actionsRadioLeftLabel: UILabel!
+    @IBOutlet weak var actionsRadioRightLabel: UILabel!
 
     // MARK: Variables
     var mode: FormMode = .View
@@ -70,7 +75,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.setup { (accepted, value) in
+        textEntry.setup(on: parent) { (accepted, value) in
             if accepted {
                 do {
                     let realm = try Realm()
@@ -82,15 +87,9 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                 } catch _ {
                     fatalError()
                 }
-                parent.removeWhiteScreen()
-                textEntry.remove()
                 self.autofill()
-            } else {
-                parent.removeWhiteScreen()
-                textEntry.remove()
             }
         }
-        parent.showTextEntry(vc: textEntry)
     }
 
     @IBAction func elevationAction(_ sender: UIButton) {
@@ -98,8 +97,8 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         let grandParent = self.parentViewController as! PlantCommunityViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        let options = RUPManager.shared.getPlantCommunityAspectLookup()
-        lookup.setup(objects: options) { (selected, option) in
+        let options = RUPManager.shared.getPlantCommunityElevationLookup()
+        lookup.setup(objects: options, onVC: grandParent, onButton: sender) { (selected, option) in
             lookup.dismiss(animated: true, completion: nil)
             if let selection = option {
                 do {
@@ -112,21 +111,48 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                 }
                 self.autofill()
             }
-
         }
-        grandParent.showPopUp(vc: lookup, on: sender)
     }
 
-
-    @IBAction func purposeOfActionsChanged(_ sender: UITextField) {
-        guard let pc = self.plantCommunity, let text = sender.text else {return}
+    @IBAction func leftRadioOn(_ sender: UIButton) {
+        guard let pc = self.plantCommunity else {return}
+        var reloadFlag = false
+        if pc.purposeOfAction == "" {
+            reloadFlag = true
+        }
         do {
             let realm = try Realm()
             try realm.write {
-                pc.purposeOfAction = text
+                pc.purposeOfAction = "Establish"
+                pc.isPurposeOfActionEstablish = true
             }
         } catch _ {
             fatalError()
+        }
+        establishOn()
+        if reloadFlag {
+            reloadParent()
+        }
+    }
+
+    @IBAction func rightRadioOn(_ sender: UIButton) {
+        guard let pc = self.plantCommunity else {return}
+        var reloadFlag = false
+        if pc.purposeOfAction == "" {
+            reloadFlag = true
+        }
+        do {
+            let realm = try Realm()
+            try realm.write {
+                pc.purposeOfAction = "Maintain"
+                pc.isPurposeOfActionEstablish = false
+            }
+        } catch _ {
+            fatalError()
+        }
+        maintainOn()
+        if reloadFlag {
+            reloadParent()
         }
     }
 
@@ -158,7 +184,13 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         elevationField.text = pc.elevation
         plantCommunityField.text = pc.notes
         communityURLField.text = pc.communityURL
-        purposeOfActionField.text = pc.purposeOfAction
+        if pc.purposeOfAction == "" {
+            radioOff()
+        } else if pc.isPurposeOfActionEstablish {
+            establishOn()
+        } else {
+            maintainOn()
+        }
     }
 
     // MARK: Style
@@ -168,15 +200,53 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputFieldReadOnly(field: aspectField, header: aspectHeader, height: inputFieldHeight)
             styleInputFieldReadOnly(field: elevationField, header: elevationHeader, height: inputFieldHeight)
             styleInputFieldReadOnly(field: communityURLField, header: communityURLHeader, height: inputFieldHeight)
-            styleInputFieldReadOnly(field: purposeOfActionField, header: purposeOfActionHeader, height: inputFieldHeight)
+            styleInputFieldReadOnly(field: communityURLField, header: purposeOfActionHeader, height: inputFieldHeight)
             styleTextviewInputFieldReadOnly(field: plantCommunityField, header: plantCommunityNotesHeader)
         case .Edit:
             styleInputField(field: aspectField, header: aspectHeader, height: inputFieldHeight)
             styleInputField(field: elevationField, header: elevationHeader, height: inputFieldHeight)
             styleInputField(field: communityURLField, header: communityURLHeader, height: inputFieldHeight)
-            styleInputField(field: purposeOfActionField, header: purposeOfActionHeader, height: inputFieldHeight)
+            styleInputField(field: communityURLField, header: purposeOfActionHeader, height: inputFieldHeight)
             styleTextviewInputField(field: plantCommunityField, header: plantCommunityNotesHeader)
         }
+    }
+
+    func maintainOn() {
+        radioOff()
+        actionsRadioRightView.backgroundColor = defaultFillButtonBackground()
+        actionsRadioRightView.layer.borderColor = defaultFillButtonBorderColor()
+        actionsRadioRightLabel.textColor = defaultFillButtonTitleColor()
+    }
+
+    func establishOn() {
+        radioOff()
+        actionsRadioLeftView.backgroundColor = defaultFillButtonBackground()
+        actionsRadioLeftView.layer.borderColor = defaultFillButtonBorderColor()
+        actionsRadioLeftLabel.textColor = defaultFillButtonTitleColor()
+
+    }
+
+    func radioOff() {
+//        actionsRadioLeftView.layer.cornerRadius = 5
+        actionsRadioLeftView.backgroundColor = defaultHollowButtonBackground()
+        actionsRadioLeftView.layer.borderWidth = 1
+        actionsRadioLeftView.layer.borderColor = defaultHollowButtonBorderColor()
+        actionsRadioLeftLabel.textColor = defaultHollowButtonTitleColor()
+        actionsRadioLeftLabel.font = defaultSectionSubHeaderFont()
+        actionsRadioLeftLabel.font = Fonts.getPrimaryHeavy(size: 12)
+
+//        actionsRadioRightView.layer.cornerRadius = 5
+        actionsRadioRightView.backgroundColor = defaultHollowButtonBackground()
+        actionsRadioRightView.layer.borderWidth = 1
+        actionsRadioRightView.layer.borderColor = defaultHollowButtonBorderColor()
+        actionsRadioRightLabel.textColor = defaultHollowButtonTitleColor()
+        actionsRadioRightLabel.font = defaultSectionSubHeaderFont()
+        actionsRadioRightLabel.font = Fonts.getPrimaryHeavy(size: 12)
+    }
+
+    func reloadParent() {
+        guard let parent = self.parentReference else {return}
+        parent.reload(reloadData: true)
     }
 }
 

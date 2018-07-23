@@ -16,6 +16,7 @@ class SelectionPopUpViewController: UIViewController, Theme {
     let headerHeightConstant: CGFloat = 35
     
     // MARK: Variables
+    var parentVC: BaseViewController?
     var objects: [SelectionPopUpObject] = [SelectionPopUpObject]()
     var completion: ((_ done: Bool,_ result: SelectionPopUpObject?) -> Void )?
     var multiCompletion: ((_ done: Bool,_ result: [SelectionPopUpObject]?) -> Void )?
@@ -72,11 +73,27 @@ class SelectionPopUpViewController: UIViewController, Theme {
 
     // MARK: Functions
     // MARK: Setup
-    func setup(header: String? = "", objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
+    func setupSimple(header: String? = "", objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
         self.completion = completion
         self.objects = objects
         self.headerTxt = header ?? ""
         setupTable()
+    }
+
+    func setup(header: String? = "", objects: [SelectionPopUpObject], onVC: BaseViewController, onButton: UIButton, completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
+        self.completion = completion
+        self.objects = objects
+        self.headerTxt = header ?? ""
+        self.parentVC = onVC
+        setupTable()
+        display(on: onButton)
+    }
+
+    func display(on: UIButton) {
+        guard let parent = self.parentVC else {
+            return
+        }
+        parent.showPopUp(vc: self, on: on)
     }
 
     func setupMulti(header: String? = "", selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: [SelectionPopUpObject]?) -> Void) {
@@ -194,7 +211,19 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
 
         if !multiSelect && !liveMultiSelect {
             guard let callback = completion else {return}
-            return callback(true, objects[indexPath.row])
+            if let parent = self.parentVC, objects[indexPath.row].display.lowercased() == "other" {
+                // Prompt input
+                let vm = ViewManager()
+                let textEntry = vm.textEntry
+                parent.dismissPopOver()
+                textEntry.setup(on: parent) { (accepted, value) in
+                    if accepted {
+                        return callback(true, SelectionPopUpObject(display: value))
+                    } 
+                }
+            } else {
+                return callback(true, objects[indexPath.row])
+            }
         } else {
             // if is already selected
             if selectedIndexes.contains(indexPath.row) {

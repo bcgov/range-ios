@@ -30,7 +30,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
@@ -52,7 +52,6 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                 self.updateTableHeight(scrollToBottom: true)
             }
         }
-        parent.showPopUp(vc: lookup, on: sender)
     }
 
     // MARK: Setup

@@ -74,6 +74,21 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
+        lookup.setup(objects: RUPManager.shared.getPastureActionLookup(), onVC: parent, onButton: sender) { (selected, selection) in
+            lookup.dismiss(animated: true, completion: nil)
+            if selected, let option = selection {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        current.action = option.display
+                    }
+                    self.autoFill()
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
+        /*
         lookup.setup(objects: RUPManager.shared.getPastureActionLookup()) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
@@ -89,12 +104,16 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
             }
         }
         parent.showPopUp(vc: lookup, on: sender)
+        */
     }
 
     @IBAction func noGrazePeriodBegin(_ sender: UIButton) {
         guard let parent = self.parentReference, let plan = parent.plan else {return}
 
-        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else { return }
+        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else {
+            parent.showTempBanner(message: "Plan start and end dates have not been selected")
+            return
+        }
 
         let vm = ViewManager()
         let picker = vm.datePicker
@@ -108,7 +127,10 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
     @IBAction func noGrazePeriodEnd(_ sender: UIButton) {
         guard let parent = self.parentReference, let plan = parent.plan , let act = self.action else {return}
 
-        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else { return }
+        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else {
+            parent.showTempBanner(message: "Plan start and end dates have not been selected")
+            return
+        }
 
         var min = planStart
 

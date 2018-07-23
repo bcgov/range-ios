@@ -69,10 +69,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     @IBAction func lookupPastures(_ sender: Any) {
+        let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup)) { (selected, obj) in
+        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup), onVC: grandParent, onButton: button) { (selected, obj) in
             if selected {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
@@ -98,15 +99,15 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 grandParent.dismissPopOver()
             }
         }
-        grandParent.showPopUp(vc: lookup, on: sender as! UIButton)
     }
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
+        let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
         let objects = RealmManager.shared.getLiveStockTypeLookup()
-        lookup.setup(objects: objects) { (selected, obj) in
+        lookup.setup(objects: objects, onVC: grandParent, onButton: button) { (selected, obj) in
             if selected {
                 if let selectedType = obj {
                     let ls = RealmManager.shared.getLiveStockTypeObject(name: selectedType.display)
@@ -132,7 +133,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.update()
             }
         }
-        grandParent.showPopUp(vc: lookup, on: sender as! UIButton)
     }
 
     // for grace days
@@ -456,6 +456,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // update calculations
     func update() {
+        guard let object = self.scheduleObject, let schedVC = scheduleViewReference else {return}
         if scheduleObject == nil {return}
         RUPManager.shared.calculateScheduleEntry(scheduleObject: (scheduleObject)!)
         self.fillCurrentValues()

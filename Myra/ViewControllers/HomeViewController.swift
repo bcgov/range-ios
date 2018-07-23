@@ -25,6 +25,8 @@ class HomeViewController: BaseViewController {
     var parentReference: MainViewController?
     var rups: [RUP] = [RUP]()
 
+    var unstableConnection: Bool = false
+
     var online: Bool = false {
         didSet {
             updateAccordingToNetworkStatus()
@@ -50,6 +52,7 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var statusBar: UIView!
     @IBOutlet weak var navBar: UIView!
     @IBOutlet weak var navBarImage: UIImageView!
+    @IBOutlet weak var syncButtonLabel: UILabel!
     @IBOutlet weak var syncLabel: UILabel!
     @IBOutlet weak var connectivityLabel: UILabel!
     @IBOutlet weak var lastSyncLabel: UILabel!
@@ -101,6 +104,17 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        syncButtonLabel.alpha = 1
+        syncButtonLabel.text = "Connecting..."
+        animateIt()
+        showSyncMessage(text: "Connection taking longer than expected...", after: 5)
+        showSyncMessage(text: "Your connection is very unstable...", after: 10)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
+            if self.syncButtonLabel.alpha == 1 {
+                self.unstableConnection = true
+            }
+        })
         authenticateIfRequred()
     }
 
@@ -358,12 +372,34 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Sync
-    override func whenAuthenticated() {
+    func showSyncMessage(text: String, after: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: {
+            self.syncButtonLabel.text = text
+            self.animateIt()
+        })
+    }
+
+    override func onAuthenticationSuccess() {
+        if unstableConnection {
+            syncButtonLabel.text = "Connections is not stable for enough for a full sync"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                self.syncButtonLabel.alpha = 0
+                self.syncButton.isUserInteractionEnabled = true
+                self.animateIt()
+            })
+            return
+        }
+        self.syncButtonLabel.alpha = 0
         self.syncing = true
         self.endChangeListener()
         sync { (synced) in
             self.loadHome()
         }
+    }
+
+    override func onAuthenticationFail() {
+        self.syncButtonLabel.alpha = 0
+        self.syncButton.isUserInteractionEnabled = true
     }
 
     override func whenSyncClosed() {
@@ -378,9 +414,10 @@ class HomeViewController: BaseViewController {
     }
 
     func hideSyncPage() {
-        syncButton.isUserInteractionEnabled = true
+        removeSyncPage()
         self.createButton.isUserInteractionEnabled = true
         self.tableView.isUserInteractionEnabled = true
+        syncButton.isUserInteractionEnabled = true
     }
 }
 
@@ -494,6 +531,7 @@ extension HomeViewController {
             syncButton.isEnabled = false
             self.connectivityLabel.text = "OFFLINE MODE"
             self.connectivityLight.backgroundColor = UIColor.red
+            self.syncing = false
         }
     }
 }

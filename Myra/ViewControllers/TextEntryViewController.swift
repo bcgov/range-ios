@@ -11,6 +11,7 @@ import UIKit
 class TextEntryViewController: UIViewController, Theme {
 
     // MARK: Variables
+    var parentVC: BaseViewController?
     var value: String = ""
     var taken: [String] = [String]()
     var object: TestEntry?
@@ -31,13 +32,15 @@ class TextEntryViewController: UIViewController, Theme {
 
     @IBAction func cancelAction(_ sender: UIButton) {
         if let c = self.callBack {
-            return c(false, "")
+            c(false, "")
+            remove()
         }
     }
 
     @IBAction func addAction(_ sender: UIButton) {
         if let c = self.callBack {
-            return c(true, value)
+            c(true, value)
+            remove()
         }
     }
 
@@ -92,8 +95,10 @@ class TextEntryViewController: UIViewController, Theme {
         }
     }
 
-    func setup(completion: @escaping (_ add: Bool, _ value: String) -> Void) {
+    func setup(on: BaseViewController, completion: @escaping (_ add: Bool, _ value: String) -> Void) {
         self.callBack = completion
+        self.parentVC = on
+        display()
     }
 
     func style() {
@@ -104,10 +109,28 @@ class TextEntryViewController: UIViewController, Theme {
         self.view.backgroundColor = UIColor.white
     }
 
+    func display() {
+        guard let parent = self.parentVC else {return}
+        let whiteScreen = parent.getWhiteScreen()
+        let inputContainer = parent.getInputViewContainer()
+        whiteScreen.addSubview(inputContainer)
+        parent.view.addSubview(whiteScreen)
+        parent.addChildViewController(self)
+        self.view.frame = inputContainer.frame
+        self.view.center.x = parent.view.center.x
+        self.view.center.y = parent.view.center.y
+        parent.view.addSubview(self.view)
+        self.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        self.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        self.didMove(toParentViewController: parent)
+        self.input.becomeFirstResponder()
+    }
+
     func remove() {
+        guard let parent = self.parentVC else {return}
+        parent.removeWhiteScreen()
         self.view.removeFromSuperview()
         self.removeFromParentViewController()
     }
-
 
 }

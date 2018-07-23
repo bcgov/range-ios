@@ -29,6 +29,7 @@ class PlantCommunity: Object, MyraObject {
     @objc dynamic var notes: String = ""
     @objc dynamic var communityURL: String = ""
     @objc dynamic var purposeOfAction: String = ""
+    @objc dynamic var isPurposeOfActionEstablish: Bool = false
     var monitoringAreas = List<MonitoringArea>()
     var pastureActions = List<PastureAction>()
 

@@ -1,25 +1,21 @@
 //
-//  PlantCommunityViewController.swift
+//  MonitoringAreaViewController.swift
 //  Myra
 //
-//  Created by Amir Shayegh on 2018-07-04.
+//  Created by Amir Shayegh on 2018-07-12.
 //  Copyright © 2018 Government of British Columbia. All rights reserved.
 //
 
 import UIKit
-import Realm
-import RealmSwift
 
-class PlantCommunityViewController: BaseViewController {
+class MonitoringAreaViewController: BaseViewController {
 
     // MARK: Variables
     var completion: ((_ done: Bool) -> Void)?
+    var monitoringArea: MonitoringArea?
     var plantCommunity: PlantCommunity?
-    var pasture: Pasture?
     var mode: FormMode = .View
     var plan: RUP?
-//    var popupContainerTag = 200
-//    var popover: UIPopoverPresentationController?
 
     // MARK: Outlets
     @IBOutlet weak var pageTitle: UILabel!
@@ -38,8 +34,7 @@ class PlantCommunityViewController: BaseViewController {
 
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
-    
-    // MARK: ViewController functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
@@ -58,9 +53,9 @@ class PlantCommunityViewController: BaseViewController {
     }
 
     @IBAction func deleteAction(_ sender: Any) {
-        guard let pc = self.plantCommunity else{ return }
-        showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
-            RealmManager.shared.deletePlantCommunity(object: pc)
+        guard let ma = self.monitoringArea else{ return }
+        showAlert(title: "Would you like to delete this Monitoring Area?", description: "all data entered on this page will be lost", yesButtonTapped: {
+            RealmManager.shared.deleteMonitoringArea(object: ma)
             self.dismiss(animated: true, completion: {
                 if let callback = self.completion {
                     return callback(true)
@@ -69,10 +64,9 @@ class PlantCommunityViewController: BaseViewController {
         }, noButtonTapped: {})
     }
 
-
     // MARK: Setup
-    func setup(mode: FormMode, plan: RUP ,pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
-        self.pasture = pasture
+    func setup(mode: FormMode, plan: RUP, plantCommunity: PlantCommunity, monitoringArea: MonitoringArea, completion: @escaping (_ done: Bool) -> Void) {
+        self.monitoringArea = monitoringArea
         self.mode = mode
         self.plantCommunity = plantCommunity
         self.completion = completion
@@ -82,33 +76,23 @@ class PlantCommunityViewController: BaseViewController {
         setSubtitle()
     }
 
+
     func setTitle() {
         if self.pageTitle == nil {return}
-        guard let community = self.plantCommunity else {return}
-        self.pageTitle.text = "Plant Community: \(community.name)"
+        guard let ma = self.monitoringArea else {return}
+        self.pageTitle.text = "Monitoring Area: \(ma.name)"
     }
 
     func setSubtitle() {
         if self.subtitle == nil { return }
-        guard let p = self.pasture else {return}
-        self.subtitle.text = p.name
+        guard let pc = self.plantCommunity else {return}
+        self.subtitle.text = pc.name
     }
 
-    func reload(reloadData: Bool? = false) {
-        guard let pc = self.plantCommunity else {return}
-        do {
-            let realm = try Realm()
-            let aCommunity = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
-            self.plantCommunity = aCommunity
-        } catch _ {
-            fatalError()
-        }
+    func reload() {
         self.view.layoutIfNeeded()
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
-        if let r = reloadData, r {
-            self.tableView.reloadData()
-        }
     }
 
     // MARK: Styles
@@ -142,48 +126,17 @@ class PlantCommunityViewController: BaseViewController {
         self.bannerHeight.constant = 0
         animateIt()
     }
-
-    func closeBannerAfterDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-            self.closeBanner()
-        })
-    }
-
-    func showTempBanner(message: String) {
-        openBanner(message: message)
-        closeBannerAfterDelay()
-    }
-
-    func showMonitoringAreaDetailsPage(monitoringArea: MonitoringArea) {
-        guard let p = self.plan, let pc = self.plantCommunity else {return}
-        let vm = ViewManager()
-        let monitoringAreaVC = vm.monitoringArea
-        monitoringAreaVC.setup(mode: self.mode, plan: p, plantCommunity: pc, monitoringArea: monitoringArea) { (done) in
-            self.reload()
-        }
-        self.present(monitoringAreaVC, animated: true, completion: nil)
-    }
-
-    // MARK: Utilities
-    func hasPurposeOfActions() -> Bool {
-        if let pc = self.plantCommunity, pc.purposeOfAction != "" {
-            return true
-        }
-        return false
-    }
 }
 
 // MARK: Tableview
-extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSource {
+extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self
         tableView.dataSource = self
-        
-        registerCell(name: "PlanCommunityBasicInfoTableViewCell")
-        registerCell(name: "PlantCommunityMonitoringAreasTableViewCell")
-        registerCell(name: "PlantCommunityPastureActionsTableViewCell")
-        registerCell(name: "EmptyTableViewCell")
+
+        registerCell(name: "MonitoringAreaBasicInfoTableViewCell")
+        registerCell(name: "MonitoringAreaCustomDetailsTableViewCell")
 
         let nib = UINib(nibName: "CustomSectionHeader", bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: "CustomSectionHeader")
@@ -194,40 +147,32 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getBasicInfoCell(indexPath: IndexPath) -> PlanCommunityBasicInfoTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "PlanCommunityBasicInfoTableViewCell", for: indexPath) as! PlanCommunityBasicInfoTableViewCell
+    func getBasicInfoCell(indexPath: IndexPath) -> MonitoringAreaBasicInfoTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "MonitoringAreaBasicInfoTableViewCell", for: indexPath) as! MonitoringAreaBasicInfoTableViewCell
     }
 
-    func getMonitoringAreasCell(indexPath: IndexPath) -> PlantCommunityMonitoringAreasTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "PlantCommunityMonitoringAreasTableViewCell", for: indexPath) as! PlantCommunityMonitoringAreasTableViewCell
-    }
-
-    func getPastureActionsCell(indexPath: IndexPath) -> PlantCommunityPastureActionsTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "PlantCommunityPastureActionsTableViewCell", for: indexPath) as! PlantCommunityPastureActionsTableViewCell
-    }
-
-    func getEmptyCell(indexPath: IndexPath) -> EmptyTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell", for: indexPath) as! EmptyTableViewCell
+    func getPlantIndicatorCell(indexPath: IndexPath) -> MonitoringAreaCustomDetailsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "MonitoringAreaCustomDetailsTableViewCell", for: indexPath) as! MonitoringAreaCustomDetailsTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let community = self.plantCommunity, let pl = self.plan else {return getBasicInfoCell(indexPath: indexPath)}
+        guard let ma = self.monitoringArea else {return getBasicInfoCell(indexPath: indexPath)}
         switch indexPath.section {
         case 0:
             let cell = getBasicInfoCell(indexPath: indexPath)
-            cell.setup(plantCommunity: community, mode: mode, parentReference: self)
+            cell.setup(mode: mode, monitoringArea: ma, parentReference: self)
             return cell
         case 1:
-            if hasPurposeOfActions() {
-                let cell = getPastureActionsCell(indexPath: indexPath)
-                cell.setup(plantCommunity: community, mode: mode, parentReference: self)
-                return cell
-            } else {
-                return getEmptyCell(indexPath: indexPath)
-            }
+            let cell = getPlantIndicatorCell(indexPath: indexPath)
+            cell.setup(section: .RangeReadiness, mode: mode, area: ma, parentReference: self)
+            return cell
         case 2:
-            let cell = getMonitoringAreasCell(indexPath: indexPath)
-            cell.setup(plantCommunity: community, mode: mode, rup: pl, parentReference: self)
+            let cell = getPlantIndicatorCell(indexPath: indexPath)
+            cell.setup(section: .StubbleHeight, mode: mode, area: ma, parentReference: self)
+            return cell
+        case 3:
+            let cell = getPlantIndicatorCell(indexPath: indexPath)
+            cell.setup(section: .ShrubUse, mode: mode, area: ma, parentReference: self)
             return cell
         default:
             return getBasicInfoCell(indexPath: indexPath)
@@ -238,17 +183,15 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         var sectionTitle = ""
         switch section {
         case 0:
-            sectionTitle =  "Basic Plant Community Information"
+            sectionTitle =  "Basic Monitoring Area Information"
         case 1:
-            if hasPurposeOfActions() {
-                 sectionTitle =  "Pasture Actions"
-            }
+            sectionTitle =  ""
         case 2:
-            sectionTitle =  "Monitoring Areas"
+            sectionTitle =  ""
         default:
             sectionTitle =  ""
         }
-        
+
         // Dequeue with the reuse identifier
         let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
         let header = cell as! CustomSectionHeader
@@ -258,7 +201,7 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

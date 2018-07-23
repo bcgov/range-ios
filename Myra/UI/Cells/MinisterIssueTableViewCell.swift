@@ -111,7 +111,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions()) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
                 if let type = RUPManager.shared.getIssueActionType(named: option.display) {
@@ -120,7 +120,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 }
             }
         }
-        parent.showPopUp(vc: lookup, on: sender)
     }
 
     @IBAction func editTypeAction(_ sender: UIButton) {
@@ -155,7 +154,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setupSimple(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
             grandParent.dismissPopOver()
             if selected, let option = selection {
                 if let i = self.issue {

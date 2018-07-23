@@ -39,14 +39,6 @@ class BaseViewController: UIViewController, Theme {
     var loading: UIImageView?
     var loadingImages = [UIImage]()
 
-    var authenticated: Bool = false {
-        didSet{
-            if authenticated {
-                whenAuthenticated()
-            }
-        }
-    }
-
     var currentPopOver: UIViewController?
 
     override func viewDidLoad() {
@@ -57,8 +49,9 @@ class BaseViewController: UIViewController, Theme {
     }
 
     // MARK: Event handlers
+    func onAuthenticationFail() {}
+    func onAuthenticationSuccess() {}
     func whenSyncClosed() {}
-    func whenAuthenticated() {}
     func whenLandscape() {}
     func whenPortrait() {}
     func orientationChanged() {
@@ -515,10 +508,17 @@ extension BaseViewController {
         }
     }
 
-    @objc func syncLayerButtonAction(sender: UIButton!) {
-        // removes the sync view by removing the white screen view that contains the other views
+    func removeSyncPage() -> Bool {
+         // removes the sync view by removing the white screen view that contains the other views
         if let viewWithTag = self.view.viewWithTag(whiteScreenTag) {
             viewWithTag.removeFromSuperview()
+            return true
+        }
+        return false
+    }
+
+    @objc func syncLayerButtonAction(sender: UIButton!) {
+        if removeSyncPage() {
             whenSyncClosed()
         }
     }
@@ -555,8 +555,7 @@ extension BaseViewController {
 
 // MARK: Authentication
 extension BaseViewController {
-    
-    func authenticateIfRequred() {
+    func authenticateIfRequred(sender: UIButton? = nil) {
         if !authServices.isAuthenticated() {
             let vc = authServices.viewController() { (credentials, error) in
 
@@ -565,10 +564,13 @@ extension BaseViewController {
                     let message = "Authentication didn't work. Please try again."
 
                     self.showAlert(with: title, message: message)
- 
+                    if let senderButton = sender {
+                        senderButton.isUserInteractionEnabled = true
+                    }
+                    self.onAuthenticationFail()
                     return
                 }
-                self.authenticated = true
+                self.onAuthenticationSuccess()
                 //                self.syncing = true
                 //                self.beginSync()
                 //                                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
@@ -584,18 +586,19 @@ extension BaseViewController {
                             let message = "Authentication didn't work. Please try again."
 
                             self.showAlert(with: title, message: message)
-
+                            if let senderButton = sender {
+                                senderButton.isUserInteractionEnabled = true
+                            }
+                            self.onAuthenticationFail()
                             return
                         }
-                        self.authenticated = true
+                        self.onAuthenticationSuccess()
                     }
 
                     self.present(vc, animated: true, completion: nil)
                     return
                 }
-
-                
-                self.authenticated = true
+                self.onAuthenticationSuccess()
             })
         }
     }

@@ -33,7 +33,7 @@
                             <constraint firstAttribute="width" constant="190" id="Nbt-wW-wez"/>
                             <constraint firstAttribute="height" constant="30" id="r97-xD-eiA"/>
                         </constraints>
-                        <state key="normal" title="+ Add Moniroting Area"/>
+                        <state key="normal" title="+ Add Monitoring Area"/>
                         <connections>
                             <action selector="addMonitoringArea:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lMo-P3-iA8"/>
                         </connections>
