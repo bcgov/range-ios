@@ -20,7 +20,6 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var height: NSLayoutConstraint!
-
     @IBOutlet weak var addButton: UIButton!
 
     override func awakeFromNib() {
@@ -52,7 +51,7 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
         self.plantCommunity = plantCommunity
         self.mode = mode
         self.parentReference = parentReference
-        self.height.constant = CGFloat( plantCommunity.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
+        self.height.constant = CGFloat(plantCommunity.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
         setUpTable()
         style()
     }

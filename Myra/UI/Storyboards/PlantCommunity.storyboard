@@ -37,26 +37,16 @@
                                             <action selector="backAction:" destination="drb-rS-23t" eventType="touchUpInside" id="EEY-CZ-JJY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmx-x0-8RZ">
-                                        <rect key="frame" x="959" y="0.0" width="45" height="70"/>
-                                        <state key="normal" title="Delete">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Ebv-4e-dGi" secondAttribute="bottom" id="AVO-GQ-Qvq"/>
-                                    <constraint firstAttribute="trailing" secondItem="pmx-x0-8RZ" secondAttribute="trailing" constant="20" id="Dqo-BL-a9X"/>
-                                    <constraint firstItem="pmx-x0-8RZ" firstAttribute="top" secondItem="etS-hl-bm9" secondAttribute="top" id="JiY-3X-rDt"/>
                                     <constraint firstItem="eyW-dU-PDY" firstAttribute="centerX" secondItem="etS-hl-bm9" secondAttribute="centerX" id="Pp6-vE-RFm"/>
                                     <constraint firstItem="Ebv-4e-dGi" firstAttribute="top" secondItem="etS-hl-bm9" secondAttribute="top" id="Rh1-PP-Bv4"/>
                                     <constraint firstItem="Ebv-4e-dGi" firstAttribute="centerY" secondItem="etS-hl-bm9" secondAttribute="centerY" id="Ymt-tG-jWw"/>
-                                    <constraint firstAttribute="bottom" secondItem="pmx-x0-8RZ" secondAttribute="bottom" id="hKx-uU-XkD"/>
                                     <constraint firstItem="eyW-dU-PDY" firstAttribute="centerY" secondItem="etS-hl-bm9" secondAttribute="centerY" id="r67-pH-Ji4"/>
                                     <constraint firstItem="Ebv-4e-dGi" firstAttribute="leading" secondItem="etS-hl-bm9" secondAttribute="leading" constant="20" id="wLU-bf-ONc"/>
                                     <constraint firstAttribute="height" constant="70" id="wfP-bv-Qeb"/>
-                                    <constraint firstItem="pmx-x0-8RZ" firstAttribute="centerY" secondItem="etS-hl-bm9" secondAttribute="centerY" id="zUI-pB-Bwt"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQE-d7-PeU">
@@ -162,7 +152,6 @@
                         <outlet property="banner" destination="7BB-cd-6iH" id="xiC-Oa-fSk"/>
                         <outlet property="bannerHeight" destination="KIi-KM-F73" id="mfw-8H-7Ox"/>
                         <outlet property="bannerLabel" destination="9rT-NX-wDw" id="uC8-12-daU"/>
-                        <outlet property="deleteButton" destination="pmx-x0-8RZ" id="bSp-wr-23U"/>
                         <outlet property="divider" destination="5cZ-hS-Fxp" id="bQu-4K-Ohp"/>
                         <outlet property="navbar" destination="etS-hl-bm9" id="ODW-f0-VRo"/>
                         <outlet property="navbarTitle" destination="eyW-dU-PDY" id="lFc-06-pVL"/>

@@ -606,14 +606,14 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
 
     func reloadAt(indexPath: IndexPath) {
-//        guard let plan = self.rup else {return}
-//        do {
-//            let realm = try Realm()
-//            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
-//            self.rup = aRup
-//        } catch _ {
-//            fatalError()
-//        }
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+            self.rup = aRup
+        } catch _ {
+            fatalError()
+        }
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
@@ -626,6 +626,14 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func realodAndGoToBottomOf(indexPath: IndexPath) {
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+            self.rup = aRup
+        } catch _ {
+            fatalError()
+        }
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()

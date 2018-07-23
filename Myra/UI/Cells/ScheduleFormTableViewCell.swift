@@ -88,7 +88,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Functions
     func createEntry(from: ScheduleObject?) {
-        guard let sched = self.schedule else {return}
+        guard let sched = self.schedule, let parent = parentReference else {return}
         do {
             let realm = try Realm()
             let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
@@ -108,8 +108,8 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         }
         self.setObjects()
         // todo: Remove?
-        parentReference?.calculateTotals()
-        parentReference?.validate()
+        parent.calculateTotals()
+        parent.validate()
         sort()
     }
 

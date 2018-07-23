@@ -16,6 +16,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
     var mode: FormMode = .View
     var plantCommunity: PlantCommunity?
     var parentReference: PlantCommunityViewController?
+    var rup: RUP?
 
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -36,7 +37,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.setup { (accepted, value) in
+        textEntry.setup(on: parent, header: "Monitoring Area Name") { (accepted, value) in
             if accepted {
                 let newMonitoringArea = MonitoringArea()
                 newMonitoringArea.name = value
@@ -48,25 +49,22 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
                         realm.add(newMonitoringArea)
                     }
                     self.plantCommunity = aCommunity
+
                 } catch _ {
                     fatalError()
                 }
-                parent.removeWhiteScreen()
-                textEntry.remove()
                 self.updateTableHeight()
-            } else {
-                parent.removeWhiteScreen()
-                textEntry.remove()
+                parent.showMonitoringAreaDetailsPage(monitoringArea: newMonitoringArea)
             }
         }
-        parent.showTextEntry(vc: textEntry)
     }
 
     // MARK: Setup
-    func setup(plantCommunity: PlantCommunity, mode: FormMode, parentReference: PlantCommunityViewController) {
+    func setup(plantCommunity: PlantCommunity, mode: FormMode, rup: RUP, parentReference: PlantCommunityViewController) {
         self.plantCommunity = plantCommunity
         self.mode = mode
         self.parentReference = parentReference
+        self.rup = rup
         self.height.constant = CGFloat( plantCommunity.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
         setUpTable()
         style()
@@ -126,8 +124,8 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getMonitoringAreaCell(indexPath: indexPath)
-        if let pc = self.plantCommunity{
-            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode)
+        if let pc = self.plantCommunity, let parent = parentReference {
+            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode, parentCellReference: self, parentReference: parent)
         }
         return cell
     }

@@ -92,9 +92,9 @@
 
     func getAgreement(with id: String) -> Agreement? {
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
-            for storeda in storedAgreements where storeda.agreementId == id {
-                print("\(storeda.agreementId) has \(storeda.rups.count) rup ")
-            }
+//            for storeda in storedAgreements where storeda.agreementId == id {
+//                print("\(storeda.agreementId) has \(storeda.rups.count) rup ")
+//            }
             for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
                 return storedAgreement
             }
@@ -367,6 +367,49 @@
     }
  }
 
+ // MARK: Plant communities
+ extension RUPManager {
+    func deletePlantCommunity(plantCommunity: PlantCommunity) {
+        // remove all monitoring areas and pasture actions
+        do {
+            let realm = try Realm()
+            let refetch = realm.objects(PlantCommunity.self).filter("localId = %@", plantCommunity.localId).first!
+            for item in refetch.monitoringAreas {
+                deleteMonitoringArea(monitoringArea: item)
+            }
+
+            for item in refetch.pastureActions {
+                deletePastureAction(pastureAction: item)
+            }
+
+            RealmRequests.deleteObject(refetch)
+        } catch _ {
+            fatalError()
+        }
+//        RealmRequests.deleteObject(refe)
+    }
+
+    func deleteMonitoringArea(monitoringArea: MonitoringArea) {
+        do {
+            let realm = try Realm()
+            let object = realm.objects(MonitoringArea.self).filter("localId = %@", monitoringArea.localId).first!
+            RealmRequests.deleteObject(object)
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func deletePastureAction(pastureAction: PastureAction) {
+        do {
+            let realm = try Realm()
+            let object = realm.objects(PastureAction.self).filter("localId = %@", pastureAction.localId).first!
+            RealmRequests.deleteObject(object)
+        } catch _ {
+            fatalError()
+        }
+    }
+ }
+
  // MARK: Pasture
  extension RUPManager {
     func getPasturesArray(rup: RUP) -> [Pasture] {
@@ -459,30 +502,50 @@
 
     func getPlantCommunityElevationLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "500"))
+        returnArray.append(SelectionPopUpObject(display: "- <500"))
         returnArray.append(SelectionPopUpObject(display: "500-699"))
         returnArray.append(SelectionPopUpObject(display: "700-899"))
         returnArray.append(SelectionPopUpObject(display: "900-1099"))
         returnArray.append(SelectionPopUpObject(display: "1100-1299"))
         returnArray.append(SelectionPopUpObject(display: "1300-1500"))
         returnArray.append(SelectionPopUpObject(display: ">1500"))
-//        for i in 0...3 {
-//            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
-//        }
+        return returnArray
+    }
 
+    func getPlantCommunityPurposeOfActionsLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Establish"))
+        returnArray.append(SelectionPopUpObject(display: "Maintain"))
+        returnArray.append(SelectionPopUpObject(display: "Other"))
+        return returnArray
+    }
+
+    func getRangeLandHealthLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Highly at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Moderately at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Non-functional"))
+        returnArray.append(SelectionPopUpObject(display: "Properly Functioning Condition"))
+        returnArray.append(SelectionPopUpObject(display: "Slightly at risk"))
+        return returnArray
+    }
+
+    func getMonitoringAreaPurposeLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Key Area"))
+        returnArray.append(SelectionPopUpObject(display: "Criteria"))
+        returnArray.append(SelectionPopUpObject(display: "Other"))
         return returnArray
     }
 
     func getPastureActionLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-
         returnArray.append(SelectionPopUpObject(display: "Herding"))
+        returnArray.append(SelectionPopUpObject(display: "Livestock variables"))
+        returnArray.append(SelectionPopUpObject(display: "Salting"))
+        returnArray.append(SelectionPopUpObject(display: "Supplemental"))
         returnArray.append(SelectionPopUpObject(display: "Timing"))
-
-        for i in 3...6 {
-            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
-        }
-
+        returnArray.append(SelectionPopUpObject(display: "Other"))
         return returnArray
     }
  }

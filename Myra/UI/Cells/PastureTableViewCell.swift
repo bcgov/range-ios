@@ -12,9 +12,6 @@ import RealmSwift
 
 class PastureTableViewCell: BaseFormCell {
 
-    // MARK: Constants
-    let plantCommunityCellHeight = 110
-
     // MARK: Variables
     var parentCell: PasturesTableViewCell?
     var pasture: Pasture?
@@ -71,10 +68,11 @@ class PastureTableViewCell: BaseFormCell {
 
     @IBAction func addPlantCommunityAction(_ sender: Any) {
         let button: UIButton = sender as! UIButton
+        let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
         
-        lookup.setup(objects: RUPManager.shared.getPlanCommunityTypeOptions()) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getPlanCommunityTypeOptions(), onVC: parent, onButton: button) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 let pc = PlantCommunity()
@@ -90,17 +88,6 @@ class PastureTableViewCell: BaseFormCell {
                 self.updateTableHeight()
             }
         }
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.showPopUp(vc: lookup, on: button)
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                self.pasture?.plantCommunities.append(PlantCommunity())
-//            }
-//        } catch _ {
-//            fatalError()
-//        }
-//        updateTableHeight()
     }
     
     @IBAction func aumChanged(_ sender: UITextField) {
@@ -235,7 +222,7 @@ class PastureTableViewCell: BaseFormCell {
         }
 
         let padding = 5
-        tableHeight.constant = CGFloat((p.plantCommunities.count) * plantCommunityCellHeight + padding)
+        tableHeight.constant = CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
     }
 
     func getCellHeight() -> CGSize {
@@ -243,10 +230,20 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     func updateTableHeight() {
-        let padding = 5
+        guard let p = self.pasture else {return}
+        do {
+            let realm = try Realm()
+            if let refetch = realm.objects(Pasture.self).filter("localId = %@", p.localId).first {
+                self.pasture = refetch
+            }
+        } catch _ {
+            fatalError()
+        }
+
         self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
-        tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + padding)
+        let padding = 5
+        tableHeight.constant = CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
         if let parent = parentCell {
             parent.updateTableHeight()
         }
@@ -329,7 +326,7 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
         guard let p = self.pasture else {return cell}
-        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p)
+        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p, parentCellReference: self)
         return cell
     }
 

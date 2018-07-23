@@ -307,6 +307,20 @@ extension Theme {
         styleFieldHeader(label: header)
     }
 
+    // MARK: Radio
+    func styleRadioOff(view: UIView, imageView: UIImageView) {
+        makeCircle(view: view)
+        view.layer.backgroundColor = defaultInputFieldBackground().cgColor
+        imageView.alpha = 0
+    }
+
+    func styleRadioOn(view: UIView, imageView: UIImageView) {
+        makeCircle(view: view)
+        view.layer.backgroundColor = UIColor.white.cgColor
+        imageView.alpha = 1
+        imageView.image = #imageLiteral(resourceName: "icon_check")
+    }
+
     // MARK: Shadows
     func addShadow(layer: CALayer) {
         addShadow(to: layer, opacity: 1, height: 2)

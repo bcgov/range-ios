@@ -17,7 +17,7 @@ extension HomeViewController {
         let logoutOption = SelectionPopUpObject(display: "Logout", value: "logout")
         var objects = [SelectionPopUpObject]()
         objects.append(logoutOption)
-        lookup.setup(objects: objects) { (selected, obj) in
+        lookup.setupSimple(objects: objects) { (selected, obj) in
             if selected, let selection = obj {
                 lookup.dismiss(animated: true, completion: nil)
                 if selection.value == logoutOption.value, let p = self.parentReference {
