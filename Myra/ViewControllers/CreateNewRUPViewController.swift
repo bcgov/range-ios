@@ -451,7 +451,7 @@ class CreateNewRUPViewController: BaseViewController {
         var holder = ""
 
         if let agreement = RUPManager.shared.getAgreement(with: p.agreementId) {
-            holder = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+            holder = agreement.primaryAgreementHolder()
         }
 
         if UIDevice.current.orientation.isPortrait ||  UIDevice.current.orientation.isFlat {

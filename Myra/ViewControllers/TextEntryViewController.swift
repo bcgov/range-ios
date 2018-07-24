@@ -30,6 +30,7 @@ class TextEntryViewController: UIViewController, Theme {
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
+        self.titleLabel.text = header
     }
 
     @IBAction func cancelAction(_ sender: UIButton) {

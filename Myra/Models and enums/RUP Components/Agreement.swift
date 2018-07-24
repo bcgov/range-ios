@@ -35,6 +35,15 @@ class Agreement: Object, MyraObject {
     var zones = List<Zone>()
     var rups = List<RUP>()
 
+    func primaryAgreementHolder() -> String {
+        for client in self.clients {
+            if client.clientTypeCode == "A" {
+                return client.name
+            }
+        }
+        return ""
+    }
+
     convenience init(json: JSON) {
         self.init()
         if let i = json["id"].string {

@@ -76,6 +76,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addButton" destination="YP9-za-ZwK" id="fAV-8Y-vrM"/>
+                <outlet property="headerText" destination="jQI-tK-3Ng" id="XuX-Bd-c8k"/>
                 <outlet property="height" destination="5cH-Hv-LGo" id="sbt-rE-UNq"/>
                 <outlet property="tableView" destination="5mo-wL-ldi" id="hZX-SF-yJ6"/>
             </connections>

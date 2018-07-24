@@ -21,6 +21,7 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var height: NSLayoutConstraint!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var headerText: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,6 +55,12 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
         self.height.constant = CGFloat(plantCommunity.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
         setUpTable()
         style()
+        autofill()
+    }
+
+    func autofill() {
+        guard let pc = self.plantCommunity else {return}
+        self.headerText.text = "Actions to \(pc.purposeOfAction)"
     }
 
     func updateTableHeight() {
@@ -77,6 +84,7 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
     // MARK: Styles
     func style() {
         styleHollowButton(button: addButton)
+        styleSubHeader(label: headerText)
     }
 
 }

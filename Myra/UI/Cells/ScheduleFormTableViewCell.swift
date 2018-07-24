@@ -200,16 +200,16 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     func switchOffSortHeaders() {
         self.layoutIfNeeded()
-        styleFieldHeaderOff(button: pasture)
-        styleFieldHeaderOff(button: livestock)
-        styleFieldHeaderOff(button: dateIn)
-        styleFieldHeaderOff(button: dateOut)
-        styleFieldHeaderOff(button: numAnimals)
+        styleSortHeaderOff(button: pasture)
+        styleSortHeaderOff(button: livestock)
+        styleSortHeaderOff(button: dateIn)
+        styleSortHeaderOff(button: dateOut)
+        styleSortHeaderOff(button: numAnimals)
         self.layoutIfNeeded()
     }
 
     func switchOnSortHeader(button: UIButton) {
-        styleFieldHeaderOn(button: button)
+        styleSortHeaderOn(button: button)
         self.layoutIfNeeded()
     }
 

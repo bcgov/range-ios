@@ -72,6 +72,20 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             }
         }
     }
+    @IBAction func aspectFieldChanged(_ sender: UITextField) {
+        guard let pc = self.plantCommunity, let text = aspectField.text else {return}
+        do {
+            let realm = try Realm()
+            let aCommunity = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
+            try realm.write {
+                aCommunity.aspect = text
+            }
+            self.plantCommunity = aCommunity
+        } catch _ {
+            fatalError()
+        }
+        self.autofill()
+    }
 
     @IBAction func elevationAction(_ sender: UIButton) {
         guard let pc = self.plantCommunity else {return}
@@ -104,16 +118,26 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         lookup.setup(objects: options, onVC: grandParent, onButton: sender) { (selected, option) in
             lookup.dismiss(animated: true, completion: nil)
             if let selection = option {
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        pc.purposeOfAction = selection.display
+                if selection.display.lowercased() == "clear" {
+                    grandParent.showAlert(title: "Would you like to remove the purpose of actions?", description: "This will also remove all Plant Community Actions for this Plant Community", yesButtonTapped: {
+                        pc.clearPurposeOfAction()
+                        self.autofill()
+                        self.reloadParent()
+                    }, noButtonTapped: {
+                        return
+                    })
+                } else {
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            pc.purposeOfAction = selection.display
+                        }
+                    } catch _ {
+                        fatalError()
                     }
-                } catch _ {
-                    fatalError()
+                    self.autofill()
+                    self.reloadParent()
                 }
-                self.autofill()
-                self.reloadParent()
             }
         }
     }

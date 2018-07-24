@@ -32,7 +32,7 @@ class PasturesTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let textEntry = vm.textEntry
         textEntry.taken = RUPManager.shared.getPastureNames(rup: rup)
-        textEntry.setup(on: parent, header: "PastureAction") { (accepted, value) in
+        textEntry.setup(on: parent, header: "Pasture") { (accepted, value) in
             if accepted {
                 let newPasture = Pasture()
                 newPasture.name = value

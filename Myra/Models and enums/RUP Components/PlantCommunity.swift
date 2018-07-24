@@ -29,9 +29,26 @@ class PlantCommunity: Object, MyraObject {
     @objc dynamic var notes: String = ""
     @objc dynamic var communityURL: String = ""
     @objc dynamic var purposeOfAction: String = ""
+
+    // TODO: Delete
     @objc dynamic var isPurposeOfActionEstablish: Bool = false
+
     var monitoringAreas = List<MonitoringArea>()
     var pastureActions = List<PastureAction>()
+
+    func clearPurposeOfAction() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.purposeOfAction = ""
+            }
+        } catch _ {
+            fatalError()
+        }
+        for action in self.pastureActions {
+            RealmRequests.deleteObject(action)
+        }
+    }
 
     func copy() -> PlantCommunity {
         let new = PlantCommunity()

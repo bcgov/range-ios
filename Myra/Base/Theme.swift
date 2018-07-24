@@ -202,13 +202,16 @@ extension Theme {
 
     func styleFieldHeader(label: UILabel) {
         label.textColor = defaultFieldHeaderColor()
-        label.font = defaultFieldHeaderFont()
         label.font = Fonts.getPrimaryHeavy(size: 12)
     }
 
-    func styleFieldHeaderOff(button: UIButton) {
+    func styleFieldHeader(button: UIButton) {
+        button.setTitleColor(defaultFieldHeaderColor(), for: .normal)
+        button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
+    }
+
+    func styleSortHeaderOff(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
-//        button.titleLabel?.font = defaultFieldHeaderFont()
         button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlightOff"), for: .normal)
         // set button image on the right
@@ -216,9 +219,8 @@ extension Theme {
         button.imageEdgeInsets = UIEdgeInsetsMake(0, (button.titleLabel?.frame.size.width)!, 0, (0.0 - (button.titleLabel?.frame.size.width)!))
     }
 
-    func styleFieldHeaderOn(button: UIButton) {
+    func styleSortHeaderOn(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOnColor(), for: .normal)
-//        button.titleLabel?.font = defaultFieldHeaderFont()
         button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
         // set button image on the right

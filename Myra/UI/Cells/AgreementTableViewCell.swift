@@ -25,7 +25,7 @@ class AgreementTableViewCell: UITableViewCell, Theme {
     func setup(agreement: Agreement, bg: UIColor) {
         self.backgroundColor = bg
         self.rangeNumber.text = "\(agreement.agreementId)"
-        self.agreementHolder.text = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+        self.agreementHolder.text = agreement.primaryAgreementHolder()
         style()
         self.agreement = agreement
     }

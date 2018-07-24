@@ -46,25 +46,18 @@
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
-                                                            </textField>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6t-hy-R7c">
-                                                                <rect key="frame" x="0.0" y="0.0" width="190" height="45"/>
                                                                 <connections>
-                                                                    <action selector="aspectAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8g7-Im-7ja"/>
+                                                                    <action selector="aspectFieldChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="DQa-LG-CGh"/>
                                                                 </connections>
-                                                            </button>
+                                                            </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="ebu-J3-Iyk" firstAttribute="leading" secondItem="yP1-ug-7Gj" secondAttribute="leading" id="Hcu-xF-ShY"/>
                                                             <constraint firstItem="ebu-J3-Iyk" firstAttribute="top" secondItem="yP1-ug-7Gj" secondAttribute="top" id="IxL-YG-7de"/>
-                                                            <constraint firstAttribute="trailing" secondItem="c6t-hy-R7c" secondAttribute="trailing" id="Pms-dR-TaM"/>
-                                                            <constraint firstItem="c6t-hy-R7c" firstAttribute="top" secondItem="yP1-ug-7Gj" secondAttribute="top" id="ULt-cy-LtS"/>
-                                                            <constraint firstAttribute="bottom" secondItem="c6t-hy-R7c" secondAttribute="bottom" id="aZp-WE-nUq"/>
                                                             <constraint firstAttribute="trailing" secondItem="ebu-J3-Iyk" secondAttribute="trailing" id="amH-Ko-AfI"/>
                                                             <constraint firstAttribute="height" constant="45" id="ary-jv-Ixa"/>
                                                             <constraint firstAttribute="bottom" secondItem="ebu-J3-Iyk" secondAttribute="bottom" id="b9v-a8-R89"/>
-                                                            <constraint firstItem="c6t-hy-R7c" firstAttribute="leading" secondItem="yP1-ug-7Gj" secondAttribute="leading" id="bem-kF-ZYo"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -181,16 +174,16 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCy-Yn-H9b">
-                                                <rect key="frame" x="0.0" y="23.5" width="190" height="45"/>
+                                                <rect key="frame" x="0.0" y="23.5" width="300" height="45"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dwf-bL-6ut">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXb-jK-nM0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
                                                         <connections>
                                                             <action selector="purposeOfActionAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kJm-qG-Dto"/>
                                                         </connections>
@@ -200,6 +193,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Dwf-bL-6ut" secondAttribute="trailing" id="6fz-CU-kjH"/>
                                                     <constraint firstAttribute="trailing" secondItem="XXb-jK-nM0" secondAttribute="trailing" id="AIu-Na-6bM"/>
+                                                    <constraint firstAttribute="width" constant="300" id="BH6-E6-TMw"/>
                                                     <constraint firstItem="Dwf-bL-6ut" firstAttribute="top" secondItem="dCy-Yn-H9b" secondAttribute="top" id="IpC-Qq-CB3"/>
                                                     <constraint firstAttribute="bottom" secondItem="Dwf-bL-6ut" secondAttribute="bottom" id="hH6-xw-0Mj"/>
                                                     <constraint firstItem="Dwf-bL-6ut" firstAttribute="leading" secondItem="dCy-Yn-H9b" secondAttribute="leading" id="pBI-FL-hen"/>
@@ -219,7 +213,6 @@
                                     <constraint firstItem="dCy-Yn-H9b" firstAttribute="height" secondItem="yP1-ug-7Gj" secondAttribute="height" id="RLB-lc-oiC"/>
                                     <constraint firstItem="zPn-Rt-IMU" firstAttribute="leading" secondItem="Bm3-w8-K8L" secondAttribute="leading" id="XSS-08-PCT"/>
                                     <constraint firstAttribute="trailing" secondItem="pii-Gf-kgp" secondAttribute="trailing" id="des-tO-tNG"/>
-                                    <constraint firstItem="dCy-Yn-H9b" firstAttribute="width" secondItem="yP1-ug-7Gj" secondAttribute="width" id="sy6-Ce-KG9"/>
                                     <constraint firstItem="KNz-7P-aps" firstAttribute="height" secondItem="yP1-ug-7Gj" secondAttribute="height" id="tgt-gP-9ko"/>
                                 </constraints>
                             </stackView>

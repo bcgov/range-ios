@@ -77,10 +77,11 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         lookup.setup(objects: RUPManager.shared.getPastureActionLookup(), onVC: parent, onButton: sender) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
+                var result = option.display
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        current.action = option.display
+                        current.action = result
                     }
                     self.autoFill()
                 } catch _ {
@@ -88,23 +89,6 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
                 }
             }
         }
-        /*
-        lookup.setup(objects: RUPManager.shared.getPastureActionLookup()) { (selected, selection) in
-            lookup.dismiss(animated: true, completion: nil)
-            if selected, let option = selection {
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        current.action = option.display
-                    }
-                    self.autoFill()
-                } catch _ {
-                    fatalError()
-                }
-            }
-        }
-        parent.showPopUp(vc: lookup, on: sender)
-        */
     }
 
     @IBAction func noGrazePeriodBegin(_ sender: UIButton) {
@@ -186,6 +170,10 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         }
 
         autoFill()
+    }
+
+    func deletePastureActions() {
+        
     }
 
     // MARK: Setup

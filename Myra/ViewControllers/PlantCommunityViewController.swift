@@ -108,6 +108,8 @@ class PlantCommunityViewController: BaseViewController {
         if let r = reloadData, r {
             self.tableView.reloadData()
         }
+        self.view.layoutIfNeeded()
+        self.tableView.layoutIfNeeded()
     }
 
     // MARK: Styles
@@ -240,7 +242,7 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
             sectionTitle =  "Basic Plant Community Information"
         case 1:
             if hasPurposeOfActions() {
-                 sectionTitle =  "Pasture Actions"
+                 sectionTitle =  "Plant Community Actions"
             }
         case 2:
             sectionTitle =  "Monitoring Areas"

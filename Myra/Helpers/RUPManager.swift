@@ -42,6 +42,13 @@
             }
         }
 
+        // check that minister's issues have been identified by minister
+        for issue in rup.ministerIssues {
+            if !issue.identified {
+                return(false, "One or more Minister's Issues and Actions has not been identified by minister")
+            }
+        }
+
         return (true, "")
     }
 
@@ -357,14 +364,6 @@
         return ""
     }
 
-    func getPrimaryAgreementHolderFor(agreement: Agreement) -> String {
-        for client in agreement.clients {
-            if client.clientTypeCode == "A" {
-                return client.name
-            }
-        }
-        return ""
-    }
  }
 
  // MARK: Plant communities
@@ -514,9 +513,9 @@
 
     func getPlantCommunityPurposeOfActionsLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Establish"))
-        returnArray.append(SelectionPopUpObject(display: "Maintain"))
-        returnArray.append(SelectionPopUpObject(display: "Other"))
+        returnArray.append(SelectionPopUpObject(display: "Establish Plant Community"))
+        returnArray.append(SelectionPopUpObject(display: "Maintain Plant Community"))
+        returnArray.append(SelectionPopUpObject(display: "Clear"))
         return returnArray
     }
 
