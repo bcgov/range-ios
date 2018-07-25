@@ -199,11 +199,13 @@ class PastureTableViewCell: BaseFormCell {
                     try realm.write {
                         past.name = name
                     }
+                    self.autofill()
                 } catch _ {
                     fatalError()
                 }
             }
         }
+
     }
 
     // MARK: Functions
@@ -211,7 +213,6 @@ class PastureTableViewCell: BaseFormCell {
         self.parentCell = pastures
         self.mode = mode
         self.pasture = pasture
-        self.pastureNameLabel.text = pasture.name
         self.rup = pastures.rup
         autofill()
         setupTable()
@@ -230,6 +231,7 @@ class PastureTableViewCell: BaseFormCell {
     func autofill() {
         guard let p = self.pasture else {return}
 
+        self.pastureNameLabel.text = p.name
         self.aumsField.text = "\(p.allowedAUMs)"
         self.deductionFIeld.text = "\(Int(p.privateLandDeduction))"
         self.graceDaysField.text = "\(p.graceDays)"
