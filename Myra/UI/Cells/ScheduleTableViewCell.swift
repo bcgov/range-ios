@@ -97,13 +97,18 @@ class ScheduleTableViewCell: BaseFormCell {
         styleContainer(layer: tableView.layer)
     }
 
+    func computeCellHeight() -> CGFloat {
+        let padding: CGFloat = 5.0
+        return CGFloat( CGFloat(rup.schedules.count) * CGFloat(ScheduleCellTableViewCell.cellHeight) + padding)
+    }
+
     func updateTableHeight() {
-        self.tableView.layoutIfNeeded()
-        self.tableView.reloadData()
-        let count = rup.schedules.count
-        tableHeight.constant = CGFloat( Double(count) * cellHeight + 5.0)
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAt(indexPath: parent.scheduleIndexPath)
+        tableHeight.constant = computeCellHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
     
 }

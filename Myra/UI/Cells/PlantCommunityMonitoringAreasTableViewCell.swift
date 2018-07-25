@@ -65,14 +65,13 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         self.mode = mode
         self.parentReference = parentReference
         self.rup = rup
-        self.height.constant = CGFloat( plantCommunity.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
+        self.height.constant = computeHeight()
         setUpTable()
         style()
     }
 
-    func updateTableHeight() {
-        guard let p = self.plantCommunity, let parent = self.parentReference else {return}
-
+    func refreshPlantCommunityObject() {
+        guard let p = self.plantCommunity else {return}
         do {
             let realm = try Realm()
             let temp = realm.objects(PlantCommunity.self).filter("localId = %@", p.localId).first!
@@ -80,21 +79,21 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+    }
 
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
-        self.height.constant = CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
-
-        parent.reload()
+    func updateTableHeight() {
+        refreshPlantCommunityObject()
+        guard let parent = self.parentReference else {return}
+        self.height.constant = computeHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     func computeHeight() -> CGFloat {
-        // size of lable + button + vertical paddings
-        let staticHeight = 128
-        // size of a monitoring area cell
-        let monitoringAreaHeight = 50
-        guard let p = self.plantCommunity else {return CGFloat(staticHeight)}
-        return (CGFloat(staticHeight + (monitoringAreaHeight * p.monitoringAreas.count)))
+        guard let p = self.plantCommunity else {return 0.0}
+        return CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
     }
 
     // MARK: Styles

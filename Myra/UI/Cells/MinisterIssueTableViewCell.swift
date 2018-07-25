@@ -52,7 +52,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var identifiedByMinisterSwitch: UISwitch!
 
     // MARK: Outlet actions
-
     @IBAction func idengifiedByMinisterSwitchAction(_ sender: UISwitch) {
         guard let i = self.issue else {return}
         do {
@@ -65,6 +64,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
         autofill()
     }
+
     @IBAction func identifiedByMinisterAction(_ sender: UIButton) {
         guard let i = self.issue else {return}
         do {
@@ -75,7 +75,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        autofill()
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
@@ -90,7 +89,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             case .Delete:
                 grandParent.showAlert(title: "Are you sure?", description: "Would you like to remove this issue and all actions associated to it?", yesButtonTapped: {
                     RUPManager.shared.removeIssue(issue: i)
-                    parent.updateTableHeight(scrollToBottom: false)
+                    parent.updateTableHeight(scrollToBottom: false, then: {})
                 }, noButtonTapped: {})
             case .Copy:
                 self.duplicate()
@@ -122,20 +121,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 self.autofill()
             }
         }
-//        lookup.setup(multiSelect: true, selected: selected, objects: pastureNames) { (selected, selections) in
-//            if selected, let selected = selections {
-//                i.clearPastures()
-//                for selection in selected {
-//                    if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
-//                        i.addPasture(pasture: pasture)
-//                    }
-//                }
-//                self.autofill()
-//                grandParent.hidepopup(vc: lookup)
-//            } else {
-//                grandParent.hidepopup(vc: lookup)
-//            }
-//        }
         grandParent.showPopUp(vc: lookup, on: sender)
     }
 
@@ -169,6 +154,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         detailsValue.delegate = self
         objectiveValue.delegate = self
         setUpTable()
+        // style before autofill to style the switch!
         style()
         autofill()
         tableHeight.constant = computeTableHeight()
@@ -226,19 +212,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
-        identifiedByMinisterSwitch.isOn = i.identified
-        if i.identified {
-            switchOnStyle()
-        } else {
-            switchOffStyle()
-        }
-
-//        if i.identified {
-//            identifiedByMinisterSwitch.isOn = i.identified
-//            styleRadioOn(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
-//        } else {
-//            styleRadioOff(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
-//        }
+        identifiedByMinisterSwitch.setOn(i.identified, animated: true)
 
         if self.mode == .View {
             setDefaultValueIfEmpty(field: pastureValue)
@@ -255,10 +229,11 @@ class MinisterIssueTableViewCell: BaseFormCell {
 
     func updateTableHeight(scrollToBottom: Bool) {
         guard let parent = self.parentCell else {return}
-        self.tableView.reloadData()
-        tableView.layoutIfNeeded()
         tableHeight.constant = computeTableHeight()
-        parent.updateTableHeight(scrollToBottom: scrollToBottom)
+        parent.updateTableHeight(scrollToBottom: scrollToBottom) {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     // MARK: Style
@@ -268,10 +243,11 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleSubHeader(label: issueTypeValue)
         styleStaticField(field: pastureValue, header: pastureHeader)
         styleSubHeader(label: actionsHeader)
-        styleFieldHeader(label: identifiedByMinisterLabel)
+        styleSubHeader(label: identifiedByMinisterLabel)
+        identifiedByMinisterSwitch.onTintColor = Colors.switchOn
         switch self.mode {
         case .View:
-//            identifiedByMinisterButton.isEnabled = false
+            identifiedByMinisterSwitch.isEnabled = false
             addPastureButtonWidth.constant = 0
             optionsButton.alpha = 0
             addButton.alpha = 0
@@ -290,16 +266,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
     }
 
-    func switchOnStyle() {
-        identifiedByMinisterSwitch.thumbTintColor = Colors.primary
-//        identifiedByMinisterSwitch.backgroundColor = defaultInputFieldBackground()
-    }
-
-    func switchOffStyle() {
-        identifiedByMinisterSwitch.thumbTintColor = defaultInputFieldBackground()
-//        identifiedByMinisterSwitch.backgroundColor = UIColor.white
-    }
-
     // MARK: Utilities
     func deleteAction(action: MinisterIssueAction) {
         guard let i = self.issue else {return}
@@ -313,6 +279,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
         updateTableHeight(scrollToBottom: false)
     }
+    
     func duplicate() {
 
     }

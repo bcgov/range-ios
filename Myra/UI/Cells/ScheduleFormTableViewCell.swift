@@ -142,14 +142,14 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         self.mode = mode
         self.schedule = schedule
         self.setObjects()
-        height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * ScheduleFormTableViewCell.cellHeight + 5.0)
+        height.constant = computeHeight()
         setUpTable()
         style()
     }
 
-    func updateTableHeight() {
-        guard let sched = self.schedule, let parent = self.parentReference else {return}
-        
+    func refreshScheduleObject() {
+        guard let sched = self.schedule else {return}
+
         do {
             let realm = try Realm()
             let temp = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
@@ -157,13 +157,22 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+    }
 
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
-        height.constant = CGFloat( Double((self.schedule?.scheduleObjects.count)!) * ScheduleFormTableViewCell.cellHeight + 5.0)
+    func computeHeight() -> CGFloat {
+        let padding: CGFloat = 5.0
+        guard let sched = self.schedule else {return padding}
+        return CGFloat( CGFloat(sched.scheduleObjects.count) * CGFloat(ScheduleFormTableViewCell.cellHeight) + padding)
+    }
 
-        parent.reload()
-
+    func updateTableHeight() {
+        refreshScheduleObject()
+        guard let parent = self.parentReference else {return}
+        height.constant = computeHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     // MARK: Styles

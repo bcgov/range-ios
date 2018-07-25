@@ -52,7 +52,7 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
         self.plantCommunity = plantCommunity
         self.mode = mode
         self.parentReference = parentReference
-        self.height.constant = CGFloat(plantCommunity.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
+        self.height.constant = computeHeight()
         setUpTable()
         style()
         autofill()
@@ -63,8 +63,8 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
         self.headerText.text = "Actions to \(pc.purposeOfAction)"
     }
 
-    func updateTableHeight() {
-        guard let p = self.plantCommunity, let parent = self.parentReference else {return}
+    func refreshPlantCommunityObject() {
+        guard let p = self.plantCommunity else {return}
 
         do {
             let realm = try Realm()
@@ -73,12 +73,21 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+    }
 
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
-        self.height.constant = CGFloat(p.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
-        self.layoutIfNeeded()
-        parent.reload()
+    func computeHeight() -> CGFloat {
+        guard let p = self.plantCommunity else {return 0.0}
+        return CGFloat(p.pastureActions.count) * CGFloat(PlantCommunityActionTableViewCell.cellHeight)
+    }
+
+    func updateTableHeight() {
+        refreshPlantCommunityObject()
+        guard let parent = self.parentReference else {return}
+        self.height.constant = computeHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     // MARK: Styles

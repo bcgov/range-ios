@@ -254,7 +254,7 @@ class PastureTableViewCell: BaseFormCell {
         return self.frame.size
     }
 
-    func updateTableHeight() {
+    func refreshPastureObject() {
         guard let p = self.pasture else {return}
         do {
             let realm = try Realm()
@@ -264,14 +264,22 @@ class PastureTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
+    }
 
-        self.tableView.layoutIfNeeded()
+    func updateTableHeight() {
+        refreshPastureObject()
+        tableHeight.constant = computeHeight()
         self.tableView.reloadData()
-        let padding = 5
-        tableHeight.constant = CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
+        self.tableView.layoutIfNeeded()
         if let parent = parentCell {
             parent.updateTableHeight()
         }
+    }
+
+    func computeHeight() -> CGFloat {
+        let padding = 5
+        guard let p = self.pasture else {return CGFloat(padding)}
+        return CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
     }
 
     func duplicate() {

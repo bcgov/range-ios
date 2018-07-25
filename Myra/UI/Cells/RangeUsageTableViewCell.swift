@@ -68,7 +68,7 @@ class RangeUsageTableViewCell: BaseFormCell {
             // show message
             warningLabel.text = "Plan start and end dates have not been selected yet"
         }
-        heightConstraint.constant = CGFloat( Double(usageYears.count) * cellHeight + 5.0)
+        heightConstraint.constant = computeCellHeight()
         style()
     }
 
@@ -85,23 +85,17 @@ class RangeUsageTableViewCell: BaseFormCell {
         styleFieldHeader(label: totalAnnualHeader)
     }
 
-    // Calculate table height based on content and
-    // reload parent's table view to bottom of
-    // the indexpath of current cell
-    func updateTableHeight() {  
-        self.tableView.layoutIfNeeded()
-        self.tableView.reloadData()
+    func computeCellHeight() -> CGFloat {
+        let padding: CGFloat = 5.0
+        return CGFloat( CGFloat(usageYears.count) * CGFloat(RangeUseageYearTableViewCell.cellHeight) + padding)
+    }
 
-        heightConstraint.constant = CGFloat( Double(usageYears.count) * cellHeight + 5.0)
-
-        /*
-         tableView.contentSize.height did not provide correct height.
-         not sure why but cells do have fixed height
-         so we used the above alternative
-        */
-
+    func updateTableHeight() {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAt(indexPath: parent.rangeUsageIndexPath)
+        heightConstraint.constant = computeCellHeight()
+        parent.reload{
+            self.tableView.reloadData()
+        }
     }
 }
 

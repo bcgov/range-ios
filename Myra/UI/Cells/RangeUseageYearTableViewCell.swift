@@ -10,6 +10,7 @@ import UIKit
 
 class RangeUseageYearTableViewCell: BaseFormCell {
 
+    static let cellHeight = 49.5
     var usageYear: RangeUsageYear?
 
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!

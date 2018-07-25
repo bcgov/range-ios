@@ -93,23 +93,40 @@ class PlantCommunityViewController: BaseViewController {
         self.subtitle.text = p.name
     }
 
-    func reload(reloadData: Bool? = false) {
-        guard let pc = self.plantCommunity else {return}
+    func refreshPlantCommunityObject() {
+        guard let p = self.plantCommunity else {return}
+
         do {
             let realm = try Realm()
-            let aCommunity = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
-            self.plantCommunity = aCommunity
+            let temp = realm.objects(PlantCommunity.self).filter("localId = %@", p.localId).first!
+            self.plantCommunity = temp
         } catch _ {
             fatalError()
         }
-        self.view.layoutIfNeeded()
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        if let r = reloadData, r {
-            self.tableView.reloadData()
+    }
+
+    func reload(reloadData: Bool? = false, then: @escaping() -> Void) {
+        refreshPlantCommunityObject()
+        if #available(iOS 11.0, *) {
+            self.tableView.performBatchUpdates({
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+                if let r = reloadData, r {
+                    self.tableView.reloadData()
+                }
+            }, completion: { done in
+                self.tableView.layoutIfNeeded()
+                if !done {
+                    print (done)
+                }
+                return then()
+            })
+        } else {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            self.view.layoutIfNeeded()
+            return then()
         }
-        self.view.layoutIfNeeded()
-        self.tableView.layoutIfNeeded()
     }
 
     // MARK: Styles
@@ -160,7 +177,7 @@ class PlantCommunityViewController: BaseViewController {
         let vm = ViewManager()
         let monitoringAreaVC = vm.monitoringArea
         monitoringAreaVC.setup(mode: self.mode, plan: p, plantCommunity: pc, monitoringArea: monitoringArea) { (done) in
-            self.reload()
+            self.reload(then: {})
         }
         self.present(monitoringAreaVC, animated: true, completion: nil)
     }

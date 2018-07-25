@@ -277,7 +277,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
 
     func reloadParent() {
         guard let parent = self.parentReference else {return}
-        parent.reload(reloadData: true)
+        parent.reload(reloadData: true, then: {})
     }
 }
 

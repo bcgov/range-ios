@@ -393,6 +393,18 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Functions
+
+    func refreshPlanObject() {
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+            self.rup = aRup
+        } catch _ {
+            fatalError()
+        }
+    }
+
     // MARK: Setup
     func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
         self.parentCallBack = callBack
@@ -599,46 +611,71 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return numberOfSections
     }
 
-
-    func reload(indexPath: IndexPath) {
-        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    // RELOAD WITH COMPLETION
+    func reload(then: @escaping() -> Void) {
+        refreshPlanObject()
+        if #available(iOS 11.0, *) {
+            self.tableView.performBatchUpdates({
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            }, completion: { done in
+                self.tableView.layoutIfNeeded()
+                if !done {
+                    print (done)
+                }
+                self.highlightCurrentModuleInMenu()
+                return then()
+            })
+        } else {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            self.tableView.layoutIfNeeded()
+            self.highlightCurrentModuleInMenu()
+            return then()
+        }
     }
 
-
-    func reloadAt(indexPath: IndexPath) {
-        guard let plan = self.rup else {return}
-        do {
-            let realm = try Realm()
-            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
-            self.rup = aRup
-        } catch _ {
-            fatalError()
+    func reload(at indexPath: IndexPath) {
+        refreshPlanObject()
+        if #available(iOS 11.0, *) {
+            self.tableView.performBatchUpdates({
+                self.tableView.reloadData()
+            }, completion: nil)
+        } else {
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            self.tableView.layoutIfNeeded()
         }
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        self.tableView.layoutIfNeeded()
 
-//        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+
+//    func reloadAt(indexPath: IndexPath) {
+//        refreshPlanObject()
+//        if #available(iOS 11.0, *) {
+//            self.tableView.performBatchUpdates({
+//                self.tableView.reloadData()
+//                highlightCurrentModuleInMenu()
+//            }, completion: nil)
+//        } else {
+//            self.tableView.beginUpdates()
+//            self.tableView.endUpdates()
+//            self.tableView.layoutIfNeeded()
+//            highlightCurrentModuleInMenu()
+//        }
+//    }
+
+    func realod(bottomOf indexPath: IndexPath, then: @escaping() -> Void) {
+        reload {
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            self.highlightCurrentModuleInMenu()
+            return then()
+        }
+//        TODO: Remove
+
+//        self.tableView.beginUpdates()
+//        self.tableView.endUpdates()
 //        self.tableView.layoutIfNeeded()
-
-        
-        highlightCurrentModuleInMenu()
-    }
-
-    func realodAndGoToBottomOf(indexPath: IndexPath) {
-        guard let plan = self.rup else {return}
-        do {
-            let realm = try Realm()
-            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
-            self.rup = aRup
-        } catch _ {
-            fatalError()
-        }
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        self.tableView.layoutIfNeeded()
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlightCurrentModuleInMenu()
+//        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//        highlightCurrentModuleInMenu()
     }
 
     // deep reload reloads tableview. other reload functions dont

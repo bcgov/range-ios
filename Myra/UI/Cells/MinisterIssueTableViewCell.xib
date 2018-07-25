@@ -171,8 +171,6 @@
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lX5-Bk-9Z5">
                                 <rect key="frame" x="190.5" y="152.5" width="51" height="31"/>
-                                <color key="onTintColor" red="0.89411764705882357" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="0.89411764709999997" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="idengifiedByMinisterSwitchAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="nrR-LD-KAm"/>
                                 </connections>

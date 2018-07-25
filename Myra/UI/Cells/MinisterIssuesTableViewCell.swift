@@ -49,7 +49,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                         fatalError()
                     }
                 }
-                self.updateTableHeight(scrollToBottom: true)
+                self.updateTableHeight(scrollToBottom: true, then: {})
             }
         }
     }
@@ -67,15 +67,21 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     }
 
     // MARK: Functions
-    func updateTableHeight(scrollToBottom: Bool) {
-        self.tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableHeight.constant = computeHeight()
+    func updateTableHeight(scrollToBottom: Bool, then: @escaping() -> Void) {
         let parent = self.parentViewController as! CreateNewRUPViewController
+        tableHeight.constant = computeHeight()
         if scrollToBottom {
-            parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
+            parent.realod(bottomOf: parent.minsterActionsIndexPath) {
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+                return then()
+            }
         } else {
-            parent.reloadAt(indexPath: parent.minsterActionsIndexPath)
+            parent.reload {
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+                return then()
+            }
         }
     }
 

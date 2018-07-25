@@ -27,21 +27,22 @@ class AgreementHoldersTableViewCell: BaseFormCell {
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
         self.rup = rup
-        let clients = rup.clients
-        let padding = 5
-        heightConstraint.constant = CGFloat((clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
+        heightConstraint.constant = computeCellHeight()
         style()
         setUpTable()
     }
 
+    func computeCellHeight() -> CGFloat {
+        let padding = 5
+        return CGFloat((rup.clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
+    }
+
     func updateTableHeight() {
-        self.tableView.layoutIfNeeded()
-        self.tableView.reloadData()
-        if let p = self.parentViewController as? CreateNewRUPViewController {
-            let clients = rup.clients
-            let padding = 5
-            heightConstraint.constant = CGFloat((clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
-            p.reloadAt(indexPath: p.basicInformationIndexPath)
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        heightConstraint.constant = computeCellHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
         }
     }
 
