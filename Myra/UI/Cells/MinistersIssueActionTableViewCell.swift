@@ -10,6 +10,9 @@ import UIKit
 
 class MinistersIssueActionTableViewCell: BaseFormCell {
 
+    // MARK: Constants
+    static let cellHeight: CGFloat = 162
+
     // MARK: Variables
     var action: MinisterIssueAction?
     var parentCell: MinisterIssueTableViewCell?

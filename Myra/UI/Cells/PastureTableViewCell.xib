@@ -178,7 +178,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billy's Bluff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6P-6l-YOY">
-                                <rect key="frame" x="114.5" y="15" width="84.5" height="20.5"/>
+                                <rect key="frame" x="114.5" y="10.5" width="84.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -235,6 +235,19 @@
                                     <action selector="addPlantCommunityAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5hc-FD-lGN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-28-cfD">
+                                <rect key="frame" x="114.5" y="10" width="84.5" height="30"/>
+                                <connections>
+                                    <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gj8-vE-938"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5n-SP-CTY">
+                                <rect key="frame" x="207" y="14" width="12" height="22"/>
+                                <state key="normal" image="icon_edit"/>
+                                <connections>
+                                    <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Eeu-Ro-Kx2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -244,11 +257,15 @@
                             <constraint firstAttribute="bottom" secondItem="Soa-UZ-bH2" secondAttribute="bottom" constant="16.5" id="AMf-1i-6LR"/>
                             <constraint firstItem="zFx-h9-LGF" firstAttribute="top" secondItem="zuB-WJ-S4r" secondAttribute="bottom" constant="16" id="DnY-ih-AdF"/>
                             <constraint firstItem="Soa-UZ-bH2" firstAttribute="top" secondItem="kqn-88-dK7" secondAttribute="bottom" constant="8" id="Ego-c1-dze"/>
+                            <constraint firstItem="QpF-28-cfD" firstAttribute="top" secondItem="E6P-6l-YOY" secondAttribute="top" id="FrH-uK-fwQ"/>
+                            <constraint firstItem="w5n-SP-CTY" firstAttribute="centerY" secondItem="QpF-28-cfD" secondAttribute="centerY" id="Gki-xJ-k9E"/>
                             <constraint firstItem="Soa-UZ-bH2" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="Gvs-zO-bxe"/>
                             <constraint firstItem="ncF-tG-42g" firstAttribute="top" secondItem="tAI-sm-UTn" secondAttribute="bottom" constant="8" id="J6f-Q9-QO3"/>
                             <constraint firstItem="EjY-Uy-5TR" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="JZr-YM-Zpt"/>
                             <constraint firstItem="1yy-6Z-4n7" firstAttribute="top" secondItem="d10-4y-3Jf" secondAttribute="top" id="M1c-xP-y3A"/>
                             <constraint firstItem="kqn-88-dK7" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="Oxo-Kj-ueL"/>
+                            <constraint firstItem="QpF-28-cfD" firstAttribute="bottom" secondItem="E6P-6l-YOY" secondAttribute="bottom" id="Qdd-rA-z0I"/>
+                            <constraint firstItem="w5n-SP-CTY" firstAttribute="leading" secondItem="E6P-6l-YOY" secondAttribute="trailing" constant="8" id="U6y-r6-81c"/>
                             <constraint firstItem="E6P-6l-YOY" firstAttribute="centerY" secondItem="Lmo-yi-ffD" secondAttribute="centerY" id="Vvn-9q-1Jh"/>
                             <constraint firstItem="zFx-h9-LGF" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="X2U-vF-yoO"/>
                             <constraint firstItem="zuB-WJ-S4r" firstAttribute="top" secondItem="EjY-Uy-5TR" secondAttribute="bottom" constant="15" id="X7N-F1-oEQ"/>
@@ -260,9 +277,11 @@
                             <constraint firstAttribute="trailing" secondItem="zFx-h9-LGF" secondAttribute="trailing" constant="15" id="g42-3u-QRq"/>
                             <constraint firstItem="EjY-Uy-5TR" firstAttribute="centerY" secondItem="Lmo-yi-ffD" secondAttribute="centerY" id="hqL-tW-ReG"/>
                             <constraint firstItem="tAI-sm-UTn" firstAttribute="top" secondItem="zFx-h9-LGF" secondAttribute="bottom" constant="8" id="n0t-eP-Bvr"/>
+                            <constraint firstItem="QpF-28-cfD" firstAttribute="leading" secondItem="E6P-6l-YOY" secondAttribute="leading" id="nhM-Of-y0s"/>
                             <constraint firstItem="zuB-WJ-S4r" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="nm4-OO-kj4"/>
                             <constraint firstAttribute="trailing" secondItem="zuB-WJ-S4r" secondAttribute="trailing" constant="15" id="oId-Yc-AmX"/>
                             <constraint firstItem="kqn-88-dK7" firstAttribute="top" secondItem="ncF-tG-42g" secondAttribute="bottom" constant="8" id="pCU-EK-ORx"/>
+                            <constraint firstItem="QpF-28-cfD" firstAttribute="trailing" secondItem="E6P-6l-YOY" secondAttribute="trailing" id="xSd-cO-QgT"/>
                             <constraint firstItem="ncF-tG-42g" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="yEM-db-VKP"/>
                         </constraints>
                     </view>
@@ -300,6 +319,7 @@
     </objects>
     <resources>
         <image name="expandicon" width="48" height="48"/>
+        <image name="icon_edit" width="12" height="12"/>
         <image name="icon_pasture" width="15" height="20"/>
     </resources>
 </document>

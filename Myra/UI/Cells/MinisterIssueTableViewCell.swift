@@ -13,7 +13,7 @@ import RealmSwift
 class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Contants
-    let actionCellHeight: CGFloat = 162
+    static let cellHeight: CGFloat = 554
 
     // MARK: Variables
     var issue: MinisterIssue?
@@ -49,9 +49,22 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var identifiedByMinisterImageHolder: UIView!
     @IBOutlet weak var identifiedByMinisterButton: UIButton!
 
+    @IBOutlet weak var identifiedByMinisterSwitch: UISwitch!
 
     // MARK: Outlet actions
 
+    @IBAction func idengifiedByMinisterSwitchAction(_ sender: UISwitch) {
+        guard let i = self.issue else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                i.identified = !i.identified
+            }
+        } catch _ {
+            fatalError()
+        }
+        autofill()
+    }
     @IBAction func identifiedByMinisterAction(_ sender: UIButton) {
         guard let i = self.issue else {return}
         do {
@@ -213,11 +226,19 @@ class MinisterIssueTableViewCell: BaseFormCell {
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
+        identifiedByMinisterSwitch.isOn = i.identified
         if i.identified {
-            styleRadioOn(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+            switchOnStyle()
         } else {
-            styleRadioOff(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+            switchOffStyle()
         }
+
+//        if i.identified {
+//            identifiedByMinisterSwitch.isOn = i.identified
+//            styleRadioOn(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+//        } else {
+//            styleRadioOff(view: identifiedByMinisterImageHolder, imageView: identifiedByMinisterImage)
+//        }
 
         if self.mode == .View {
             setDefaultValueIfEmpty(field: pastureValue)
@@ -229,7 +250,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
 
     func computeTableHeight() -> CGFloat {
         guard let i = self.issue else {return 0}
-        return actionCellHeight * CGFloat(i.actions.count)
+        return MinistersIssueActionTableViewCell.cellHeight * CGFloat(i.actions.count)
     }
 
     func updateTableHeight(scrollToBottom: Bool) {
@@ -250,7 +271,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleFieldHeader(label: identifiedByMinisterLabel)
         switch self.mode {
         case .View:
-            identifiedByMinisterButton.isEnabled = false
+//            identifiedByMinisterButton.isEnabled = false
             addPastureButtonWidth.constant = 0
             optionsButton.alpha = 0
             addButton.alpha = 0
@@ -267,6 +288,16 @@ class MinisterIssueTableViewCell: BaseFormCell {
             styleTextviewInputField(field: detailsValue, header: detailsHeader)
             styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
         }
+    }
+
+    func switchOnStyle() {
+        identifiedByMinisterSwitch.thumbTintColor = Colors.primary
+//        identifiedByMinisterSwitch.backgroundColor = defaultInputFieldBackground()
+    }
+
+    func switchOffStyle() {
+        identifiedByMinisterSwitch.thumbTintColor = defaultInputFieldBackground()
+//        identifiedByMinisterSwitch.backgroundColor = UIColor.white
     }
 
     // MARK: Utilities

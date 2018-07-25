@@ -50,6 +50,10 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
 
+    @IBAction func editNameAction(_ sender: UIButton) {
+        editName()
+    }
+
     @IBAction func beginEditAUM(_ sender: UITextField) {
         perform(#selector(selectRange), with: sender, afterDelay: 0.01)
     }
@@ -181,6 +185,25 @@ class PastureTableViewCell: BaseFormCell {
         // display on parent
         grandParent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
 
+    }
+
+    func editName(){
+        guard let past = pasture else {return}
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        let vm = ViewManager()
+        let textEntry = vm.textEntry
+        textEntry.setup(on: grandParent, header: "Pasture Name") { (accepted, name) in
+            if accepted {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        past.name = name
+                    }
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
     }
 
     // MARK: Functions

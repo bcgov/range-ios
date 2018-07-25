@@ -96,10 +96,8 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         /*
          This module has Action cells
         */
-//        let staticHeight: CGFloat = 670
-        let staticHeight: CGFloat = 670 - 146
-        let actionHeight: CGFloat = 162
-        return (staticHeight + (actionHeight * CGFloat(issue.actions.count)))
+        
+        return (MinisterIssueTableViewCell.cellHeight + (MinistersIssueActionTableViewCell.cellHeight * CGFloat(issue.actions.count)))
     }
 
     // MARK: Style
