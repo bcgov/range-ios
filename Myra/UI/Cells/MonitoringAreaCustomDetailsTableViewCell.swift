@@ -53,7 +53,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
         self.area = area
         self.parentReference = parentReference
         self.section = section
-        self.tableHeight.constant = getTableHeight()
+        self.tableHeight.constant = computeHeight()
         setUpTable()
         setupSection()
     }
@@ -77,7 +77,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
         }
     }
 
-    func getTableHeight() -> CGFloat {
+    func computeHeight() -> CGFloat {
         guard let current = section, let a = area else {return 0.0}
         var count = 0
         switch current {
@@ -92,7 +92,23 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
     }
 
     func updateHeight() {
-        guard let a = area, let parent = self.parentReference else {return}
+        guard let parent = self.parentReference else {return}
+        refreshMonitoringAreaObject()
+        self.tableHeight.constant = computeHeight()
+        parent.reload(then: {
+            self.tableView.remembersLastFocusedIndexPath = true
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        })
+//        self.tableView.reloadData()
+//        self.tableView.layoutIfNeeded()
+//        self.tableHeight.constant = computeHeight()
+//        self.layoutIfNeeded()
+//        parent.reload()
+    }
+
+    func refreshMonitoringAreaObject() {
+        guard let a = area else {return}
         do {
             let realm = try Realm()
             let temp = realm.objects(MonitoringArea.self).filter("localId = %@", a.localId).first!
@@ -100,12 +116,6 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
         } catch _ {
             fatalError()
         }
-
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
-        self.tableHeight.constant = getTableHeight()
-        self.layoutIfNeeded()
-        parent.reload()
     }
     
 }

@@ -162,7 +162,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     func computeHeight() -> CGFloat {
         let padding: CGFloat = 5.0
         guard let sched = self.schedule else {return padding}
-        return CGFloat( CGFloat(sched.scheduleObjects.count) * CGFloat(ScheduleFormTableViewCell.cellHeight) + padding)
+        return CGFloat( CGFloat(sched.scheduleObjects.count) * CGFloat(ScheduleObjectTableViewCell.cellHeight) + padding)
     }
 
     func updateTableHeight() {

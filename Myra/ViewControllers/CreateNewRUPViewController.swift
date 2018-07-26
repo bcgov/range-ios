@@ -503,6 +503,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.remembersLastFocusedIndexPath = true
         registerCell(name: "BasicInformationTableViewCell")
         registerCell(name: "PlanInformationTableViewCell")
         registerCell(name: "AgreementHoldersTableViewCell")
@@ -614,7 +615,22 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     // RELOAD WITH COMPLETION
     func reload(then: @escaping() -> Void) {
         refreshPlanObject()
+        animateIt()
         if #available(iOS 11.0, *) {
+//            UIView.animate(withDuration: mediumAnimationDuration, animations: {
+//                self.tableView.performBatchUpdates({
+//                    self.tableView.beginUpdates()
+//                    self.tableView.endUpdates()
+//                }, completion: { done in
+//                    self.tableView.layoutIfNeeded()
+//                    if !done {
+//                        print (done)
+//                    }
+//                    self.highlightCurrentModuleInMenu()
+//                    return then()
+//                })
+//                self.view.layoutIfNeeded()
+//            })
             self.tableView.performBatchUpdates({
                 self.tableView.beginUpdates()
                 self.tableView.endUpdates()
@@ -669,21 +685,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             self.highlightCurrentModuleInMenu()
             return then()
         }
-//        TODO: Remove
-
-//        self.tableView.beginUpdates()
-//        self.tableView.endUpdates()
-//        self.tableView.layoutIfNeeded()
-//        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//        highlightCurrentModuleInMenu()
     }
 
-    // deep reload reloads tableview. other reload functions dont
-    func deepReload(indexPath: IndexPath) {
-        self.tableView.reloadData()
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlightCurrentModuleInMenu()
-    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         highlightCurrentModuleInMenu()

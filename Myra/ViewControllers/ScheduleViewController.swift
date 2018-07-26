@@ -150,9 +150,9 @@ class ScheduleViewController: BaseViewController {
     }
 
     func reload(then: @escaping()-> Void) {
-        self.view.layoutIfNeeded()
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
+        self.view.layoutIfNeeded()
         return then()
     }
 

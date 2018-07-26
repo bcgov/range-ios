@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class MonitoringAreaViewController: BaseViewController {
 
@@ -88,12 +90,6 @@ class MonitoringAreaViewController: BaseViewController {
         self.subtitle.text = pc.name
     }
 
-    func reload() {
-        self.view.layoutIfNeeded()
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-    }
-
     // MARK: Styles
     func style() {
         styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
@@ -124,6 +120,36 @@ class MonitoringAreaViewController: BaseViewController {
     func closeBanner() {
         self.bannerHeight.constant = 0
         animateIt()
+    }
+
+    func refreshMonitoringAreaObject() {
+        guard let a = monitoringArea else {return}
+        do {
+            let realm = try Realm()
+            let temp = realm.objects(MonitoringArea.self).filter("localId = %@", a.localId).first!
+            self.monitoringArea = temp
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func reload(then: @escaping() -> Void) {
+        refreshMonitoringAreaObject()
+        if #available(iOS 11.0, *) {
+            self.tableView.performBatchUpdates({
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            }, completion: { done in
+                self.tableView.layoutIfNeeded()
+                return then()
+            })
+        } else {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            self.view.layoutIfNeeded()
+            return then()
+        }
+        
     }
 }
 

@@ -12,6 +12,8 @@ import RealmSwift
 
 class ScheduleObjectTableViewCell: BaseFormCell {
 
+    // Mark: Constants
+    static let cellHeight = 66.0
     // MARK: Variables
     var scheduleObject: ScheduleObject?
     var parentCell: ScheduleFormTableViewCell?
