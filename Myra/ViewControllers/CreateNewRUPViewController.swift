@@ -615,7 +615,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     // RELOAD WITH COMPLETION
     func reload(then: @escaping() -> Void) {
         refreshPlanObject()
-        animateIt()
         if #available(iOS 11.0, *) {
 //            UIView.animate(withDuration: mediumAnimationDuration, animations: {
 //                self.tableView.performBatchUpdates({
@@ -655,7 +654,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         refreshPlanObject()
         if #available(iOS 11.0, *) {
             self.tableView.performBatchUpdates({
-                self.tableView.reloadData()
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                self.tableView.layoutIfNeeded()
             }, completion: nil)
         } else {
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -745,17 +745,25 @@ extension CreateNewRUPViewController {
 extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         guard let plan = self.rup else {return}
+        DataServices.shared.endAutoSyncListener()
         let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.setup(mode: mode, rup: plan, schedule: object, completion: completion)
+        schedule.setup(mode: mode, rup: plan, schedule: object, completion: { done in
+            DataServices.shared.beginAutoSyncListener()
+            completion(done)
+        })
         self.present(schedule, animated: true, completion: nil)
     }
 
     func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
         guard let plan = self.rup else {return}
+        DataServices.shared.endAutoSyncListener()
         let vm = ViewManager()
         let plantCommunityDetails = vm.plantCommunity
-        plantCommunityDetails.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
+        plantCommunityDetails.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: { done in
+            DataServices.shared.beginAutoSyncListener()
+            completion(done)
+        })
         self.present(plantCommunityDetails, animated: true, completion: nil)
     }
 }

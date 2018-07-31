@@ -88,7 +88,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     // Mark: Functions
     func createEntry(from: ScheduleObject?) {
-        guard let sched = self.schedule, let parent = parentReference else {return}
+        guard let sched = self.schedule else {return}
         do {
             let realm = try Realm()
             let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
@@ -106,11 +106,12 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
-        self.setObjects()
-        // todo: Remove?
-        parent.calculateTotals()
-        parent.validate()
-        sort()
+        handleElementAddedOrRemoved()
+    }
+
+    func deleteEntry(object: ScheduleObject) {
+        RealmRequests.deleteObject(object)
+        handleElementAddedOrRemoved()
     }
 
     func setObjects() {
@@ -121,18 +122,16 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         }
     }
 
-    func deleteEntry(object: ScheduleObject) {
-        guard let sched = self.schedule else {return}
-        RealmRequests.deleteObject(object)
-        do {
-            let realm = try Realm()
-            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
-            self.schedule = aSchedule
-        } catch _ {
-            fatalError()
-        }
+    func handleElementAddedOrRemoved() {
+        refreshScheduleObject()
+        guard let parent = self.parentReference else {return}
         self.setObjects()
-        sort()
+        self.height.constant = computeHeight()
+        parent.autofillResults()
+        parent.validate()
+        parent.reload {
+            self.sort()
+        }
     }
 
     // MARK: Setup
@@ -170,7 +169,8 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         guard let parent = self.parentReference else {return}
         height.constant = computeHeight()
         parent.reload {
-            self.tableView.reloadData()
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
             self.tableView.layoutIfNeeded()
         }
     }
@@ -248,13 +248,12 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         case .None:
             break
         }
-        updateTableHeight()
+        self.tableView.reloadData()
         self.isUserInteractionEnabled = true
     }
 
     func clearSort() {
         self.currentSort = .None
-        self.sort()
     }
 }
 

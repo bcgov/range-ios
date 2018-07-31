@@ -74,7 +74,8 @@
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <action selector="rightFieldAction:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="cfE-87-42p"/>
-                                                    <action selector="rightFieldValueChanged:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="mWv-qo-ckO"/>
+                                                    <action selector="rightFieldValueChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="Vq1-Tl-exW"/>
+                                                    <action selector="rightFieldValueEndEditing:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="Lyp-Ak-tcB"/>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElC-Pf-I8P">
@@ -89,7 +90,6 @@
                                             <constraint firstAttribute="trailing" secondItem="ElC-Pf-I8P" secondAttribute="trailing" id="3QR-92-h9I"/>
                                             <constraint firstAttribute="trailing" secondItem="N8w-zP-oFk" secondAttribute="trailing" id="5pR-eg-x8L"/>
                                             <constraint firstItem="N8w-zP-oFk" firstAttribute="top" secondItem="HCu-3G-8Td" secondAttribute="top" id="Oaf-4p-j3I"/>
-                                            <constraint firstAttribute="height" constant="45" id="V7b-PA-r3h"/>
                                             <constraint firstItem="N8w-zP-oFk" firstAttribute="leading" secondItem="HCu-3G-8Td" secondAttribute="leading" id="dXD-Bv-vGG"/>
                                             <constraint firstItem="ElC-Pf-I8P" firstAttribute="top" secondItem="HCu-3G-8Td" secondAttribute="top" id="hZk-a7-pLb"/>
                                             <constraint firstAttribute="bottom" secondItem="N8w-zP-oFk" secondAttribute="bottom" id="laq-HP-kM4"/>
@@ -98,6 +98,9 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="HCu-3G-8Td" firstAttribute="height" secondItem="o56-fe-Di9" secondAttribute="height" id="Hhb-CA-3Dk"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,6 +124,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="fieldHeight" destination="0sv-Mj-Gmd" id="Dez-zJ-Ncv"/>
                 <outlet property="leftField" destination="yU6-fT-qDQ" id="agv-UW-Tj6"/>
                 <outlet property="leftFieldButton" destination="Ehk-29-esW" id="gSU-YI-HB0"/>
                 <outlet property="rightFIeldButton" destination="ElC-Pf-I8P" id="Zns-zi-Qjd"/>

@@ -385,6 +385,7 @@ class HomeViewController: BaseViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
                 self.syncButtonLabel.alpha = 0
                 self.syncButton.isUserInteractionEnabled = true
+                self.unstableConnection = false
                 self.animateIt()
             })
             return

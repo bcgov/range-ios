@@ -547,6 +547,12 @@
         returnArray.append(SelectionPopUpObject(display: "Other"))
         return returnArray
     }
+    func getIndicatorPlantLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Pinegrass"))
+        returnArray.append(SelectionPopUpObject(display: "Idaho Fescue"))
+        return returnArray
+    }
  }
 
  // MARK: Schedule

@@ -50,7 +50,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
 
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
 
-        optionsVC.setup(options: options) { (option) in
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
             optionsVC.dismiss(animated: true, completion: nil)
             switch option.type {
             case .Delete:
@@ -64,9 +64,6 @@ class PlantCommunityTableViewCell: BaseFormCell {
 //                self.duplicate()
             }
         }
-
-        grandParent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
-
     }
 
     // MARK: Setup

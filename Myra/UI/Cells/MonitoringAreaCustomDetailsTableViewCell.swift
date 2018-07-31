@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
+class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
 
     // MARK: Variables
     var mode: FormMode = .View
@@ -18,7 +18,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
     var parentReference: MonitoringAreaViewController?
     var section: IndicatorPlantSection?
 
-    // MARK: Outlet actions
+    // MARK: Outlets
+    @IBOutlet weak var banner: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     @IBOutlet weak var singleFieldHeight: NSLayoutConstraint!
@@ -27,6 +28,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var sectionName: UILabel!
     @IBOutlet weak var headerLeft: UILabel!
     @IBOutlet weak var headerRight: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var singleFieldSectionHeight: NSLayoutConstraint!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,7 +41,21 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
 
     // MARK: Outlet Actions
     @IBAction func singleFieldAction(_ sender: UIButton) {
-
+        guard let a = area, let parent = parentReference, let plan = parent.plan, let start = plan.planStartDate, let end = plan.planEndDate else {return}
+        let vm = ViewManager()
+        let picker = vm.datePicker
+        picker.setup(min: start, max: end) { (date) in
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    a.readinessDate = date
+                }
+            } catch _ {
+                fatalError()
+            }
+            self.autofill()
+        }
+        parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     @IBAction func addAction(_ sender: UIButton) {
@@ -56,6 +73,29 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
         self.tableHeight.constant = computeHeight()
         setUpTable()
         setupSection()
+        style()
+        autofill()
+        self.tableView.reloadData()
+    }
+
+    func autofill() {
+        guard let a = self.area, let date = a.readinessDate else {return}
+        self.singleFieldValue.text = date.string()
+    }
+
+    func style() {
+        styleSubHeader(label: sectionName)
+        styleFieldHeader(label: headerLeft)
+        styleFieldHeader(label: headerRight)
+        styleFieldHeader(label: banner)
+        switch self.mode {
+        case .View:
+            addButton.alpha = 0
+            styleInputFieldReadOnly(field: singleFieldValue, header: singleFieldHeader, height: singleFieldHeight)
+        case .Edit:
+            styleHollowButton(button: addButton)
+            styleInputField(field: singleFieldValue, header: singleFieldHeader, height: singleFieldHeight)
+        }
     }
 
     func setupSection() {
@@ -63,17 +103,20 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell {
         self.headerLeft.text = "Indicator Plant"
         switch current {
         case .RangeReadiness:
-            self.singleFieldHeight.constant = 70
+            self.singleFieldSectionHeight.constant = 70
             self.sectionName.text = "Range Readiness"
             self.headerRight.text = "Criteria (Leaf Stage)"
+            self.banner.text = ""
         case .StubbleHeight:
-            self.singleFieldHeight.constant = 0
+            self.singleFieldSectionHeight.constant = 0
             self.sectionName.text = "Stubble Height"
             self.headerRight.text = "Height After Grazing (cm)"
+            self.banner.text = ""
         case .ShrubUse:
-            self.singleFieldHeight.constant = 0
+            self.singleFieldSectionHeight.constant = 0
             self.sectionName.text = "Shrub Use"
-            self.headerRight.text = "Height After Grazing (cm)"
+            self.headerRight.text = "% of Current Annual Growth"
+            self.banner.text = "The default allowable browse level is 25% of current annual growth"
         }
     }
 
@@ -152,7 +195,7 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITable
                 ip = a.shrubUse[indexPath.row]
             }
             guard let indicatorPlant = ip else {return cell}
-            cell.setup(mode: self.mode, indicatorPlant: indicatorPlant, area: a, parentReference: parent)
+            cell.setup(mode: self.mode, indicatorPlant: indicatorPlant, area: a, parentReference: parent, parentCellReference: self)
         }
 
         return cell

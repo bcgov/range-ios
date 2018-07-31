@@ -54,16 +54,14 @@ class ScheduleCellTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Copy, display: "Copy"), Option(type: .Delete, display: "Delete")]
-        optionsVC.setup(options: options) { (selected) in
-            optionsVC.dismiss(animated: false, completion: nil)
-            switch selected.type {
+        optionsVC.setup(options: options, onVC: grandParent, onButton: optionsButton) { (option) in
+            switch option.type {
             case .Delete:
                 self.delete()
             case .Copy:
                 self.duplicate()
             }
         }
-        grandParent.showPopOver(on: optionsButton, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
     func delete() {
@@ -144,12 +142,27 @@ class ScheduleCellTableViewCell: BaseFormCell {
         cellContainer.layer.borderColor = UIColor.black.cgColor
     }
 
-    func styleBasedOnValidity() {
-        if RUPManager.shared.isScheduleValid(schedule: schedule!, agreementID: (rup.agreementId)) {
-            styleValid()
-        } else {
-            styleInvalid()
+    func refreshScheduleObject() {
+        guard let sched = self.schedule else {return}
+        do {
+            let realm = try Realm()
+            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
+            self.schedule = aSchedule
+        } catch _ {
+            fatalError()
         }
+    }
+
+    func styleBasedOnValidity() {
+        refreshScheduleObject()
+        guard let current = self.schedule else {return}
+        let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: rup.agreementId)
+        if !valid.0 {
+            styleInvalid()
+        } else {
+            styleValid()
+        }
+        animateIt()
     }
 
     func animateIt() {

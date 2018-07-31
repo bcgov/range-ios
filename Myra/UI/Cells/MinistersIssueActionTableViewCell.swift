@@ -31,8 +31,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
-        optionsVC.setup(options: options) { (selected) in
-            optionsVC.dismiss(animated: true, completion: nil)
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (selected) in
             switch selected.type {
             case .Delete:
                 grandParent.showAlert(title: "Are you sure?", description: "", yesButtonTapped: {
@@ -42,8 +41,6 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
                 self.duplicate()
             }
         }
-
-        grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
     // MARK: Functions

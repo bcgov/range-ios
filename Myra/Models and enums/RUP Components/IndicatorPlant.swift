@@ -27,19 +27,24 @@ class IndicatorPlant: Object, MyraObject {
     @objc dynamic var freeText: String = ""
 
     func getDetail() -> String {
-        if type.lowercased() == "other" {
+        if type.lowercased() == "custom" {
             return freeText
         } else {
-            return "\(number)"
+            if number == 0 {
+                return ""
+            } else {
+                return "\(number)"
+            }
         }
     }
 
     func setDetail(text: String) {
-        if type.lowercased() == "other" {
+        if type.lowercased() == "custom" {
             do {
                 let realm = try Realm()
                 try realm.write {
                     freeText = text
+                    number = 0
                 }
             } catch _ {
                 fatalError()
@@ -48,11 +53,23 @@ class IndicatorPlant: Object, MyraObject {
             do {
                 let realm = try Realm()
                 try realm.write {
+                    freeText = ""
                     number = Double(text)!
                 }
             } catch _ {
                 fatalError()
             }
+        }
+    }
+
+    func setType(string: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.type = string
+            }
+        } catch _ {
+            fatalError()
         }
     }
 

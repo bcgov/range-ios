@@ -44,7 +44,7 @@ class PlanInformationTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let picker = vm.datePicker
 
-        picker.setup(between: min, max: max) { (date) in
+        picker.setup(min: min, max: max) { (date) in
             self.handlePlanStartDate(date: date)
         }
         parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
@@ -62,11 +62,11 @@ class PlanInformationTableViewCell: BaseFormCell {
             if maxEnd > max {
                 maxEnd = max
             }
-            picker.setup(between: startDate, max: maxEnd) { (date) in
+            picker.setup(min: startDate, max: maxEnd) { (date) in
                 self.handlePlanEndDate(date: date)
             }
         } else {
-            picker.setup(between: min, max: max) { (date) in
+            picker.setup(min: min, max: max) { (date) in
                 self.handlePlanEndDate(date: date)
             }
         }
@@ -120,7 +120,9 @@ class PlanInformationTableViewCell: BaseFormCell {
     // this will load usage years
     func reloadParentIfDatesAreSet() {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reload {}
+        if let _ = rup.planStartDate, let _ = rup.planEndDate {
+             parent.reload(at: parent.rangeUsageIndexPath)
+        }
     }
 
     // MARK: Setup

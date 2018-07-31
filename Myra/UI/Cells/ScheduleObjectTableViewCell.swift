@@ -13,7 +13,7 @@ import RealmSwift
 class ScheduleObjectTableViewCell: BaseFormCell {
 
     // Mark: Constants
-    static let cellHeight = 66.0
+    static let cellHeight = 57.0
     // MARK: Variables
     var scheduleObject: ScheduleObject?
     var parentCell: ScheduleFormTableViewCell?
@@ -55,6 +55,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             } catch _ {
                 fatalError()
             }
+            self.update()
         } else {
             sender.textColor = UIColor.red
             if let p = entry.pasture {
@@ -66,24 +67,26 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 } catch _ {
                     fatalError()
                 }
+                self.update()
             }
         }
     }
 
     @IBAction func lookupPastures(_ sender: Any) {
+        guard let parent = parentCell else {return}
         let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
         lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup), onVC: grandParent, onButton: button) { (selected, obj) in
-            if selected {
+            if selected, let object = obj {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
-                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: (obj?.value)!, rup: self.rup)
+                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: object.value, rup: self.rup)
 
                 self.update()
                 // Clear sort headers
-                self.parentCell?.clearSort()
+                parent.clearSort()
                 // NOTE: you can simply use this if you want to sort on change
                 // and highlight the cell that moved
                 /*
@@ -93,8 +96,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                  self.scheduleObject?.setIsNew(to: true)
                  }
                 */
-                // fill appropriate fields
-                self.fillCurrentValues()
                 grandParent.hidepopup(vc: lookup)
                 grandParent.dismissPopOver()
             } else {
@@ -104,6 +105,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
+        guard let parent = parentCell, let object = self.scheduleObject else {return}
         let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
@@ -116,8 +118,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     do {
                         let realm = try Realm()
                         try realm.write {
-                            self.scheduleObject?.liveStockTypeId = ls.id
-                            self.scheduleObject?.liveStockTypeName = selectedType.display
+                            object.liveStockTypeId = ls.id
+                            object.liveStockTypeName = selectedType.display
                         }
                     } catch _ {
                         fatalError()
@@ -125,10 +127,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 } else {
                     print("FOUND ERROR IN lookupLiveStockType()")
                 }
-                RealmRequests.updateObject(self.scheduleObject!)
+                RealmRequests.updateObject(object)
                 self.update()
                 // Clear sort headers
-                self.parentCell?.clearSort()
+                parent.clearSort()
                 grandParent.hidepopup(vc: lookup)
             } else {
                 grandParent.hidepopup(vc: lookup)
@@ -151,13 +153,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
+        guard let parent = parentCell, let object = self.scheduleObject else {return}
         guard let curr = numberOfAniamls.text else {return}
         if (curr.isInt) {
             numberOfAniamls.textColor = UIColor.black
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.scheduleObject?.numberOfAnimals = Int(curr)!
+                    object.numberOfAnimals = Int(curr)!
                 }
             } catch _ {
                 fatalError()
@@ -167,12 +170,12 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.scheduleObject?.numberOfAnimals = 0
+                    object.numberOfAnimals = 0
                 }
                 // if current sorting on parent is set to this field's type
-                if self.parentCell?.currentSort == .Number {
+                if parent.currentSort == .Number {
                     // this will hightlight cell
-                    self.scheduleObject?.setIsNew(to: true)
+                    object.setIsNew(to: true)
                 }
             } catch _ {
                 fatalError()
@@ -211,13 +214,17 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: startDate) { (date) in
                 self.handleDateOut(date: date)
                 // Clear sort headers
-                self.parentCell?.clearSort()
+                if let parent = self.parentCell {
+                    parent.clearSort()
+                }
             }
         } else {
             picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
                 self.handleDateOut(date: date)
                 // Clear sort headers
-                self.parentCell?.clearSort()
+                if let parent = self.parentCell {
+                    parent.clearSort()
+                }
             }
         }
         grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
@@ -228,17 +235,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Copy, display: "Copy"), Option(type: .Delete, display: "Delete")]
-        optionsVC.setup(options: options) { (selected) in
-            optionsVC.dismiss(animated: true, completion: nil)
-            switch selected.type {
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
+            switch option.type {
             case .Delete:
                 self.deleteEntry()
             case .Copy:
                 self.copyEntry()
             }
         }
-
-        grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
 
@@ -262,24 +266,26 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func handleDateIn(date: Date) {
+        guard let so = scheduleObject else {return}
         self.dateIn.text = DateManager.toStringNoYear(date: date)
         do {
             let realm = try Realm()
             try realm.write {
-                self.scheduleObject?.dateIn = date
+                so.dateIn = date
             }
+
         } catch _ {
             fatalError()
         }
 
         self.calculateDays()
-        if let s = scheduleObject, let endDate = s.dateOut {
+        if let endDate = so.dateOut {
             if endDate < date {
                 self.dateOut.text =  DateManager.toStringNoYear(date: (self.scheduleObject?.dateIn)!)
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        self.scheduleObject?.dateOut = self.scheduleObject?.dateIn
+                        so.dateOut = so.dateIn
                     }
                 } catch _ {
                     fatalError()
@@ -425,6 +431,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func autofill() {
+        calculate()
         guard let obj = scheduleObject else {
             return
         }
@@ -456,16 +463,19 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         calculateDays()
     }
 
+    func calculate() {
+        guard let object = self.scheduleObject else {return}
+        RUPManager.shared.calculateScheduleEntry(scheduleObject: (object))
+    }
+
     // update calculations
     func update() {
-        guard let object = self.scheduleObject, let schedVC = scheduleViewReference else {return}
-        if scheduleObject == nil {return}
-        RUPManager.shared.calculateScheduleEntry(scheduleObject: (scheduleObject)!)
-        self.fillCurrentValues()
-
-        // call calculate total on parent
-        scheduleViewReference?.calculateTotals()
-        self.validate()
+        calculate()
+        fillCurrentValues()
+        if let p = self.scheduleViewReference {
+            p.autofillResults()
+        }
+        return
     }
 
     func fillCurrentValues() {

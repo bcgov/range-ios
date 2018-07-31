@@ -141,6 +141,7 @@ class MonitoringAreaViewController: BaseViewController {
                 self.tableView.endUpdates()
             }, completion: { done in
                 self.tableView.layoutIfNeeded()
+                self.view.layoutIfNeeded()
                 return then()
             })
         } else {
@@ -226,7 +227,7 @@ extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 4
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

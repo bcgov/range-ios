@@ -81,7 +81,7 @@ class DatePickerViewController: UIViewController, Theme {
 
     // Used by Basic infomation section
     // full date selection between specified dates
-    func setup(between min: Date, max: Date, completion: @escaping (_ result: Date) -> Void) {
+    func setup(min: Date, max: Date, completion: @escaping (_ result: Date) -> Void) {
         self.completion = completion
         self.min = min
         self.max = max

@@ -83,9 +83,8 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
-        optionsVC.setup(options: options) { (selected) in
-            optionsVC.dismiss(animated: true, completion: nil)
-            switch selected.type {
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
+            switch option.type {
             case .Delete:
                 grandParent.showAlert(title: "Are you sure?", description: "Would you like to remove this issue and all actions associated to it?", yesButtonTapped: {
                     RUPManager.shared.removeIssue(issue: i)
@@ -95,8 +94,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 self.duplicate()
             }
         }
-
-        grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
     @IBAction func pasturesAction(_ sender: UIButton) {

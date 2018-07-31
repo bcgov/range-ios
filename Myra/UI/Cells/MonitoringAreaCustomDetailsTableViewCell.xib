@@ -30,7 +30,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3a-EF-By4">
-                                <rect key="frame" x="50" y="0.0" width="762" height="50"/>
+                                <rect key="frame" x="50" y="0.0" width="42" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o44-aG-X9Q">
+                                <rect key="frame" x="100" y="25.5" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -41,11 +47,12 @@
                             <constraint firstItem="cfp-xS-K9s" firstAttribute="centerY" secondItem="uXp-dj-1hz" secondAttribute="centerY" id="9ao-09-rTB"/>
                             <constraint firstItem="e3a-EF-By4" firstAttribute="centerY" secondItem="uXp-dj-1hz" secondAttribute="centerY" id="Auv-g3-QaF"/>
                             <constraint firstItem="cfp-xS-K9s" firstAttribute="leading" secondItem="uXp-dj-1hz" secondAttribute="leading" constant="14" id="NmB-s5-O0W"/>
-                            <constraint firstAttribute="trailing" secondItem="e3a-EF-By4" secondAttribute="trailing" constant="14" id="PLu-KN-0ps"/>
                             <constraint firstItem="e3a-EF-By4" firstAttribute="top" secondItem="uXp-dj-1hz" secondAttribute="top" id="SDZ-33-ykZ"/>
                             <constraint firstItem="e3a-EF-By4" firstAttribute="leading" secondItem="cfp-xS-K9s" secondAttribute="trailing" constant="14" id="YP3-vA-h3u"/>
                             <constraint firstAttribute="height" constant="50" id="jza-gr-uv3"/>
+                            <constraint firstItem="o44-aG-X9Q" firstAttribute="leading" secondItem="e3a-EF-By4" secondAttribute="trailing" constant="8" id="sIZ-fy-p7M"/>
                             <constraint firstAttribute="bottom" secondItem="e3a-EF-By4" secondAttribute="bottom" id="t1z-VW-rSy"/>
+                            <constraint firstItem="o44-aG-X9Q" firstAttribute="centerY" secondItem="e3a-EF-By4" secondAttribute="centerY" id="tap-qv-sSr"/>
                             <constraint firstItem="cfp-xS-K9s" firstAttribute="top" secondItem="uXp-dj-1hz" secondAttribute="top" constant="14" id="xt1-XN-KBi"/>
                         </constraints>
                     </view>
@@ -55,8 +62,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q8m-rG-H9S" userLabel="Action Stack">
                                 <rect key="frame" x="8" y="0.0" width="190" height="70"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-ng-D2P">
-                                        <rect key="frame" x="0.0" y="0.0" width="49" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readiness Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-ng-D2P">
+                                        <rect key="frame" x="0.0" y="0.0" width="119" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="pZr-Ey-htz"/>
                                         </constraints>
@@ -142,8 +149,15 @@
                             <constraint firstAttribute="trailing" secondItem="G7w-jN-rP7" secondAttribute="trailing" constant="61" id="oKK-Lz-Moe"/>
                         </constraints>
                     </view>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hCX-D5-3le">
+                        <rect key="frame" x="0.0" y="178" width="826" height="168.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="750" id="pkx-kL-bWf"/>
+                        </constraints>
+                    </tableView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWF-FX-LTo">
-                        <rect key="frame" x="8" y="354.5" width="192" height="42"/>
+                        <rect key="frame" x="16" y="354.5" width="192" height="42"/>
                         <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="192" id="A3z-95-fDf"/>
@@ -156,13 +170,6 @@
                             <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="10u-dl-iE0"/>
                         </connections>
                     </button>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hCX-D5-3le">
-                        <rect key="frame" x="0.0" y="178" width="826" height="168.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" priority="750" id="pkx-kL-bWf"/>
-                        </constraints>
-                    </tableView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="uXp-dj-1hz" secondAttribute="trailing" id="A5q-uG-ZmZ"/>
@@ -174,7 +181,7 @@
                     <constraint firstAttribute="trailing" secondItem="BAz-e9-ROi" secondAttribute="trailing" constant="8" id="bjo-3x-FVi"/>
                     <constraint firstAttribute="bottom" secondItem="WWF-FX-LTo" secondAttribute="bottom" constant="8" id="gge-0J-ezN"/>
                     <constraint firstItem="UwS-9k-5Hd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="gnD-0w-hSi"/>
-                    <constraint firstItem="WWF-FX-LTo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="j7K-Wf-sun"/>
+                    <constraint firstItem="WWF-FX-LTo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="j7K-Wf-sun"/>
                     <constraint firstItem="BAz-e9-ROi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="jM1-Dt-eaL"/>
                     <constraint firstItem="hCX-D5-3le" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uS4-6L-aW6"/>
                     <constraint firstAttribute="trailing" secondItem="hCX-D5-3le" secondAttribute="trailing" id="uvd-6w-lpX"/>
@@ -184,11 +191,14 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addButton" destination="WWF-FX-LTo" id="QIc-M5-NAV"/>
+                <outlet property="banner" destination="o44-aG-X9Q" id="CgR-LU-Yv9"/>
                 <outlet property="headerLeft" destination="A2n-hS-Wlk" id="OQz-UT-Ydp"/>
                 <outlet property="headerRight" destination="pHi-dG-tWY" id="wTt-ub-p3x"/>
                 <outlet property="sectionName" destination="e3a-EF-By4" id="kqO-Hm-YKl"/>
                 <outlet property="singleFieldHeader" destination="8kx-ng-D2P" id="Dtz-qA-LAV"/>
-                <outlet property="singleFieldHeight" destination="wk9-tU-xqe" id="sfy-KC-GnX"/>
+                <outlet property="singleFieldHeight" destination="ZMm-Ps-yWz" id="faU-vG-ZlX"/>
+                <outlet property="singleFieldSectionHeight" destination="wk9-tU-xqe" id="tli-1t-62U"/>
                 <outlet property="singleFieldValue" destination="LMp-iz-VXy" id="kNZ-yY-kFV"/>
                 <outlet property="tableHeight" destination="pkx-kL-bWf" id="3g8-uM-jZa"/>
                 <outlet property="tableView" destination="hCX-D5-3le" id="189-WT-dBu"/>

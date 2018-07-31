@@ -54,7 +54,7 @@ class ScheduleTableViewCell: BaseFormCell {
                 }
                 self.updateTableHeight()
                 p.showSchedule(object: schedule, completion: { (done) in
-                    
+                    self.tableView.reloadData()
                 })
             } else {
                 p.showAlert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")

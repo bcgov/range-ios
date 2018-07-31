@@ -222,7 +222,9 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
                     } 
                 }
             } else {
-                return callback(true, objects[indexPath.row])
+                self.dismiss(animated: true) {
+                    return callback(true, self.objects[indexPath.row])
+                }
             }
         } else {
             // if is already selected

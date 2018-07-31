@@ -46,8 +46,7 @@ class PlantCommunityMonitoringAreaTableViewCell: UITableViewCell, Theme {
 
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
 
-        optionsVC.setup(options: options) { (option) in
-            optionsVC.dismiss(animated: true, completion: nil)
+        optionsVC.setup(options: options, onVC: parent, onButton: sender) { (option) in
             switch option.type {
             case .Delete:
                 parent.showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
@@ -60,8 +59,6 @@ class PlantCommunityMonitoringAreaTableViewCell: UITableViewCell, Theme {
                 //                self.duplicate()
             }
         }
-
-        parent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
     // MARK: Setup

@@ -168,8 +168,7 @@ class PastureTableViewCell: BaseFormCell {
         let options: [Option] = [Option(type: .Copy, display: "Copy"),Option(type: .Delete, display: "Delete")]
 
         // set up and handle call back
-        optionsVC.setup(options: options) { (option) in
-            optionsVC.dismiss(animated: true, completion: nil)
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
             switch option.type {
             case .Delete:
                 grandParent.showAlert(title: "Are you sure?", description: "Deleting pasture \(past.name) will also remove all schedule elements associated with it", yesButtonTapped: {
@@ -181,10 +180,6 @@ class PastureTableViewCell: BaseFormCell {
                 self.duplicate()
             }
         }
-
-        // display on parent
-        grandParent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
-
     }
 
     func editName(){

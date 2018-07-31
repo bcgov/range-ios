@@ -54,8 +54,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         let optionsVC = vm.options
 
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
-        optionsVC.setup(options: options) { (option) in
-            optionsVC.dismiss(animated: true, completion: nil)
+        optionsVC.setup(options: options, onVC: parent, onButton: sender) { (option) in
             switch option.type {
             case .Delete:
                 parent.showAlert(title: "Confirmation", description: "Would you like to delete this pasture action?", yesButtonTapped: {
@@ -66,7 +65,6 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
                 print("copy not implemented")
             }
         }
-        parent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
     @IBAction func actionFieldAction(_ sender: UIButton) {
@@ -77,11 +75,11 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         lookup.setup(objects: RUPManager.shared.getPastureActionLookup(), onVC: parent, onButton: sender) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
-                var result = option.display
+//                var result = option.display
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        current.action = result
+                        current.action = option.display
                     }
                     self.autoFill()
                 } catch _ {
@@ -102,7 +100,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let picker = vm.datePicker
 
-        picker.setup(between: planStart, max: planEnd) { (date) in
+        picker.setup(min: planStart, max: planEnd) { (date) in
             self.handleDateIn(date: date)
         }
         parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
@@ -125,7 +123,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let picker = vm.datePicker
 
-        picker.setup(between: min, max: planEnd) { (date) in
+        picker.setup(min: min, max: planEnd) { (date) in
             self.handleDateOut(date: date)
         }
         parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
