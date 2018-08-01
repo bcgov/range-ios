@@ -321,7 +321,7 @@ extension MinisterIssueTableViewCell: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let i = issue else { return UITableViewCell()}
         let cell = getIssueCell(indexPath: indexPath)
-        cell.setup(action: i.actions[indexPath.row], parent: self, mode: mode, rup: rup)
+        cell.setup(action: i.actions[indexPath.row], parentCell: self, mode: mode, rup: rup)
         return cell
     }
 

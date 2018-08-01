@@ -31,6 +31,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var singleFieldSectionHeight: NSLayoutConstraint!
 
+    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

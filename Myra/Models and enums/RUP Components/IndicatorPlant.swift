@@ -59,6 +59,16 @@ class IndicatorPlant: Object, MyraObject {
             } catch _ {
                 fatalError()
             }
+        } else if text == "" {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    freeText = ""
+                    number = 0
+                }
+            } catch _ {
+                fatalError()
+            }
         }
     }
 

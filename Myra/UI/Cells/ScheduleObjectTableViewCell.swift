@@ -472,6 +472,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     func update() {
         calculate()
         fillCurrentValues()
+        validate()
         if let p = self.scheduleViewReference {
             p.autofillResults()
         }

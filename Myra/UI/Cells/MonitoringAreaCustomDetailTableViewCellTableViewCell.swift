@@ -54,21 +54,13 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     @IBAction func rightFieldValueChanged(_ sender: UITextField) {
         guard let ip = self.indicatorPlant, let text = sender.text else {return}
         ip.setDetail(text: text)
-        if ip.type != freeTextOption && !text.isDouble {
-            rightField.textColor = Colors.accent.red
-        } else {
-            rightField.textColor = Colors.inputText
-        }
+        checkRightFieldValidity()
     }
 
     @IBAction func rightFieldValueEndEditing(_ sender: UITextField) {
         guard let ip = self.indicatorPlant, let text = sender.text else {return}
         ip.setDetail(text: text)
-        if ip.type != freeTextOption && !text.isDouble {
-            rightField.textColor = Colors.accent.red
-        } else {
-            rightField.textColor = Colors.inputText
-        }
+        checkRightFieldValidity()
         autofill()
     }
 
@@ -90,6 +82,15 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
             }
         }
     }
+
+    func checkRightFieldValidity() {
+        guard let ip = self.indicatorPlant, let text = rightField.text else {return}
+        if ip.type != freeTextOption && !text.isDouble {
+            rightField.textColor = Colors.accent.red
+        } else {
+            rightField.textColor = Colors.inputText
+        }
+    }
     
     func setup(mode: FormMode, indicatorPlant: IndicatorPlant, area: MonitoringArea, parentReference: MonitoringAreaViewController, parentCellReference: MonitoringAreaCustomDetailsTableViewCell) {
         self.mode = mode
@@ -104,7 +105,13 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     func autofill() {
         guard let ip = self.indicatorPlant, let parentCell = self.parentCellReference, let section = parentCell.section else {return}
         self.leftField.text = ip.type
-        self.rightField.text = ip.getDetail()
+
+        if section == .ShrubUse, ip.getDetail().isDouble, let doubleValue = Double(ip.getDetail()) {
+            let intValue = Int(doubleValue)
+            self.rightField.text = "\(intValue)"
+        } else {
+            self.rightField.text = ip.getDetail()
+        }
         if ip.type == freeTextOption {
             switch section {
             case .RangeReadiness:
@@ -117,6 +124,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         } else {
             rightField.placeholder = ""
         }
+        checkRightFieldValidity()
     }
 
     func style() {

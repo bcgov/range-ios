@@ -27,6 +27,8 @@ class MinisterIssueAction: Object, MyraObject {
     @objc dynamic var actionTypeID: Int = -1
     @objc dynamic var actionType: String = ""
     @objc dynamic var desc: String = ""
+    @objc dynamic var noGrazeDateIn: Date?
+    @objc dynamic var noGrazeDateOut: Date?
 
     func set(desc: String) {
         do {
@@ -71,6 +73,8 @@ class MinisterIssueAction: Object, MyraObject {
         new.actionType = self.actionType
         new.actionTypeID = self.actionTypeID
         new.desc = self.desc
+        new.noGrazeDateIn = self.noGrazeDateIn
+        new.noGrazeDateOut = self.noGrazeDateOut
         return new
     }
 }
