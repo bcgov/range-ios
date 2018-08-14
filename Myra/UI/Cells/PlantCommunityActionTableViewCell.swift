@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import DatePicker
 
 class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
 
@@ -96,14 +97,17 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
             parent.showTempBanner(message: "Plan start and end dates have not been selected")
             return
         }
+        let picker = DatePicker()
 
-        let vm = ViewManager()
-        let picker = vm.datePicker
-
-        picker.setup(min: planStart, max: planEnd) { (date) in
+        picker.setup(min: planStart, max: planEnd, dateChanged: { (date) in
+            self.handleDateIn(date: date)
+        }) { (date) in
             self.handleDateIn(date: date)
         }
-        parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+
+        picker.displayPopOver(on: sender, in: parent, completion: {
+            
+        })
     }
 
     @IBAction func noGrazePeriodEnd(_ sender: UIButton) {
@@ -120,13 +124,15 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
             min = noGrazeIn
         }
 
-        let vm = ViewManager()
-        let picker = vm.datePicker
-
-        picker.setup(min: min, max: planEnd) { (date) in
+        let picker = DatePicker()
+        picker.setup(min: min, max: planEnd, dateChanged: { (date) in
+            self.handleDateOut(date: date)
+        }) { (date) in
             self.handleDateOut(date: date)
         }
-        parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        picker.displayPopOver(on: sender, in: parent, completion: {
+            
+        })
     }
 
     func handleDateIn(date: Date) {

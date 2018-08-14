@@ -30,7 +30,13 @@
 
  // MARK: RUP / Agreement
  extension RUPManager {
-    
+    func cleanPlans() {
+        let plans = self.getRUPs()
+        for plan in plans where plan.isNew {
+            RealmRequests.deleteObject(plan)
+        }
+    }
+
     func isValid(rup: RUP) -> (Bool, String) {
         // check required fields
         if !rup.isValid {return (false, "Missing required fields")}
@@ -149,22 +155,8 @@
             }
         }
 
-        if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum == .LocalDraft {
-            // if agreement has a plan in local draft state, leave it be
-
-            // TODO: CHECK WHICH IS NEWER
-            if let remote =  newAgreement.rups.first, let remoteDate = remote.remotelyCreatedAt , let localDate = plan.locallyUpdatedAt {
-                if localDate > remoteDate {
-                    print("local is newer")
-                } else {
-                    print("remote is newer")
-                }
-                print("**")
-            }
-
-        } else {
-            // Otherwise if new agreement has a plan downloaded with it, store it
-            if !newAgreement.rups.isEmpty, let plan = newAgreement.rups.first {
+        if !newAgreement.rups.isEmpty {
+            for plan in newAgreement.rups  {
                 do {
                     let realm = try Realm()
                     try realm.write {
@@ -175,6 +167,33 @@
                 }
             }
         }
+
+//        if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum == .LocalDraft {
+//            // if agreement has a plan in local draft state, leave it be
+//
+//            // TODO: CHECK WHICH IS NEWER
+//            if let remote =  newAgreement.rups.first, let remoteDate = remote.remotelyCreatedAt , let localDate = plan.locallyUpdatedAt {
+//                if localDate > remoteDate {
+//                    print("local is newer")
+//                } else {
+//                    print("remote is newer")
+//                }
+//                print("**")
+//            }
+//
+//        } else {
+//            // Otherwise if new agreement has a plan downloaded with it, store it
+//            if !newAgreement.rups.isEmpty, let plan = newAgreement.rups.first {
+//                do {
+//                    let realm = try Realm()
+//                    try realm.write {
+//                        stored.rups.append(plan)
+//                    }
+//                } catch _ {
+//                    fatalError()
+//                }
+//            }
+//        }
 
         // TEMPORARY
         if stored.rups.count > 1 {

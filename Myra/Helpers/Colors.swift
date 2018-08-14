@@ -49,4 +49,6 @@ class Colors {
     static let evenCell = technical.backgroundTwo
     static let invalid = accent.red
     static let switchOn = accent.green
+    static let lockedCell = UIColor(red:0, green:0, blue:0, alpha:0.4)
+
 }

@@ -85,7 +85,12 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var statusBar: UIView!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var viewTitle: UILabel!
-    @IBOutlet weak var ranchNameAndNumberLabel: UILabel!
+    @IBOutlet weak var ranLabel: UILabel!
+
+    @IBOutlet weak var statusLight: UIView!
+
+    @IBOutlet weak var statusAndagreementHolderLabel: UILabel!
+
     @IBOutlet weak var saveToDraftButton: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
@@ -458,20 +463,20 @@ class CreateNewRUPViewController: BaseViewController {
 
     func setBarInfoBasedOnOrientation() {
         guard let p = rup else { return }
-        let num = p.agreementId
-        let name = p.rangeName
         var holder = ""
 
         if let agreement = RUPManager.shared.getAgreement(with: p.agreementId) {
             holder = agreement.primaryAgreementHolder()
         }
 
+        ranLabel.text = "\(p.agreementId) | "
         if UIDevice.current.orientation.isPortrait ||  UIDevice.current.orientation.isFlat {
-            ranchNameAndNumberLabel.text = "\(num) | \(name)"
+            statusAndagreementHolderLabel.text = "\(p.getStatus())"
         } else {
-            ranchNameAndNumberLabel.text = "\(num) | \(name) | \(holder)"
+            statusAndagreementHolderLabel.text = "\(p.getStatus()) | \(holder)"
         }
 
+        styleStatus()
         animateIt()
     }
 

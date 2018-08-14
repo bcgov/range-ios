@@ -98,8 +98,24 @@ class Agreement: Object, MyraObject {
         // Plan
         let plansJSON = json["plans"]
 
+        for planJSON in plansJSON {
+
+            if let planRemoteId = planJSON.1["id"].int {
+                // if a plan with the same remore id exists, delete it and store the new one
+                if let p = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
+                    RealmRequests.deleteObject(p)
+                }
+                let plan = RUP()
+                plan.setFrom(agreement: self)
+                plan.populateFrom(json: planJSON.1)
+                RealmRequests.saveObject(object: plan)
+                self.rups.append(plan)
+            }
+        }
+
+        /*
         if let planJSON = plansJSON.first, let planRemoteId = planJSON.1["id"].int {
-            // if a plan with thr same remore id exists, delete it and store the new one
+            // if a plan with the same remore id exists, delete it and store the new one
             if let p = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
                 RealmRequests.deleteObject(p)
             }
@@ -109,14 +125,33 @@ class Agreement: Object, MyraObject {
             RealmRequests.saveObject(object: plan)
             self.rups.append(plan)
         }
+        */
 
         // DIFF agreement if already exists
         // else store agreement
+        if self.agreementId == "RAN077965" {
+            print("****")
+        }
         if RUPManager.shared.agreementExists(id: self.agreementId) {
             RUPManager.shared.updateAgreement(with: self)
         } else {
             RealmRequests.saveObject(object: self)
         }
 
+    }
+
+    func getLatestPlan() -> RUP? {
+        var latest: RUP?
+        var tempid = 0
+        for plan in rups {
+            if plan.getStatus() == .LocalDraft {
+                return plan
+            }
+            if plan.remoteId > tempid {
+                tempid = plan.remoteId
+                latest = plan
+            }
+        }
+        return latest
     }
 }

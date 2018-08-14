@@ -133,8 +133,6 @@ extension Theme {
         return Colors.secondary
     }
 
-    // MARK: Styles
-
     // MARK: Buttons
     func styleHollowButton(button: UIButton) {
         styleButton(button: button, bg: defaultHollowButtonBackground(), borderColor: defaultHollowButtonBorderColor(), titleColor: defaultHollowButtonTitleColor())

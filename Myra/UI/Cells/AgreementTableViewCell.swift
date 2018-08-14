@@ -35,5 +35,14 @@ class AgreementTableViewCell: UITableViewCell, Theme {
         styleStaticField(field: agreementHolder)
         styleFillButton(button: selectButton)
     }
+
+    func styleSelected() {
+        self.layer.shadowRadius = 8
+    }
+
+    func setLocked() {
+        self.rangeNumber.textColor = Colors.oddCell
+        self.agreementHolder.textColor = Colors.oddCell
+    }
     
 }

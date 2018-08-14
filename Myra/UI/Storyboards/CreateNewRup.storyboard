@@ -122,8 +122,8 @@
                                             <action selector="saveToDraftAction:" destination="q34-99-p1g" eventType="touchUpInside" id="z8d-JS-eFG"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#RAN07878  |  Range Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqq-yl-p8l">
-                                        <rect key="frame" x="88" y="29.5" width="358.5" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#RAN07878 |" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqq-yl-p8l">
+                                        <rect key="frame" x="88" y="29.5" width="87" height="17"/>
                                         <accessibility key="accessibilityConfiguration" identifier="RangeNameLabel"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
@@ -140,16 +140,33 @@
                                             <action selector="cancelAction:" destination="q34-99-p1g" eventType="touchUpInside" id="f1F-53-jhk"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbP-fQ-Vhx">
+                                        <rect key="frame" x="175" y="31.5" width="14" height="14"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="RbP-fQ-Vhx" secondAttribute="height" multiplier="1:1" id="8sk-QW-l0l"/>
+                                            <constraint firstAttribute="width" constant="14" id="f41-MZ-ENk"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Uv-eO9">
+                                        <rect key="frame" x="194" y="29.5" width="35.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9076380076142132" green="0.9076380076142132" blue="0.9076380076142132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="8z7-dn-Qms"/>
-                                    <constraint firstItem="4Ob-oN-R5i" firstAttribute="leading" secondItem="wqq-yl-p8l" secondAttribute="trailing" constant="2" id="DM8-E8-abj"/>
+                                    <constraint firstItem="RbP-fQ-Vhx" firstAttribute="leading" secondItem="wqq-yl-p8l" secondAttribute="trailing" id="C9G-Hm-e5t"/>
                                     <constraint firstItem="Dvu-os-1VU" firstAttribute="leading" secondItem="LiW-fN-wXA" secondAttribute="leading" constant="20" id="GL9-8p-sn6"/>
+                                    <constraint firstItem="Nzd-Uv-eO9" firstAttribute="leading" secondItem="RbP-fQ-Vhx" secondAttribute="trailing" constant="5" id="GTF-1C-VTW"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="JIU-mi-aTR"/>
+                                    <constraint firstItem="Nzd-Uv-eO9" firstAttribute="centerY" secondItem="wqq-yl-p8l" secondAttribute="centerY" id="OBX-Y5-vjl"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="Tw7-5j-4oq"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerX" secondItem="LiW-fN-wXA" secondAttribute="centerX" id="XjG-Fk-FEt"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="leading" secondItem="Dvu-os-1VU" secondAttribute="trailing" constant="8" id="aER-Ds-9Qd"/>
+                                    <constraint firstItem="RbP-fQ-Vhx" firstAttribute="centerY" secondItem="wqq-yl-p8l" secondAttribute="centerY" id="cWk-2S-lgE"/>
                                     <constraint firstItem="Dvu-os-1VU" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="f6P-9f-Gvp"/>
                                     <constraint firstAttribute="trailing" secondItem="y4Y-I5-Z9f" secondAttribute="trailing" constant="20" id="wP8-Rl-j5D"/>
                                     <constraint firstItem="y4Y-I5-Z9f" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="zKQ-IC-cBi"/>
@@ -516,7 +533,7 @@
                         <outlet property="popupTextField" destination="PZE-DF-IW6" id="yBM-NQ-F45"/>
                         <outlet property="popupTitle" destination="V8y-gh-u7B" id="eYd-3w-fby"/>
                         <outlet property="popupVIew" destination="u51-LQ-Alk" id="Imh-4x-cyB"/>
-                        <outlet property="ranchNameAndNumberLabel" destination="wqq-yl-p8l" id="MRa-fg-afV"/>
+                        <outlet property="ranLabel" destination="wqq-yl-p8l" id="MRa-fg-afV"/>
                         <outlet property="requiredFieldNeededLabel" destination="a85-B1-2GU" id="JcU-dO-w9s"/>
                         <outlet property="reviewAndSubmitBoxImage" destination="OZ4-VG-b7q" id="qXo-sx-jXG"/>
                         <outlet property="reviewAndSubmitButton" destination="uky-vQ-eLt" id="z8r-dq-rMz"/>
@@ -529,7 +546,9 @@
                         <outlet property="scheduleIconLeading" destination="awM-gv-aOH" id="xK6-EX-5l1"/>
                         <outlet property="scheduleLabel" destination="gNV-aY-TOR" id="xUY-HF-MRL"/>
                         <outlet property="scheduleLowerBar" destination="qZY-Kh-81h" id="hii-a1-2V2"/>
+                        <outlet property="statusAndagreementHolderLabel" destination="Nzd-Uv-eO9" id="wHL-h5-1ZT"/>
                         <outlet property="statusBar" destination="Y5M-rC-R1G" id="xTU-uT-vv5"/>
+                        <outlet property="statusLight" destination="RbP-fQ-Vhx" id="uWV-v5-kWE"/>
                         <outlet property="submitAndReviewLabelCenterY" destination="bWq-tp-5md" id="cBn-s1-4fs"/>
                         <outlet property="submitButtonContainer" destination="rec-4X-Frs" id="n1x-lx-bDI"/>
                         <outlet property="submitButtonIconWidth" destination="COq-UP-Pyo" id="5rd-JP-qx5"/>

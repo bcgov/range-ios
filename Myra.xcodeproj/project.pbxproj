@@ -157,6 +157,8 @@
 		29EE75DC205053C40061B18D /* ScheduleFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */; };
 		29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */; };
 		29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */; };
+		29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */; };
+		29F13BE421236C0600A25424 /* AssignedRUPVersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */; };
 		29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29F1DE3F20EC406100C6ECB8 /* PlantCommunity.storyboard */; };
 		29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97BC204DB87D005297B9 /* RealmRequest.swift */; };
 		29FB97BF204DB98E005297B9 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97BE204DB98E005297B9 /* Int.swift */; };
@@ -328,6 +330,8 @@
 		29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleFormTableViewCell.xib; sourceTree = "<group>"; };
 		29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFooterTableViewCell.swift; sourceTree = "<group>"; };
 		29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleFooterTableViewCell.xib; sourceTree = "<group>"; };
+		29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPVersionTableViewCell.swift; sourceTree = "<group>"; };
+		29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPVersionTableViewCell.xib; sourceTree = "<group>"; };
 		29F1DE3F20EC406100C6ECB8 /* PlantCommunity.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlantCommunity.storyboard; sourceTree = "<group>"; };
 		29FB97BC204DB87D005297B9 /* RealmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRequest.swift; sourceTree = "<group>"; };
 		29FB97BE204DB98E005297B9 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -561,6 +565,8 @@
 				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
 				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
 				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
+				29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */,
+				29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */,
 				29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */,
 				29B5F049208F9F12003D996D /* BasicInformationTableViewCell.xib */,
 				2940057D208FCD5700AA1BDC /* PlanInformationTableViewCell.swift */,
@@ -710,7 +716,7 @@
 				TargetAttributes = {
 					293C95C020335D4100BF1113 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -754,6 +760,7 @@
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
+				29F13BE421236C0600A25424 /* AssignedRUPVersionTableViewCell.xib in Resources */,
 				29227B5E20EEAA850042B88E /* TextEntry.storyboard in Resources */,
 				29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */,
 				29227B5620EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib in Resources */,
@@ -836,6 +843,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Myra/Pods-Myra-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/DatePicker/DatePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -849,6 +857,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DatePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
@@ -953,6 +962,7 @@
 				29FF2AAB20979E75002C1FAE /* Notification.swift in Sources */,
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
 				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,
+				29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */,
 				2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */,
@@ -1126,15 +1136,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fd27113b-4617-458e-9b5c-cb4d38d32957";
-				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1147,15 +1157,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fd27113b-4617-458e-9b5c-cb4d38d32957";
-				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

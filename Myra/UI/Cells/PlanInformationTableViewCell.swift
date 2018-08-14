@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import DatePicker
 
 class PlanInformationTableViewCell: BaseFormCell {
 
@@ -41,19 +42,27 @@ class PlanInformationTableViewCell: BaseFormCell {
     @IBAction func planStartAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
-        let vm = ViewManager()
-        let picker = vm.datePicker
+        let picker = DatePicker()
 
-        picker.setup(min: min, max: max) { (date) in
-            self.handlePlanStartDate(date: date)
+        picker.setup(beginWith: rup.planStartDate, min: min, max: max, dateChanged: { (date) in
+            self.planStartValue.text = date.string()
+        }) { (date) in
+            DispatchQueue.main.async {
+                self.handlePlanStartDate(date: date)
+            }
         }
-        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+
+        picker.displayPopOver(on: sender as! UIButton, in: parent, completion: {
+            if let dateText = self.planStartValue.text {
+                self.handlePlanStartDate(date: DateManager.from(string: dateText))
+            }
+            self.reloadParentIfDatesAreSet()
+        })
     }
 
     @IBAction func planEndAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        let vm = ViewManager()
-        let picker = vm.datePicker
+        let picker = DatePicker()
         guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
         if planStartValue.text != "" {
 
@@ -62,16 +71,33 @@ class PlanInformationTableViewCell: BaseFormCell {
             if maxEnd > max {
                 maxEnd = max
             }
-            picker.setup(min: startDate, max: maxEnd) { (date) in
-                self.handlePlanEndDate(date: date)
+            picker.setup(beginWith: rup.planEndDate, min: startDate, max: maxEnd, dateChanged: { (date) in
+                DispatchQueue.main.async {
+                    self.planEndValue.text = date.string()
+                }
+            }) { (date) in
+                DispatchQueue.main.async {
+                    self.handlePlanEndDate(date: date)
+                }
             }
         } else {
-            picker.setup(min: min, max: max) { (date) in
-                self.handlePlanEndDate(date: date)
+            picker.setup(beginWith: rup.planEndDate, min: min, max: max, dateChanged: { (date) in
+                DispatchQueue.main.async {
+                    self.planEndValue.text = date.string()
+                }
+            }) { (date) in
+                DispatchQueue.main.async {
+                    self.handlePlanEndDate(date: date)
+                }
             }
         }
         
-        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        picker.displayPopOver(on: sender as! UIButton, in: parent, completion: {
+            if let dateText = self.planEndValue.text {
+                self.handlePlanEndDate(date: DateManager.from(string: dateText))
+            }
+            self.reloadParentIfDatesAreSet()
+        })
     }
 
     // MARK: functions
@@ -121,7 +147,9 @@ class PlanInformationTableViewCell: BaseFormCell {
     func reloadParentIfDatesAreSet() {
         let parent = self.parentViewController as! CreateNewRUPViewController
         if let _ = rup.planStartDate, let _ = rup.planEndDate {
-             parent.reload(at: parent.rangeUsageIndexPath)
+            DispatchQueue.main.async {
+                parent.reload(at: parent.rangeUsageIndexPath)
+            }
         }
     }
 

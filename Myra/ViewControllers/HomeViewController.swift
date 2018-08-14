@@ -24,6 +24,7 @@ class HomeViewController: BaseViewController {
     var realmNotificationToken: NotificationToken?
     var parentReference: MainViewController?
     var rups: [RUP] = [RUP]()
+    var expandIndexPath: IndexPath?
 
     var unstableConnection: Bool = false
 
@@ -139,14 +140,15 @@ class HomeViewController: BaseViewController {
 
     // MARK: Filter
     func filterByAll() {
-        loadRUPs()
+        if syncing {return}
         filterButtonOn(button: allFilter)
-        self.rups = RUPManager.shared.getRUPs()
+        loadRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
     }
 
     func filterByDrafts() {
+        if syncing {return}
         loadRUPs()
         filterButtonOn(button: draftsFilter)
         self.rups = RUPManager.shared.getDraftRups()
@@ -154,6 +156,7 @@ class HomeViewController: BaseViewController {
     }
 
     func filterByPending() {
+        if syncing {return}
         loadRUPs()
         filterButtonOn(button: pendingFilter)
         self.rups = RUPManager.shared.getPendingRups()
@@ -161,6 +164,7 @@ class HomeViewController: BaseViewController {
     }
 
     func filterByCompleted() {
+        if syncing {return}
         loadRUPs()
         filterButtonOn(button: completedFilter)
         self.rups = RUPManager.shared.getCompletedRups()
@@ -168,21 +172,25 @@ class HomeViewController: BaseViewController {
     }
 
     func sortByAgreementHolder() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
     }
 
     func sortByRangeName() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.rangeName < $1.rangeName})
     }
 
     func sortByStatus() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.getStatus().rawValue < $1.getStatus().rawValue})
     }
 
     func sortByRangeNumber() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
     }
@@ -244,15 +252,19 @@ class HomeViewController: BaseViewController {
     }
 
     func loadRUPs() {
-        let plans = RUPManager.shared.getRUPs()
+        if syncing {return}
         /*
          Clean up the local DB by removing plans that were created
          from agreements but cancelled.
-        */
-        for plan in plans where plan.isNew {
-            RealmRequests.deleteObject(plan)
+         */
+        RUPManager.shared.cleanPlans()
+        let agreements = RUPManager.shared.getAgreements()
+        for agreement in agreements where agreement.rups.count > 0 {
+            if let p = agreement.getLatestPlan() {
+                self.rups.append(p)
+            }
         }
-        self.rups = RUPManager.shared.getRUPs()
+//        self.rups = RUPManager.shared.getRUPs()
     }
 
     // MARK: Styles
@@ -442,16 +454,45 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
         let cell = getAssignedRupCell(indexPath: indexPath)
+        var expandFlag: Bool? = nil
+        if let selectedIndex = self.expandIndexPath {
+            if selectedIndex == indexPath {
+                expandFlag = true
+            } else {
+                expandFlag = false
+            }
+        }
         if index % 2 == 0 {
-            cell.setup(rup: rups[index], color: Colors.evenCell)
+            cell.setup(rup: rups[index], color: Colors.evenCell, expand: expandFlag)
         } else {
-            cell.setup(rup: rups[index], color: Colors.oddCell)
+            cell.setup(rup: rups[index], color: Colors.oddCell, expand: expandFlag)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rups.count
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if expandIndexPath == nil {
+            self.expandIndexPath = indexPath
+            self.tableView.isScrollEnabled = false
+            if #available(iOS 11.0, *) {
+                self.tableView.performBatchUpdates({
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }) { (done) in
+                    self.tableView.reloadData()
+                }
+
+            } else {
+               self.tableView.reloadData()
+            }
+        } else {
+            self.expandIndexPath = nil
+            self.tableView.isScrollEnabled = true
+            self.tableView.reloadData()
+        }
     }
 }
 
