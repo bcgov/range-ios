@@ -30,6 +30,9 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
 
     @IBOutlet weak var inputFieldHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var elevationDropdown: UIButton!
+    @IBOutlet weak var purposeDropdown: UIButton!
+
     // custom radio
     /*
     @IBOutlet weak var actionsRadioLeftView: UIView!
@@ -93,7 +96,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
         let options = RUPManager.shared.getPlantCommunityElevationLookup()
-        lookup.setup(objects: options, onVC: grandParent, onButton: sender) { (selected, option) in
+        lookup.setup(objects: options, onVC: grandParent, onButton: elevationDropdown) { (selected, option) in
             lookup.dismiss(animated: true, completion: nil)
             if let selection = option {
                 do {
@@ -115,7 +118,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
         let options = RUPManager.shared.getPlantCommunityPurposeOfActionsLookup()
-        lookup.setup(objects: options, onVC: grandParent, onButton: sender) { (selected, option) in
+        lookup.setup(objects: options, onVC: grandParent, onButton: purposeDropdown) { (selected, option) in
             lookup.dismiss(animated: true, completion: nil)
             if let selection = option {
                 if selection.display.lowercased() == "clear" {

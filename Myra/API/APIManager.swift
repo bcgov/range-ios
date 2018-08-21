@@ -419,6 +419,8 @@ class APIManager {
         return result
     }
 
+    // Note: UPLOAD ALL DRAFTS/LOCAL CHANGED BEFORE CALLING getAgreements
+    // When new agreements are received, old agreements and thir associated data is removed
     static func getAgreements(completion: @escaping (_ rups: [Agreement]?, _ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
         
         guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
@@ -435,7 +437,13 @@ class APIManager {
                     return completion(nil, err)
                 }
                 progress("Processing Agreements")
+                deleteAllStoredAgreements()
+//                for (_,agreementJSON) in json {
+//                    agreements.append(Agreement(json: agreementJSON))
+//                }
+//                return completion(agreements, nil)
                 DispatchQueue.global(qos: .background).async {
+                    deleteAllStoredAgreements()
                     for (_,agreementJSON) in json {
                         agreements.append(Agreement(json: agreementJSON))
                     }
@@ -446,12 +454,96 @@ class APIManager {
             }
         }
     }
+
+    static func deleteAllStoredAgreements() {
+        let all = RUPManager.shared.getAgreements()
+        for element in all {
+            for zone in element.zones {
+                RealmRequests.deleteObject(zone)
+            }
+
+            for rup in element.rups {
+                RealmRequests.deleteObject(rup)
+            }
+
+            for client in element.clients {
+                RealmRequests.deleteObject(client)
+            }
+
+            for years in element.rangeUsageYears {
+                RealmRequests.deleteObject(years)
+            }
+
+            RealmRequests.deleteObject(element)
+        }
+    }
 }
 
 extension APIManager {
 
+    static func sync2(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
+        print("called Sync 2")
+        guard let r = Reachability(), r.connection != .none else {
+            progress("Failed while verifying connection")
+            completion(APIError.noNetworkConnectivity)
+            return
+        }
+
+        DataServices.shared.endAutoSyncListener()
+
+        var myError: APIError? = nil
+
+        DataServices.shared.uploadOutboxRangeUsePlans {
+            print("Done uploadOutboxRangeUsePlans")
+            DataServices.shared.uploadLocalDrafts {
+                print("Done uploadLocalDrafts")
+                getReferenceData(completion: { (success) in
+                    print("Done getReferenceData")
+                    if (!success) {
+                        progress("Failed while downloading reference data")
+                        completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
+                    } else {
+                        getAgreements(completion: { (agreements, error) in
+                            print("Done getAgreements")
+                            if let error = error {
+                                progress("Sync Failed. \(error.localizedDescription)")
+                                myError = error
+                                completion(APIError.somethingHappened(message: "Failed while downloading agreements"))
+                            } else {
+//                                DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
+                                    print("Done updateStatuses")
+                                    RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
+                                    DataServices.shared.beginAutoSyncListener()
+                                    completion(myError)
+//                                }
+                            }
+                        }, progress: progress)
+                    }
+                })
+            }
+        }
+/*
+                dispatchGroup.enter()
+                getAgreements(completion: { (agreements, error) in
+                    progress("Updating plans")
+                    if let error = error {
+                        progress("Sync Failed. \(error.localizedDescription)")
+                        myError = error
+                        dispatchGroup.leave()
+                        dispatchGroup.suspend()
+                        completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
+                    } else {
+                        dispatchGroup.leave()
+                    }
+                }, progress: progress)
+            }
+        }
+ */
+    }
+
     static func sync(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
-        
+//        sync2(completion: completion, progress: progress)
+//        return
         guard let r = Reachability(), r.connection != .none else {
             progress("Failed while verifying connection")
             completion(APIError.noNetworkConnectivity)
@@ -483,9 +575,9 @@ extension APIManager {
                 dispatchGroup.leave()
                 dispatchGroup.suspend()
                 completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
+            } else {
+                dispatchGroup.leave()
             }
-
-            dispatchGroup.leave()
         })
 
         dispatchGroup.enter()
@@ -497,8 +589,9 @@ extension APIManager {
                 dispatchGroup.leave()
                 dispatchGroup.suspend()
                 completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
+            } else {
+                dispatchGroup.leave()
             }
-            dispatchGroup.leave()
         }, progress: progress)
 
         dispatchGroup.enter()

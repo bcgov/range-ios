@@ -129,20 +129,24 @@ class Agreement: Object, MyraObject {
 
         // DIFF agreement if already exists
         // else store agreement
-        if self.agreementId == "RAN077965" {
-            print("****")
-        }
-        if RUPManager.shared.agreementExists(id: self.agreementId) {
-            RUPManager.shared.updateAgreement(with: self)
-        } else {
-            RealmRequests.saveObject(object: self)
-        }
+//        if self.agreementId == "RAN077965" {
+//            print("****")
+//        }
 
+//        if RUPManager.shared.agreementExists(id: self.agreementId) {
+//            RUPManager.shared.updateAgreement(with: self)
+//        } else {
+//            RealmRequests.saveObject(object: self)
+//        }
+         RealmRequests.saveObject(object: self)
     }
 
     func getLatestPlan() -> RUP? {
+        if rups.count == 1 {
+            return rups.first!
+        }
         var latest: RUP?
-        var tempid = 0
+        var tempid = -2
         for plan in rups {
             if plan.getStatus() == .LocalDraft {
                 return plan

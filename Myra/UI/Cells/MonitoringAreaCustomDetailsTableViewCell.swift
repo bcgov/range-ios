@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import DatePicker
 
 class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
 
@@ -44,9 +45,9 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     // MARK: Outlet Actions
     @IBAction func singleFieldAction(_ sender: UIButton) {
         guard let a = area, let parent = parentReference, let plan = parent.plan, let start = plan.planStartDate, let end = plan.planEndDate else {return}
-        let vm = ViewManager()
-        let picker = vm.datePicker
-        picker.setup(min: start, max: end) { (date) in
+
+        let picker = DatePicker()
+        picker.setup(min: start, max: end, dateChanged: { (date) in
             do {
                 let realm = try Realm()
                 try realm.write {
@@ -56,8 +57,9 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
                 fatalError()
             }
             self.autofill()
-        }
-        parent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        }) {_,_ in }
+
+        picker.displayPopOver(on: sender, in: parent) {}
     }
 
     @IBAction func addAction(_ sender: UIButton) {

@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import DatePicker
 
 class ScheduleObjectTableViewCell: BaseFormCell {
 
@@ -40,6 +41,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var liveStockButton: UIButton!
     @IBOutlet weak var dateInButton: UIButton!
     @IBOutlet weak var dateOutButton: UIButton!
+
+    // Dropdowns
+    @IBOutlet weak var pastureDropDown: UIButton!
+    @IBOutlet weak var liveStockDropDown: UIButton!
 
     // MARK: Outlet Acions
 
@@ -74,11 +79,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     @IBAction func lookupPastures(_ sender: Any) {
         guard let parent = parentCell else {return}
-        let button = sender as! UIButton
+//        let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup), onVC: grandParent, onButton: button) { (selected, obj) in
+        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup), onVC: grandParent, onButton: pastureDropDown) { (selected, obj) in
             if selected, let object = obj {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
@@ -106,12 +111,12 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
         guard let parent = parentCell, let object = self.scheduleObject else {return}
-        let button = sender as! UIButton
+//        let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
         let objects = RealmManager.shared.getLiveStockTypeLookup()
-        lookup.setup(objects: objects, onVC: grandParent, onButton: button) { (selected, obj) in
+        lookup.setup(objects: objects, onVC: grandParent, onButton: liveStockDropDown) { (selected, obj) in
             if selected {
                 if let selectedType = obj {
                     let ls = RealmManager.shared.getLiveStockTypeObject(name: selectedType.display)
@@ -192,42 +197,42 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBAction func dateInAction(_ sender: Any) {
         dismissKeyboard()
         let grandParent = self.parentViewController as! ScheduleViewController
+        let picker = DatePicker()
+        guard let sched = grandParent.schedule,
+            let minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
+            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year),
+            let parentCell = self.parentCell else {return}
+        picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
+            DispatchQueue.main.async {
+                self.handleDateIn(date: date)
+//                parentCell.clearSort()
+            }
+        }) {_,_ in }
+        picker.displayPopOver(on: sender as! UIButton, in: grandParent, completion: {})
 
-        let vm = ViewManager()
-        let picker = vm.datePicker
-
-        picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
-            self.handleDateIn(date: date)
-            // Clear sort headers
-            self.parentCell?.clearSort()
-        }
-        grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     @IBAction func dateOutAction(_ sender: Any) {
         dismissKeyboard()
         let grandParent = self.parentViewController as! ScheduleViewController
-        let vm = ViewManager()
-        let picker = vm.datePicker
+        guard let sched = grandParent.schedule,
+            var minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
+            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year),
+            let parentCell = self.parentCell else {return}
 
         if let s = scheduleObject, let startDate = s.dateIn {
-            picker.setup(for: (grandParent.schedule?.year)!, minDate: startDate) { (date) in
-                self.handleDateOut(date: date)
-                // Clear sort headers
-                if let parent = self.parentCell {
-                    parent.clearSort()
-                }
-            }
-        } else {
-            picker.setup(for: (grandParent.schedule?.year)!, minDate: nil) { (date) in
-                self.handleDateOut(date: date)
-                // Clear sort headers
-                if let parent = self.parentCell {
-                    parent.clearSort()
-                }
-            }
+            minDate = startDate
         }
-        grandParent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+
+        let picker = DatePicker()
+        picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
+            DispatchQueue.main.async {
+                 self.handleDateOut(date: date)
+//                parentCell.clearSort()
+            }
+        }) {_,_ in }
+
+        picker.displayPopOver(on: sender as! UIButton, in: grandParent, completion: {})
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
@@ -278,7 +283,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             fatalError()
         }
 
-        self.calculateDays()
         if let endDate = so.dateOut {
             if endDate < date {
                 self.dateOut.text =  DateManager.toStringNoYear(date: (self.scheduleObject?.dateIn)!)
@@ -292,20 +296,25 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 }
                 self.calculateDays()
             }
+        } else {
+            self.calculateDays()
         }
     }
 
     func handleDateOut(date: Date) {
+        guard let so = scheduleObject else {return}
         self.dateOut.text = DateManager.toStringNoYear(date: date)
         do {
             let realm = try Realm()
             try realm.write {
-                self.scheduleObject?.dateOut = date
+                so.dateOut = date
             }
         } catch _ {
             fatalError()
         }
-        self.calculateDays()
+        DispatchQueue.main.async {
+            self.calculateDays()
+        }
     }
 
     // MARK: Style

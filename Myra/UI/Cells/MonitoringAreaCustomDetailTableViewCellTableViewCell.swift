@@ -27,6 +27,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     @IBOutlet weak var rightFIeldButton: UIButton!
     @IBOutlet weak var leftFieldButton: UIButton!
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
+    @IBOutlet weak var leftFieldDropDown: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,7 +40,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         let lookup = vm.lookup
         var options = RUPManager.shared.getIndicatorPlantLookup()
         options.append(SelectionPopUpObject(display: freeTextOption))
-        lookup.setup(objects: options, onVC: parent, onButton: sender) { (accepted, selection) in
+        lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
             if accepted, let option = selection {
                 plant.setType(string: option.display)

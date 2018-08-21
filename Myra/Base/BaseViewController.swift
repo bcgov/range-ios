@@ -518,9 +518,14 @@ extension BaseViewController {
     }
 
     @objc func syncLayerButtonAction(sender: UIButton!) {
+        syncActionButtonPressed()
         if removeSyncPage() {
             whenSyncClosed()
         }
+    }
+
+    @objc func syncActionButtonPressed() {
+        
     }
 }
 

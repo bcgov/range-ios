@@ -15,7 +15,7 @@ extension String {
         return Double(self) != nil
     }
 
-    func replacingLastOccurrenceOfString(_ searchString: String, with replacementString: String, caseInsensitive: Bool = true) -> String{
+    func replacingLastOccurrenceOfString(_ searchString: String, with replacementString: String, caseInsensitive: Bool = true) -> String {
         let options: String.CompareOptions
         if caseInsensitive {
             options = [.backwards, .caseInsensitive]

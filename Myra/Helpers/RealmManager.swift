@@ -62,15 +62,46 @@ class RealmManager {
 
     // Reference
     func clearReferenceData() {
-        var reference: [Object] = [Object]()
-        reference.append(contentsOf: getAgreementTypes())
-        reference.append(contentsOf: getAgreementStatuses())
-        reference.append(contentsOf: getLiveStockType())
-        reference.append(contentsOf: getIssueType())
-        reference.append(contentsOf: getIssueActionType())
-
+        var reference: [Object] = getReferenceData()
         for element in reference {
             RealmRequests.deleteObject(element)
+        }
+    }
+
+    func getReferenceData() -> [Object] {
+        var reference: [Object] = [Object]()
+        reference.append(contentsOf: getLiveStockType())
+        reference.append(contentsOf: getAgreementTypes())
+        reference.append(contentsOf: getAgreementStatuses())
+        reference.append(contentsOf: getClientTypes())
+        reference.append(contentsOf: getPlanStatuses())
+        reference.append(contentsOf: getAgreementExeptionStatuses())
+        reference.append(contentsOf: getIssueType())
+        reference.append(contentsOf: getIssueActionType())
+        return reference
+    }
+
+    func getClientTypes() -> [ClientType] {
+        if let query = RealmRequests.getObject(ClientType.self) {
+            return query
+        } else {
+            return [ClientType]()
+        }
+    }
+
+    func getPlanStatuses() -> [PlanStatus] {
+        if let query = RealmRequests.getObject(PlanStatus.self) {
+            return query
+        } else {
+            return [PlanStatus]()
+        }
+    }
+
+    func getAgreementExeptionStatuses() -> [AgreementExemptionStatus] {
+        if let query = RealmRequests.getObject(AgreementExemptionStatus.self) {
+            return query
+        } else {
+            return [AgreementExemptionStatus]()
         }
     }
     

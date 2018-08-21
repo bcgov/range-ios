@@ -55,6 +55,18 @@ extension CreateNewRUPViewController {
             setStatusGray()
         case .StaffDraft:
             setStatusGreen()
+        case .WronglyMadeWithoutEffect:
+            setStatusGray()
+        case .StandsWronglyMade:
+            setStatusGray()
+        case .Stands:
+            setStatusGray()
+        case .NotApprovedFurtherWorkRequired:
+            setStatusGray()
+        case .NotApproved:
+            setStatusGray()
+        case .Approved:
+            setStatusGray()
         }
     }
 

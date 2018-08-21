@@ -27,8 +27,13 @@ class MinisterIssueAction: Object, MyraObject {
     @objc dynamic var actionTypeID: Int = -1
     @objc dynamic var actionType: String = ""
     @objc dynamic var desc: String = ""
-    @objc dynamic var noGrazeDateIn: Date?
-    @objc dynamic var noGrazeDateOut: Date?
+
+    @objc dynamic var noGrazeOutSelected: Bool = false
+    @objc dynamic var noGrazeInDay: Int = 1
+    @objc dynamic var noGrazeInMonth: Int = 1
+    @objc dynamic var noGrazeInSelected: Bool = false
+    @objc dynamic var noGrazeOutDay: Int = 1
+    @objc dynamic var noGrazeOutMonth: Int = 12
 
     func set(desc: String) {
         do {
@@ -73,8 +78,12 @@ class MinisterIssueAction: Object, MyraObject {
         new.actionType = self.actionType
         new.actionTypeID = self.actionTypeID
         new.desc = self.desc
-        new.noGrazeDateIn = self.noGrazeDateIn
-        new.noGrazeDateOut = self.noGrazeDateOut
+        new.noGrazeOutSelected = self.noGrazeOutSelected
+        new.noGrazeInDay = self.noGrazeInDay
+        new.noGrazeInMonth = self.noGrazeInMonth
+        new.noGrazeInSelected = self.noGrazeInSelected
+        new.noGrazeOutDay = self.noGrazeOutDay
+        new.noGrazeOutMonth = self.noGrazeOutMonth
         return new
     }
 }

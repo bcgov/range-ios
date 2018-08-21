@@ -33,6 +33,10 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var typeHeader: UILabel!
     @IBOutlet weak var typeField: UITextField!
 
+    @IBOutlet weak var rangelandHealthDropDown: UIButton!
+    @IBOutlet weak var purposeDropDown: UIButton!
+
+
     // MARK: Variables
     var mode: FormMode = .View
     var monitoringArea: MonitoringArea?
@@ -100,7 +104,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: RUPManager.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: sender) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 do {
@@ -121,7 +125,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: RUPManager.shared.getRangeLandHealthLookup(), onVC: parent, onButton: sender) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getRangeLandHealthLookup(), onVC: parent, onButton: rangelandHealthDropDown) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 do {

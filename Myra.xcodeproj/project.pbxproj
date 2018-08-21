@@ -19,6 +19,8 @@
 		291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9C20378A3900390523 /* OpenMapOverlay.swift */; };
 		291CF8322098EAF300B0BCDD /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291CF8312098EAF300B0BCDD /* DatePicker.storyboard */; };
 		291CF8342098EBED00B0BCDD /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CF8332098EBED00B0BCDD /* DatePickerViewController.swift */; };
+		291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */; };
+		291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */; };
 		2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */; };
 		2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */; };
 		2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82C2034BFCA0090E7B4 /* RUP.swift */; };
@@ -190,6 +192,8 @@
 		291C4D9C20378A3900390523 /* OpenMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMapOverlay.swift; sourceTree = "<group>"; };
 		291CF8312098EAF300B0BCDD /* DatePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
 		291CF8332098EBED00B0BCDD /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPVersionsHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPVersionsHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPTableViewCell.swift; sourceTree = "<group>"; };
 		2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPTableViewCell.xib; sourceTree = "<group>"; };
 		2920F82C2034BFCA0090E7B4 /* RUP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUP.swift; sourceTree = "<group>"; };
@@ -567,6 +571,8 @@
 				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
 				29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */,
 				29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */,
+				291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */,
+				291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */,
 				29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */,
 				29B5F049208F9F12003D996D /* BasicInformationTableViewCell.xib */,
 				2940057D208FCD5700AA1BDC /* PlanInformationTableViewCell.swift */,
@@ -756,6 +762,7 @@
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
+				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
@@ -917,6 +924,7 @@
 				29227B5B20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */,
 				56F388A520801FB4004CDFAE /* DataServices.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
+				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,
 				29227B5520EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */,

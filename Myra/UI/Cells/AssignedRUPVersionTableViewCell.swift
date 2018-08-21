@@ -20,10 +20,45 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var statusLight: UIView!
     @IBOutlet weak var viewButton: UIButton!
 
+    @IBAction func viewAction(_ sender: UIButton) {
+        guard let plan = rup else {return}
+        let parent = self.parentViewController as! HomeViewController
+        if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
+            parent.editRUP(rup: plan)
+        } else {
+            parent.viewRUP(rup: plan)
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         style()
+        self.selectionStyle = .none
+    }
+
+    func setup(plan: RUP, color: UIColor) {
+        self.rup = plan
+        style()
+        autofill()
+        self.backgroundColor = color
+    }
+
+    func autofill() {
+        guard let plan = self.rup else {return}
+        self.status.text = plan.getStatus().rawValue
+        
+        if let effective = plan.effectiveDate {
+            self.effectiveDate.text = effective.stringShort()
+        } else {
+            self.effectiveDate.text = "-"
+        }
+
+        if let submitted = plan.submitted {
+            self.submitted.text = submitted.stringShort()
+        } else {
+            self.submitted.text = "-"
+        }
+
     }
 
     // MARK: Styles
@@ -56,6 +91,18 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
             setStatusGray()
         case .StaffDraft:
             setStatusGreen()
+        case .WronglyMadeWithoutEffect:
+            setStatusGray()
+        case .StandsWronglyMade:
+            setStatusGray()
+        case .Stands:
+            setStatusGray()
+        case .NotApprovedFurtherWorkRequired:
+            setStatusGray()
+        case .NotApproved:
+            setStatusGray()
+        case .Approved:
+            setStatusGray()
         }
     }
 

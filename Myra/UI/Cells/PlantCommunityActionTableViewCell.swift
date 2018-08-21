@@ -24,7 +24,6 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
     var parentCellReference: PlantCommunityPastureActionsTableViewCell?
 
     // MARK: Outlets
-//    @IBOutlet weak var noGrazeSectionHeight: NSLayoutConstraint!
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var descriptionField: UITextView!
     @IBOutlet weak var descriptionHeader: UILabel!
@@ -38,6 +37,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var noGrazeStack: UIStackView!
     @IBOutlet weak var noGrazeStackHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var actionDropDown: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -73,10 +73,9 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: RUPManager.shared.getPastureActionLookup(), onVC: parent, onButton: sender) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getPastureActionLookup(), onVC: parent, onButton: actionDropDown) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
-//                var result = option.display
                 do {
                     let realm = try Realm()
                     try realm.write {
@@ -91,90 +90,119 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
     }
 
     @IBAction func noGrazePeriodBegin(_ sender: UIButton) {
-        guard let parent = self.parentReference, let plan = parent.plan else {return}
+        guard let parent = self.parentReference else {return}
 
-        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else {
-            parent.showTempBanner(message: "Plan start and end dates have not been selected")
-            return
-        }
+        let minMonth = 1
+        let minDay = 1
         let picker = DatePicker()
-
-        picker.setup(min: planStart, max: planEnd, dateChanged: { (date) in
-            self.handleDateIn(date: date)
-        }) { (date) in
-            self.handleDateIn(date: date)
-        }
-
-        picker.displayPopOver(on: sender, in: parent, completion: {
-            
-        })
+        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
+            self.handleNoGrazeIn(month: month, day: day)
+        }, selected: {_,_,_ in })
+        picker.displayPopOver(on: sender, in: parent) {}
     }
 
     @IBAction func noGrazePeriodEnd(_ sender: UIButton) {
-        guard let parent = self.parentReference, let plan = parent.plan , let act = self.action else {return}
+        guard let parent = self.parentReference, let action = self.action else {return}
 
-        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else {
-            parent.showTempBanner(message: "Plan start and end dates have not been selected")
-            return
-        }
+        var minMonth = 1
+        var minDay = 1
 
-        var min = planStart
-
-        if let noGrazeIn = act.noGrazeDateIn {
-            min = noGrazeIn
+        if action.noGrazeInSelected {
+            minMonth = action.noGrazeInMonth
+            minDay = action.noGrazeInDay
         }
 
         let picker = DatePicker()
-        picker.setup(min: min, max: planEnd, dateChanged: { (date) in
-            self.handleDateOut(date: date)
-        }) { (date) in
-            self.handleDateOut(date: date)
-        }
-        picker.displayPopOver(on: sender, in: parent, completion: {
-            
-        })
+        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
+            self.handleNoGrazeOut(month: month, day: day)
+        }, selected: {_,_,_ in })
+
+        picker.displayPopOver(on: sender, in: parent) {}
     }
 
-    func handleDateIn(date: Date) {
+    func handleNoGrazeIn(month: Int, day: Int) {
         guard let act = self.action else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                act.noGrazeDateIn = date
+                act.noGrazeInDay = day
+                act.noGrazeInMonth = month
+                act.noGrazeInSelected = true
             }
         } catch _ {
             fatalError()
         }
 
-        if let dateOut = act.noGrazeDateOut {
-            if dateOut < date {
+        if act.noGrazeOutSelected {
+            if act.noGrazeOutMonth < act.noGrazeInMonth {
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        act.noGrazeDateOut = date
+                        act.noGrazeOutSelected = false
                     }
                 } catch _ {
                     fatalError()
                 }
             }
         }
-
         autoFill()
     }
 
-    func handleDateOut(date: Date) {
+    func handleNoGrazeOut(month: Int, day: Int) {
         guard let act = self.action else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                act.noGrazeDateOut = date
+                act.noGrazeOutDay = day
+                act.noGrazeOutMonth = month
+                act.noGrazeOutSelected = true
             }
         } catch _ {
             fatalError()
         }
-
         autoFill()
     }
+
+//    func handleDateIn(date: Date) {
+//        guard let act = self.action else {return}
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                act.noGrazeDateIn = date
+//            }
+//        } catch _ {
+//            fatalError()
+//        }
+//
+//        if let dateOut = act.noGrazeDateOut {
+//            if dateOut < date {
+//                do {
+//                    let realm = try Realm()
+//                    try realm.write {
+//                        act.noGrazeDateOut = date
+//                    }
+//                } catch _ {
+//                    fatalError()
+//                }
+//            }
+//        }
+//
+//        autoFill()
+//    }
+//
+//    func handleDateOut(date: Date) {
+//        guard let act = self.action else {return}
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                act.noGrazeDateOut = date
+//            }
+//        } catch _ {
+//            fatalError()
+//        }
+//
+//        autoFill()
+//    }
 
     func deletePastureActions() {
         
@@ -201,13 +229,18 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         }
 
         self.descriptionField.text = current.details
-        if let dateIn = current.noGrazeDateIn {
-            self.noGrazeIn.text = dateIn.string()
+        if current.noGrazeInSelected {
+            self.noGrazeIn.text = "\(FDHelper.shared.month(number: current.noGrazeInMonth)) \(current.noGrazeInDay)"
+        } else {
+            self.noGrazeIn.text = ""
         }
 
-        if let dateOut = current.noGrazeDateOut {
-            self.noGrazeOut.text = dateOut.string()
+        if current.noGrazeOutSelected {
+            self.noGrazeOut.text = "\(FDHelper.shared.month(number: current.noGrazeOutMonth)) \(current.noGrazeOutDay)"
+        } else {
+            self.noGrazeOut.text = ""
         }
+
     }
 
     func hideNoGrazeSection() {

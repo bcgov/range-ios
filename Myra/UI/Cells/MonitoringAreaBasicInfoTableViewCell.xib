@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -90,17 +91,31 @@
                                                                     <action selector="rangelandHealthAction:" destination="uNR-ed-eN6" eventType="touchUpInside" id="kCt-WZ-yX3"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWy-hV-6lo">
+                                                                <rect key="frame" x="279" y="10.5" width="24" height="24"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="24" id="WKD-cY-za7"/>
+                                                                    <constraint firstAttribute="width" secondItem="aWy-hV-6lo" secondAttribute="height" multiplier="1:1" id="gEW-g6-T1y"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button" image="icons_form_dropdownarrow"/>
+                                                                <connections>
+                                                                    <action selector="rangelandHealthAction:" destination="uNR-ed-eN6" eventType="touchUpInside" id="CzK-Ds-oOW"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="dLN-S6-UC3" firstAttribute="leading" secondItem="eay-J5-DCE" secondAttribute="leading" id="3Bf-O7-umD"/>
                                                             <constraint firstAttribute="bottom" secondItem="q8t-UT-k4Q" secondAttribute="bottom" id="Bkr-Yn-u4K"/>
+                                                            <constraint firstItem="aWy-hV-6lo" firstAttribute="width" secondItem="aWy-hV-6lo" secondAttribute="height" multiplier="1:1" id="EHh-A3-FQM"/>
                                                             <constraint firstAttribute="trailing" secondItem="q8t-UT-k4Q" secondAttribute="trailing" id="LVd-ep-n9S"/>
                                                             <constraint firstAttribute="trailing" secondItem="dLN-S6-UC3" secondAttribute="trailing" id="bJH-DZ-y8D"/>
+                                                            <constraint firstAttribute="trailing" secondItem="aWy-hV-6lo" secondAttribute="trailing" constant="1" id="cWr-Fu-SIf"/>
                                                             <constraint firstAttribute="bottom" secondItem="dLN-S6-UC3" secondAttribute="bottom" id="d0b-zV-LAt"/>
                                                             <constraint firstItem="dLN-S6-UC3" firstAttribute="top" secondItem="eay-J5-DCE" secondAttribute="top" id="h24-Jc-D3O"/>
                                                             <constraint firstItem="q8t-UT-k4Q" firstAttribute="top" secondItem="eay-J5-DCE" secondAttribute="top" id="jkh-ZJ-mTM"/>
                                                             <constraint firstItem="q8t-UT-k4Q" firstAttribute="leading" secondItem="eay-J5-DCE" secondAttribute="leading" id="q7U-2U-Gkk"/>
+                                                            <constraint firstItem="aWy-hV-6lo" firstAttribute="centerY" secondItem="eay-J5-DCE" secondAttribute="centerY" id="s1e-rn-u7k"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -254,15 +269,29 @@
                                                                     <action selector="purposeAction:" destination="uNR-ed-eN6" eventType="touchUpInside" id="iqe-wG-BEQ"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fET-9S-Lnq">
+                                                                <rect key="frame" x="279" y="10" width="24" height="24"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="fET-9S-Lnq" secondAttribute="height" multiplier="1:1" id="33Z-r8-HqY"/>
+                                                                    <constraint firstAttribute="height" constant="24" id="YmV-Ok-uRd"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button" image="icons_form_dropdownarrow"/>
+                                                                <connections>
+                                                                    <action selector="purposeAction:" destination="uNR-ed-eN6" eventType="touchUpInside" id="szT-dg-hWA"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="bho-05-c3K" firstAttribute="top" secondItem="g9J-Vz-XVI" secondAttribute="top" id="AMH-dT-gYQ"/>
                                                             <constraint firstAttribute="trailing" secondItem="bho-05-c3K" secondAttribute="trailing" id="HCe-NT-NdC"/>
+                                                            <constraint firstItem="fET-9S-Lnq" firstAttribute="width" secondItem="fET-9S-Lnq" secondAttribute="height" multiplier="1:1" id="KuF-Zj-GWZ"/>
                                                             <constraint firstItem="bho-05-c3K" firstAttribute="leading" secondItem="g9J-Vz-XVI" secondAttribute="leading" id="Mqz-th-r6A"/>
                                                             <constraint firstAttribute="bottom" secondItem="bho-05-c3K" secondAttribute="bottom" id="QjF-AP-fJE"/>
                                                             <constraint firstItem="m3w-p5-qaT" firstAttribute="leading" secondItem="g9J-Vz-XVI" secondAttribute="leading" id="RD6-mW-mZ0"/>
+                                                            <constraint firstAttribute="trailing" secondItem="fET-9S-Lnq" secondAttribute="trailing" constant="1" id="axN-f8-a5p"/>
                                                             <constraint firstAttribute="bottom" secondItem="m3w-p5-qaT" secondAttribute="bottom" id="fMO-v7-I3l"/>
+                                                            <constraint firstItem="fET-9S-Lnq" firstAttribute="centerY" secondItem="g9J-Vz-XVI" secondAttribute="centerY" id="la0-qc-4g5"/>
                                                             <constraint firstItem="m3w-p5-qaT" firstAttribute="top" secondItem="g9J-Vz-XVI" secondAttribute="top" id="oR1-kC-opm"/>
                                                             <constraint firstAttribute="trailing" secondItem="m3w-p5-qaT" secondAttribute="trailing" id="pSe-na-m4y"/>
                                                         </constraints>
@@ -316,8 +345,10 @@
                 <outlet property="locationHeader" destination="aHv-Uy-DIa" id="zXy-7e-bfC"/>
                 <outlet property="longitudeField" destination="0oR-Il-Qj1" id="Pcr-lp-RIu"/>
                 <outlet property="longitudeHeader" destination="Gfj-Lx-Pfb" id="RCC-L7-gE1"/>
+                <outlet property="purposeDropDown" destination="fET-9S-Lnq" id="1we-8H-xGj"/>
                 <outlet property="rangeLandField" destination="q8t-UT-k4Q" id="2ha-MF-KEc"/>
                 <outlet property="rangeLandHeader" destination="mgf-on-MmB" id="GaD-2k-KVo"/>
+                <outlet property="rangelandHealthDropDown" destination="aWy-hV-6lo" id="ywP-HD-j2s"/>
                 <outlet property="transectField" destination="qeS-At-DO1" id="2Zf-UX-Dof"/>
                 <outlet property="transectHeader" destination="NhB-se-5sR" id="UXp-RA-FNU"/>
                 <outlet property="typeField" destination="bho-05-c3K" id="rty-6W-2Uv"/>
@@ -326,4 +357,7 @@
             <point key="canvasLocation" x="78" y="70"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icons_form_dropdownarrow" width="24" height="24"/>
+    </resources>
 </document>

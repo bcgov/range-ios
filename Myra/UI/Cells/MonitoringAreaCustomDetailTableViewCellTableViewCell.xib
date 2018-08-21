@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,18 +51,32 @@
                                                     <action selector="leftFieldAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="52F-16-wlE"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3h-SB-VFP">
+                                                <rect key="frame" x="334" y="10" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="W3h-SB-VFP" secondAttribute="height" multiplier="1:1" id="Fxi-fX-8wi"/>
+                                                    <constraint firstAttribute="height" constant="24" id="eHR-rs-Yox"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="icons_form_dropdownarrow"/>
+                                                <connections>
+                                                    <action selector="leftFieldAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bqA-fH-hba"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="0sv-Mj-Gmd"/>
                                             <constraint firstAttribute="trailing" secondItem="Ehk-29-esW" secondAttribute="trailing" id="3f9-yZ-eWA"/>
+                                            <constraint firstAttribute="trailing" secondItem="W3h-SB-VFP" secondAttribute="trailing" constant="1" id="F3y-61-vvT"/>
                                             <constraint firstItem="yU6-fT-qDQ" firstAttribute="top" secondItem="o56-fe-Di9" secondAttribute="top" id="TmB-yw-YbJ"/>
                                             <constraint firstItem="Ehk-29-esW" firstAttribute="leading" secondItem="o56-fe-Di9" secondAttribute="leading" id="aTr-V8-RK8"/>
                                             <constraint firstItem="Ehk-29-esW" firstAttribute="top" secondItem="o56-fe-Di9" secondAttribute="top" id="kgl-d8-tPS"/>
                                             <constraint firstItem="yU6-fT-qDQ" firstAttribute="leading" secondItem="o56-fe-Di9" secondAttribute="leading" id="l1u-7b-loN"/>
                                             <constraint firstAttribute="trailing" secondItem="yU6-fT-qDQ" secondAttribute="trailing" id="l7q-If-fe6"/>
                                             <constraint firstAttribute="bottom" secondItem="Ehk-29-esW" secondAttribute="bottom" id="nGd-ha-9FE"/>
+                                            <constraint firstItem="W3h-SB-VFP" firstAttribute="width" secondItem="W3h-SB-VFP" secondAttribute="height" multiplier="1:1" id="sOm-RL-RGs"/>
                                             <constraint firstAttribute="bottom" secondItem="yU6-fT-qDQ" secondAttribute="bottom" id="yOO-98-MwP"/>
+                                            <constraint firstItem="W3h-SB-VFP" firstAttribute="centerY" secondItem="o56-fe-Di9" secondAttribute="centerY" id="zDU-12-bwu"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCu-3G-8Td">
@@ -127,6 +142,7 @@
                 <outlet property="fieldHeight" destination="0sv-Mj-Gmd" id="Dez-zJ-Ncv"/>
                 <outlet property="leftField" destination="yU6-fT-qDQ" id="agv-UW-Tj6"/>
                 <outlet property="leftFieldButton" destination="Ehk-29-esW" id="gSU-YI-HB0"/>
+                <outlet property="leftFieldDropDown" destination="W3h-SB-VFP" id="fkw-uE-eav"/>
                 <outlet property="rightFIeldButton" destination="ElC-Pf-I8P" id="Zns-zi-Qjd"/>
                 <outlet property="rightField" destination="N8w-zP-oFk" id="tpL-HP-j7a"/>
             </connections>
@@ -135,5 +151,6 @@
     </objects>
     <resources>
         <image name="expandicon" width="48" height="48"/>
+        <image name="icons_form_dropdownarrow" width="24" height="24"/>
     </resources>
 </document>

@@ -168,19 +168,21 @@ class DataServices: NSObject {
     internal func uploadOutboxRangeUsePlans(completion: @escaping () -> Void) {
 
         let outboxPlans = RUPManager.shared.getOutboxRups()
+        self.upload(plans: outboxPlans, completion: completion)
 //        onUploadCompleted = completion
-        self.upload(plans: outboxPlans) {
-            return completion()
-        }
+//        self.upload(plans: outboxPlans) {
+//            return completion()
+//        }
 
     }
 
     internal func uploadLocalDrafts(completion: @escaping () -> Void) {
 
         let drafts = RUPManager.shared.getDraftRups()
-        self.upload(plans: drafts) {
-            return completion()
-        }
+        self.upload(plans: drafts, completion: completion)
+//        self.upload(plans: drafts) {
+//            return completion()
+//        }
 
     }
 
@@ -203,9 +205,7 @@ class DataServices: NSObject {
             APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
                 guard let response = response, error == nil else {
 
-                    // TODO: HANDLE THIS
-//                    fatalError()
-                    completion()
+                    group.leave()
                     return
                 }
 

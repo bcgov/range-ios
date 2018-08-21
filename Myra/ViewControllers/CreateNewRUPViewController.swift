@@ -270,20 +270,50 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Outlet Actions
-    @IBAction func saveToDraftAction(_ sender: UIButton) {
-        guard let plan = self.rup else {return}
+    @IBAction func cancelAction(_ sender: UIButton) {
+        if let new: RUP = self.copy, let old: RUP = self.rup {
 
-        let agreement = RUPManager.shared.getAgreement(with: plan.agreementId)
+            // If is not new (not just created from agreement)
+            // Store the copy created before changes.
+            if !old.isNew {
+                // save copy
+                RealmRequests.saveObject(object: new)
+
+                //  add plan to appropriate agreement
+                let agreement = RUPManager.shared.getAgreement(with: new.agreementId)
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        agreement?.rups.append(new)
+                    }
+                } catch _ {
+                    fatalError()
+                }
+                // remove modified RUP object
+                old.deleteEntries()
+                RealmRequests.deleteObject(old)
+            }
+            // ELSE it you came here from agreement selection, and changed your mind.
+            // dont store any rup
+
+            // Dismiss view controller
+            self.dismiss(animated: true) {
+                if self.parentCallBack != nil {
+                    return self.parentCallBack!(true, true)
+                }
+            }
+        }
+    }
+    
+    @IBAction func saveToDraftAction(_ sender: UIButton) {
+        guard let plan = self.rup, let agreement = RUPManager.shared.getAgreement(with: plan.agreementId) else {return}
 
         do {
             let realm = try Realm()
             try realm.write {
                 plan.isNew = false
                 plan.locallyUpdatedAt = Date()
-                if agreement != nil {
-                    agreement?.rups.append(plan)
-
-                }
+//                agreement.rups.append(plan)
             }
         } catch _ {
             fatalError() 
@@ -324,41 +354,6 @@ class CreateNewRUPViewController: BaseViewController {
         tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
     }
     */
-
-    @IBAction func cancelAction(_ sender: UIButton) {
-        if let new: RUP = self.copy, let old: RUP = self.rup {
-
-            // If is not new (not just created from agreement)
-            // Store the copy created before changes.
-            if !old.isNew {
-                // save copy
-                RealmRequests.saveObject(object: new)
-
-                //  add plan to appropriate agreement
-                let agreement = RUPManager.shared.getAgreement(with: new.agreementId)
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        agreement?.rups.append(new)
-                    }
-                } catch _ {
-                    fatalError()
-                }
-                // remove modified RUP object
-                old.deleteEntries()
-                RealmRequests.deleteObject(old)
-            }
-            // ELSE it you came here from agreement selection, and changed your mind.
-            // dont store any rup
-
-            // Dismiss view controller
-            self.dismiss(animated: true) {
-                if self.parentCallBack != nil {
-                    return self.parentCallBack!(true, true)
-                }
-            }
-        }
-    }
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}

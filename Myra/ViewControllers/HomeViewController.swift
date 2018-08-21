@@ -209,6 +209,7 @@ class HomeViewController: BaseViewController {
 
     func loadHome() {
         style()
+        loadRUPs()
         let lastSync = RealmManager.shared.getLastSyncDate()
         if let ls = lastSync {
             let calendar = Calendar.current
@@ -253,18 +254,23 @@ class HomeViewController: BaseViewController {
 
     func loadRUPs() {
         if syncing {return}
+        print("Hello")
+        self.rups.removeAll()
+        self.tableView.reloadData()
+        self.rups = [RUP]()
         /*
          Clean up the local DB by removing plans that were created
          from agreements but cancelled.
          */
         RUPManager.shared.cleanPlans()
+        let rups = RUPManager.shared.getRUPs()
+        print(rups.count)
         let agreements = RUPManager.shared.getAgreements()
         for agreement in agreements where agreement.rups.count > 0 {
             if let p = agreement.getLatestPlan() {
                 self.rups.append(p)
             }
         }
-//        self.rups = RUPManager.shared.getRUPs()
     }
 
     // MARK: Styles
@@ -432,6 +438,11 @@ class HomeViewController: BaseViewController {
         self.tableView.isUserInteractionEnabled = true
         syncButton.isUserInteractionEnabled = true
     }
+
+    override func syncActionButtonPressed() {
+//        getRUPs()
+//        self.tableView.reloadData()
+    }
 }
 
 // MARK: TableView functions
@@ -483,15 +494,36 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                     self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 }) { (done) in
                     self.tableView.reloadData()
+                    // if indexpath is the last visible, scroll to bottom of it
+                    if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
+                        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                    }
                 }
-
             } else {
+                // PRE ios 11
                self.tableView.reloadData()
+                // if indexpath is the last visible, scroll to bottom of it
+                if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
+                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                }
             }
         } else {
-            self.expandIndexPath = nil
+            if #available(iOS 11.0, *) {
+                self.tableView.performBatchUpdates({
+                    if let i = expandIndexPath {
+                        let cell = self.tableView.cellForRow(at: i) as! AssignedRUPTableViewCell
+                        cell.styleDefault()
+                        self.expandIndexPath = nil
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                }) { (done) in
+                    self.tableView.reloadData()
+                }
+            } else {
+                 self.expandIndexPath = nil
+                self.tableView.reloadData()
+            }
             self.tableView.isScrollEnabled = true
-            self.tableView.reloadData()
         }
     }
 }

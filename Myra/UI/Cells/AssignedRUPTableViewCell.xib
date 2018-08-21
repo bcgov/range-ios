@@ -43,15 +43,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTP-QO-NOS">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTP-QO-NOS">
                                         <rect key="frame" x="700" y="4" width="100" height="32"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration" identifier="EditOrViewButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="UsW-K7-vqo"/>
                                             <constraint firstAttribute="width" constant="100" id="Ymp-SG-tnC"/>
                                         </constraints>
-                                        <state key="normal" title="View">
+                                        <state key="normal" image="icons_form_dropdownarrow">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -104,17 +104,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjA-Cc-NVf">
                                 <rect key="frame" x="10" y="53" width="788" height="102.5"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v1a-Oq-CWn">
-                                        <rect key="frame" x="0.0" y="0.0" width="788" height="102.5"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avk-lI-j44">
+                                        <rect key="frame" x="0.0" y="0.0" width="788" height="1"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="Q42-zG-vfk"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v1a-Oq-CWn">
+                                        <rect key="frame" x="0.0" y="3" width="788" height="99"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="v1a-Oq-CWn" firstAttribute="top" secondItem="SjA-Cc-NVf" secondAttribute="top" id="KmF-ua-5ln"/>
+                                    <constraint firstAttribute="trailing" secondItem="avk-lI-j44" secondAttribute="trailing" id="Asr-yS-Zgi"/>
+                                    <constraint firstItem="avk-lI-j44" firstAttribute="leading" secondItem="SjA-Cc-NVf" secondAttribute="leading" id="H0p-Xx-eXE"/>
                                     <constraint firstItem="v1a-Oq-CWn" firstAttribute="leading" secondItem="SjA-Cc-NVf" secondAttribute="leading" id="eR8-NG-GUE"/>
                                     <constraint firstAttribute="bottom" secondItem="v1a-Oq-CWn" secondAttribute="bottom" id="fsu-Sy-i1k"/>
+                                    <constraint firstItem="avk-lI-j44" firstAttribute="top" secondItem="SjA-Cc-NVf" secondAttribute="top" id="kjG-wA-JQX"/>
                                     <constraint firstAttribute="trailing" secondItem="v1a-Oq-CWn" secondAttribute="trailing" id="upQ-Te-WeI"/>
+                                    <constraint firstItem="v1a-Oq-CWn" firstAttribute="top" secondItem="avk-lI-j44" secondAttribute="bottom" constant="2" id="vRA-5R-ToP"/>
                                     <constraint firstAttribute="height" priority="750" id="x6p-J2-onh"/>
                                 </constraints>
                             </view>
@@ -141,6 +151,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="container" destination="sEL-Bj-Uwb" id="gpS-yO-hM9"/>
+                <outlet property="divider" destination="avk-lI-j44" id="i73-fu-Qqq"/>
                 <outlet property="idLabel" destination="9gw-xa-o1W" id="zTB-x7-7Fa"/>
                 <outlet property="infoButton" destination="cTP-QO-NOS" id="sEi-QE-TOQ"/>
                 <outlet property="infoLabel" destination="lZW-1b-Gk2" id="8fL-e1-Fm0"/>
@@ -154,4 +165,7 @@
             <point key="canvasLocation" x="-32" y="41.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icons_form_dropdownarrow" width="24" height="24"/>
+    </resources>
 </document>

@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import DatePicker
 
 class MinistersIssueActionTableViewCell: BaseFormCell {
 
@@ -51,87 +52,76 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     }
 
     @IBAction func noGrazePeriodBegin(_ sender: UIButton) {
-        guard let parent = self.parentCell, let act = self.action else {return}
-        let plan = parent.rup
         let grandParent = self.parentViewController as! CreateNewRUPViewController
-
-        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else {
-//            parent.showTempBanner(message: "Plan start and end dates have not been selected")
-            return
-        }
-
-        let vm = ViewManager()
-        let picker = vm.datePicker
-
-        picker.setup(min: planStart, max: planEnd) { (date) in
-            self.handleDateIn(date: date)
-        }
-        grandParent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        let minMonth = 1
+        let minDay = 1
+        let picker = DatePicker()
+        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
+            self.handleNoGrazeIn(month: month, day: day)
+        }, selected: {_,_,_ in })
+        picker.displayPopOver(on: sender, in: grandParent) {}
     }
 
     @IBAction func noGrazePeriodEnd(_ sender: UIButton) {
-        guard let parent = self.parentCell, let act = self.action else {return}
-        let plan = parent.rup
+        guard let action = self.action else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController
 
-        guard let planStart = plan.planStartDate, let planEnd = plan.planEndDate else {
-//            parent.showTempBanner(message: "Plan start and end dates have not been selected")
-            return
+        var minMonth = 1
+        var minDay = 1
+
+        if action.noGrazeInSelected {
+            minMonth = action.noGrazeInMonth
+            minDay = action.noGrazeInDay
         }
 
-        var min = planStart
+        let picker = DatePicker()
+        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
+           self.handleNoGrazeOut(month: month, day: day)
+        }, selected: {_,_,_ in })
 
-        if let noGrazeIn = act.noGrazeDateIn {
-            min = noGrazeIn
-        }
-
-        let vm = ViewManager()
-        let picker = vm.datePicker
-
-        picker.setup(min: min, max: planEnd) { (date) in
-            self.handleDateOut(date: date)
-        }
-        grandParent.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        picker.displayPopOver(on: sender, in: grandParent) {}
     }
 
-    func handleDateIn(date: Date) {
+    func handleNoGrazeIn(month: Int, day: Int) {
         guard let act = self.action else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                act.noGrazeDateIn = date
+                act.noGrazeInDay = day
+                act.noGrazeInMonth = month
+                act.noGrazeInSelected = true
             }
         } catch _ {
             fatalError()
         }
 
-        if let dateOut = act.noGrazeDateOut {
-            if dateOut < date {
+        if act.noGrazeOutSelected {
+            if act.noGrazeOutMonth < act.noGrazeInMonth {
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        act.noGrazeDateOut = date
+                        act.noGrazeOutSelected = false
                     }
                 } catch _ {
                     fatalError()
                 }
             }
         }
-
         autofill()
     }
 
-    func handleDateOut(date: Date) {
+    func handleNoGrazeOut(month: Int, day: Int) {
         guard let act = self.action else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                act.noGrazeDateOut = date
+                act.noGrazeOutDay = day
+                act.noGrazeOutMonth = month
+                act.noGrazeOutSelected = true
             }
         } catch _ {
             fatalError()
         }
-
         autofill()
     }
 
@@ -154,15 +144,14 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         if self.mode == .View {
             setDefaultValueIfEmpty(field: desc)
         }
-
-        if let grazeIn = a.noGrazeDateIn {
-            self.noGrazeIn.text =  grazeIn.string()
+        if a.noGrazeInSelected {
+            self.noGrazeIn.text = "\(FDHelper.shared.month(number: a.noGrazeInMonth)) \(a.noGrazeInDay)"
         } else {
             self.noGrazeIn.text = ""
         }
 
-        if let grazeOut = a.noGrazeDateOut {
-            self.noGrazeOut.text = grazeOut.string()
+        if a.noGrazeOutSelected {
+             self.noGrazeOut.text = "\(FDHelper.shared.month(number: a.noGrazeOutMonth)) \(a.noGrazeOutDay)"
         } else {
             self.noGrazeOut.text = ""
         }

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -57,6 +58,17 @@
                                             <action selector="lookupPastures:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uUs-3v-6he"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFY-fR-RM1">
+                                        <rect key="frame" x="40" y="10.5" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="ogI-JC-Qzz"/>
+                                            <constraint firstAttribute="width" secondItem="BFY-fR-RM1" secondAttribute="height" multiplier="1:1" id="pVe-pb-FbH"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="icons_form_dropdownarrow"/>
+                                        <connections>
+                                            <action selector="lookupPastures:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GyJ-As-NL7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="ToI-k8-8ID" secondAttribute="bottom" id="4SH-8f-21c"/>
@@ -64,11 +76,13 @@
                                     <constraint firstItem="ToI-k8-8ID" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="EPA-dD-jRa"/>
                                     <constraint firstItem="ToI-k8-8ID" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="EqJ-fn-Qsb"/>
                                     <constraint firstAttribute="trailing" secondItem="pKY-cO-wEA" secondAttribute="trailing" id="QYg-uy-393"/>
+                                    <constraint firstAttribute="trailing" secondItem="BFY-fR-RM1" secondAttribute="trailing" constant="1" id="RMO-d1-GPn"/>
                                     <constraint firstAttribute="trailing" secondItem="ToI-k8-8ID" secondAttribute="trailing" id="Rkz-F1-ZA9"/>
                                     <constraint firstItem="pKY-cO-wEA" firstAttribute="height" secondItem="f9k-kf-pF9" secondAttribute="height" id="Xfb-HD-hLh"/>
                                     <constraint firstItem="pKY-cO-wEA" firstAttribute="leading" secondItem="f9k-kf-pF9" secondAttribute="leading" id="i2U-ub-8eL"/>
                                     <constraint firstAttribute="height" constant="45" id="p2f-cR-VGh"/>
                                     <constraint firstItem="pKY-cO-wEA" firstAttribute="top" secondItem="f9k-kf-pF9" secondAttribute="top" id="tiz-8V-faT"/>
+                                    <constraint firstItem="BFY-fR-RM1" firstAttribute="centerY" secondItem="ToI-k8-8ID" secondAttribute="centerY" id="zA9-h6-IuV"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGv-1C-d90" userLabel="input box">
@@ -88,6 +102,17 @@
                                             <action selector="lookupLiveStockType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Ch-pq-dcO"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="53h-mA-h5d">
+                                        <rect key="frame" x="39" y="10" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="53h-mA-h5d" secondAttribute="height" multiplier="1:1" id="CrS-nP-OM0"/>
+                                            <constraint firstAttribute="height" constant="24" id="JMl-QA-BxQ"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="icons_form_dropdownarrow"/>
+                                        <connections>
+                                            <action selector="lookupLiveStockType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2Hh-gp-r5y"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="uTC-sl-aHj" secondAttribute="bottom" id="0oj-Ap-Bya"/>
@@ -96,8 +121,10 @@
                                     <constraint firstAttribute="trailing" secondItem="0lz-PB-jfn" secondAttribute="trailing" id="Tuk-qF-Sef"/>
                                     <constraint firstAttribute="trailing" secondItem="uTC-sl-aHj" secondAttribute="trailing" id="Y7e-TD-IQh"/>
                                     <constraint firstItem="0lz-PB-jfn" firstAttribute="leading" secondItem="RGv-1C-d90" secondAttribute="leading" id="fDJ-Do-6n8"/>
+                                    <constraint firstItem="53h-mA-h5d" firstAttribute="centerY" secondItem="RGv-1C-d90" secondAttribute="centerY" id="fx3-cc-eUR"/>
                                     <constraint firstAttribute="bottom" secondItem="0lz-PB-jfn" secondAttribute="bottom" id="oP2-2r-srJ"/>
                                     <constraint firstItem="0lz-PB-jfn" firstAttribute="top" secondItem="RGv-1C-d90" secondAttribute="top" id="owj-ej-2mb"/>
+                                    <constraint firstAttribute="trailing" secondItem="53h-mA-h5d" secondAttribute="trailing" constant="1" id="pu5-Ok-VnW"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-tM-3Rg" userLabel="input box">
@@ -303,10 +330,12 @@
                 <outlet property="graceDays" destination="d5o-9U-aHr" id="aCh-xD-uD6"/>
                 <outlet property="liveStock" destination="uTC-sl-aHj" id="9HY-vb-bdm"/>
                 <outlet property="liveStockButton" destination="0lz-PB-jfn" id="Y23-l3-2re"/>
+                <outlet property="liveStockDropDown" destination="53h-mA-h5d" id="7n3-jU-IPr"/>
                 <outlet property="numberOfAniamls" destination="Vv3-Lf-CIF" id="bxI-of-Z3A"/>
                 <outlet property="options" destination="wrE-0R-AwD" id="IIo-qG-fUS"/>
                 <outlet property="pasture" destination="pKY-cO-wEA" id="kPX-6X-PAN"/>
                 <outlet property="pastureButton" destination="ToI-k8-8ID" id="fRO-bi-VV7"/>
+                <outlet property="pastureDropDown" destination="BFY-fR-RM1" id="6wx-ge-K0i"/>
                 <outlet property="pldAUM" destination="aps-wf-RPv" id="Kvu-xW-Taf"/>
             </connections>
             <point key="canvasLocation" x="204.5" y="-193"/>
@@ -314,5 +343,6 @@
     </objects>
     <resources>
         <image name="expandicon" width="48" height="48"/>
+        <image name="icons_form_dropdownarrow" width="24" height="24"/>
     </resources>
 </document>

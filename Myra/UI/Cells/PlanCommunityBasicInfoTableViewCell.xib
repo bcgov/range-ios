@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -91,14 +92,28 @@
                                                                     <action selector="elevationAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="BcR-AZ-b1g"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WR3-tP-7D0">
+                                                                <rect key="frame" x="165" y="10" width="24" height="24"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="24" id="4rC-wb-kYd"/>
+                                                                    <constraint firstAttribute="width" secondItem="WR3-tP-7D0" secondAttribute="height" multiplier="1:1" id="GJk-HD-X9n"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button" image="icons_form_dropdownarrow"/>
+                                                                <connections>
+                                                                    <action selector="elevationAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="h9d-Q8-arv"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="ztd-Js-xHa" secondAttribute="trailing" id="Pvl-NU-ZF7"/>
                                                             <constraint firstAttribute="trailing" secondItem="KON-c3-Vnh" secondAttribute="trailing" id="RpW-rE-tI7"/>
+                                                            <constraint firstAttribute="trailing" secondItem="WR3-tP-7D0" secondAttribute="trailing" constant="1" id="Uj3-PA-rj6"/>
                                                             <constraint firstItem="KON-c3-Vnh" firstAttribute="leading" secondItem="UP8-Ch-pTO" secondAttribute="leading" id="V1Z-Jv-6Vo"/>
+                                                            <constraint firstItem="WR3-tP-7D0" firstAttribute="width" secondItem="WR3-tP-7D0" secondAttribute="height" multiplier="1:1" id="bFt-t4-Fw8"/>
                                                             <constraint firstItem="KON-c3-Vnh" firstAttribute="top" secondItem="UP8-Ch-pTO" secondAttribute="top" id="cZs-ia-rTG"/>
                                                             <constraint firstItem="ztd-Js-xHa" firstAttribute="top" secondItem="UP8-Ch-pTO" secondAttribute="top" id="fKe-nG-Bip"/>
+                                                            <constraint firstItem="WR3-tP-7D0" firstAttribute="centerY" secondItem="UP8-Ch-pTO" secondAttribute="centerY" id="hVc-Gx-taC"/>
                                                             <constraint firstItem="ztd-Js-xHa" firstAttribute="leading" secondItem="UP8-Ch-pTO" secondAttribute="leading" id="kO5-gO-Nxe"/>
                                                             <constraint firstAttribute="bottom" secondItem="KON-c3-Vnh" secondAttribute="bottom" id="lAJ-mE-Dkb"/>
                                                             <constraint firstAttribute="bottom" secondItem="ztd-Js-xHa" secondAttribute="bottom" id="vFi-gZ-kGf"/>
@@ -188,6 +203,17 @@
                                                             <action selector="purposeOfActionAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kJm-qG-Dto"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7n-gk-oRx">
+                                                        <rect key="frame" x="275" y="10" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="ApJ-cy-dFo"/>
+                                                            <constraint firstAttribute="width" secondItem="z7n-gk-oRx" secondAttribute="height" multiplier="1:1" id="tNl-Dn-TAn"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button" image="icons_form_dropdownarrow"/>
+                                                        <connections>
+                                                            <action selector="purposeOfActionAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9TL-Uj-DXc"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -195,9 +221,12 @@
                                                     <constraint firstAttribute="trailing" secondItem="XXb-jK-nM0" secondAttribute="trailing" id="AIu-Na-6bM"/>
                                                     <constraint firstAttribute="width" constant="300" id="BH6-E6-TMw"/>
                                                     <constraint firstItem="Dwf-bL-6ut" firstAttribute="top" secondItem="dCy-Yn-H9b" secondAttribute="top" id="IpC-Qq-CB3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="z7n-gk-oRx" secondAttribute="trailing" constant="1" id="QVv-ei-S2M"/>
+                                                    <constraint firstItem="z7n-gk-oRx" firstAttribute="centerY" secondItem="dCy-Yn-H9b" secondAttribute="centerY" id="cy4-Us-9xU"/>
                                                     <constraint firstAttribute="bottom" secondItem="Dwf-bL-6ut" secondAttribute="bottom" id="hH6-xw-0Mj"/>
                                                     <constraint firstItem="Dwf-bL-6ut" firstAttribute="leading" secondItem="dCy-Yn-H9b" secondAttribute="leading" id="pBI-FL-hen"/>
                                                     <constraint firstAttribute="bottom" secondItem="XXb-jK-nM0" secondAttribute="bottom" id="pNO-Qy-ieG"/>
+                                                    <constraint firstItem="z7n-gk-oRx" firstAttribute="width" secondItem="z7n-gk-oRx" secondAttribute="height" multiplier="1:1" id="s8p-lv-xYE"/>
                                                     <constraint firstItem="XXb-jK-nM0" firstAttribute="leading" secondItem="dCy-Yn-H9b" secondAttribute="leading" id="umo-bj-IhE"/>
                                                     <constraint firstItem="XXb-jK-nM0" firstAttribute="top" secondItem="dCy-Yn-H9b" secondAttribute="top" id="ytW-aY-NnZ"/>
                                                 </constraints>
@@ -239,15 +268,20 @@
                 <outlet property="aspectHeader" destination="vIp-ev-fiU" id="6q3-Ru-jlN"/>
                 <outlet property="communityURLField" destination="KNz-7P-aps" id="A1Y-r2-ilk"/>
                 <outlet property="communityURLHeader" destination="nBg-oL-Z3V" id="4xq-Pt-ei8"/>
+                <outlet property="elevationDropdown" destination="WR3-tP-7D0" id="sRv-9m-7Eq"/>
                 <outlet property="elevationField" destination="ztd-Js-xHa" id="j71-uf-pdb"/>
                 <outlet property="elevationHeader" destination="58I-OZ-7FB" id="hbV-u5-llK"/>
                 <outlet property="inputFieldHeight" destination="ary-jv-Ixa" id="zaQ-kx-NmD"/>
                 <outlet property="plantCommunityField" destination="d4b-jC-eGC" id="wPs-NY-yac"/>
                 <outlet property="plantCommunityNotesHeader" destination="pqh-9D-16x" id="3LY-Ha-qxh"/>
+                <outlet property="purposeDropdown" destination="z7n-gk-oRx" id="61V-jk-7jN"/>
                 <outlet property="purposeOfActionHeader" destination="s7E-lA-im8" id="sYX-iy-1RO"/>
                 <outlet property="purposeOfActionsField" destination="Dwf-bL-6ut" id="8w3-mb-kZg"/>
             </connections>
             <point key="canvasLocation" x="78" y="117.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icons_form_dropdownarrow" width="24" height="24"/>
+    </resources>
 </document>
