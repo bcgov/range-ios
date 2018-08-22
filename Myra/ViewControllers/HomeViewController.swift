@@ -142,7 +142,7 @@ class HomeViewController: BaseViewController {
     func filterByAll() {
         if syncing {return}
         filterButtonOn(button: allFilter)
-        loadRUPs()
+//        loadRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
     }
@@ -209,7 +209,6 @@ class HomeViewController: BaseViewController {
 
     func loadHome() {
         style()
-        loadRUPs()
         let lastSync = RealmManager.shared.getLastSyncDate()
         if let ls = lastSync {
             let calendar = Calendar.current
@@ -225,7 +224,6 @@ class HomeViewController: BaseViewController {
         }
         setUpTable()
         filterByAll()
-
         beginChangeListener()
     }
 
@@ -254,22 +252,22 @@ class HomeViewController: BaseViewController {
 
     func loadRUPs() {
         if syncing {return}
-        print("Hello")
-        self.rups.removeAll()
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
         self.rups = [RUP]()
-        /*
-         Clean up the local DB by removing plans that were created
-         from agreements but cancelled.
-         */
-        RUPManager.shared.cleanPlans()
-        let rups = RUPManager.shared.getRUPs()
-        print(rups.count)
-        let agreements = RUPManager.shared.getAgreements()
-        for agreement in agreements where agreement.rups.count > 0 {
-            if let p = agreement.getLatestPlan() {
-                self.rups.append(p)
+            /*
+             Clean up the local DB by removing plans that were created
+             from agreements but cancelled.
+             */
+            RUPManager.shared.cleanPlans()
+            let rups = RUPManager.shared.getRUPs()
+            print(rups.count)
+            let agreements = RUPManager.shared.getAgreements()
+            for agreement in agreements where agreement.rups.count > 0 {
+                if let p = agreement.getLatestPlan() {
+                    self.rups.append(p)
+                }
             }
+            self.tableView.reloadData()
         }
     }
 
@@ -442,6 +440,7 @@ class HomeViewController: BaseViewController {
     override func syncActionButtonPressed() {
 //        getRUPs()
 //        self.tableView.reloadData()
+        filterByAll()
     }
 }
 
@@ -485,7 +484,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return rups.count
     }
 
+    func rupsAreValid() -> Bool {
+        for element in self.rups {
+            if element.isInvalidated {
+                return false
+            }
+        }
+        return true
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !rupsAreValid() {
+            loadRUPs()
+        }
+        if !rupsAreValid() {
+            return
+        }
         if expandIndexPath == nil {
             self.expandIndexPath = indexPath
             self.tableView.isScrollEnabled = false

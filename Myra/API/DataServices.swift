@@ -169,20 +169,12 @@ class DataServices: NSObject {
 
         let outboxPlans = RUPManager.shared.getOutboxRups()
         self.upload(plans: outboxPlans, completion: completion)
-//        onUploadCompleted = completion
-//        self.upload(plans: outboxPlans) {
-//            return completion()
-//        }
-
     }
 
     internal func uploadLocalDrafts(completion: @escaping () -> Void) {
 
         let drafts = RUPManager.shared.getDraftRups()
         self.upload(plans: drafts, completion: completion)
-//        self.upload(plans: drafts) {
-//            return completion()
-//        }
 
     }
 
@@ -204,7 +196,6 @@ class DataServices: NSObject {
 
             APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
                 guard let response = response, error == nil else {
-
                     group.leave()
                     return
                 }
@@ -229,18 +220,6 @@ class DataServices: NSObject {
                                         self.completeUpload(plan: plan)
                                         group.leave()
                                     })
-                                    // Set status to Pending
-//                                    if plan.statusEnum == .Outbox {
-//                                        do {
-//                                            let realm = try Realm()
-//                                            try realm.write {
-//                                                plan.statusEnum = .Pending
-//                                            }
-//                                        } catch _ {
-//                                            fatalError()
-//                                        }
-//                                    }
-//                                    group.leave()
                                 })
                             })
                         })
@@ -253,7 +232,7 @@ class DataServices: NSObject {
         }
 
         group.notify(queue: .main) {
-            completion()
+            return completion()
         }
     }
 

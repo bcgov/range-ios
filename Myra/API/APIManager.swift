@@ -438,16 +438,11 @@ class APIManager {
                 }
                 progress("Processing Agreements")
                 deleteAllStoredAgreements()
-//                for (_,agreementJSON) in json {
-//                    agreements.append(Agreement(json: agreementJSON))
-//                }
-//                return completion(agreements, nil)
                 DispatchQueue.global(qos: .background).async {
-                    deleteAllStoredAgreements()
                     for (_,agreementJSON) in json {
                         agreements.append(Agreement(json: agreementJSON))
                     }
-                     return completion(agreements, nil)
+                    return completion(agreements, nil)
                 }
             } else {
                 return completion(agreements, nil)
@@ -463,7 +458,9 @@ class APIManager {
             }
 
             for rup in element.rups {
-                RealmRequests.deleteObject(rup)
+                if rup.getStatus() != .LocalDraft {
+                    RealmRequests.deleteObject(rup)
+                }
             }
 
             for client in element.clients {
@@ -541,6 +538,77 @@ extension APIManager {
  */
     }
 
+    static func sync3(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
+        guard let r = Reachability(), r.connection != .none else {
+            progress("Failed while verifying connection")
+            completion(APIError.noNetworkConnectivity)
+            return
+        }
+        DataServices.shared.endAutoSyncListener()
+        // 1
+        DispatchQueue.global(qos: .userInitiated).async {
+
+            var myError: APIError? = nil
+            // 2
+            let dispatchGroup = DispatchGroup()
+
+            // 3
+            dispatchGroup.enter()
+            DataServices.shared.uploadOutboxRangeUsePlans {
+                progress("Downloading Reference Data")
+                dispatchGroup.leave()
+            }
+
+            dispatchGroup.enter()
+            DataServices.shared.uploadLocalDrafts {
+                progress("Uploading local drafts")
+                dispatchGroup.leave()
+            }
+
+            dispatchGroup.enter()
+            getReferenceData(completion: { (success) in
+                progress("Downloading agreements")
+                if (!success) {
+                    progress("Failed while downloading reference data")
+                    dispatchGroup.leave()
+                    dispatchGroup.suspend()
+                    completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
+                } else {
+                    dispatchGroup.leave()
+                }
+            })
+
+
+            dispatchGroup.enter()
+            getAgreements(completion: { (agreements, error) in
+                progress("Updating plans")
+                if let error = error {
+                    progress("Sync Failed. \(error.localizedDescription)")
+                    myError = error
+                    dispatchGroup.leave()
+                    dispatchGroup.suspend()
+                    completion(APIError.somethingHappened(message: "Failed while downloading reference data"))
+                } else {
+                    dispatchGroup.leave()
+                }
+            }, progress: progress)
+
+
+            dispatchGroup.enter()
+            DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
+                dispatchGroup.leave()
+            }
+
+            // 5
+            dispatchGroup.wait()
+
+            // 6
+            DispatchQueue.main.async {
+                completion(myError)
+            }
+        }
+    }
+
     static func sync(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
 //        sync2(completion: completion, progress: progress)
 //        return
@@ -561,6 +629,7 @@ extension APIManager {
             dispatchGroup.leave()
         }
 
+
         dispatchGroup.enter()
         DataServices.shared.uploadLocalDrafts {
             progress("Uploading local drafts")
@@ -580,6 +649,7 @@ extension APIManager {
             }
         })
 
+
         dispatchGroup.enter()
         getAgreements(completion: { (agreements, error) in
             progress("Updating plans")
@@ -594,10 +664,12 @@ extension APIManager {
             }
         }, progress: progress)
 
+
         dispatchGroup.enter()
         DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
             dispatchGroup.leave()
         }
+
 
         dispatchGroup.notify(queue: .main) {
             progress("Updating local data")
