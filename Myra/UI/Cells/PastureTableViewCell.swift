@@ -12,9 +12,6 @@ import RealmSwift
 
 class PastureTableViewCell: BaseFormCell {
 
-    // MARK: Constants
-    let plantCommunityCellHeight = 110
-
     // MARK: Variables
     var parentCell: PasturesTableViewCell?
     var pasture: Pasture?
@@ -53,6 +50,10 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
 
+    @IBAction func editNameAction(_ sender: UIButton) {
+        editName()
+    }
+
     @IBAction func beginEditAUM(_ sender: UITextField) {
         perform(#selector(selectRange), with: sender, afterDelay: 0.01)
     }
@@ -71,10 +72,11 @@ class PastureTableViewCell: BaseFormCell {
 
     @IBAction func addPlantCommunityAction(_ sender: Any) {
         let button: UIButton = sender as! UIButton
+        let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
         
-        lookup.setup(objects: RUPManager.shared.getPlanCommunityTypeOptions()) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getPlanCommunityTypeOptions(), onVC: parent, onButton: button) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 let pc = PlantCommunity()
@@ -90,17 +92,6 @@ class PastureTableViewCell: BaseFormCell {
                 self.updateTableHeight()
             }
         }
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.showPopUp(vc: lookup, on: button)
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                self.pasture?.plantCommunities.append(PlantCommunity())
-//            }
-//        } catch _ {
-//            fatalError()
-//        }
-//        updateTableHeight()
     }
     
     @IBAction func aumChanged(_ sender: UITextField) {
@@ -177,8 +168,7 @@ class PastureTableViewCell: BaseFormCell {
         let options: [Option] = [Option(type: .Copy, display: "Copy"),Option(type: .Delete, display: "Delete")]
 
         // set up and handle call back
-        optionsVC.setup(options: options) { (option) in
-            optionsVC.dismiss(animated: true, completion: nil)
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
             switch option.type {
             case .Delete:
                 grandParent.showAlert(title: "Are you sure?", description: "Deleting pasture \(past.name) will also remove all schedule elements associated with it", yesButtonTapped: {
@@ -190,9 +180,26 @@ class PastureTableViewCell: BaseFormCell {
                 self.duplicate()
             }
         }
+    }
 
-        // display on parent
-        grandParent.showPopOver(on: sender , vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
+    func editName(){
+        guard let past = pasture else {return}
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        let vm = ViewManager()
+        let textEntry = vm.textEntry
+        textEntry.setup(on: grandParent, header: "Pasture Name") { (accepted, name) in
+            if accepted {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        past.name = name
+                    }
+                    self.autofill()
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
 
     }
 
@@ -201,7 +208,6 @@ class PastureTableViewCell: BaseFormCell {
         self.parentCell = pastures
         self.mode = mode
         self.pasture = pasture
-        self.pastureNameLabel.text = pasture.name
         self.rup = pastures.rup
         autofill()
         setupTable()
@@ -220,6 +226,7 @@ class PastureTableViewCell: BaseFormCell {
     func autofill() {
         guard let p = self.pasture else {return}
 
+        self.pastureNameLabel.text = p.name
         self.aumsField.text = "\(p.allowedAUMs)"
         self.deductionFIeld.text = "\(Int(p.privateLandDeduction))"
         self.graceDaysField.text = "\(p.graceDays)"
@@ -235,21 +242,39 @@ class PastureTableViewCell: BaseFormCell {
         }
 
         let padding = 5
-        tableHeight.constant = CGFloat((p.plantCommunities.count) * plantCommunityCellHeight + padding)
+        tableHeight.constant = CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
     }
 
     func getCellHeight() -> CGSize {
         return self.frame.size
     }
 
+    func refreshPastureObject() {
+        guard let p = self.pasture else {return}
+        do {
+            let realm = try Realm()
+            if let refetch = realm.objects(Pasture.self).filter("localId = %@", p.localId).first {
+                self.pasture = refetch
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func updateTableHeight() {
-        let padding = 5
-        self.tableView.layoutIfNeeded()
+        refreshPastureObject()
+        tableHeight.constant = computeHeight()
         self.tableView.reloadData()
-        tableHeight.constant = CGFloat((self.pasture?.plantCommunities.count)! * plantCommunityCellHeight + padding)
+        self.tableView.layoutIfNeeded()
         if let parent = parentCell {
             parent.updateTableHeight()
         }
+    }
+
+    func computeHeight() -> CGFloat {
+        let padding = 5
+        guard let p = self.pasture else {return CGFloat(padding)}
+        return CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
     }
 
     func duplicate() {
@@ -329,7 +354,7 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
         guard let p = self.pasture else {return cell}
-        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p)
+        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p, parentCellReference: self)
         return cell
     }
 

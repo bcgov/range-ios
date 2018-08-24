@@ -24,6 +24,9 @@ class HomeViewController: BaseViewController {
     var realmNotificationToken: NotificationToken?
     var parentReference: MainViewController?
     var rups: [RUP] = [RUP]()
+    var expandIndexPath: IndexPath?
+
+    var unstableConnection: Bool = false
 
     var online: Bool = false {
         didSet {
@@ -50,6 +53,7 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var statusBar: UIView!
     @IBOutlet weak var navBar: UIView!
     @IBOutlet weak var navBarImage: UIImageView!
+    @IBOutlet weak var syncButtonLabel: UILabel!
     @IBOutlet weak var syncLabel: UILabel!
     @IBOutlet weak var connectivityLabel: UILabel!
     @IBOutlet weak var lastSyncLabel: UILabel!
@@ -101,6 +105,17 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        syncButtonLabel.alpha = 1
+        syncButtonLabel.text = "Connecting..."
+        animateIt()
+        showSyncMessage(text: "Connection taking longer than expected...", after: 5)
+        showSyncMessage(text: "Your connection is very unstable...", after: 10)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
+            if self.syncButtonLabel.alpha == 1 {
+                self.unstableConnection = true
+            }
+        })
         authenticateIfRequred()
     }
 
@@ -125,14 +140,15 @@ class HomeViewController: BaseViewController {
 
     // MARK: Filter
     func filterByAll() {
-        loadRUPs()
+        if syncing {return}
         filterButtonOn(button: allFilter)
-        self.rups = RUPManager.shared.getRUPs()
+//        loadRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
     }
 
     func filterByDrafts() {
+        if syncing {return}
         loadRUPs()
         filterButtonOn(button: draftsFilter)
         self.rups = RUPManager.shared.getDraftRups()
@@ -140,6 +156,7 @@ class HomeViewController: BaseViewController {
     }
 
     func filterByPending() {
+        if syncing {return}
         loadRUPs()
         filterButtonOn(button: pendingFilter)
         self.rups = RUPManager.shared.getPendingRups()
@@ -147,6 +164,7 @@ class HomeViewController: BaseViewController {
     }
 
     func filterByCompleted() {
+        if syncing {return}
         loadRUPs()
         filterButtonOn(button: completedFilter)
         self.rups = RUPManager.shared.getCompletedRups()
@@ -154,21 +172,25 @@ class HomeViewController: BaseViewController {
     }
 
     func sortByAgreementHolder() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
     }
 
     func sortByRangeName() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.rangeName < $1.rangeName})
     }
 
     func sortByStatus() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.getStatus().rawValue < $1.getStatus().rawValue})
     }
 
     func sortByRangeNumber() {
+        if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
     }
@@ -202,7 +224,6 @@ class HomeViewController: BaseViewController {
         }
         setUpTable()
         filterByAll()
-
         beginChangeListener()
     }
 
@@ -230,15 +251,24 @@ class HomeViewController: BaseViewController {
     }
 
     func loadRUPs() {
-        let plans = RUPManager.shared.getRUPs()
-        /*
-         Clean up the local DB by removing plans that were created
-         from agreements but cancelled.
-        */
-        for plan in plans where plan.isNew {
-            RealmRequests.deleteObject(plan)
+        if syncing {return}
+        DispatchQueue.main.async {
+        self.rups = [RUP]()
+            /*
+             Clean up the local DB by removing plans that were created
+             from agreements but cancelled.
+             */
+            RUPManager.shared.cleanPlans()
+            let rups = RUPManager.shared.getRUPs()
+            print(rups.count)
+            let agreements = RUPManager.shared.getAgreements()
+            for agreement in agreements where agreement.rups.count > 0 {
+                if let p = agreement.getLatestPlan() {
+                    self.rups.append(p)
+                }
+            }
+            self.tableView.reloadData()
         }
-        self.rups = RUPManager.shared.getRUPs()
     }
 
     // MARK: Styles
@@ -358,12 +388,35 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Sync
-    override func whenAuthenticated() {
+    func showSyncMessage(text: String, after: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: {
+            self.syncButtonLabel.text = text
+            self.animateIt()
+        })
+    }
+
+    override func onAuthenticationSuccess() {
+        if unstableConnection {
+            syncButtonLabel.text = "Connections is not stable for enough for a full sync"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                self.syncButtonLabel.alpha = 0
+                self.syncButton.isUserInteractionEnabled = true
+                self.unstableConnection = false
+                self.animateIt()
+            })
+            return
+        }
+        self.syncButtonLabel.alpha = 0
         self.syncing = true
         self.endChangeListener()
         sync { (synced) in
             self.loadHome()
         }
+    }
+
+    override func onAuthenticationFail() {
+        self.syncButtonLabel.alpha = 0
+        self.syncButton.isUserInteractionEnabled = true
     }
 
     override func whenSyncClosed() {
@@ -378,9 +431,16 @@ class HomeViewController: BaseViewController {
     }
 
     func hideSyncPage() {
-        syncButton.isUserInteractionEnabled = true
+        removeSyncPage()
         self.createButton.isUserInteractionEnabled = true
         self.tableView.isUserInteractionEnabled = true
+        syncButton.isUserInteractionEnabled = true
+    }
+
+    override func syncActionButtonPressed() {
+//        getRUPs()
+//        self.tableView.reloadData()
+        filterByAll()
     }
 }
 
@@ -404,16 +464,81 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
         let cell = getAssignedRupCell(indexPath: indexPath)
+        var expandFlag: Bool? = nil
+        if let selectedIndex = self.expandIndexPath {
+            if selectedIndex == indexPath {
+                expandFlag = true
+            } else {
+                expandFlag = false
+            }
+        }
         if index % 2 == 0 {
-            cell.setup(rup: rups[index], color: Colors.evenCell)
+            cell.setup(rup: rups[index], color: Colors.evenCell, expand: expandFlag)
         } else {
-            cell.setup(rup: rups[index], color: Colors.oddCell)
+            cell.setup(rup: rups[index], color: Colors.oddCell, expand: expandFlag)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rups.count
+    }
+
+    func rupsAreValid() -> Bool {
+        for element in self.rups {
+            if element.isInvalidated {
+                return false
+            }
+        }
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !rupsAreValid() {
+            loadRUPs()
+        }
+        if !rupsAreValid() {
+            return
+        }
+        if expandIndexPath == nil {
+            self.expandIndexPath = indexPath
+            self.tableView.isScrollEnabled = false
+            if #available(iOS 11.0, *) {
+                self.tableView.performBatchUpdates({
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }) { (done) in
+                    self.tableView.reloadData()
+                    // if indexpath is the last visible, scroll to bottom of it
+                    if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
+                        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                    }
+                }
+            } else {
+                // PRE ios 11
+               self.tableView.reloadData()
+                // if indexpath is the last visible, scroll to bottom of it
+                if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
+                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                }
+            }
+        } else {
+            if #available(iOS 11.0, *) {
+                self.tableView.performBatchUpdates({
+                    if let i = expandIndexPath {
+                        let cell = self.tableView.cellForRow(at: i) as! AssignedRUPTableViewCell
+                        cell.styleDefault()
+                        self.expandIndexPath = nil
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                }) { (done) in
+                    self.tableView.reloadData()
+                }
+            } else {
+                 self.expandIndexPath = nil
+                self.tableView.reloadData()
+            }
+            self.tableView.isScrollEnabled = true
+        }
     }
 }
 
@@ -494,6 +619,7 @@ extension HomeViewController {
             syncButton.isEnabled = false
             self.connectivityLabel.text = "OFFLINE MODE"
             self.connectivityLight.backgroundColor = UIColor.red
+            self.syncing = false
         }
     }
 }

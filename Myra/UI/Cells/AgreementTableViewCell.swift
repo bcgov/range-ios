@@ -25,7 +25,7 @@ class AgreementTableViewCell: UITableViewCell, Theme {
     func setup(agreement: Agreement, bg: UIColor) {
         self.backgroundColor = bg
         self.rangeNumber.text = "\(agreement.agreementId)"
-        self.agreementHolder.text = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+        self.agreementHolder.text = agreement.primaryAgreementHolder()
         style()
         self.agreement = agreement
     }
@@ -34,6 +34,15 @@ class AgreementTableViewCell: UITableViewCell, Theme {
         styleStaticField(field: rangeNumber)
         styleStaticField(field: agreementHolder)
         styleFillButton(button: selectButton)
+    }
+
+    func styleSelected() {
+        self.layer.shadowRadius = 8
+    }
+
+    func setLocked() {
+        self.rangeNumber.textColor = Colors.oddCell
+        self.agreementHolder.textColor = Colors.oddCell
     }
     
 }

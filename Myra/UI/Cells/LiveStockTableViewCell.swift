@@ -10,6 +10,8 @@ import UIKit
 
 class LiveStockTableViewCell: UITableViewCell {
 
+    static let cellHeight = 45
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

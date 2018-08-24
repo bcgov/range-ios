@@ -108,9 +108,13 @@ class BasicInformationTableViewCell: BaseFormCell {
 
         // Zone and District
         if let zone = rup.zones.last {
-            self.zoneValue.text = zone.code
+            self.zoneValue.text = zone.desc
             if let district = zone.districts.last {
-                self.districtValue.text = district.code
+                if district.desc == "" {
+                    self.districtValue.text = district.code
+                } else {
+                    self.districtValue.text = district.desc
+                }
             }
             contactNameValue.text = zone.contactName
             contactEmailValue.text = zone.contactEmail

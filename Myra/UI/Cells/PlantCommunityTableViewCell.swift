@@ -14,10 +14,13 @@ class PlantCommunityTableViewCell: BaseFormCell {
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var header: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descriptionTextView: UITextView!
+
+    // MARK: Constants
+    static let cellHeight = 60
 
     // MARK: Variables
     var plantCommunity: PlantCommunity?
+    var parentCellReference: PastureTableViewCell?
     var pasture: Pasture?
 
     // MARK: ViewController functions
@@ -29,18 +32,46 @@ class PlantCommunityTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
     @IBAction func detailsAction(_ sender: UIButton) {
-        guard let community = self.plantCommunity, let p = self.pasture else {return}
+        guard let community = self.plantCommunity, let p = self.pasture, let parentCell = self.parentCellReference else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         grandParent.showPlantCommunity(pasture: p, plantCommunity: community) { (done) in
             print("validate here")
+            parentCell.updateTableHeight()
+        }
+    }
+
+    @IBAction func optionsAction(_ sender: UIButton) {
+        guard let pc = self.plantCommunity, let parent = parentCellReference else {return}
+
+        let grandParent = self.parentViewController as! CreateNewRUPViewController
+
+        let vm = ViewManager()
+        let optionsVC = vm.options
+
+        let options: [Option] = [Option(type: .Delete, display: "Delete")]
+
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
+            optionsVC.dismiss(animated: true, completion: nil)
+            switch option.type {
+            case .Delete:
+                grandParent.showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
+                    RealmManager.shared.deletePlantCommunity(object: pc)
+                    parent.updateTableHeight()
+                }, noButtonTapped: {})
+
+            case .Copy:
+                print("not yet implemented")
+//                self.duplicate()
+            }
         }
     }
 
     // MARK: Setup
-    func setup(mode: FormMode, plantCommunity: PlantCommunity, pasture: Pasture) {
+    func setup(mode: FormMode, plantCommunity: PlantCommunity, pasture: Pasture, parentCellReference: PastureTableViewCell) {
         self.mode = mode
         self.plantCommunity = plantCommunity
         self.pasture = pasture
+        self.parentCellReference = parentCellReference
 //        setupNotifications()
 //        notifyReload()
         autofill()
@@ -75,7 +106,5 @@ extension PlantCommunityTableViewCell {
         addShadow(to: container.layer, opacity:defaultContainerShadowOpacity(), height: defaultContainershadowHeight())
         styleSubHeader(label: header)
         styleSubHeader(label: nameLabel)
-        styleTextviewInputField(field: descriptionTextView, header: nameLabel)
-
     }
 }

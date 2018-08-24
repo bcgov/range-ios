@@ -45,23 +45,22 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
     }
 
     func autofill() {
-        if self.totalAUMs == nil || self.schedule == nil {return}
-        let totAUMs = RUPManager.shared.getTotalAUMsFor(schedule: self.schedule!)
+        guard let sched = self.schedule else {return}
+        let totAUMs = sched.getTotalAUMs()
         self.totalAUMs.text = "\(totAUMs.rounded())"
-        let usage = RUPManager.shared.getUsageFor(year: (schedule?.year)!, agreementId: agreementID)
-        let allowed = usage?.auth_AUMs ?? 0
-        self.authorizedAUMs.text = "\(allowed)"
-
-        // could also use
-        // RUPManager.shared.isScheduleValid(schedule: schedule, agreementID: agreementID)
-
-        if totAUMs > Double(allowed) {
-            totalAUMs.textColor = UIColor.red
+        if let usage = RUPManager.shared.getUsageFor(year: (sched.year), agreementId: agreementID) {
+            let allowed = usage.auth_AUMs
+            self.authorizedAUMs.text = "\(allowed)"
+            if totAUMs > Double(allowed) {
+                totalAUMs.textColor = UIColor.red
+            } else {
+                totalAUMs.textColor = UIColor.black
+            }
         } else {
-            totalAUMs.textColor = UIColor.black
+            self.authorizedAUMs.text = "NA"
         }
 
-        self.textView.text = schedule?.notes
+        self.textView.text = sched.notes
         if self.mode == .View && self.textView.text == "" {
             self.textView.text = "Description not provided"
         }

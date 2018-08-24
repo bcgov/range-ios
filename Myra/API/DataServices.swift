@@ -45,7 +45,7 @@ class DataServices: NSObject {
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
-                print("change observed")
+                print("change observed in DataServices")
                 /*
                  AutoSync will do a query of all RUPs to find outbox drafts
                  since this get triggered even when selecting a pacture on a
@@ -168,19 +168,13 @@ class DataServices: NSObject {
     internal func uploadOutboxRangeUsePlans(completion: @escaping () -> Void) {
 
         let outboxPlans = RUPManager.shared.getOutboxRups()
-//        onUploadCompleted = completion
-        self.upload(plans: outboxPlans) {
-            return completion()
-        }
-
+        self.upload(plans: outboxPlans, completion: completion)
     }
 
     internal func uploadLocalDrafts(completion: @escaping () -> Void) {
 
         let drafts = RUPManager.shared.getDraftRups()
-        self.upload(plans: drafts) {
-            return completion()
-        }
+        self.upload(plans: drafts, completion: completion)
 
     }
 
@@ -202,10 +196,7 @@ class DataServices: NSObject {
 
             APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
                 guard let response = response, error == nil else {
-
-                    // TODO: HANDLE THIS
-//                    fatalError()
-                    completion()
+                    group.leave()
                     return
                 }
 
@@ -229,18 +220,6 @@ class DataServices: NSObject {
                                         self.completeUpload(plan: plan)
                                         group.leave()
                                     })
-                                    // Set status to Pending
-//                                    if plan.statusEnum == .Outbox {
-//                                        do {
-//                                            let realm = try Realm()
-//                                            try realm.write {
-//                                                plan.statusEnum = .Pending
-//                                            }
-//                                        } catch _ {
-//                                            fatalError()
-//                                        }
-//                                    }
-//                                    group.leave()
                                 })
                             })
                         })
@@ -253,7 +232,7 @@ class DataServices: NSObject {
         }
 
         group.notify(queue: .main) {
-            completion()
+            return completion()
         }
     }
 
@@ -384,7 +363,6 @@ class DataServices: NSObject {
             }
 
             APIManager.add(action: myAction, toIssue: issueId, inPlan: planId) { (response, error) in
-                print(response)
 
                 guard let response = response, error == nil else {
                     fatalError()

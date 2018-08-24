@@ -29,11 +29,13 @@ class PasturesTableViewCell: BaseFormCell {
     // Mark: Outlet actions
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        
-        parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
-            if done {
+        let vm = ViewManager()
+        let textEntry = vm.textEntry
+        textEntry.taken = RUPManager.shared.getPastureNames(rup: rup)
+        textEntry.setup(on: parent, header: "Pasture") { (accepted, value) in
+            if accepted {
                 let newPasture = Pasture()
-                newPasture.name = name
+                newPasture.name = value
                 do {
                     let realm = try Realm()
                     let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
@@ -42,12 +44,31 @@ class PasturesTableViewCell: BaseFormCell {
                         realm.add(newPasture)
                     }
                     self.rup = aRup
+//                    parent.rup = aRup
                 } catch _ {
                     fatalError()
                 }
-                self.updateTableHeight()
+                self.updateTableHeight(newAdded: true)
             }
         }
+//        parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
+//            if done {
+//                let newPasture = Pasture()
+//                newPasture.name = name
+//                do {
+//                    let realm = try Realm()
+//                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+//                    try realm.write {
+//                        aRup.pastures.append(newPasture)
+//                        realm.add(newPasture)
+//                    }
+//                    self.rup = aRup
+//                } catch _ {
+//                    fatalError()
+//                }
+//                self.updateTableHeight()
+//            }
+//        }
     }
 
     // Mark: Functions
@@ -67,19 +88,20 @@ class PasturesTableViewCell: BaseFormCell {
         style()
     }
 
-    func updateTableHeight() {
-        self.tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableHeight.constant = computeHeight()
+    func updateTableHeight(newAdded: Bool? = false) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAt(indexPath: parent.pasturesIndexPath)
+        tableHeight.constant = computeHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     func computeHeight() -> CGFloat {
         /*
          Height of Pastures cell =
         */
-        let padding: CGFloat = 7
+        let padding: CGFloat = 5
         var h: CGFloat = 0.0
         for pasture in (rup.pastures) {
             h = h + computePastureHeight(pasture: pasture) + padding
@@ -90,7 +112,7 @@ class PasturesTableViewCell: BaseFormCell {
     func computePastureHeight(pasture: Pasture) -> CGFloat {
         // let staticHeight: CGFloat = 395
         let staticHeight: CGFloat = 415
-        let plantCommunityHeight: CGFloat = 110
+        let plantCommunityHeight: CGFloat = CGFloat(PlantCommunityTableViewCell.cellHeight)
         return (staticHeight + plantCommunityHeight * CGFloat(pasture.plantCommunities.count))
     }
 

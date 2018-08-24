@@ -24,6 +24,24 @@ class PastureAction: Object, MyraObject {
 
     @objc dynamic var details: String = ""
     @objc dynamic var action: String = ""
-    @objc dynamic var noGrazeDateIn: Date?
-    @objc dynamic var noGrazeDateOut: Date?
+
+    @objc dynamic var noGrazeOutSelected: Bool = false
+    @objc dynamic var noGrazeInDay: Int = 1
+    @objc dynamic var noGrazeInMonth: Int = 1
+    @objc dynamic var noGrazeInSelected: Bool = false
+    @objc dynamic var noGrazeOutDay: Int = 1
+    @objc dynamic var noGrazeOutMonth: Int = 12
+
+    func copy() -> PastureAction {
+        let new = PastureAction()
+        new.details = self.details
+        new.action = self.action
+        new.noGrazeOutSelected = self.noGrazeOutSelected
+        new.noGrazeInDay = self.noGrazeInDay
+        new.noGrazeInMonth = self.noGrazeInMonth
+        new.noGrazeInSelected = self.noGrazeInSelected
+        new.noGrazeOutDay = self.noGrazeOutDay
+        new.noGrazeOutMonth = self.noGrazeOutMonth
+        return new
+    }
 }

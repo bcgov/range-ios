@@ -133,8 +133,6 @@ extension Theme {
         return Colors.secondary
     }
 
-    // MARK: Styles
-
     // MARK: Buttons
     func styleHollowButton(button: UIButton) {
         styleButton(button: button, bg: defaultHollowButtonBackground(), borderColor: defaultHollowButtonBorderColor(), titleColor: defaultHollowButtonTitleColor())
@@ -202,13 +200,16 @@ extension Theme {
 
     func styleFieldHeader(label: UILabel) {
         label.textColor = defaultFieldHeaderColor()
-        label.font = defaultFieldHeaderFont()
         label.font = Fonts.getPrimaryHeavy(size: 12)
     }
 
-    func styleFieldHeaderOff(button: UIButton) {
+    func styleFieldHeader(button: UIButton) {
+        button.setTitleColor(defaultFieldHeaderColor(), for: .normal)
+        button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
+    }
+
+    func styleSortHeaderOff(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
-//        button.titleLabel?.font = defaultFieldHeaderFont()
         button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlightOff"), for: .normal)
         // set button image on the right
@@ -216,9 +217,8 @@ extension Theme {
         button.imageEdgeInsets = UIEdgeInsetsMake(0, (button.titleLabel?.frame.size.width)!, 0, (0.0 - (button.titleLabel?.frame.size.width)!))
     }
 
-    func styleFieldHeaderOn(button: UIButton) {
+    func styleSortHeaderOn(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOnColor(), for: .normal)
-//        button.titleLabel?.font = defaultFieldHeaderFont()
         button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
         // set button image on the right
@@ -305,6 +305,20 @@ extension Theme {
         field.layer.borderColor = Colors.shadowColor.cgColor
         field.layer.borderWidth = 1
         styleFieldHeader(label: header)
+    }
+
+    // MARK: Radio
+    func styleRadioOff(view: UIView, imageView: UIImageView) {
+        makeCircle(view: view)
+        view.layer.backgroundColor = defaultInputFieldBackground().cgColor
+        imageView.alpha = 0
+    }
+
+    func styleRadioOn(view: UIView, imageView: UIImageView) {
+        makeCircle(view: view)
+        view.layer.backgroundColor = UIColor.white.cgColor
+        imageView.alpha = 1
+        imageView.image = #imageLiteral(resourceName: "icon_check")
     }
 
     // MARK: Shadows

@@ -81,7 +81,13 @@ class Schedule: Object, MyraObject {
         for entry in entries {
             self.scheduleObjects.append(ScheduleObject(json: entry.1, plan: plan))
         }
+    }
 
-        
+    func getTotalAUMs() -> Double {
+        var total = 0.0
+        for object in self.scheduleObjects {
+            total = total + object.crownAUMs
+        }
+        return total
     }
 }

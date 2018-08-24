@@ -24,6 +24,14 @@ class Pasture: Object, MyraObject {
         return "localId"
     }
     
+    @objc dynamic var name: String = ""
+    @objc dynamic var allowedAUMs: Int = -1
+    @objc dynamic var privateLandDeduction: Double = 0.0
+    @objc dynamic var graceDays: Int = 3
+    @objc dynamic var notes: String = ""
+
+    var plantCommunities = List<PlantCommunity>()
+
     convenience init(data: [String: Any]) {
         self.init()
 
@@ -34,14 +42,6 @@ class Pasture: Object, MyraObject {
         notes = data["notes"] as! String
         remoteId = data["dbID"] as! Int
     }
-    
-    @objc dynamic var name: String = ""
-    @objc dynamic var allowedAUMs: Int = -1
-    @objc dynamic var privateLandDeduction: Double = 0.0
-    @objc dynamic var graceDays: Int = 3
-    @objc dynamic var notes: String = ""
-
-    var plantCommunities = List<PlantCommunity>()
 
     func copy() -> Pasture {
         let pasture = Pasture()
@@ -50,6 +50,9 @@ class Pasture: Object, MyraObject {
         pasture.privateLandDeduction = self.privateLandDeduction
         pasture.graceDays = self.graceDays
         pasture.notes = self.notes
+        for object in self.plantCommunities {
+            pasture.plantCommunities.append(object.copy())
+        }
         return pasture
     }
 

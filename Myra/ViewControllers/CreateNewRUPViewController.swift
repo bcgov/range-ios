@@ -85,7 +85,12 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var statusBar: UIView!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var viewTitle: UILabel!
-    @IBOutlet weak var ranchNameAndNumberLabel: UILabel!
+    @IBOutlet weak var ranLabel: UILabel!
+
+    @IBOutlet weak var statusLight: UIView!
+
+    @IBOutlet weak var statusAndagreementHolderLabel: UILabel!
+
     @IBOutlet weak var saveToDraftButton: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
@@ -265,52 +270,6 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Outlet Actions
-    @IBAction func saveToDraftAction(_ sender: UIButton) {
-        guard let plan = self.rup else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                plan.isNew = false
-                plan.locallyUpdatedAt = Date()
-            }
-        } catch _ {
-            fatalError() 
-        }
-        RealmRequests.updateObject(plan)
-        self.dismiss(animated: true) {
-            if self.parentCallBack != nil {
-                return self.parentCallBack!(true, false)
-            }
-        }
-    }
-
-    @IBAction func basicInfoAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
-    }
-
-    @IBAction func pasturesAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: pasturesIndexPath, at: .top, animated: true)
-    }
-
-    @IBAction func scheduleAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
-    }
-
-    @IBAction func ministersIssuesAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: minsterActionsIndexPath, at: .top, animated: true)
-    }
-    /*
-    @IBAction func invasivePlantsAction(_ sender: UIButton) {
-    }
-    @IBAction func additionalRequirementsAction(_ sender: UIButton) {
-    }
-    @IBAction func managementAction(_ sender: UIButton) {
-    }
-    @IBAction func mapAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
-    }
-    */
-
     @IBAction func cancelAction(_ sender: UIButton) {
         if let new: RUP = self.copy, let old: RUP = self.rup {
 
@@ -345,6 +304,56 @@ class CreateNewRUPViewController: BaseViewController {
             }
         }
     }
+    
+    @IBAction func saveToDraftAction(_ sender: UIButton) {
+        guard let plan = self.rup, let agreement = RUPManager.shared.getAgreement(with: plan.agreementId) else {return}
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                plan.isNew = false
+                plan.locallyUpdatedAt = Date()
+//                agreement.rups.append(plan)
+            }
+        } catch _ {
+            fatalError() 
+        }
+        
+        RealmRequests.updateObject(plan)
+        
+        self.dismiss(animated: true) {
+            if self.parentCallBack != nil {
+                return self.parentCallBack!(true, false)
+            }
+        }
+    }
+
+    @IBAction func basicInfoAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+    }
+
+    @IBAction func pasturesAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: pasturesIndexPath, at: .top, animated: true)
+    }
+
+    @IBAction func scheduleAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
+    }
+
+    @IBAction func ministersIssuesAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: minsterActionsIndexPath, at: .top, animated: true)
+    }
+    /*
+    @IBAction func invasivePlantsAction(_ sender: UIButton) {
+    }
+    @IBAction func additionalRequirementsAction(_ sender: UIButton) {
+    }
+    @IBAction func managementAction(_ sender: UIButton) {
+    }
+    @IBAction func mapAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
+    }
+    */
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}
@@ -384,6 +393,18 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Functions
+
+    func refreshPlanObject() {
+        guard let plan = self.rup else {return}
+        do {
+            let realm = try Realm()
+            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+            self.rup = aRup
+        } catch _ {
+            fatalError()
+        }
+    }
+
     // MARK: Setup
     func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
         self.parentCallBack = callBack
@@ -437,20 +458,20 @@ class CreateNewRUPViewController: BaseViewController {
 
     func setBarInfoBasedOnOrientation() {
         guard let p = rup else { return }
-        let num = p.agreementId
-        let name = p.rangeName
         var holder = ""
 
         if let agreement = RUPManager.shared.getAgreement(with: p.agreementId) {
-            holder = RUPManager.shared.getPrimaryAgreementHolderFor(agreement: agreement)
+            holder = agreement.primaryAgreementHolder()
         }
 
+        ranLabel.text = "\(p.agreementId) | "
         if UIDevice.current.orientation.isPortrait ||  UIDevice.current.orientation.isFlat {
-            ranchNameAndNumberLabel.text = "\(num) | \(name)"
+            statusAndagreementHolderLabel.text = "\(p.getStatus())"
         } else {
-            ranchNameAndNumberLabel.text = "\(num) | \(name) | \(holder)"
+            statusAndagreementHolderLabel.text = "\(p.getStatus()) | \(holder)"
         }
 
+        styleStatus()
         animateIt()
     }
 
@@ -482,6 +503,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.remembersLastFocusedIndexPath = true
         registerCell(name: "BasicInformationTableViewCell")
         registerCell(name: "PlanInformationTableViewCell")
         registerCell(name: "AgreementHoldersTableViewCell")
@@ -590,46 +612,81 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return numberOfSections
     }
 
-
-    func reload(indexPath: IndexPath) {
-        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    // RELOAD WITH COMPLETION
+    func reload(then: @escaping() -> Void) {
+        refreshPlanObject()
+        if #available(iOS 11.0, *) {
+//            UIView.animate(withDuration: mediumAnimationDuration, animations: {
+//                self.tableView.performBatchUpdates({
+//                    self.tableView.beginUpdates()
+//                    self.tableView.endUpdates()
+//                }, completion: { done in
+//                    self.tableView.layoutIfNeeded()
+//                    if !done {
+//                        print (done)
+//                    }
+//                    self.highlightCurrentModuleInMenu()
+//                    return then()
+//                })
+//                self.view.layoutIfNeeded()
+//            })
+            self.tableView.performBatchUpdates({
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            }, completion: { done in
+                self.tableView.layoutIfNeeded()
+                if !done {
+                    print (done)
+                }
+                self.highlightCurrentModuleInMenu()
+                return then()
+            })
+        } else {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            self.tableView.layoutIfNeeded()
+            self.highlightCurrentModuleInMenu()
+            return then()
+        }
     }
 
+    func reload(at indexPath: IndexPath) {
+        refreshPlanObject()
+        if #available(iOS 11.0, *) {
+            self.tableView.performBatchUpdates({
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                self.tableView.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            self.tableView.layoutIfNeeded()
+        }
 
-    func reloadAt(indexPath: IndexPath) {
-//        guard let plan = self.rup else {return}
-//        do {
-//            let realm = try Realm()
-//            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
-//            self.rup = aRup
-//        } catch _ {
-//            fatalError()
+    }
+
+//    func reloadAt(indexPath: IndexPath) {
+//        refreshPlanObject()
+//        if #available(iOS 11.0, *) {
+//            self.tableView.performBatchUpdates({
+//                self.tableView.reloadData()
+//                highlightCurrentModuleInMenu()
+//            }, completion: nil)
+//        } else {
+//            self.tableView.beginUpdates()
+//            self.tableView.endUpdates()
+//            self.tableView.layoutIfNeeded()
+//            highlightCurrentModuleInMenu()
 //        }
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        self.tableView.layoutIfNeeded()
+//    }
 
-//        self.tableView.reloadRows(at: [indexPath], with: .automatic)
-//        self.tableView.layoutIfNeeded()
-
-        
-        highlightCurrentModuleInMenu()
+    func realod(bottomOf indexPath: IndexPath, then: @escaping() -> Void) {
+        reload {
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            self.highlightCurrentModuleInMenu()
+            return then()
+        }
     }
 
-    func realodAndGoToBottomOf(indexPath: IndexPath) {
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        self.tableView.layoutIfNeeded()
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlightCurrentModuleInMenu()
-    }
-
-    // deep reload reloads tableview. other reload functions dont
-    func deepReload(indexPath: IndexPath) {
-        self.tableView.reloadData()
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        highlightCurrentModuleInMenu()
-    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         highlightCurrentModuleInMenu()
@@ -688,16 +745,25 @@ extension CreateNewRUPViewController {
 extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         guard let plan = self.rup else {return}
+        DataServices.shared.endAutoSyncListener()
         let vm = ViewManager()
         let schedule = vm.schedule
-        schedule.setup(mode: mode, rup: plan, schedule: object, completion: completion)
+        schedule.setup(mode: mode, rup: plan, schedule: object, completion: { done in
+            DataServices.shared.beginAutoSyncListener()
+            completion(done)
+        })
         self.present(schedule, animated: true, completion: nil)
     }
 
     func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+        guard let plan = self.rup else {return}
+        DataServices.shared.endAutoSyncListener()
         let vm = ViewManager()
         let plantCommunityDetails = vm.plantCommunity
-        plantCommunityDetails.setup(mode: mode, pasture: pasture, plantCommunity: plantCommunity, completion: completion)
+        plantCommunityDetails.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: { done in
+            DataServices.shared.beginAutoSyncListener()
+            completion(done)
+        })
         self.present(plantCommunityDetails, animated: true, completion: nil)
     }
 }

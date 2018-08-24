@@ -62,6 +62,10 @@ class RUP: Object, MyraObject {
     @objc dynamic var typeId: Int = 0
     @objc dynamic var ranNumber: Int = 0
 
+    @objc dynamic var effectiveDate: Date?
+    @objc dynamic var submitted: Date?
+    @objc dynamic var amendmentType: String = ""
+
     // Remote status
     @objc dynamic var statusId: Int = 0
     @objc dynamic var statusIdValue: String = ""
@@ -172,6 +176,10 @@ class RUP: Object, MyraObject {
             plan.schedules.append(object.copy(in: plan))
         }
 
+        for object in self.ministerIssues {
+            plan.ministerIssues.append(object.copy())
+        }
+
         // Cients, zones and Range usage years should not be deletable/editable, so no need to call copy() on them
         plan.clients = self.clients
         plan.zones = self.zones
@@ -243,6 +251,22 @@ class RUP: Object, MyraObject {
             self.remoteId = id
         }
 
+        if let effectiveDate = json["effectiveAt"].string {
+            self.effectiveDate = DateManager.fromUTC(string: effectiveDate)
+        }
+
+        if let submitted = json["submittedAt"].string {
+            self.submitted = DateManager.fromUTC(string: submitted)
+        }
+
+        if let rangeName = json["rangeName"].string {
+            self.rangeName = rangeName
+        }
+
+        if let amedmentType = json["amendmentTypeId"].string {
+            self.amendmentType = amedmentType
+        }
+
         if let planStart = json["planStartDate"].string {
             self.planStartDate = DateManager.fromUTC(string: planStart)
         }
@@ -258,6 +282,7 @@ class RUP: Object, MyraObject {
         if let rangeName = json["rangeName"].string {
             self.rangeName = rangeName
         }
+        
 
         if let altName = json["altBusinessName"].string {
             self.alternativeName = altName

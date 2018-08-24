@@ -26,6 +26,4 @@ class Fonts {
     static func getPrimaryMedium(size: CGFloat) -> UIFont {
         return UIFont(name: "HelveticaNeue-Medium", size: size)!
     }
-
-
 }

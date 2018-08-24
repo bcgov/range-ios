@@ -30,7 +30,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
@@ -49,10 +49,9 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                         fatalError()
                     }
                 }
-                self.updateTableHeight(scrollToBottom: true)
+                self.updateTableHeight(scrollToBottom: true, then: {})
             }
         }
-        parent.showPopUp(vc: lookup, on: sender)
     }
 
     // MARK: Setup
@@ -68,15 +67,21 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     }
 
     // MARK: Functions
-    func updateTableHeight(scrollToBottom: Bool) {
-        self.tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableHeight.constant = computeHeight()
+    func updateTableHeight(scrollToBottom: Bool, then: @escaping() -> Void) {
         let parent = self.parentViewController as! CreateNewRUPViewController
+        tableHeight.constant = computeHeight()
         if scrollToBottom {
-            parent.realodAndGoToBottomOf(indexPath: parent.minsterActionsIndexPath)
+            parent.realod(bottomOf: parent.minsterActionsIndexPath) {
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+                return then()
+            }
         } else {
-            parent.reloadAt(indexPath: parent.minsterActionsIndexPath)
+            parent.reload {
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+                return then()
+            }
         }
     }
 
@@ -97,10 +102,8 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         /*
          This module has Action cells
         */
-//        let staticHeight: CGFloat = 670
-        let staticHeight: CGFloat = 670 - 146
-        let actionHeight: CGFloat = 162
-        return (staticHeight + (actionHeight * CGFloat(issue.actions.count)))
+        
+        return (MinisterIssueTableViewCell.cellHeight + (MinistersIssueActionTableViewCell.cellHeight * CGFloat(issue.actions.count)))
     }
 
     // MARK: Style

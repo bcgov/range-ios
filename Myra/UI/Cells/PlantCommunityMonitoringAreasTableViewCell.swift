@@ -16,6 +16,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
     var mode: FormMode = .View
     var plantCommunity: PlantCommunity?
     var parentReference: PlantCommunityViewController?
+    var rup: RUP?
 
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -36,7 +37,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.setup { (accepted, value) in
+        textEntry.setup(on: parent, header: "Monitoring Area Name") { (accepted, value) in
             if accepted {
                 let newMonitoringArea = MonitoringArea()
                 newMonitoringArea.name = value
@@ -48,35 +49,29 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
                         realm.add(newMonitoringArea)
                     }
                     self.plantCommunity = aCommunity
+
                 } catch _ {
                     fatalError()
                 }
-                parent.removeWhiteScreen()
-                textEntry.view.removeFromSuperview()
-                textEntry.removeFromParentViewController()
                 self.updateTableHeight()
-            } else {
-                parent.removeWhiteScreen()
-                textEntry.view.removeFromSuperview()
-                textEntry.removeFromParentViewController()
+                parent.showMonitoringAreaDetailsPage(monitoringArea: newMonitoringArea)
             }
         }
-        parent.showTextEntry(vc: textEntry)
     }
 
     // MARK: Setup
-    func setup(plantCommunity: PlantCommunity, mode: FormMode, parentReference: PlantCommunityViewController) {
+    func setup(plantCommunity: PlantCommunity, mode: FormMode, rup: RUP, parentReference: PlantCommunityViewController) {
         self.plantCommunity = plantCommunity
         self.mode = mode
         self.parentReference = parentReference
-        self.height.constant = CGFloat( plantCommunity.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
+        self.rup = rup
+        self.height.constant = computeHeight()
         setUpTable()
         style()
     }
 
-    func updateTableHeight() {
-        guard let p = self.plantCommunity, let parent = self.parentReference else {return}
-
+    func refreshPlantCommunityObject() {
+        guard let p = self.plantCommunity else {return}
         do {
             let realm = try Realm()
             let temp = realm.objects(PlantCommunity.self).filter("localId = %@", p.localId).first!
@@ -84,21 +79,21 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+    }
 
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
-        self.height.constant = CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
-
-        parent.reload()
+    func updateTableHeight() {
+        refreshPlantCommunityObject()
+        guard let parent = self.parentReference else {return}
+        self.height.constant = computeHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     func computeHeight() -> CGFloat {
-        // size of lable + button + vertical paddings
-        let staticHeight = 128
-        // size of a monitoring area cell
-        let monitoringAreaHeight = 50
-        guard let p = self.plantCommunity else {return CGFloat(staticHeight)}
-        return (CGFloat(staticHeight + (monitoringAreaHeight * p.monitoringAreas.count)))
+        guard let p = self.plantCommunity else {return 0.0}
+        return CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
     }
 
     // MARK: Styles
@@ -128,8 +123,8 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getMonitoringAreaCell(indexPath: indexPath)
-        if let pc = self.plantCommunity {
-            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode)
+        if let pc = self.plantCommunity, let parent = parentReference {
+            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode, parentCellReference: self, parentReference: parent)
         }
         return cell
     }

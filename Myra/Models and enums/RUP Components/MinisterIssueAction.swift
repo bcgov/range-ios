@@ -28,6 +28,13 @@ class MinisterIssueAction: Object, MyraObject {
     @objc dynamic var actionType: String = ""
     @objc dynamic var desc: String = ""
 
+    @objc dynamic var noGrazeOutSelected: Bool = false
+    @objc dynamic var noGrazeInDay: Int = 1
+    @objc dynamic var noGrazeInMonth: Int = 1
+    @objc dynamic var noGrazeInSelected: Bool = false
+    @objc dynamic var noGrazeOutDay: Int = 1
+    @objc dynamic var noGrazeOutMonth: Int = 12
+
     func set(desc: String) {
         do {
             let realm = try Realm()
@@ -63,5 +70,20 @@ class MinisterIssueAction: Object, MyraObject {
         if let actionTypeId = json["actionTypeId"].int {
             self.actionTypeID = actionTypeId
         }
+    }
+
+    func copy() -> MinisterIssueAction {
+        let new = MinisterIssueAction()
+        new.remoteId = self.remoteId
+        new.actionType = self.actionType
+        new.actionTypeID = self.actionTypeID
+        new.desc = self.desc
+        new.noGrazeOutSelected = self.noGrazeOutSelected
+        new.noGrazeInDay = self.noGrazeInDay
+        new.noGrazeInMonth = self.noGrazeInMonth
+        new.noGrazeInSelected = self.noGrazeInSelected
+        new.noGrazeOutDay = self.noGrazeOutDay
+        new.noGrazeOutMonth = self.noGrazeOutMonth
+        return new
     }
 }

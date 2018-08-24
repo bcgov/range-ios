@@ -41,17 +41,19 @@ class LiveStockIDTableViewCell: BaseFormCell {
         setUpTable()
     }
 
-    func updateTableHeight() {
-        self.tableView.layoutIfNeeded()
-        self.tableView.reloadData()
-        tableViewHeight.constant = CGFloat((self.rup.liveStockIDs.count) * cellHeight + 5)
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reloadAt(indexPath: parent.liveStockIDIndexPath)
+    func computeHeight() -> CGFloat {
+        let padding: CGFloat = 5.0
+        return CGFloat(CGFloat((self.rup.liveStockIDs.count)) * CGFloat(LiveStockTableViewCell.cellHeight) + padding)
     }
 
-//    func setInitialHeight(numberOfFields: Int) {
-//        tableViewHeight.constant = CGFloat(numberOfFields * cellHeight + 5)
-//    }
+    func updateTableHeight() {
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        tableViewHeight.constant = computeHeight()
+        parent.reload {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
+    }
 
 }
 extension LiveStockIDTableViewCell: UITableViewDelegate, UITableViewDataSource {

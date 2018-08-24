@@ -26,6 +26,12 @@ class SelectAgreementViewController: UIViewController, Theme {
     @IBOutlet weak var rangeNumberHeader: UILabel!
     @IBOutlet weak var agreementHolderHeader: UILabel!
     @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var fieldHeight: NSLayoutConstraint!
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var searchHolder: UIView!
+    @IBOutlet weak var rangeNumberSort: UIButton!
+    @IBOutlet weak var agreementHolderSort: UIButton!
 
     // MARK: ViewController functions
     override func viewDidLoad() {
@@ -49,6 +55,68 @@ class SelectAgreementViewController: UIViewController, Theme {
         })
     }
 
+    @IBAction func clearSearch(_ sender: UIButton) {
+        clearButton.alpha = 0
+        self.searchField.text = ""
+        self.agreements = RUPManager.shared.getAgreementsWithNoRUPs()
+        self.tableView.reloadData()
+    }
+
+    @IBAction func searchQueryChanged(_ sender: UITextField) {
+        if let query = searchField.text {
+            resetSort()
+            if query == "" {
+                clearButton.alpha = 0
+                self.agreements = RUPManager.shared.getAgreementsWithNoRUPs()
+            } else {
+                clearButton.alpha = 1
+                search(query: query)
+            }
+        }
+    }
+
+    @IBAction func rangeNumberSortAction(_ sender: UIButton) {
+        sortByRangeNumber()
+    }
+
+    @IBAction func agreementHolderSortAction(_ sender: UIButton) {
+        sortByAgreementHolder()
+    }
+
+    // MARK: Sort and search
+    func sortByRangeNumber() {
+        styleSortHeaderOff(button: agreementHolderSort)
+        styleSortHeaderOn(button: rangeNumberSort)
+        self.agreements = agreements.sorted(by: { Int($0.agreementId.replacingOccurrences(of: "RAN", with: ""))! < Int($1.agreementId.replacingOccurrences(of: "RAN", with: ""))! })
+        self.tableView.reloadData()
+    }
+
+    func sortByAgreementHolder() {
+        styleSortHeaderOff(button: rangeNumberSort)
+        styleSortHeaderOn(button: agreementHolderSort)
+        self.agreements = agreements.sorted(by: { $0.primaryAgreementHolder() < $1.primaryAgreementHolder() })
+        self.tableView.reloadData()
+    }
+
+    func resetSort() {
+        styleSortHeaderOff(button: rangeNumberSort)
+        styleSortHeaderOff(button: agreementHolderSort)
+    }
+
+    func search(query: String) {
+        let all = RUPManager.shared.getAgreementsWithNoRUPs()
+        var result: [Agreement] = [Agreement]()
+        for agreement in all {
+            if agreement.agreementId.lowercased().contains(query.lowercased()) || agreement.primaryAgreementHolder().lowercased().contains(query.lowercased()){
+                result.append(agreement)
+            }
+        }
+        
+        self.agreements = result
+        self.tableView.reloadData()
+    }
+
+
     // MARK: Setup
     func setup(callBack: @escaping ((_ close: Bool) -> Void )) {
         self.parentCallBack = callBack
@@ -59,9 +127,16 @@ class SelectAgreementViewController: UIViewController, Theme {
         styleNavBar(title: pageTitle, navBar: navBar, statusBar: statusBar, primaryButton: cancelButton, secondaryButton: nil, textLabel: nil)
         styleHeader(label: createNewRupHeader)
         styleFooter(label: createNewRupFooter)
-        styleFieldHeader(label: rangeNumberHeader)
-        styleFieldHeader(label: agreementHolderHeader)
+//        styleFieldHeader(label: rangeNumberHeader)
+//        styleFieldHeader(label: agreementHolderHeader)
         styleDivider(divider: divider)
+        // custom styling of search. move to theme is search is used elsewhere
+        searchField.textColor = defaultInputFieldTextColor()
+        searchField.font = defaultInputFieldFont()
+        searchField.backgroundColor = defaultInputFieldBackground()
+        searchHolder.backgroundColor = defaultInputFieldBackground()
+        searchHolder.layer.cornerRadius = 3
+        resetSort()
     }
 
     // MARK: Selection

@@ -56,6 +56,9 @@ class ScheduleViewController: BaseViewController {
 
     // MARK: Outlet Actions
     @IBAction func backAction(_ sender: UIButton) {
+        calculateEntries()
+        validate()
+
         if let r = self.rup {
             RealmRequests.updateObject(r)
         }
@@ -64,7 +67,6 @@ class ScheduleViewController: BaseViewController {
             if let callback = self.completion {
                 return callback(true)
             }
-//            return self.completion!(true)
         })
     }
 
@@ -74,10 +76,7 @@ class ScheduleViewController: BaseViewController {
         self.mode = mode
         self.schedule = schedule
         self.completion = completion
-        let scheduleObjects = schedule.scheduleObjects
-        for object in scheduleObjects {
-            RUPManager.shared.calculateScheduleEntry(scheduleObject: object)
-        }
+        calculateEntries()
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: rup.agreementId, agreementHolder: "", rangeName: rup.rangeName)
@@ -91,6 +90,13 @@ class ScheduleViewController: BaseViewController {
             case .deleted:
                 print("RUP deleted")
             }
+        }
+    }
+
+    func calculateEntries() {
+        guard let sched = self.schedule else {return}
+        for object in sched.scheduleObjects {
+            RUPManager.shared.calculateScheduleEntry(scheduleObject: object)
         }
     }
 
@@ -149,15 +155,38 @@ class ScheduleViewController: BaseViewController {
         rotatePopup()
     }
 
-    func reloadCells() {
-        self.view.layoutIfNeeded()
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-//        self.tableView.reloadData()
+    func refreshScheduleObject() {
+        guard let sched = self.schedule else {return}
+        do {
+            let realm = try Realm()
+            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
+            self.schedule = aSchedule
+        } catch _ {
+            fatalError()
+        }
     }
 
-    func calculateTotals() {
-        self.footerReference?.autofill()
+    func reload(then: @escaping()-> Void) {
+        refreshScheduleObject()
+        if #available(iOS 11.0, *) {
+            self.tableView.performBatchUpdates({
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            }, completion: { done in
+                self.tableView.layoutIfNeeded()
+                return then()
+            })
+        } else {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            self.tableView.layoutIfNeeded()
+            return then()
+        }
+    }
+
+    func autofillResults() {
+        guard let footer = footerReference else {return}
+        footer.autofill()
     }
 
     // MARK: Styles
@@ -200,6 +229,7 @@ class ScheduleViewController: BaseViewController {
         } else {
             closeBanner()
         }
+        autofillResults()
     }
 
     func highlightBanner() {

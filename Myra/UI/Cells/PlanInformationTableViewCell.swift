@@ -9,12 +9,14 @@
 import UIKit
 import Realm
 import RealmSwift
+import DatePicker
 
 class PlanInformationTableViewCell: BaseFormCell {
 
     // MARK: Constants
 
     // MARK: Variables
+    var reloadingUsage = false
 
     // MARK: Outlets
     @IBOutlet weak var divider: UIView!
@@ -41,39 +43,70 @@ class PlanInformationTableViewCell: BaseFormCell {
     @IBAction func planStartAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
-        let vm = ViewManager()
-        let picker = vm.datePicker
+        let picker = DatePicker()
 
-        picker.setup(between: min, max: max) { (date) in
-            self.handlePlanStartDate(date: date)
+        picker.setup(beginWith: rup.planStartDate, min: min, max: max, dateChanged: { (date) in
+            DispatchQueue.main.async {
+                self.handlePlanStartDate(date: date)
+            }
+        }) { (accepted, date) in
+            if let d = date {
+                DispatchQueue.main.async {
+                    self.handlePlanStartDate(date: d)
+                }
+            }
         }
-        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+
+        picker.displayPopOver(on: sender as! UIButton, in: parent, completion: {
+            self.reloadParentIfDatesAreSet()
+        })
     }
 
     @IBAction func planEndAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
-        let vm = ViewManager()
-        let picker = vm.datePicker
+        let picker = DatePicker()
         guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
-        if planStartValue.text != "" {
 
+        if rup.planStartDate != nil{
             let startDate = DateManager.from(string: planStartValue.text!)
-            let maxEnd = DateManager.fiveYearsLater(date: startDate)
-            picker.setup(between: startDate, max: maxEnd) { (date) in
-                self.handlePlanEndDate(date: date)
+            var maxEnd = DateManager.fiveYearsLater(date: startDate)
+            if maxEnd > max {
+                maxEnd = max
+            }
+            picker.setup(beginWith: rup.planEndDate, min: startDate, max: maxEnd, dateChanged: { (date) in
+                DispatchQueue.main.async {
+                    self.handlePlanEndDate(date: date)
+                }
+            }) { (accepted, date) in
+                if let d = date {
+                    DispatchQueue.main.async {
+                        self.handlePlanEndDate(date: d)
+                    }
+                }
             }
         } else {
-            picker.setup(between: min, max: max) { (date) in
-                self.handlePlanEndDate(date: date)
+            picker.setup(beginWith: rup.planEndDate, min: min, max: max, dateChanged: { (date) in
+
+                DispatchQueue.main.async {
+                    self.handlePlanEndDate(date: date)
+                }
+            }) { (accepted, date) in
+                if let d = date {
+                    DispatchQueue.main.async {
+                        self.handlePlanEndDate(date: d)
+                    }
+                }
             }
         }
         
-        parent.showPopOver(on: sender as! UIButton, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
+        picker.displayPopOver(on: sender as! UIButton, in: parent, completion: {
+            self.reloadParentIfDatesAreSet()
+        })
     }
 
     // MARK: functions
     func handlePlanStartDate(date: Date) {
-        self.planStartValue.text = date.string()
+        // Store
         do {
             let realm = try Realm()
             try realm.write {
@@ -82,10 +115,11 @@ class PlanInformationTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        if self.planEndValue.text != "" {
-            let endDate = DateManager.from(string: self.planEndValue.text!)
-            let endYear = endDate.yearOfDate()!
-            let startYear = date.yearOfDate()!
+
+        // Check end date
+        if let endDate = self.rup.planEndDate {
+            let endYear = endDate.year()
+            let startYear = date.year()
             if endDate < date || (endYear - startYear) > 5 {
                 self.planEndValue.text = DateManager.toString(date: (self.rup.planStartDate)!)
                 do {
@@ -98,11 +132,20 @@ class PlanInformationTableViewCell: BaseFormCell {
                 }
             }
         }
+
+        // fill date fields
+        if let start = self.rup.planStartDate {
+            self.planStartValue.text = start.string()
+        }
+
+        if let end = self.rup.planEndDate {
+            self.planEndValue.text = end.string()
+        }
+
         reloadParentIfDatesAreSet()
     }
 
     func handlePlanEndDate(date: Date) {
-        self.planEndValue.text = date.string()
         do {
             let realm = try Realm()
             try realm.write {
@@ -111,17 +154,27 @@ class PlanInformationTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
+
+        if let end = self.rup.planEndDate {
+            self.planEndValue.text = end.string()
+        }
         reloadParentIfDatesAreSet()
     }
 
     // this will load usage years
     func reloadParentIfDatesAreSet() {
-        
-//        if self.planEndValue.text != "" && self.planStartValue.text != "" {
-            let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.reload(indexPath: parent.rangeUsageIndexPath)
-//            parent.reloadAt(indexPath: parent.basicInformationIndexPath)
-//        }
+        if !reloadingUsage {
+            self.reloadingUsage = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                let parent = self.parentViewController as! CreateNewRUPViewController
+                if let _ = self.rup.planStartDate, let _ = self.rup.planEndDate {
+                    DispatchQueue.main.async {
+                        parent.reload(at: parent.rangeUsageIndexPath)
+                    }
+                }
+                self.reloadingUsage = false
+            }
+        }
     }
 
     // MARK: Setup
@@ -171,5 +224,4 @@ class PlanInformationTableViewCell: BaseFormCell {
             styleInputField(field: extendedValue, header: extendedHeader, height: fieldHeight)
         }
     }
-    
 }

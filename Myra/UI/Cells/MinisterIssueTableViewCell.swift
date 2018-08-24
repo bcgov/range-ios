@@ -13,7 +13,7 @@ import RealmSwift
 class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Contants
-    let actionCellHeight: CGFloat = 162
+    static let cellHeight: CGFloat = 554
 
     // MARK: Variables
     var issue: MinisterIssue?
@@ -44,27 +44,56 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var pasturesButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
 
+    @IBOutlet weak var identifiedByMinisterLabel: UILabel!
+    @IBOutlet weak var identifiedByMinisterImage: UIImageView!
+    @IBOutlet weak var identifiedByMinisterImageHolder: UIView!
+    @IBOutlet weak var identifiedByMinisterButton: UIButton!
+
+    @IBOutlet weak var identifiedByMinisterSwitch: UISwitch!
+
     // MARK: Outlet actions
+    @IBAction func idengifiedByMinisterSwitchAction(_ sender: UISwitch) {
+        guard let i = self.issue else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                i.identified = !i.identified
+            }
+        } catch _ {
+            fatalError()
+        }
+        autofill()
+    }
+
+    @IBAction func identifiedByMinisterAction(_ sender: UIButton) {
+        guard let i = self.issue else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                i.identified = !i.identified
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     @IBAction func optionsAction(_ sender: UIButton) {
         guard let i = self.issue, let parent = self.parentCell else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
-        optionsVC.setup(options: options) { (selected) in
-            optionsVC.dismiss(animated: true, completion: nil)
-            switch selected.type {
+        optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
+            switch option.type {
             case .Delete:
                 grandParent.showAlert(title: "Are you sure?", description: "Would you like to remove this issue and all actions associated to it?", yesButtonTapped: {
                     RUPManager.shared.removeIssue(issue: i)
-                    parent.updateTableHeight(scrollToBottom: false)
+                    parent.updateTableHeight(scrollToBottom: false, then: {})
                 }, noButtonTapped: {})
             case .Copy:
                 self.duplicate()
             }
         }
-
-        grandParent.showPopOver(on: sender, vc: optionsVC, height: optionsVC.suggestedHeight, width: optionsVC.suggestedWidth, arrowColor: nil)
     }
 
     @IBAction func pasturesAction(_ sender: UIButton) {
@@ -89,20 +118,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 self.autofill()
             }
         }
-//        lookup.setup(multiSelect: true, selected: selected, objects: pastureNames) { (selected, selections) in
-//            if selected, let selected = selections {
-//                i.clearPastures()
-//                for selection in selected {
-//                    if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
-//                        i.addPasture(pasture: pasture)
-//                    }
-//                }
-//                self.autofill()
-//                grandParent.hidepopup(vc: lookup)
-//            } else {
-//                grandParent.hidepopup(vc: lookup)
-//            }
-//        }
         grandParent.showPopUp(vc: lookup, on: sender)
     }
 
@@ -111,7 +126,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions()) { (selected, selection) in
+        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
                 if let type = RUPManager.shared.getIssueActionType(named: option.display) {
@@ -120,7 +135,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 }
             }
         }
-        parent.showPopUp(vc: lookup, on: sender)
     }
 
     @IBAction func editTypeAction(_ sender: UIButton) {
@@ -137,6 +151,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         detailsValue.delegate = self
         objectiveValue.delegate = self
         setUpTable()
+        // style before autofill to style the switch!
         style()
         autofill()
         tableHeight.constant = computeTableHeight()
@@ -155,7 +170,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setupSimple(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
             grandParent.dismissPopOver()
             if selected, let option = selection {
                 if let i = self.issue {
@@ -194,25 +209,28 @@ class MinisterIssueTableViewCell: BaseFormCell {
         issueTypeValue.text = i.issueType
         detailsValue.text = i.details
         objectiveValue.text = i.objective
+        identifiedByMinisterSwitch.setOn(i.identified, animated: true)
 
         if self.mode == .View {
             setDefaultValueIfEmpty(field: pastureValue)
             setDefaultValueIfEmpty(field: detailsValue)
             setDefaultValueIfEmpty(field: objectiveValue)
+
         }
     }
 
     func computeTableHeight() -> CGFloat {
         guard let i = self.issue else {return 0}
-        return actionCellHeight * CGFloat(i.actions.count)
+        return MinistersIssueActionTableViewCell.cellHeight * CGFloat(i.actions.count)
     }
 
     func updateTableHeight(scrollToBottom: Bool) {
         guard let parent = self.parentCell else {return}
-        self.tableView.reloadData()
-        tableView.layoutIfNeeded()
         tableHeight.constant = computeTableHeight()
-        parent.updateTableHeight(scrollToBottom: scrollToBottom)
+        parent.updateTableHeight(scrollToBottom: scrollToBottom) {
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     // MARK: Style
@@ -222,8 +240,11 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleSubHeader(label: issueTypeValue)
         styleStaticField(field: pastureValue, header: pastureHeader)
         styleSubHeader(label: actionsHeader)
+        styleSubHeader(label: identifiedByMinisterLabel)
+        identifiedByMinisterSwitch.onTintColor = Colors.switchOn
         switch self.mode {
         case .View:
+            identifiedByMinisterSwitch.isEnabled = false
             addPastureButtonWidth.constant = 0
             optionsButton.alpha = 0
             addButton.alpha = 0
@@ -255,6 +276,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
         updateTableHeight(scrollToBottom: false)
     }
+    
     func duplicate() {
 
     }
@@ -299,7 +321,7 @@ extension MinisterIssueTableViewCell: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let i = issue else { return UITableViewCell()}
         let cell = getIssueCell(indexPath: indexPath)
-        cell.setup(action: i.actions[indexPath.row], parent: self, mode: mode, rup: rup)
+        cell.setup(action: i.actions[indexPath.row], parentCell: self, mode: mode, rup: rup)
         return cell
     }
 

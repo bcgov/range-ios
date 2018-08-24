@@ -106,11 +106,12 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
-        self.setObjects()
-        // todo: Remove?
-        parentReference?.calculateTotals()
-        parentReference?.validate()
-        sort()
+        handleElementAddedOrRemoved()
+    }
+
+    func deleteEntry(object: ScheduleObject) {
+        RealmRequests.deleteObject(object)
+        handleElementAddedOrRemoved()
     }
 
     func setObjects() {
@@ -121,18 +122,16 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         }
     }
 
-    func deleteEntry(object: ScheduleObject) {
-        guard let sched = self.schedule else {return}
-        RealmRequests.deleteObject(object)
-        do {
-            let realm = try Realm()
-            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
-            self.schedule = aSchedule
-        } catch _ {
-            fatalError()
-        }
+    func handleElementAddedOrRemoved() {
+        refreshScheduleObject()
+        guard let parent = self.parentReference else {return}
         self.setObjects()
-        sort()
+        self.height.constant = computeHeight()
+        parent.autofillResults()
+        parent.validate()
+        parent.reload {
+            self.sort()
+        }
     }
 
     // MARK: Setup
@@ -142,14 +141,14 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         self.mode = mode
         self.schedule = schedule
         self.setObjects()
-        height.constant = CGFloat( Double((schedule.scheduleObjects.count)) * ScheduleFormTableViewCell.cellHeight + 5.0)
+        height.constant = computeHeight()
         setUpTable()
         style()
     }
 
-    func updateTableHeight() {
-        guard let sched = self.schedule, let parent = self.parentReference else {return}
-        
+    func refreshScheduleObject() {
+        guard let sched = self.schedule else {return}
+
         do {
             let realm = try Realm()
             let temp = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
@@ -157,13 +156,23 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+    }
 
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
-        height.constant = CGFloat( Double((self.schedule?.scheduleObjects.count)!) * ScheduleFormTableViewCell.cellHeight + 5.0)
+    func computeHeight() -> CGFloat {
+        let padding: CGFloat = 5.0
+        guard let sched = self.schedule else {return padding}
+        return CGFloat( CGFloat(sched.scheduleObjects.count) * CGFloat(ScheduleObjectTableViewCell.cellHeight) + padding)
+    }
 
-        parent.reloadCells()
-
+    func updateTableHeight() {
+        refreshScheduleObject()
+        guard let parent = self.parentReference else {return}
+        height.constant = computeHeight()
+        parent.reload {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            self.tableView.layoutIfNeeded()
+        }
     }
 
     // MARK: Styles
@@ -200,16 +209,16 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
 
     func switchOffSortHeaders() {
         self.layoutIfNeeded()
-        styleFieldHeaderOff(button: pasture)
-        styleFieldHeaderOff(button: livestock)
-        styleFieldHeaderOff(button: dateIn)
-        styleFieldHeaderOff(button: dateOut)
-        styleFieldHeaderOff(button: numAnimals)
+        styleSortHeaderOff(button: pasture)
+        styleSortHeaderOff(button: livestock)
+        styleSortHeaderOff(button: dateIn)
+        styleSortHeaderOff(button: dateOut)
+        styleSortHeaderOff(button: numAnimals)
         self.layoutIfNeeded()
     }
 
     func switchOnSortHeader(button: UIButton) {
-        styleFieldHeaderOn(button: button)
+        styleSortHeaderOn(button: button)
         self.layoutIfNeeded()
     }
 
@@ -239,13 +248,12 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         case .None:
             break
         }
-        updateTableHeight()
+        self.tableView.reloadData()
         self.isUserInteractionEnabled = true
     }
 
     func clearSort() {
         self.currentSort = .None
-        self.sort()
     }
 }
 

@@ -31,12 +31,21 @@ class OptionsViewController: UIViewController {
 
     // MARK: Functions
 
+//    // MARK: Setup
+//    func setup(options: [Option], completion: @escaping (_ option: Option) -> Void) {
+//        self.options = options
+//        self.completion = completion
+//        setupTable()
+//        estimateHeight()
+//    }
+
     // MARK: Setup
-    func setup(options: [Option], completion: @escaping (_ option: Option) -> Void) {
+    func setup(options: [Option], onVC: BaseViewController, onButton: UIButton, completion: @escaping (_ option: Option) -> Void) {
         self.options = options
         self.completion = completion
         setupTable()
         estimateHeight()
+        onVC.showPopOver(on: onButton , vc: self, height: suggestedHeight, width: suggestedWidth, arrowColor: nil)
     }
 
     func estimateHeight() {
@@ -78,7 +87,9 @@ extension OptionsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let callBack = completion {
-            return callBack(options[indexPath.row])
+            self.dismiss(animated: true) {
+                 return callBack(self.options[indexPath.row])
+            }
         }
     }
 

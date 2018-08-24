@@ -13,15 +13,16 @@ import UIKit
 extension CreateNewRUPViewController {
     // MARK: Styles
     func style() {
+        
         stylePopUp()
-        styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranchNameAndNumberLabel)
+        styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
         StyleNavBarButton(button: cancelButton)
         styleMenu()
         switch mode {
         case .View:
             self.viewTitle.text = "View Plan"
             self.saveToDraftButton.setTitle("Close", for: .normal)
-            self.ranchNameAndNumberLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
+            self.ranLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
             self.cancelButton.removeFromSuperview()
             self.submitButtonContainer.alpha = 0
             self.requiredFieldNeededLabel.alpha = 0
@@ -29,6 +30,60 @@ extension CreateNewRUPViewController {
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
         }
+    }
+
+    func styleStatus() {
+        styleNavBarLabel(label: statusAndagreementHolderLabel)
+        makeCircle(view: statusLight)
+        guard let plan = self.rup else {return}
+        switch plan.getStatus() {
+        case .Completed:
+            setStatusGreen()
+        case .Pending:
+            setStatusYellow()
+        case .LocalDraft:
+            setStatusRed()
+        case .Outbox:
+            setStatusGray()
+        case .Created:
+            setStatusYellow()
+        case .ChangeRequested:
+            setStatusGray()
+        case .ClientDraft:
+            setStatusRed()
+        case .Unknown:
+            setStatusGray()
+        case .StaffDraft:
+            setStatusGreen()
+        case .WronglyMadeWithoutEffect:
+            setStatusGray()
+        case .StandsWronglyMade:
+            setStatusGray()
+        case .Stands:
+            setStatusGray()
+        case .NotApprovedFurtherWorkRequired:
+            setStatusGray()
+        case .NotApproved:
+            setStatusGray()
+        case .Approved:
+            setStatusGray()
+        }
+    }
+
+    func setStatusRed() {
+        self.statusLight.backgroundColor = UIColor.red
+    }
+
+    func setStatusGreen() {
+        self.statusLight.backgroundColor = UIColor.green
+    }
+
+    func setStatusYellow() {
+        self.statusLight.backgroundColor = UIColor.yellow
+    }
+
+    func setStatusGray() {
+        self.statusLight.backgroundColor = UIColor.gray
     }
 
     // TODO: Temporary.. come up with a better, resusable popup for inputs
@@ -197,13 +252,17 @@ extension CreateNewRUPViewController {
     }
 
     func hideHeaderContent() {
-        self.ranchNameAndNumberLabel.alpha = 0
+        self.ranLabel.alpha = 0
+        self.statusAndagreementHolderLabel.alpha = 0
+        self.statusLight.alpha = 0
         self.saveToDraftButton.alpha = 0
         self.viewTitle.alpha = 0
     }
 
     func showHeaderContent() {
-        self.ranchNameAndNumberLabel.alpha = 1
+        self.ranLabel.alpha = 1
+        self.statusAndagreementHolderLabel.alpha = 1
+        self.statusLight.alpha = 1
         self.saveToDraftButton.alpha = 1
         self.viewTitle.alpha = 1
     }
