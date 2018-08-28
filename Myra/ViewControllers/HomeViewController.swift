@@ -252,8 +252,9 @@ class HomeViewController: BaseViewController {
 
     func loadRUPs() {
         if syncing {return}
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
         self.rups = [RUP]()
+        self.tableView.reloadData()
             /*
              Clean up the local DB by removing plans that were created
              from agreements but cancelled.
@@ -268,7 +269,7 @@ class HomeViewController: BaseViewController {
                 }
             }
             self.tableView.reloadData()
-        }
+//        }
     }
 
     // MARK: Styles
@@ -396,6 +397,7 @@ class HomeViewController: BaseViewController {
     }
 
     override func onAuthenticationSuccess() {
+        print(APIManager.headers())
         if unstableConnection {
             syncButtonLabel.text = "Connections is not stable for enough for a full sync"
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {

@@ -56,6 +56,8 @@ class CreateNewRUPViewController: BaseViewController {
 
     var rup: RUP?
 
+    var updateAmendmentEnabled = false
+
     var copy: RUP?
 
     var reloading: Bool = false
@@ -94,6 +96,9 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var saveToDraftButton: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
+
+    @IBOutlet weak var updateAmendmentButton: UIButton!
+
 
     // Side Menu
     @IBOutlet weak var menuContainer: UIView!
@@ -266,10 +271,34 @@ class CreateNewRUPViewController: BaseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        openingAnimations()
+        openingAnimations() 
     }
 
     // MARK: Outlet Actions
+
+    @IBAction func updateAmendmentAction(_ sender: UIButton) {
+        guard let plan = self.rup else {return}
+        let vm = ViewManager()
+        let flow = vm.amendmentFlow
+        flow.display(on: self) { (amendment) in
+            if let result = amendment, let newStatus = result.getStatus() {
+                plan.updateStatusId(newID: RUPManager.shared.getAmendmentStatus(status: newStatus).id)
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        plan.statusEnum = newStatus
+                        plan.shouldUpdateRemoteStatus = true
+                    }
+                } catch _ {
+                    fatalError()
+                }
+
+                self.autofill()
+                self.styleUpdateAmendmentButton()
+            }
+        }
+    }
+
     @IBAction func cancelAction(_ sender: UIButton) {
         if let new: RUP = self.copy, let old: RUP = self.rup {
 
@@ -308,24 +337,26 @@ class CreateNewRUPViewController: BaseViewController {
     @IBAction func saveToDraftAction(_ sender: UIButton) {
         guard let plan = self.rup, let agreement = RUPManager.shared.getAgreement(with: plan.agreementId) else {return}
 
-        do {
-            let realm = try Realm()
-            try realm.write {
-                plan.isNew = false
-                plan.locallyUpdatedAt = Date()
-//                agreement.rups.append(plan)
+
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    plan.isNew = false
+                    plan.locallyUpdatedAt = Date()
+    //                agreement.rups.append(plan)
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError() 
-        }
-        
-        RealmRequests.updateObject(plan)
-        
-        self.dismiss(animated: true) {
-            if self.parentCallBack != nil {
-                return self.parentCallBack!(true, false)
+
+            RealmRequests.updateObject(plan)
+
+            self.dismiss(animated: true) {
+                if self.parentCallBack != nil {
+                    return self.parentCallBack!(true, false)
+                }
             }
-        }
+
     }
 
     @IBAction func basicInfoAction(_ sender: UIButton) {
@@ -432,6 +463,13 @@ class CreateNewRUPViewController: BaseViewController {
             }
         }
 
+        // || rup.getStatus() == .WronglyMadeWithoutEffect || rup.getStatus() == .StandsWronglyMade 
+        if rup.getStatus() == .Stands || rup.getStatus() == .WronglyMadeWithoutEffect || rup.getStatus() == .StandsWronglyMade {
+            updateAmendmentEnabled = true
+        } else {
+            updateAmendmentEnabled = false
+        }
+
         setUpTable()
 
         beginChangeListener()
@@ -452,6 +490,12 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     func autofill() {
+        guard let rup = self.rup else { return}
+        if rup.getStatus() == .Stands {
+            updateAmendmentEnabled = true
+        } else {
+            updateAmendmentEnabled = false
+        }
         self.setBarInfoBasedOnOrientation()
         highlightCurrentModuleInMenu()
     }
@@ -486,10 +530,8 @@ class CreateNewRUPViewController: BaseViewController {
     override func whenLandscape() {
         setMenuSize()
         setBarInfoBasedOnOrientation()
-//        styleLandscapeMenu()
     }
     override func whenPortrait() {
-//        stylePortaitMenu()
         setMenuSize()
         setBarInfoBasedOnOrientation()
     }

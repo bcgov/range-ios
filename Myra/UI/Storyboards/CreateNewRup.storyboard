@@ -154,10 +154,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6w-8K-Hab">
+                                        <rect key="frame" x="728" y="23" width="138" height="30"/>
+                                        <state key="normal" title="Update Amendment"/>
+                                        <connections>
+                                            <action selector="updateAmendmentAction:" destination="q34-99-p1g" eventType="touchUpInside" id="FcO-mw-ss6"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9076380076142132" green="0.9076380076142132" blue="0.9076380076142132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="y4Y-I5-Z9f" firstAttribute="leading" secondItem="K6w-8K-Hab" secondAttribute="trailing" constant="30" id="11e-Hi-eV6"/>
                                     <constraint firstAttribute="height" constant="75" id="8z7-dn-Qms"/>
+                                    <constraint firstItem="K6w-8K-Hab" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="B2x-vm-bnX"/>
                                     <constraint firstItem="RbP-fQ-Vhx" firstAttribute="leading" secondItem="wqq-yl-p8l" secondAttribute="trailing" id="C9G-Hm-e5t"/>
                                     <constraint firstItem="Dvu-os-1VU" firstAttribute="leading" secondItem="LiW-fN-wXA" secondAttribute="leading" constant="20" id="GL9-8p-sn6"/>
                                     <constraint firstItem="Nzd-Uv-eO9" firstAttribute="leading" secondItem="RbP-fQ-Vhx" secondAttribute="trailing" constant="5" id="GTF-1C-VTW"/>
@@ -554,6 +563,7 @@
                         <outlet property="submitButtonContainer" destination="rec-4X-Frs" id="n1x-lx-bDI"/>
                         <outlet property="submitButtonIconWidth" destination="COq-UP-Pyo" id="5rd-JP-qx5"/>
                         <outlet property="tableView" destination="eHi-0H-7J4" id="8ub-WB-oSY"/>
+                        <outlet property="updateAmendmentButton" destination="K6w-8K-Hab" id="1rC-D6-U7o"/>
                         <outlet property="viewTitle" destination="4Ob-oN-R5i" id="lLS-Dh-AWz"/>
                     </connections>
                 </viewController>

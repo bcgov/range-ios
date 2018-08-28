@@ -327,6 +327,15 @@
             return [RUP]()
         }
     }
+
+    func getRUPsWithUpdatedLocalStatus() -> [RUP] {
+        var found = [RUP]()
+        let all = getRUPs()
+        for element in all where element.shouldUpdateRemoteStatus {
+            found.append(element)
+        }
+        return found
+    }
     
     func getDraftRups() -> [RUP] {
         do {
@@ -975,6 +984,26 @@
         if let all = query {
             for object in all {
                 if object.code.lowercased() == "c"  {
+                    return object
+                }
+            }
+        }
+        return PlanStatus()
+    }
+
+    func getAmendmentStatus(status: RUPStatus)  -> PlanStatus {
+        var code = ""
+        if status == .WronglyMadeWithoutEffect {
+            code = "wm"
+        } else if status == .StandsWronglyMade {
+            code = "sw"
+        } else if status == .Stands {
+            code = "s"
+        }
+        let query = RealmRequests.getObject(PlanStatus.self)
+        if let all = query {
+            for object in all {
+                if object.code.lowercased() == code  {
                     return object
                 }
             }

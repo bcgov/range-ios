@@ -17,7 +17,9 @@ extension CreateNewRUPViewController {
         stylePopUp()
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
         StyleNavBarButton(button: cancelButton)
+        StyleNavBarButton(button: updateAmendmentButton)
         styleMenu()
+
         switch mode {
         case .View:
             self.viewTitle.text = "View Plan"
@@ -29,6 +31,25 @@ extension CreateNewRUPViewController {
         case .Edit:
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
+        }
+
+        styleUpdateAmendmentButton()
+    }
+
+    func styleUpdateAmendmentButton() {
+        guard let rup = self.rup else {return}
+        if rup.getStatus() == .Stands {
+            updateAmendmentEnabled = true
+        } else {
+            updateAmendmentEnabled = false
+        }
+        UIView.animate(withDuration: 0.3) {
+            if self.updateAmendmentEnabled {
+                self.updateAmendmentButton.alpha = 1
+            } else {
+                self.updateAmendmentButton.alpha = 0
+            }
+            self.view.layoutIfNeeded()
         }
     }
 
@@ -66,6 +87,16 @@ extension CreateNewRUPViewController {
         case .NotApproved:
             setStatusGray()
         case .Approved:
+            setStatusGray()
+        case .SubmittedForReview:
+            setStatusGray()
+        case .SubmittedForFinalDescision:
+            setStatusGray()
+        case .RecommendReady:
+            setStatusGray()
+        case .RecommendNotReady:
+            setStatusGray()
+        case .ReadyForFinalDescision:
             setStatusGray()
         }
     }

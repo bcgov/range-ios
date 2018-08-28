@@ -103,6 +103,16 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
             setStatusGray()
         case .Approved:
             setStatusGray()
+        case .SubmittedForReview:
+            setStatusGray()
+        case .SubmittedForFinalDescision:
+            setStatusGray()
+        case .RecommendReady:
+            setStatusGray()
+        case .RecommendNotReady:
+            setStatusGray()
+        case .ReadyForFinalDescision:
+            setStatusGray()
         }
     }
 

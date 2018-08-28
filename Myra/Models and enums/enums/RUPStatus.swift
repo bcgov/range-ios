@@ -21,6 +21,11 @@ enum RUPStatus: String {
     case NotApprovedFurtherWorkRequired
     case NotApproved
     case Approved
+    case SubmittedForReview
+    case SubmittedForFinalDescision
+    case RecommendReady
+    case RecommendNotReady
+    case ReadyForFinalDescision
     case LocalDraft
     case Outbox
     case Unknown

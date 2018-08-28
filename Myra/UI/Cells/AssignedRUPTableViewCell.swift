@@ -30,6 +30,8 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     @IBOutlet weak var tableView: UITableView!
 
+    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         if rup != nil { autofill(rup: rup!)}
@@ -136,6 +138,16 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         case .NotApproved:
             setStatusGray()
         case .Approved:
+            setStatusGray()
+        case .SubmittedForReview:
+            setStatusGray()
+        case .SubmittedForFinalDescision:
+            setStatusGray()
+        case .RecommendReady:
+            setStatusGray()
+        case .RecommendNotReady:
+            setStatusGray()
+        case .ReadyForFinalDescision:
             setStatusGray()
         }
     }

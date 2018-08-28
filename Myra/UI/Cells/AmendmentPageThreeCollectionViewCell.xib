@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AmendmentPageThreeCollectionViewCell" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="329" height="334"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="329" height="334"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9Y-Z3-okY">
+                        <rect key="frame" x="0.0" y="0.0" width="329" height="334"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Status Change" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ovw-5w-tL8">
+                                <rect key="frame" x="75.5" y="8" width="178.5" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="xB9-is-JUo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3RF-y4-X7u">
+                                <rect key="frame" x="16" y="66" width="297" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="d4d-98-z9k"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you ready to mark this Minor Ammendment as " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWY-GL-jXk">
+                                <rect key="frame" x="8" y="75" width="313" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="WWH-0T-i1S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="kZK-i0-0eq">
+                                <rect key="frame" x="64.5" y="194" width="200" height="115"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFS-o4-zYW">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="avf-ZG-1RG"/>
+                                        </constraints>
+                                        <state key="normal" title="Confirm Status Change"/>
+                                        <connections>
+                                            <action selector="confirmAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JPi-Fi-nXm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZD-d8-xeu">
+                                        <rect key="frame" x="0.0" y="70" width="200" height="45"/>
+                                        <state key="normal" title="Back"/>
+                                        <connections>
+                                            <action selector="cancelAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ee7-GI-JzG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="QZD-d8-xeu" secondAttribute="bottom" id="5JK-yh-ApS"/>
+                                    <constraint firstAttribute="trailing" secondItem="QZD-d8-xeu" secondAttribute="trailing" id="F7p-zV-LfL"/>
+                                    <constraint firstAttribute="trailing" secondItem="MFS-o4-zYW" secondAttribute="trailing" id="IEY-3u-dx9"/>
+                                    <constraint firstItem="MFS-o4-zYW" firstAttribute="leading" secondItem="kZK-i0-0eq" secondAttribute="leading" id="Pnp-YB-hhf"/>
+                                    <constraint firstAttribute="width" constant="200" id="Ufk-Vg-9kN"/>
+                                    <constraint firstItem="MFS-o4-zYW" firstAttribute="top" secondItem="kZK-i0-0eq" secondAttribute="top" id="bFC-dT-Kqm"/>
+                                    <constraint firstItem="QZD-d8-xeu" firstAttribute="leading" secondItem="kZK-i0-0eq" secondAttribute="leading" id="wzy-iY-kjF"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWx-Dq-GBZ">
+                                <rect key="frame" x="286" y="8" width="35" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zWx-Dq-GBZ" secondAttribute="height" multiplier="8:11" id="JT8-KZ-reO"/>
+                                    <constraint firstAttribute="width" constant="35" id="h2U-Zt-hli"/>
+                                </constraints>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="closeAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Dv6-XH-ufv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="BWY-GL-jXk" firstAttribute="leading" secondItem="J9Y-Z3-okY" secondAttribute="leading" constant="8" id="0bx-iM-Hrz"/>
+                            <constraint firstAttribute="trailing" secondItem="3RF-y4-X7u" secondAttribute="trailing" constant="16" id="1X7-8Y-zNb"/>
+                            <constraint firstItem="zWx-Dq-GBZ" firstAttribute="top" secondItem="J9Y-Z3-okY" secondAttribute="top" constant="8" id="7yb-iY-kqV"/>
+                            <constraint firstAttribute="trailing" secondItem="BWY-GL-jXk" secondAttribute="trailing" constant="8" id="9p3-tH-NTv"/>
+                            <constraint firstAttribute="bottom" secondItem="kZK-i0-0eq" secondAttribute="bottom" constant="25" id="B1E-Ws-L5H"/>
+                            <constraint firstItem="kZK-i0-0eq" firstAttribute="centerX" secondItem="J9Y-Z3-okY" secondAttribute="centerX" id="NMl-Xb-YZh"/>
+                            <constraint firstItem="BWY-GL-jXk" firstAttribute="top" secondItem="3RF-y4-X7u" secondAttribute="bottom" constant="8" id="O3W-Cz-iSb"/>
+                            <constraint firstItem="BWY-GL-jXk" firstAttribute="centerX" secondItem="J9Y-Z3-okY" secondAttribute="centerX" id="R2K-co-WZt"/>
+                            <constraint firstItem="3RF-y4-X7u" firstAttribute="top" secondItem="ovw-5w-tL8" secondAttribute="bottom" constant="16" id="h0s-Fd-X3g"/>
+                            <constraint firstItem="3RF-y4-X7u" firstAttribute="leading" secondItem="J9Y-Z3-okY" secondAttribute="leading" constant="16" id="i8s-CS-Cs8"/>
+                            <constraint firstItem="ovw-5w-tL8" firstAttribute="centerX" secondItem="J9Y-Z3-okY" secondAttribute="centerX" id="uJh-Wu-Jgy"/>
+                            <constraint firstItem="ovw-5w-tL8" firstAttribute="top" secondItem="J9Y-Z3-okY" secondAttribute="top" constant="8" id="xlv-3o-9Ya"/>
+                            <constraint firstAttribute="trailing" secondItem="zWx-Dq-GBZ" secondAttribute="trailing" constant="8" id="yHN-47-7IE"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="J9Y-Z3-okY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DAS-mg-mz1"/>
+                <constraint firstItem="J9Y-Z3-okY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="DkJ-gD-XlN"/>
+                <constraint firstAttribute="bottom" secondItem="J9Y-Z3-okY" secondAttribute="bottom" id="RYI-OP-Zw6"/>
+                <constraint firstAttribute="trailing" secondItem="J9Y-Z3-okY" secondAttribute="trailing" id="c2o-3e-NMY"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="329" height="334"/>
+            <connections>
+                <outlet property="cancelButton" destination="QZD-d8-xeu" id="sfd-5O-vYH"/>
+                <outlet property="confirmButton" destination="MFS-o4-zYW" id="Jmh-SG-siT"/>
+                <outlet property="divide" destination="3RF-y4-X7u" id="ZvL-mb-ukA"/>
+                <outlet property="subtitleLabel" destination="BWY-GL-jXk" id="y7J-aa-mIZ"/>
+                <outlet property="titleLabel" destination="ovw-5w-tL8" id="m3q-VJ-EJl"/>
+            </connections>
+            <point key="canvasLocation" x="-105.5" y="196"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Close" width="16" height="16"/>
+    </resources>
+</document>

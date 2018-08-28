@@ -72,19 +72,54 @@ class DataServices: NSObject {
             return
         }
         print("You're Online")
-//        DispatchQueue.global(qos: .background).async {
-            if self.isSynchronizing {return}
-            if RUPManager.shared.getOutboxRups().count > 0 {
+        if self.isSynchronizing {
+            print ("but already syncing")
+            return
+        }
+        DispatchQueue.global(qos: .background).async {
+            self.isSynchronizing = true
+            // check outbox
+            let haveItemsInOutbox = RUPManager.shared.getOutboxRups().count > 0
+            // check updated statues
+            let shouldUpdateRemoteStatuses = RUPManager.shared.getRUPsWithUpdatedLocalStatus().count > 0
+            // check drafts
+            // TODO
+            if haveItemsInOutbox {
                 print("Upload Outbox now!")
-                self.isSynchronizing = true
                 self.uploadOutboxRangeUsePlans {
                     print("uploaded outbox alerts")
+                    if shouldUpdateRemoteStatuses {
+                        self.updateRemoteStatuses {
+                            print("updated statuses")
+                            self.isSynchronizing = false
+                        }
+                    } else {
+                        print("and no statuses to update")
+                        self.isSynchronizing = false
+                    }
+                }
+            } else if shouldUpdateRemoteStatuses {
+                print("updating statuses")
+                self.updateRemoteStatuses {
+                    print("updated statuses")
                     self.isSynchronizing = false
                 }
             } else {
-                print("But nothing in outbox")
+                self.isSynchronizing = false
+                print("Nothing to sync")
+            }
+//
+//                if RUPManager.shared.getOutboxRups().count > 0 {
+//                    print("Upload Outbox now!")
+//                    self.isSynchronizing = true
+//                    self.uploadOutboxRangeUsePlans {
+//                        print("uploaded outbox alerts")
+//                        self.isSynchronizing = false
+//                    }
+//                } else {
+//                    print("But nothing in outbox")
+//            }
         }
-//        }
     }
     
     static func plan(withLocalId localId: String) -> RUP? {
@@ -176,6 +211,11 @@ class DataServices: NSObject {
         let drafts = RUPManager.shared.getDraftRups()
         self.upload(plans: drafts, completion: completion)
 
+    }
+
+    internal func updateRemoteStatuses(completion: @escaping () -> Void) {
+        let plans = RUPManager.shared.getRUPsWithUpdatedLocalStatus()
+        self.updateRemoteStatuses(forPlans: plans, completion: completion)
     }
 
     private func upload(plans: [RUP], completion: @escaping () -> Void) {
@@ -466,7 +506,39 @@ class DataServices: NSObject {
         }
     }
 
-    func updateStatuses(forPlans plans: [RUP], completion: @escaping () -> Void) {
+    func updateRemoteStatuses(forPlans plans: [RUP], completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+        for plan in plans {
+            let planId = "\(plan.localId)"
+            group.enter()
+
+            guard let planObject = DataServices.plan(withLocalId: planId) else {
+                group.leave()
+                return
+            }
+
+            APIManager.setPlantStatus(forPlan: planObject) { (success) in
+                if success, let refetchPlanObject = DataServices.plan(withLocalId: planId) {
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            refetchPlanObject.shouldUpdateRemoteStatus = false
+                        }
+
+                    } catch _ {
+                        fatalError()
+                    }
+                }
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            completion()
+        }
+    }
+
+    func updateLocalStatuses(forPlans plans: [RUP], completion: @escaping () -> Void) {
         let group = DispatchGroup()
         for plan in plans {
             let planId = "\(plan.localId)"

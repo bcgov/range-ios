@@ -287,13 +287,15 @@ extension Theme {
         }
     }
 
-    func styleTextviewInputField(field: UITextView, header: UILabel) {
+    func styleTextviewInputField(field: UITextView, header: UILabel? = nil) {
         field.isEditable = true
         field.textColor = defaultInputFieldTextColor()
         field.backgroundColor = defaultInputFieldBackground()
         field.font = defaultInputFieldFont()
         field.layer.cornerRadius = 3
-        styleFieldHeader(label: header)
+        if header != nil {
+            styleFieldHeader(label: header!)
+        }
     }
 
     func styleTextviewInputFieldReadOnly(field: UITextView, header: UILabel) {

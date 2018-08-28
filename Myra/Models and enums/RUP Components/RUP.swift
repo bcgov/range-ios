@@ -24,7 +24,6 @@ class RUP: Object, MyraObject {
     // if remoteId == -1, it has not been "synced"
     @objc dynamic var remoteId: Int = -1
 
-
     var statusEnum: RUPStatus {
         get {
             if let s = RUPStatus(rawValue: status) {
@@ -41,9 +40,6 @@ class RUP: Object, MyraObject {
     @objc dynamic var info: String = ""
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
     @objc dynamic var primaryAgreementHolderLastName: String = ""
-
-    // Local status
-    @objc dynamic var status: String = RUPStatus.LocalDraft.rawValue
 
     // Set this date when save is pressed in create page
     // Note: if app has crashed, changes are saved but this date is not updated
@@ -66,9 +62,16 @@ class RUP: Object, MyraObject {
     @objc dynamic var submitted: Date?
     @objc dynamic var amendmentType: String = ""
 
+    // Local status
+    @objc dynamic var status: String = RUPStatus.LocalDraft.rawValue
+
     // Remote status
     @objc dynamic var statusId: Int = 0
     @objc dynamic var statusIdValue: String = ""
+
+    // Flag to check if status changed eg from an amendment.
+    // set flag to true after amendment flow, and set to false after upload
+    @objc dynamic var shouldUpdateRemoteStatus = false
 
     // isNew flag is used to check if it has just been created from an agreement
     @objc dynamic var isNew = false
@@ -78,7 +81,6 @@ class RUP: Object, MyraObject {
     var pastures = List<Pasture>()
     var schedules = List<Schedule>()
     var ministerIssues = List<MinisterIssue>()
-    // we cant store nested realm objects, so we need to store the zone in list
     var zones = List<Zone>()
     var clients = List<Client>()
 
@@ -91,6 +93,7 @@ class RUP: Object, MyraObject {
         // if there is a remote status, use it
         if let temp = RUPManager.shared.getStatus(forId: statusId) {
             var statusName = temp.name.trimmingCharacters(in: .whitespaces)
+            statusName = statusName.replacingOccurrences(of: "-", with: "")
             // Remote Draft status means its a client's draft
             if statusName == "Draft" { statusName = "ClientDraft" }
             guard let result = RUPStatus(rawValue: statusName.removeWhitespace()) else {
@@ -101,7 +104,6 @@ class RUP: Object, MyraObject {
         } else {
             return self.statusEnum
         }
-
     }
     
     func setFrom(agreement: Agreement) {
@@ -115,12 +117,10 @@ class RUP: Object, MyraObject {
         for z in agreement.zones {
             self.zones.append(z)
         }
-//        self.clients = agreement.clients
-//        self.zones = agreement.zones
         for y in agreement.rangeUsageYears {
             self.rangeUsageYears.append(y)
         }
-//        self.rangeUsageYears = agreement.rangeUsageYears
+
         let splitRan = agreementId.split(separator: "N")
         self.ranNumber = Int(splitRan[1]) ?? 0
     }
@@ -189,6 +189,8 @@ class RUP: Object, MyraObject {
     }
 
     func deleteEntries() {
+
+        // TODO: Delete innder objects
         /*
          when deleting, we need to remove all pastures and schedule objects manually.
         */
@@ -292,8 +294,8 @@ class RUP: Object, MyraObject {
             // set remote status
             self.statusId = statusId
             self.statusIdValue = statusObject.name
-            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces)
-            let newTry = statusName.removeWhitespace()
+            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces).removeWhitespace()
+            let newTry = statusName.replacingOccurrences(of: "-", with: "")
             // set local status
             if let result = RUPStatus(rawValue: newTry) {
                 self.statusEnum = result
