@@ -141,7 +141,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
             setStatusGray()
         case .SubmittedForReview:
             setStatusGray()
-        case .SubmittedForFinalDescision:
+        case .SubmittedForFinalDecision:
             setStatusGray()
         case .RecommendReady:
             setStatusGray()

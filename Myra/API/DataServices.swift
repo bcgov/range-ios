@@ -67,15 +67,19 @@ class DataServices: NSObject {
 
     func autoSync() {
         guard let r = Reachability() else {return}
+
         if r.connection == .none {
             print("But you're offline so bye")
             return
         }
+
         print("You're Online")
+//        self.showBanner(message: "testiing")
         if self.isSynchronizing {
             print ("but already syncing")
             return
         }
+
         DispatchQueue.global(qos: .background).async {
             self.isSynchronizing = true
             // check outbox
@@ -87,9 +91,11 @@ class DataServices: NSObject {
             if haveItemsInOutbox {
                 print("Upload Outbox now!")
                 self.uploadOutboxRangeUsePlans {
+                    self.showBanner(message: "uploaded outbox alerts")
                     print("uploaded outbox alerts")
                     if shouldUpdateRemoteStatuses {
                         self.updateRemoteStatuses {
+                            self.showBanner(message: "updated statuses")
                             print("updated statuses")
                             self.isSynchronizing = false
                         }
@@ -101,6 +107,7 @@ class DataServices: NSObject {
             } else if shouldUpdateRemoteStatuses {
                 print("updating statuses")
                 self.updateRemoteStatuses {
+                    self.showBanner(message: "updated statuses")
                     print("updated statuses")
                     self.isSynchronizing = false
                 }
@@ -119,6 +126,17 @@ class DataServices: NSObject {
 //                } else {
 //                    print("But nothing in outbox")
 //            }
+        }
+    }
+
+    func showBanner(message: String) {
+        return
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if let window = UIApplication.shared.keyWindow {
+                let banner: SyncBanner = UIView.fromNib()
+                window.addSubview(banner)
+                banner.show(message: message, x: window.frame.origin.x, y: window.frame.origin.y + 20)
+            }
         }
     }
     
@@ -252,20 +270,20 @@ class DataServices: NSObject {
                         try realm.write {
                             myPlanAgain.remoteId = response["id"] as! Int
                         }
-                        self.uploadPastures(forPlan: plan, completion: {
-                            self.uploadSchedules(forPlan: plan, completion: {
-                                self.uploadMinistersIssues(forPlan: plan, completion: {
+                    } catch {
+                        fatalError() // just for now.
+                    }
+                        self.uploadPastures(forPlan: myPlanAgain, completion: {
+                            self.uploadSchedules(forPlan: myPlanAgain, completion: {
+                                self.uploadMinistersIssues(forPlan: myPlanAgain, completion: {
                                     // set plan uploaded boolean flag to true because last element was sent
-                                    APIManager.completeUpload(plan: plan, toAgreement: agreementId, completion: { (response, error) in
-                                        self.completeUpload(plan: plan)
+                                    APIManager.completeUpload(plan: myPlanAgain, toAgreement: agreementId, completion: { (response, error) in
+                                        self.completeUpload(plan: myPlanAgain)
                                         group.leave()
                                     })
                                 })
                             })
                         })
-                    } catch {
-                        fatalError() // just for now.
-                    }
                 }
 
             })

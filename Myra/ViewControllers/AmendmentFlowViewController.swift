@@ -7,6 +7,11 @@
 //
 
 import UIKit
+enum AmendmentFlowMode {
+    case Mandatory
+    case Minor
+    case FinalReview
+}
 
 class AmendmentFlowViewController: UIViewController, Theme {
 
@@ -20,6 +25,7 @@ class AmendmentFlowViewController: UIViewController, Theme {
     // MARK: Variables
     var callBack: ((_ amendment: Amendment?) -> Void)?
     var amendment: Amendment?
+    var mode: AmendmentFlowMode = .Minor
 
     // MARK: Outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -46,7 +52,8 @@ class AmendmentFlowViewController: UIViewController, Theme {
 
 // MARK: Presentation
 extension AmendmentFlowViewController {
-    func display(on parent: UIViewController, response: @escaping (_ amendment: Amendment?) -> Void) {
+    func display(on parent: UIViewController, mode: AmendmentFlowMode, response: @escaping (_ amendment: Amendment?) -> Void) {
+        self.mode = mode
         self.callBack = response
         self.amendment = Amendment()
         self.view.alpha = 0
@@ -66,15 +73,16 @@ extension AmendmentFlowViewController {
         view.frame = CGRect(x: 0, y: 0, width: suggestedWidth, height: suggestedHeight)
         view.center.x = parentVC.view.center.x
         view.center.y = parentVC.view.center.y
-
     }
 
-    func remove() {
+    func remove(cancelled: Bool = false) {
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 0
             self.removeWhiteScreen()
         }) { (done) in
-            self.returnAmendment()
+            if !cancelled {
+                self.returnAmendment()
+            }
             self.didMove(toParentViewController: nil)
             self.view.removeFromSuperview()
             self.removeFromParentViewController()
@@ -191,15 +199,15 @@ extension AmendmentFlowViewController: UICollectionViewDelegate, UICollectionVie
         switch indexPath.row {
         case 0:
             let cell = getPageOne(indexPath: indexPath)
-            cell.setup(amendment: amendment, parent: self)
+            cell.setup(amendment: amendment, mode: mode, parent: self)
             return cell
         case 1:
             let cell = getPageTwo(indexPath: indexPath)
-            cell.setup(amendment: amendment, parent: self)
+            cell.setup(amendment: amendment, mode: mode, parent: self)
             return cell
         case 2:
             let cell = getPageThree(indexPath: indexPath)
-            cell.setup(amendment: amendment, parent: self)
+            cell.setup(amendment: amendment, mode: mode, parent: self)
             return cell
         default:
             return getPageOne(indexPath: indexPath)

@@ -277,21 +277,35 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlet Actions
 
     @IBAction func updateAmendmentAction(_ sender: UIButton) {
-        guard let plan = self.rup else {return}
+        guard let plan = self.rup, let amendmentType = RUPManager.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return}
+
+        // get flow view controller
         let vm = ViewManager()
         let flow = vm.amendmentFlow
-        flow.display(on: self) { (amendment) in
+
+        // select mode
+        var mode: AmendmentFlowMode = .FinalReview
+        if amendmentType.name.lowercased().contains("minor") {
+            mode = .Minor
+        } else if amendmentType.name.lowercased().contains("mandatory") && plan.getStatus() != .RecommendReady {
+            mode = .Mandatory
+        }
+
+        // display
+        flow.display(on: self, mode: mode) { (amendment) in
             if let result = amendment, let newStatus = result.getStatus() {
-                plan.updateStatusId(newID: RUPManager.shared.getAmendmentStatus(status: newStatus).id)
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        plan.statusEnum = newStatus
-                        plan.shouldUpdateRemoteStatus = true
-                    }
-                } catch _ {
-                    fatalError()
-                }
+                // process new status
+                plan.updateStatus(with: newStatus)
+//                plan.updateStatusId(newID: RUPManager.shared.getAmendmentStatus(status: newStatus).id)
+//                do {
+//                    let realm = try Realm()
+//                    try realm.write {
+//                        plan.statusEnum = newStatus
+//                        plan.shouldUpdateRemoteStatus = true
+//                    }
+//                } catch _ {
+//                    fatalError()
+//                }
 
                 self.autofill()
                 self.styleUpdateAmendmentButton()
@@ -463,16 +477,18 @@ class CreateNewRUPViewController: BaseViewController {
             }
         }
 
-        // || rup.getStatus() == .WronglyMadeWithoutEffect || rup.getStatus() == .StandsWronglyMade 
-        if rup.getStatus() == .Stands || rup.getStatus() == .WronglyMadeWithoutEffect || rup.getStatus() == .StandsWronglyMade {
-            updateAmendmentEnabled = true
-        } else {
-            updateAmendmentEnabled = false
-        }
+        // Moved - being done after openingAminations
+//        if rup.getStatus() == .Stands {
+//            updateAmendmentEnabled = true
+//        } else {
+//            updateAmendmentEnabled = false
+//        }
 
         setUpTable()
 
-        beginChangeListener()
+        if rup.getStatus() == .StaffDraft || rup.getStatus() == .LocalDraft {
+            beginChangeListener()
+        }
     }
 
     func beginChangeListener() {

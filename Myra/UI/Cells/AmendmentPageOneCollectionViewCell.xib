@@ -71,7 +71,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mi2-Zv-aFr">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="42"/>
                                                 <connections>
-                                                    <action selector="amendmentStandsAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="s7u-JK-Ss0"/>
+                                                    <action selector="optionZeroAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="s7u-JK-Ss0"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -109,7 +109,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xEA-ey-efu">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="42"/>
                                                 <connections>
-                                                    <action selector="wronglyMadeStandsAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="gEq-tv-ysw"/>
+                                                    <action selector="optionOneAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="gEq-tv-ysw"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -146,7 +146,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dus-rn-WEF">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="42"/>
                                                 <connections>
-                                                    <action selector="wronglyMadeNoEffectAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JID-id-XoW"/>
+                                                    <action selector="optionTwoAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JID-id-XoW"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -232,20 +232,20 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="473" height="338"/>
             <connections>
-                <outlet property="amendmentStandsIndicator" destination="9Gh-hm-Zv2" id="9M0-C5-x74"/>
-                <outlet property="amendmentStandsLabel" destination="V1k-lX-Wdv" id="IP3-c1-mYE"/>
                 <outlet property="cancelButton" destination="BwO-qK-wnK" id="aWg-XB-s7w"/>
                 <outlet property="divide" destination="nJw-0i-FOG" id="Xm5-mB-w5D"/>
                 <outlet property="nextButton" destination="O6O-j6-cZL" id="5e2-IQ-39v"/>
-                <outlet property="standsModule" destination="bP2-KL-kYM" id="089-Nf-ZtI"/>
+                <outlet property="optionOneContainer" destination="Wve-Td-3Nj" id="vVF-Tv-xJ9"/>
+                <outlet property="optionOneIndicator" destination="8AJ-k3-etP" id="IOL-KR-DWx"/>
+                <outlet property="optionOneLabel" destination="3Ig-3e-5hX" id="KdE-Qh-l9T"/>
+                <outlet property="optionTwoContainer" destination="a6O-zT-OdW" id="9Jw-mL-wMy"/>
+                <outlet property="optionTwoIndicator" destination="jyO-p5-BOe" id="V9w-oB-zUo"/>
+                <outlet property="optionTwoLabel" destination="XUr-F5-kBR" id="mgx-xb-X8p"/>
+                <outlet property="optionZeroContainer" destination="bP2-KL-kYM" id="089-Nf-ZtI"/>
+                <outlet property="optionZeroIndicator" destination="9Gh-hm-Zv2" id="9M0-C5-x74"/>
+                <outlet property="optionZeroLabel" destination="V1k-lX-Wdv" id="IP3-c1-mYE"/>
                 <outlet property="subtitleLabel" destination="M8k-w6-oXV" id="D4h-bA-FNh"/>
                 <outlet property="titleLabel" destination="Jiv-5B-Ef4" id="jJ0-pd-xBw"/>
-                <outlet property="vmNoEffectModule" destination="a6O-zT-OdW" id="9Jw-mL-wMy"/>
-                <outlet property="wmStandsModule" destination="Wve-Td-3Nj" id="vVF-Tv-xJ9"/>
-                <outlet property="wronglyMadeNoEffectIndicator" destination="jyO-p5-BOe" id="V9w-oB-zUo"/>
-                <outlet property="wronglyMadeNoEffectLabel" destination="XUr-F5-kBR" id="mgx-xb-X8p"/>
-                <outlet property="wronglyMadeStandsIndicator" destination="8AJ-k3-etP" id="IOL-KR-DWx"/>
-                <outlet property="wronglyMadeStandsLabel" destination="3Ig-3e-5hX" id="KdE-Qh-l9T"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="50"/>
         </collectionViewCell>

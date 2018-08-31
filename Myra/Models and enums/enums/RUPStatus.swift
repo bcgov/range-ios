@@ -22,7 +22,7 @@ enum RUPStatus: String {
     case NotApproved
     case Approved
     case SubmittedForReview
-    case SubmittedForFinalDescision
+    case SubmittedForFinalDecision
     case RecommendReady
     case RecommendNotReady
     case ReadyForFinalDescision

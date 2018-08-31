@@ -8,7 +8,8 @@
 
 import Foundation
 import UIKit
-
+import Realm
+import RealmSwift
 
 extension CreateNewRUPViewController {
     // MARK: Styles
@@ -32,25 +33,34 @@ extension CreateNewRUPViewController {
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
         }
-
-        styleUpdateAmendmentButton()
     }
 
     func styleUpdateAmendmentButton() {
         guard let rup = self.rup else {return}
-        if rup.getStatus() == .Stands {
+
+        let current = rup.getStatus()
+        if current == .Stands {
+            updateAmendmentButton.setTitle("Update Amendment", for: .normal)
             updateAmendmentEnabled = true
-        } else {
+        } else if current == .SubmittedForFinalDecision || current == .SubmittedForReview {
+            updateAmendmentButton.setTitle("Approve Amendment", for: .normal)
+            updateAmendmentEnabled = true
+        } else if current == .RecommendReady {
+            updateAmendmentButton.setTitle("Final Review", for: .normal)
+            updateAmendmentEnabled = true
+        }else {
             updateAmendmentEnabled = false
         }
-        UIView.animate(withDuration: 0.3) {
+        
+        self.updateAmendmentButton.alpha = 0
+        UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
             if self.updateAmendmentEnabled {
                 self.updateAmendmentButton.alpha = 1
             } else {
                 self.updateAmendmentButton.alpha = 0
             }
             self.view.layoutIfNeeded()
-        }
+        })
     }
 
     func styleStatus() {
@@ -90,7 +100,7 @@ extension CreateNewRUPViewController {
             setStatusGray()
         case .SubmittedForReview:
             setStatusGray()
-        case .SubmittedForFinalDescision:
+        case .SubmittedForFinalDecision:
             setStatusGray()
         case .RecommendReady:
             setStatusGray()
@@ -326,7 +336,9 @@ extension CreateNewRUPViewController {
                     self.menuContainer.alpha = 1
                     self.view.layoutIfNeeded()
                 }, completion: { (done) in
+                    // MARK: End of opening animations
                     self.view.isUserInteractionEnabled = true
+                    self.styleUpdateAmendmentButton()
                 })
 
             })

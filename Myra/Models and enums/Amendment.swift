@@ -9,14 +9,19 @@
 import Foundation
 
 
-enum AmendmentType {
+enum AmendmentChangeType {
     case Stands
     case WronglyMadeStands
     case WronglyMadeNoEffect
+    case Ready
+    case NotReady
+    case NotApprovedFurtherWorkRequired
+    case NotApproved
+    case Approved
 }
 
 class Amendment {
-    var type: AmendmentType?
+    var type: AmendmentChangeType?
     var InformedAgreementHolder: Bool = false
     var notes: String = ""
 
@@ -26,12 +31,23 @@ class Amendment {
 
     func getStatus() -> RUPStatus? {
         if let type = self.type {
-            if type == .WronglyMadeNoEffect {
-                return .WronglyMadeWithoutEffect
-            } else if type == .WronglyMadeStands {
-                return .StandsWronglyMade
-            } else if type == .Stands {
+            switch type {
+            case .Stands:
                 return .Stands
+            case .WronglyMadeStands:
+                return .StandsWronglyMade
+            case .WronglyMadeNoEffect:
+                return .WronglyMadeWithoutEffect
+            case .Ready:
+                return .RecommendReady
+            case .NotReady:
+                return .RecommendNotReady
+            case .NotApprovedFurtherWorkRequired:
+                return .NotApprovedFurtherWorkRequired
+            case .NotApproved:
+                return .NotApproved
+            case .Approved:
+                return .Approved
             }
         }
         return nil

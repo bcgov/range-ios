@@ -59,6 +59,12 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
             self.submitted.text = "-"
         }
 
+        if let amendmentType = RUPManager.shared.getAmendmentType(forId: plan.amendmentTypeId) {
+            self.type.text = amendmentType.name
+        } else {
+            self.type.text = "-"
+        }
+
     }
 
     // MARK: Styles
@@ -105,7 +111,7 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
             setStatusGray()
         case .SubmittedForReview:
             setStatusGray()
-        case .SubmittedForFinalDescision:
+        case .SubmittedForFinalDecision:
             setStatusGray()
         case .RecommendReady:
             setStatusGray()

@@ -60,7 +60,7 @@ class RUP: Object, MyraObject {
 
     @objc dynamic var effectiveDate: Date?
     @objc dynamic var submitted: Date?
-    @objc dynamic var amendmentType: String = ""
+    @objc dynamic var amendmentTypeId: Int = 0
 
     // Local status
     @objc dynamic var status: String = RUPStatus.LocalDraft.rawValue
@@ -132,6 +132,23 @@ class RUP: Object, MyraObject {
             let realm = try Realm()
             try realm.write {
                 statusId = newID
+                statusIdValue = obj.name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func updateStatus(with newStatus: RUPStatus) {
+        let tempId = RUPManager.shared.getAmendmentStatus(status: newStatus).id
+        let statusObject = RUPManager.shared.getStatus(forId: tempId)
+        guard let obj = statusObject else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                statusEnum = newStatus
+                shouldUpdateRemoteStatus = true
+                statusId = tempId
                 statusIdValue = obj.name
             }
         } catch _ {
@@ -265,8 +282,8 @@ class RUP: Object, MyraObject {
             self.rangeName = rangeName
         }
 
-        if let amedmentType = json["amendmentTypeId"].string {
-            self.amendmentType = amedmentType
+        if let amedmentType = json["amendmentTypeId"].int {
+            self.amendmentTypeId = amedmentType
         }
 
         if let planStart = json["planStartDate"].string {

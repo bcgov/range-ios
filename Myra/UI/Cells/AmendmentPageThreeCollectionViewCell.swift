@@ -16,6 +16,7 @@ class AmendmentPageThreeCollectionViewCell: BaseCollectionViewCell, Theme {
     // MARK: Variables
     var amendment: Amendment?
     var parent: AmendmentFlowViewController?
+    var mode: AmendmentFlowMode = .Minor
 
     // MARK: Outlets
     @IBOutlet weak var confirmButton: UIButton!
@@ -32,7 +33,7 @@ class AmendmentPageThreeCollectionViewCell: BaseCollectionViewCell, Theme {
 
     @IBAction func closeAction(_ sender: UIButton) {
         guard let parent = self.parent else {return}
-        parent.remove()
+        parent.remove(cancelled: true)
     }
 
     @IBAction func cancelAction(_ sender: UIButton) {
@@ -47,8 +48,8 @@ class AmendmentPageThreeCollectionViewCell: BaseCollectionViewCell, Theme {
         }
     }
 
-
-    func setup(amendment: Amendment, parent: AmendmentFlowViewController) {
+    func setup(amendment: Amendment, mode: AmendmentFlowMode, parent: AmendmentFlowViewController) {
+        self.mode = mode
         self.parent = parent
         self.amendment = amendment
         style()
@@ -57,10 +58,21 @@ class AmendmentPageThreeCollectionViewCell: BaseCollectionViewCell, Theme {
 
     func autoFill() {
         guard let amendment = self.amendment, let type = amendment.type else {return}
-        self.subtitleLabel.text = "Are you ready to mark this Minor Ammendment as \(type)"
+        var thisThing = "Plan"
+
+        if mode == .Mandatory || mode == .Minor {
+            thisThing = "\(mode) Amendment"
+        }
+
+        let typeString: String = "\(type)"
+
+        self.subtitleLabel.text = "Are you ready to mark this \(thisThing) as \(typeString.convertFromCamelCase().uppercased())?"
     }
 
     func style() {
+        if self.mode == .FinalReview {
+            self.titleLabel.text = "Confirm Amendment Descision"
+        }
         styleHollowButton(button: cancelButton)
         styleFillButton(button: confirmButton)
         styleSubHeader(label: titleLabel)

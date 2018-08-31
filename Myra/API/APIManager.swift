@@ -135,6 +135,7 @@ class APIManager {
                 newReference.append(contentsOf: handleAgreementExeptionStatus(json: json["AGREEMENT_EXEMPTION_STATUS"]))
                 newReference.append(contentsOf: handleMinisterIssueType(json: json["MINISTER_ISSUE_TYPE"]))
                 newReference.append(contentsOf: handleMinisterIssueActionType(json: json["MINISTER_ISSUE_ACTION_TYPE"]))
+                newReference.append(contentsOf: handleAmendmentType(json: json["AMENDMENT_TYPE"]))
                 RUPManager.shared.updateReferenceData(objects: newReference)
                 return completion(true)
             }else {
@@ -396,6 +397,25 @@ class APIManager {
         return result.sorted(by: { $0.id < $1.id })
     }
 
+    static func handleAmendmentType(json: JSON) -> [Object] {
+        var result = [AmendmentType]()
+        for (_,item) in json {
+            let obj = AmendmentType()
+            if let name = item["description"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
     static func handleMinisterIssueActionType(json: JSON) -> [Object] {
         var result = [MinisterIssueActionType]()
         for (_,item) in json {
@@ -454,7 +474,6 @@ class APIManager {
     // Note: UPLOAD ALL DRAFTS/LOCAL CHANGED BEFORE CALLING getAgreements
     // When new agreements are received, old agreements and thir associated data is removed
     static func getAgreements(completion: @escaping (_ rups: [Agreement]?, _ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
-        
         guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
             return
         }
