@@ -12,6 +12,7 @@ import UIKit
 class Router {
 
     static var currentChildVC: UIViewController?
+    static var mainParentVC: UIViewController?
 
     static func add(childViewController viewController: UIViewController, to parentViewController: UIViewController) {
         self.currentChildVC = viewController
@@ -32,6 +33,4 @@ class Router {
         viewController.view.removeFromSuperview()
         viewController.removeFromParentViewController()
     }
-
-
 }

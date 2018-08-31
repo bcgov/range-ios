@@ -111,7 +111,7 @@ class TextEntryViewController: UIViewController, Theme {
         styleFieldHeader(label: titleLabel)
     }
 
-    func setup(on: BaseViewController, header: String, completion: @escaping (_ add: Bool, _ value: String) -> Void) {
+    func setup(on: BaseViewController, header: String, taken: [String]? = [String](),completion: @escaping (_ add: Bool, _ value: String) -> Void) {
         self.callBack = completion
         self.parentVC = on
         self.header = header

@@ -169,101 +169,12 @@ class CreateNewRUPViewController: BaseViewController {
     // Body
     @IBOutlet weak var tableView: UITableView!
 
-    // custom popup
-    @IBOutlet weak var popupVIew: UIView!
-    @IBOutlet weak var popupTitle: UILabel!
-    @IBOutlet weak var popupTextField: UITextField!
-    @IBOutlet weak var grayScreen: UIView!
-    @IBOutlet weak var popupCancelButton: UIButton!
-    @IBOutlet weak var popupAddButton: UIButton!
-    @IBOutlet weak var popupInputHeight: NSLayoutConstraint!
-    
-    // MARK: POP UP
-    @IBAction func popupCancel(_ sender: Any) {
-        if popupCompletion == nil {return}
-        popupCompletion!(false, "")
-        closePopup()
-    }
-
-    @IBAction func popupAdd(_ sender: Any) {
-        if popupCompletion == nil {return}
-        if let text = popupTextField.text {
-            // has value
-            if text == "" {
-                popupTitle.text = "Please enter a value"
-                popupTitle.textColor = UIColor.red
-                return
-            } else {
-                // value is not duplicate
-                if popupTakenValues.contains(text) {
-                    popupTitle.text = "Duplicate value"
-                    popupTitle.textColor = UIColor.red
-                    return
-                } else {
-                    // value is in correct format
-                    switch acceptedPopupInput {
-                    case .String:
-                        popupCompletion!(true, text)
-                        closePopup()
-                    case .Double:
-                        if text.isDouble {
-                            popupCompletion!(true, text)
-                            closePopup()
-                        } else {
-                            popupTitle.text = "Invalid value"
-                            popupTitle.textColor = UIColor.red
-                        }
-                    case .Integer:
-                        if text.isInt {
-                            popupCompletion!(true, text)
-                            closePopup()
-                        } else {
-                            popupTitle.text = "Invalid value"
-                            popupTitle.textColor = UIColor.red
-                        }
-                    case .Year:
-                        if text.isInt {
-                            let year = Int(text) ?? 0
-                            if (year > 2000) && (year < 2100) {
-                                popupCompletion!(true, text)
-                                closePopup()
-                            } else {
-                                popupTitle.text = "Invalid Year"
-                                popupTitle.textColor = UIColor.red
-                            }
-                        } else {
-                            popupTitle.text = "Invalid value"
-                            popupTitle.textColor = UIColor.red
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    func openPopup() {
-        self.tableView.isUserInteractionEnabled = false
-
-        self.grayScreen.alpha = 1
-        self.popupVIew.alpha = 1
-    }
-
-    func closePopup() {
-        self.grayScreen.alpha = 0
-        self.popupTextField.text = ""
-        self.popupCompletion = nil
-        self.popupVIew.alpha = 0
-        self.tableView.isUserInteractionEnabled = true
-        IQKeyboardManager.sharedManager().resignFirstResponder()
-    }
-    // end of custom popup
 
     // MARK: ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
         setMenuSize()
-        closePopup() 
         setUpTable()
         autofill()
         prepareToAnimate()
@@ -296,17 +207,6 @@ class CreateNewRUPViewController: BaseViewController {
             if let result = amendment, let newStatus = result.getStatus() {
                 // process new status
                 plan.updateStatus(with: newStatus)
-//                plan.updateStatusId(newID: RUPManager.shared.getAmendmentStatus(status: newStatus).id)
-//                do {
-//                    let realm = try Realm()
-//                    try realm.write {
-//                        plan.statusEnum = newStatus
-//                        plan.shouldUpdateRemoteStatus = true
-//                    }
-//                } catch _ {
-//                    fatalError()
-//                }
-
                 self.autofill()
                 self.styleUpdateAmendmentButton()
             }
@@ -349,15 +249,12 @@ class CreateNewRUPViewController: BaseViewController {
     }
     
     @IBAction func saveToDraftAction(_ sender: UIButton) {
-        guard let plan = self.rup, let agreement = RUPManager.shared.getAgreement(with: plan.agreementId) else {return}
-
-
+        guard let plan = self.rup else {return}
             do {
                 let realm = try Realm()
                 try realm.write {
                     plan.isNew = false
                     plan.locallyUpdatedAt = Date()
-    //                agreement.rups.append(plan)
                 }
             } catch _ {
                 fatalError()
@@ -370,7 +267,6 @@ class CreateNewRUPViewController: BaseViewController {
                     return self.parentCallBack!(true, false)
                 }
             }
-
     }
 
     @IBAction func basicInfoAction(_ sender: UIButton) {
@@ -438,7 +334,6 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Functions
-
     func refreshPlanObject() {
         guard let plan = self.rup else {return}
         do {
@@ -674,20 +569,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     func reload(then: @escaping() -> Void) {
         refreshPlanObject()
         if #available(iOS 11.0, *) {
-//            UIView.animate(withDuration: mediumAnimationDuration, animations: {
-//                self.tableView.performBatchUpdates({
-//                    self.tableView.beginUpdates()
-//                    self.tableView.endUpdates()
-//                }, completion: { done in
-//                    self.tableView.layoutIfNeeded()
-//                    if !done {
-//                        print (done)
-//                    }
-//                    self.highlightCurrentModuleInMenu()
-//                    return then()
-//                })
-//                self.view.layoutIfNeeded()
-//            })
             self.tableView.performBatchUpdates({
                 self.tableView.beginUpdates()
                 self.tableView.endUpdates()
@@ -722,21 +603,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
     }
 
-//    func reloadAt(indexPath: IndexPath) {
-//        refreshPlanObject()
-//        if #available(iOS 11.0, *) {
-//            self.tableView.performBatchUpdates({
-//                self.tableView.reloadData()
-//                highlightCurrentModuleInMenu()
-//            }, completion: nil)
-//        } else {
-//            self.tableView.beginUpdates()
-//            self.tableView.endUpdates()
-//            self.tableView.layoutIfNeeded()
-//            highlightCurrentModuleInMenu()
-//        }
-//    }
-
     func realod(bottomOf indexPath: IndexPath, then: @escaping() -> Void) {
         reload {
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -744,7 +610,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             return then()
         }
     }
-
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         highlightCurrentModuleInMenu()
@@ -781,21 +646,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 menuMinistersIssuesOn()
             }
         }
-    }
-}
-
-// MARK: Input Prompt
-extension CreateNewRUPViewController {
-    // Use done variable in completion to indicate if user cancelled or not
-    func promptInput(title: String, accept: AcceptedPopupInput,taken: [String],completion: @escaping (_ done: Bool,_ result: String) -> Void) {
-        self.acceptedPopupInput = accept
-        self.popupTakenValues = taken
-        self.popupTitle.text = title
-        self.popupCompletion = completion
-        self.popupTitle.textColor = UIColor.black
-        self.openPopup()
-        
-        self.popupTextField.becomeFirstResponder()
     }
 }
 

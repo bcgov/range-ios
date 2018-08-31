@@ -14,8 +14,6 @@ import RealmSwift
 extension CreateNewRUPViewController {
     // MARK: Styles
     func style() {
-        
-        stylePopUp()
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
         StyleNavBarButton(button: cancelButton)
         StyleNavBarButton(button: updateAmendmentButton)
@@ -125,17 +123,6 @@ extension CreateNewRUPViewController {
 
     func setStatusGray() {
         self.statusLight.backgroundColor = UIColor.gray
-    }
-
-    // TODO: Temporary.. come up with a better, resusable popup for inputs
-    func stylePopUp() {
-        styleContainer(view: popupVIew)
-        popupVIew.backgroundColor = UIColor.white
-        styleFieldHeader(label: popupTitle)
-        styleInput(input: popupTextField, height: popupInputHeight)
-        grayScreen.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0.9)
-        styleHollowButton(button: popupCancelButton)
-        styleHollowButton(button: popupAddButton)
     }
 
     // MARK: Side Menu

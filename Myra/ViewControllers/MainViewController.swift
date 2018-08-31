@@ -12,8 +12,9 @@ class MainViewController: BaseViewController {
 
     @IBOutlet weak var container: UIView!
 
-    var currentVC: UIViewController?
+    var currentChildVC: UIViewController?
 
+    var nextChildVC: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,6 @@ class MainViewController: BaseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        chooseInitialView()
     }
 }
 
@@ -47,15 +47,35 @@ extension MainViewController {
 
     func showHomePage() {
         let vm = ViewManager()
-        let home = vm.home
-        home.parentReference = self
         add(asChildViewController: vm.home)
     }
+
+
+    //// Unused
+    func showSelectAgreementPage() {
+        let vm = ViewManager()
+        let selectAgreement = vm.selectAgreement
+        selectAgreement.setup(callBack: { closed in
+            self.showHomePage()
+        })
+        add(asChildViewController: selectAgreement)
+    }
+
+    func showPlanForm(for plan: RUP, mode: FormMode) {
+        let vm = ViewManager()
+        let createPage = vm.createRUP
+        createPage.setup(rup: plan, mode: mode) { (close, cancel) in
+            self.showHomePage()
+        }
+        add(asChildViewController: createPage)
+    }
+    ////
+
 }
 
 extension MainViewController {
     func add(asChildViewController viewController: UIViewController) {
-        self.currentVC = viewController
+        self.currentChildVC = viewController
         addChildViewController(viewController)
         self.container.addSubview(viewController.view)
         viewController.view.frame = self.container.bounds
@@ -72,17 +92,13 @@ extension MainViewController {
     }
 
     func removeCurrentVC() {
-        if self.currentVC == nil {return}
-        self.currentVC?.willMove(toParentViewController: nil)
-        self.currentVC?.view.removeFromSuperview()
-        self.currentVC?.removeFromParentViewController()
+        guard let currentChildVC = self.currentChildVC else {return}
+        remove(asChildViewController: currentChildVC)
     }
 
     func removeCurrentVCAndReload() {
-        if self.currentVC == nil {return}
-        self.currentVC?.willMove(toParentViewController: nil)
-        self.currentVC?.view.removeFromSuperview()
-        self.currentVC?.removeFromParentViewController()
+        guard let currentChildVC = self.currentChildVC else {return}
+        remove(asChildViewController: currentChildVC)
         self.chooseInitialView()
     }
 

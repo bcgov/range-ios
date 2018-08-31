@@ -560,7 +560,6 @@ extension HomeViewController {
 
     func editRUP(rup: RUP) {
         let vc = getCreateNewVC()
-
         vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
             self.getRUPs()
         }
