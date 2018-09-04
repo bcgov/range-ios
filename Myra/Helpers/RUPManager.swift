@@ -509,7 +509,7 @@
         } catch _ {
             fatalError()
         }
-        calculateScheduleEntry(scheduleObject: scheduleObject)
+        scheduleObject.calculateAUMsAndPLD()
     }
     
     func getPastureNames(rup: RUP) -> [String] {
@@ -689,84 +689,8 @@
         return results.first
     }
     
-    func calculateScheduleEntry(scheduleObject: ScheduleObject) {
-        calculateTotalAUMsFor(scheduleObject: scheduleObject)
-        calculatePLDFor(scheduleObject: scheduleObject)
-    }
-    
-    func calculateTotalAUMsFor(scheduleObject: ScheduleObject) {
-        var auFactor = 0.0
-        // if animal type hasn't been selected, return 0
-        let liveStockId = scheduleObject.liveStockTypeId
-        if liveStockId != -1 {
-            let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: liveStockId)
-            auFactor = liveStockObject.auFactor
-        } else {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    scheduleObject.totalAUMs = 0.0
-                }
-            } catch _ {
-                fatalError()
-            }
-            return
-        }
-        
-        // otherwise continue...
-        let numberOfAnimals = Double(scheduleObject.numberOfAnimals)
-        let totalDays = Double(scheduleObject.totalDays)
-        
-        // Total AUMs = (# of Animals *Days*Animal Class Proportion)/ 30.44
-        do {
-            let realm = try Realm()
-            try realm.write {
-                scheduleObject.totalAUMs = (numberOfAnimals * totalDays * auFactor) / 30.44
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-    
-    func calculatePLDFor(scheduleObject: ScheduleObject) {
-        var pasturePLD = 0.0
-        // if the schedule object doesn't have a pasture set, return 0
-        if let pasture = scheduleObject.pasture {
-            pasturePLD = pasture.privateLandDeduction
-        } else {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    scheduleObject.pldAUMs = 0.0
-                }
-            } catch _ {
-                fatalError()
-            }
-            return
-        }
-        // otherwise continue...
-        
-        // Private Land Deduction = Total AUMs * % PLD entered for that pasture
-        do {
-            let realm = try Realm()
-            try realm.write {
-                scheduleObject.pldAUMs = (scheduleObject.totalAUMs * (pasturePLD / 100))
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-    
-    func getTotalAUMsFor(schedule: Schedule) -> Double{
-        var total = 0.0
-        for object in schedule.scheduleObjects {
-            total = total + object.crownAUMs
-        }
-        return total
-    }
-    
     func isScheduleValid(schedule: Schedule, agreementID: String) -> Bool {
-        let totAUMs = getTotalAUMsFor(schedule: schedule)
+        let totAUMs = schedule.getTotalAUMs()
         let usage = getUsageFor(year: schedule.year, agreementId: agreementID)
         let allowed = usage?.auth_AUMs ?? 0
         if !scheduleHasValidEntries(schedule: schedule, agreementID: agreementID) {
@@ -899,8 +823,8 @@
         let query = RealmRequests.getObject(ScheduleObject.self)
         if let scheduleObjects = query {
             for object in scheduleObjects {
-                if object.pasture?.localId == pasture.localId {
-                    calculateScheduleEntry(scheduleObject: object)
+                if let entryPatrue = object.pasture, entryPatrue.localId == pasture.localId {
+                    object.calculateAUMsAndPLD()
                 }
             }
         }

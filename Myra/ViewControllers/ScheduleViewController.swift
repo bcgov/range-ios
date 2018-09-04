@@ -38,14 +38,21 @@ class ScheduleViewController: BaseViewController {
     @IBOutlet weak var bannerHeight: NSLayoutConstraint!
     @IBOutlet weak var banner: UIView!
 
-    
+    @IBOutlet weak var authAUMsHeader: UILabel!
+    @IBOutlet weak var authAUMs: UILabel!
+    @IBOutlet weak var totalAUMsHeader: UILabel!
+    @IBOutlet weak var totalAUMs: UILabel!
+    @IBOutlet weak var bottomDivider: UIView!
+
 
     // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
         setTitle()
-        setSubtitle(ranNumber: (rup?.agreementId)!, agreementHolder: "", rangeName: (rup?.rangeName)!)
+        if let rup = self.rup {
+            setSubtitle(ranNumber: (rup.agreementId), agreementHolder: "", rangeName: (rup.rangeName))
+        }
         style()
     }
 
@@ -93,13 +100,6 @@ class ScheduleViewController: BaseViewController {
         }
     }
 
-    func calculateEntries() {
-        guard let sched = self.schedule else {return}
-        for object in sched.scheduleObjects {
-            RUPManager.shared.calculateScheduleEntry(scheduleObject: object)
-        }
-    }
-
     func setTitle() {
         if self.scheduleTitle == nil { return }
         if schedule == nil {return}
@@ -113,59 +113,58 @@ class ScheduleViewController: BaseViewController {
         self.subtitle.text = "\(ranNumber) | \(rangeName)"
     }
 
-    // MARK: Livestock selection popup
-    func getLiveStockPopupHolder() -> UIView {
-        let layerWidth: CGFloat = (self.view.frame.width / 4)
-        let layerHeight: CGFloat = (self.view.frame.height / 2)
-        let layer = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: layerWidth, height: layerHeight))
-        layer.layer.cornerRadius = 5
-        layer.backgroundColor = UIColor.white
-        layer.layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.layer.shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
-        layer.layer.shadowOpacity = 1
-        layer.layer.shadowRadius = 10
-        layer.center.x = self.view.center.x
-        layer.center.y = self.view.center.y
-        layer.tag = popupContainerTag
-        return layer
-    }
+//    // MARK: Livestock selection popup
+//    func getLiveStockPopupHolder() -> UIView {
+//        let layerWidth: CGFloat = (self.view.frame.width / 4)
+//        let layerHeight: CGFloat = (self.view.frame.height / 2)
+//        let layer = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: layerWidth, height: layerHeight))
+//        layer.layer.cornerRadius = 5
+//        layer.backgroundColor = UIColor.white
+//        layer.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        layer.layer.shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
+//        layer.layer.shadowOpacity = 1
+//        layer.layer.shadowRadius = 10
+//        layer.center.x = self.view.center.x
+//        layer.center.y = self.view.center.y
+//        layer.tag = popupContainerTag
+//        return layer
+//    }
 
-    func rotatePopup() {
-        if let whiteBG = self.view.viewWithTag(whiteScreenTag), let container = self.view.viewWithTag(popupContainerTag) {
-            whiteBG.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-            whiteBG.center.y = self.view.center.y
-            whiteBG.center.x = self.view.center.x
+//    func rotatePopup() {
+//        if let whiteBG = self.view.viewWithTag(whiteScreenTag), let container = self.view.viewWithTag(popupContainerTag) {
+//            whiteBG.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+//            whiteBG.center.y = self.view.center.y
+//            whiteBG.center.x = self.view.center.x
+//
+//            let containerWidth: CGFloat = (self.view.frame.width / 4)
+//            let containerHeight: CGFloat = (self.view.frame.height / 2)
+//
+//            container.frame.size.width = containerWidth
+//            container.frame.size.height = containerHeight
+//            container.center.y = self.view.center.y
+//            container.center.x = self.view.center.x
+//        }
+//    }
 
-            let containerWidth: CGFloat = (self.view.frame.width / 4)
-            let containerHeight: CGFloat = (self.view.frame.height / 2)
+//    // MARK: Event handlers
+//    override func whenLandscape() {
+//        rotatePopup()
+//    }
+//
+//    override func whenPortrait() {
+//        rotatePopup()
+//    }
 
-            container.frame.size.width = containerWidth
-            container.frame.size.height = containerHeight
-            container.center.y = self.view.center.y
-            container.center.x = self.view.center.x
-        }
-    }
-
-    // MARK: Event handlers
-    override func whenLandscape() {
-        rotatePopup()
-    }
-
-    override func whenPortrait() {
-        rotatePopup()
-    }
-
-    func refreshScheduleObject() {
+    // MARK: Calculations
+    func calculateEntries() {
         guard let sched = self.schedule else {return}
-        do {
-            let realm = try Realm()
-            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
-            self.schedule = aSchedule
-        } catch _ {
-            fatalError()
+        for entry in sched.scheduleObjects {
+//            RUPManager.shared.calculateScheduleEntry(scheduleObject: object)
+            entry.calculateAUMsAndPLD()
         }
     }
 
+    // MARK: Table Reload
     func reload(then: @escaping()-> Void) {
         refreshScheduleObject()
         if #available(iOS 11.0, *) {
@@ -184,9 +183,21 @@ class ScheduleViewController: BaseViewController {
         }
     }
 
+    func refreshScheduleObject() {
+        guard let sched = self.schedule else {return}
+        do {
+            let realm = try Realm()
+            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
+            self.schedule = aSchedule
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func autofillResults() {
-        guard let footer = footerReference else {return}
-        footer.autofill()
+//        guard let footer = footerReference else {return}
+//        footer.autofill()
+        computeTotals()
     }
 
     // MARK: Styles
@@ -195,6 +206,19 @@ class ScheduleViewController: BaseViewController {
         styleHeader(label: scheduleTitle)
         styleFooter(label: subtitle)
         styleDivider(divider: divider)
+        styleDivider(divider: bottomDivider)
+        authAUMsHeader.font = Fonts.getPrimaryHeavy(size: 17)
+        totalAUMsHeader.font = Fonts.getPrimaryHeavy(size: 17)
+        styleResult(label: authAUMs)
+        styleResult(label: totalAUMs)
+    }
+
+    func styleResult(label: UILabel) {
+        styleFieldHeader(label: label)
+        let layer = label.layer
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.gray.cgColor
+        layer.cornerRadius = 5
     }
 
     // MARK: Banner
@@ -209,6 +233,20 @@ class ScheduleViewController: BaseViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 UIView.animate(withDuration: self.mediumAnimationDuration, animations: {
                     self.bannerLabel.textColor = Colors.primaryConstrast
+                    self.view.layoutIfNeeded()
+                })
+            })
+        }
+    }
+
+    func highlightBanner() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.bannerLabel.textColor = Colors.primary.withAlphaComponent(0.5)
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.bannerLabel.textColor = Colors.primary.withAlphaComponent(1)
                     self.view.layoutIfNeeded()
                 })
             })
@@ -232,17 +270,22 @@ class ScheduleViewController: BaseViewController {
         autofillResults()
     }
 
-    func highlightBanner() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.bannerLabel.textColor = Colors.primary.withAlphaComponent(0.5)
-            self.view.layoutIfNeeded()
-        }) { (done) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.bannerLabel.textColor = Colors.primary.withAlphaComponent(1)
-                    self.view.layoutIfNeeded()
-                })
-            })
+    // MARK: Footer/results
+    func computeTotals() {
+        guard let schedule = self.schedule, let plan = self.rup else {return}
+        let totAUMs = schedule.getTotalAUMs()
+        self.totalAUMs.text = "\(totAUMs.rounded())"
+
+        if let usage = RUPManager.shared.getUsageFor(year: (schedule.year), agreementId: plan.agreementId) {
+            let allowed = usage.auth_AUMs
+            self.authAUMs.text = "\(allowed)"
+            if totAUMs > Double(allowed) {
+                totalAUMs.textColor = UIColor.red
+            } else {
+                totalAUMs.textColor = UIColor.black
+            }
+        } else {
+            self.totalAUMs.text = "NA"
         }
     }
 }
@@ -290,5 +333,4 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-
 }

@@ -18,11 +18,7 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
     var mode: FormMode = .View
 
     // MARK: Outlets
-    @IBOutlet weak var totalBox: UIView!
-    @IBOutlet weak var authorizedBox: UIView!
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var authorizedAUMs: UILabel!
-    @IBOutlet weak var totalAUMs: UILabel!
     @IBOutlet weak var scheduleDescriptionHeader: UILabel!
     @IBOutlet weak var divider: UIView!
 
@@ -35,6 +31,7 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Functions
+    // MARK: Setup
     func setup(mode: FormMode, schedule: Schedule, agreementID: String) {
         self.mode = mode
         self.schedule = schedule
@@ -44,23 +41,10 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
         autofill()
     }
 
+    // MARK: Autofill
     func autofill() {
-        guard let sched = self.schedule else {return}
-        let totAUMs = sched.getTotalAUMs()
-        self.totalAUMs.text = "\(totAUMs.rounded())"
-        if let usage = RUPManager.shared.getUsageFor(year: (sched.year), agreementId: agreementID) {
-            let allowed = usage.auth_AUMs
-            self.authorizedAUMs.text = "\(allowed)"
-            if totAUMs > Double(allowed) {
-                totalAUMs.textColor = UIColor.red
-            } else {
-                totalAUMs.textColor = UIColor.black
-            }
-        } else {
-            self.authorizedAUMs.text = "NA"
-        }
-
-        self.textView.text = sched.notes
+        guard let schedule = self.schedule else {return}
+        self.textView.text = schedule.notes
         if self.mode == .View && self.textView.text == "" {
             self.textView.text = "Description not provided"
         }
@@ -75,16 +59,6 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
             styleTextviewInputField(field: textView, header: scheduleDescriptionHeader)
         }
         styleDivider(divider: divider)
-        styleFieldHeader(label: authorizedAUMs)
-        styleFieldHeader(label: totalAUMs)
-        styleBox(layer: totalBox.layer)
-        styleBox(layer: authorizedBox.layer)
-    }
-
-    func styleBox(layer: CALayer) {
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.gray.cgColor
-        layer.cornerRadius = 5
     }
 }
 
@@ -93,10 +67,11 @@ extension ScheduleFooterTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
 
     func textViewDidEndEditing(_ textView: UITextView) {
+        guard let schedule = self.schedule else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                self.schedule?.notes = textView.text
+                schedule.notes = textView.text
             }
         } catch _ {
             fatalError()

@@ -47,7 +47,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var liveStockDropDown: UIButton!
 
     // MARK: Outlet Acions
-
     @IBAction func editGraceDays(_ sender: UITextField) {
         guard let entry = scheduleObject, let text = sender.text else {return}
         if text.isInt {
@@ -55,6 +54,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             do {
                 let realm = try Realm()
                 try realm.write {
+                    // force unwrapped but we are checking that it is an int using isInt extention
                     entry.graceDays = Int(text)!
                 }
             } catch _ {
@@ -79,7 +79,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     @IBAction func lookupPastures(_ sender: Any) {
         guard let parent = parentCell else {return}
-//        let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
@@ -92,7 +91,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.update()
                 // Clear sort headers
                 parent.clearSort()
-                // NOTE: you can simply use this if you want to sort on change
+                // NOTE: you can use this if you want to sort on change
                 // and highlight the cell that moved
                 /*
                  // if current sorting on parent is set to this field's type
@@ -111,7 +110,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     @IBAction func lookupLiveStockType(_ sender: Any) {
         guard let parent = parentCell, let object = self.scheduleObject else {return}
-//        let button = sender as! UIButton
         let grandParent = self.parentViewController as! ScheduleViewController
         let vm = ViewManager()
         let lookup = vm.lookup
@@ -142,19 +140,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 self.update()
             }
         }
-    }
-
-    // for grace days
-    @IBAction func highlightGraceDays(_ sender: UITextField) {
-        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
-    }
-    // for number of animals field
-    @IBAction func highlightField(_ sender: UITextField) {
-        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
-    }
-
-    @objc private func selectRange(sender: UITextField) {
-        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
     }
 
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
@@ -189,8 +174,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     @IBAction func numberOfAnimalsSelected(_ sender: UITextField) {
-        // Clear sort headers
-        self.parentCell?.clearSort()
+        guard let parentCell = self.parentCell else {return}
+        parentCell.clearSort()
         update()
     }
 
@@ -200,14 +185,13 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let picker = DatePicker()
         guard let sched = grandParent.schedule,
             let minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
-            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year),
-            let parentCell = self.parentCell else {return}
+            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
         picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
             DispatchQueue.main.async {
                 self.handleDateIn(date: date)
-//                parentCell.clearSort()
             }
         }) {_,_ in }
+
         picker.displayPopOver(on: sender as! UIButton, in: grandParent, completion: {})
 
     }
@@ -217,8 +201,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! ScheduleViewController
         guard let sched = grandParent.schedule,
             var minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
-            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year),
-            let parentCell = self.parentCell else {return}
+            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
 
         if let s = scheduleObject, let startDate = s.dateIn {
             minDate = startDate
@@ -228,7 +211,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
             DispatchQueue.main.async {
                  self.handleDateOut(date: date)
-//                parentCell.clearSort()
             }
         }) {_,_ in }
 
@@ -249,6 +231,23 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             }
         }
     }
+
+    // MARK: UITextField Fix
+
+    // for grace days
+    @IBAction func highlightGraceDays(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    // for number of animals field
+    @IBAction func highlightField(_ sender: UITextField) {
+        perform(#selector(selectRange), with: sender, afterDelay: 0.01)
+    }
+
+    @objc private func selectRange(sender: UITextField) {
+        sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
+    }
+    /////////////////////
 
 
     // MARK: Functions
@@ -295,9 +294,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     fatalError()
                 }
                 self.calculateDays()
+                self.update()
             }
         } else {
             self.calculateDays()
+            self.update()
         }
     }
 
@@ -314,6 +315,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         }
         DispatchQueue.main.async {
             self.calculateDays()
+            self.update()
         }
     }
 
@@ -474,7 +476,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     func calculate() {
         guard let object = self.scheduleObject else {return}
-        RUPManager.shared.calculateScheduleEntry(scheduleObject: (object))
+        object.calculateAUMsAndPLD()
     }
 
     // update calculations
@@ -518,7 +520,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let date1 = calendar.startOfDay(for: din)
         let date2 = calendar.startOfDay(for: dout)
         self.days.text = "\(String(describing: DateManager.daysBetween(date1: date1, date2: date2)))"
-        update()
+//        update()
     }
 
     func disableTextFields() {
