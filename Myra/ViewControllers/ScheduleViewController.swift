@@ -16,6 +16,7 @@ class ScheduleViewController: BaseViewController {
     var completion: ((_ done: Bool) -> Void)?
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
+    var entries: [ScheduleObject] = [ScheduleObject]()
     var rup: RUP?
     var mode: FormMode = .View
     var popupContainerTag = 200
@@ -23,21 +24,41 @@ class ScheduleViewController: BaseViewController {
 
     var realmNotificationToken: NotificationToken?
 
+    var currentSort: ScheduleSort = .None {
+        didSet {
+            sort()
+        }
+    }
+
     // MARK: Outlets
+    // Top
     @IBOutlet weak var scheduleTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
-
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var navbar: UIView!
     @IBOutlet weak var statusbar: UIView!
     @IBOutlet weak var backbutton: UIButton!
     @IBOutlet weak var navbarTitle: UILabel!
 
+    // Headers
+    @IBOutlet weak var pasture: UIButton!
+    @IBOutlet weak var livestock: UIButton!
+    @IBOutlet weak var numAnimals: UIButton!
+    @IBOutlet weak var dateIn: UIButton!
+    @IBOutlet weak var dateOut: UIButton!
+    @IBOutlet weak var days: UILabel!
+    @IBOutlet weak var graceDays: UILabel!
+    @IBOutlet weak var PLD: UILabel!
+    @IBOutlet weak var crownAUMs: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+
+    // Banner
     @IBOutlet weak var bannerLabel: UILabel!
     @IBOutlet weak var bannerHeight: NSLayoutConstraint!
     @IBOutlet weak var banner: UIView!
 
+    // Bottom
     @IBOutlet weak var authAUMsHeader: UILabel!
     @IBOutlet weak var authAUMs: UILabel!
     @IBOutlet weak var totalAUMsHeader: UILabel!
@@ -77,12 +98,107 @@ class ScheduleViewController: BaseViewController {
         })
     }
 
+    @IBAction func addAction(_ sender: Any) {
+        createEntry(from: nil)
+    }
+
+    @IBAction func sortPasture(_ sender: UIButton) {
+        self.currentSort = .Pasture
+    }
+    @IBAction func sortLiveStock(_ sender: UIButton) {
+        self.currentSort = .LiveStock
+    }
+    @IBAction func sortDateIn(_ sender: UIButton) {
+        self.currentSort = .DateIn
+    }
+    @IBAction func sortDateOut(_ sender: UIButton) {
+        self.currentSort = .DateOut
+    }
+    @IBAction func sortNumber(_ sender: UIButton) {
+        self.currentSort = .Number
+    }
+
+    // MARK: Add / Remove entry
+    func createEntry(from: ScheduleObject?) {
+        guard let sched = self.schedule else {return}
+        do {
+            let realm = try Realm()
+            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
+            if let copyFrom = from {
+                RUPManager.shared.copyScheduleObject(fromObject: copyFrom, inSchedule: aSchedule)
+            } else {
+                try realm.write {
+                    let new = ScheduleObject()
+                    new.isNew = true
+                    aSchedule.scheduleObjects.append(new)
+                    realm.add(new)
+                }
+            }
+            self.schedule = aSchedule
+            self.entries = Array(aSchedule.scheduleObjects)
+        } catch _ {
+            fatalError()
+        }
+
+        clearSort()
+        let newEntryIndexPath = IndexPath(row: findIndexOfNew() ?? entries.count - 1, section: 0)
+        self.tableView.beginUpdates()
+        self.tableView.insertRows(at: [newEntryIndexPath], with: .right)
+        self.tableView.endUpdates()
+        self.validate()
+    }
+
+    func findIndexOfNew() -> Int? {
+        for i in 0...entries.count - 1 {
+            if entries[i].isNew {
+                return i
+            }
+        }
+        return nil
+    }
+
+    func findIndexOf(entry: ScheduleObject) -> Int? {
+        for i in 0...entries.count - 1 {
+            if entries[i].localId == entry.localId {
+                return i
+            }
+        }
+        return nil
+    }
+
+    func deleteEntry(object: ScheduleObject) {
+        if object.isInvalidated {
+            clearSort()
+            refreshScheduleObject()
+            self.tableView.reloadData()
+            self.validate()
+            return
+        }
+        if let index = findIndexOf(entry: object) {
+            RealmRequests.deleteObject(object)
+            refreshScheduleObject()
+            let indexPath = IndexPath(row: index, section: 0)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [indexPath], with: .left)
+            self.tableView.endUpdates()
+        } else {
+            RealmRequests.deleteObject(object)
+            refreshScheduleObject()
+            self.tableView.reloadData()
+        }
+
+        self.validate()
+        self.sort()
+    }
+
+
     // MARK: Setup
     func setup(mode: FormMode, rup: RUP, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         self.rup = rup
         self.mode = mode
         self.schedule = schedule
         self.completion = completion
+        self.entries = Array(schedule.scheduleObjects)
         calculateEntries()
         setUpTable()
         setTitle()
@@ -113,53 +229,10 @@ class ScheduleViewController: BaseViewController {
         self.subtitle.text = "\(ranNumber) | \(rangeName)"
     }
 
-//    // MARK: Livestock selection popup
-//    func getLiveStockPopupHolder() -> UIView {
-//        let layerWidth: CGFloat = (self.view.frame.width / 4)
-//        let layerHeight: CGFloat = (self.view.frame.height / 2)
-//        let layer = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: layerWidth, height: layerHeight))
-//        layer.layer.cornerRadius = 5
-//        layer.backgroundColor = UIColor.white
-//        layer.layer.shadowOffset = CGSize(width: 0, height: 2)
-//        layer.layer.shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
-//        layer.layer.shadowOpacity = 1
-//        layer.layer.shadowRadius = 10
-//        layer.center.x = self.view.center.x
-//        layer.center.y = self.view.center.y
-//        layer.tag = popupContainerTag
-//        return layer
-//    }
-
-//    func rotatePopup() {
-//        if let whiteBG = self.view.viewWithTag(whiteScreenTag), let container = self.view.viewWithTag(popupContainerTag) {
-//            whiteBG.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-//            whiteBG.center.y = self.view.center.y
-//            whiteBG.center.x = self.view.center.x
-//
-//            let containerWidth: CGFloat = (self.view.frame.width / 4)
-//            let containerHeight: CGFloat = (self.view.frame.height / 2)
-//
-//            container.frame.size.width = containerWidth
-//            container.frame.size.height = containerHeight
-//            container.center.y = self.view.center.y
-//            container.center.x = self.view.center.x
-//        }
-//    }
-
-//    // MARK: Event handlers
-//    override func whenLandscape() {
-//        rotatePopup()
-//    }
-//
-//    override func whenPortrait() {
-//        rotatePopup()
-//    }
-
     // MARK: Calculations
     func calculateEntries() {
         guard let sched = self.schedule else {return}
         for entry in sched.scheduleObjects {
-//            RUPManager.shared.calculateScheduleEntry(scheduleObject: object)
             entry.calculateAUMsAndPLD()
         }
     }
@@ -167,6 +240,7 @@ class ScheduleViewController: BaseViewController {
     // MARK: Table Reload
     func reload(then: @escaping()-> Void) {
         refreshScheduleObject()
+//        self.tableView.reloadData()
         if #available(iOS 11.0, *) {
             self.tableView.performBatchUpdates({
                 self.tableView.beginUpdates()
@@ -176,6 +250,7 @@ class ScheduleViewController: BaseViewController {
                 return then()
             })
         } else {
+            self.tableView.reloadSections([0], with: .automatic)
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
             self.tableView.layoutIfNeeded()
@@ -192,12 +267,7 @@ class ScheduleViewController: BaseViewController {
         } catch _ {
             fatalError()
         }
-    }
-
-    func autofillResults() {
-//        guard let footer = footerReference else {return}
-//        footer.autofill()
-        computeTotals()
+        self.entries = Array(sched.scheduleObjects)
     }
 
     // MARK: Styles
@@ -211,6 +281,7 @@ class ScheduleViewController: BaseViewController {
         totalAUMsHeader.font = Fonts.getPrimaryHeavy(size: 17)
         styleResult(label: authAUMs)
         styleResult(label: totalAUMs)
+        styleSortHeaders()
     }
 
     func styleResult(label: UILabel) {
@@ -220,6 +291,52 @@ class ScheduleViewController: BaseViewController {
         layer.borderColor = UIColor.gray.cgColor
         layer.cornerRadius = 5
     }
+
+    func styleSortHeaders() {
+        switchOffSortHeaders()
+        switch currentSort {
+        case .Pasture:
+            switchOnSortHeader(button: pasture)
+        case .LiveStock:
+            switchOnSortHeader(button: livestock)
+        case .DateIn:
+            switchOnSortHeader(button: dateIn)
+        case .DateOut:
+            switchOnSortHeader(button: dateOut)
+        case .Number:
+            switchOnSortHeader(button: numAnimals)
+        case .None:
+            break
+        }
+        styleFieldHeader(label: days)
+        styleFieldHeader(label: graceDays)
+        styleFieldHeader(label: PLD)
+        styleFieldHeader(label: crownAUMs)
+        styleHollowButton(button: addButton)
+        switch mode {
+        case .View:
+            addButton.isEnabled = false
+            addButton.alpha = 0
+        case .Edit:
+            addButton.isEnabled = true
+            addButton.alpha = 1
+        }
+    }
+    func switchOffSortHeaders() {
+        self.view.layoutIfNeeded()
+        styleSortHeaderOff(button: pasture)
+        styleSortHeaderOff(button: livestock)
+        styleSortHeaderOff(button: dateIn)
+        styleSortHeaderOff(button: dateOut)
+        styleSortHeaderOff(button: numAnimals)
+        self.view.layoutIfNeeded()
+    }
+
+    func switchOnSortHeader(button: UIButton) {
+        styleSortHeaderOn(button: button)
+        self.view.layoutIfNeeded()
+    }
+
 
     // MARK: Banner
     func openBanner(message: String) {
@@ -261,17 +378,17 @@ class ScheduleViewController: BaseViewController {
     // MARK: Validation
     func validate() {
         guard let current = schedule, let plan = rup else {return}
+        autofillTotals()
         let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: plan.agreementId)
         if !valid.0 {
             openBanner(message: valid.1)
         } else {
             closeBanner()
         }
-        autofillResults()
     }
 
     // MARK: Footer/results
-    func computeTotals() {
+    func autofillTotals() {
         guard let schedule = self.schedule, let plan = self.rup else {return}
         let totAUMs = schedule.getTotalAUMs()
         self.totalAUMs.text = "\(totAUMs.rounded())"
@@ -288,6 +405,40 @@ class ScheduleViewController: BaseViewController {
             self.totalAUMs.text = "NA"
         }
     }
+
+    // MARK: Sort
+    // Note: Sort() calls updateTableHeight()
+    func sort() {
+        self.view.isUserInteractionEnabled = false
+        switchOffSortHeaders()
+        guard let sched = self.schedule else {return}
+        switch currentSort {
+        case .Pasture:
+            switchOnSortHeader(button: pasture)
+            self.entries = sched.scheduleObjects.sorted(by: {$0.pasture?.name ?? "" <  $1.pasture?.name ?? ""})
+        case .LiveStock:
+            switchOnSortHeader(button: livestock)
+            self.entries = sched.scheduleObjects.sorted(by: {$0.liveStockTypeId  <  $1.liveStockTypeId })
+        case .DateIn:
+            switchOnSortHeader(button: dateIn)
+            self.entries = sched.scheduleObjects.sorted(by: {$0.dateIn ?? Date() <  $1.dateIn ?? Date()})
+        case .DateOut:
+            switchOnSortHeader(button: dateOut)
+            self.entries = sched.scheduleObjects.sorted(by: {$0.dateOut ?? Date() <  $1.dateOut ?? Date()})
+        case .Number:
+            switchOnSortHeader(button: numAnimals)
+            self.entries = sched.scheduleObjects.sorted(by: {$0.numberOfAnimals <  $1.numberOfAnimals})
+        case .None:
+            self.view.isUserInteractionEnabled = true
+            return
+        }
+        self.tableView.reloadData()
+        self.view.isUserInteractionEnabled = true
+    }
+
+    func clearSort() {
+        self.currentSort = .None
+    }
 }
 
 // MARK: Tableview
@@ -297,6 +448,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "ScheduleFormTableViewCell")
+        registerCell(name: "ScheduleObjectTableViewCell")
         registerCell(name: "ScheduleFooterTableViewCell")
     }
 
@@ -309,28 +461,56 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: "ScheduleFormTableViewCell", for: indexPath) as! ScheduleFormTableViewCell
     }
 
+    func getScheduleObjectCell(indexPath: IndexPath) -> ScheduleObjectTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ScheduleObjectTableViewCell", for: indexPath) as! ScheduleObjectTableViewCell
+    }
+
     func getScheduleFooterCell(indexPath: IndexPath) -> ScheduleFooterTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "ScheduleFooterTableViewCell", for: indexPath) as! ScheduleFooterTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let index = indexPath.row
-        switch index {
-        case 0:
-            let cell = getScheduleCell(indexPath: indexPath)
-            cell.setup(mode: mode, schedule: schedule!, rup: rup!, parentReference: self)
-            return cell
-        case 1:
+        if indexPath.section == 0 {
+            return getScheduleEntryCell(for: indexPath)
+        } else {
             let cell = getScheduleFooterCell(indexPath: indexPath)
             cell.setup(mode: mode, schedule: schedule!, agreementID: (rup?.agreementId)!)
             self.footerReference = cell
             return cell
-        default:
-            return getScheduleCell(indexPath: indexPath)
         }
+//        let index = indexPath.row
+//        switch index {
+//        case 0:
+//            let cell = getScheduleCell(indexPath: indexPath)
+//            cell.setup(mode: mode, schedule: schedule!, rup: rup!, parentReference: self)
+//            return cell
+//        case 1:
+//            let cell = getScheduleFooterCell(indexPath: indexPath)
+//            cell.setup(mode: mode, schedule: schedule!, agreementID: (rup?.agreementId)!)
+//            self.footerReference = cell
+//            return cell
+//        default:
+//            return getScheduleCell(indexPath: indexPath)
+//        }
+    }
+
+    func getScheduleEntryCell(for indexPath: IndexPath) ->  ScheduleObjectTableViewCell {
+        let cell = getScheduleObjectCell(indexPath: indexPath)
+        if let plan = self.rup, self.entries.count > indexPath.row {
+            cell.setup(mode: mode, scheduleObject: self.entries[indexPath.row], rup: plan, scheduleViewReference: self)
+        }
+        return cell
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if section == 0 {
+            return self.entries.count
+        } else {
+            return 1
+        }
     }
 }

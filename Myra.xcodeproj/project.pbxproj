@@ -64,6 +64,7 @@
 		29230FF220BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */; };
 		29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */; };
 		29234B0A2138591300F547AC /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29234B092138591300F547AC /* UIApplication.swift */; };
+		2925224D213F3A68009FE745 /* ScheduleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925224C213F3A68009FE745 /* ScheduleHelper.swift */; };
 		2926D96E20754E52006250D3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
 		292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
 		292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
@@ -255,6 +256,7 @@
 		29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinistersIssueActionTableViewCell.swift; sourceTree = "<group>"; };
 		29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinistersIssueActionTableViewCell.xib; sourceTree = "<group>"; };
 		29234B092138591300F547AC /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		2925224C213F3A68009FE745 /* ScheduleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHelper.swift; sourceTree = "<group>"; };
 		2926D96D20754E52006250D3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestockIdentifierType.swift; sourceTree = "<group>"; };
 		292E65202076AAC6003D4AF0 /* ClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientType.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				29EADF8320603F9C0087593F /* RealmManager.swift */,
 				2932BB4C20851BD900579A57 /* Colors.swift */,
 				2932BB4E2085209000579A57 /* Fonts.swift */,
+				2925224C213F3A68009FE745 /* ScheduleHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				29234B0A2138591300F547AC /* UIApplication.swift in Sources */,
 				29227B5B20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */,
 				56F388A520801FB4004CDFAE /* DataServices.swift in Sources */,
+				2925224D213F3A68009FE745 /* ScheduleHelper.swift in Sources */,
 				2905520F213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
 				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,

@@ -51,7 +51,6 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var crownAUMs: UILabel!
     @IBOutlet weak var addButton: UIButton!
 
-
     // Hacky fix for sort icons on the right of buttons
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -127,7 +126,6 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
         guard let parent = self.parentReference else {return}
         self.setObjects()
         self.height.constant = computeHeight()
-        parent.autofillResults()
         parent.validate()
         parent.reload {
             self.sort()
