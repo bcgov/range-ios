@@ -76,7 +76,7 @@ class PastureTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let lookup = vm.lookup
         
-        lookup.setup(objects: RUPManager.shared.getPlanCommunityTypeOptions(), onVC: parent, onButton: button) { (selected, selection) in
+        lookup.setup(objects: Options.shared.getPlanCommunityTypeOptions(), onVC: parent, onButton: button) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 let pc = PlantCommunity()
@@ -282,7 +282,7 @@ class PastureTableViewCell: BaseFormCell {
         let grandParent = parent.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let inputPrompt = vm.textEntry
-        inputPrompt.taken = RUPManager.shared.getPastureNames(rup: rup)
+        inputPrompt.taken = Options.shared.getPastureNames(rup: rup)
         inputPrompt.setup(on: grandParent, header: "Pasture Name") { (done, name) in
             if done {
                 let newPasture = Pasture()

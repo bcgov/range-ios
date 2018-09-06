@@ -73,7 +73,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: RUPManager.shared.getPastureActionLookup(), onVC: parent, onButton: actionDropDown) { (selected, selection) in
+        lookup.setup(objects: Options.shared.getPastureActionLookup(), onVC: parent, onButton: actionDropDown) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 do {

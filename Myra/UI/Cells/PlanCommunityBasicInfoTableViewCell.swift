@@ -95,7 +95,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         let grandParent = self.parentViewController as! PlantCommunityViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        let options = RUPManager.shared.getPlantCommunityElevationLookup()
+        let options = Options.shared.getPlantCommunityElevationLookup()
         lookup.setup(objects: options, onVC: grandParent, onButton: elevationDropdown) { (selected, option) in
             lookup.dismiss(animated: true, completion: nil)
             if let selection = option {
@@ -117,7 +117,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         let grandParent = self.parentViewController as! PlantCommunityViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        let options = RUPManager.shared.getPlantCommunityPurposeOfActionsLookup()
+        let options = Options.shared.getPlantCommunityPurposeOfActionsLookup()
         lookup.setup(objects: options, onVC: grandParent, onButton: purposeDropdown) { (selected, option) in
             lookup.dismiss(animated: true, completion: nil)
             if let selection = option {

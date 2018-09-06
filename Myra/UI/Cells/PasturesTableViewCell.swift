@@ -31,7 +31,7 @@ class PasturesTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.taken = RUPManager.shared.getPastureNames(rup: rup)
+        textEntry.taken = Options.shared.getPastureNames(rup: rup)
         textEntry.setup(on: parent, header: "Pasture") { (accepted, value) in
             if accepted {
                 let newPasture = Pasture()

@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
 		2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C02141D61500AE72FC /* StatusHelper.swift */; };
-		2901C4C32141D8EC00AE72FC /* ReferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C22141D8EC00AE72FC /* ReferenceManager.swift */; };
+		2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C22141D8EC00AE72FC /* Reference.swift */; };
+		2901C4C52141DB4000AE72FC /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C42141DB4000AE72FC /* Options.swift */; };
 		290551FA21345E3A00785B5E /* AmendmentFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 290551F921345E3A00785B5E /* AmendmentFlow.storyboard */; };
 		290551FC21345E5600785B5E /* AmendmentFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */; };
 		2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */; };
@@ -203,7 +204,8 @@
 
 /* Begin PBXFileReference section */
 		2901C4C02141D61500AE72FC /* StatusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusHelper.swift; sourceTree = "<group>"; };
-		2901C4C22141D8EC00AE72FC /* ReferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceManager.swift; sourceTree = "<group>"; };
+		2901C4C22141D8EC00AE72FC /* Reference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
+		2901C4C42141DB4000AE72FC /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		290551F921345E3A00785B5E /* AmendmentFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AmendmentFlow.storyboard; sourceTree = "<group>"; };
 		290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentFlowViewController.swift; sourceTree = "<group>"; };
 		290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentPageOneCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -471,7 +473,8 @@
 				2932BB4C20851BD900579A57 /* Colors.swift */,
 				2932BB4E2085209000579A57 /* Fonts.swift */,
 				2901C4C02141D61500AE72FC /* StatusHelper.swift */,
-				2901C4C22141D8EC00AE72FC /* ReferenceManager.swift */,
+				2901C4C22141D8EC00AE72FC /* Reference.swift */,
+				2901C4C42141DB4000AE72FC /* Options.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1000,6 +1003,7 @@
 				299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */,
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
 				29055213213465B500785B5E /* AmendmentPageThreeCollectionViewCell.swift in Sources */,
+				2901C4C52141DB4000AE72FC /* Options.swift in Sources */,
 				2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				292197D9209CD152004A5011 /* OptionsTableViewCell.swift in Sources */,
@@ -1092,7 +1096,7 @@
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
 				29227B6220EEAD540042B88E /* TextEntry.swift in Sources */,
-				2901C4C32141D8EC00AE72FC /* ReferenceManager.swift in Sources */,
+				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
 				2920F8332034C8380090E7B4 /* Color.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
 				292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */,

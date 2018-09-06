@@ -80,7 +80,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let scheduleVC = self.scheduleViewReference else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
+        lookup.setup(objects: Options.shared.getPasturesLookup(rup: rup), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
             if selected, let object = obj {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields

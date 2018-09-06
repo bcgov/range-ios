@@ -236,7 +236,11 @@ class HomeViewController: BaseViewController {
             if hours < 1 {
                 if minutes < 1 {
                     // show seconds
-                    lastSyncText = "\(seconds) seconds ago"
+                    if seconds < 5 {
+                        lastSyncText = "Just now"
+                    } else {
+                        lastSyncText = "\(seconds) seconds ago"
+                    }
                 } else {
                     // show minutes
                     if minutes == 1 {

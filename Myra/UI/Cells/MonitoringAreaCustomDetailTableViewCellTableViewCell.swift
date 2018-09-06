@@ -38,7 +38,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         guard let plant = self.indicatorPlant, let parent = self.parentReference else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        var options = RUPManager.shared.getIndicatorPlantLookup()
+        var options = Options.shared.getIndicatorPlantLookup()
         options.append(SelectionPopUpObject(display: freeTextOption))
         lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
