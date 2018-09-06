@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
+		2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C02141D61500AE72FC /* StatusHelper.swift */; };
 		290551FA21345E3A00785B5E /* AmendmentFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 290551F921345E3A00785B5E /* AmendmentFlow.storyboard */; };
 		290551FC21345E5600785B5E /* AmendmentFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */; };
 		2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */; };
@@ -201,6 +202,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2901C4C02141D61500AE72FC /* StatusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusHelper.swift; sourceTree = "<group>"; };
 		290551F921345E3A00785B5E /* AmendmentFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AmendmentFlow.storyboard; sourceTree = "<group>"; };
 		290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentFlowViewController.swift; sourceTree = "<group>"; };
 		290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentPageOneCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 				2932BB4C20851BD900579A57 /* Colors.swift */,
 				2932BB4E2085209000579A57 /* Fonts.swift */,
 				2925224C213F3A68009FE745 /* ScheduleHelper.swift */,
+				2901C4C02141D61500AE72FC /* StatusHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				29227B5520EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				29FCB03C20572AF6006CD247 /* UIViewController.swift in Sources */,
+				2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */,
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
 				29227B6920EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift in Sources */,
 				291746872074279B005F70B4 /* LoginViewController.swift in Sources */,

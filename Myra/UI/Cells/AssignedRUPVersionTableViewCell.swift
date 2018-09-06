@@ -78,48 +78,7 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
         styleStaticField(field: type)
 
         guard let plan = self.rup else {return}
-        switch plan.getStatus() {
-        case .Completed:
-            setStatusGreen()
-        case .Pending:
-            setStatusYellow()
-        case .LocalDraft:
-            setStatusRed()
-        case .Outbox:
-            setStatusGray()
-        case .Created:
-            setStatusYellow()
-        case .ChangeRequested:
-            setStatusGray()
-        case .ClientDraft:
-            setStatusRed()
-        case .Unknown:
-            setStatusGray()
-        case .StaffDraft:
-            setStatusGreen()
-        case .WronglyMadeWithoutEffect:
-            setStatusGray()
-        case .StandsWronglyMade:
-            setStatusGray()
-        case .Stands:
-            setStatusGray()
-        case .NotApprovedFurtherWorkRequired:
-            setStatusGray()
-        case .NotApproved:
-            setStatusGray()
-        case .Approved:
-            setStatusGray()
-        case .SubmittedForReview:
-            setStatusGray()
-        case .SubmittedForFinalDecision:
-            setStatusGray()
-        case .RecommendReady:
-            setStatusGray()
-        case .RecommendNotReady:
-            setStatusGray()
-        case .ReadyForFinalDescision:
-            setStatusGray()
-        }
+        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
     }
 
     func setStatusRed() {

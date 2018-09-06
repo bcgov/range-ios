@@ -239,6 +239,7 @@ extension Theme {
     func styleHeader(label: UILabel, divider: UIView) {
         styleDivider(divider: divider)
         styleHeader(label: label)
+        label.change(kernValue: -0.52)
     }
 
     func styleFooter(label: UILabel) {

@@ -99,72 +99,13 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
         makeCircle(view: statusLight)
 
-//        styleHollowButton(button: infoButton)
-
         styleStaticField(field: idLabel)
         styleStaticField(field: infoLabel)
         styleStaticField(field: statusText)
         styleStaticField(field: rangeName)
 
         guard let plan = self.rup else {return}
-        switch plan.getStatus() {
-        case .Completed:
-            setStatusGreen()
-        case .Pending:
-            setStatusYellow()
-        case .LocalDraft:
-            setStatusRed()
-        case .Outbox:
-            setStatusGray()
-        case .Created:
-            setStatusYellow()
-        case .ChangeRequested:
-            setStatusGray()
-        case .ClientDraft:
-            setStatusRed()
-        case .Unknown:
-            setStatusGray()
-        case .StaffDraft:
-            setStatusGreen()
-        case .WronglyMadeWithoutEffect:
-            setStatusGray()
-        case .StandsWronglyMade:
-            setStatusGray()
-        case .Stands:
-            setStatusGray()
-        case .NotApprovedFurtherWorkRequired:
-            setStatusGray()
-        case .NotApproved:
-            setStatusGray()
-        case .Approved:
-            setStatusGray()
-        case .SubmittedForReview:
-            setStatusGray()
-        case .SubmittedForFinalDecision:
-            setStatusGray()
-        case .RecommendReady:
-            setStatusGray()
-        case .RecommendNotReady:
-            setStatusGray()
-        case .ReadyForFinalDescision:
-            setStatusGray()
-        }
-    }
-
-    func setStatusRed() {
-        self.statusLight.backgroundColor = UIColor.red
-    }
-
-    func setStatusGreen() {
-        self.statusLight.backgroundColor = UIColor.green
-    }
-
-    func setStatusYellow() {
-        self.statusLight.backgroundColor = UIColor.yellow
-    }
-
-    func setStatusGray() {
-        self.statusLight.backgroundColor = UIColor.gray
+        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
     }
 
     func styleSelected() {

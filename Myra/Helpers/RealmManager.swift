@@ -62,7 +62,7 @@ class RealmManager {
 
     // Reference
     func clearReferenceData() {
-        var reference: [Object] = getReferenceData()
+        let reference: [Object] = getReferenceData()
         for element in reference {
             RealmRequests.deleteObject(element)
         }
