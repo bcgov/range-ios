@@ -35,6 +35,17 @@ class Reference {
         return reference
     }
 
+    func updateReferenceData(objects: [Object]) {
+        clearReferenceData()
+        storeNewReferenceData(objects: objects)
+    }
+
+    func storeNewReferenceData(objects: [Object]) {
+        for object in objects {
+            RealmRequests.saveObject(object: object)
+        }
+    }
+
     func getClientTypes() -> [ClientType] {
         if let query = RealmRequests.getObject(ClientType.self) {
             return query

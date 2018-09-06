@@ -136,7 +136,7 @@ class APIManager {
                 newReference.append(contentsOf: handleMinisterIssueType(json: json["MINISTER_ISSUE_TYPE"]))
                 newReference.append(contentsOf: handleMinisterIssueActionType(json: json["MINISTER_ISSUE_ACTION_TYPE"]))
                 newReference.append(contentsOf: handleAmendmentType(json: json["AMENDMENT_TYPE"]))
-                RUPManager.shared.updateReferenceData(objects: newReference)
+                Reference.shared.updateReferenceData(objects: newReference)
                 return completion(true)
             }else {
                 return completion(false)
