@@ -752,7 +752,7 @@
     
     // if livestock with the specified name is not found, returns false
     func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) -> ScheduleObject {
-        let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
+        let ls = Reference.shared.getLiveStockTypeObject(name: liveStock)
         do {
             let realm = try Realm()
             let scheduleObj = realm.objects(ScheduleObject.self).filter("localId = %@", scheduleObject.localId).first!
@@ -1034,7 +1034,7 @@
     
     func getMinistersIssueTypesOptions() -> [SelectionPopUpObject] {
         var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        let query = RealmManager.shared.getIssueType()
+        let query = Reference.shared.getIssueType()
         for item in query {
             options.append(SelectionPopUpObject(display: item.name))
         }
@@ -1043,7 +1043,7 @@
     
     func getMinistersIssueActionsOptions() -> [SelectionPopUpObject] {
         var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        let query = RealmManager.shared.getIssueActionType()
+        let query = Reference.shared.getIssueActionType()
         for item in query {
             options.append(SelectionPopUpObject(display: item.name))
         }

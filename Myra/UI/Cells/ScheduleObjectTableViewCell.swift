@@ -110,11 +110,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let scheduleVC = self.scheduleViewReference, let object = self.scheduleObject else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        let objects = RealmManager.shared.getLiveStockTypeLookup()
+        let objects = Reference.shared.getLiveStockTypeLookup()
         lookup.setup(objects: objects, onVC: scheduleVC, onButton: liveStockDropDown) { (selected, obj) in
             if selected {
                 if let selectedType = obj {
-                    let ls = RealmManager.shared.getLiveStockTypeObject(name: selectedType.display)
+                    let ls = Reference.shared.getLiveStockTypeObject(name: selectedType.display)
                     do {
                         let realm = try Realm()
                         try realm.write {
@@ -533,7 +533,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         // Live Stock Type
 
         if entry.liveStockTypeId != -1 {
-            let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: entry.liveStockTypeId)
+            let liveStockObject = Reference.shared.getLiveStockTypeObject(id: entry.liveStockTypeId)
             self.liveStock.text = liveStockObject.name
 
         } else {
@@ -546,9 +546,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             self.pasture.text = ""
         }
 
-        self.graceDays.text = "\(entry.graceDays ?? 0)"
-        self.pldAUM.text = "\(entry.pldAUMs.rounded() ?? 0)"
-        self.crownAUM.text = "\(entry.crownAUMs.rounded() ?? 0.0)"
+        self.graceDays.text = "\(entry.graceDays)"
+        self.pldAUM.text = "\(entry.pldAUMs.rounded())"
+        self.crownAUM.text = "\(entry.crownAUMs.rounded())"
     }
 
     func calculateDays() {

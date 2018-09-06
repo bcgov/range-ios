@@ -123,7 +123,7 @@ class APIManager {
 
         Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
-                RealmManager.shared.clearReferenceData()
+                Reference.shared.clearReferenceData()
                 let json = JSON(response.result.value!)
                 var newReference = [Object]()
                 newReference.append(contentsOf: handleLiveStockType(json: json["LIVESTOCK_TYPE"]))

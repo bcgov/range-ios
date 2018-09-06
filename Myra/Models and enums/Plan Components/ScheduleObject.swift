@@ -165,7 +165,7 @@ class ScheduleObject: Object, MyraObject {
         // if animal type hasn't been selected, return 0
         let liveStockId = self.liveStockTypeId
         if liveStockId != -1 {
-            let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: liveStockId)
+            let liveStockObject = Reference.shared.getLiveStockTypeObject(id: liveStockId)
             auFactor = liveStockObject.auFactor
         } else {
             do {
