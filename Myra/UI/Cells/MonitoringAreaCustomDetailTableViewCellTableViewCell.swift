@@ -76,7 +76,9 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
                 parent.showAlert(title: "Would you like to delete this indicator plant?", description: "", yesButtonTapped: {
                     RealmRequests.deleteObject(plant)
                     parentCell.updateHeight()
-                }, noButtonTapped: {})
+                }, noButtonTapped: {
+                    
+                })
             case .Copy:
                 print("not yet implemented")
                 //                self.duplicate()

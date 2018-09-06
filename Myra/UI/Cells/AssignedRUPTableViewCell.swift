@@ -14,6 +14,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     var rup: RUP?
     var agreement: Agreement?
     var bg: UIColor = UIColor.white
+    var seleced: Bool = false
 
     // MARK: Outlets
     @IBOutlet weak var idLabel: UILabel!
@@ -29,8 +30,6 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var versionsHeight: NSLayoutConstraint!
 
     @IBOutlet weak var tableView: UITableView!
-
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,7 +56,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         autofill(rup: rup)
         self.bg = color
         if let exp = expand {
-            if exp{
+            if exp {
                 styleSelected()
             } else {
                 setLocked()
@@ -169,20 +168,25 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     }
 
     func styleSelected() {
+        self.infoButton.alpha = 0
+        self.statusLight.alpha = 0
+        self.statusText.alpha = 0
         UIView.animate(withDuration: 0.3, animations: {
-            self.infoButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
             self.container.backgroundColor = UIColor.white
             self.backgroundColor = UIColor.white
             self.addShadow(to: self.container.layer, opacity: 0.5, height: 2)
             self.divider.alpha = 1
             self.styleDivider(divider: self.divider)
             self.tableContainer.layer.cornerRadius = 5
-            self.statusText.alpha = 0
-            self.statusLight.alpha = 0
+//            self.statusText.alpha = 0
+//            self.statusLight.alpha = 0
             self.updateTableHeight()
             self.tableContainer.alpha = 1
             self.layoutIfNeeded()
-        })
+        }) { (done) in
+            self.infoButton.alpha = 1
+            self.infoButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+        }
     }
 
     func styleDefault() {

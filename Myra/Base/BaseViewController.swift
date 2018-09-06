@@ -54,6 +54,7 @@ class BaseViewController: UIViewController, Theme {
     func whenSyncClosed() {}
     func whenLandscape() {}
     func whenPortrait() {}
+    func syncEnd() {}
     func orientationChanged() {
         dismissPopOver()
     }
@@ -589,6 +590,7 @@ extension BaseViewController {
                 self.updateSyncDescription(text: "Sync Completed.")
                 self.showSyncViewButton()
                 self.enableSyncViewButton()
+                self.syncEnd()
                 return completion(true)
             }
         }) { (progress) in

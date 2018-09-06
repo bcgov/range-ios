@@ -72,7 +72,7 @@ class APIManager {
 
     static func setPlantStatus(forPlan plan: RUP, completion: @escaping (_ success: Bool) -> Void) {
         let id = plan.remoteId
-        let planPath = "\(Constants.API.planPath)\(id)"
+        let planPath = "\(Constants.API.planPath)\(id)/status"
 
         guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
             return

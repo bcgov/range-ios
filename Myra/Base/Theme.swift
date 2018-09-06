@@ -57,7 +57,7 @@ extension Theme {
     }
 
     func defaultFieldHeaderFont() -> UIFont {
-        return Fonts.getPrimaryHeavy(size: 14)
+        return Fonts.getPrimaryBold(size: 14)
     }
 
     // Section Header
@@ -66,7 +66,7 @@ extension Theme {
     }
 
     func defaultSectionHeaderFont() -> UIFont {
-        return Fonts.getPrimaryHeavy(size: 34)
+        return Fonts.getPrimaryBold(size: 34)
     }
 
     func defaultSectionFooterColor() -> UIColor {
@@ -83,16 +83,16 @@ extension Theme {
     }
 
     func defaultSectionSubHeaderFont() -> UIFont {
-        return Fonts.getPrimaryHeavy(size: 17)
+        return Fonts.getPrimaryBold(size: 17)
     }
 
     // Nav Bar
     func defaultNavBarTitleFont() -> UIFont {
-        return Fonts.getPrimaryHeavy(size: 17)
+        return Fonts.getPrimaryBold(size: 17)
     }
 
     func defaultNavBarButtonFont() -> UIFont {
-        return Fonts.getPrimaryHeavy(size: 17)
+        return Fonts.getPrimaryBold(size: 17)
     }
 
     func defaultNavBarLabelFont() -> UIFont {
@@ -200,17 +200,17 @@ extension Theme {
 
     func styleFieldHeader(label: UILabel) {
         label.textColor = defaultFieldHeaderColor()
-        label.font = Fonts.getPrimaryHeavy(size: 12)
+        label.font = Fonts.getPrimaryBold(size: 12)
     }
 
     func styleFieldHeader(button: UIButton) {
         button.setTitleColor(defaultFieldHeaderColor(), for: .normal)
-        button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
+        button.titleLabel?.font = Fonts.getPrimaryBold(size: 12)
     }
 
     func styleSortHeaderOff(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
-        button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
+        button.titleLabel?.font = Fonts.getPrimaryBold(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlightOff"), for: .normal)
         // set button image on the right
         button.titleEdgeInsets = UIEdgeInsetsMake(0, (0.0 - (button.imageView?.frame.size.width)!), 0, (button.imageView?.frame.size.width)!);
@@ -219,7 +219,7 @@ extension Theme {
 
     func styleSortHeaderOn(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOnColor(), for: .normal)
-        button.titleLabel?.font = Fonts.getPrimaryHeavy(size: 12)
+        button.titleLabel?.font = Fonts.getPrimaryBold(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
         // set button image on the right
         button.titleEdgeInsets = UIEdgeInsetsMake(0, (0.0 - (button.imageView?.frame.size.width)!), 0, (button.imageView?.frame.size.width)!);
@@ -307,6 +307,19 @@ extension Theme {
         field.layer.borderColor = Colors.shadowColor.cgColor
         field.layer.borderWidth = 1
         styleFieldHeader(label: header)
+    }
+
+    // MARK: Filter
+    func styleFilter(label: UILabel) {
+        label.font = Fonts.getPrimaryMedium(size: 17)
+        label.change(kernValue: -0.41)
+    }
+
+    // MARK: Table
+    func styleTableColumnHeader(label: UILabel) {
+        label.font = Fonts.getPrimaryMedium(size: 17)
+        label.textColor = Colors.technical.mainText
+        label.change(kernValue: -0.41)
     }
 
     // MARK: Radio

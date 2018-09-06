@@ -421,7 +421,6 @@ class DataServices: NSObject {
             }
 
             APIManager.add(action: myAction, toIssue: issueId, inPlan: planId) { (response, error) in
-
                 guard let response = response, error == nil else {
                     fatalError()
                 }
@@ -502,7 +501,10 @@ class DataServices: NSObject {
 
             APIManager.add(schedule: mySchedule, toPlan: planId) { (response, error) in
                 guard let response = response, error == nil else {
-                    fatalError()
+                    self.showBanner(message: "ERROR while uploading schedule")
+                    print(error)
+                    group.leave()
+                    return
                 }
 
                 // Were on a new thread now !

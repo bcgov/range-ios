@@ -47,6 +47,8 @@ extension MainViewController {
 
     func showHomePage() {
         let vm = ViewManager()
+        let home = vm.home
+        home.parentReference = self
         add(asChildViewController: vm.home)
     }
 

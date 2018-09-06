@@ -345,6 +345,15 @@
         } catch _ {}
         return [RUP]()
     }
+
+    func getStaffDraftRups() ->  [RUP] {
+        do {
+            let realm = try Realm()
+            let objs = realm.objects(RUP.self).filter("status == 'StaffDraft'").map{ $0 }
+            return Array(objs)
+        } catch _ {}
+        return [RUP]()
+    }
     
     func getPendingRups() -> [RUP] {
         do {

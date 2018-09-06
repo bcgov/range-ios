@@ -105,8 +105,6 @@ class ScheduleObject: Object, MyraObject {
     func toDictionary() -> [String : Any]? {
         if let pastureID = pasture?.remoteId, liveStockTypeId != -1, let inDate = dateIn, let outDate = dateOut {
             let schedule: [String: Any] = [
-                "startDate": DateManager.toUTC(date: inDate),
-                "endDate": DateManager.toUTC(date: outDate),
                 "dateIn": DateManager.toUTC(date: inDate),
                 "dateOut": DateManager.toUTC(date: outDate),
                 "graceDays": graceDays,

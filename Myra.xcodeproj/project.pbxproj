@@ -123,6 +123,7 @@
 		2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270D2044949B0033BC47 /* LiveStockID.swift */; };
 		297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297427102044969A0033BC47 /* LiveStockTableViewCell.swift */; };
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
+		2987223A2141A088009B3C89 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298722392141A088009B3C89 /* TimeInterval.swift */; };
 		299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */; };
 		299491EE20B62588005FCF94 /* MinisterIssuesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */; };
 		299491F020B62763005FCF94 /* MinisterIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EF20B62763005FCF94 /* MinisterIssue.swift */; };
@@ -317,6 +318,7 @@
 		2974270D2044949B0033BC47 /* LiveStockID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockID.swift; sourceTree = "<group>"; };
 		297427102044969A0033BC47 /* LiveStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockTableViewCell.swift; sourceTree = "<group>"; };
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
+		298722392141A088009B3C89 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssuesTableViewCell.swift; sourceTree = "<group>"; };
 		299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinisterIssuesTableViewCell.xib; sourceTree = "<group>"; };
 		299491EF20B62763005FCF94 /* MinisterIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssue.swift; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 				2920F8322034C8380090E7B4 /* Color.swift */,
 				2920F8342034C8540090E7B4 /* View.swift */,
 				29234B092138591300F547AC /* UIApplication.swift */,
+				298722392141A088009B3C89 /* TimeInterval.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1031,6 +1034,7 @@
 				294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */,
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
 				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
+				2987223A2141A088009B3C89 /* TimeInterval.swift in Sources */,
 				2958AC1E20C603B7005C7900 /* MinisterIssueActionType.swift in Sources */,
 				2972381520ED3465006EBCBB /* PlantCommunityViewController.swift in Sources */,
 				2933184120FE63590070A6A9 /* IndicatorPlantSection.swift in Sources */,
