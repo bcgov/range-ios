@@ -27,19 +27,28 @@ class RealmManager {
         }
     }
 
-    func getLastSyncDate() -> Date? {
-        let query = RealmRequests.getObject(SyncDate.self)
-        if query != nil {
-            return query?.last?.fullSync
+    func getLastSyncObject() -> SyncDate? {
+        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
+            return last
+        } else {
+            return nil
         }
-        return nil
+    }
+
+    func getLastSyncDate() -> Date? {
+        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
+            return last.fullSync
+        } else {
+            return nil
+        }
     }
 
     func getLastRefDownload() -> Date? {
-        if let query = RealmRequests.getObject(SyncDate.self) {
-            return query.last?.refDownload
+        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
+            return last.refDownload
+        } else {
+            return nil
         }
-        return nil
     }
 
     func updateLastSyncDate(date: Date, DownloadedReference: Bool) {

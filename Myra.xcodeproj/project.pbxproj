@@ -475,6 +475,7 @@
 				2901C4C02141D61500AE72FC /* StatusHelper.swift */,
 				2901C4C22141D8EC00AE72FC /* Reference.swift */,
 				2901C4C42141DB4000AE72FC /* Options.swift */,
+				29FCB037205702B3006CD247 /* DateManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -485,7 +486,6 @@
 				29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */,
 				291C4D9A2037631400390523 /* Polygon.swift */,
 				29FB97BC204DB87D005297B9 /* RealmRequest.swift */,
-				29FCB037205702B3006CD247 /* DateManager.swift */,
 				29FCB0392057299D006CD247 /* DatePickerController.swift */,
 			);
 			path = Utilities;

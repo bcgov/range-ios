@@ -221,71 +221,8 @@ class HomeViewController: BaseViewController {
 
     func loadHome() {
         style()
-        let lastSync = RealmManager.shared.getLastSyncDate()
-        if let ls = lastSync {
-            let calendar = Calendar.current
-            let now = Date()
-            let timeInterval = now.timeIntervalSince(ls)
-
-            let hours = timeInterval.hours
-            let minutes = timeInterval.minutes
-            let seconds = timeInterval.seconds
-
-            var lastSyncText = "Unknown"
-
-            if hours < 1 {
-                if minutes < 1 {
-                    // show seconds
-                    if seconds < 5 {
-                        lastSyncText = "Just now"
-                    } else {
-                        lastSyncText = "\(seconds) seconds ago"
-                    }
-                } else {
-                    // show minutes
-                    if minutes == 1 {
-                        lastSyncText = "\(minutes) minute ago"
-                    } else {
-                        lastSyncText = "\(minutes) minutes ago"
-                    }
-                }
-            } else {
-                if hours > 24 {
-                    // show days
-                    let components = calendar.dateComponents([.day], from: ls, to: now)
-                    if let days = components.day {
-                        if days == 1 {
-                            lastSyncText = "\(days) day ago"
-                        } else {
-                            lastSyncText = "\(days) days ago"
-                        }
-                    }
-                } else {
-                    // show hours
-                    if hours == 1  {
-                        if minutes == 1 {
-                            lastSyncText = "\(hours) hour and \(minutes) minute ago"
-                        } else {
-                            lastSyncText = "\(hours) hour and \(minutes) minutes ago"
-                        }
-                    } else {
-                        if minutes == 1 {
-                            lastSyncText = "\(hours) hours and \(minutes) minute ago"
-                        } else {
-                            lastSyncText = "\(hours) hours and \(minutes) minutes ago"
-                        }
-                    }
-                }
-            }
-
-            lastSyncLabel.text = lastSyncText
-
-//            let components = calendar.dateComponents([.day], from: ls, to: now)
-//            if let days = components.day {
-//                lastSyncLabel.text = "\(days) days ago"
-//            } else {
-//                lastSyncLabel.text = "Unknown"
-//            }
+        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
+            lastSyncLabel.text = last.timeSince()
         } else {
             authenticateIfRequred()
         }
