@@ -280,7 +280,10 @@ class PastureTableViewCell: BaseFormCell {
     func duplicate() {
         guard let past = self.pasture, let parent = parentCell else {return}
         let grandParent = parent.parentViewController as! CreateNewRUPViewController
-        grandParent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
+        let vm = ViewManager()
+        let inputPrompt = vm.textEntry
+        inputPrompt.taken = RUPManager.shared.getPastureNames(rup: rup)
+        inputPrompt.setup(on: grandParent, header: "Pasture Name") { (done, name) in
             if done {
                 let newPasture = Pasture()
                 newPasture.name = name

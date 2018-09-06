@@ -70,9 +70,41 @@ class APIManager {
         }
     }
 
+    static func setPlantStatus(forPlan plan: RUP, completion: @escaping (_ success: Bool) -> Void) {
+        let id = plan.remoteId
+        let planPath = "\(Constants.API.planPath)\(id)/status"
+
+        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+
+        var params: [String:Any]  = [String:Any]()
+        params["statusId"] = plan.statusId
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = HTTPMethod.put.rawValue
+        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        if let creds = authServices.credentials {
+            let token = creds.accessToken
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+        request.httpBody = data
+
+        Alamofire.request(request).responseJSON { response in
+            APIManager.process(response: response, completion: { (records, errors) in
+                if errors == nil {
+                    return completion(true)
+                } else {
+                    return completion(false)
+                }
+            })
+        }
+    }
+
     static func getPlanStatus(forPlan plan: RUP, completion: @escaping (_ response: Alamofire.DataResponse<Data>) -> Void) {
         let id = plan.remoteId
-//        let endpoint = "http://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/plan/\(id)"
         let planPath = "\(Constants.API.planPath)\(id)"
         guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
             return
@@ -103,6 +135,7 @@ class APIManager {
                 newReference.append(contentsOf: handleAgreementExeptionStatus(json: json["AGREEMENT_EXEMPTION_STATUS"]))
                 newReference.append(contentsOf: handleMinisterIssueType(json: json["MINISTER_ISSUE_TYPE"]))
                 newReference.append(contentsOf: handleMinisterIssueActionType(json: json["MINISTER_ISSUE_ACTION_TYPE"]))
+                newReference.append(contentsOf: handleAmendmentType(json: json["AMENDMENT_TYPE"]))
                 RUPManager.shared.updateReferenceData(objects: newReference)
                 return completion(true)
             }else {
@@ -364,6 +397,25 @@ class APIManager {
         return result.sorted(by: { $0.id < $1.id })
     }
 
+    static func handleAmendmentType(json: JSON) -> [Object] {
+        var result = [AmendmentType]()
+        for (_,item) in json {
+            let obj = AmendmentType()
+            if let name = item["description"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
     static func handleMinisterIssueActionType(json: JSON) -> [Object] {
         var result = [MinisterIssueActionType]()
         for (_,item) in json {
@@ -422,7 +474,6 @@ class APIManager {
     // Note: UPLOAD ALL DRAFTS/LOCAL CHANGED BEFORE CALLING getAgreements
     // When new agreements are received, old agreements and thir associated data is removed
     static func getAgreements(completion: @escaping (_ rups: [Agreement]?, _ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
-        
         guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
             return
         }
@@ -437,8 +488,8 @@ class APIManager {
                     return completion(nil, err)
                 }
                 progress("Processing Agreements")
-                deleteAllStoredAgreements()
                 DispatchQueue.global(qos: .background).async {
+                    deleteAllStoredAgreements()
                     for (_,agreementJSON) in json {
                         agreements.append(Agreement(json: agreementJSON))
                     }
@@ -595,7 +646,7 @@ extension APIManager {
 
 
             dispatchGroup.enter()
-            DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
+            DataServices.shared.updateLocalStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
                 dispatchGroup.leave()
             }
 
@@ -622,6 +673,12 @@ extension APIManager {
         
         var myError: APIError? = nil
         let dispatchGroup = DispatchGroup()
+
+        dispatchGroup.enter()
+        DataServices.shared.updateRemoteStatuses {
+            progress("Uploading outbox plans")
+            dispatchGroup.leave()
+        }
 
         dispatchGroup.enter()
         DataServices.shared.uploadOutboxRangeUsePlans {
@@ -666,7 +723,7 @@ extension APIManager {
 
 
         dispatchGroup.enter()
-        DataServices.shared.updateStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
+        DataServices.shared.updateLocalStatuses(forPlans: RUPManager.shared.getSubmittedPlans()) {
             dispatchGroup.leave()
         }
 

@@ -161,7 +161,6 @@ class SelectAgreementViewController: UIViewController, Theme {
     }
 }
 
-
 // MARK: Tableview
 extension SelectAgreementViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {

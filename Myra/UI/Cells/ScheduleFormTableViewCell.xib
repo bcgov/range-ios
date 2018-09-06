@@ -23,12 +23,6 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0yR-Tn-WcF" userLabel="Head">
                         <rect key="frame" x="20" y="11" width="675" height="80"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QI7-Hj-vPt">
-                                <rect key="frame" x="0.0" y="40" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GqW-LS-yH6">
                                 <rect key="frame" x="0.0" y="0.0" width="633" height="80"/>
                                 <subviews>
@@ -162,9 +156,7 @@
                         <constraints>
                             <constraint firstItem="GqW-LS-yH6" firstAttribute="top" secondItem="0yR-Tn-WcF" secondAttribute="top" id="0yY-of-FNi"/>
                             <constraint firstItem="GqW-LS-yH6" firstAttribute="centerY" secondItem="0yR-Tn-WcF" secondAttribute="centerY" id="Iht-PQ-os1"/>
-                            <constraint firstItem="QI7-Hj-vPt" firstAttribute="leading" secondItem="0yR-Tn-WcF" secondAttribute="leading" id="LRe-Yk-Wca"/>
                             <constraint firstAttribute="bottom" secondItem="GqW-LS-yH6" secondAttribute="bottom" id="N1B-4Q-Z5R"/>
-                            <constraint firstItem="QI7-Hj-vPt" firstAttribute="centerY" secondItem="0yR-Tn-WcF" secondAttribute="centerY" id="bre-Zq-JNV"/>
                             <constraint firstAttribute="height" constant="80" id="e0r-tv-JAn"/>
                             <constraint firstItem="GqW-LS-yH6" firstAttribute="leading" secondItem="0yR-Tn-WcF" secondAttribute="leading" id="jeD-Br-4E0"/>
                             <constraint firstAttribute="trailing" secondItem="GqW-LS-yH6" secondAttribute="trailing" constant="42" id="mu0-cx-hUP"/>
@@ -199,9 +191,10 @@
                     <constraint firstItem="BBz-ln-OuS" firstAttribute="top" secondItem="A6Y-QC-PtD" secondAttribute="bottom" constant="5" id="MSh-wb-RU2"/>
                     <constraint firstItem="A6Y-QC-PtD" firstAttribute="width" secondItem="0yR-Tn-WcF" secondAttribute="width" id="Mei-Of-Of2"/>
                     <constraint firstItem="0yR-Tn-WcF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Rx1-jr-d1C"/>
+                    <constraint firstItem="A6Y-QC-PtD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ZXa-Ak-mtv"/>
                     <constraint firstItem="BBz-ln-OuS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="al1-hv-ucW"/>
                     <constraint firstItem="0yR-Tn-WcF" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="c7t-uV-NiE"/>
-                    <constraint firstItem="A6Y-QC-PtD" firstAttribute="centerX" secondItem="0yR-Tn-WcF" secondAttribute="centerX" id="kGg-Ql-gab"/>
+                    <constraint firstItem="A6Y-QC-PtD" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="mE5-1r-e0e"/>
                     <constraint firstItem="A6Y-QC-PtD" firstAttribute="top" secondItem="0yR-Tn-WcF" secondAttribute="bottom" id="oTo-5X-boK"/>
                 </constraints>
             </tableViewCellContentView>

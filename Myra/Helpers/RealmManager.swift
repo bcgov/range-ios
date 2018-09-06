@@ -78,6 +78,7 @@ class RealmManager {
         reference.append(contentsOf: getAgreementExeptionStatuses())
         reference.append(contentsOf: getIssueType())
         reference.append(contentsOf: getIssueActionType())
+        reference.append(contentsOf: getAmendmentType())
         return reference
     }
 
@@ -148,6 +149,15 @@ class RealmManager {
             return query!
         } else {
             return [MinisterIssueActionType]()
+        }
+    }
+
+    func getAmendmentType() -> [AmendmentType] {
+        let query = RealmRequests.getObject(AmendmentType.self)
+        if query != nil {
+            return query!
+        } else {
+            return [AmendmentType]()
         }
     }
 

@@ -30,6 +30,7 @@ class ScheduleObject: Object, MyraObject {
         }
         return DateManager.daysBetween(date1: dateIn!, date2: dateOut!)
     }
+    
     var pastureName: String {
         if pasture == nil {
             return ""
@@ -37,6 +38,7 @@ class ScheduleObject: Object, MyraObject {
             return (pasture?.name)!
         }
     }
+
     var pastureGraceDays: Int {
         if pasture == nil {
             return 0
@@ -44,6 +46,7 @@ class ScheduleObject: Object, MyraObject {
             return (pasture?.graceDays)!
         }
     }
+
     var crownAUMs: Double {
         return totalAUMs - pldAUMs
     }
@@ -102,8 +105,6 @@ class ScheduleObject: Object, MyraObject {
     func toDictionary() -> [String : Any]? {
         if let pastureID = pasture?.remoteId, liveStockTypeId != -1, let inDate = dateIn, let outDate = dateOut {
             let schedule: [String: Any] = [
-                "startDate": DateManager.toUTC(date: inDate),
-                "endDate": DateManager.toUTC(date: outDate),
                 "dateIn": DateManager.toUTC(date: inDate),
                 "dateOut": DateManager.toUTC(date: outDate),
                 "graceDays": graceDays,
@@ -152,6 +153,74 @@ class ScheduleObject: Object, MyraObject {
             self.dateOut = DateManager.fromUTC(string: dateOut)
         }
 
+    }
+
+    func calculateAUMsAndPLD() {
+        calculateTotalAUMs()
+        calculatePLD()
+    }
+
+    func calculateTotalAUMs() {
+        var auFactor = 0.0
+        // if animal type hasn't been selected, return 0
+        let liveStockId = self.liveStockTypeId
+        if liveStockId != -1 {
+            let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: liveStockId)
+            auFactor = liveStockObject.auFactor
+        } else {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.totalAUMs = 0.0
+                }
+            } catch _ {
+                fatalError()
+            }
+            return
+        }
+
+        // otherwise continue...
+        let numberOfAnimals = Double(self.numberOfAnimals)
+        let totalDays = Double(self.totalDays)
+
+        // Total AUMs = (# of Animals *Days*Animal Class Proportion)/ 30.44
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.totalAUMs = (numberOfAnimals * totalDays * auFactor) / 30.44
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func calculatePLD() {
+        var pasturePLD = 0.0
+        // if the schedule object doesn't have a pasture set, return 0
+        if let pasture = self.pasture {
+            pasturePLD = pasture.privateLandDeduction
+        } else {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    self.pldAUMs = 0.0
+                }
+            } catch _ {
+                fatalError()
+            }
+            return
+        }
+        // otherwise continue...
+
+        // Private Land Deduction = Total AUMs * % PLD entered for that pasture
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.pldAUMs = (self.totalAUMs * (pasturePLD / 100))
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
 }

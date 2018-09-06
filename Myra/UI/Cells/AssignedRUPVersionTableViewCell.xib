@@ -64,7 +64,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-Ug-2Fd">
                                 <rect key="frame" x="341" y="13.5" width="14" height="14"/>
-                                <color key="backgroundColor" red="0.90651893620000001" green="0.33250993490000003" blue="0.1841961741" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="14" id="BNh-Lb-jNA"/>
                                     <constraint firstAttribute="height" constant="14" id="Snm-nZ-5dJ"/>

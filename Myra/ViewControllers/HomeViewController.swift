@@ -76,6 +76,12 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeaderSeparator: UIView!
 
+    // headers
+    @IBOutlet weak var rangeNumberHeader: UILabel!
+    @IBOutlet weak var agreementHolderHeader: UILabel!
+    @IBOutlet weak var rangeNameHeader: UILabel!
+    @IBOutlet weak var statusHeader: UILabel!
+
 
     // MARK: ViewController functions
     override func viewDidLoad() {
@@ -119,6 +125,10 @@ class HomeViewController: BaseViewController {
         authenticateIfRequred()
     }
 
+    @objc override func syncEnd() {
+        self.filterByAll()
+    }
+
     @IBAction func filterAction(_ sender: UIButton) {
         switch sender {
         case allFilter:
@@ -151,7 +161,9 @@ class HomeViewController: BaseViewController {
         if syncing {return}
         loadRUPs()
         filterButtonOn(button: draftsFilter)
+        let staffDraft = RUPManager.shared.getStaffDraftRups()
         self.rups = RUPManager.shared.getDraftRups()
+        self.rups.append(contentsOf: staffDraft)
         self.tableView.reloadData()
     }
 
@@ -213,12 +225,63 @@ class HomeViewController: BaseViewController {
         if let ls = lastSync {
             let calendar = Calendar.current
             let now = Date()
-            let components = calendar.dateComponents([.day], from: ls, to: now)
-            if let days = components.day {
-                lastSyncLabel.text = "\(days) days ago"
+            let timeInterval = now.timeIntervalSince(ls)
+
+            let hours = timeInterval.hours
+            let minutes = timeInterval.minutes
+            let seconds = timeInterval.seconds
+
+            var lastSyncText = "Unknown"
+
+            if hours < 1 {
+                if minutes < 1 {
+                    // show seconds
+                    lastSyncText = "\(seconds) seconds ago"
+                } else {
+                    // show minutes
+                    if minutes == 1 {
+                        lastSyncText = "\(minutes) minute ago"
+                    } else {
+                        lastSyncText = "\(minutes) minutes ago"
+                    }
+                }
             } else {
-                lastSyncLabel.text = "Unknown"
+                if hours > 24 {
+                    // show days
+                    let components = calendar.dateComponents([.day], from: ls, to: now)
+                    if let days = components.day {
+                        if days == 1 {
+                            lastSyncText = "\(days) day ago"
+                        } else {
+                            lastSyncText = "\(days) days ago"
+                        }
+                    }
+                } else {
+                    // show hours
+                    if hours == 1  {
+                        if minutes == 1 {
+                            lastSyncText = "\(hours) hour and \(minutes) minute ago"
+                        } else {
+                            lastSyncText = "\(hours) hour and \(minutes) minutes ago"
+                        }
+                    } else {
+                        if minutes == 1 {
+                            lastSyncText = "\(hours) hours and \(minutes) minute ago"
+                        } else {
+                            lastSyncText = "\(hours) hours and \(minutes) minutes ago"
+                        }
+                    }
+                }
             }
+
+            lastSyncLabel.text = lastSyncText
+
+//            let components = calendar.dateComponents([.day], from: ls, to: now)
+//            if let days = components.day {
+//                lastSyncLabel.text = "\(days) days ago"
+//            } else {
+//                lastSyncLabel.text = "Unknown"
+//            }
         } else {
             authenticateIfRequred()
         }
@@ -252,8 +315,9 @@ class HomeViewController: BaseViewController {
 
     func loadRUPs() {
         if syncing {return}
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
         self.rups = [RUP]()
+        self.tableView.reloadData()
             /*
              Clean up the local DB by removing plans that were created
              from agreements but cancelled.
@@ -268,20 +332,28 @@ class HomeViewController: BaseViewController {
                 }
             }
             self.tableView.reloadData()
-        }
+//        }
     }
 
     // MARK: Styles
     func style() {
         setStatusBarAppearanceLight()
         styleNavBar()
-        styleCreateButton()
+        styleFillButton(button: createButton)
         styleFilterContainer()
         styleUserBox()
         makeCircle(view: connectivityLight)
         setFilterButtonFonts()
         tableHeaderSeparator.backgroundColor = Colors.secondary
         styleSyncBox()
+        styleHeaders()
+    }
+
+    func styleHeaders() {
+        styleTableColumnHeader(label: rangeNumberHeader)
+        styleTableColumnHeader(label: agreementHolderHeader)
+        styleTableColumnHeader(label: rangeNameHeader)
+        styleTableColumnHeader(label: statusHeader)
     }
 
     func styleNavBar() {
@@ -305,11 +377,8 @@ class HomeViewController: BaseViewController {
         syncLabel.font = Fonts.getPrimary(size: 15)
         connectivityLabel.font = Fonts.getPrimary(size: 15)
         lastSyncLabel.font = Fonts.getPrimary(size: 15)
-        viewTitle.font = Fonts.getPrimaryHeavy(size: 40)
-    }
-
-    func styleCreateButton() {
-        styleFillButton(button: createButton)
+        viewTitle.font = Fonts.getPrimaryBold(size: 40)
+        viewTitle.change(kernValue: -0.32)
     }
 
     func styleFilterContainer() {
@@ -381,10 +450,10 @@ class HomeViewController: BaseViewController {
     }
 
     func setFilterButtonFonts() {
-        allFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
-        draftsFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
-        pendingFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
-        completedFilter.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+        styleFilter(label: allFilter.titleLabel!)
+        styleFilter(label: draftsFilter.titleLabel!)
+        styleFilter(label: pendingFilter.titleLabel!)
+        styleFilter(label: completedFilter.titleLabel!)
     }
 
     // MARK: Sync
@@ -396,6 +465,7 @@ class HomeViewController: BaseViewController {
     }
 
     override func onAuthenticationSuccess() {
+        print(APIManager.headers())
         if unstableConnection {
             syncButtonLabel.text = "Connections is not stable for enough for a full sync"
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
@@ -505,7 +575,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             self.tableView.isScrollEnabled = false
             if #available(iOS 11.0, *) {
                 self.tableView.performBatchUpdates({
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    self.tableView.reloadRows(at: [indexPath], with: .fade)
                 }) { (done) in
                     self.tableView.reloadData()
                     // if indexpath is the last visible, scroll to bottom of it
@@ -528,7 +598,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                         let cell = self.tableView.cellForRow(at: i) as! AssignedRUPTableViewCell
                         cell.styleDefault()
                         self.expandIndexPath = nil
-                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        self.tableView.reloadRows(at: [indexPath], with: .fade)
                     }
                 }) { (done) in
                     self.tableView.reloadData()
@@ -558,7 +628,6 @@ extension HomeViewController {
 
     func editRUP(rup: RUP) {
         let vc = getCreateNewVC()
-
         vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
             self.getRUPs()
         }
@@ -611,13 +680,13 @@ extension HomeViewController {
         if online {
             self.syncContainer.alpha = 1
             syncButton.isEnabled = true
-            self.connectivityLabel.text = "ONLINE MODE"
+            self.connectivityLabel.text = "Online Mode"
             self.connectivityLight.backgroundColor = UIColor.green
             DataServices.shared.autoSync()
         } else {
             self.syncContainer.alpha = 0
             syncButton.isEnabled = false
-            self.connectivityLabel.text = "OFFLINE MODE"
+            self.connectivityLabel.text = "Offline Mode"
             self.connectivityLight.backgroundColor = UIColor.red
             self.syncing = false
         }

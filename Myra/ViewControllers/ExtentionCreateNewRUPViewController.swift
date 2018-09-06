@@ -8,16 +8,17 @@
 
 import Foundation
 import UIKit
-
+import Realm
+import RealmSwift
 
 extension CreateNewRUPViewController {
     // MARK: Styles
     func style() {
-        
-        stylePopUp()
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
         StyleNavBarButton(button: cancelButton)
+        StyleNavBarButton(button: updateAmendmentButton)
         styleMenu()
+
         switch mode {
         case .View:
             self.viewTitle.text = "View Plan"
@@ -30,6 +31,34 @@ extension CreateNewRUPViewController {
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
         }
+    }
+
+    func styleUpdateAmendmentButton() {
+        guard let rup = self.rup else {return}
+
+        let current = rup.getStatus()
+        if current == .Stands {
+            updateAmendmentButton.setTitle("Update Amendment", for: .normal)
+            updateAmendmentEnabled = true
+        } else if current == .SubmittedForFinalDecision || current == .SubmittedForReview {
+            updateAmendmentButton.setTitle("Approve Amendment", for: .normal)
+            updateAmendmentEnabled = true
+        } else if current == .RecommendReady {
+            updateAmendmentButton.setTitle("Final Review", for: .normal)
+            updateAmendmentEnabled = true
+        }else {
+            updateAmendmentEnabled = false
+        }
+        
+        self.updateAmendmentButton.alpha = 0
+        UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
+            if self.updateAmendmentEnabled {
+                self.updateAmendmentButton.alpha = 1
+            } else {
+                self.updateAmendmentButton.alpha = 0
+            }
+            self.view.layoutIfNeeded()
+        })
     }
 
     func styleStatus() {
@@ -67,6 +96,16 @@ extension CreateNewRUPViewController {
             setStatusGray()
         case .Approved:
             setStatusGray()
+        case .SubmittedForReview:
+            setStatusGray()
+        case .SubmittedForFinalDecision:
+            setStatusGray()
+        case .RecommendReady:
+            setStatusGray()
+        case .RecommendNotReady:
+            setStatusGray()
+        case .ReadyForFinalDescision:
+            setStatusGray()
         }
     }
 
@@ -84,17 +123,6 @@ extension CreateNewRUPViewController {
 
     func setStatusGray() {
         self.statusLight.backgroundColor = UIColor.gray
-    }
-
-    // TODO: Temporary.. come up with a better, resusable popup for inputs
-    func stylePopUp() {
-        styleContainer(view: popupVIew)
-        popupVIew.backgroundColor = UIColor.white
-        styleFieldHeader(label: popupTitle)
-        styleInput(input: popupTextField, height: popupInputHeight)
-        grayScreen.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0.9)
-        styleHollowButton(button: popupCancelButton)
-        styleHollowButton(button: popupAddButton)
     }
 
     // MARK: Side Menu
@@ -295,7 +323,9 @@ extension CreateNewRUPViewController {
                     self.menuContainer.alpha = 1
                     self.view.layoutIfNeeded()
                 }, completion: { (done) in
+                    // MARK: End of opening animations
                     self.view.isUserInteractionEnabled = true
+                    self.styleUpdateAmendmentButton()
                 })
 
             })

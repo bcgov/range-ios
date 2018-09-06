@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 extension UIView {
+
+    // Find parent vc
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
@@ -20,4 +22,10 @@ extension UIView {
         }
         return nil
     }
+
+    // Load a nib
+    class func fromNib<T: UIView>() -> T {
+        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+    }
+    
 }
