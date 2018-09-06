@@ -152,7 +152,6 @@ class HomeViewController: BaseViewController {
     func filterByAll() {
         if syncing {return}
         filterButtonOn(button: allFilter)
-//        loadRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
     }
@@ -272,6 +271,7 @@ class HomeViewController: BaseViewController {
                     self.rups.append(p)
                 }
             }
+        self.expandIndexPath = nil
             self.tableView.reloadData()
 //        }
     }
@@ -504,13 +504,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func reloadRupsIfInvalid() {
         if !rupsAreValid() {
             loadRUPs()
         }
-        if !rupsAreValid() {
-            return
-        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        reloadRupsIfInvalid()
         if expandIndexPath == nil {
             self.expandIndexPath = indexPath
             self.tableView.isScrollEnabled = false
