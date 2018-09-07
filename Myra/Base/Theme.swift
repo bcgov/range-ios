@@ -229,17 +229,16 @@ extension Theme {
     func styleSubHeader(label: UILabel) {
         label.textColor = defaultSectionSubHeaderColor()
         label.font = defaultSectionSubHeaderFont()
+        label.change(kernValue: -0.52)
     }
 
-    func styleHeader(label: UILabel) {
+    func styleHeader(label: UILabel, divider: UIView? = nil) {
+        if let divider = divider {
+            styleDivider(divider: divider)
+        }
         label.textColor = defaultSectionHeaderColor()
         label.font = defaultSectionHeaderFont()
-    }
-
-    func styleHeader(label: UILabel, divider: UIView) {
-        styleDivider(divider: divider)
-        styleHeader(label: label)
-        label.change(kernValue: -0.52)
+        label.change(kernValue: -0.42)
     }
 
     func styleFooter(label: UILabel) {
