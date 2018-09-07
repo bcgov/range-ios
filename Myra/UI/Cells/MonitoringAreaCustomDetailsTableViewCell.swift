@@ -47,18 +47,19 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
         guard let a = area, let parent = parentReference, let plan = parent.plan, let start = plan.planStartDate, let end = plan.planEndDate else {return}
 
         let picker = DatePicker()
-        picker.setup(min: start, max: end, dateChanged: { (date) in
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    a.readinessDate = date
+        picker.setup(min: start, max: end) { (selected, date) in
+            if let date = date {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        a.readinessDate = date
+                    }
+                } catch _ {
+                    fatalError()
                 }
-            } catch _ {
-                fatalError()
+                self.autofill()
             }
-            self.autofill()
-        }) {_,_ in }
-
+        }
         picker.displayPopOver(on: sender, in: parent) {}
     }
 

@@ -44,12 +44,7 @@ class PlanInformationTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
         let picker = DatePicker()
-
-        picker.setup(beginWith: rup.planStartDate, min: min, max: max, dateChanged: { (date) in
-            DispatchQueue.main.async {
-                self.handlePlanStartDate(date: date)
-            }
-        }) { (accepted, date) in
+        picker.setup(beginWith: rup.planStartDate, min: min, max: max) { (selected, date) in
             if let d = date {
                 DispatchQueue.main.async {
                     self.handlePlanStartDate(date: d)
@@ -73,27 +68,20 @@ class PlanInformationTableViewCell: BaseFormCell {
             if maxEnd > max {
                 maxEnd = max
             }
-            picker.setup(beginWith: rup.planEndDate, min: startDate, max: maxEnd, dateChanged: { (date) in
-                DispatchQueue.main.async {
-                    self.handlePlanEndDate(date: date)
-                }
-            }) { (accepted, date) in
-                if let d = date {
+
+            picker.setup(beginWith: rup.planEndDate, min: startDate, max: maxEnd) { (selected, date) in
+                if let date = date {
                     DispatchQueue.main.async {
-                        self.handlePlanEndDate(date: d)
+                        self.handlePlanEndDate(date: date)
                     }
                 }
             }
+            
         } else {
-            picker.setup(beginWith: rup.planEndDate, min: min, max: max, dateChanged: { (date) in
-
-                DispatchQueue.main.async {
-                    self.handlePlanEndDate(date: date)
-                }
-            }) { (accepted, date) in
-                if let d = date {
+            picker.setup(beginWith: rup.planEndDate, min: min, max: max) { (selected, date) in
+                if let date = date {
                     DispatchQueue.main.async {
-                        self.handlePlanEndDate(date: d)
+                        self.handlePlanEndDate(date: date)
                     }
                 }
             }

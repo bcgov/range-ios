@@ -54,6 +54,10 @@ class DatePickerViewController: UIViewController, Theme {
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+    }
+
     // MARK: Outlet Functions
 
     // TODO: Handle case where there is only 1 item and user wont scroll

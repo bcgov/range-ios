@@ -56,9 +56,12 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         let minMonth = 1
         let minDay = 1
         let picker = DatePicker()
-        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
-            self.handleNoGrazeIn(month: month, day: day)
-        }, selected: {_,_,_ in })
+        
+        picker.setupYearless(minMonth: minMonth, minDay: minDay) { (selected, month, day) in
+            if selected, let month = month, let day = day {
+                self.handleNoGrazeIn(month: month, day: day)
+            }
+        }
         picker.displayPopOver(on: sender, in: grandParent) {}
     }
 
@@ -75,9 +78,12 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         }
 
         let picker = DatePicker()
-        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
-           self.handleNoGrazeOut(month: month, day: day)
-        }, selected: {_,_,_ in })
+
+        picker.setupYearless(minMonth: minMonth, minDay: minDay) { (selected, month, day) in
+            if selected, let month = month, let day = day {
+                self.handleNoGrazeOut(month: month, day: day)
+            }
+        }
 
         picker.displayPopOver(on: sender, in: grandParent) {}
     }

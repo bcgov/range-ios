@@ -183,11 +183,24 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let sched = scheduleVC.schedule,
             let minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
             let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
-        picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
-            DispatchQueue.main.async {
-                self.handleDateIn(date: date)
+
+        if let entry = self.scheduleObject, let dateIn = entry.dateIn {
+            picker.setup(beginWith: dateIn, min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateIn(date: date)
+                    }
+                }
             }
-        }) {_,_ in }
+        } else {
+            picker.setup(min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateIn(date: date)
+                    }
+                }
+            }
+        }
 
         picker.displayPopOver(on: sender as! UIButton, in: scheduleVC, completion: {})
 
@@ -199,17 +212,28 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let sched = scheduleVC.schedule,
             var minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
             let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
-
-        if let s = scheduleObject, let startDate = s.dateIn {
-            minDate = startDate
-        }
-
         let picker = DatePicker()
-        picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
-            DispatchQueue.main.async {
-                 self.handleDateOut(date: date)
+        if let entry = self.scheduleObject, let dateOut = entry.dateOut {
+            picker.setup(beginWith: dateOut, min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateOut(date: date)
+                    }
+                }
             }
-        }) {_,_ in }
+        } else {
+            if let s = scheduleObject, let startDate = s.dateIn {
+                minDate = startDate
+            }
+
+            picker.setup(min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateOut(date: date)
+                    }
+                }
+            }
+        }
 
         picker.displayPopOver(on: sender as! UIButton, in: scheduleVC, completion: {})
     }
