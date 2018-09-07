@@ -11,7 +11,10 @@ import UIKit
 import Realm
 import RealmSwift
 
+
+// This extention has all the styling for create page.
 extension CreateNewRUPViewController {
+
     // MARK: Styles
     func style() {
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
@@ -86,7 +89,7 @@ extension CreateNewRUPViewController {
     func styleLandscapeMenu() {
         self.menuWidth.constant = self.landscapeMenuWidh
         setMenuLabelsAlpha(to: 1)
-        setMenuIconLeadings(to: 2)
+        setMenuIconLeadings(to: 10)
         reviewAndSubmitButton.setImage(.none, for: .normal)
         self.reviewAndSubmitBoxImage.alpha = 1
     }
@@ -139,6 +142,8 @@ extension CreateNewRUPViewController {
         self.submitButtonContainer.backgroundColor = Colors.primary
         self.submitButtonContainer.layer.borderWidth = 1
         self.submitButtonContainer.alpha = 1
+
+        self.reviewAndSubmitLabel.font = Fonts.getPrimaryMedium(size: 15)
     }
 
     func styleMenuSubmitButtonOFF() {
@@ -154,6 +159,8 @@ extension CreateNewRUPViewController {
         self.submitButtonContainer.backgroundColor = Colors.primary
         self.submitButtonContainer.layer.borderWidth = 1
         self.submitButtonContainer.alpha = 0.5
+
+        self.reviewAndSubmitLabel.font = Fonts.getPrimaryMedium(size: 15)
     }
 
     // MARK: Menu Items

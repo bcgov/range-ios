@@ -386,8 +386,9 @@ extension Theme {
     }
 
     func menuSectionOff(label: UILabel) {
-        label.textColor = UIColor.black
-        label.font = Fonts.getPrimary(size: 15)
+        label.textColor = Colors.technical.mainText
+        label.font = Fonts.getPrimaryMedium(size: 15)
+
     }
 
     func menuSectionOn(label: UILabel) {
