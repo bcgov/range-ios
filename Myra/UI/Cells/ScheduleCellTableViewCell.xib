@@ -24,18 +24,9 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMC-Sw-4M4">
                                 <rect key="frame" x="538" y="8" width="24" height="50"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expandicon" translatesAutoresizingMaskIntoConstraints="NO" id="T2b-53-tFv">
-                                        <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="T2b-53-tFv" firstAttribute="top" secondItem="ZMC-Sw-4M4" secondAttribute="top" id="DyT-tG-e4Y"/>
                                     <constraint firstAttribute="width" constant="24" id="PB4-OB-Nfn"/>
-                                    <constraint firstItem="T2b-53-tFv" firstAttribute="leading" secondItem="ZMC-Sw-4M4" secondAttribute="leading" id="WUi-77-hcx"/>
-                                    <constraint firstAttribute="trailing" secondItem="T2b-53-tFv" secondAttribute="trailing" id="hYY-Op-uXp"/>
-                                    <constraint firstAttribute="bottom" secondItem="T2b-53-tFv" secondAttribute="bottom" id="oq8-oJ-PYA"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" restorationIdentifier="ScheduleCellTableViewCell" translatesAutoresizingMaskIntoConstraints="NO" id="1HG-P7-hIF">
@@ -79,9 +70,10 @@
                                     <constraint firstItem="kgI-IE-Uaq" firstAttribute="leading" secondItem="1HG-P7-hIF" secondAttribute="leading" id="nlN-Nj-Y0h"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boe-1c-INy">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boe-1c-INy">
                                 <rect key="frame" x="498" y="0.0" width="74" height="66"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ScheduleCellOpenMenu"/>
+                                <state key="normal" image="expandicon"/>
                                 <connections>
                                     <action selector="optionsAction:" destination="HNH-gb-EUb" eventType="touchUpInside" id="N6y-Bk-bsD"/>
                                 </connections>
@@ -122,6 +114,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="expandicon" width="48" height="48"/>
+        <image name="expandicon" width="4" height="12"/>
     </resources>
 </document>
