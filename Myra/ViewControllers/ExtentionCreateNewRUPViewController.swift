@@ -138,8 +138,11 @@ extension CreateNewRUPViewController {
             self.submitButton.setTitle("", for: .normal)
         } else {
             self.submitButton.setTitle("Submit to client", for: .normal)
-            self.submitButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
-            self.submitButton.titleLabel?.change(kernValue: -0.32)
+            if let label = self.submitButton.titleLabel {
+                label.font = Fonts.getPrimaryMedium(size: 17)
+                label.change(kernValue: -0.32)
+            }
+
         }
 
         self.requiredFieldNeededLabel.alpha = 0
@@ -154,22 +157,16 @@ extension CreateNewRUPViewController {
             self.submitButton.setTitle("", for: .normal)
         } else {
             self.submitButton.setTitle("Submit to client", for: .normal)
-            self.submitButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
-            self.submitButton.titleLabel?.change(kernValue: -0.32)
+            if let label = self.submitButton.titleLabel {
+                label.font = Fonts.getPrimaryMedium(size: 17)
+                label.change(kernValue: -0.32)
+            }
         }
 
         self.requiredFieldNeededLabel.alpha = 1
         self.requiredFieldNeededLabel.text = "Missing required fields"
         self.styleFieldHeader(label: self.requiredFieldNeededLabel)
         self.requiredFieldNeededLabel.textColor = Colors.invalid
-
-//        self.submitButtonContainer.layer.cornerRadius = 5
-//        self.submitButtonContainer.backgroundColor = Colors.primary
-//        self.submitButtonContainer.layer.borderWidth = 1
-//        self.submitButtonContainer.alpha = 0.5
-//
-//        self.reviewAndSubmitLabel.font = Fonts.getPrimaryBold(size: 17)
-//        self.reviewAndSubmitLabel.change(kernValue: -0.42)
     }
 
     // MARK: Menu Items
