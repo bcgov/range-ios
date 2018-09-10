@@ -262,6 +262,8 @@ extension Theme {
         input.backgroundColor = defaultInputFieldBackground()
         input.font = defaultInputFieldFont()
         input.layer.cornerRadius = 3
+        input.borderStyle = .roundedRect
+        input.layer.borderColor = defaultInputFieldBackground().cgColor
         height.constant = defaultInputFieldHeight()
     }
 
@@ -272,6 +274,8 @@ extension Theme {
         input.backgroundColor = UIColor.clear
         input.font = defaultInputFieldFont()
         input.layer.cornerRadius = 3
+        input.borderStyle = .roundedRect
+        input.layer.borderColor = UIColor.clear.cgColor
         height.constant = defaultInputFieldHeight()
     }
 

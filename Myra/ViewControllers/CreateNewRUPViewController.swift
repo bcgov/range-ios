@@ -156,13 +156,8 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var mapInfoBoxImage: UIImageView!
     */
 
-    @IBOutlet weak var reviewAndSubmitLabel: UILabel!
-    @IBOutlet weak var reviewAndSubmitButton: UIButton!
-    @IBOutlet weak var reviewAndSubmitBoxImage: UIImageView!
     @IBOutlet weak var submitButtonContainer: UIView!
-    @IBOutlet weak var submitButtonIconWidth: NSLayoutConstraint!
-
-    @IBOutlet weak var submitAndReviewLabelCenterY: NSLayoutConstraint!
+    @IBOutlet weak var submitButton: UIButton!
 
     @IBOutlet weak var requiredFieldNeededLabel: UILabel!
 

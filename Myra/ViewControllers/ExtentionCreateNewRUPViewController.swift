@@ -90,18 +90,16 @@ extension CreateNewRUPViewController {
         self.menuWidth.constant = self.landscapeMenuWidh
         setMenuLabelsAlpha(to: 1)
         setMenuIconLeadings(to: 10)
-        reviewAndSubmitButton.setImage(.none, for: .normal)
-        self.reviewAndSubmitBoxImage.alpha = 1
+        self.submitButton.setTitle("Submit to client", for: .normal)
     }
 
     func stylePortaitMenu() {
         self.menuWidth.constant = self.portraitMenuWidth
         setMenuLabelsAlpha(to: 0)
-        reviewAndSubmitButton.setImage(#imageLiteral(resourceName: "icon_check_white"), for: .normal)
         let imgWidth: CGFloat = 24
         let leftBar: CGFloat = 12
         setMenuIconLeadings(to: (portraitMenuWidth - imgWidth - leftBar)/2)
-        self.reviewAndSubmitBoxImage.alpha = 0
+        self.submitButton.setTitle("", for: .normal)
     }
 
     func setMenuIconLeadings(to: CGFloat) {
@@ -116,7 +114,7 @@ extension CreateNewRUPViewController {
         pasturesLabel.alpha = alpha
         scheduleLabel.alpha = alpha
         ministersIssuesLabel.alpha = alpha
-        reviewAndSubmitLabel.alpha = alpha
+//        submitButton.alpha = alpha
     }
 
     func styleMenu() {
@@ -133,36 +131,45 @@ extension CreateNewRUPViewController {
 
     // MARK: Submit Button
     func styleMenuSubmitButtonOn() {
-        self.reviewAndSubmitLabel.text = "Submit to client"
-        self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
-        self.reviewAndSubmitButton.isEnabled = true
+        self.submitButton.backgroundColor = Colors.primary
+        self.submitButton.layer.cornerRadius = 5
+
+        if self.menuWidth.constant == self.portraitMenuWidth {
+            self.submitButton.setTitle("", for: .normal)
+        } else {
+            self.submitButton.setTitle("Submit to client", for: .normal)
+            self.submitButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+            self.submitButton.titleLabel?.change(kernValue: -0.32)
+        }
+
         self.requiredFieldNeededLabel.alpha = 0
-
-        self.submitButtonContainer.layer.cornerRadius = 5
-        self.submitButtonContainer.backgroundColor = Colors.primary
-        self.submitButtonContainer.layer.borderWidth = 1
-        self.submitButtonContainer.alpha = 1
-
-        self.reviewAndSubmitLabel.font = Fonts.getPrimaryBold(size: 17)
-        self.reviewAndSubmitLabel.change(kernValue: -0.42)
     }
 
     func styleMenuSubmitButtonOFF() {
-        self.reviewAndSubmitLabel.text = "Submit to client"
-        self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
-        self.reviewAndSubmitButton.isEnabled = false
+
+        self.submitButton.backgroundColor = Colors.primary
+        self.submitButton.layer.cornerRadius = 5
+
+        if self.menuWidth.constant == self.portraitMenuWidth {
+            self.submitButton.setTitle("", for: .normal)
+        } else {
+            self.submitButton.setTitle("Submit to client", for: .normal)
+            self.submitButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 17)
+            self.submitButton.titleLabel?.change(kernValue: -0.32)
+        }
+
         self.requiredFieldNeededLabel.alpha = 1
         self.requiredFieldNeededLabel.text = "Missing required fields"
         self.styleFieldHeader(label: self.requiredFieldNeededLabel)
         self.requiredFieldNeededLabel.textColor = Colors.invalid
 
-        self.submitButtonContainer.layer.cornerRadius = 5
-        self.submitButtonContainer.backgroundColor = Colors.primary
-        self.submitButtonContainer.layer.borderWidth = 1
-        self.submitButtonContainer.alpha = 0.5
-
-        self.reviewAndSubmitLabel.font = Fonts.getPrimaryBold(size: 17)
-        self.reviewAndSubmitLabel.change(kernValue: -0.42)
+//        self.submitButtonContainer.layer.cornerRadius = 5
+//        self.submitButtonContainer.backgroundColor = Colors.primary
+//        self.submitButtonContainer.layer.borderWidth = 1
+//        self.submitButtonContainer.alpha = 0.5
+//
+//        self.reviewAndSubmitLabel.font = Fonts.getPrimaryBold(size: 17)
+//        self.reviewAndSubmitLabel.change(kernValue: -0.42)
     }
 
     // MARK: Menu Items
