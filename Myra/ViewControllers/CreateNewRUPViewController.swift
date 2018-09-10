@@ -188,7 +188,7 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlet Actions
 
     @IBAction func updateAmendmentAction(_ sender: UIButton) {
-        guard let plan = self.rup, let amendmentType = RUPManager.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return}
+        guard let plan = self.rup, let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return}
 
         // get flow view controller
         let vm = ViewManager()

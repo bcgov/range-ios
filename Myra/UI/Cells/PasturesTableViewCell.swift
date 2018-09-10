@@ -111,7 +111,7 @@ class PasturesTableViewCell: BaseFormCell {
 
     func computePastureHeight(pasture: Pasture) -> CGFloat {
         // let staticHeight: CGFloat = 395
-        let staticHeight: CGFloat = 415
+        let staticHeight: CGFloat = 435
         let plantCommunityHeight: CGFloat = CGFloat(PlantCommunityTableViewCell.cellHeight)
         return (staticHeight + plantCommunityHeight * CGFloat(pasture.plantCommunities.count))
     }

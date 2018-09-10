@@ -30,15 +30,18 @@ class LoginViewController: BaseViewController {
     }
 
     override func onAuthenticationSuccess() {
-        self.view.isUserInteractionEnabled = false
-        self.view.addSubview(getSyncView())
+        self.loginButton.isUserInteractionEnabled = false
         sync { (synced) in
-            self.view.isUserInteractionEnabled = true
+            if synced, let parent = self.parentRef {
+                parent.removeCurrentVCAndReload()
+            } else {
+                self.loginButton.isUserInteractionEnabled = true
+            }
         }
     }
-    
-    override func whenSyncClosed() {
-        self.parentRef?.removeCurrentVCAndReload()
+
+    override func onAuthenticationFail() {
+        self.loginButton.isUserInteractionEnabled = true
     }
 
     func setup(parentReference: MainViewController) {

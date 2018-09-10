@@ -59,7 +59,7 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
             self.submitted.text = "-"
         }
 
-        if let amendmentType = RUPManager.shared.getAmendmentType(forId: plan.amendmentTypeId) {
+        if let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) {
             self.type.text = amendmentType.name
         } else {
             self.type.text = "Initial Plan"

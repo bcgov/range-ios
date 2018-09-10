@@ -34,7 +34,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
             parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
-                if let type = RUPManager.shared.getIssueType(named: option.display) {
+                if let type = Reference.shared.getIssueType(named: option.display) {
                     newIssue.issueType = type.name
                     newIssue.issueTypeID = type.id
                     do {

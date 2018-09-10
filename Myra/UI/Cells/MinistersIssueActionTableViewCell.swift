@@ -174,7 +174,8 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         guard let _ = self.container else {return}
-        styleContainer(view: container)
+        roundCorners(layer: container.layer)
+        addShadow(to: container.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 3)
         switch self.mode {
         case .View:
             optionsButton.alpha = 0

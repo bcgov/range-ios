@@ -143,7 +143,8 @@ extension CreateNewRUPViewController {
         self.submitButtonContainer.layer.borderWidth = 1
         self.submitButtonContainer.alpha = 1
 
-        self.reviewAndSubmitLabel.font = Fonts.getPrimaryMedium(size: 15)
+        self.reviewAndSubmitLabel.font = Fonts.getPrimaryBold(size: 17)
+        self.reviewAndSubmitLabel.change(kernValue: -0.42)
     }
 
     func styleMenuSubmitButtonOFF() {
@@ -160,7 +161,8 @@ extension CreateNewRUPViewController {
         self.submitButtonContainer.layer.borderWidth = 1
         self.submitButtonContainer.alpha = 0.5
 
-        self.reviewAndSubmitLabel.font = Fonts.getPrimaryMedium(size: 15)
+        self.reviewAndSubmitLabel.font = Fonts.getPrimaryBold(size: 17)
+        self.reviewAndSubmitLabel.change(kernValue: -0.42)
     }
 
     // MARK: Menu Items

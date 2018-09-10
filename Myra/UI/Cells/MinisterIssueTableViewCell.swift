@@ -13,7 +13,7 @@ import RealmSwift
 class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Contants
-    static let cellHeight: CGFloat = 554
+    static let cellHeight: CGFloat = 574
 
     // MARK: Variables
     var issue: MinisterIssue?
@@ -129,7 +129,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         lookup.setup(objects: Options.shared.getMinistersIssueActionsOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
-                if let type = RUPManager.shared.getIssueActionType(named: option.display) {
+                if let type = Reference.shared.getIssueActionType(named: option.display) {
                     i.addAction(type: type)
                     self.updateTableHeight(scrollToBottom: false)
                 }

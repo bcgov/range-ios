@@ -68,6 +68,8 @@
 		29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */; };
 		29234B0A2138591300F547AC /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29234B092138591300F547AC /* UIApplication.swift */; };
 		2926D96E20754E52006250D3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
+		292A1D8021432E570086E1AD /* SyncView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292A1D7F21432E570086E1AD /* SyncView.xib */; };
+		292A1D8221432E670086E1AD /* SyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A1D8121432E670086E1AD /* SyncView.swift */; };
 		292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
 		292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
 		292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65222076AAF3003D4AF0 /* PlanStatus.swift */; };
@@ -263,6 +265,8 @@
 		29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinistersIssueActionTableViewCell.xib; sourceTree = "<group>"; };
 		29234B092138591300F547AC /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		2926D96D20754E52006250D3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		292A1D7F21432E570086E1AD /* SyncView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SyncView.xib; sourceTree = "<group>"; };
+		292A1D8121432E670086E1AD /* SyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncView.swift; sourceTree = "<group>"; };
 		292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestockIdentifierType.swift; sourceTree = "<group>"; };
 		292E65202076AAC6003D4AF0 /* ClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientType.swift; sourceTree = "<group>"; };
 		292E65222076AAF3003D4AF0 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
@@ -519,6 +523,8 @@
 			children = (
 				29301FDC21385BDD00E121E0 /* SyncBanner.xib */,
 				29301FDE21385CB500E121E0 /* SyncBanner.swift */,
+				292A1D7F21432E570086E1AD /* SyncView.xib */,
+				292A1D8121432E670086E1AD /* SyncView.swift */,
 			);
 			path = Nibs;
 			sourceTree = "<group>";
@@ -886,6 +892,7 @@
 				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
 				2905520C2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib in Resources */,
 				29EA02A120696A720076403B /* spinner_.json in Resources */,
+				292A1D8021432E570086E1AD /* SyncView.xib in Resources */,
 				295F8F1120F7F60E009D7717 /* MonitoringArea.storyboard in Resources */,
 				29055214213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
@@ -1056,6 +1063,7 @@
 				290A531E2053503A005F5019 /* APIManager.swift in Sources */,
 				2905521621346AAE00785B5E /* Amendment.swift in Sources */,
 				29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */,
+				292A1D8221432E670086E1AD /* SyncView.swift in Sources */,
 				2933183620FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.swift in Sources */,
 				29EA02A320697E6F0076403B /* Agreement.swift in Sources */,
 				29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */,

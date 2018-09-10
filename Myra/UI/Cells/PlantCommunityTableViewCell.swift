@@ -103,7 +103,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
 extension PlantCommunityTableViewCell {
     func style() {
         roundCorners(layer: container.layer)
-        addShadow(to: container.layer, opacity:defaultContainerShadowOpacity(), height: defaultContainershadowHeight())
+        addShadow(to: container.layer, opacity:defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 5)
         styleSubHeader(label: header)
         styleSubHeader(label: nameLabel)
     }

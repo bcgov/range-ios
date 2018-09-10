@@ -26,6 +26,42 @@
         }
         return ""
     }
+
+    /*
+     Finds plans that are not linked to an agreement and links them to the appropriate agreements
+     */
+    func fixUnlinkedPlans() {
+        let plans = getRUPs()
+        let agreements = getAgreements()
+        // get agreement numbers with no plans
+        var agreementsWithNoPlans: [String] = [String]()
+        for agreement in agreements where agreement.rups.count == 0 {
+            agreementsWithNoPlans.append(agreement.agreementId)
+        }
+
+        // for each plan, if has an agreement number that's included in agreementsWithNoPlans, add it to agreement
+        for plan in plans where agreementsWithNoPlans.contains(plan.agreementId) {
+            if let temp = getAgreement(with: plan.agreementId) {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        temp.rups.append(plan)
+                        for element in temp.rangeUsageYears {
+                            plan.rangeUsageYears.append(element)
+                        }
+                        for element in temp.clients {
+                            plan.clients.append(element)
+                        }
+                        for element in temp.zones {
+                            plan.zones.append(element)
+                        }
+                    }
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
+    }
  }
  
  // MARK: RUP / Agreement
@@ -105,9 +141,6 @@
     
     func getAgreement(with id: String) -> Agreement? {
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
-            //            for storeda in storedAgreements where storeda.agreementId == id {
-            //                print("\(storeda.agreementId) has \(storeda.rups.count) rup ")
-            //            }
             for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
                 return storedAgreement
             }
@@ -167,33 +200,6 @@
                 }
             }
         }
-        
-        //        if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum == .LocalDraft {
-        //            // if agreement has a plan in local draft state, leave it be
-        //
-        //            // TODO: CHECK WHICH IS NEWER
-        //            if let remote =  newAgreement.rups.first, let remoteDate = remote.remotelyCreatedAt , let localDate = plan.locallyUpdatedAt {
-        //                if localDate > remoteDate {
-        //                    print("local is newer")
-        //                } else {
-        //                    print("remote is newer")
-        //                }
-        //                print("**")
-        //            }
-        //
-        //        } else {
-        //            // Otherwise if new agreement has a plan downloaded with it, store it
-        //            if !newAgreement.rups.isEmpty, let plan = newAgreement.rups.first {
-        //                do {
-        //                    let realm = try Realm()
-        //                    try realm.write {
-        //                        stored.rups.append(plan)
-        //                    }
-        //                } catch _ {
-        //                    fatalError()
-        //                }
-        //            }
-        //        }
 
         if stored.isInvalidated {
             print("stored is invalidated")
@@ -768,158 +774,4 @@
         }
         RealmRequests.deleteObject(issue)
     }
- }
- 
- 
- // MARK: Reference Data
- extension RUPManager {
-    
-    
-    func getStaffDraftPlanStatus() -> PlanStatus {
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.code.lowercased() == "sd"  {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-    
-    func getCreatedPlanStatus() -> PlanStatus {
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.code.lowercased() == "c"  {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-
-    func getAmendmentStatus(status: RUPStatus)  -> PlanStatus {
-        var code = ""
-        if status == .WronglyMadeWithoutEffect {
-            code = "wm"
-        } else if status == .StandsWronglyMade {
-            code = "sw"
-        } else if status == .Stands {
-            code = "s"
-        } else if status == .RecommendNotReady {
-            code = "rnr"
-        } else if status == .RecommendReady {
-            code = "rr"
-        } else if status == .NotApprovedFurtherWorkRequired {
-            code = "nf"
-        } else if status == .NotApproved {
-            code = "na"
-        } else if status == .Approved {
-            code = "a"
-        } else if status == .SubmittedForFinalDecision {
-            code = "sfd"
-        }
-
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.code.lowercased() == code.lowercased()  {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-    
-    func getStatus(forId id: Int) -> PlanStatus? {
-        do {
-            let realm = try Realm()
-            let statuses = realm.objects(PlanStatus.self).filter("id = %@", id)
-            return statuses.first
-        } catch _ {}
-        return nil
-    }
-
-    func getAmendmentType(forId id: Int) -> AmendmentType? {
-        do {
-        let realm = try Realm()
-        let statuses = realm.objects(AmendmentType.self).filter("id = %@", id)
-        return statuses.first
-        } catch _ {}
-        return nil
-    }
-
-    
-    func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
-        let query = RealmRequests.getObject(AgreementExemptionStatus.self)
-        if let all = query {
-            for object in all {
-                if object.id == id {
-                    return object
-                }
-            }
-        }
-        return AgreementExemptionStatus()
-    }
-    
-    func getPlanStatusFor(id: Int) -> PlanStatus {
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.id == id {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-    
-    func removeAllObjectsIn(query: [Object]?) {
-        if query == nil {return}
-        for object in query! {
-            RealmRequests.deleteObject(object)
-        }
-    }
-    
-    func getClientTypeFor(clientTypeCode: String) -> ClientType {
-        let query = RealmRequests.getObject(ClientType.self)
-        if let all = query {
-            for object in all {
-                // while you're at it, clean up invalid data..
-                if object.id == -1 {
-                    RealmRequests.deleteObject(object)
-                }
-                if object.code == clientTypeCode {
-                    return object
-                }
-            }
-        }
-        return ClientType()
-    }
-    
-    func getIssueType(named: String) -> MinisterIssueType? {
-        do {
-            let realm = try Realm()
-            if let obj = realm.objects(MinisterIssueType.self).filter("name = %@", named).first {
-                return obj
-            }
-        } catch _ {
-            fatalError()
-        }
-        return nil
-    }
-    
-    func getIssueActionType(named: String) -> MinisterIssueActionType? {
-        do {
-            let realm = try Realm()
-            if let obj = realm.objects(MinisterIssueActionType.self).filter("name = %@", named).first {
-                return obj
-            }
-        } catch _ {
-            fatalError()
-        }
-        return nil
-    }
-    
  }

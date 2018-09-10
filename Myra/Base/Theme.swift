@@ -25,7 +25,7 @@ extension Theme {
 
     // Shadow
     func defaultShadowColor() -> CGColor {
-        return Colors.shadowColor.cgColor
+        return Colors.shadowColor
     }
     func defaultContainerShadowOpacity() -> Float {
         return 0.4
@@ -304,7 +304,7 @@ extension Theme {
         field.backgroundColor = UIColor.clear
         field.font = defaultInputFieldFont()
         field.layer.cornerRadius = 3
-        field.layer.borderColor = Colors.shadowColor.cgColor
+        field.layer.borderColor = Colors.shadowColor
         field.layer.borderWidth = 1
         styleFieldHeader(label: header)
     }
@@ -341,12 +341,16 @@ extension Theme {
         addShadow(to: layer, opacity: 1, height: 2)
     }
 
-    func addShadow(to layer: CALayer, opacity: Float, height: Int) {
-//        layer.borderColor = defaultShadowColor()
+    func addShadow(to layer: CALayer, opacity: Float, height: Int, radius: CGFloat? = 10) {
+        layer.borderColor = defaultShadowColor()
         layer.shadowOffset = CGSize(width: 0, height: height)
         layer.shadowColor = defaultShadowColor()
         layer.shadowOpacity = opacity
-        layer.shadowRadius = 3
+        var r: CGFloat = 10
+        if let radius = radius {
+            r = radius
+        }
+        layer.shadowRadius = r
     }
 
     // MARK: NavBar

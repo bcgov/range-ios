@@ -34,15 +34,7 @@ class HomeViewController: BaseViewController {
         }
     }
 
-    var syncing: Bool = false {
-        didSet {
-            if syncing {
-                showSyncPage()
-            } else {
-                hideSyncPage()
-            }
-        }
-    }
+    var syncing: Bool = false
 
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
@@ -123,10 +115,6 @@ class HomeViewController: BaseViewController {
             }
         })
         authenticateIfRequred()
-    }
-
-    @objc override func syncEnd() {
-        self.filterByAll()
     }
 
     @IBAction func filterAction(_ sender: UIButton) {
@@ -255,6 +243,7 @@ class HomeViewController: BaseViewController {
 
     func loadRUPs() {
         if syncing {return}
+        RUPManager.shared.fixUnlinkedPlans()
 //        DispatchQueue.main.async {
         self.rups = [RUP]()
         self.tableView.reloadData()
@@ -406,7 +395,7 @@ class HomeViewController: BaseViewController {
     }
 
     override func onAuthenticationSuccess() {
-        print(APIManager.headers())
+//        print(APIManager.headers())
         if unstableConnection {
             syncButtonLabel.text = "Connections is not stable for enough for a full sync"
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
@@ -418,11 +407,7 @@ class HomeViewController: BaseViewController {
             return
         }
         self.syncButtonLabel.alpha = 0
-        self.syncing = true
-        self.endChangeListener()
-        sync { (synced) in
-            self.loadHome()
-        }
+        synchronize()
     }
 
     override func onAuthenticationFail() {
@@ -430,29 +415,23 @@ class HomeViewController: BaseViewController {
         self.syncButton.isUserInteractionEnabled = true
     }
 
-    override func whenSyncClosed() {
-        self.syncing = false
-    }
-
-    func showSyncPage() {
-        syncButton.isUserInteractionEnabled = false
+    func synchronize() {
+        self.rups = [RUP]()
+        self.tableView.reloadData()
+        self.endChangeListener()
+        self.syncing = true
         self.createButton.isUserInteractionEnabled = false
         self.tableView.isUserInteractionEnabled = false
-        self.view.addSubview(getSyncView())
+        self.syncButton.isUserInteractionEnabled = false
+        sync { (done) in
+            self.syncing = false
+            self.loadHome()
+            self.createButton.isUserInteractionEnabled = true
+            self.tableView.isUserInteractionEnabled = true
+            self.syncButton.isUserInteractionEnabled = true
+        }
     }
 
-    func hideSyncPage() {
-        removeSyncPage()
-        self.createButton.isUserInteractionEnabled = true
-        self.tableView.isUserInteractionEnabled = true
-        syncButton.isUserInteractionEnabled = true
-    }
-
-    override func syncActionButtonPressed() {
-//        getRUPs()
-//        self.tableView.reloadData()
-        filterByAll()
-    }
 }
 
 // MARK: TableView functions

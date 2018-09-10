@@ -730,6 +730,7 @@ extension APIManager {
 
         dispatchGroup.notify(queue: .main) {
             progress("Updating local data")
+            RUPManager.shared.fixUnlinkedPlans()
             RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             DataServices.shared.beginAutoSyncListener()
             completion(myError)
