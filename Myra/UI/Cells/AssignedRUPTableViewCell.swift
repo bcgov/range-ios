@@ -14,7 +14,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     var rup: RUP?
     var agreement: Agreement?
     var bg: UIColor = UIColor.white
-    var seleced: Bool = false
+    var cellSelected: Bool = false
 
     // MARK: Outlets
     @IBOutlet weak var idLabel: UILabel!
@@ -72,11 +72,6 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
         self.statusText.text = rup.getStatus().rawValue.convertFromCamelCase()
-//        if rup.getStatus() == .LocalDraft || rup.getStatus() == .StaffDraft {
-//            infoButton.setTitle("Edit", for: .normal)
-//        } else {
-//            infoButton.setTitle("View", for: .normal)
-//        }
     }
 
     // MARK: Styles
@@ -109,6 +104,8 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     }
 
     func styleSelected() {
+        if cellSelected {return}
+        style()
         self.infoButton.alpha = 0
         self.statusLight.alpha = 0
         self.statusText.alpha = 0
@@ -125,12 +122,14 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         }) { (done) in
             self.infoButton.alpha = 1
             self.infoButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+            self.cellSelected = true
         }
     }
 
     func styleDefault() {
         UIView.animate(withDuration: 0.3, animations: {
             self.style()
+            self.cellSelected = false
         })
     }
 
@@ -148,6 +147,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
             self.infoButton.setTitleColor(Colors.lockedCell, for: .normal)
             self.statusLight.alpha = 0.5
             self.layoutIfNeeded()
+            self.cellSelected = false
         })
     }
 

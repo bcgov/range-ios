@@ -51,10 +51,13 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
 
     func autofill() {
         guard let plan = self.rup else {return}
+
         self.status.text = plan.getStatus().rawValue
 
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
             viewButton.setTitle("Edit", for: .normal)
+        } else {
+            viewButton.setTitle("View", for: .normal)
         }
         
         if let effective = plan.effectiveDate {
@@ -88,21 +91,4 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
         guard let plan = self.rup else {return}
         self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
     }
-
-    func setStatusRed() {
-        self.statusLight.backgroundColor = UIColor.red
-    }
-
-    func setStatusGreen() {
-        self.statusLight.backgroundColor = UIColor.green
-    }
-
-    func setStatusYellow() {
-        self.statusLight.backgroundColor = UIColor.yellow
-    }
-
-    func setStatusGray() {
-        self.statusLight.backgroundColor = UIColor.gray
-    }
-    
 }

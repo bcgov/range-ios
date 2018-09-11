@@ -251,7 +251,7 @@ extension CreateNewRUPViewController {
         self.viewTitle.alpha = 1
     }
 
-    func openingAnimations() {
+    func openingAnimations(callBack: @escaping ()->Void) {
         let defaultHeaderHeight: CGFloat = 60
         let showHeaderContentDelay = 0.2
 
@@ -282,6 +282,7 @@ extension CreateNewRUPViewController {
                     // MARK: End of opening animations
                     self.view.isUserInteractionEnabled = true
                     self.styleUpdateAmendmentButton()
+                    return callBack()
                 })
 
             })

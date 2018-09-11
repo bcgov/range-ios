@@ -23,17 +23,52 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRZ-Na-sN4" userLabel="Body Container">
                                 <rect key="frame" x="275" y="98" width="749" height="670"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOd-Ql-jaD">
+                                        <rect key="frame" x="8" y="0.0" width="733" height="25"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsS-Fa-NF7">
+                                                <rect key="frame" x="8" y="8" width="0.0" height="9"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmt-jk-cqS">
+                                                <rect key="frame" x="13" y="0.5" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="fmt-jk-cqS" secondAttribute="height" multiplier="1:1" id="IdQ-hA-Bcx"/>
+                                                    <constraint firstAttribute="width" constant="24" id="cNx-TW-SiP"/>
+                                                </constraints>
+                                                <state key="normal" image="Exclamation Circle"/>
+                                                <connections>
+                                                    <action selector="bannerTooltipAction:" destination="q34-99-p1g" eventType="touchUpInside" id="tmW-h8-JaP"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="fmt-jk-cqS" firstAttribute="leading" secondItem="nsS-Fa-NF7" secondAttribute="trailing" constant="5" id="88h-4L-F0t"/>
+                                            <constraint firstItem="nsS-Fa-NF7" firstAttribute="leading" secondItem="cOd-Ql-jaD" secondAttribute="leading" constant="8" id="FXu-B6-beo"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fmt-jk-cqS" secondAttribute="trailing" constant="5" id="NP9-33-RRn"/>
+                                            <constraint firstAttribute="bottom" secondItem="nsS-Fa-NF7" secondAttribute="bottom" constant="8" id="fx7-WJ-Ifn"/>
+                                            <constraint firstAttribute="height" constant="25" id="kA0-mz-xFu"/>
+                                            <constraint firstItem="fmt-jk-cqS" firstAttribute="centerY" secondItem="nsS-Fa-NF7" secondAttribute="centerY" id="rnZ-if-orb"/>
+                                            <constraint firstItem="nsS-Fa-NF7" firstAttribute="top" secondItem="cOd-Ql-jaD" secondAttribute="top" constant="8" id="tQA-u5-6WZ"/>
+                                        </constraints>
+                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eHi-0H-7J4">
-                                        <rect key="frame" x="0.0" y="0.0" width="749" height="670"/>
+                                        <rect key="frame" x="0.0" y="25" width="749" height="645"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.15000167489999999" green="0.28323432799999998" blue="0.49806135889999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="cOd-Ql-jaD" secondAttribute="trailing" constant="8" id="1ox-ms-yPe"/>
                                     <constraint firstItem="eHi-0H-7J4" firstAttribute="leading" secondItem="HRZ-Na-sN4" secondAttribute="leading" id="Avu-Q1-94W"/>
+                                    <constraint firstItem="eHi-0H-7J4" firstAttribute="top" secondItem="cOd-Ql-jaD" secondAttribute="bottom" id="BZa-Em-SJd"/>
                                     <constraint firstAttribute="trailing" secondItem="eHi-0H-7J4" secondAttribute="trailing" id="fwZ-fR-H4P"/>
-                                    <constraint firstItem="eHi-0H-7J4" firstAttribute="top" secondItem="HRZ-Na-sN4" secondAttribute="top" id="i2d-22-57i"/>
                                     <constraint firstAttribute="bottom" secondItem="eHi-0H-7J4" secondAttribute="bottom" id="ofk-lM-tvl"/>
+                                    <constraint firstItem="cOd-Ql-jaD" firstAttribute="leading" secondItem="HRZ-Na-sN4" secondAttribute="leading" constant="8" id="ukY-sV-pep"/>
+                                    <constraint firstItem="cOd-Ql-jaD" firstAttribute="top" secondItem="HRZ-Na-sN4" secondAttribute="top" id="xdL-MM-1tN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LiW-fN-wXA" userLabel="Header">
@@ -434,6 +469,10 @@
                         <viewLayoutGuide key="safeArea" id="Bro-Wt-kuB"/>
                     </view>
                     <connections>
+                        <outlet property="bannerContainer" destination="cOd-Ql-jaD" id="JxG-sf-g8v"/>
+                        <outlet property="bannerContainerHeight" destination="kA0-mz-xFu" id="MZv-Xf-hJJ"/>
+                        <outlet property="bannerTitle" destination="nsS-Fa-NF7" id="Rg9-iy-Fed"/>
+                        <outlet property="bannerTooltip" destination="fmt-jk-cqS" id="jIr-JM-Fin"/>
                         <outlet property="basicInfoBox" destination="OjJ-Xr-NcD" id="GA4-fc-6z1"/>
                         <outlet property="basicInfoBoxImage" destination="yMB-tA-4nU" id="wXy-KS-Vi4"/>
                         <outlet property="basicInfoBoxLeft" destination="p02-3N-m7s" id="y3R-oe-asy"/>
@@ -488,6 +527,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Exclamation Circle" width="24" height="24"/>
         <image name="icon_Pastures" width="32" height="32"/>
         <image name="icon_check_white" width="24" height="24"/>
     </resources>
