@@ -103,7 +103,7 @@ class APIManager {
         }
     }
 
-    static func getPlanStatus(forPlan plan: RUP, completion: @escaping (_ response: Alamofire.DataResponse<Data>) -> Void) {
+    static func getPlan(forPlan plan: RUP, completion: @escaping (_ response: Alamofire.DataResponse<Data>) -> Void) {
         let id = plan.remoteId
         let planPath = "\(Constants.API.planPath)\(id)"
         guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {

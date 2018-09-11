@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,30 +14,61 @@
         <!--Tooltip View Controller-->
         <scene sceneID="LJr-gF-a2N">
             <objects>
-                <viewController id="Hhd-ft-iMI" customClass="TooltipViewController" customModule="Myra" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Tooltip" id="Hhd-ft-iMI" customClass="TooltipViewController" customModule="Myra" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DhA-PP-KcV">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S90-ln-xG0">
-                                <rect key="frame" x="44" y="20" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KhF-gN-y50">
+                                <rect key="frame" x="15" y="43.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="VDL-4M-ZTJ"/>
+                                    <constraint firstAttribute="width" secondItem="KhF-gN-y50" secondAttribute="height" multiplier="1:1" id="Wpb-4V-Uke"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mzk-zC-8id">
+                                <rect key="frame" x="48" y="36" width="444" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S90-ln-xG0">
+                                <rect key="frame" x="48" y="8" width="42" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="95s-ud-MQP"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KhF-gN-y50" firstAttribute="leading" secondItem="Suu-Sv-I8H" secondAttribute="leading" constant="15" id="3E0-pY-w5B"/>
+                            <constraint firstItem="mzk-zC-8id" firstAttribute="top" secondItem="S90-ln-xG0" secondAttribute="bottom" constant="3" id="6mU-70-u8z"/>
+                            <constraint firstItem="Suu-Sv-I8H" firstAttribute="trailing" secondItem="mzk-zC-8id" secondAttribute="trailing" constant="8" id="CaZ-3p-970"/>
+                            <constraint firstItem="mzk-zC-8id" firstAttribute="leading" secondItem="KhF-gN-y50" secondAttribute="trailing" constant="8" id="Fig-yZ-sot"/>
+                            <constraint firstItem="S90-ln-xG0" firstAttribute="top" secondItem="Suu-Sv-I8H" secondAttribute="top" constant="8" id="NG5-OQ-quv"/>
+                            <constraint firstItem="KhF-gN-y50" firstAttribute="centerY" secondItem="DhA-PP-KcV" secondAttribute="centerY" id="f1Q-Ew-BXU"/>
+                            <constraint firstItem="S90-ln-xG0" firstAttribute="leading" secondItem="KhF-gN-y50" secondAttribute="trailing" constant="8" id="j3P-oG-KXX"/>
+                            <constraint firstItem="Suu-Sv-I8H" firstAttribute="bottom" secondItem="mzk-zC-8id" secondAttribute="bottom" constant="8" id="qLH-5Z-ekt"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Suu-Sv-I8H"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="500" height="112"/>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="mzk-zC-8id" id="1ZT-iO-e2v"/>
+                        <outlet property="icon" destination="KhF-gN-y50" id="fwf-ZV-tOq"/>
+                        <outlet property="titleLabel" destination="S90-ln-xG0" id="PQp-v8-Shj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5C1-dh-YGh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="294"/>
+            <point key="canvasLocation" x="204.80000000000001" y="293.25337331334333"/>
         </scene>
     </scenes>
 </document>

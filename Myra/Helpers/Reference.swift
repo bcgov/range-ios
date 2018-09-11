@@ -263,6 +263,10 @@ class Reference {
         return PlanStatus()
     }
 
+    func getStatusTooltipDeescription(for status: RUPStatus) -> String {
+        return "describing \(status) status etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc"
+    }
+
     func removeAllObjectsIn(query: [Object]?) {
         if query == nil {return}
         for object in query! {

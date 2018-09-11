@@ -21,13 +21,19 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var viewButton: UIButton!
 
     @IBAction func viewAction(_ sender: UIButton) {
-        guard let plan = rup else {return}
-        let parent = self.parentViewController as! HomeViewController
+        guard let plan = rup, let parent = self.parentViewController as? HomeViewController else {return}
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
             parent.editRUP(rup: plan)
         } else {
             parent.viewRUP(rup: plan)
         }
+    }
+    
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let plan = rup, let parent = self.parentViewController as? HomeViewController else {return}
+        let statusEnum = plan.getStatus()
+        let currStatus = "\(statusEnum)"
+        parent.showTooltip(on: sender, title: currStatus.convertFromCamelCase(), desc: Reference.shared.getStatusTooltipDeescription(for: statusEnum))
     }
 
     override func awakeFromNib() {

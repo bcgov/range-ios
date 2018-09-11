@@ -89,6 +89,7 @@
 		2933184120FE63590070A6A9 /* IndicatorPlantSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */; };
 		2935A7682148399500441539 /* Tooltip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2935A7672148399500441539 /* Tooltip.storyboard */; };
 		2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76921484A1900441539 /* TooltipViewController.swift */; };
+		2935A76C21485A2500441539 /* ConstantStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76B21485A2500441539 /* ConstantStrings.swift */; };
 		293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
 		293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* HomeViewController.swift */; };
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
@@ -288,6 +289,7 @@
 		2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPlantSection.swift; sourceTree = "<group>"; };
 		2935A7672148399500441539 /* Tooltip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tooltip.storyboard; sourceTree = "<group>"; };
 		2935A76921484A1900441539 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
+		2935A76B21485A2500441539 /* ConstantStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantStrings.swift; sourceTree = "<group>"; };
 		293C95C120335D4100BF1113 /* Myra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Myra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		293C95C420335D4100BF1113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		293C95C620335D4100BF1113 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 				2901C4C22141D8EC00AE72FC /* Reference.swift */,
 				2901C4C42141DB4000AE72FC /* Options.swift */,
 				29FCB037205702B3006CD247 /* DateManager.swift */,
+				2935A76B21485A2500441539 /* ConstantStrings.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1115,6 +1118,7 @@
 				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
 				2920F8332034C8380090E7B4 /* Color.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
+				2935A76C21485A2500441539 /* ConstantStrings.swift in Sources */,
 				292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */,
 				29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */,
 				292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */,

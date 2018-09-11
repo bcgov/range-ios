@@ -568,7 +568,7 @@ class DataServices: NSObject {
                 group.leave()
                 return
             }
-            APIManager.getPlanStatus(forPlan: planObject) { (response) in
+            APIManager.getPlan(forPlan: planObject) { (response) in
                 if response.result.description == "SUCCESS", let value = response.result.value {
                     let json = JSON(value)
                     guard let id = json["plan"]["statusId"].int else {

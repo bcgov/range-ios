@@ -134,6 +134,13 @@ class BaseViewController: UIViewController, Theme {
         present(vc, animated: true, completion: nil)
     }
 
+    func showTooltip(on: UIButton, title: String, desc: String) {
+        let vm = ViewManager()
+        let tooltip = vm.tooltip
+        tooltip.setup(title: title, desc: desc)
+        showPopOver(on: on, vc: tooltip, height: 112, width: 500, arrowColor: Colors.active.blue)
+    }
+
     // dismisses the last popover added
     func dismissPopOver() {
         if let popOver = self.currentPopOver {
