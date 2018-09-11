@@ -32,15 +32,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
 
     @IBOutlet weak var elevationDropdown: UIButton!
     @IBOutlet weak var purposeDropdown: UIButton!
-
-    // custom radio
-    /*
-    @IBOutlet weak var actionsRadioLeftView: UIView!
-    @IBOutlet weak var actionsRadioRightView: UIView!
-    @IBOutlet weak var actionsRadioLeftLabel: UILabel!
-    @IBOutlet weak var actionsRadioRightLabel: UILabel!
-    */
-
+    
     // MARK: Variables
     var mode: FormMode = .View
     var plantCommunity: PlantCommunity?
@@ -125,7 +117,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                     grandParent.showAlert(title: "Would you like to remove the purpose of actions?", description: "This will also remove all Plant Community Actions for this Plant Community", yesButtonTapped: {
                         pc.clearPurposeOfAction()
                         self.autofill()
-                        self.reloadParent()
+                        self.reloadPlantCommunityActions()
                     }, noButtonTapped: {
                         return
                     })
@@ -139,55 +131,12 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                         fatalError()
                     }
                     self.autofill()
-                    self.reloadParent()
+                    self.reloadPlantCommunityActions() 
                 }
             }
         }
     }
 
-    /*
-    @IBAction func leftRadioOn(_ sender: UIButton) {
-        guard let pc = self.plantCommunity else {return}
-        var reloadFlag = false
-        if pc.purposeOfAction == "" {
-            reloadFlag = true
-        }
-        do {
-            let realm = try Realm()
-            try realm.write {
-                pc.purposeOfAction = "Establish"
-                pc.isPurposeOfActionEstablish = true
-            }
-        } catch _ {
-            fatalError()
-        }
-        establishOn()
-        if reloadFlag {
-            reloadParent()
-        }
-    }
-
-    @IBAction func rightRadioOn(_ sender: UIButton) {
-        guard let pc = self.plantCommunity else {return}
-        var reloadFlag = false
-        if pc.purposeOfAction == "" {
-            reloadFlag = true
-        }
-        do {
-            let realm = try Realm()
-            try realm.write {
-                pc.purposeOfAction = "Maintain"
-                pc.isPurposeOfActionEstablish = false
-            }
-        } catch _ {
-            fatalError()
-        }
-        maintainOn()
-        if reloadFlag {
-            reloadParent()
-        }
-    }
-    */
 
     @IBAction func communityURLChanged(_ sender: UITextField) {
         guard let pc = self.plantCommunity, let text = sender.text else {return}
@@ -218,13 +167,6 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         plantCommunityField.text = pc.notes
         communityURLField.text = pc.communityURL
         purposeOfActionsField.text = pc.purposeOfAction
-//        if pc.purposeOfAction == "" {
-//            radioOff()
-//        } else if pc.isPurposeOfActionEstablish {
-//            establishOn()
-//        } else {
-//            maintainOn()
-//        }
     }
 
     // MARK: Style
@@ -245,42 +187,14 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         }
     }
 
-    /*
-    func maintainOn() {
-        radioOff()
-        actionsRadioRightView.backgroundColor = defaultFillButtonBackground()
-        actionsRadioRightView.layer.borderColor = defaultFillButtonBorderColor()
-        actionsRadioRightLabel.textColor = defaultFillButtonTitleColor()
-    }
-
-    func establishOn() {
-        radioOff()
-        actionsRadioLeftView.backgroundColor = defaultFillButtonBackground()
-        actionsRadioLeftView.layer.borderColor = defaultFillButtonBorderColor()
-        actionsRadioLeftLabel.textColor = defaultFillButtonTitleColor()
-
-    }
-
-    func radioOff() {
-        actionsRadioLeftView.backgroundColor = defaultHollowButtonBackground()
-        actionsRadioLeftView.layer.borderWidth = 1
-        actionsRadioLeftView.layer.borderColor = defaultHollowButtonBorderColor()
-        actionsRadioLeftLabel.textColor = defaultHollowButtonTitleColor()
-        actionsRadioLeftLabel.font = defaultSectionSubHeaderFont()
-        actionsRadioLeftLabel.font = Fonts.getPrimaryHeavy(size: 12)
-
-        actionsRadioRightView.backgroundColor = defaultHollowButtonBackground()
-        actionsRadioRightView.layer.borderWidth = 1
-        actionsRadioRightView.layer.borderColor = defaultHollowButtonBorderColor()
-        actionsRadioRightLabel.textColor = defaultHollowButtonTitleColor()
-        actionsRadioRightLabel.font = defaultSectionSubHeaderFont()
-        actionsRadioRightLabel.font = Fonts.getPrimaryHeavy(size: 12)
-    }
-    */
-
     func reloadParent() {
         guard let parent = self.parentReference else {return}
         parent.reload(reloadData: true, then: {})
+    }
+
+    func reloadPlantCommunityActions() {
+        guard let parent = self.parentReference else {return}
+        parent.tableView.reloadSections([1], with: .automatic)
     }
 }
 

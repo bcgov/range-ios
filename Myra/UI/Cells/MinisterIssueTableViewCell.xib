@@ -24,8 +24,12 @@
                         <rect key="frame" x="15" y="15" width="764" height="638.5"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cP-lR-hOo" userLabel="Options">
-                                <rect key="frame" x="716" y="43" width="48" height="48"/>
+                                <rect key="frame" x="714" y="42" width="50" height="50"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RIB-Bv-z7L"/>
+                                    <constraint firstAttribute="width" constant="50" id="VOJ-yT-KCi"/>
+                                </constraints>
                                 <state key="normal" image="expandicon"/>
                                 <connections>
                                     <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tvw-IM-PG9"/>
@@ -271,7 +275,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="expandicon" width="48" height="48"/>
+        <image name="expandicon" width="4" height="12"/>
         <image name="icon_edit" width="12" height="12"/>
         <image name="icon_ministers" width="24" height="24"/>
     </resources>

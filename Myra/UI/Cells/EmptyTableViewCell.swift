@@ -8,7 +8,11 @@
 
 import UIKit
 
-class EmptyTableViewCell: UITableViewCell {
+class EmptyTableViewCell: UITableViewCell, Theme {
+
+    @IBOutlet weak var height: NSLayoutConstraint!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var container: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -17,8 +21,12 @@ class EmptyTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
 
-        // Configure the view for the selected state
+    func setup(placeHolder: String, height: CGFloat) {
+        self.label.text = placeHolder
+        self.height.constant = height
+        styleSubHeader(label: label)
     }
     
 }

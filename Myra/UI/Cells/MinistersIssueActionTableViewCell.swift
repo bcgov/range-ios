@@ -200,14 +200,50 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     func duplicate() {
 
     }
+
+//    func getLocalTypeFromRemoteType() -> actionType? {
+//        guard let action = self.action else {return nil}
+//        switch action.actionType {
+//        case "Herding":
+//            return .Herding
+//        case "Salting":
+//
+//        default:
+//
+//        }
+//    }
+
+
 }
 
 // MARK: TextView delegates
+
+//enum actionType {
+//    case Herding
+//    case Salting
+//    case TIming
+//    case LivestockVatiable
+//}
+
+
 extension MinistersIssueActionTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+
+    }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let a = action else {return}
         a.set(desc: textView.text)
+//        if textView.text.isEmpty {
+//            guard let converted = getLocalTypeFromRemoteType() else {return}
+//            switch converted {
+//            case .Herding:
+//
+//            default:
+//
+//            }
+//        }
     }
 }

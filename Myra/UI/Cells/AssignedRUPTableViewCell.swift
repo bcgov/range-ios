@@ -119,8 +119,6 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
             self.divider.alpha = 1
             self.styleDivider(divider: self.divider)
             self.tableContainer.layer.cornerRadius = 5
-//            self.statusText.alpha = 0
-//            self.statusLight.alpha = 0
             self.updateTableHeight()
             self.tableContainer.alpha = 1
             self.layoutIfNeeded()

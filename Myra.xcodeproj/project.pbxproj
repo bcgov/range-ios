@@ -87,6 +87,8 @@
 		2933183B20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */; };
 		2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933183E20FE60390070A6A9 /* IndicatorPlant.swift */; };
 		2933184120FE63590070A6A9 /* IndicatorPlantSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */; };
+		2935A7682148399500441539 /* Tooltip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2935A7672148399500441539 /* Tooltip.storyboard */; };
+		2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76921484A1900441539 /* TooltipViewController.swift */; };
 		293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
 		293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* HomeViewController.swift */; };
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
@@ -284,6 +286,8 @@
 		2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitoringAreaCustomDetailTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
 		2933183E20FE60390070A6A9 /* IndicatorPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPlant.swift; sourceTree = "<group>"; };
 		2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPlantSection.swift; sourceTree = "<group>"; };
+		2935A7672148399500441539 /* Tooltip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tooltip.storyboard; sourceTree = "<group>"; };
+		2935A76921484A1900441539 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
 		293C95C120335D4100BF1113 /* Myra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Myra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		293C95C420335D4100BF1113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		293C95C620335D4100BF1113 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -446,6 +450,7 @@
 				29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */,
 				290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */,
 				293020072139A22000E121E0 /* Router.swift */,
+				2935A76921484A1900441539 /* TooltipViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -733,6 +738,7 @@
 				292197CD209CCF65004A5011 /* Options.storyboard */,
 				29227B5D20EEAA850042B88E /* TextEntry.storyboard */,
 				290551F921345E3A00785B5E /* AmendmentFlow.storyboard */,
+				2935A7672148399500441539 /* Tooltip.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -889,6 +895,7 @@
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				29B5F047208E958D003D996D /* sync_icon.json in Resources */,
 				29616EA821063ADA003102F8 /* EmptyTableViewCell.xib in Resources */,
+				2935A7682148399500441539 /* Tooltip.storyboard in Resources */,
 				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
 				2905520C2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib in Resources */,
 				29EA02A120696A720076403B /* spinner_.json in Resources */,
@@ -1026,6 +1033,7 @@
 				29234B0A2138591300F547AC /* UIApplication.swift in Sources */,
 				29227B5B20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */,
 				56F388A520801FB4004CDFAE /* DataServices.swift in Sources */,
+				2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */,
 				2905520F213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
 				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,

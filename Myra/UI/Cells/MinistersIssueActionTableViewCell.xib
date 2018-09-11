@@ -37,12 +37,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="z7m-9c-rzF"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBR-4s-god">
-                                <rect key="frame" x="789" y="63" width="48" height="48"/>
+                                <rect key="frame" x="789" y="76" width="48" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="S6x-aG-79c"/>
                                 </constraints>
@@ -197,6 +196,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="expandicon" width="48" height="48"/>
+        <image name="expandicon" width="4" height="12"/>
     </resources>
 </document>

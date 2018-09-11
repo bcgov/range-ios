@@ -46,6 +46,10 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
     func autofill() {
         guard let plan = self.rup else {return}
         self.status.text = plan.getStatus().rawValue
+
+        if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
+            viewButton.setTitle("Edit", for: .normal)
+        }
         
         if let effective = plan.effectiveDate {
             self.effectiveDate.text = effective.stringShort()
@@ -70,9 +74,7 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
     // MARK: Styles
     func style() {
         makeCircle(view: statusLight)
-
         styleHollowButton(button: viewButton)
-
         styleStaticField(field: effectiveDate)
         styleStaticField(field: submitted)
         styleStaticField(field: type)

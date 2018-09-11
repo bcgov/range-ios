@@ -244,7 +244,6 @@ class HomeViewController: BaseViewController {
     func loadRUPs() {
         if syncing {return}
         RUPManager.shared.fixUnlinkedPlans()
-//        DispatchQueue.main.async {
         self.rups = [RUP]()
         self.tableView.reloadData()
             /*
@@ -262,7 +261,6 @@ class HomeViewController: BaseViewController {
             }
         self.expandIndexPath = nil
             self.tableView.reloadData()
-//        }
     }
 
     // MARK: Styles
