@@ -34,8 +34,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
     @IBAction func optionsAction(_ sender: UIButton) {
-        guard let a = self.action, let parent = self.parentCell else {return}
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        guard let a = self.action, let parent = self.parentCell, let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
@@ -52,7 +51,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     }
 
     @IBAction func noGrazePeriodBegin(_ sender: UIButton) {
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        guard let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
         let minMonth = 1
         let minDay = 1
         let picker = DatePicker()
