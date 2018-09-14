@@ -663,7 +663,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 extension CreateNewRUPViewController {
     func shouldShowBanner() -> Bool {
         guard let plan = self.rup else {return false}
-        return plan.getStatus() != .LocalDraft
+        // TODO: Add criteria here
+        return (plan.getStatus() != .LocalDraft && plan.getStatus() != .StaffDraft)
     }
 
     func getBannerTitle() -> String {
@@ -705,11 +706,11 @@ extension CreateNewRUPViewController {
 extension CreateNewRUPViewController {
     func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         guard let plan = self.rup else {return}
-        DataServices.shared.endAutoSyncListener()
+        AutoSync.shared.endListener()
         let vm = ViewManager()
         let schedule = vm.schedule
         schedule.setup(mode: mode, rup: plan, schedule: object, completion: { done in
-            DataServices.shared.beginAutoSyncListener()
+            AutoSync.shared.beginListener()
             completion(done)
         })
         self.present(schedule, animated: true, completion: nil)
@@ -717,11 +718,11 @@ extension CreateNewRUPViewController {
 
     func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
         guard let plan = self.rup else {return}
-        DataServices.shared.endAutoSyncListener()
+        AutoSync.shared.endListener()
         let vm = ViewManager()
         let plantCommunityDetails = vm.plantCommunity
         plantCommunityDetails.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: { done in
-            DataServices.shared.beginAutoSyncListener()
+            AutoSync.shared.beginListener()
             completion(done)
         })
         self.present(plantCommunityDetails, animated: true, completion: nil)

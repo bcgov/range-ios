@@ -38,7 +38,7 @@ class SyncView: UIView, Theme {
         guard let callBack = self.callBack else {return}
         self.removeWhiteScreen()
         closingAnimation {
-            DataServices.shared.beginAutoSyncListener()
+            AutoSync.shared.beginListener()
             self.removeFromSuperview()
             return callBack(self.succcess)
         }
@@ -46,7 +46,7 @@ class SyncView: UIView, Theme {
 
     // MARK: Setup
     func begin(in vc: UIViewController, completion: @escaping (_ success: Bool) -> Void) {
-        DataServices.shared.endAutoSyncListener()
+        AutoSync.shared.endListener()
         self.parent = vc
         self.callBack = completion
         style()

@@ -100,6 +100,8 @@
 		29400583208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */; };
 		29400584208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */; };
 		294005862092726D00AA1BDC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294005852092726D00AA1BDC /* Theme.swift */; };
+		294764E32149B786007E8576 /* AutoSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E22149B786007E8576 /* AutoSync.swift */; };
+		294764E52149BBC7007E8576 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E42149BBC7007E8576 /* Banner.swift */; };
 		294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC4FE204F3C5500F0FB04 /* RUPManager.swift */; };
 		294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294AC500204F57CC00F0FB04 /* Schedule.storyboard */; };
 		294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC502204F57E800F0FB04 /* ScheduleViewController.swift */; };
@@ -302,6 +304,8 @@
 		29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementHoldersTableViewCell.swift; sourceTree = "<group>"; };
 		29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgreementHoldersTableViewCell.xib; sourceTree = "<group>"; };
 		294005852092726D00AA1BDC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		294764E22149B786007E8576 /* AutoSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSync.swift; sourceTree = "<group>"; };
+		294764E42149BBC7007E8576 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		294AC4FE204F3C5500F0FB04 /* RUPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPManager.swift; sourceTree = "<group>"; };
 		294AC500204F57CC00F0FB04 /* Schedule.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Schedule.storyboard; sourceTree = "<group>"; };
 		294AC502204F57E800F0FB04 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -488,6 +492,7 @@
 				2901C4C42141DB4000AE72FC /* Options.swift */,
 				29FCB037205702B3006CD247 /* DateManager.swift */,
 				2935A76B21485A2500441539 /* ConstantStrings.swift */,
+				294764E42149BBC7007E8576 /* Banner.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -776,6 +781,7 @@
 		56F3889F2080173C004CDFAE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				294764E22149B786007E8576 /* AutoSync.swift */,
 				290A531D2053503A005F5019 /* APIManager.swift */,
 				56F388A420801FB4004CDFAE /* DataServices.swift */,
 				56F388A020801757004CDFAE /* AsyncBlockOperation.swift */,
@@ -1039,6 +1045,7 @@
 				2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */,
 				2905520F213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
+				294764E52149BBC7007E8576 /* Banner.swift in Sources */,
 				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,
 				29227B5520EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
@@ -1059,6 +1066,7 @@
 				294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */,
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
 				29E0D93A203F67AF00193FA0 /* PlantCommunityTableViewCell.swift in Sources */,
+				294764E32149B786007E8576 /* AutoSync.swift in Sources */,
 				2987223A2141A088009B3C89 /* TimeInterval.swift in Sources */,
 				2958AC1E20C603B7005C7900 /* MinisterIssueActionType.swift in Sources */,
 				2972381520ED3465006EBCBB /* PlantCommunityViewController.swift in Sources */,

@@ -12,6 +12,7 @@ import SwiftyJSON
 import Realm
 import RealmSwift
 import Reachability
+import Lottie
 
 class DataServices: NSObject {
     
@@ -30,114 +31,14 @@ class DataServices: NSObject {
     // auto sync vars
     var realmNotificationToken: NotificationToken?
     var isSynchronizing: Bool = false
+
+    // lock screen
+    let lockScreenTag = 204
     
     override init() {
         super.init()
         
         queue.addObserver(self, forKeyPath: "operations", options: .new, context: nil)
-    }
-
-    // TODO:
-//    func put(url: String, )
-
-    func beginAutoSyncListener() {
-        print("Listening to db changes in DataServices!")
-        do {
-            let realm = try Realm()
-            self.realmNotificationToken = realm.observe { notification, realm in
-                print("change observed in DataServices")
-                /*
-                 AutoSync will do a query of all RUPs to find outbox drafts
-                 since this get triggered even when selecting a pacture on a
-                 schedule entry of a schedule element, it's inefficient to perform that query.
-                */
-                self.autoSync()
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
-    func endAutoSyncListener() {
-        if let token = self.realmNotificationToken {
-            token.invalidate()
-            print("Stopped Listening :(")
-        }
-    }
-
-    func autoSync() {
-        guard let r = Reachability() else {return}
-
-        if r.connection == .none {
-            print("But you're offline so bye")
-            return
-        }
-
-        print("You're Online")
-//        self.showBanner(message: "testiing")
-        if self.isSynchronizing {
-            print ("but already syncing")
-            return
-        }
-
-        DispatchQueue.global(qos: .background).async {
-            self.isSynchronizing = true
-            // check outbox
-            let haveItemsInOutbox = RUPManager.shared.getOutboxRups().count > 0
-            // check updated statues
-            let shouldUpdateRemoteStatuses = RUPManager.shared.getRUPsWithUpdatedLocalStatus().count > 0
-            // check drafts
-            // TODO
-            if haveItemsInOutbox {
-                print("Upload Outbox now!")
-                self.uploadOutboxRangeUsePlans {
-                    self.showBanner(message: "uploaded outbox alerts")
-                    print("uploaded outbox alerts")
-                    if shouldUpdateRemoteStatuses {
-                        self.updateRemoteStatuses {
-                            self.showBanner(message: "updated statuses")
-                            print("updated statuses")
-                            self.isSynchronizing = false
-                        }
-                    } else {
-                        print("and no statuses to update")
-                        self.isSynchronizing = false
-                    }
-                }
-            } else if shouldUpdateRemoteStatuses {
-                print("updating statuses")
-                self.updateRemoteStatuses {
-                    self.showBanner(message: "updated statuses")
-                    print("updated statuses")
-                    self.isSynchronizing = false
-                }
-            } else {
-                self.isSynchronizing = false
-                print("Nothing to sync")
-            }
-//
-//                if RUPManager.shared.getOutboxRups().count > 0 {
-//                    print("Upload Outbox now!")
-//                    self.isSynchronizing = true
-//                    self.uploadOutboxRangeUsePlans {
-//                        print("uploaded outbox alerts")
-//                        self.isSynchronizing = false
-//                    }
-//                } else {
-//                    print("But nothing in outbox")
-//            }
-        }
-    }
-
-    func showBanner(message: String) {
-        return
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if let window = UIApplication.shared.keyWindow {
-                let banner: SyncBanner = UIView.fromNib()
-                window.addSubview(banner)
-                banner.show(message: message, x: window.frame.origin.x, y: window.frame.origin.y + 20)
-            }
-        }
     }
     
     static func plan(withLocalId localId: String) -> RUP? {
@@ -236,6 +137,24 @@ class DataServices: NSObject {
         self.updateRemoteStatuses(forPlans: plans, completion: completion)
     }
 
+
+    private func put(endpoint: URL, params: [String:Any], completion: @escaping (_ response: DataResponse<Any>? ) -> Void) {
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = HTTPMethod.put.rawValue
+        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        if let creds = APIManager.authServices.credentials {
+            let token = creds.accessToken
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+        request.httpBody = data
+
+        Alamofire.request(request).responseJSON { response in
+            return completion(response)
+        }
+    }
+
     private func upload(plans: [RUP], completion: @escaping () -> Void) {
 
         let group = DispatchGroup()
@@ -254,6 +173,7 @@ class DataServices: NSObject {
 
             APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
                 guard let response = response, error == nil else {
+                    Banner.shared.showBanner(message: "Error while uploading a plan")
                     group.leave()
                     return
                 }
@@ -267,23 +187,39 @@ class DataServices: NSObject {
                 // Were on a new thread now !
                 if let realm = try? Realm() {
                     do {
-                        try realm.write {
-                            myPlanAgain.remoteId = response["id"] as! Int
+                        if let remoteId = response["id"] as? Int {
+                            try realm.write {
+                                myPlanAgain.remoteId = remoteId
+                            }
                         }
                     } catch {
                         fatalError() // just for now.
                     }
-                        self.uploadPastures(forPlan: myPlanAgain, completion: {
-                            self.uploadSchedules(forPlan: myPlanAgain, completion: {
-                                self.uploadMinistersIssues(forPlan: myPlanAgain, completion: {
-                                    // set plan uploaded boolean flag to true because last element was sent
-                                    APIManager.completeUpload(plan: myPlanAgain, toAgreement: agreementId, completion: { (response, error) in
+                    self.uploadPastures(forPlan: myPlanAgain, completion: {
+                        self.uploadSchedules(forPlan: myPlanAgain, completion: {
+                            self.uploadMinistersIssues(forPlan: myPlanAgain, completion: {
+                                // set plan uploaded boolean flag to true because last element was sent
+                                APIManager.completeUpload(plan: myPlanAgain, toAgreement: agreementId, completion: { (response, error) in
+                                    // shouldnt be necessary to check since only uploadOutbox and uploadDrafts calls this function, but to make sure...
+                                    if myPlanAgain.statusEnum == .LocalDraft || myPlanAgain.statusEnum == .Outbox {
+                                        // get plan and re-store
+                                        self.refetch(plan: myPlanAgain, completion: {success in
+                                            if success {
+                                                 group.leave()
+                                            } else {
+                                                self.completeUpload(plan: myPlanAgain)
+                                                group.leave()
+                                            }
+                                        })
+                                    } else {
+                                        // TODO: remove complete upload
                                         self.completeUpload(plan: myPlanAgain)
                                         group.leave()
-                                    })
+                                    }
                                 })
                             })
                         })
+                    })
                 }
 
             })
@@ -292,6 +228,41 @@ class DataServices: NSObject {
         group.notify(queue: .main) {
             return completion()
         }
+    }
+
+    private func refetch(plan: RUP, completion: @escaping (_ success: Bool) -> Void) {
+        APIManager.getPlan(forPlan: plan, completion: { (response) in
+            if response.result.description == "SUCCESS", let value = response.result.value {
+                let planJSON = JSON(value)
+                let newPlan = RUP()
+
+                // get associated agreement
+                if let agreement = RUPManager.shared.getAgreement(with: plan.agreementId), let planRemoteId = planJSON["id"].int, let existing = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
+                    // delete existing plan.
+                    RealmRequests.deleteObject(existing)
+                    // store the new one
+                    newPlan.populateFrom(json: planJSON)
+                    newPlan.setFrom(agreement: agreement)
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            agreement.rups.append(newPlan)
+                        }
+                    } catch _ {
+                        fatalError()
+                    }
+                    RealmRequests.saveObject(object: newPlan)
+                    return completion(true)
+                } else {
+                    Banner.shared.showBanner(message: "ERROR while re-fetching a plan")
+                    return completion(false)
+                }
+                
+            } else {
+                Banner.shared.showBanner(message: "ERROR while re-fetching a plan")
+                return completion(false)
+            }
+        })
     }
 
     private func completeUpload(plan: RUP) {
@@ -306,7 +277,17 @@ class DataServices: NSObject {
                 fatalError()
             }
         }
-//        group.leave()
+
+        if plan.statusEnum == .LocalDraft {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    plan.statusEnum = .StaffDraft
+                }
+            } catch _ {
+                fatalError()
+            }
+        }
     }
     
     private func uploadPlans(forAgreement agreement: Agreement, completion: @escaping () -> Void) {
@@ -327,7 +308,9 @@ class DataServices: NSObject {
             
             APIManager.add(plan: myPlan, toAgreement: agreementId, completion: { (response, error) in
                 guard let response = response, error == nil else {
-                    fatalError()
+                    Banner.shared.showBanner(message: "ERROR while uploading a plan")
+                    group.leave()
+                    return
                 }
                 
                 // Were on a new thread now !
@@ -349,7 +332,7 @@ class DataServices: NSObject {
                                         fatalError()
                                     }
                                 }
-                                 group.leave()
+                                group.leave()
                             })
                         })
                     } catch {
@@ -380,7 +363,9 @@ class DataServices: NSObject {
 
             APIManager.add(issue: myIssue, toPlan: planId) { (response, error) in
                 guard let response = response, error == nil else {
-                    fatalError()
+                    Banner.shared.showBanner(message: "ERROR while uploading a ministers issue")
+                    group.leave()
+                    return
                 }
 
                 // Were on a new thread now !
@@ -422,7 +407,9 @@ class DataServices: NSObject {
 
             APIManager.add(action: myAction, toIssue: issueId, inPlan: planId) { (response, error) in
                 guard let response = response, error == nil else {
-                    fatalError()
+                    Banner.shared.showBanner(message: "ERROR while uploading a ministers action")
+                    group.leave()
+                    return
                 }
 
                 // Were on a new thread now !
@@ -461,7 +448,9 @@ class DataServices: NSObject {
             
             APIManager.add(pasture: myPasture, toPlan: planId, completion: { (response, error) in
                 guard let response = response, error == nil else {
-                    fatalError()
+                    Banner.shared.showBanner(message: "ERROR while uploading a pasture")
+                    group.leave()
+                    return
                 }
                 
                 // Were on a new thread now !
@@ -501,8 +490,7 @@ class DataServices: NSObject {
 
             APIManager.add(schedule: mySchedule, toPlan: planId) { (response, error) in
                 guard let response = response, error == nil else {
-                    self.showBanner(message: "ERROR while uploading schedule")
-                    print(error)
+                    Banner.shared.showBanner(message: "ERROR while uploading a schedule")
                     group.leave()
                     return
                 }
@@ -546,7 +534,9 @@ class DataServices: NSObject {
                         }
 
                     } catch _ {
-                        fatalError()
+                        Banner.shared.showBanner(message: "ERROR while updating a plan status")
+                        group.leave()
+                        return
                     }
                 }
                 group.leave()
@@ -572,16 +562,18 @@ class DataServices: NSObject {
                 if response.result.description == "SUCCESS", let value = response.result.value {
                     let json = JSON(value)
                     guard let id = json["plan"]["statusId"].int else {
+                        Banner.shared.showBanner(message: "ERROR while getting an updated plan status.")
                         group.leave()
-//                        group.notify(queue: .main) {
-//                            return completion()
-//                        }
                         return
                     }
                     if let refetchPlanObject = DataServices.plan(withLocalId: planId) {
                         refetchPlanObject.updateStatusId(newID: id)
                         group.leave()
                     }
+                } else {
+                    Banner.shared.showBanner(message: "ERROR while getting an updated plan status.")
+                    group.leave()
+                    return
                 }
             }
         }

@@ -302,9 +302,6 @@ extension MapTableViewCell: CLLocationManagerDelegate {
     func initLocation() {
         locationManager.delegate = self
 
-        // For use when the app is open & in the background
-        locationManager.requestAlwaysAuthorization()
-
         // For use when the app is open
         locationManager.requestWhenInUseAuthorization()
 
@@ -334,7 +331,7 @@ extension MapTableViewCell: CLLocationManagerDelegate {
     // Show the popup to the user if we have been deined access
     func showLocationDisabledPopUp() {
         let alertController = UIAlertController(title: "Location Access Disabled",
-                                                message: "In order to provide wildfire risk rating, we need access to your location",
+                                                message: "In order to autofill your coordinates, we need access to your location",
                                                 preferredStyle: .alert)
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

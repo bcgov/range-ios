@@ -59,7 +59,8 @@ class APIManager {
         switch response.result {
         case .success(let value):
             if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
-                let err = APIError.somethingHappened(message: "\(String(describing: json["error"] as? String))")
+                let err = APIError.somethingHappened(message: "Failed while processing server response")
+//                let err = APIError.somethingHappened(message: "\(String(describing: json["error"] as? String))")
                 print("Request Failed, error = \(err.localizedDescription)")
                 completion(nil, err)
             }
@@ -484,12 +485,16 @@ class APIManager {
             if response.result.description == "SUCCESS" {
                 let json = JSON(response.result.value!)
                 if let error = json["error"].string {
-                    let err = APIError.somethingHappened(message: "\(String(describing: error))")
+//                    let err = APIError.somethingHappened(message: "\(String(describing: error))")
+                    let err = APIError.somethingHappened(message: "Failed while donwloading agreements")
+
                     return completion(nil, err)
                 }
+
                 progress("Processing Agreements")
                 DispatchQueue.global(qos: .background).async {
                     deleteAllStoredAgreements()
+                    progress("Storing downloaded Agreements")
                     for (_,agreementJSON) in json {
                         agreements.append(Agreement(json: agreementJSON))
                     }
@@ -509,6 +514,7 @@ class APIManager {
             }
 
             for rup in element.rups {
+                // DO NOT remove local drafts: may have been not valid for upload
                 if rup.getStatus() != .LocalDraft {
                     RealmRequests.deleteObject(rup)
                 }
@@ -529,6 +535,7 @@ class APIManager {
 
 extension APIManager {
 
+    /*
     static func sync2(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
         print("called Sync 2")
         guard let r = Reachability(), r.connection != .none else {
@@ -658,7 +665,7 @@ extension APIManager {
                 completion(myError)
             }
         }
-    }
+    }*/
 
     static func sync(completion: @escaping (_ error: APIError?) -> Void, progress: @escaping (_ text: String) -> Void) {
 //        sync2(completion: completion, progress: progress)
@@ -669,33 +676,33 @@ extension APIManager {
             return
         }
 
-        DataServices.shared.endAutoSyncListener()
+        AutoSync.shared.endListener()
         
         var myError: APIError? = nil
         let dispatchGroup = DispatchGroup()
 
         dispatchGroup.enter()
+        progress("Updating plan statuses")
         DataServices.shared.updateRemoteStatuses {
-            progress("Uploading outbox plans")
             dispatchGroup.leave()
         }
 
         dispatchGroup.enter()
+        progress("Uploading outbox plans")
         DataServices.shared.uploadOutboxRangeUsePlans {
-            progress("Downloading Reference Data")
             dispatchGroup.leave()
         }
 
 
         dispatchGroup.enter()
+        progress("Uploading local drafts")
         DataServices.shared.uploadLocalDrafts {
-            progress("Uploading local drafts")
             dispatchGroup.leave()
         }
 
         dispatchGroup.enter()
+        progress("Downloading Reference Data")
         getReferenceData(completion: { (success) in
-            progress("Downloading agreements")
             if (!success) {
                 progress("Failed while downloading reference data")
                 dispatchGroup.leave()
@@ -708,8 +715,8 @@ extension APIManager {
 
 
         dispatchGroup.enter()
+        progress("Downloading agreements")
         getAgreements(completion: { (agreements, error) in
-            progress("Updating plans")
             if let error = error {
                 progress("Sync Failed. \(error.localizedDescription)")
                 myError = error
@@ -727,12 +734,11 @@ extension APIManager {
             dispatchGroup.leave()
         }
 
-
         dispatchGroup.notify(queue: .main) {
-            progress("Updating local data")
+//            progress("Updating local data")
             RUPManager.shared.fixUnlinkedPlans()
             RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
-            DataServices.shared.beginAutoSyncListener()
+            AutoSync.shared.beginListener()
             completion(myError)
         }
     }

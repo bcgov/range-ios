@@ -354,7 +354,7 @@
                 <outlet property="typeField" destination="bho-05-c3K" id="rty-6W-2Uv"/>
                 <outlet property="typeHeader" destination="yvC-Ik-bI4" id="OIf-zD-qHc"/>
             </connections>
-            <point key="canvasLocation" x="78" y="70"/>
+            <point key="canvasLocation" x="-363" y="33"/>
         </tableViewCell>
     </objects>
     <resources>

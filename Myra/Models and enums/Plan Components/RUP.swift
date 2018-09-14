@@ -90,6 +90,11 @@ class RUP: Object, MyraObject {
             return self.statusEnum
         }
 
+        // if it's an outbox
+        if self.statusEnum == .Outbox {
+            return self.statusEnum
+        }
+
         // if there is a remote status, use it
         if let temp = Reference.shared.getStatus(forId: statusId) {
             var statusName = temp.name.trimmingCharacters(in: .whitespaces)
@@ -104,6 +109,10 @@ class RUP: Object, MyraObject {
         } else {
             return self.statusEnum
         }
+    }
+
+    func canBeUploadedAsDraft() -> Bool {
+        return (self.getStatus() == .LocalDraft && self.rangeName.count > 0 && self.planStartDate != nil && self.planEndDate != nil)
     }
     
     func setFrom(agreement: Agreement) {
