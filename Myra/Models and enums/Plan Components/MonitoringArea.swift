@@ -79,4 +79,8 @@ class MonitoringArea: Object, MyraObject {
 
         return new
     }
+
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
+    }
 }

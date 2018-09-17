@@ -12,7 +12,8 @@ import UIKit
 class Banner {
     static let shared = Banner()
     private init() {}
-    func showBanner(message: String) {
+    func show(message: String) {
+        if message.isEmpty {return}
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             if let window = UIApplication.shared.keyWindow {
                 let banner: SyncBanner = UIView.fromNib()

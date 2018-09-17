@@ -22,7 +22,6 @@
 		2905521621346AAE00785B5E /* Amendment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905521521346AAE00785B5E /* Amendment.swift */; };
 		290552192134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290552172134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift */; };
 		2905521A2134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 290552182134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib */; };
-		290A531E2053503A005F5019 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290A531D2053503A005F5019 /* APIManager.swift */; };
 		290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290E153B2048C9FE00A51884 /* BaseFormCell.swift */; };
 		290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290FF88520635F1F00C7DAC0 /* SyncDate.swift */; };
 		29174683207426E2005F70B4 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29174682207426E2005F70B4 /* Home.storyboard */; };
@@ -87,6 +86,7 @@
 		2933183B20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */; };
 		2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933183E20FE60390070A6A9 /* IndicatorPlant.swift */; };
 		2933184120FE63590070A6A9 /* IndicatorPlantSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */; };
+		29334F9A214C2F2100EE97F9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29334F99214C2F2100EE97F9 /* API.swift */; };
 		2935A7682148399500441539 /* Tooltip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2935A7672148399500441539 /* Tooltip.storyboard */; };
 		2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76921484A1900441539 /* TooltipViewController.swift */; };
 		2935A76C21485A2500441539 /* ConstantStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76B21485A2500441539 /* ConstantStrings.swift */; };
@@ -206,7 +206,6 @@
 		56873E31207E6D6600C530CA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56873E30207E6D6600C530CA /* DateExtensions.swift */; };
 		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
 		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
-		56F388A520801FB4004CDFAE /* DataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A420801FB4004CDFAE /* DataServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -224,7 +223,6 @@
 		2905521521346AAE00785B5E /* Amendment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amendment.swift; sourceTree = "<group>"; };
 		290552172134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentPageFinalCollectionViewCell.swift; sourceTree = "<group>"; };
 		290552182134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmendmentPageFinalCollectionViewCell.xib; sourceTree = "<group>"; };
-		290A531D2053503A005F5019 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		290E153B2048C9FE00A51884 /* BaseFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFormCell.swift; sourceTree = "<group>"; };
 		290FF88520635F1F00C7DAC0 /* SyncDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDate.swift; sourceTree = "<group>"; };
 		29174682207426E2005F70B4 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
@@ -289,6 +287,7 @@
 		2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitoringAreaCustomDetailTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
 		2933183E20FE60390070A6A9 /* IndicatorPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPlant.swift; sourceTree = "<group>"; };
 		2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPlantSection.swift; sourceTree = "<group>"; };
+		29334F99214C2F2100EE97F9 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		2935A7672148399500441539 /* Tooltip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tooltip.storyboard; sourceTree = "<group>"; };
 		2935A76921484A1900441539 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
 		2935A76B21485A2500441539 /* ConstantStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantStrings.swift; sourceTree = "<group>"; };
@@ -410,7 +409,6 @@
 		56873E30207E6D6600C530CA /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		56F388A020801757004CDFAE /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
 		56F388A220801763004CDFAE /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
-		56F388A420801FB4004CDFAE /* DataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
 		9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.release.xcconfig"; sourceTree = "<group>"; };
 		AC1A12ECD6EA7B0AF9754FFC /* Pods-Myra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.debug.xcconfig"; sourceTree = "<group>"; };
 		FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Myra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -782,10 +780,9 @@
 			isa = PBXGroup;
 			children = (
 				294764E22149B786007E8576 /* AutoSync.swift */,
-				290A531D2053503A005F5019 /* APIManager.swift */,
-				56F388A420801FB4004CDFAE /* DataServices.swift */,
 				56F388A020801757004CDFAE /* AsyncBlockOperation.swift */,
 				56F388A220801763004CDFAE /* ConcurrentOperation.swift */,
+				29334F99214C2F2100EE97F9 /* API.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1041,7 +1038,6 @@
 				29FCB038205702B3006CD247 /* DateManager.swift in Sources */,
 				29234B0A2138591300F547AC /* UIApplication.swift in Sources */,
 				29227B5B20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */,
-				56F388A520801FB4004CDFAE /* DataServices.swift in Sources */,
 				2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */,
 				2905520F213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
@@ -1079,7 +1075,6 @@
 				292197D0209CD037004A5011 /* OptionsViewController.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
 				299491F320B628F6005FCF94 /* MinisterIssueTableViewCell.swift in Sources */,
-				290A531E2053503A005F5019 /* APIManager.swift in Sources */,
 				2905521621346AAE00785B5E /* Amendment.swift in Sources */,
 				29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */,
 				292A1D8221432E670086E1AD /* SyncView.swift in Sources */,
@@ -1132,6 +1127,7 @@
 				292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */,
 				29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */,
 				29227B5820EE95A50042B88E /* MonitoringArea.swift in Sources */,
+				29334F9A214C2F2100EE97F9 /* API.swift in Sources */,
 				2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

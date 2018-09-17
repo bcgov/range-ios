@@ -121,6 +121,17 @@ class MinisterIssue: Object, MyraObject {
             "issueTypeId": self.issueTypeID,
         ]
     }
+    
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.remoteId = id
+            }
+        } catch {
+            fatalError()
+        }
+    }
 
     func getPastureIds() -> [Int] {
         var pastureIds: [Int] = [Int]()

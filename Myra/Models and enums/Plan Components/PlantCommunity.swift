@@ -11,7 +11,6 @@ import Realm
 import RealmSwift
 
 class PlantCommunity: Object, MyraObject {
-
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
@@ -68,5 +67,9 @@ class PlantCommunity: Object, MyraObject {
         }
 
         return new
+    }
+    
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
     }
 }

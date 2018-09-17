@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import SwiftyJSON
 
 class Reference {
     static let shared = Reference()
@@ -312,6 +313,206 @@ class Reference {
             fatalError()
         }
         return nil
+    }
+
+
+    // MARK: Handling reference JSON
+
+    func handleReference(json: JSON) -> [Object] {
+        var referenceObjects = [Object]()
+        referenceObjects.append(contentsOf: handleLiveStockType(json: json["LIVESTOCK_TYPE"]))
+        referenceObjects.append(contentsOf: handleAgreementType(json: json["AGREEMENT_TYPE"]))
+        referenceObjects.append(contentsOf: handleAgreementStatus(json: json["AGREEMENT_STATUS"]))
+        referenceObjects.append(contentsOf: handleLivestockIdentifierType(json: json["LIVESTOCK_IDENTIFIER_TYPE"]))
+        referenceObjects.append(contentsOf: handleClientType(json: json["CLIENT_TYPE"]))
+        referenceObjects.append(contentsOf: handlePlanStatus(json: json["PLAN_STATUS"]))
+        referenceObjects.append(contentsOf: handleAgreementExeptionStatus(json: json["AGREEMENT_EXEMPTION_STATUS"]))
+        referenceObjects.append(contentsOf: handleMinisterIssueType(json: json["MINISTER_ISSUE_TYPE"]))
+        referenceObjects.append(contentsOf: handleMinisterIssueActionType(json: json["MINISTER_ISSUE_ACTION_TYPE"]))
+        referenceObjects.append(contentsOf: handleAmendmentType(json: json["AMENDMENT_TYPE"]))
+        return referenceObjects
+    }
+
+    func handleLivestockIdentifierType(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = LivestockIdentifierType()
+            if let desc = item["description"].string {
+                obj.desc = desc
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handleClientType(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = ClientType()
+            if let desc = item["description"].string {
+                obj.desc = desc
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let code = item["code"].string {
+                obj.code = code
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handlePlanStatus(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = PlanStatus()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let code = item["code"].string {
+                obj.code = code
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handleAgreementExeptionStatus(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = AgreementExemptionStatus()
+            if let desc = item["description"].string {
+                obj.desc = desc
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let code = item["code"].string {
+                obj.code = code
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handleLiveStockType(json: JSON) -> [Object] {
+        var result = [LiveStockType]()
+        for (_,item) in json {
+            let obj = LiveStockType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let auFactor = item["auFactor"].double {
+                obj.auFactor = auFactor
+            }
+            result.append(obj)
+        }
+
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
+    func handleMinisterIssueType(json: JSON) -> [Object] {
+        var result = [MinisterIssueType]()
+        for (_,item) in json {
+            let obj = MinisterIssueType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
+    func handleAmendmentType(json: JSON) -> [Object] {
+        var result = [AmendmentType]()
+        for (_,item) in json {
+            let obj = AmendmentType()
+            if let name = item["description"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
+    func handleMinisterIssueActionType(json: JSON) -> [Object] {
+        var result = [MinisterIssueActionType]()
+        for (_,item) in json {
+            let obj = MinisterIssueActionType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        // sort
+        return result.sorted(by: { $0.id < $1.id })
+    }
+
+    func handleAgreementStatus(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = AgreementStatus()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let code = item["code"].string {
+                obj.code = code
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handleAgreementType(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = AgreementType()
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let desc = item["description"].string {
+                obj.desc = desc
+            }
+            if let code = item["auFactor"].string {
+                obj.code = code
+            }
+            result.append(obj)
+        }
+        return result
     }
 
 }

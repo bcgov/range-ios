@@ -84,6 +84,99 @@ class RUP: Object, MyraObject {
     var zones = List<Zone>()
     var clients = List<Client>()
 
+    func populateFrom(json: JSON) {
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let effectiveDate = json["effectiveAt"].string {
+            self.effectiveDate = DateManager.fromUTC(string: effectiveDate)
+        }
+
+        if let submitted = json["submittedAt"].string {
+            self.submitted = DateManager.fromUTC(string: submitted)
+        }
+
+        if let rangeName = json["rangeName"].string {
+            self.rangeName = rangeName
+        }
+
+        if let amedmentType = json["amendmentTypeId"].int {
+            self.amendmentTypeId = amedmentType
+        }
+
+        if let planStart = json["planStartDate"].string {
+            self.planStartDate = DateManager.fromUTC(string: planStart)
+        }
+
+        if let planEndDate = json["planEndDate"].string {
+            self.planEndDate = DateManager.fromUTC(string: planEndDate)
+        }
+
+        if let planEndDate = json["createdAt"].string {
+            self.remotelyCreatedAt = DateManager.fromUTC(string: planEndDate)
+        }
+
+        if let rangeName = json["rangeName"].string {
+            self.rangeName = rangeName
+        }
+
+
+        if let altName = json["altBusinessName"].string {
+            self.alternativeName = altName
+        }
+
+        if let statusId = json["statusId"].int, let statusObject = Reference.shared.getStatus(forId: statusId) {
+            // set remote status
+            self.statusId = statusId
+            self.statusIdValue = statusObject.name
+            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces).removeWhitespace()
+            let newTry = statusName.replacingOccurrences(of: "-", with: "")
+            // set local status
+            if let result = RUPStatus(rawValue: newTry) {
+                self.statusEnum = result
+            } else {
+                print(newTry)
+                self.statusEnum = .Unknown
+            }
+        }
+
+        let pastures = json["pastures"]
+        for pasture in pastures {
+            self.pastures.append(Pasture(json: pasture.1))
+        }
+
+        let issues = json["ministerIssues"]
+        for issue in issues {
+            self.ministerIssues.append(MinisterIssue(json: issue.1, plan: self))
+        }
+
+        let grazingSchedules = json["grazingSchedules"]
+        for element in grazingSchedules {
+            self.schedules.append(Schedule(json: element.1, plan: self))
+        }
+        //        RealmRequests.saveObject(object: self)
+    }
+
+    func setFrom(agreement: Agreement) {
+        self.agreementId = agreement.agreementId
+        self.agreementStartDate = agreement.agreementStartDate
+        self.agreementEndDate = agreement.agreementEndDate
+        self.typeId = agreement.typeId
+        for c in agreement.clients {
+            self.clients.append(c)
+        }
+        for z in agreement.zones {
+            self.zones.append(z)
+        }
+        for y in agreement.rangeUsageYears {
+            self.rangeUsageYears.append(y)
+        }
+
+        let splitRan = agreementId.split(separator: "N")
+        self.ranNumber = Int(splitRan[1]) ?? 0
+    }
+
     func getStatus() -> RUPStatus {
         // if it's a local draft
         if self.statusEnum == .LocalDraft {
@@ -113,25 +206,6 @@ class RUP: Object, MyraObject {
 
     func canBeUploadedAsDraft() -> Bool {
         return (self.getStatus() == .LocalDraft && self.rangeName.count > 0 && self.planStartDate != nil && self.planEndDate != nil)
-    }
-    
-    func setFrom(agreement: Agreement) {
-        self.agreementId = agreement.agreementId
-        self.agreementStartDate = agreement.agreementStartDate
-        self.agreementEndDate = agreement.agreementEndDate
-        self.typeId = agreement.typeId
-        for c in agreement.clients {
-            self.clients.append(c)
-        }
-        for z in agreement.zones {
-            self.zones.append(z)
-        }
-        for y in agreement.rangeUsageYears {
-            self.rangeUsageYears.append(y)
-        }
-
-        let splitRan = agreementId.split(separator: "N")
-        self.ranNumber = Int(splitRan[1]) ?? 0
     }
 
     func updateStatusId(newID: Int) {
@@ -249,6 +323,28 @@ class RUP: Object, MyraObject {
         return nil
     }
 
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setShouldUpdateRemoteStatus(should: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                shouldUpdateRemoteStatus = should
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func toDictionary() -> [String:Any] {
         // if invalid, return empty dictionary
         if !isValid {
@@ -272,79 +368,5 @@ class RUP: Object, MyraObject {
             "altBusinessName": alternativeName,
             "statusId": currStatusId
         ]
-    }
-
-    func populateFrom(json: JSON) {
-        if let id = json["id"].int {
-            self.remoteId = id
-        }
-
-        if let effectiveDate = json["effectiveAt"].string {
-            self.effectiveDate = DateManager.fromUTC(string: effectiveDate)
-        }
-
-        if let submitted = json["submittedAt"].string {
-            self.submitted = DateManager.fromUTC(string: submitted)
-        }
-
-        if let rangeName = json["rangeName"].string {
-            self.rangeName = rangeName
-        }
-
-        if let amedmentType = json["amendmentTypeId"].int {
-            self.amendmentTypeId = amedmentType
-        }
-
-        if let planStart = json["planStartDate"].string {
-            self.planStartDate = DateManager.fromUTC(string: planStart)
-        }
-
-        if let planEndDate = json["planEndDate"].string {
-            self.planEndDate = DateManager.fromUTC(string: planEndDate)
-        }
-
-        if let planEndDate = json["createdAt"].string {
-            self.remotelyCreatedAt = DateManager.fromUTC(string: planEndDate)
-        }
-
-        if let rangeName = json["rangeName"].string {
-            self.rangeName = rangeName
-        }
-        
-
-        if let altName = json["altBusinessName"].string {
-            self.alternativeName = altName
-        }
-        
-        if let statusId = json["statusId"].int, let statusObject = Reference.shared.getStatus(forId: statusId) {
-            // set remote status
-            self.statusId = statusId
-            self.statusIdValue = statusObject.name
-            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces).removeWhitespace()
-            let newTry = statusName.replacingOccurrences(of: "-", with: "")
-            // set local status
-            if let result = RUPStatus(rawValue: newTry) {
-                self.statusEnum = result
-            } else {
-                print(newTry)
-                self.statusEnum = .Unknown
-            }
-        }
-
-        let pastures = json["pastures"]
-        for pasture in pastures {
-            self.pastures.append(Pasture(json: pasture.1))
-        }
-
-        let issues = json["ministerIssues"]
-        for issue in issues {
-            self.ministerIssues.append(MinisterIssue(json: issue.1, plan: self))
-        }
-
-        let grazingSchedules = json["grazingSchedules"]
-        for element in grazingSchedules {
-            self.schedules.append(Schedule(json: element.1, plan: self))
-        }
-//        RealmRequests.saveObject(object: self)
     }
 }

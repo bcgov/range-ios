@@ -42,6 +42,17 @@ class Schedule: Object, MyraObject {
         return schedule
     }
 
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.remoteId = id
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
     func toDictionary()  -> [String:Any] {
         let schedule: [String: Any] = [
             "year": year,
@@ -56,9 +67,7 @@ class Schedule: Object, MyraObject {
     func getEntriesDictionary() -> [[String: Any]]{
         var r = [[String: Any]]()
         for obj in scheduleObjects {
-            if let json = obj.toDictionary() {
-                r.append(json)
-            }
+            r.append(obj.toDictionary())
         }
         return r
     }

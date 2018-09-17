@@ -44,4 +44,8 @@ class PastureAction: Object, MyraObject {
         new.noGrazeOutMonth = self.noGrazeOutMonth
         return new
     }
+
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
+    }
 }

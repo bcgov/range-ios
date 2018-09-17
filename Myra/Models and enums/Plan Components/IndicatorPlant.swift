@@ -90,4 +90,8 @@ class IndicatorPlant: Object, MyraObject {
         new.type = self.type
         return new
     }
+
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
+    }
 }

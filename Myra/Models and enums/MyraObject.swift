@@ -11,4 +11,6 @@ import Foundation
 protocol MyraObject {
     var localId: String { get set }
     var remoteId: Int { get set }
+
+    func toDictionary() -> [String:Any]
 }

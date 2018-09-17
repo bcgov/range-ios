@@ -102,7 +102,7 @@ class ScheduleObject: Object, MyraObject {
         return entry
     }
 
-    func toDictionary() -> [String : Any]? {
+    func toDictionary() -> [String : Any] {
         if let pastureID = pasture?.remoteId, liveStockTypeId != -1, let inDate = dateIn, let outDate = dateOut {
             let schedule: [String: Any] = [
                 "dateIn": DateManager.toUTC(date: inDate),
@@ -114,7 +114,7 @@ class ScheduleObject: Object, MyraObject {
             ]
             return schedule
         } else {
-            return nil
+            return [String:Any]()
         }
     }
 
@@ -222,6 +222,5 @@ class ScheduleObject: Object, MyraObject {
             fatalError()
         }
     }
-
 }
 

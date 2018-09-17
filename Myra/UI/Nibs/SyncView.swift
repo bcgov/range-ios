@@ -53,6 +53,17 @@ class SyncView: UIView, Theme {
         self.alpha = invisibleAlpha
         position(then: {
             self.styleSyncInProgress()
+            API.sync(completion: { (successful) in
+                self.succcess = successful
+                if successful {
+                    self.styleSyncSuccess()
+                } else {
+                    self.styleSyncFail(error: "An error has occurred")
+                }
+            }, progress: { (progress) in
+                self.updateSyncDescription(text: progress)
+            })
+            /*
             APIManager.sync(completion: { (error: APIError?) in
                 if let error = error {
                     self.styleSyncFail(error: "\(error.localizedDescription)")
@@ -63,7 +74,7 @@ class SyncView: UIView, Theme {
                 }
             }) { (progress) in
                 self.updateSyncDescription(text: progress)
-            }
+            }*/
         })
     }
 

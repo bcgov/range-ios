@@ -288,7 +288,6 @@ extension MapTableViewCell {
 
     func setupTileRenderer() {
         let overlay = OpenMapOverlay()
-
         overlay.canReplaceMapContent = true
         mapView.add(overlay, level: .aboveLabels)
         tileRenderer = MKTileOverlayRenderer(tileOverlay: overlay)

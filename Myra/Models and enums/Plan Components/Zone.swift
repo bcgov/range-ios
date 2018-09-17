@@ -73,4 +73,8 @@ class Zone: Object, MyraObject {
         
         self.districts.append(District(json: json["district"]))
     }
+
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
+    }
 }

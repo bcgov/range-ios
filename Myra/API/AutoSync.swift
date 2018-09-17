@@ -84,31 +84,52 @@ class AutoSync {
 
             if self.shouldUploadOutbox() {
                 dispatchGroup.enter()
-                DataServices.shared.uploadOutboxRangeUsePlans {
-                    syncedItems.append(.Outbox)
-                    dispatchGroup.leave()
-                }
+                let outboxPlans = RUPManager.shared.getOutboxRups()
+                API.upload(plans: outboxPlans, completion: { (success) in
+                    if success {
+                        syncedItems.append(.Outbox)
+                        dispatchGroup.leave()
+                    }
+                })
+//                DataServices.shared.uploadOutboxRangeUsePlans {
+//                    syncedItems.append(.Outbox)
+//                    dispatchGroup.leave()
+//                }
             }
 
             if self.shouldUpdateRemoteStatuses() {
                 dispatchGroup.enter()
-                DataServices.shared.updateRemoteStatuses {
-                    syncedItems.append(.Statuses)
-                    dispatchGroup.leave()
-                }
+                let updatedPlans = RUPManager.shared.getRUPsWithUpdatedLocalStatus()
+                API.upload(statusesFor: updatedPlans, completion: { (success) in
+                    if success {
+                        syncedItems.append(.Statuses)
+                        dispatchGroup.leave()
+                    }
+                })
+//                DataServices.shared.updateRemoteStatuses {
+//                    syncedItems.append(.Statuses)
+//                    dispatchGroup.leave()
+//                }
             }
 
             if self.shouldUploadDrafts() {
                 dispatchGroup.enter()
-                DataServices.shared.uploadLocalDrafts {
-                    syncedItems.append(.Drafts)
-                    dispatchGroup.leave()
-                }
+                let draftPlans = RUPManager.shared.getDraftRups()
+                API.upload(plans: draftPlans, completion: { (success) in
+                    if success {
+                        syncedItems.append(.Drafts)
+                        dispatchGroup.leave()
+                    }
+                })
+//                DataServices.shared.uploadLocalDrafts {
+//                    syncedItems.append(.Drafts)
+//                    dispatchGroup.leave()
+//                }
             }
 
             // End
             dispatchGroup.notify(queue: .main) {
-                Banner.shared.showBanner(message: self.generateSyncMessage(elements: syncedItems))
+                Banner.shared.show(message: self.generateSyncMessage(elements: syncedItems))
                 self.isSynchronizing = false
                 self.removeSyncLock()
             }
@@ -129,7 +150,11 @@ class AutoSync {
         // if we only had 2 elements, replace the comma with and
         body = body.replacingLastOccurrenceOfString(",", with: " and")
 
-        return "AutoSynced \(body)"
+        if body.isEmpty {
+            return ""
+        } else {
+            return "AutoSynced \(body)"
+        }
     }
 
     func shouldUploadDrafts() -> Bool {
