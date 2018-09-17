@@ -120,11 +120,11 @@ class HomeViewController: BaseViewController {
     @IBAction func filterAction(_ sender: UIButton) {
         switch sender {
         case allFilter:
-             filterByAll()
+            filterByAll()
         case draftsFilter:
             filterByDrafts()
         case pendingFilter:
-             filterByPending()
+            filterByPending()
         case completedFilter:
             filterByCompleted()
         default:
@@ -246,21 +246,22 @@ class HomeViewController: BaseViewController {
         RUPManager.shared.fixUnlinkedPlans()
         self.rups = [RUP]()
         self.tableView.reloadData()
-            /*
-             Clean up the local DB by removing plans that were created
-             from agreements but cancelled.
-             */
-            RUPManager.shared.cleanPlans()
-            let rups = RUPManager.shared.getRUPs()
-            print(rups.count)
-            let agreements = RUPManager.shared.getAgreements()
-            for agreement in agreements where agreement.rups.count > 0 {
-                if let p = agreement.getLatestPlan() {
-                    self.rups.append(p)
-                }
+        /*
+         Clean up the local DB by removing plans that were created
+         from agreements but cancelled.
+         */
+        RUPManager.shared.cleanPlans()
+        let rups = RUPManager.shared.getRUPs()
+        print(rups.count)
+        let agreements = RUPManager.shared.getAgreements()
+        for agreement in agreements where agreement.rups.count > 0 {
+            if let p = agreement.getLatestPlan() {
+                self.rups.append(p)
             }
+        }
         self.expandIndexPath = nil
-            self.tableView.reloadData()
+        self.tableView.reloadData()
+        AutoSync.shared.autoSync()
     }
 
     // MARK: Styles
@@ -393,7 +394,7 @@ class HomeViewController: BaseViewController {
     }
 
     override func onAuthenticationSuccess() {
-//        print(APIManager.headers())
+        //        print(APIManager.headers())
         if unstableConnection {
             syncButtonLabel.text = "Connections is not stable for enough for a full sync"
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
@@ -504,7 +505,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             } else {
                 // PRE ios 11
-               self.tableView.reloadData()
+                self.tableView.reloadData()
                 // if indexpath is the last visible, scroll to bottom of it
                 if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
                     self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -523,7 +524,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                     self.tableView.reloadData()
                 }
             } else {
-                 self.expandIndexPath = nil
+                self.expandIndexPath = nil
                 self.tableView.reloadData()
             }
             self.tableView.isScrollEnabled = true
@@ -601,7 +602,7 @@ extension HomeViewController {
             syncButton.isEnabled = true
             self.connectivityLabel.text = "Online Mode"
             self.connectivityLight.backgroundColor = UIColor.green
-            DataServices.shared.autoSync()
+            AutoSync.shared.autoSync()
         } else {
             self.syncContainer.alpha = 0
             syncButton.isEnabled = false

@@ -47,4 +47,8 @@ class District: Object, MyraObject {
         }
     }
 
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
+    }
+
 }

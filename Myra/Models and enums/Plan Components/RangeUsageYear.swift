@@ -59,4 +59,8 @@ class RangeUsageYear: Object, MyraObject {
         }
     }
 
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
+    }
+
 }

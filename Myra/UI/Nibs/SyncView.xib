@@ -36,8 +36,8 @@
                         <constraint firstAttribute="width" secondItem="OxL-GX-Mxs" secondAttribute="height" multiplier="1:1" id="Q0s-mQ-rJU"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRy-yN-PZL" userLabel="message">
-                    <rect key="frame" x="174" y="95.5" width="42" height="20.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRy-yN-PZL" userLabel="message">
+                    <rect key="frame" x="8" y="95.5" width="374" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -77,6 +77,8 @@
                 <constraint firstItem="qHy-Hv-uO0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="25" id="NSy-Pf-MOd"/>
                 <constraint firstItem="OxL-GX-Mxs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Nou-RR-9qZ"/>
                 <constraint firstItem="OxL-GX-Mxs" firstAttribute="top" relation="lessThanOrEqual" secondItem="vRy-yN-PZL" secondAttribute="bottom" constant="70" id="Yaf-hZ-L9E"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vRy-yN-PZL" secondAttribute="trailing" constant="8" id="bVn-Fr-ou7"/>
+                <constraint firstItem="vRy-yN-PZL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="gbm-5c-wHj"/>
                 <constraint firstItem="Hqg-vo-658" firstAttribute="top" secondItem="o7H-wz-3Ep" secondAttribute="bottom" constant="25" id="kDq-bp-oKZ"/>
                 <constraint firstItem="qHy-Hv-uO0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="15" id="l8U-1s-dKK"/>
                 <constraint firstItem="vRy-yN-PZL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="s7T-wQ-fhX"/>

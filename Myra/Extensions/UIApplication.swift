@@ -10,6 +10,19 @@ import Foundation
 import UIKit
 
 extension UIApplication {
+
+    class func vc<T:UIViewController>(vcKind:T.Type? = nil) -> T?{
+        guard let appDelegate:AppDelegate = UIApplication.shared.delegate as? AppDelegate else {return nil}
+        if let vc = appDelegate.window?.rootViewController as? T {
+            return vc
+        }else if let vc = appDelegate.window?.rootViewController?.presentedViewController as? T {
+            return vc
+        }else if let vc = appDelegate.window?.rootViewController?.childViewControllers  {
+            return vc.lazy.flatMap{$0 as? T}.first
+        }
+        return nil
+    }
+
     class func getTopMostViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return getTopMostViewController(base: nav.visibleViewController)

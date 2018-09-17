@@ -45,6 +45,17 @@ class MinisterIssueAction: Object, MyraObject {
         }
     }
 
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.remoteId = id
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
     func toDictionary() -> [String:Any] {
         return [
             "detail": self.desc,

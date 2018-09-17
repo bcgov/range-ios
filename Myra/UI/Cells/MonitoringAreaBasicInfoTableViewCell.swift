@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 import Realm
 import RealmSwift
 
@@ -41,6 +42,19 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     var mode: FormMode = .View
     var monitoringArea: MonitoringArea?
     var parentReference: MonitoringAreaViewController?
+
+    // location
+
+    let maxNumberOfAdjustments = 4
+    var currentNumberOfAdjustments = 0
+    var locationManager: CLLocationManager = CLLocationManager()
+    var status: CLAuthorizationStatus?
+    
+    var currentLocation: CLLocation? {
+        didSet{
+            autofillLatLong()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -141,6 +155,27 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         }
     }
 
+    func autofillLatLong() {
+        // Do not continue if in view mode
+        if self.mode == .View {return}
+        // Do not confinue of max number of adjustments has been reached
+        if currentNumberOfAdjustments >= maxNumberOfAdjustments {return}
+
+        guard let location = currentLocation, let monitoringArea = self.monitoringArea else {return}
+        let lat = "\(location.coordinate.latitude)"
+        let long = "\(location.coordinate.longitude)"
+        self.currentNumberOfAdjustments += 1
+        do {
+            let realm = try Realm()
+            try realm.write {
+                monitoringArea.latitude = lat
+                monitoringArea.longitude = long
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     // MARK: Setup
     func setup(mode: FormMode, monitoringArea: MonitoringArea, parentReference: MonitoringAreaViewController) {
         self.mode = mode
@@ -148,6 +183,9 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         self.parentReference = parentReference
         style()
         autoFill()
+        if mode == .Edit {
+            initLocation()
+        }
     }
 
     func autoFill() {
@@ -179,5 +217,60 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputField(field: typeField, header: typeHeader, height: fieldHeight)
         }
     }
-    
 }
+
+// Location
+extension MonitoringAreaBasicInfoTableViewCell: CLLocationManagerDelegate {
+
+    func initLocation() {
+        locationManager.delegate = self
+
+        // For use when the app is open & in the background
+        locationManager.requestAlwaysAuthorization()
+
+        // For use when the app is open
+        locationManager.requestWhenInUseAuthorization()
+
+        // If location services is enabled get the users location
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest // You can change the locaiton accuary here.
+            locationManager.startUpdatingLocation()
+        }
+    }
+
+    // getLatestLocation
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            self.currentLocation = location
+        }
+    }
+
+    // If we have been deined access give the user the option to change it
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        self.status = status
+        if(status == CLAuthorizationStatus.denied) {
+            showLocationDisabledPopUp()
+        }
+    }
+
+    // Show the popup to the user if we have been deined access
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Location Access Disabled",
+                                                message: "In order to autofill your coordinates, we need access to your location",
+                                                preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        let parent = self.parentViewController as! CreateNewRUPViewController
+        parent.present(alertController, animated: true, completion: nil)
+    }
+}
+

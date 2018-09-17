@@ -14,4 +14,4 @@ import UIKit
 // for separate polygons
 class Polygon: MKPolygon {
     var color: UIColor = UIColor.black
-}
+} 

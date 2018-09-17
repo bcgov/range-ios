@@ -158,4 +158,19 @@ class Agreement: Object, MyraObject {
         }
         return latest
     }
+
+    func add(plan: RUP) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.rups.append(plan)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func toDictionary() -> [String : Any] {
+        return [String:Any]()
+    }
 }

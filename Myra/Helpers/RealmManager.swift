@@ -111,4 +111,80 @@ class RealmManager {
             fatalError()
         }
     }
+
+    func deleteAllStoredAgreements() {
+        let all = RUPManager.shared.getAgreements()
+        for element in all {
+            for zone in element.zones {
+                RealmRequests.deleteObject(zone)
+            }
+
+            for rup in element.rups {
+                // DO NOT remove local drafts: may have been not valid for upload
+                if rup.getStatus() != .LocalDraft {
+                    RealmRequests.deleteObject(rup)
+                }
+            }
+
+            for client in element.clients {
+                RealmRequests.deleteObject(client)
+            }
+
+            for years in element.rangeUsageYears {
+                RealmRequests.deleteObject(years)
+            }
+
+            RealmRequests.deleteObject(element)
+        }
+    }
+
+    // MARK: Refetching objects
+    func plan(withLocalId localId: String) -> RUP? {
+        guard let realm = try? Realm(), let plan = realm.objects(RUP.self).filter("localId = %@", localId).first else {
+            return nil
+        }
+        return plan
+    }
+
+    func plan(withRemoteId remoteId: Int) -> RUP? {
+        guard let realm = try? Realm(), let plan = realm.objects(RUP.self).filter("remoteId = %@", remoteId).first else {
+            return nil
+        }
+        return plan
+    }
+
+    func pasture(withLocalId localId: String) -> Pasture? {
+        guard let pastures = try? Realm().objects(Pasture.self).filter("localId = %@", localId), let pasture = pastures.first else {
+            return nil
+        }
+        return pasture
+    }
+
+    func ministersIssue(withLocalId localId: String) -> MinisterIssue? {
+        guard let issues = try? Realm().objects(MinisterIssue.self).filter("localId = %@", localId), let issue = issues.first else {
+            return nil
+        }
+        return issue
+    }
+
+    func ministersIssueAction(withLocalId localId: String) -> MinisterIssueAction? {
+        guard let actions = try? Realm().objects(MinisterIssueAction.self).filter("localId = %@", localId), let action = actions.first else {
+            return nil
+        }
+        return action
+    }
+
+    func schedule(withLocalId localId: String) -> Schedule? {
+        guard let schedules = try? Realm().objects(Schedule.self).filter("localId = %@", localId), let schedule = schedules.first else {
+            return nil
+        }
+        return schedule
+    }
+
+    func agreement(withAgreementId id: String) -> Agreement? {
+        guard let realm = try? Realm(), let agreement = realm.objects(Agreement.self).filter("agreementId = %@", id).first else {
+            return nil
+        }
+        return agreement
+    }
 }

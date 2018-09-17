@@ -70,6 +70,17 @@ class Pasture: Object, MyraObject {
         ]
     }
 
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.remoteId = id
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
