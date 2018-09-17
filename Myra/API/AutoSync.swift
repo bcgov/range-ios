@@ -91,10 +91,6 @@ class AutoSync {
                         dispatchGroup.leave()
                     }
                 })
-//                DataServices.shared.uploadOutboxRangeUsePlans {
-//                    syncedItems.append(.Outbox)
-//                    dispatchGroup.leave()
-//                }
             }
 
             if self.shouldUpdateRemoteStatuses() {
@@ -106,10 +102,6 @@ class AutoSync {
                         dispatchGroup.leave()
                     }
                 })
-//                DataServices.shared.updateRemoteStatuses {
-//                    syncedItems.append(.Statuses)
-//                    dispatchGroup.leave()
-//                }
             }
 
             if self.shouldUploadDrafts() {
@@ -121,10 +113,6 @@ class AutoSync {
                         dispatchGroup.leave()
                     }
                 })
-//                DataServices.shared.uploadLocalDrafts {
-//                    syncedItems.append(.Drafts)
-//                    dispatchGroup.leave()
-//                }
             }
 
             // End
