@@ -241,7 +241,9 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
                 cell.setup(plantCommunity: community, mode: mode, parentReference: self)
                 return cell
             } else {
-                return getEmptyCell(indexPath: indexPath)
+                let cell = getEmptyCell(indexPath: indexPath)
+                cell.setup(placeHolder: "", height: 1)
+                return cell
             }
         case 2:
             let cell = getMonitoringAreasCell(indexPath: indexPath)

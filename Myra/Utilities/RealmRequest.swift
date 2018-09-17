@@ -32,6 +32,7 @@ struct RealmRequests {
             fatalError()
         }
     }
+    
     static func updateObject<T: Object>(_ object: T) {
         do {
             let realm = try Realm()
@@ -40,6 +41,7 @@ struct RealmRequests {
             }
         } catch _ {}
     }
+
     static func deleteObject<T: Object>(_ object: T) {
         do {
             let realm = try Realm()

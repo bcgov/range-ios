@@ -27,11 +27,16 @@ class PasturesTableViewCell: BaseFormCell {
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
     // Mark: Outlet actions
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: tooltipPasturesTitle, desc: tooltipPasturesDescription)
+    }
+
     @IBAction func addPastureAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.taken = RUPManager.shared.getPastureNames(rup: rup)
+        textEntry.taken = Options.shared.getPastureNames(rup: rup)
         textEntry.setup(on: parent, header: "Pasture") { (accepted, value) in
             if accepted {
                 let newPasture = Pasture()
@@ -44,31 +49,12 @@ class PasturesTableViewCell: BaseFormCell {
                         realm.add(newPasture)
                     }
                     self.rup = aRup
-//                    parent.rup = aRup
                 } catch _ {
                     fatalError()
                 }
                 self.updateTableHeight(newAdded: true)
             }
         }
-//        parent.promptInput(title: "Pasture Name", accept: .String, taken: RUPManager.shared.getPastureNames(rup: rup)) { (done, name) in
-//            if done {
-//                let newPasture = Pasture()
-//                newPasture.name = name
-//                do {
-//                    let realm = try Realm()
-//                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
-//                    try realm.write {
-//                        aRup.pastures.append(newPasture)
-//                        realm.add(newPasture)
-//                    }
-//                    self.rup = aRup
-//                } catch _ {
-//                    fatalError()
-//                }
-//                self.updateTableHeight()
-//            }
-//        }
     }
 
     // Mark: Functions
@@ -110,8 +96,7 @@ class PasturesTableViewCell: BaseFormCell {
     }
 
     func computePastureHeight(pasture: Pasture) -> CGFloat {
-        // let staticHeight: CGFloat = 395
-        let staticHeight: CGFloat = 415
+        let staticHeight: CGFloat = 435
         let plantCommunityHeight: CGFloat = CGFloat(PlantCommunityTableViewCell.cellHeight)
         return (staticHeight + plantCommunityHeight * CGFloat(pasture.plantCommunities.count))
     }

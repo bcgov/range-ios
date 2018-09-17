@@ -30,11 +30,11 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueTypesOptions(), onVC: parent, onButton: sender) { (selected, selection) in
+        lookup.setup(objects: Options.shared.getMinistersIssueTypesOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
-                if let type = RUPManager.shared.getIssueType(named: option.display) {
+                if let type = Reference.shared.getIssueType(named: option.display) {
                     newIssue.issueType = type.name
                     newIssue.issueTypeID = type.id
                     do {

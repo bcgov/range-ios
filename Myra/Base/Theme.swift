@@ -25,7 +25,7 @@ extension Theme {
 
     // Shadow
     func defaultShadowColor() -> CGColor {
-        return Colors.shadowColor.cgColor
+        return Colors.shadowColor
     }
     func defaultContainerShadowOpacity() -> Float {
         return 0.4
@@ -229,16 +229,16 @@ extension Theme {
     func styleSubHeader(label: UILabel) {
         label.textColor = defaultSectionSubHeaderColor()
         label.font = defaultSectionSubHeaderFont()
+        label.change(kernValue: -0.52)
     }
 
-    func styleHeader(label: UILabel) {
+    func styleHeader(label: UILabel, divider: UIView? = nil) {
+        if let divider = divider {
+            styleDivider(divider: divider)
+        }
         label.textColor = defaultSectionHeaderColor()
         label.font = defaultSectionHeaderFont()
-    }
-
-    func styleHeader(label: UILabel, divider: UIView) {
-        styleDivider(divider: divider)
-        styleHeader(label: label)
+        label.change(kernValue: -0.42)
     }
 
     func styleFooter(label: UILabel) {
@@ -262,6 +262,8 @@ extension Theme {
         input.backgroundColor = defaultInputFieldBackground()
         input.font = defaultInputFieldFont()
         input.layer.cornerRadius = 3
+        input.borderStyle = .roundedRect
+        input.layer.borderColor = defaultInputFieldBackground().cgColor
         height.constant = defaultInputFieldHeight()
     }
 
@@ -272,6 +274,8 @@ extension Theme {
         input.backgroundColor = UIColor.clear
         input.font = defaultInputFieldFont()
         input.layer.cornerRadius = 3
+        input.borderStyle = .roundedRect
+        input.layer.borderColor = UIColor.clear.cgColor
         height.constant = defaultInputFieldHeight()
     }
 
@@ -304,7 +308,7 @@ extension Theme {
         field.backgroundColor = UIColor.clear
         field.font = defaultInputFieldFont()
         field.layer.cornerRadius = 3
-        field.layer.borderColor = Colors.shadowColor.cgColor
+        field.layer.borderColor = Colors.shadowColor
         field.layer.borderWidth = 1
         styleFieldHeader(label: header)
     }
@@ -341,12 +345,16 @@ extension Theme {
         addShadow(to: layer, opacity: 1, height: 2)
     }
 
-    func addShadow(to layer: CALayer, opacity: Float, height: Int) {
-//        layer.borderColor = defaultShadowColor()
+    func addShadow(to layer: CALayer, opacity: Float, height: Int, radius: CGFloat? = 10) {
+        layer.borderColor = defaultShadowColor()
         layer.shadowOffset = CGSize(width: 0, height: height)
         layer.shadowColor = defaultShadowColor()
         layer.shadowOpacity = opacity
-        layer.shadowRadius = 3
+        var r: CGFloat = 10
+        if let radius = radius {
+            r = radius
+        }
+        layer.shadowRadius = r
     }
 
     // MARK: NavBar
@@ -386,8 +394,9 @@ extension Theme {
     }
 
     func menuSectionOff(label: UILabel) {
-        label.textColor = UIColor.black
-        label.font = Fonts.getPrimary(size: 15)
+        label.textColor = Colors.technical.mainText
+        label.font = Fonts.getPrimaryMedium(size: 15)
+
     }
 
     func menuSectionOn(label: UILabel) {

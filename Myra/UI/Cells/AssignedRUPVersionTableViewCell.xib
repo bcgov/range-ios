@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,7 +54,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiH-yQ-Mk4">
-                                <rect key="frame" x="375" y="10.5" width="170" height="21"/>
+                                <rect key="frame" x="360" y="10.5" width="170" height="21"/>
                                 <accessibility key="accessibilityConfiguration" identifier="RUPStatusLabel"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="Zul-Vx-gn0"/>
@@ -63,7 +64,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-Ug-2Fd">
-                                <rect key="frame" x="341" y="13.5" width="14" height="14"/>
+                                <rect key="frame" x="326" y="13.5" width="14" height="14"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="14" id="BNh-Lb-jNA"/>
@@ -71,11 +72,22 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mandatory Amendment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hlr-z3-yGA">
-                                <rect key="frame" x="236" y="10.5" width="80" height="21"/>
+                                <rect key="frame" x="236" y="10.5" width="65" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cao-Cx-wW2">
+                                <rect key="frame" x="532" y="8" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cao-Cx-wW2" secondAttribute="height" multiplier="1:1" id="h3W-fZ-hge"/>
+                                    <constraint firstAttribute="width" constant="25" id="taP-Zb-c7K"/>
+                                </constraints>
+                                <state key="normal" image="Exclamation Circle"/>
+                                <connections>
+                                    <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cbr-Bb-Ad6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -85,14 +97,16 @@
                             <constraint firstItem="Nia-RR-iIE" firstAttribute="centerY" secondItem="2hP-qY-jJb" secondAttribute="centerY" id="BJW-Ll-rAh"/>
                             <constraint firstItem="GVI-Ug-2Fd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hlr-z3-yGA" secondAttribute="trailing" constant="25" id="Cff-Pc-2xN"/>
                             <constraint firstItem="Hlr-z3-yGA" firstAttribute="centerY" secondItem="BLN-LF-uGZ" secondAttribute="centerY" id="LTE-0V-vWL"/>
+                            <constraint firstItem="Nia-RR-iIE" firstAttribute="leading" secondItem="cao-Cx-wW2" secondAttribute="trailing" constant="8" id="MU1-r5-s1p"/>
                             <constraint firstItem="QiH-yQ-Mk4" firstAttribute="leading" secondItem="GVI-Ug-2Fd" secondAttribute="trailing" constant="20" id="TRw-uH-bqf"/>
                             <constraint firstItem="BLN-LF-uGZ" firstAttribute="centerY" secondItem="2hP-qY-jJb" secondAttribute="centerY" id="ZVF-hz-jUr"/>
-                            <constraint firstItem="Nia-RR-iIE" firstAttribute="leading" secondItem="QiH-yQ-Mk4" secondAttribute="trailing" constant="20" id="cF2-LS-ZHB"/>
                             <constraint firstItem="QiH-yQ-Mk4" firstAttribute="centerY" secondItem="2hP-qY-jJb" secondAttribute="centerY" id="cFG-8t-5kv"/>
                             <constraint firstItem="GVI-Ug-2Fd" firstAttribute="centerY" secondItem="2hP-qY-jJb" secondAttribute="centerY" id="cyg-v9-MeF"/>
                             <constraint firstItem="BLN-LF-uGZ" firstAttribute="leading" secondItem="2hP-qY-jJb" secondAttribute="trailing" constant="8" id="lMb-Vc-zL5"/>
                             <constraint firstAttribute="trailing" secondItem="Nia-RR-iIE" secondAttribute="trailing" constant="8" id="qKQ-1X-KwG"/>
+                            <constraint firstItem="cao-Cx-wW2" firstAttribute="centerY" secondItem="UIc-Td-lZq" secondAttribute="centerY" id="qqH-0P-ci2"/>
                             <constraint firstAttribute="height" constant="40" id="sZf-Xs-ZX5"/>
+                            <constraint firstItem="cao-Cx-wW2" firstAttribute="leading" secondItem="QiH-yQ-Mk4" secondAttribute="trailing" constant="2" id="t8H-h4-ONJ"/>
                             <constraint firstItem="2hP-qY-jJb" firstAttribute="centerY" secondItem="UIc-Td-lZq" secondAttribute="centerY" id="zkV-kF-ntX"/>
                         </constraints>
                     </view>
@@ -117,4 +131,7 @@
             <point key="canvasLocation" x="158.5" y="46"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Exclamation Circle" width="24" height="24"/>
+    </resources>
 </document>

@@ -34,8 +34,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
     @IBAction func optionsAction(_ sender: UIButton) {
-        guard let a = self.action, let parent = self.parentCell else {return}
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        guard let a = self.action, let parent = self.parentCell, let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
         let vm = ViewManager()
         let optionsVC = vm.options
         let options: [Option] = [Option(type: .Delete, display: "Delete")]
@@ -52,13 +51,16 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     }
 
     @IBAction func noGrazePeriodBegin(_ sender: UIButton) {
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        guard let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
         let minMonth = 1
         let minDay = 1
         let picker = DatePicker()
-        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
-            self.handleNoGrazeIn(month: month, day: day)
-        }, selected: {_,_,_ in })
+        
+        picker.setupYearless(minMonth: minMonth, minDay: minDay) { (selected, month, day) in
+            if selected, let month = month, let day = day {
+                self.handleNoGrazeIn(month: month, day: day)
+            }
+        }
         picker.displayPopOver(on: sender, in: grandParent) {}
     }
 
@@ -75,9 +77,12 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         }
 
         let picker = DatePicker()
-        picker.setupYearless(minMonth: minMonth, minDay: minDay, dateChanged: { (month, day) in
-           self.handleNoGrazeOut(month: month, day: day)
-        }, selected: {_,_,_ in })
+
+        picker.setupYearless(minMonth: minMonth, minDay: minDay) { (selected, month, day) in
+            if selected, let month = month, let day = day {
+                self.handleNoGrazeOut(month: month, day: day)
+            }
+        }
 
         picker.displayPopOver(on: sender, in: grandParent) {}
     }
@@ -168,7 +173,8 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         guard let _ = self.container else {return}
-        styleContainer(view: container)
+        roundCorners(layer: container.layer)
+        addShadow(to: container.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 3)
         switch self.mode {
         case .View:
             optionsButton.alpha = 0
@@ -193,14 +199,50 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     func duplicate() {
 
     }
+
+//    func getLocalTypeFromRemoteType() -> actionType? {
+//        guard let action = self.action else {return nil}
+//        switch action.actionType {
+//        case "Herding":
+//            return .Herding
+//        case "Salting":
+//
+//        default:
+//
+//        }
+//    }
+
+
 }
 
 // MARK: TextView delegates
+
+//enum actionType {
+//    case Herding
+//    case Salting
+//    case TIming
+//    case LivestockVatiable
+//}
+
+
 extension MinistersIssueActionTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+
+    }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let a = action else {return}
         a.set(desc: textView.text)
+//        if textView.text.isEmpty {
+//            guard let converted = getLocalTypeFromRemoteType() else {return}
+//            switch converted {
+//            case .Herding:
+//
+//            default:
+//
+//            }
+//        }
     }
 }

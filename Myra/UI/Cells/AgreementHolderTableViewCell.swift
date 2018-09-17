@@ -28,7 +28,7 @@ class AgreementHolderTableViewCell: BaseFormCell {
 
     func autoFill() {
         if let c = client {
-            let clientType = RUPManager.shared.getClientTypeFor(clientTypeCode: c.clientTypeCode)
+            let clientType = Reference.shared.getClientTypeFor(clientTypeCode: c.clientTypeCode)
             self.agreementHolder.text = c.name
             self.agreementType.text = clientType.desc
         }

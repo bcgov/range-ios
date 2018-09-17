@@ -14,7 +14,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     var rup: RUP?
     var agreement: Agreement?
     var bg: UIColor = UIColor.white
-    var seleced: Bool = false
+    var cellSelected: Bool = false
 
     // MARK: Outlets
     @IBOutlet weak var idLabel: UILabel!
@@ -72,11 +72,6 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
         self.statusText.text = rup.getStatus().rawValue.convertFromCamelCase()
-//        if rup.getStatus() == .LocalDraft || rup.getStatus() == .StaffDraft {
-//            infoButton.setTitle("Edit", for: .normal)
-//        } else {
-//            infoButton.setTitle("View", for: .normal)
-//        }
     }
 
     // MARK: Styles
@@ -99,75 +94,18 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
         makeCircle(view: statusLight)
 
-//        styleHollowButton(button: infoButton)
-
         styleStaticField(field: idLabel)
         styleStaticField(field: infoLabel)
         styleStaticField(field: statusText)
         styleStaticField(field: rangeName)
 
         guard let plan = self.rup else {return}
-        switch plan.getStatus() {
-        case .Completed:
-            setStatusGreen()
-        case .Pending:
-            setStatusYellow()
-        case .LocalDraft:
-            setStatusRed()
-        case .Outbox:
-            setStatusGray()
-        case .Created:
-            setStatusYellow()
-        case .ChangeRequested:
-            setStatusGray()
-        case .ClientDraft:
-            setStatusRed()
-        case .Unknown:
-            setStatusGray()
-        case .StaffDraft:
-            setStatusGreen()
-        case .WronglyMadeWithoutEffect:
-            setStatusGray()
-        case .StandsWronglyMade:
-            setStatusGray()
-        case .Stands:
-            setStatusGray()
-        case .NotApprovedFurtherWorkRequired:
-            setStatusGray()
-        case .NotApproved:
-            setStatusGray()
-        case .Approved:
-            setStatusGray()
-        case .SubmittedForReview:
-            setStatusGray()
-        case .SubmittedForFinalDecision:
-            setStatusGray()
-        case .RecommendReady:
-            setStatusGray()
-        case .RecommendNotReady:
-            setStatusGray()
-        case .ReadyForFinalDescision:
-            setStatusGray()
-        }
-    }
-
-    func setStatusRed() {
-        self.statusLight.backgroundColor = UIColor.red
-    }
-
-    func setStatusGreen() {
-        self.statusLight.backgroundColor = UIColor.green
-    }
-
-    func setStatusYellow() {
-        self.statusLight.backgroundColor = UIColor.yellow
-    }
-
-    func setStatusGray() {
-        self.statusLight.backgroundColor = UIColor.gray
+        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
     }
 
     func styleSelected() {
+        if cellSelected {return}
+        style()
         self.infoButton.alpha = 0
         self.statusLight.alpha = 0
         self.statusText.alpha = 0
@@ -178,20 +116,20 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
             self.divider.alpha = 1
             self.styleDivider(divider: self.divider)
             self.tableContainer.layer.cornerRadius = 5
-//            self.statusText.alpha = 0
-//            self.statusLight.alpha = 0
             self.updateTableHeight()
             self.tableContainer.alpha = 1
             self.layoutIfNeeded()
         }) { (done) in
             self.infoButton.alpha = 1
             self.infoButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+            self.cellSelected = true
         }
     }
 
     func styleDefault() {
         UIView.animate(withDuration: 0.3, animations: {
             self.style()
+            self.cellSelected = false
         })
     }
 
@@ -209,6 +147,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
             self.infoButton.setTitleColor(Colors.lockedCell, for: .normal)
             self.statusLight.alpha = 0.5
             self.layoutIfNeeded()
+            self.cellSelected = false
         })
     }
 

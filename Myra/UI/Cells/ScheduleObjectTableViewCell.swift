@@ -80,7 +80,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let scheduleVC = self.scheduleViewReference else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getPasturesLookup(rup: rup), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
+        lookup.setup(objects: Options.shared.getPasturesLookup(rup: rup), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
             if selected, let object = obj {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
@@ -110,11 +110,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let scheduleVC = self.scheduleViewReference, let object = self.scheduleObject else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        let objects = RealmManager.shared.getLiveStockTypeLookup()
+        let objects = Reference.shared.getLiveStockTypeLookup()
         lookup.setup(objects: objects, onVC: scheduleVC, onButton: liveStockDropDown) { (selected, obj) in
             if selected {
                 if let selectedType = obj {
-                    let ls = RealmManager.shared.getLiveStockTypeObject(name: selectedType.display)
+                    let ls = Reference.shared.getLiveStockTypeObject(name: selectedType.display)
                     do {
                         let realm = try Realm()
                         try realm.write {
@@ -183,11 +183,24 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let sched = scheduleVC.schedule,
             let minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
             let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
-        picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
-            DispatchQueue.main.async {
-                self.handleDateIn(date: date)
+
+        if let entry = self.scheduleObject, let dateIn = entry.dateIn {
+            picker.setup(beginWith: dateIn, min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateIn(date: date)
+                    }
+                }
             }
-        }) {_,_ in }
+        } else {
+            picker.setup(min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateIn(date: date)
+                    }
+                }
+            }
+        }
 
         picker.displayPopOver(on: sender as! UIButton, in: scheduleVC, completion: {})
 
@@ -199,17 +212,28 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let sched = scheduleVC.schedule,
             var minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
             let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
-
-        if let s = scheduleObject, let startDate = s.dateIn {
-            minDate = startDate
-        }
-
         let picker = DatePicker()
-        picker.setup(min: minDate, max: maxDate, dateChanged: { (date) in
-            DispatchQueue.main.async {
-                 self.handleDateOut(date: date)
+        if let entry = self.scheduleObject, let dateOut = entry.dateOut {
+            picker.setup(beginWith: dateOut, min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateOut(date: date)
+                    }
+                }
             }
-        }) {_,_ in }
+        } else {
+            if let s = scheduleObject, let startDate = s.dateIn {
+                minDate = startDate
+            }
+
+            picker.setup(min: minDate, max: maxDate) { (selected, date) in
+                if let date = date {
+                    DispatchQueue.main.async {
+                        self.handleDateOut(date: date)
+                    }
+                }
+            }
+        }
 
         picker.displayPopOver(on: sender as! UIButton, in: scheduleVC, completion: {})
     }
@@ -533,7 +557,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         // Live Stock Type
 
         if entry.liveStockTypeId != -1 {
-            let liveStockObject = RealmManager.shared.getLiveStockTypeObject(id: entry.liveStockTypeId)
+            let liveStockObject = Reference.shared.getLiveStockTypeObject(id: entry.liveStockTypeId)
             self.liveStock.text = liveStockObject.name
 
         } else {
@@ -546,9 +570,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             self.pasture.text = ""
         }
 
-        self.graceDays.text = "\(entry.graceDays ?? 0)"
-        self.pldAUM.text = "\(entry.pldAUMs.rounded() ?? 0)"
-        self.crownAUM.text = "\(entry.crownAUMs.rounded() ?? 0.0)"
+        self.graceDays.text = "\(entry.graceDays)"
+        self.pldAUM.text = "\(entry.pldAUMs.rounded())"
+        self.crownAUM.text = "\(entry.crownAUMs.rounded())"
     }
 
     func calculateDays() {

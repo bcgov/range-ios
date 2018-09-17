@@ -396,7 +396,7 @@ class ScheduleViewController: BaseViewController {
         if let usage = RUPManager.shared.getUsageFor(year: (schedule.year), agreementId: plan.agreementId) {
             let allowed = usage.auth_AUMs
             self.authAUMs.text = "\(allowed)"
-            if totAUMs > Double(allowed) {
+            if totAUMs >= Double(allowed) {
                 totalAUMs.textColor = UIColor.red
             } else {
                 totalAUMs.textColor = UIColor.black

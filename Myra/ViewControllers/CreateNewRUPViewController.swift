@@ -99,6 +99,11 @@ class CreateNewRUPViewController: BaseViewController {
 
     @IBOutlet weak var updateAmendmentButton: UIButton!
 
+    // Banner
+    @IBOutlet weak var bannerContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var bannerContainer: UIView!
+    @IBOutlet weak var bannerTitle: UILabel!
+    @IBOutlet weak var bannerTooltip: UIButton!
 
     // Side Menu
     @IBOutlet weak var menuContainer: UIView!
@@ -156,13 +161,8 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var mapInfoBoxImage: UIImageView!
     */
 
-    @IBOutlet weak var reviewAndSubmitLabel: UILabel!
-    @IBOutlet weak var reviewAndSubmitButton: UIButton!
-    @IBOutlet weak var reviewAndSubmitBoxImage: UIImageView!
     @IBOutlet weak var submitButtonContainer: UIView!
-    @IBOutlet weak var submitButtonIconWidth: NSLayoutConstraint!
-
-    @IBOutlet weak var submitAndReviewLabelCenterY: NSLayoutConstraint!
+    @IBOutlet weak var submitButton: UIButton!
 
     @IBOutlet weak var requiredFieldNeededLabel: UILabel!
 
@@ -182,13 +182,21 @@ class CreateNewRUPViewController: BaseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        openingAnimations() 
+        openingAnimations(callBack: {
+            // open banner here
+            if self.shouldShowBanner() {
+                 self.openBanner()
+            }
+        })
     }
 
     // MARK: Outlet Actions
+    @IBAction func bannerTooltipAction(_ sender: UIButton) {
+        showTooltip(on: sender, title: getBannerTitle(), desc: getBannerDescription())
+    }
 
     @IBAction func updateAmendmentAction(_ sender: UIButton) {
-        guard let plan = self.rup, let amendmentType = RUPManager.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return}
+        guard let plan = self.rup, let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return}
 
         // get flow view controller
         let vm = ViewManager()
@@ -329,7 +337,9 @@ class CreateNewRUPViewController: BaseViewController {
             }
         }) {
             // No tapped
-            self.openingAnimations()
+            self.openingAnimations(callBack: {
+                // TODO: Open banner if needed
+            })
         }
     }
 
@@ -645,6 +655,48 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             } else if indexPath == minsterActionsIndexPath {
                 menuMinistersIssuesOn()
             }
+        }
+    }
+}
+
+// MARK: Banner
+extension CreateNewRUPViewController {
+    func shouldShowBanner() -> Bool {
+        guard let plan = self.rup else {return false}
+        return plan.getStatus() != .LocalDraft
+    }
+
+    func getBannerTitle() -> String {
+        return bannerMinorAmendmentReviewRequiredTitle
+    }
+
+    func getBannerDescription() -> String {
+        return bannerMinorAmendmentReviewRequiredDescription
+    }
+
+    func openBanner() {
+        self.bannerTitle.text = ""
+        self.bannerContainer.backgroundColor = UIColor.white
+        self.bannerTitle.textColor = Colors.technical.mainText
+        self.bannerTitle.font = Fonts.getPrimaryBold(size: 22)
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.4, animations: {
+            self.bannerContainerHeight.constant = 50
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            UIView.animate(withDuration: 0.2) {
+                self.view.layoutIfNeeded()
+                self.bannerTitle.text = self.getBannerTitle()
+                self.bannerContainer.backgroundColor = Colors.accent.yellow
+                self.styleContainer(view: self.bannerContainer)
+                self.bannerTooltip.alpha = 1
+            }
+        }
+    }
+
+    func closeBanner() {
+        UIView.animate(withDuration: 0.4) {
+            self.bannerContainerHeight.constant = 25
         }
     }
 }

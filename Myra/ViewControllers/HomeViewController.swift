@@ -34,15 +34,7 @@ class HomeViewController: BaseViewController {
         }
     }
 
-    var syncing: Bool = false {
-        didSet {
-            if syncing {
-                showSyncPage()
-            } else {
-                hideSyncPage()
-            }
-        }
-    }
+    var syncing: Bool = false
 
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
@@ -125,10 +117,6 @@ class HomeViewController: BaseViewController {
         authenticateIfRequred()
     }
 
-    @objc override func syncEnd() {
-        self.filterByAll()
-    }
-
     @IBAction func filterAction(_ sender: UIButton) {
         switch sender {
         case allFilter:
@@ -152,7 +140,6 @@ class HomeViewController: BaseViewController {
     func filterByAll() {
         if syncing {return}
         filterButtonOn(button: allFilter)
-//        loadRUPs()
         sortByRangeNumber()
         self.tableView.reloadData()
     }
@@ -221,67 +208,8 @@ class HomeViewController: BaseViewController {
 
     func loadHome() {
         style()
-        let lastSync = RealmManager.shared.getLastSyncDate()
-        if let ls = lastSync {
-            let calendar = Calendar.current
-            let now = Date()
-            let timeInterval = now.timeIntervalSince(ls)
-
-            let hours = timeInterval.hours
-            let minutes = timeInterval.minutes
-            let seconds = timeInterval.seconds
-
-            var lastSyncText = "Unknown"
-
-            if hours < 1 {
-                if minutes < 1 {
-                    // show seconds
-                    lastSyncText = "\(seconds) seconds ago"
-                } else {
-                    // show minutes
-                    if minutes == 1 {
-                        lastSyncText = "\(minutes) minute ago"
-                    } else {
-                        lastSyncText = "\(minutes) minutes ago"
-                    }
-                }
-            } else {
-                if hours > 24 {
-                    // show days
-                    let components = calendar.dateComponents([.day], from: ls, to: now)
-                    if let days = components.day {
-                        if days == 1 {
-                            lastSyncText = "\(days) day ago"
-                        } else {
-                            lastSyncText = "\(days) days ago"
-                        }
-                    }
-                } else {
-                    // show hours
-                    if hours == 1  {
-                        if minutes == 1 {
-                            lastSyncText = "\(hours) hour and \(minutes) minute ago"
-                        } else {
-                            lastSyncText = "\(hours) hour and \(minutes) minutes ago"
-                        }
-                    } else {
-                        if minutes == 1 {
-                            lastSyncText = "\(hours) hours and \(minutes) minute ago"
-                        } else {
-                            lastSyncText = "\(hours) hours and \(minutes) minutes ago"
-                        }
-                    }
-                }
-            }
-
-            lastSyncLabel.text = lastSyncText
-
-//            let components = calendar.dateComponents([.day], from: ls, to: now)
-//            if let days = components.day {
-//                lastSyncLabel.text = "\(days) days ago"
-//            } else {
-//                lastSyncLabel.text = "Unknown"
-//            }
+        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
+            lastSyncLabel.text = last.timeSince()
         } else {
             authenticateIfRequred()
         }
@@ -315,7 +243,7 @@ class HomeViewController: BaseViewController {
 
     func loadRUPs() {
         if syncing {return}
-//        DispatchQueue.main.async {
+        RUPManager.shared.fixUnlinkedPlans()
         self.rups = [RUP]()
         self.tableView.reloadData()
             /*
@@ -331,8 +259,8 @@ class HomeViewController: BaseViewController {
                     self.rups.append(p)
                 }
             }
+        self.expandIndexPath = nil
             self.tableView.reloadData()
-//        }
     }
 
     // MARK: Styles
@@ -465,7 +393,7 @@ class HomeViewController: BaseViewController {
     }
 
     override func onAuthenticationSuccess() {
-        print(APIManager.headers())
+//        print(APIManager.headers())
         if unstableConnection {
             syncButtonLabel.text = "Connections is not stable for enough for a full sync"
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
@@ -477,11 +405,7 @@ class HomeViewController: BaseViewController {
             return
         }
         self.syncButtonLabel.alpha = 0
-        self.syncing = true
-        self.endChangeListener()
-        sync { (synced) in
-            self.loadHome()
-        }
+        synchronize()
     }
 
     override func onAuthenticationFail() {
@@ -489,29 +413,23 @@ class HomeViewController: BaseViewController {
         self.syncButton.isUserInteractionEnabled = true
     }
 
-    override func whenSyncClosed() {
-        self.syncing = false
-    }
-
-    func showSyncPage() {
-        syncButton.isUserInteractionEnabled = false
+    func synchronize() {
+        self.rups = [RUP]()
+        self.tableView.reloadData()
+        self.endChangeListener()
+        self.syncing = true
         self.createButton.isUserInteractionEnabled = false
         self.tableView.isUserInteractionEnabled = false
-        self.view.addSubview(getSyncView())
+        self.syncButton.isUserInteractionEnabled = false
+        sync { (done) in
+            self.syncing = false
+            self.loadHome()
+            self.createButton.isUserInteractionEnabled = true
+            self.tableView.isUserInteractionEnabled = true
+            self.syncButton.isUserInteractionEnabled = true
+        }
     }
 
-    func hideSyncPage() {
-        removeSyncPage()
-        self.createButton.isUserInteractionEnabled = true
-        self.tableView.isUserInteractionEnabled = true
-        syncButton.isUserInteractionEnabled = true
-    }
-
-    override func syncActionButtonPressed() {
-//        getRUPs()
-//        self.tableView.reloadData()
-        filterByAll()
-    }
 }
 
 // MARK: TableView functions
@@ -563,13 +481,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func reloadRupsIfInvalid() {
         if !rupsAreValid() {
             loadRUPs()
         }
-        if !rupsAreValid() {
-            return
-        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        reloadRupsIfInvalid()
         if expandIndexPath == nil {
             self.expandIndexPath = indexPath
             self.tableView.isScrollEnabled = false

@@ -26,6 +26,42 @@
         }
         return ""
     }
+
+    /*
+     Finds plans that are not linked to an agreement and links them to the appropriate agreements
+     */
+    func fixUnlinkedPlans() {
+        let plans = getRUPs()
+        let agreements = getAgreements()
+        // get agreement numbers with no plans
+        var agreementsWithNoPlans: [String] = [String]()
+        for agreement in agreements where agreement.rups.count == 0 {
+            agreementsWithNoPlans.append(agreement.agreementId)
+        }
+
+        // for each plan, if has an agreement number that's included in agreementsWithNoPlans, add it to agreement
+        for plan in plans where agreementsWithNoPlans.contains(plan.agreementId) {
+            if let temp = getAgreement(with: plan.agreementId) {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        temp.rups.append(plan)
+                        for element in temp.rangeUsageYears {
+                            plan.rangeUsageYears.append(element)
+                        }
+                        for element in temp.clients {
+                            plan.clients.append(element)
+                        }
+                        for element in temp.zones {
+                            plan.zones.append(element)
+                        }
+                    }
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
+    }
  }
  
  // MARK: RUP / Agreement
@@ -105,9 +141,6 @@
     
     func getAgreement(with id: String) -> Agreement? {
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
-            //            for storeda in storedAgreements where storeda.agreementId == id {
-            //                print("\(storeda.agreementId) has \(storeda.rups.count) rup ")
-            //            }
             for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
                 return storedAgreement
             }
@@ -167,33 +200,6 @@
                 }
             }
         }
-        
-        //        if !stored.rups.isEmpty, let plan = stored.rups.first, plan.statusEnum == .LocalDraft {
-        //            // if agreement has a plan in local draft state, leave it be
-        //
-        //            // TODO: CHECK WHICH IS NEWER
-        //            if let remote =  newAgreement.rups.first, let remoteDate = remote.remotelyCreatedAt , let localDate = plan.locallyUpdatedAt {
-        //                if localDate > remoteDate {
-        //                    print("local is newer")
-        //                } else {
-        //                    print("remote is newer")
-        //                }
-        //                print("**")
-        //            }
-        //
-        //        } else {
-        //            // Otherwise if new agreement has a plan downloaded with it, store it
-        //            if !newAgreement.rups.isEmpty, let plan = newAgreement.rups.first {
-        //                do {
-        //                    let realm = try Realm()
-        //                    try realm.write {
-        //                        stored.rups.append(plan)
-        //                    }
-        //                } catch _ {
-        //                    fatalError()
-        //                }
-        //            }
-        //        }
 
         if stored.isInvalidated {
             print("stored is invalidated")
@@ -521,23 +527,6 @@
         scheduleObject.calculateAUMsAndPLD()
     }
     
-    func getPastureNames(rup: RUP) -> [String] {
-        var names = [String]()
-        for pasture in rup.pastures {
-            names.append(pasture.name)
-        }
-        return names
-    }
-    
-    func getPasturesLookup(rup: RUP) -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        let names = getPastureNames(rup: rup)
-        for name in names {
-            returnArray.append(SelectionPopUpObject(display: name, value: name))
-        }
-        return returnArray
-    }
-    
     func getPastureNamed(name: String, rup: RUP) -> Pasture? {
         for pasture in rup.pastures {
             if pasture.name == name {
@@ -546,71 +535,7 @@
         }
         return nil
     }
-    
-    func getPlantCommunityAspectLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        
-        for i in 0...3 {
-            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
-        }
-        
-        return returnArray
-    }
-    
-    func getPlantCommunityElevationLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "- <500"))
-        returnArray.append(SelectionPopUpObject(display: "500-699"))
-        returnArray.append(SelectionPopUpObject(display: "700-899"))
-        returnArray.append(SelectionPopUpObject(display: "900-1099"))
-        returnArray.append(SelectionPopUpObject(display: "1100-1299"))
-        returnArray.append(SelectionPopUpObject(display: "1300-1500"))
-        returnArray.append(SelectionPopUpObject(display: ">1500"))
-        return returnArray
-    }
-    
-    func getPlantCommunityPurposeOfActionsLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Establish Plant Community"))
-        returnArray.append(SelectionPopUpObject(display: "Maintain Plant Community"))
-        returnArray.append(SelectionPopUpObject(display: "Clear"))
-        return returnArray
-    }
-    
-    func getRangeLandHealthLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Highly at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Moderately at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Non-functional"))
-        returnArray.append(SelectionPopUpObject(display: "Properly Functioning Condition"))
-        returnArray.append(SelectionPopUpObject(display: "Slightly at risk"))
-        return returnArray
-    }
-    
-    func getMonitoringAreaPurposeLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Key Area"))
-        returnArray.append(SelectionPopUpObject(display: "Criteria"))
-        returnArray.append(SelectionPopUpObject(display: "Other"))
-        return returnArray
-    }
-    
-    func getPastureActionLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Herding"))
-        returnArray.append(SelectionPopUpObject(display: "Livestock variables"))
-        returnArray.append(SelectionPopUpObject(display: "Salting"))
-        returnArray.append(SelectionPopUpObject(display: "Supplemental"))
-        returnArray.append(SelectionPopUpObject(display: "Timing"))
-        returnArray.append(SelectionPopUpObject(display: "Other"))
-        return returnArray
-    }
-    func getIndicatorPlantLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Pinegrass"))
-        returnArray.append(SelectionPopUpObject(display: "Idaho Fescue"))
-        return returnArray
-    }
+
  }
  
  // MARK: Schedule
@@ -752,7 +677,7 @@
     
     // if livestock with the specified name is not found, returns false
     func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) -> ScheduleObject {
-        let ls = RealmManager.shared.getLiveStockTypeObject(name: liveStock)
+        let ls = Reference.shared.getLiveStockTypeObject(name: liveStock)
         do {
             let realm = try Realm()
             let scheduleObj = realm.objects(ScheduleObject.self).filter("localId = %@", scheduleObject.localId).first!
@@ -839,18 +764,6 @@
         }
     }
     
-    //    func getLiveStockIdentifierTypeFor(id: Int) -> LivestockIdentifierType {
-    //        let query = RealmRequests.getObject(LivestockIdentifierType.self)
-    //        if let all = query {
-    //            for object in all {
-    //                if object.id == id {
-    //                    return object
-    //                }
-    //            }
-    //        }
-    //        return LivestockIdentifierType()
-    //    }
-    
  }
  
  // MARK: Minister's Issues and actions
@@ -860,225 +773,5 @@
             RealmRequests.deleteObject(action)
         }
         RealmRequests.deleteObject(issue)
-    }
- }
- 
- 
- // MARK: Reference Data
- extension RUPManager {
-    func getAllReferenceData() -> [Object] {
-        var objects = [Object]()
-        
-        if let query1: [Object] = RealmRequests.getObject(ClientType.self) {
-            objects.append(contentsOf: query1)
-        }
-        if let query2: [Object] = RealmRequests.getObject(PlanStatus.self) {
-            objects.append(contentsOf: query2)
-        }
-        if let query3: [Object] = RealmRequests.getObject(LivestockIdentifierType.self) {
-            objects.append(contentsOf: query3)
-        }
-        if let query4: [Object] = RealmRequests.getObject(AgreementExemptionStatus.self) {
-            objects.append(contentsOf: query4)
-        }
-        if let query5: [Object] = RealmRequests.getObject(AgreementStatus.self) {
-            objects.append(contentsOf: query5)
-        }
-        if let query6: [Object] = RealmRequests.getObject(LiveStockType.self) {
-            objects.append(contentsOf: query6)
-        }
-        if let query7: [Object] = RealmRequests.getObject(AgreementType.self) {
-            objects.append(contentsOf: query7)
-        }
-        
-        return objects
-    }
-    
-    func storeNewReferenceData(objects: [Object]) {
-        for object in objects {
-            RealmRequests.saveObject(object: object)
-        }
-    }
-    
-    func getStaffDraftPlanStatus() -> PlanStatus {
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.code.lowercased() == "sd"  {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-    
-    func getCreatedPlanStatus() -> PlanStatus {
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.code.lowercased() == "c"  {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-
-    func getAmendmentStatus(status: RUPStatus)  -> PlanStatus {
-        var code = ""
-        if status == .WronglyMadeWithoutEffect {
-            code = "wm"
-        } else if status == .StandsWronglyMade {
-            code = "sw"
-        } else if status == .Stands {
-            code = "s"
-        } else if status == .RecommendNotReady {
-            code = "rnr"
-        } else if status == .RecommendReady {
-            code = "rr"
-        } else if status == .NotApprovedFurtherWorkRequired {
-            code = "nf"
-        } else if status == .NotApproved {
-            code = "na"
-        } else if status == .Approved {
-            code = "a"
-        } else if status == .SubmittedForFinalDecision {
-            code = "sfd"
-        }
-
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.code.lowercased() == code.lowercased()  {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-    
-    func getStatus(forId id: Int) -> PlanStatus? {
-        do {
-            let realm = try Realm()
-            let statuses = realm.objects(PlanStatus.self).filter("id = %@", id)
-            return statuses.first
-        } catch _ {}
-        return nil
-    }
-
-    func getAmendmentType(forId id: Int) -> AmendmentType? {
-        do {
-        let realm = try Realm()
-        let statuses = realm.objects(AmendmentType.self).filter("id = %@", id)
-        return statuses.first
-        } catch _ {}
-        return nil
-    }
-    
-    func updateReferenceData(objects: [Object]) {
-        clearStoredReferenceData()
-        storeNewReferenceData(objects: objects)
-    }
-    
-    func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
-        let query = RealmRequests.getObject(AgreementExemptionStatus.self)
-        if let all = query {
-            for object in all {
-                if object.id == id {
-                    return object
-                }
-            }
-        }
-        return AgreementExemptionStatus()
-    }
-    
-    func getPlanStatusFor(id: Int) -> PlanStatus {
-        let query = RealmRequests.getObject(PlanStatus.self)
-        if let all = query {
-            for object in all {
-                if object.id == id {
-                    return object
-                }
-            }
-        }
-        return PlanStatus()
-    }
-    
-    func clearStoredReferenceData() {
-        let objects = getAllReferenceData()
-        removeAllObjectsIn(query: objects)
-    }
-    
-    func removeAllObjectsIn(query: [Object]?) {
-        if query == nil {return}
-        for object in query! {
-            RealmRequests.deleteObject(object)
-        }
-    }
-    
-    func getClientTypeFor(clientTypeCode: String) -> ClientType {
-        let query = RealmRequests.getObject(ClientType.self)
-        if let all = query {
-            for object in all {
-                // while you're at it, clean up invalid data..
-                if object.id == -1 {
-                    RealmRequests.deleteObject(object)
-                }
-                if object.code == clientTypeCode {
-                    return object
-                }
-            }
-        }
-        return ClientType()
-    }
-    
-    func getMinistersIssueTypesOptions() -> [SelectionPopUpObject] {
-        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        let query = RealmManager.shared.getIssueType()
-        for item in query {
-            options.append(SelectionPopUpObject(display: item.name))
-        }
-        return options
-    }
-    
-    func getMinistersIssueActionsOptions() -> [SelectionPopUpObject] {
-        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        let query = RealmManager.shared.getIssueActionType()
-        for item in query {
-            options.append(SelectionPopUpObject(display: item.name))
-        }
-        return options
-    }
-    
-    func getIssueType(named: String) -> MinisterIssueType? {
-        do {
-            let realm = try Realm()
-            if let obj = realm.objects(MinisterIssueType.self).filter("name = %@", named).first {
-                return obj
-            }
-        } catch _ {
-            fatalError()
-        }
-        return nil
-    }
-    
-    func getIssueActionType(named: String) -> MinisterIssueActionType? {
-        do {
-            let realm = try Realm()
-            if let obj = realm.objects(MinisterIssueActionType.self).filter("name = %@", named).first {
-                return obj
-            }
-        } catch _ {
-            fatalError()
-        }
-        return nil
-    }
-    
-    func getPlanCommunityTypeOptions() -> [SelectionPopUpObject] {
-        var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        options.append(SelectionPopUpObject(display: "Pinegrass"))
-        options.append(SelectionPopUpObject(display: "Something"))
-        options.append(SelectionPopUpObject(display: "Something else"))
-        return options
     }
  }

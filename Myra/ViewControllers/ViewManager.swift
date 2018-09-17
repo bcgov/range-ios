@@ -58,4 +58,8 @@ class ViewManager {
     lazy var amendmentFlow: AmendmentFlowViewController = {
         return UIStoryboard(name: "AmendmentFlow", bundle: Bundle.main).instantiateViewController(withIdentifier: "AmendmentFlow") as! AmendmentFlowViewController
     }()
+
+    lazy var tooltip: TooltipViewController = {
+        return UIStoryboard(name: "Tooltip", bundle: Bundle.main).instantiateViewController(withIdentifier: "Tooltip") as! TooltipViewController
+    }()
 }

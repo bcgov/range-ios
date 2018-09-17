@@ -91,7 +91,7 @@ class RUP: Object, MyraObject {
         }
 
         // if there is a remote status, use it
-        if let temp = RUPManager.shared.getStatus(forId: statusId) {
+        if let temp = Reference.shared.getStatus(forId: statusId) {
             var statusName = temp.name.trimmingCharacters(in: .whitespaces)
             statusName = statusName.replacingOccurrences(of: "-", with: "")
             // Remote Draft status means its a client's draft
@@ -126,7 +126,7 @@ class RUP: Object, MyraObject {
     }
 
     func updateStatusId(newID: Int) {
-        let statusObject = RUPManager.shared.getStatus(forId: newID)
+        let statusObject = Reference.shared.getStatus(forId: newID)
         guard let obj = statusObject else {return}
         do {
             let realm = try Realm()
@@ -140,8 +140,8 @@ class RUP: Object, MyraObject {
     }
 
     func updateStatus(with newStatus: RUPStatus) {
-        let tempId = RUPManager.shared.getAmendmentStatus(status: newStatus).id
-        let statusObject = RUPManager.shared.getStatus(forId: tempId)
+        let tempId = Reference.shared.getAmendmentStatus(status: newStatus).id
+        let statusObject = Reference.shared.getStatus(forId: tempId)
         guard let obj = statusObject else {return}
         do {
             let realm = try Realm()
@@ -251,9 +251,9 @@ class RUP: Object, MyraObject {
          */
         var currStatusId = 1
         if self.status == RUPStatus.LocalDraft.rawValue {
-             currStatusId = RUPManager.shared.getStaffDraftPlanStatus().id
+             currStatusId = Reference.shared.getStaffDraftPlanStatus().id
         } else if self.status == RUPStatus.Outbox.rawValue {
-            currStatusId = RUPManager.shared.getCreatedPlanStatus().id
+            currStatusId = Reference.shared.getCreatedPlanStatus().id
         }
         return [
             "rangeName": rangeName,
@@ -307,7 +307,7 @@ class RUP: Object, MyraObject {
             self.alternativeName = altName
         }
         
-        if let statusId = json["statusId"].int, let statusObject = RUPManager.shared.getStatus(forId: statusId) {
+        if let statusId = json["statusId"].int, let statusObject = Reference.shared.getStatus(forId: statusId) {
             // set remote status
             self.statusId = statusId
             self.statusIdValue = statusObject.name

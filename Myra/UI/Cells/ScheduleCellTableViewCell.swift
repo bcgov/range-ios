@@ -13,7 +13,7 @@ import RealmSwift
 class ScheduleCellTableViewCell: BaseFormCell {
 
     // MARK: Constants
-    static let cellHeight = 56.5
+    static let cellHeight = 66.5
 
     // MARK: Variables
     var schedule: Schedule?
@@ -130,7 +130,10 @@ class ScheduleCellTableViewCell: BaseFormCell {
 
     // MARK: Styles
     func style() {
-        styleContainer(view: cellContainer)
+//        styleContainer(view: cellContainer)
+        // Not using styleContainer because we need a custom shadow radius
+        roundCorners(layer: cellContainer.layer)
+        addShadow(to: cellContainer.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 5)
     }
 
     func styleInvalid() {

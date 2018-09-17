@@ -33,7 +33,7 @@ class Colors {
         static let backgroundTwo = UIColor(hex: "#FFFFFF")
     }
 
-    static let shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.5)
+    static let shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
 
     static let primary = active.blue
     static let primaryConstrast = active.lightBlue

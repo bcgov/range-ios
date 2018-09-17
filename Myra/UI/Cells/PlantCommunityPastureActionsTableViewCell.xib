@@ -25,21 +25,25 @@
                         <rect key="frame" x="28" y="19" width="497" height="50"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_action" translatesAutoresizingMaskIntoConstraints="NO" id="KPV-4m-4Se">
-                                <rect key="frame" x="0.0" y="0.0" width="22.5" height="22.5"/>
+                                <rect key="frame" x="0.0" y="15.5" width="19" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="KPV-4m-4Se" secondAttribute="height" multiplier="1:1" id="e9r-pg-sIM"/>
                                     <constraint firstAttribute="width" constant="19" id="pFs-7t-DIk"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions to &quot;Purpose of Actions&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQI-tK-3Ng">
-                                <rect key="frame" x="34.5" y="0.0" width="462.5" height="22.5"/>
+                                <rect key="frame" x="35" y="15.5" width="462" height="19"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="jQI-tK-3Ng" secondAttribute="trailing" id="aEv-Z4-yZX"/>
+                            <constraint firstItem="KPV-4m-4Se" firstAttribute="centerY" secondItem="VPc-F9-Ehm" secondAttribute="centerY" id="hZD-O5-6da"/>
+                            <constraint firstItem="jQI-tK-3Ng" firstAttribute="leading" secondItem="KPV-4m-4Se" secondAttribute="trailing" constant="16" id="hxb-h3-i82"/>
                             <constraint firstAttribute="height" constant="50" id="meK-Vy-gVM"/>
+                            <constraint firstItem="jQI-tK-3Ng" firstAttribute="centerY" secondItem="VPc-F9-Ehm" secondAttribute="centerY" id="wSC-no-kKY"/>
                         </constraints>
                     </stackView>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5mo-wL-ldi">

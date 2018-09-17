@@ -23,7 +23,6 @@ class MinisterIssueAction: Object, MyraObject {
         return "localId"
     }
 
-
     @objc dynamic var actionTypeID: Int = -1
     @objc dynamic var actionType: String = ""
     @objc dynamic var desc: String = ""

@@ -103,7 +103,7 @@ class APIManager {
         }
     }
 
-    static func getPlanStatus(forPlan plan: RUP, completion: @escaping (_ response: Alamofire.DataResponse<Data>) -> Void) {
+    static func getPlan(forPlan plan: RUP, completion: @escaping (_ response: Alamofire.DataResponse<Data>) -> Void) {
         let id = plan.remoteId
         let planPath = "\(Constants.API.planPath)\(id)"
         guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
@@ -123,7 +123,7 @@ class APIManager {
 
         Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
             if response.result.description == "SUCCESS" {
-                RealmManager.shared.clearReferenceData()
+                Reference.shared.clearReferenceData()
                 let json = JSON(response.result.value!)
                 var newReference = [Object]()
                 newReference.append(contentsOf: handleLiveStockType(json: json["LIVESTOCK_TYPE"]))
@@ -136,7 +136,7 @@ class APIManager {
                 newReference.append(contentsOf: handleMinisterIssueType(json: json["MINISTER_ISSUE_TYPE"]))
                 newReference.append(contentsOf: handleMinisterIssueActionType(json: json["MINISTER_ISSUE_ACTION_TYPE"]))
                 newReference.append(contentsOf: handleAmendmentType(json: json["AMENDMENT_TYPE"]))
-                RUPManager.shared.updateReferenceData(objects: newReference)
+                Reference.shared.updateReferenceData(objects: newReference)
                 return completion(true)
             }else {
                 return completion(false)
@@ -730,6 +730,7 @@ extension APIManager {
 
         dispatchGroup.notify(queue: .main) {
             progress("Updating local data")
+            RUPManager.shared.fixUnlinkedPlans()
             RealmManager.shared.updateLastSyncDate(date: Date(), DownloadedReference: true)
             DataServices.shared.beginAutoSyncListener()
             completion(myError)

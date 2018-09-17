@@ -11,7 +11,10 @@ import UIKit
 import Realm
 import RealmSwift
 
+
+// This extention has all the styling for create page.
 extension CreateNewRUPViewController {
+
     // MARK: Styles
     func style() {
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
@@ -64,65 +67,8 @@ extension CreateNewRUPViewController {
     func styleStatus() {
         styleNavBarLabel(label: statusAndagreementHolderLabel)
         makeCircle(view: statusLight)
-        guard let plan = self.rup else {return}
-        switch plan.getStatus() {
-        case .Completed:
-            setStatusGreen()
-        case .Pending:
-            setStatusYellow()
-        case .LocalDraft:
-            setStatusRed()
-        case .Outbox:
-            setStatusGray()
-        case .Created:
-            setStatusYellow()
-        case .ChangeRequested:
-            setStatusGray()
-        case .ClientDraft:
-            setStatusRed()
-        case .Unknown:
-            setStatusGray()
-        case .StaffDraft:
-            setStatusGreen()
-        case .WronglyMadeWithoutEffect:
-            setStatusGray()
-        case .StandsWronglyMade:
-            setStatusGray()
-        case .Stands:
-            setStatusGray()
-        case .NotApprovedFurtherWorkRequired:
-            setStatusGray()
-        case .NotApproved:
-            setStatusGray()
-        case .Approved:
-            setStatusGray()
-        case .SubmittedForReview:
-            setStatusGray()
-        case .SubmittedForFinalDecision:
-            setStatusGray()
-        case .RecommendReady:
-            setStatusGray()
-        case .RecommendNotReady:
-            setStatusGray()
-        case .ReadyForFinalDescision:
-            setStatusGray()
-        }
-    }
-
-    func setStatusRed() {
-        self.statusLight.backgroundColor = UIColor.red
-    }
-
-    func setStatusGreen() {
-        self.statusLight.backgroundColor = UIColor.green
-    }
-
-    func setStatusYellow() {
-        self.statusLight.backgroundColor = UIColor.yellow
-    }
-
-    func setStatusGray() {
-        self.statusLight.backgroundColor = UIColor.gray
+         guard let plan = self.rup else {return}
+        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
     }
 
     // MARK: Side Menu
@@ -143,19 +89,17 @@ extension CreateNewRUPViewController {
     func styleLandscapeMenu() {
         self.menuWidth.constant = self.landscapeMenuWidh
         setMenuLabelsAlpha(to: 1)
-        setMenuIconLeadings(to: 2)
-        reviewAndSubmitButton.setImage(.none, for: .normal)
-        self.reviewAndSubmitBoxImage.alpha = 1
+        setMenuIconLeadings(to: 10)
+        self.submitButton.setTitle("Submit to client", for: .normal)
     }
 
     func stylePortaitMenu() {
         self.menuWidth.constant = self.portraitMenuWidth
         setMenuLabelsAlpha(to: 0)
-        reviewAndSubmitButton.setImage(#imageLiteral(resourceName: "icon_check_white"), for: .normal)
         let imgWidth: CGFloat = 24
         let leftBar: CGFloat = 12
         setMenuIconLeadings(to: (portraitMenuWidth - imgWidth - leftBar)/2)
-        self.reviewAndSubmitBoxImage.alpha = 0
+        self.submitButton.setTitle("", for: .normal)
     }
 
     func setMenuIconLeadings(to: CGFloat) {
@@ -170,7 +114,7 @@ extension CreateNewRUPViewController {
         pasturesLabel.alpha = alpha
         scheduleLabel.alpha = alpha
         ministersIssuesLabel.alpha = alpha
-        reviewAndSubmitLabel.alpha = alpha
+//        submitButton.alpha = alpha
     }
 
     func styleMenu() {
@@ -187,30 +131,42 @@ extension CreateNewRUPViewController {
 
     // MARK: Submit Button
     func styleMenuSubmitButtonOn() {
-        self.reviewAndSubmitLabel.text = "Submit to client"
-        self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
-        self.reviewAndSubmitButton.isEnabled = true
-        self.requiredFieldNeededLabel.alpha = 0
+        self.submitButton.backgroundColor = Colors.primary
+        self.submitButton.layer.cornerRadius = 5
 
-        self.submitButtonContainer.layer.cornerRadius = 5
-        self.submitButtonContainer.backgroundColor = Colors.primary
-        self.submitButtonContainer.layer.borderWidth = 1
-        self.submitButtonContainer.alpha = 1
+        if self.menuWidth.constant == self.portraitMenuWidth {
+            self.submitButton.setTitle("", for: .normal)
+        } else {
+            self.submitButton.setTitle("Submit to client", for: .normal)
+            if let label = self.submitButton.titleLabel {
+                label.font = Fonts.getPrimaryMedium(size: 17)
+                label.change(kernValue: -0.32)
+            }
+
+        }
+
+        self.requiredFieldNeededLabel.alpha = 0
     }
 
     func styleMenuSubmitButtonOFF() {
-        self.reviewAndSubmitLabel.text = "Submit to client"
-        self.reviewAndSubmitBoxImage.image = #imageLiteral(resourceName: "icon_check_white")
-        self.reviewAndSubmitButton.isEnabled = false
+
+        self.submitButton.backgroundColor = Colors.primary
+        self.submitButton.layer.cornerRadius = 5
+
+        if self.menuWidth.constant == self.portraitMenuWidth {
+            self.submitButton.setTitle("", for: .normal)
+        } else {
+            self.submitButton.setTitle("Submit to client", for: .normal)
+            if let label = self.submitButton.titleLabel {
+                label.font = Fonts.getPrimaryMedium(size: 17)
+                label.change(kernValue: -0.32)
+            }
+        }
+
         self.requiredFieldNeededLabel.alpha = 1
         self.requiredFieldNeededLabel.text = "Missing required fields"
         self.styleFieldHeader(label: self.requiredFieldNeededLabel)
         self.requiredFieldNeededLabel.textColor = Colors.invalid
-
-        self.submitButtonContainer.layer.cornerRadius = 5
-        self.submitButtonContainer.backgroundColor = Colors.primary
-        self.submitButtonContainer.layer.borderWidth = 1
-        self.submitButtonContainer.alpha = 0.5
     }
 
     // MARK: Menu Items
@@ -295,7 +251,7 @@ extension CreateNewRUPViewController {
         self.viewTitle.alpha = 1
     }
 
-    func openingAnimations() {
+    func openingAnimations(callBack: @escaping ()->Void) {
         let defaultHeaderHeight: CGFloat = 60
         let showHeaderContentDelay = 0.2
 
@@ -326,6 +282,7 @@ extension CreateNewRUPViewController {
                     // MARK: End of opening animations
                     self.view.isUserInteractionEnabled = true
                     self.styleUpdateAmendmentButton()
+                    return callBack()
                 })
 
             })

@@ -21,37 +21,41 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFu-vC-XIP">
-                        <rect key="frame" x="5" y="5" width="784" height="658.5"/>
+                        <rect key="frame" x="15" y="15" width="764" height="638.5"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cP-lR-hOo" userLabel="Options">
-                                <rect key="frame" x="736" y="53" width="48" height="48"/>
+                                <rect key="frame" x="714" y="42" width="50" height="50"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureOptionsButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RIB-Bv-z7L"/>
+                                    <constraint firstAttribute="width" constant="50" id="VOJ-yT-KCi"/>
+                                </constraints>
                                 <state key="normal" image="expandicon"/>
                                 <connections>
                                     <action selector="optionsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tvw-IM-PG9"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_ministers" translatesAutoresizingMaskIntoConstraints="NO" id="KwM-Un-eNk">
-                                <rect key="frame" x="15" y="66" width="22" height="22"/>
+                                <rect key="frame" x="15" y="56" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="2wD-lF-4Uw"/>
                                     <constraint firstAttribute="height" constant="22" id="iaY-iK-2it"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RangelandHealth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAG-7C-Plo">
-                                <rect key="frame" x="133.5" y="66.5" width="131" height="20.5"/>
+                                <rect key="frame" x="133.5" y="56.5" width="131" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issue Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZV-7r-TlB">
-                                <rect key="frame" x="42" y="15" width="86.5" height="122.5"/>
+                                <rect key="frame" x="42" y="15" width="86.5" height="102.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-ad-sZ5">
-                                <rect key="frame" x="15" y="558.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="538.5" width="734" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="eBi-5h-aBc"/>
                                 </constraints>
@@ -60,14 +64,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3mn-yU-uEe">
-                                <rect key="frame" x="15" y="588.5" width="754" height="5"/>
+                                <rect key="frame" x="15" y="568.5" width="734" height="5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="LRc-I4-Xrg"/>
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JX8-Jh-KFS">
-                                <rect key="frame" x="15" y="601.5" width="192" height="42"/>
+                                <rect key="frame" x="15" y="581.5" width="192" height="42"/>
                                 <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="192" id="RQk-Ay-kco"/>
@@ -81,7 +85,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJ9-Cn-TjI">
-                                <rect key="frame" x="15" y="266.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="246.5" width="734" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="w91-42-hDc"/>
                                 </constraints>
@@ -90,7 +94,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1I7-iq-koh">
-                                <rect key="frame" x="15" y="304.5" width="754" height="100"/>
+                                <rect key="frame" x="15" y="284.5" width="734" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureNotesField"/>
                                 <constraints>
@@ -100,7 +104,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Objective" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVZ-eL-ShS">
-                                <rect key="frame" x="15" y="412.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="392.5" width="734" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uC6-nd-dXx"/>
                                 </constraints>
@@ -109,7 +113,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0y6-8O-mEI">
-                                <rect key="frame" x="15" y="450.5" width="754" height="100"/>
+                                <rect key="frame" x="15" y="430.5" width="734" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PastureNotesField"/>
                                 <constraints>
@@ -119,7 +123,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pastures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvB-BY-9lU">
-                                <rect key="frame" x="15" y="190.5" width="754" height="30"/>
+                                <rect key="frame" x="15" y="170.5" width="734" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="e55-5D-qjx"/>
                                 </constraints>
@@ -128,7 +132,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgL-LU-V8g">
-                                <rect key="frame" x="63" y="229" width="706" height="30"/>
+                                <rect key="frame" x="63" y="209" width="686" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="vyy-6m-Vbn"/>
                                 </constraints>
@@ -137,13 +141,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpJ-v3-yTn" userLabel="Pasture">
-                                <rect key="frame" x="63" y="229" width="706" height="30"/>
+                                <rect key="frame" x="63" y="209" width="686" height="30"/>
                                 <connections>
                                     <action selector="pasturesAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tO6-a4-LBs"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTy-J0-Nzg">
-                                <rect key="frame" x="15" y="224" width="40" height="40"/>
+                                <rect key="frame" x="15" y="204" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gTy-J0-Nzg" secondAttribute="height" multiplier="1:1" id="TQg-xh-u1e"/>
                                     <constraint firstAttribute="width" constant="40" id="mbs-6t-pPd"/>
@@ -154,14 +158,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNs-Pp-mIQ">
-                                <rect key="frame" x="269.5" y="65.5" width="12" height="22"/>
+                                <rect key="frame" x="269.5" y="55.5" width="12" height="22"/>
                                 <state key="normal" image="icon_edit"/>
                                 <connections>
                                     <action selector="editTypeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gp6-zZ-ghw"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identified by Minister" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKD-Np-IOW">
-                                <rect key="frame" x="15" y="152.5" width="160.5" height="30"/>
+                                <rect key="frame" x="15" y="132.5" width="160.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="o3M-r0-XpY"/>
                                 </constraints>
@@ -170,13 +174,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lX5-Bk-9Z5">
-                                <rect key="frame" x="190.5" y="152.5" width="51" height="31"/>
+                                <rect key="frame" x="190.5" y="132.5" width="51" height="31"/>
                                 <connections>
                                     <action selector="idengifiedByMinisterSwitchAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="nrR-LD-KAm"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYc-g5-rhV">
-                                <rect key="frame" x="175.5" y="157.5" width="15" height="20.5"/>
+                                <rect key="frame" x="175.5" y="137.5" width="15" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.92941176469999998" green="0.38431372549999998" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -238,10 +242,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="EFu-vC-XIP" secondAttribute="trailing" constant="5" id="9oN-qj-Lqz"/>
-                    <constraint firstItem="EFu-vC-XIP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Pnf-HP-A2b"/>
-                    <constraint firstItem="EFu-vC-XIP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="ZDw-Mt-bpN"/>
-                    <constraint firstAttribute="bottom" secondItem="EFu-vC-XIP" secondAttribute="bottom" constant="5" id="uIQ-UH-nhZ"/>
+                    <constraint firstAttribute="trailing" secondItem="EFu-vC-XIP" secondAttribute="trailing" constant="15" id="9oN-qj-Lqz"/>
+                    <constraint firstItem="EFu-vC-XIP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Pnf-HP-A2b"/>
+                    <constraint firstItem="EFu-vC-XIP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ZDw-Mt-bpN"/>
+                    <constraint firstAttribute="bottom" secondItem="EFu-vC-XIP" secondAttribute="bottom" constant="15" id="uIQ-UH-nhZ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -271,7 +275,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="expandicon" width="48" height="48"/>
+        <image name="expandicon" width="4" height="12"/>
         <image name="icon_edit" width="12" height="12"/>
         <image name="icon_ministers" width="24" height="24"/>
     </resources>

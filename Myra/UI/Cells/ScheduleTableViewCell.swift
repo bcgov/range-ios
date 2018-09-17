@@ -13,7 +13,6 @@ import RealmSwift
 class ScheduleTableViewCell: BaseFormCell {
 
     // MARK: Variables
-    let cellHeight = 56.5
     var parentReference: CreateNewRUPViewController?
 
     // MARK: Outlets
@@ -84,7 +83,7 @@ class ScheduleTableViewCell: BaseFormCell {
             tableHeight.constant = 100
             message.text = "Awaiting input from client"
         } else {
-            tableHeight.constant = CGFloat( Double(rup.schedules.count) * cellHeight + 5.0)
+            tableHeight.constant = CGFloat( Double(rup.schedules.count) * ScheduleCellTableViewCell.cellHeight + 5.0)
             setUpTable()
         }
         style()

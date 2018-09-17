@@ -13,7 +13,7 @@ import RealmSwift
 class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Contants
-    static let cellHeight: CGFloat = 554
+    static let cellHeight: CGFloat = 574
 
     // MARK: Variables
     var issue: MinisterIssue?
@@ -101,7 +101,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        let pastureNames = RUPManager.shared.getPasturesLookup(rup: rup)
+        let pastureNames = Options.shared.getPasturesLookup(rup: rup)
         var selected = [SelectionPopUpObject]()
         for pasture in i.pastures {
             selected.append(SelectionPopUpObject(display: pasture.name, value: pasture.name))
@@ -126,10 +126,10 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: RUPManager.shared.getMinistersIssueActionsOptions(), onVC: parent, onButton: sender) { (selected, selection) in
+        lookup.setup(objects: Options.shared.getMinistersIssueActionsOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
-                if let type = RUPManager.shared.getIssueActionType(named: option.display) {
+                if let type = Reference.shared.getIssueActionType(named: option.display) {
                     i.addAction(type: type)
                     self.updateTableHeight(scrollToBottom: false)
                 }
@@ -170,7 +170,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setupSimple(objects: RUPManager.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setupSimple(objects: Options.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
             grandParent.dismissPopOver()
             if selected, let option = selection {
                 if let i = self.issue {

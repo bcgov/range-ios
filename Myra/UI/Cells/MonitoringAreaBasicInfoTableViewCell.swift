@@ -104,7 +104,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: RUPManager.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
+        lookup.setup(objects: Options.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 do {
@@ -125,7 +125,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: RUPManager.shared.getRangeLandHealthLookup(), onVC: parent, onButton: rangelandHealthDropDown) { (selected, selection) in
+        lookup.setup(objects: Options.shared.getRangeLandHealthLookup(), onVC: parent, onButton: rangelandHealthDropDown) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 do {
