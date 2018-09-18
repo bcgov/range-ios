@@ -650,6 +650,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         // Background
         showcase.backgroundPromptColor = Colors.active.blue
         showcase.backgroundPromptColorAlpha = 0.9
+        showcase.targetHolderColor = Colors.active.lightBlue
         // Text
         showcase.primaryTextColor = UIColor.white
         showcase.secondaryTextColor = UIColor.white

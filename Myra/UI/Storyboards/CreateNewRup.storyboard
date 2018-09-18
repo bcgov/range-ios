@@ -38,7 +38,7 @@
                                                     <constraint firstAttribute="width" secondItem="fmt-jk-cqS" secondAttribute="height" multiplier="1:1" id="IdQ-hA-Bcx"/>
                                                     <constraint firstAttribute="width" constant="24" id="cNx-TW-SiP"/>
                                                 </constraints>
-                                                <state key="normal" image="icon_Question"/>
+                                                <state key="normal" image="icon_Question_White"/>
                                                 <connections>
                                                     <action selector="bannerTooltipAction:" destination="q34-99-p1g" eventType="touchUpInside" id="tmW-h8-JaP"/>
                                                 </connections>
@@ -528,7 +528,7 @@
     </scenes>
     <resources>
         <image name="icon_Pastures" width="32" height="32"/>
-        <image name="icon_Question" width="24" height="24"/>
+        <image name="icon_Question_White" width="24" height="24"/>
         <image name="icon_check_white" width="24" height="24"/>
     </resources>
 </document>

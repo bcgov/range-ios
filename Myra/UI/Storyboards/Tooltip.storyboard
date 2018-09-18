@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Question" translatesAutoresizingMaskIntoConstraints="NO" id="KhF-gN-y50">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Question_White" translatesAutoresizingMaskIntoConstraints="NO" id="KhF-gN-y50">
                                 <rect key="frame" x="15" y="43.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="VDL-4M-ZTJ"/>
@@ -72,6 +72,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_Question" width="24" height="24"/>
+        <image name="icon_Question_White" width="24" height="24"/>
     </resources>
 </document>
