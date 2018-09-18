@@ -99,10 +99,7 @@ class HomeViewController: BaseViewController {
     // MARK: Outlet actions
 
     @IBAction func tourAction(_ sender: UIButton) {
-        loadTourTips()
-        if let first = tours.popLast() {
-            show(tourTip: first)
-        }
+        beginTourTip()
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
@@ -628,19 +625,7 @@ extension HomeViewController {
 }
 
 
-// Tourtip
-
-class TourTip {
-    var title: String = ""
-    var desc: String = ""
-    var target: UIView
-
-    init(title: String, desc: String, target: UIView) {
-        self.title = title
-        self.desc = desc
-        self.target = target
-    }
-}
+// MARK: Tourtip
 
 extension HomeViewController: MaterialShowcaseDelegate {
 
@@ -660,6 +645,15 @@ extension HomeViewController: MaterialShowcaseDelegate {
         showcase.secondaryTextFont = Fonts.getPrimary(size: 17)
         showcase.delegate = self
         showcase.show(completion: {})
+    }
+
+    func beginTourTip() {
+        loadTourTips()
+        self.syncContainer.alpha = 1
+        syncButton.isEnabled = false
+        if let first = tours.popLast() {
+            show(tourTip: first)
+        }
     }
 
     func loadTourTips() {
@@ -682,6 +676,8 @@ extension HomeViewController: MaterialShowcaseDelegate {
     func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
         if let next = self.tours.popLast() {
             show(tourTip: next)
+        } else {
+            updateAccordingToNetworkStatus()
         }
     }
 }
