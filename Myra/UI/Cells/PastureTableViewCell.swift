@@ -325,7 +325,7 @@ class PastureTableViewCell: BaseFormCell {
             styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
             styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
-            styleHollowButton(button: addPlantCommunityButton)
+            styleFillButton(button: addPlantCommunityButton)
         }
 
         styleContainer(view: containerView)

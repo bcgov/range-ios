@@ -36,6 +36,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
 
     @IBOutlet weak var rangelandHealthDropDown: UIButton!
     @IBOutlet weak var purposeDropDown: UIButton!
+    @IBOutlet weak var getMyCoordinatesButton: UIButton!
 
 
     // MARK: Variables
@@ -44,7 +45,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     var parentReference: MonitoringAreaViewController?
 
     // location
-
     let maxNumberOfAdjustments = 4
     var currentNumberOfAdjustments = 0
     var locationManager: CLLocationManager = CLLocationManager()
@@ -65,6 +65,15 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Outlet actions
+    @IBAction func getMyCoordinatesAction(_ sender: UIButton) {
+        if currentLocation == nil, CLLocationManager.locationServicesEnabled() {
+            Loading.shared.begin()
+            initLocation()
+        } else {
+            autofillLatLong()
+        }
+    }
+
     @IBAction func locationFieldChanged(_ sender: UITextField) {
         guard let ma = self.monitoringArea, let text = sender.text else {return}
         do {
@@ -174,6 +183,9 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+        self.latitudeField.text = monitoringArea.latitude
+        self.longitudeField.text = monitoringArea.longitude
+        Loading.shared.end()
     }
 
     // MARK: Setup
@@ -183,9 +195,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         self.parentReference = parentReference
         style()
         autoFill()
-        if mode == .Edit {
-            initLocation()
-        }
     }
 
     func autoFill() {
@@ -208,6 +217,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputFieldReadOnly(field: longitudeField, header: longitudeHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: transectField, header: transectHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: typeField, header: typeHeader, height: fieldHeight)
+            getMyCoordinatesButton.isHidden = true
         case .Edit:
             styleInputField(field: locationField, header: locationHeader, height: fieldHeight)
             styleInputField(field: rangeLandField, header: rangeLandHeader, height: fieldHeight)
@@ -215,6 +225,8 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputField(field: longitudeField, header: longitudeHeader, height: fieldHeight)
             styleInputField(field: transectField, header: transectHeader, height: fieldHeight)
             styleInputField(field: typeField, header: typeHeader, height: fieldHeight)
+            getMyCoordinatesButton.isHidden = false
+            styleHollowButton(button: getMyCoordinatesButton)
         }
     }
 }
@@ -224,9 +236,6 @@ extension MonitoringAreaBasicInfoTableViewCell: CLLocationManagerDelegate {
 
     func initLocation() {
         locationManager.delegate = self
-
-        // For use when the app is open & in the background
-        locationManager.requestAlwaysAuthorization()
 
         // For use when the app is open
         locationManager.requestWhenInUseAuthorization()
@@ -269,8 +278,9 @@ extension MonitoringAreaBasicInfoTableViewCell: CLLocationManagerDelegate {
             }
         }
         alertController.addAction(openAction)
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        parent.present(alertController, animated: true, completion: nil)
+        if let parent = self.parentReference {
+            parent.present(alertController, animated: true, completion: nil)
+        }
     }
 }
 
