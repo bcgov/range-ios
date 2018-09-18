@@ -35,13 +35,22 @@
                                     <constraint firstAttribute="height" constant="2" id="eDB-jc-PmE"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vq0-1S-6cW">
+                                <rect key="frame" x="164" y="29" width="24" height="24"/>
+                                <state key="normal" image="Exclamation Circle"/>
+                                <connections>
+                                    <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="K36-IC-tbp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Y74-ha-YH1" firstAttribute="centerY" secondItem="vmb-xw-zZH" secondAttribute="centerY" id="2A3-aJ-xaM"/>
                             <constraint firstAttribute="height" constant="80" id="2ie-mb-pL5"/>
+                            <constraint firstItem="Vq0-1S-6cW" firstAttribute="leading" secondItem="Y74-ha-YH1" secondAttribute="trailing" constant="5" id="BQy-Lc-3I5"/>
                             <constraint firstAttribute="bottom" secondItem="S3f-uo-PHC" secondAttribute="bottom" id="LCQ-4e-AYv"/>
                             <constraint firstAttribute="trailing" secondItem="S3f-uo-PHC" secondAttribute="trailing" constant="15" id="YQs-Jo-bb3"/>
                             <constraint firstItem="S3f-uo-PHC" firstAttribute="leading" secondItem="vmb-xw-zZH" secondAttribute="leading" constant="15" id="bym-Ha-zs7"/>
+                            <constraint firstItem="Vq0-1S-6cW" firstAttribute="centerY" secondItem="Y74-ha-YH1" secondAttribute="centerY" id="fwq-8N-Hgh"/>
                             <constraint firstItem="Y74-ha-YH1" firstAttribute="leading" secondItem="vmb-xw-zZH" secondAttribute="leading" constant="15" id="j0g-I5-5aE"/>
                         </constraints>
                     </view>
@@ -347,4 +356,7 @@
             <point key="canvasLocation" x="-179" y="330"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Exclamation Circle" width="24" height="24"/>
+    </resources>
 </document>

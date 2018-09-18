@@ -54,6 +54,12 @@ class MinisterIssuesTableViewCell: BaseFormCell {
         }
     }
 
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: tooltipMinistersIssuesAndActionsTitle, desc: tooltipMinistersIssuesAndActionsDescription)
+    }
+
+
     // MARK: Setup
     override func setup(mode: FormMode, rup: RUP) {
         self.mode = mode
@@ -109,6 +115,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleHeader(label: titleLabel, divider: divider)
+        titleLabel.increaseFontSize(by: -4)
         styleSubHeader(label: subtitle)
         switch self.mode {
         case .View:

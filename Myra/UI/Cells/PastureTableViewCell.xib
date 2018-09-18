@@ -210,7 +210,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plant Communities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncF-tG-42g">
-                                <rect key="frame" x="15" y="314.5" width="671" height="30"/>
+                                <rect key="frame" x="15" y="314.5" width="144" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="agh-LZ-0sm"/>
                                 </constraints>
@@ -258,12 +258,18 @@
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r9O-vJ-LcH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-9c-Xr7">
+                                <rect key="frame" x="164" y="317" width="24" height="24"/>
+                                <state key="normal" image="Exclamation Circle"/>
+                                <connections>
+                                    <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="m3W-md-zi9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tAI-sm-UTn" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="40F-mt-yDz"/>
                             <constraint firstItem="Lmo-yi-ffD" firstAttribute="top" secondItem="d10-4y-3Jf" secondAttribute="top" constant="15.5" id="6kL-Cz-mfa"/>
-                            <constraint firstAttribute="trailing" secondItem="ncF-tG-42g" secondAttribute="trailing" constant="15" id="8vo-HY-8yK"/>
                             <constraint firstAttribute="bottom" secondItem="Soa-UZ-bH2" secondAttribute="bottom" constant="16.5" id="AMf-1i-6LR"/>
                             <constraint firstItem="zFx-h9-LGF" firstAttribute="top" secondItem="zuB-WJ-S4r" secondAttribute="bottom" constant="16" id="DnY-ih-AdF"/>
                             <constraint firstItem="Soa-UZ-bH2" firstAttribute="top" secondItem="kqn-88-dK7" secondAttribute="bottom" constant="8" id="Ego-c1-dze"/>
@@ -273,6 +279,7 @@
                             <constraint firstItem="ncF-tG-42g" firstAttribute="top" secondItem="tAI-sm-UTn" secondAttribute="bottom" constant="8" id="J6f-Q9-QO3"/>
                             <constraint firstItem="EjY-Uy-5TR" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="JZr-YM-Zpt"/>
                             <constraint firstItem="1yy-6Z-4n7" firstAttribute="top" secondItem="d10-4y-3Jf" secondAttribute="top" id="M1c-xP-y3A"/>
+                            <constraint firstItem="zf3-9c-Xr7" firstAttribute="leading" secondItem="ncF-tG-42g" secondAttribute="trailing" constant="5" id="MGH-dL-Hqp"/>
                             <constraint firstItem="kqn-88-dK7" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="Oxo-Kj-ueL"/>
                             <constraint firstItem="QpF-28-cfD" firstAttribute="bottom" secondItem="E6P-6l-YOY" secondAttribute="bottom" id="Qdd-rA-z0I"/>
                             <constraint firstItem="w5n-SP-CTY" firstAttribute="leading" secondItem="E6P-6l-YOY" secondAttribute="trailing" constant="8" id="U6y-r6-81c"/>
@@ -297,6 +304,7 @@
                             <constraint firstItem="Al9-7x-BGA" firstAttribute="trailing" secondItem="w5n-SP-CTY" secondAttribute="trailing" id="qQm-Ph-cM6"/>
                             <constraint firstItem="QpF-28-cfD" firstAttribute="trailing" secondItem="E6P-6l-YOY" secondAttribute="trailing" id="xSd-cO-QgT"/>
                             <constraint firstItem="ncF-tG-42g" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="yEM-db-VKP"/>
+                            <constraint firstItem="zf3-9c-Xr7" firstAttribute="centerY" secondItem="ncF-tG-42g" secondAttribute="centerY" id="zBO-qf-2bh"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -332,6 +340,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Exclamation Circle" width="24" height="24"/>
         <image name="expandicon" width="4" height="12"/>
         <image name="icon_edit" width="12" height="12"/>
         <image name="icon_pasture" width="15" height="20"/>

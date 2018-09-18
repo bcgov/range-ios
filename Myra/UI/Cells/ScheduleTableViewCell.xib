@@ -24,7 +24,7 @@
                         <rect key="frame" x="15" y="11" width="577" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yearly Schedules" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNy-FA-tou">
-                                <rect key="frame" x="0.0" y="29.5" width="379" height="21"/>
+                                <rect key="frame" x="0.0" y="30" width="140.5" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -51,6 +51,13 @@
                                     <action selector="addScheduleAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iyq-dA-LfJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xg8-Ah-Oin">
+                                <rect key="frame" x="145.5" y="29" width="24" height="24"/>
+                                <state key="normal" image="Exclamation Circle"/>
+                                <connections>
+                                    <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rAW-4S-hjz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="42w-oR-hhy" firstAttribute="leading" secondItem="G0g-gh-W40" secondAttribute="leading" id="2SS-Mo-06n"/>
@@ -59,8 +66,9 @@
                             <constraint firstAttribute="height" constant="80" id="DNV-kV-myl"/>
                             <constraint firstItem="JNy-FA-tou" firstAttribute="leading" secondItem="G0g-gh-W40" secondAttribute="leading" id="Iq4-cN-C2l"/>
                             <constraint firstAttribute="bottom" secondItem="42w-oR-hhy" secondAttribute="bottom" id="J6l-Ky-QAx"/>
-                            <constraint firstItem="7aU-Ev-sHh" firstAttribute="leading" secondItem="JNy-FA-tou" secondAttribute="trailing" constant="8" id="mjU-nn-8rn"/>
+                            <constraint firstItem="xg8-Ah-Oin" firstAttribute="centerY" secondItem="JNy-FA-tou" secondAttribute="centerY" id="oZv-6Z-T3T"/>
                             <constraint firstItem="JNy-FA-tou" firstAttribute="centerY" secondItem="G0g-gh-W40" secondAttribute="centerY" id="pro-ZI-1uO"/>
+                            <constraint firstItem="xg8-Ah-Oin" firstAttribute="leading" secondItem="JNy-FA-tou" secondAttribute="trailing" constant="5" id="rxD-fh-JPm"/>
                             <constraint firstAttribute="trailing" secondItem="7aU-Ev-sHh" secondAttribute="trailing" id="yAo-td-sxe"/>
                         </constraints>
                     </view>
@@ -134,4 +142,7 @@
             <point key="canvasLocation" x="30.5" y="44.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Exclamation Circle" width="24" height="24"/>
+    </resources>
 </document>
