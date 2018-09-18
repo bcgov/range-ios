@@ -117,15 +117,17 @@ class HomeViewController: BaseViewController {
     @IBAction func syncAction(_ sender: UIButton) {
         sender.isUserInteractionEnabled = false
         syncButtonLabel.alpha = 1
-        syncButtonLabel.text = "Connecting..."
-        animateIt()
-        showSyncMessage(text: "Connection taking longer than expected...", after: 5)
-        showSyncMessage(text: "Your connection is very unstable...", after: 10)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
-            if self.syncButtonLabel.alpha == 1 {
-                self.unstableConnection = true
-            }
-        })
+        if authServices.isAuthenticated() {
+            syncButtonLabel.text = "Connecting..."
+            animateIt()
+            showSyncMessage(text: "Connection taking longer than expected...", after: 5)
+            showSyncMessage(text: "Your connection is very unstable...", after: 10)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
+                if self.syncButtonLabel.alpha == 1 {
+                    self.unstableConnection = true
+                }
+            })
+        }
         authenticateIfRequred()
     }
 
