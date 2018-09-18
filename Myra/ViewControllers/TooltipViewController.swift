@@ -41,7 +41,6 @@ class TooltipViewController: UIViewController {
         descriptionTextView.font = Fonts.getPrimary(size: 14)
         descriptionTextView.textColor = UIColor.white
         descriptionTextView.backgroundColor = Colors.active.blue
-        icon.image = #imageLiteral(resourceName: "Exclamation Circle")
         self.view.backgroundColor = Colors.active.blue
     }
 

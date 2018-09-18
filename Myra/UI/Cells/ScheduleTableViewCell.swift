@@ -24,6 +24,12 @@ class ScheduleTableViewCell: BaseFormCell {
     @IBOutlet weak var message: UILabel!
     @IBOutlet weak var messageContainer: UIView!
 
+
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: tooltipScheduleTitle, desc: tooltipScheduleDescription)
+    }
+
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
         guard let p = parentReference,

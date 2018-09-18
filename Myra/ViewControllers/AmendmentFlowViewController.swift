@@ -8,6 +8,7 @@
 
 import UIKit
 enum AmendmentFlowMode {
+    case Initial
     case Mandatory
     case Minor
     case FinalReview

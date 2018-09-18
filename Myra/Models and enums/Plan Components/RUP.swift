@@ -60,7 +60,7 @@ class RUP: Object, MyraObject {
 
     @objc dynamic var effectiveDate: Date?
     @objc dynamic var submitted: Date?
-    @objc dynamic var amendmentTypeId: Int = 0
+    @objc dynamic var amendmentTypeId: Int = -1
 
     // Local status
     @objc dynamic var status: String = RUPStatus.LocalDraft.rawValue
@@ -223,7 +223,7 @@ class RUP: Object, MyraObject {
     }
 
     func updateStatus(with newStatus: RUPStatus) {
-        let tempId = Reference.shared.getAmendmentStatus(status: newStatus).id
+        let tempId = Reference.shared.convertToPlanStatus(status: newStatus).id
         let statusObject = Reference.shared.getStatus(forId: tempId)
         guard let obj = statusObject else {return}
         do {

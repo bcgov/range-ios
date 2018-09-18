@@ -188,7 +188,7 @@ class Reference {
         return PlanStatus()
     }
 
-    func getAmendmentStatus(status: RUPStatus)  -> PlanStatus {
+    func convertToPlanStatus(status: RUPStatus)  -> PlanStatus {
         var code = ""
         if status == .WronglyMadeWithoutEffect {
             code = "wm"
@@ -208,6 +208,12 @@ class Reference {
             code = "a"
         } else if status == .SubmittedForFinalDecision {
             code = "sfd"
+        } else if status == .Pending {
+            code = "P"
+        } else if status == .Completed {
+            code = "O"
+        } else if status == .ChangeRequested {
+            code = "R"
         }
 
         let query = RealmRequests.getObject(PlanStatus.self)

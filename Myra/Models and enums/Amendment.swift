@@ -18,6 +18,8 @@ enum AmendmentChangeType {
     case NotApprovedFurtherWorkRequired
     case NotApproved
     case Approved
+    case Completed
+    case ChangeRequested
 }
 
 class Amendment {
@@ -48,6 +50,10 @@ class Amendment {
                 return .NotApproved
             case .Approved:
                 return .Approved
+            case .Completed:
+                return .Completed
+            case .ChangeRequested:
+                return .ChangeRequested
             }
         }
         return nil

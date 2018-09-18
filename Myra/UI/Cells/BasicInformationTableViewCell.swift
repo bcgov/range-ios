@@ -57,9 +57,14 @@ class BasicInformationTableViewCell: BaseFormCell {
     
     @IBOutlet weak var inputFieldHeight: NSLayoutConstraint!
 
-    // MARK: Cell Functions
+    // MARK: Outlet actions 
 
-    // MARK: Outlet actions
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: tooltipPlanInformationTitle, desc: tooltipPlanInformationDescription)
+    }
+
+
     @IBAction func nameEdited(_ sender: Any) {
         do {
             let realm = try Realm()

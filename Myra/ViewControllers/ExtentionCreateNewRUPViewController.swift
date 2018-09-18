@@ -49,7 +49,11 @@ extension CreateNewRUPViewController {
         } else if current == .RecommendReady {
             updateAmendmentButton.setTitle("Final Review", for: .normal)
             updateAmendmentEnabled = true
-        }else {
+        } else if current == .Pending || current == .Created {
+            updateAmendmentButton.setTitle("Update Status", for: .normal)
+            // completed / change requested
+            updateAmendmentEnabled = true
+        } else {
             updateAmendmentEnabled = false
         }
         

@@ -83,7 +83,7 @@
                                     <constraint firstAttribute="width" secondItem="cao-Cx-wW2" secondAttribute="height" multiplier="1:1" id="h3W-fZ-hge"/>
                                     <constraint firstAttribute="width" constant="25" id="taP-Zb-c7K"/>
                                 </constraints>
-                                <state key="normal" image="Exclamation Circle"/>
+                                <state key="normal" image="icon_Question"/>
                                 <connections>
                                     <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cbr-Bb-Ad6"/>
                                 </connections>
@@ -132,6 +132,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Exclamation Circle" width="24" height="24"/>
+        <image name="icon_Question" width="24" height="24"/>
     </resources>
 </document>

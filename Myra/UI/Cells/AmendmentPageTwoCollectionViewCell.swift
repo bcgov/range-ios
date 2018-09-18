@@ -89,6 +89,13 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
                     parent.gotoPage(row: 2)
                 }
             }
+        case .Initial:
+            if !amendment.InformedAgreementHolder {
+                fadeLabelMessage(label: subtitleLabel, text: statusChangeMessage)
+                return
+            } else {
+                parent.gotoPage(row: 2)
+            }
         }
     }
 
@@ -141,6 +148,8 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
             self.titleLabel.text = "Update Amendment Status"
         case .FinalReview:
             self.titleLabel.text = "Update Amendment Descision"
+        case .Initial:
+            self.titleLabel.text = "Update Plan Status"
         }
         informedIndicator.layer.borderWidth = 1
         informedIndicator.layer.borderColor = Colors.active.blue.cgColor

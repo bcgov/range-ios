@@ -50,6 +50,12 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
 
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: tooltipPlantCommunitiesTitle, desc: tooltipPlantCommunitiesDescription)
+    }
+
+
     @IBAction func editNameAction(_ sender: UIButton) {
         editName()
     }
@@ -319,7 +325,7 @@ class PastureTableViewCell: BaseFormCell {
             styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
             styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
-            styleHollowButton(button: addPlantCommunityButton)
+            styleFillButton(button: addPlantCommunityButton)
         }
 
         styleContainer(view: containerView)

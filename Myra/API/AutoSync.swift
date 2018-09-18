@@ -241,6 +241,10 @@ class AutoSync {
                     view.heightAnchor.constraint(equalToConstant: window.frame.height),
                     view.centerXAnchor.constraint(equalTo: window.centerXAnchor),
                     view.centerYAnchor.constraint(equalTo: window.centerYAnchor),
+                    view.topAnchor.constraint(equalTo: window.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: window.bottomAnchor),
+                    view.leftAnchor.constraint(equalTo: window.leftAnchor),
+                    view.rightAnchor.constraint(equalTo: window.rightAnchor)
                     ])
                 // add white background
                 view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha: 0.9)

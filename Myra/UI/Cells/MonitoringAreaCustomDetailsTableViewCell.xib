@@ -156,14 +156,15 @@
                             <constraint firstAttribute="height" priority="750" id="pkx-kL-bWf"/>
                         </constraints>
                     </tableView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWF-FX-LTo">
-                        <rect key="frame" x="16" y="354.5" width="192" height="42"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWF-FX-LTo">
+                        <rect key="frame" x="16" y="354.5" width="200" height="42"/>
                         <color key="backgroundColor" red="0.90763800760000002" green="0.90763800760000002" blue="0.90763800760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="192" id="A3z-95-fDf"/>
+                            <constraint firstAttribute="width" constant="200" id="A3z-95-fDf"/>
                             <constraint firstAttribute="height" constant="42" id="Jum-vY-9IT"/>
                         </constraints>
-                        <state key="normal" title="+ Add Indicator Plant">
+                        <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Add Indicator Plant" image="add_light">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
@@ -207,6 +208,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="add_light" width="20" height="20"/>
         <image name="icon_MinistersIssues" width="32" height="32"/>
     </resources>
 </document>

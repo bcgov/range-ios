@@ -136,9 +136,18 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwe-cK-vIF">
+                                                <rect key="frame" x="947" y="36" width="40" height="40"/>
+                                                <state key="normal" title="T"/>
+                                                <connections>
+                                                    <action selector="tourAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="a3a-ig-ZXb"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="Cwe-cK-vIF" firstAttribute="height" secondItem="sSl-7p-lny" secondAttribute="height" id="4cF-Ao-yMA"/>
+                                            <constraint firstItem="Cwe-cK-vIF" firstAttribute="centerY" secondItem="sSl-7p-lny" secondAttribute="centerY" id="CZy-Zv-utr"/>
                                             <constraint firstItem="JzH-RI-Kcw" firstAttribute="leading" secondItem="0ZI-61-Maf" secondAttribute="trailing" constant="8" id="CsH-lQ-aFe"/>
                                             <constraint firstItem="HTL-Bd-dqg" firstAttribute="top" secondItem="Z9c-y2-y5e" secondAttribute="top" constant="10" id="DPV-yh-9Ff"/>
                                             <constraint firstAttribute="height" constant="100" id="LYH-3c-iov"/>
@@ -154,8 +163,10 @@
                                             <constraint firstItem="fEY-X1-Nv2" firstAttribute="leading" secondItem="HTL-Bd-dqg" secondAttribute="trailing" constant="10" id="cw0-BE-aE0"/>
                                             <constraint firstItem="GLn-Ss-fBW" firstAttribute="centerY" secondItem="wwf-Tf-o9i" secondAttribute="centerY" id="f34-s9-a4N"/>
                                             <constraint firstItem="wwf-Tf-o9i" firstAttribute="top" secondItem="HTL-Bd-dqg" secondAttribute="bottom" constant="10" id="gNt-RY-aoD"/>
+                                            <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="Cwe-cK-vIF" secondAttribute="trailing" constant="20" id="gch-Jv-rZh"/>
                                             <constraint firstAttribute="trailing" secondItem="GLn-Ss-fBW" secondAttribute="trailing" constant="15" id="kxK-2c-0gY"/>
                                             <constraint firstItem="fEY-X1-Nv2" firstAttribute="height" secondItem="HTL-Bd-dqg" secondAttribute="height" id="ouP-tT-5Df"/>
+                                            <constraint firstItem="Cwe-cK-vIF" firstAttribute="width" secondItem="sSl-7p-lny" secondAttribute="width" id="ozN-bq-mQx"/>
                                             <constraint firstItem="HTL-Bd-dqg" firstAttribute="leading" secondItem="xVI-At-WLA" secondAttribute="trailing" constant="5" id="sNV-sb-tfd"/>
                                             <constraint firstItem="0ZI-61-Maf" firstAttribute="centerY" secondItem="HTL-Bd-dqg" secondAttribute="centerY" id="v0m-lK-Q1c"/>
                                             <constraint firstItem="tpW-FV-O6r" firstAttribute="centerY" secondItem="GLn-Ss-fBW" secondAttribute="centerY" id="vxO-DB-FqQ"/>
@@ -198,7 +209,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="lWJ-yI-EqG" firstAttribute="centerX" secondItem="LJu-gm-0q2" secondAttribute="centerX" id="BJm-9h-M15"/>
                                                             <constraint firstItem="lWJ-yI-EqG" firstAttribute="centerY" secondItem="LJu-gm-0q2" secondAttribute="centerY" id="Eks-rj-U8Q"/>
@@ -225,7 +236,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="SZi-bs-JRv" firstAttribute="centerX" secondItem="IPV-54-LE3" secondAttribute="centerX" id="WEq-RX-QcQ"/>
                                                             <constraint firstItem="SZi-bs-JRv" firstAttribute="centerY" secondItem="IPV-54-LE3" secondAttribute="centerY" id="Z20-6V-TOm"/>
@@ -252,7 +263,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="THs-H8-JJu" firstAttribute="centerX" secondItem="dfP-4E-bns" secondAttribute="centerX" id="JNo-Kv-D4O"/>
                                                             <constraint firstItem="THs-H8-JJu" firstAttribute="centerY" secondItem="dfP-4E-bns" secondAttribute="centerY" id="ipW-4l-0Jd"/>
@@ -279,7 +290,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="qhg-s2-LiS" firstAttribute="centerY" secondItem="dLW-xD-Ghb" secondAttribute="centerY" id="2ez-JT-4nN"/>
                                                             <constraint firstAttribute="height" constant="50" id="mhK-Ip-3od"/>
@@ -288,6 +299,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="LJu-gm-0q2" firstAttribute="width" secondItem="dLW-xD-Ghb" secondAttribute="width" id="2g2-OV-r81"/>
                                                     <constraint firstItem="IPV-54-LE3" firstAttribute="width" secondItem="dLW-xD-Ghb" secondAttribute="width" id="5Zc-sv-MHk"/>
@@ -430,6 +442,7 @@
                         <outlet property="containerView" destination="lHw-T8-NdB" id="34Y-Qb-5xL"/>
                         <outlet property="createButton" destination="6er-jo-Ncd" id="6zX-aE-5nw"/>
                         <outlet property="draftsFilter" destination="SZi-bs-JRv" id="xFm-Bi-XFO"/>
+                        <outlet property="filtersStack" destination="Kxf-Sw-J8K" id="5ls-f9-UWE"/>
                         <outlet property="lastSyncLabel" destination="JzH-RI-Kcw" id="gfy-xB-3Fu"/>
                         <outlet property="navBar" destination="Z9c-y2-y5e" id="e6j-Ib-htD"/>
                         <outlet property="navBarImage" destination="fLM-kb-vPN" id="GOV-hf-6RH"/>
@@ -438,7 +451,7 @@
                         <outlet property="rangeNumberHeader" destination="At2-kb-Yxp" id="tio-tX-LWy"/>
                         <outlet property="statusBar" destination="s76-Rw-97m" id="gxw-xe-arZ"/>
                         <outlet property="statusHeader" destination="KDB-jK-Xit" id="8S5-Sp-xvE"/>
-                        <outlet property="syncButton" destination="sSl-7p-lny" id="Z4V-yD-jiQ"/>
+                        <outlet property="syncButton" destination="sSl-7p-lny" id="Ol2-FH-MJw"/>
                         <outlet property="syncButtonLabel" destination="k6l-f6-lzW" id="s0c-xx-rRb"/>
                         <outlet property="syncContainer" destination="tpW-FV-O6r" id="e6v-OM-s7Z"/>
                         <outlet property="syncLabel" destination="0ZI-61-Maf" id="VYG-cC-O1c"/>

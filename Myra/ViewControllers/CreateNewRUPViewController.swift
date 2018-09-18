@@ -196,18 +196,21 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     @IBAction func updateAmendmentAction(_ sender: UIButton) {
-        guard let plan = self.rup, let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return}
+        guard let plan = self.rup else {return}
 
         // get flow view controller
         let vm = ViewManager()
         let flow = vm.amendmentFlow
 
         // select mode
-        var mode: AmendmentFlowMode = .FinalReview
-        if amendmentType.name.lowercased().contains("minor") {
-            mode = .Minor
-        } else if amendmentType.name.lowercased().contains("mandatory") && plan.getStatus() != .RecommendReady {
-            mode = .Mandatory
+        var mode: AmendmentFlowMode = .Initial
+        if let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) {
+            mode = .FinalReview
+            if amendmentType.name.lowercased().contains("minor") {
+                mode = .Minor
+            } else if amendmentType.name.lowercased().contains("mandatory") && plan.getStatus() != .RecommendReady {
+                mode = .Mandatory
+            }
         }
 
         // display
@@ -664,15 +667,26 @@ extension CreateNewRUPViewController {
     func shouldShowBanner() -> Bool {
         guard let plan = self.rup else {return false}
         // TODO: Add criteria here
-        return (plan.getStatus() != .LocalDraft && plan.getStatus() != .StaffDraft)
+        return plan.amendmentTypeId != -1
     }
 
     func getBannerTitle() -> String {
-        return bannerMinorAmendmentReviewRequiredTitle
+        guard let plan = self.rup, let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return ""}
+        if amendmentType.name.lowercased().contains("minor") {
+            return bannerMinorAmendmentReviewRequiredTitle
+        } else {
+            return bannerMandatoryAmendmentReviewRequiredTitle
+        }
+
     }
 
     func getBannerDescription() -> String {
-        return bannerMinorAmendmentReviewRequiredDescription
+        guard let plan = self.rup, let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) else {return ""}
+        if amendmentType.name.lowercased().contains("minor") {
+            return bannerMinorAmendmentReviewRequiredDescription
+        } else {
+            return bannerMandatoryAmendmentReviewRequiredTitle
+        }
     }
 
     func openBanner() {
