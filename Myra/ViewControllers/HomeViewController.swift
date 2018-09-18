@@ -12,6 +12,7 @@ import SingleSignOn
 import Lottie
 import RealmSwift
 import Realm
+import MaterialShowcase
 
 class HomeViewController: BaseViewController {
 
@@ -35,6 +36,8 @@ class HomeViewController: BaseViewController {
     }
 
     var syncing: Bool = false
+
+    var tours: [TourTip] = [TourTip]()
 
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
@@ -63,6 +66,7 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var draftsFilter: UIButton!
     @IBOutlet weak var pendingFilter: UIButton!
     @IBOutlet weak var completedFilter: UIButton!
+    @IBOutlet weak var filtersStack: UIStackView!
 
     // table
     @IBOutlet weak var tableView: UITableView!
@@ -93,6 +97,14 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Outlet actions
+
+    @IBAction func tourAction(_ sender: UIButton) {
+        loadTourTips()
+        if let first = tours.popLast() {
+            show(tourTip: first)
+        }
+    }
+
     @IBAction func createRUPAction(_ sender: UIButton) {
         let vm = ViewManager()
         let vc = vm.selectAgreement
@@ -609,6 +621,62 @@ extension HomeViewController {
             self.connectivityLabel.text = "Offline Mode"
             self.connectivityLight.backgroundColor = UIColor.red
             self.syncing = false
+        }
+    }
+}
+
+
+// Tourtip
+
+class TourTip {
+    var title: String = ""
+    var desc: String = ""
+    var target: UIView
+
+    init(title: String, desc: String, target: UIView) {
+        self.title = title
+        self.desc = desc
+        self.target = target
+    }
+}
+
+extension HomeViewController: MaterialShowcaseDelegate {
+
+    func show(tourTip: TourTip) {
+        let showcase = MaterialShowcase()
+        showcase.setTargetView(view: tourTip.target)
+        showcase.primaryText = tourTip.title
+        showcase.secondaryText = tourTip.desc
+        // Background
+        showcase.backgroundPromptColor = Colors.active.blue
+        showcase.backgroundPromptColorAlpha = 0.9
+        // Text
+        showcase.primaryTextColor = UIColor.white
+        showcase.secondaryTextColor = UIColor.white
+        showcase.primaryTextFont = Fonts.getPrimaryMedium(size: 23)
+        showcase.secondaryTextFont = Fonts.getPrimary(size: 17)
+        showcase.delegate = self
+        showcase.show(completion: {})
+    }
+
+    func loadTourTips() {
+        let createNewTour = TourTip(title: tourCreateNewRupTitle, desc: tourCreateNewRupDesc, target: createButton)
+        let syncTour = TourTip(title: tourSyncTitle, desc: tourSyncDesc, target: syncContainer)
+        let logoutTour = TourTip(title: tourLogoutTitle, desc: tourLogoutDesc, target: userBoxView)
+        let filtersTour = TourTip(title: tourFiltersTitle, desc: tourFiltersDesc, target: allFilter)
+        self.tours.removeAll()
+        self.tours.append(createNewTour)
+        self.tours.append(syncTour)
+        self.tours.append(filtersTour)
+        self.tours.append(logoutTour)
+    }
+
+    func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+    }
+
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        if let next = self.tours.popLast() {
+            show(tourTip: next)
         }
     }
 }
