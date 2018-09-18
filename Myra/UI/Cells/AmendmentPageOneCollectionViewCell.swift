@@ -81,6 +81,8 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .WronglyMadeStands
         case .FinalReview:
             amendment.type = .NotApproved
+        case .Initial:
+            amendment.type = .ChangeRequested
         }
         autoFill()
     }
@@ -94,6 +96,8 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .WronglyMadeNoEffect
         case .FinalReview:
             amendment.type = .Approved
+        case .Initial:
+            amendment.type = .Completed
         }
         autoFill()
     }
@@ -127,6 +131,10 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
                 selectOptionOne()
             case .Approved:
                 selectOptionTwo()
+            case .Completed:
+                selectOptionTwo()
+            case .ChangeRequested:
+                selectOptionOne()
             }
         } 
     }
@@ -151,6 +159,12 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             self.optionTwoLabel.text = "Approved"
             self.titleLabel.text = "Update Amendment Descision"
             self.subtitleLabel.text = "Select the final status of this Range Use Plan"
+        case .Initial:
+            self.optionOneLabel.text = "Change Requested"
+            self.optionTwoLabel.text = "Completed"
+            self.titleLabel.text = "Update Plan Status"
+            self.subtitleLabel.text = "Select the new status of this Range Use Plan"
+            self.optionZeroContainer.isHidden = true
         }
         styleHollowButton(button: cancelButton)
         styleFillButton(button: nextButton)

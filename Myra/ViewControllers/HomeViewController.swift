@@ -664,9 +664,11 @@ extension HomeViewController: MaterialShowcaseDelegate {
         let syncTour = TourTip(title: tourSyncTitle, desc: tourSyncDesc, target: syncContainer)
         let logoutTour = TourTip(title: tourLogoutTitle, desc: tourLogoutDesc, target: userBoxView)
         let filtersTour = TourTip(title: tourFiltersTitle, desc: tourFiltersDesc, target: allFilter)
+        let lastSyncTour = TourTip(title: tourlastSyncTitle, desc: tourlastSyncDesc, target: lastSyncLabel)
         self.tours.removeAll()
         self.tours.append(createNewTour)
         self.tours.append(syncTour)
+        self.tours.append(lastSyncTour)
         self.tours.append(filtersTour)
         self.tours.append(logoutTour)
     }

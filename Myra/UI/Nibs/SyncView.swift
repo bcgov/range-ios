@@ -63,18 +63,6 @@ class SyncView: UIView, Theme {
             }, progress: { (progress) in
                 self.updateSyncDescription(text: progress)
             })
-            /*
-            APIManager.sync(completion: { (error: APIError?) in
-                if let error = error {
-                    self.styleSyncFail(error: "\(error.localizedDescription)")
-                    self.succcess = false
-                } else {
-                    self.succcess = true
-                    self.styleSyncSuccess()
-                }
-            }) { (progress) in
-                self.updateSyncDescription(text: progress)
-            }*/
         })
     }
 

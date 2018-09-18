@@ -51,9 +51,9 @@
                                     <action selector="addScheduleAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iyq-dA-LfJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xg8-Ah-Oin">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xg8-Ah-Oin">
                                 <rect key="frame" x="145.5" y="29" width="24" height="24"/>
-                                <state key="normal" image="Exclamation Circle"/>
+                                <state key="normal" image="icon_Question"/>
                                 <connections>
                                     <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rAW-4S-hjz"/>
                                 </connections>
@@ -143,6 +143,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Exclamation Circle" width="24" height="24"/>
+        <image name="icon_Question" width="24" height="24"/>
     </resources>
 </document>

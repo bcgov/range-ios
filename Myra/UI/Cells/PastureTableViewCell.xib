@@ -258,9 +258,9 @@
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r9O-vJ-LcH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-9c-Xr7">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-9c-Xr7">
                                 <rect key="frame" x="164" y="317" width="24" height="24"/>
-                                <state key="normal" image="Exclamation Circle"/>
+                                <state key="normal" image="icon_Question"/>
                                 <connections>
                                     <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="m3W-md-zi9"/>
                                 </connections>
@@ -340,8 +340,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Exclamation Circle" width="24" height="24"/>
         <image name="expandicon" width="4" height="12"/>
+        <image name="icon_Question" width="24" height="24"/>
         <image name="icon_edit" width="12" height="12"/>
         <image name="icon_pasture" width="15" height="20"/>
     </resources>
