@@ -125,6 +125,7 @@
                 <outlet property="status" destination="QiH-yQ-Mk4" id="zpl-pv-7AS"/>
                 <outlet property="statusLight" destination="GVI-Ug-2Fd" id="ZPd-bx-rTQ"/>
                 <outlet property="submitted" destination="BLN-LF-uGZ" id="MyW-Wr-42N"/>
+                <outlet property="toolTipButton" destination="cao-Cx-wW2" id="jXr-kz-TlL"/>
                 <outlet property="type" destination="Hlr-z3-yGA" id="8HP-kb-8JE"/>
                 <outlet property="viewButton" destination="Nia-RR-iIE" id="mMy-AI-Hb4"/>
             </connections>

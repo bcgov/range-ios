@@ -15,6 +15,8 @@ class MainViewController: BaseViewController {
     var currentChildVC: UIViewController?
 
     var nextChildVC: UIViewController?
+
+    var loginDisplayed: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,7 @@ extension MainViewController {
         let vm = ViewManager()
         let loginVC = vm.login
         loginVC.setup(parentReference: self)
+        self.loginDisplayed = true
         add(asChildViewController: vm.login)
     }
 
@@ -49,6 +52,7 @@ extension MainViewController {
         let vm = ViewManager()
         let home = vm.home
         home.parentReference = self
+        home.presentedAfterLogin = loginDisplayed
         add(asChildViewController: vm.home)
     }
 

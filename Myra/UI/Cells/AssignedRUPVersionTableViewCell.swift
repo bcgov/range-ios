@@ -19,6 +19,8 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var statusLight: UIView!
     @IBOutlet weak var viewButton: UIButton!
+    @IBOutlet weak var toolTipButton: UIButton!
+
 
     @IBAction func viewAction(_ sender: UIButton) {
         guard let plan = rup, let parent = self.parentViewController as? HomeViewController else {return}
