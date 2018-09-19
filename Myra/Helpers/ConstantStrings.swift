@@ -24,13 +24,15 @@ let tooltipMinistersIssuesAndActionsDescription: String = "Create a list with al
 let tooltipPlantCommunitiesTitle: String = "Tooltip Title"
 let tooltipPlantCommunitiesDescription: String = "Create a list with all possible keywords that fit to your product, service or business field. The more the better. So you will get also a lot of keywords which you must pay for only the minimal commandment of 5 cents."
 
-
 // TourTip
+let tourTourTitle: String = "Begin Tour"
+let tourTourDesc: String = "You can click here to begin this tour again."
+
 let tourCreateNewRupTitle: String = "Create a new plan"
 let tourCreateNewRupDesc: String = "Click here to select an agreement and to start a new plan"
 
 let tourSyncTitle: String = "Sync"
-let tourSyncDesc: String = "Click here to manually sunc agreements and plans"
+let tourSyncDesc: String = "Click here to manually sync agreements and plans when you're Online"
 
 let tourLogoutTitle: String = "Logout"
 let tourLogoutDesc: String = "You can logout here"
@@ -40,6 +42,22 @@ let tourFiltersDesc: String = "You can filter your plans here"
 
 let tourlastSyncTitle: String = "Last Sync"
 let tourlastSyncDesc: String = "Time elapsed since the last time you manually synced"
+
+let tourPlanCellLatestTitle: String = "Latest Plan"
+let tourPlanCellLatestDesc: String = "This is the latest Plan with that range number.\nClick cell to expand."
+
+let tourPlanCellLatestStatusTitle: String = "Current Plan's status"
+let tourPlanCellLatestStatusDesc: String = "This is the status of the latest plan for this agreement"
+
+let tourPlanCellVersionsTooltipTitle: String = "Plan Versions"
+let tourPlanCellVersionsTooltipDesc: String = "these are different versions of the plan"
+
+
+let tourPlanCellVersionStatusTooltipTitle: String = "Tooltip"
+let tourPlanCellVersionStatusTooltipDesc: String = "Click here to view information about the plan status"
+
+let tourPlanCellVersionViewTooltipTitle: String = "View or Edit plan"
+let tourPlanCellVersionViewTooltipDesc: String = "Click here to view or edit plan based on current status"
 
 // Banner
 let bannerMinorAmendmentReviewRequiredTitle = "RUP Minor Amendment Review Required"
