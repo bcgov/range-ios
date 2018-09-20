@@ -25,9 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // so we can find our Documents
         print("documents = \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)")
         #endif
-        
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         Fabric.with([Crashlytics.self])
 
         AutoSync.shared.beginListener()
