@@ -62,7 +62,7 @@ class MapTableViewCell: UITableViewCell {
     @IBAction func layer1Action(_ sender: Any) {
         if layer1Toggled {
             for border in borders {
-                mapView.remove(border)
+                mapView.removeOverlay(border)
             }
         } else {
             for border in borders {
@@ -75,7 +75,7 @@ class MapTableViewCell: UITableViewCell {
     @IBAction func layer2Action(_ sender: Any) {
         if layer2Toggled {
             for grass in grasses {
-                mapView.remove(grass)
+                mapView.removeOverlay(grass)
             }
         } else {
             for grass in grasses {
@@ -88,7 +88,7 @@ class MapTableViewCell: UITableViewCell {
     @IBAction func layer3Action(_ sender: Any) {
         if layer3Toggled {
             for other in others {
-                mapView.remove(other)
+                mapView.removeOverlay(other)
             }
         } else {
             for other in others {
@@ -114,7 +114,7 @@ extension MapTableViewCell: MKMapViewDelegate{
         var noLocation = CLLocationCoordinate2D()
         noLocation.latitude = 48.424251
         noLocation.longitude = -123.365729
-        let viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 200, 200)
+        let viewRegion = MKCoordinateRegion.init(center: noLocation, latitudinalMeters: 200, longitudinalMeters: 200)
         mapView.setRegion(viewRegion, animated: true)
 
         DispatchQueue.main.async {
@@ -178,20 +178,20 @@ extension MapTableViewCell: MKMapViewDelegate{
     }
 
     func addPolygon(overlay: MKOverlay) {
-        mapView.add(overlay)
+        mapView.addOverlay(overlay)
     }
 
     // move map center to current position
     func focusOnCurrent() {
         let loc = locationManager.location?.coordinate
         if loc == nil { return }
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance((loc)!,regionRadius * 2.0, regionRadius * 2.0)
+        let coordinateRegion = MKCoordinateRegion.init(center: (loc)!,latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
     // move map center to specified location
     func focusOn(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,regionRadius * 2.0, regionRadius * 2.0)
+        let coordinateRegion = MKCoordinateRegion.init(center: location.coordinate,latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
@@ -289,7 +289,7 @@ extension MapTableViewCell {
     func setupTileRenderer() {
         let overlay = OpenMapOverlay()
         overlay.canReplaceMapContent = true
-        mapView.add(overlay, level: .aboveLabels)
+        mapView.addOverlay(overlay, level: .aboveLabels)
         tileRenderer = MKTileOverlayRenderer(tileOverlay: overlay)
     }
 }
@@ -337,12 +337,17 @@ extension MapTableViewCell: CLLocationManagerDelegate {
         alertController.addAction(cancelAction)
 
         let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
-            if let url = URL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
         }
         alertController.addAction(openAction)
         let parent = self.parentViewController as! CreateNewRUPViewController
         parent.present(alertController, animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

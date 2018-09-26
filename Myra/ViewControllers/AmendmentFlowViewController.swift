@@ -58,11 +58,11 @@ extension AmendmentFlowViewController {
         self.callBack = response
         self.amendment = Amendment()
         self.view.alpha = 0
-        parent.addChildViewController(self)
+        parent.addChild(self)
         positionInCenter(view: self.view, in: parent)
         addShadow(layer: self.view.layer)
         parent.view.addSubview(self.view)
-        self.didMove(toParentViewController: parent)
+        self.didMove(toParent: parent)
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 1
         })
@@ -84,9 +84,9 @@ extension AmendmentFlowViewController {
             if !cancelled {
                 self.returnAmendment()
             }
-            self.didMove(toParentViewController: nil)
+            self.didMove(toParent: nil)
             self.view.removeFromSuperview()
-            self.removeFromParentViewController()
+            self.removeFromParent()
         }
     }
 

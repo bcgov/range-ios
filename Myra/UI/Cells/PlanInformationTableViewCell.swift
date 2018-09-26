@@ -10,6 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 import DatePicker
+import Extended
 
 class PlanInformationTableViewCell: BaseFormCell {
 

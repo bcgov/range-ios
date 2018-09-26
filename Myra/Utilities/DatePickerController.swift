@@ -34,7 +34,7 @@ final public class DatePickerController: UIViewController {
     public static func present(on controller: UIViewController, minimum: Date? = nil ,completion: @escaping (_ date: Date?)->Void){
         let pickerController =  DatePickerController.storyboardInstance() as! DatePickerController
         pickerController.completion = completion
-        controller.addChildViewController(pickerController)
+        controller.addChild(pickerController)
         controller.view.addSubview(pickerController.view)
         if minimum != nil {
             pickerController.datePicker.minimumDate = minimum ?? Date()
@@ -53,7 +53,7 @@ final public class DatePickerController: UIViewController {
             self.wrapper.backgroundColor = UIColor.clear
         }) { (_) in
             self.view.removeFromSuperview()
-            self.removeFromParentViewController()
+            self.removeFromParent()
         }
     }
 }

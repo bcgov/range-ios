@@ -10,6 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 import SwiftyJSON
+import Extended
 
 class RUP: Object, MyraObject {
 
@@ -130,7 +131,7 @@ class RUP: Object, MyraObject {
             // set remote status
             self.statusId = statusId
             self.statusIdValue = statusObject.name
-            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces).removeWhitespace()
+            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces).removeWhitespaces()
             let newTry = statusName.replacingOccurrences(of: "-", with: "")
             // set local status
             if let result = RUPStatus(rawValue: newTry) {
@@ -194,7 +195,7 @@ class RUP: Object, MyraObject {
             statusName = statusName.replacingOccurrences(of: "-", with: "")
             // Remote Draft status means its a client's draft
             if statusName == "Draft" { statusName = "ClientDraft" }
-            guard let result = RUPStatus(rawValue: statusName.removeWhitespace()) else {
+            guard let result = RUPStatus(rawValue: statusName.removeWhitespaces()) else {
                 return .Unknown
             }
             return result

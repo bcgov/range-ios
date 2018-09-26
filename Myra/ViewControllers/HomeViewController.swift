@@ -13,6 +13,8 @@ import Lottie
 import RealmSwift
 import Realm
 import MaterialShowcase
+import Extended
+import Cam
 
 class HomeViewController: BaseViewController {
 
@@ -113,6 +115,12 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Outlet actions
+    @IBAction func testCam(_ sender: UIButton) {
+        let cam = Cam()
+        cam.display(on: self) { (photo) in
+            
+        }
+    }
 
     @IBAction func tourAction(_ sender: UIButton) {
         beginTourTip()
