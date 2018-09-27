@@ -69,6 +69,7 @@
 		292A1D8021432E570086E1AD /* SyncView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292A1D7F21432E570086E1AD /* SyncView.xib */; };
 		292A1D8221432E670086E1AD /* SyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A1D8121432E670086E1AD /* SyncView.swift */; };
 		292AD86C215C470200F80738 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292AD86B215C470200F80738 /* Notification.swift */; };
+		292AD86E215C4DE600F80738 /* TestML.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 292AD86D215C4DE500F80738 /* TestML.mlmodel */; };
 		292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
 		292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
 		292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65222076AAF3003D4AF0 /* PlanStatus.swift */; };
@@ -262,6 +263,7 @@
 		292A1D7F21432E570086E1AD /* SyncView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SyncView.xib; sourceTree = "<group>"; };
 		292A1D8121432E670086E1AD /* SyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncView.swift; sourceTree = "<group>"; };
 		292AD86B215C470200F80738 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		292AD86D215C4DE500F80738 /* TestML.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TestML.mlmodel; sourceTree = "<group>"; };
 		292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestockIdentifierType.swift; sourceTree = "<group>"; };
 		292E65202076AAC6003D4AF0 /* ClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientType.swift; sourceTree = "<group>"; };
 		292E65222076AAF3003D4AF0 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 		2920F82E2034C0000090E7B4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				292AD86D215C4DE500F80738 /* TestML.mlmodel */,
 				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
 				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
@@ -1028,6 +1031,7 @@
 				29301FDF21385CB500E121E0 /* SyncBanner.swift in Sources */,
 				29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */,
 				56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */,
+				292AD86E215C4DE600F80738 /* TestML.mlmodel in Sources */,
 				2972381820ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift in Sources */,
 				29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,

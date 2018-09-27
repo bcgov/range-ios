@@ -266,14 +266,14 @@ extension BaseViewController {
 // MARK: Alerts
 extension BaseViewController {
     
-//    func showAlert(with title: String, message: String) {
-//        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-//        ac.addAction(cancel)
-//
-//        present(ac, animated: true, completion: nil)
-//    }
-    
+    func alert(with title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        ac.addAction(cancel)
+
+        present(ac, animated: true, completion: nil)
+    }
+
     func showAlert(title: String, description: String, yesButtonTapped:@escaping () -> (), noButtonTapped:@escaping () -> ()) {
         let alert = UIAlertController(title: title, message: description, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
@@ -334,7 +334,7 @@ extension BaseViewController {
                     let title = "Authentication"
                     let message = "Authentication didn't work. Please try again."
 
-                    self.showAlert(with: title, message: message)
+                    self.alert(with: title, message: message)
                     if let senderButton = sender {
                         senderButton.isUserInteractionEnabled = true
                     }
@@ -356,7 +356,7 @@ extension BaseViewController {
                             let title = "Authentication"
                             let message = "Authentication didn't work. Please try again."
 
-                            self.showAlert(with: title, message: message)
+                            self.alert(with: title, message: message)
                             if let senderButton = sender {
                                 senderButton.isUserInteractionEnabled = true
                             }

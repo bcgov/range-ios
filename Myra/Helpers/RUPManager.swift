@@ -91,6 +91,13 @@
                 return(false, "One or more Minister's Issues and Actions has not been identified by minister")
             }
         }
+
+        // check minister approval on pastures
+        for pasture in rup.pastures {
+            if !pasture.ministerApprovalObrained {
+                return(false, "One or more plant communities is missing minister's approval")
+            }
+        }
         
         return (true, "")
     }

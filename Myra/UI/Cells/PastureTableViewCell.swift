@@ -42,6 +42,10 @@ class PastureTableViewCell: BaseFormCell {
     @IBOutlet weak var addPlantCommunityButtonHeight: NSLayoutConstraint!
 
     @IBOutlet weak var plantCommunitiesLabel: UILabel!
+
+    @IBOutlet weak var switchLabel: UILabel!
+    @IBOutlet weak var ministerSwitch: UISwitch!
+
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,6 +53,10 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Outlet Actions
+    @IBAction func ministerSwitchAction(_ sender: UISwitch) {
+        guard let pasture = self.pasture else {return}
+        pasture.setMinisterApprovalObtained(to: sender.isOn)
+    }
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
@@ -237,6 +245,8 @@ class PastureTableViewCell: BaseFormCell {
         self.deductionFIeld.text = "\(Int(p.privateLandDeduction))"
         self.graceDaysField.text = "\(p.graceDays)"
 
+        self.ministerSwitch.isOn = p.ministerApprovalObrained
+
         self.pastureNotesTextField.text = p.notes
 
         if p.allowedAUMs == -1 {
@@ -319,6 +329,7 @@ class PastureTableViewCell: BaseFormCell {
             styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
             addPlantCommunityButton.alpha = 0
+            ministerSwitch.isEnabled = false
 //            addPlantCommunityButtonHeight.constant = 0
         case .Edit:
             styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
@@ -327,7 +338,8 @@ class PastureTableViewCell: BaseFormCell {
             styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
             styleFillButton(button: addPlantCommunityButton)
         }
-
+        ministerSwitch.onTintColor = Colors.switchOn
+        styleSubHeader(label: switchLabel)
         styleContainer(view: containerView)
         styleSubHeader(label: pastureNameHeader)
         styleSubHeader(label: pastureNameLabel)
