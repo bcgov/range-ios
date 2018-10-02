@@ -129,4 +129,13 @@ class Options {
         }
         return nil
     }
+
+    func getRANLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        let agreements = RUPManager.shared.getAgreements()
+        for agreement in agreements {
+            returnArray.append(SelectionPopUpObject(display: agreement.agreementId))
+        }
+        return returnArray
+    }
 }

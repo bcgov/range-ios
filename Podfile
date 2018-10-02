@@ -15,7 +15,7 @@ target 'Myra' do
   pod 'Fabric', '1.7.7'
   pod 'Crashlytics', '3.10.2'
   pod 'lottie-ios', '2.5.0'
-  pod 'SingleSignOn', :git => 'https://github.com/bcgov/mobile-authentication-ios.git', :tag => 'v1.0.5' 
+  pod 'SingleSignOn', :git => 'https://github.com/bcgov/mobile-authentication-ios.git', :tag => 'v1.0.6' 
   pod 'ShowTime', '2.4.0'
   pod 'Extended'
   pod 'Designer'

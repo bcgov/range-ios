@@ -13,7 +13,7 @@ import RealmSwift
 class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Contants
-    static let cellHeight: CGFloat = 574
+    static let cellHeight: CGFloat = 624
 
     // MARK: Variables
     var issue: MinisterIssue?
@@ -45,11 +45,10 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var optionsButton: UIButton!
 
     @IBOutlet weak var identifiedByMinisterLabel: UILabel!
-    @IBOutlet weak var identifiedByMinisterImage: UIImageView!
-    @IBOutlet weak var identifiedByMinisterImageHolder: UIView!
-    @IBOutlet weak var identifiedByMinisterButton: UIButton!
-
     @IBOutlet weak var identifiedByMinisterSwitch: UISwitch!
+
+    @IBOutlet weak var noteLabel: UILabel!
+    
 
     // MARK: Outlet actions
     @IBAction func idengifiedByMinisterSwitchAction(_ sender: UISwitch) {
@@ -242,6 +241,8 @@ class MinisterIssueTableViewCell: BaseFormCell {
         styleSubHeader(label: actionsHeader)
         styleSubHeader(label: identifiedByMinisterLabel)
         identifiedByMinisterSwitch.onTintColor = Colors.switchOn
+        styleSubHeader(label: noteLabel)
+        noteLabel.font = Fonts.getPrimaryBold(size: 12)
         switch self.mode {
         case .View:
             identifiedByMinisterSwitch.isEnabled = false
@@ -254,7 +255,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
             styleTextviewInputFieldReadOnly(field: detailsValue, header: detailsHeader)
             styleTextviewInputFieldReadOnly(field: objectiveValue, header: objectiveHeader)
         case .Edit:
-            styleFillButton(button: addPasturesButton)
             styleFillButton(button: addButton)
             makeCircle(button: addPasturesButton)
             addShadow(layer: addPasturesButton.layer)

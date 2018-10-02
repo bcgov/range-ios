@@ -63,7 +63,6 @@ class PastureTableViewCell: BaseFormCell {
         parent.showTooltip(on: sender, title: tooltipPlantCommunitiesTitle, desc: tooltipPlantCommunitiesDescription)
     }
 
-
     @IBAction func editNameAction(_ sender: UIButton) {
         editName()
     }

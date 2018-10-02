@@ -101,6 +101,10 @@
 		29400583208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */; };
 		29400584208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */; };
 		294005862092726D00AA1BDC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294005852092726D00AA1BDC /* Theme.swift */; };
+		2943BDA3215E90C300EFC428 /* RangePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2943BDA2215E90C300EFC428 /* RangePhoto.swift */; };
+		2943BDA52162995100EFC428 /* TagImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2943BDA42162995100EFC428 /* TagImage.swift */; };
+		2943BDA72162996900EFC428 /* TagImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2943BDA62162996900EFC428 /* TagImage.xib */; };
+		2943BDA92162A84200EFC428 /* test.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2943BDA82162A84200EFC428 /* test.xib */; };
 		294764E32149B786007E8576 /* AutoSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E22149B786007E8576 /* AutoSync.swift */; };
 		294764E52149BBC7007E8576 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E42149BBC7007E8576 /* Banner.swift */; };
 		294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC4FE204F3C5500F0FB04 /* RUPManager.swift */; };
@@ -112,6 +116,11 @@
 		295F8F1320F7F625009D7717 /* MonitoringAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F8F1220F7F625009D7717 /* MonitoringAreaViewController.swift */; };
 		295F8F1620F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F8F1420F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift */; };
 		295F8F1720F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 295F8F1520F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib */; };
+		295FBF7921641EA200DD2C53 /* TagImageMLextension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295FBF7821641EA200DD2C53 /* TagImageMLextension.swift */; };
+		295FBF7C21641F0200DD2C53 /* LifeForm.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 295FBF7B21641F0200DD2C53 /* LifeForm.mlmodel */; };
+		295FBF7E21641F0A00DD2C53 /* Gender.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 295FBF7D21641F0A00DD2C53 /* Gender.mlmodel */; };
+		295FBF8021641F1400DD2C53 /* Animal.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 295FBF7F21641F1400DD2C53 /* Animal.mlmodel */; };
+		295FBF8221641F1B00DD2C53 /* Plant.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 295FBF8121641F1B00DD2C53 /* Plant.mlmodel */; };
 		29616EA721063ADA003102F8 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29616EA521063ADA003102F8 /* EmptyTableViewCell.swift */; };
 		29616EA821063ADA003102F8 /* EmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29616EA621063ADA003102F8 /* EmptyTableViewCell.xib */; };
 		296232052047293A00F1CEBF /* FormMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296232042047293A00F1CEBF /* FormMode.swift */; };
@@ -297,6 +306,10 @@
 		29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementHoldersTableViewCell.swift; sourceTree = "<group>"; };
 		29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgreementHoldersTableViewCell.xib; sourceTree = "<group>"; };
 		294005852092726D00AA1BDC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		2943BDA2215E90C300EFC428 /* RangePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangePhoto.swift; sourceTree = "<group>"; };
+		2943BDA42162995100EFC428 /* TagImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImage.swift; sourceTree = "<group>"; };
+		2943BDA62162996900EFC428 /* TagImage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagImage.xib; sourceTree = "<group>"; };
+		2943BDA82162A84200EFC428 /* test.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = test.xib; sourceTree = "<group>"; };
 		294764E22149B786007E8576 /* AutoSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSync.swift; sourceTree = "<group>"; };
 		294764E42149BBC7007E8576 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		294AC4FE204F3C5500F0FB04 /* RUPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPManager.swift; sourceTree = "<group>"; };
@@ -308,6 +321,11 @@
 		295F8F1220F7F625009D7717 /* MonitoringAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringAreaViewController.swift; sourceTree = "<group>"; };
 		295F8F1420F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringAreaBasicInfoTableViewCell.swift; sourceTree = "<group>"; };
 		295F8F1520F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitoringAreaBasicInfoTableViewCell.xib; sourceTree = "<group>"; };
+		295FBF7821641EA200DD2C53 /* TagImageMLextension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImageMLextension.swift; sourceTree = "<group>"; };
+		295FBF7B21641F0200DD2C53 /* LifeForm.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LifeForm.mlmodel; sourceTree = "<group>"; };
+		295FBF7D21641F0A00DD2C53 /* Gender.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Gender.mlmodel; sourceTree = "<group>"; };
+		295FBF7F21641F1400DD2C53 /* Animal.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Animal.mlmodel; sourceTree = "<group>"; };
+		295FBF8121641F1B00DD2C53 /* Plant.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Plant.mlmodel; sourceTree = "<group>"; };
 		29616EA521063ADA003102F8 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		29616EA621063ADA003102F8 /* EmptyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTableViewCell.xib; sourceTree = "<group>"; };
 		296232042047293A00F1CEBF /* FormMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormMode.swift; sourceTree = "<group>"; };
@@ -458,6 +476,7 @@
 				292197DB209CD19D004A5011 /* Option.swift */,
 				29227B6120EEAD540042B88E /* TextEntry.swift */,
 				2905521521346AAE00785B5E /* Amendment.swift */,
+				2943BDA2215E90C300EFC428 /* RangePhoto.swift */,
 			);
 			path = "Models and enums";
 			sourceTree = "<group>";
@@ -526,6 +545,10 @@
 				29301FDE21385CB500E121E0 /* SyncBanner.swift */,
 				292A1D7F21432E570086E1AD /* SyncView.xib */,
 				292A1D8121432E670086E1AD /* SyncView.swift */,
+				2943BDA62162996900EFC428 /* TagImage.xib */,
+				2943BDA42162995100EFC428 /* TagImage.swift */,
+				295FBF7821641EA200DD2C53 /* TagImageMLextension.swift */,
+				2943BDA82162A84200EFC428 /* test.xib */,
 			);
 			path = Nibs;
 			sourceTree = "<group>";
@@ -586,6 +609,7 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
+				295FBF7A21641EEA00DD2C53 /* ML */,
 				29234B0B2138592400F547AC /* Lotte */,
 				56F3889F2080173C004CDFAE /* API */,
 				2920F8312034C7870090E7B4 /* Utilities */,
@@ -601,6 +625,17 @@
 				293C95D020335D4100BF1113 /* Info.plist */,
 			);
 			path = Myra;
+			sourceTree = "<group>";
+		};
+		295FBF7A21641EEA00DD2C53 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				295FBF8121641F1B00DD2C53 /* Plant.mlmodel */,
+				295FBF7F21641F1400DD2C53 /* Animal.mlmodel */,
+				295FBF7D21641F0A00DD2C53 /* Gender.mlmodel */,
+				295FBF7B21641F0200DD2C53 /* LifeForm.mlmodel */,
+			);
+			path = ML;
 			sourceTree = "<group>";
 		};
 		29EADF7C206039A90087593F /* Reference data objects */ = {
@@ -836,6 +871,7 @@
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
 				29055210213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib in Resources */,
+				2943BDA92162A84200EFC428 /* test.xib in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
@@ -883,6 +919,7 @@
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
 				29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */,
 				295F8F1720F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */,
+				2943BDA72162996900EFC428 /* TagImage.xib in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
 			);
@@ -1006,6 +1043,7 @@
 				292197D9209CD152004A5011 /* OptionsTableViewCell.swift in Sources */,
 				290552192134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift in Sources */,
 				29227B7420F013F90042B88E /* PastureAction.swift in Sources */,
+				295FBF7E21641F0A00DD2C53 /* Gender.mlmodel in Sources */,
 				2932BB4F2085209000579A57 /* Fonts.swift in Sources */,
 				295F8F1320F7F625009D7717 /* MonitoringAreaViewController.swift in Sources */,
 				2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */,
@@ -1032,6 +1070,7 @@
 				29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */,
 				56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */,
 				292AD86E215C4DE600F80738 /* TestML.mlmodel in Sources */,
+				295FBF8021641F1400DD2C53 /* Animal.mlmodel in Sources */,
 				2972381820ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift in Sources */,
 				29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
@@ -1052,13 +1091,16 @@
 				291CF8342098EBED00B0BCDD /* DatePickerViewController.swift in Sources */,
 				292197D0209CD037004A5011 /* OptionsViewController.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
+				295FBF7C21641F0200DD2C53 /* LifeForm.mlmodel in Sources */,
 				299491F320B628F6005FCF94 /* MinisterIssueTableViewCell.swift in Sources */,
 				2905521621346AAE00785B5E /* Amendment.swift in Sources */,
 				29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */,
+				2943BDA52162995100EFC428 /* TagImage.swift in Sources */,
 				292A1D8221432E670086E1AD /* SyncView.swift in Sources */,
 				2933183620FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.swift in Sources */,
 				29EA02A320697E6F0076403B /* Agreement.swift in Sources */,
 				29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */,
+				295FBF8221641F1B00DD2C53 /* Plant.mlmodel in Sources */,
 				29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */,
 				29227B6020EEAAC00042B88E /* TextEntryViewController.swift in Sources */,
 				290551FC21345E5600785B5E /* AmendmentFlowViewController.swift in Sources */,
@@ -1073,6 +1115,7 @@
 				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,
 				293020082139A22000E121E0 /* Router.swift in Sources */,
 				29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */,
+				2943BDA3215E90C300EFC428 /* RangePhoto.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */,
 				2962B0E7204F076800F71B9C /* ScheduleCellTableViewCell.swift in Sources */,
@@ -1100,6 +1143,7 @@
 				292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */,
 				29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */,
 				29227B5820EE95A50042B88E /* MonitoringArea.swift in Sources */,
+				295FBF7921641EA200DD2C53 /* TagImageMLextension.swift in Sources */,
 				29334F9A214C2F2100EE97F9 /* API.swift in Sources */,
 				2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */,
 			);

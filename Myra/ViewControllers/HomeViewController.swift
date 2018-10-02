@@ -117,18 +117,39 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func testCam(_ sender: UIButton) {
-//        let model = TestML()
         let cam = Cam()
         cam.display(on: self) { (photo) in
-//            if let photo = photo, let image = photo.image, let buffer = self.buffer(from: image) {
-//                guard let output = try? model.prediction(image: buffer) else {
-//                    print("ML Failed")
-//                    return
-//                }
-//                print(output.classLabel)
-//            }
+            if let photo = photo {
+                Loading.shared.begin()
+                let pic = RangePhoto()
+                pic.save(from: photo)
+                let preview: TagImage = TagImage.fromNib()
+                preview.show(with: pic, in: self, then: {})
+            }
         }
     }
+
+//    func slideShow(images: [RangePhoto]) {
+//        let imageView = UIImageView(frame: self.view.frame)
+//
+//        //            imageView.image = image.getImage()
+//        self.view.addSubview(imageView)
+//
+//
+//    }
+//
+//    func loopSlideShow(images: [RangePhoto], in imageView: UIImageView, done: @escaping () -> Void) {
+//        var all: [RangePhoto] = images
+//        if let last = all.popLast() {
+//            imageView.image = last.getImage()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                self.loopSlideShow(images: all, in: imageView, done: done)
+//            }
+//        } else {
+//            imageView.removeFromSuperview()
+//            return done()
+//        }
+//    }
 
     func buffer(from image: UIImage) -> CVPixelBuffer? {
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary

@@ -173,6 +173,7 @@ extension Theme {
     }
 
     func styleContainer(layer: CALayer) {
+        layer.masksToBounds = true
         roundCorners(layer: layer)
         addShadow(to: layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight())
     }
