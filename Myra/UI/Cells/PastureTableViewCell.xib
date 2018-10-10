@@ -258,7 +258,7 @@
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r9O-vJ-LcH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-9c-Xr7">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-9c-Xr7">
                                 <rect key="frame" x="164" y="309.5" width="24" height="24"/>
                                 <state key="normal" image="icon_Question"/>
                                 <connections>

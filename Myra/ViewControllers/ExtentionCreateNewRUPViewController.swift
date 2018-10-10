@@ -180,6 +180,9 @@ extension CreateNewRUPViewController {
         self.pasturesLowerBar.alpha = 0.1
         self.scheduleLowerBar.alpha = 0.1
         self.ministersIssuesLowerBar.alpha = 0.1
+        self.invasivePlantsLowerBar.alpha = 0.1
+        self.additionalRequirementsLowerBar.alpha = 0.1
+        self.managementLowerBar.alpha = 0.1
     }
 
     func menuBasicInfoOn() {
@@ -210,6 +213,27 @@ extension CreateNewRUPViewController {
         ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_MinistersIssues")
     }
 
+    func menuInvasivePlantsOn() {
+        menuSectionsOff()
+        invasivePlantsBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: invasivePlantsLabel)
+        invasivePlantsBoxImage.image = UIImage(named: "icon_invasivePlants")
+    }
+
+    func menuAdditionalRequirementsOn() {
+        menuSectionsOff()
+        additionalRequirementsBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: additionalRequirementsLabel)
+        additionalRequirementsImage.image = UIImage(named: "icon_additionalReqs")
+    }
+
+    func menuManagementConsiderationsOn() {
+        menuSectionsOff()
+        managementBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: managementLabel)
+        managementBoxImage.image =  UIImage(named: "icon_Management")
+    }
+
     func menuSectionsOff() {
         menuSectionOff(label: basicInfoLabel)
         basicInfoBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation_off")
@@ -226,6 +250,18 @@ extension CreateNewRUPViewController {
         menuSectionOff(label: ministersIssuesLabel)
         ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_MinistersIssues_off")
         ministersIssuesBoxLeft.backgroundColor = UIColor.clear
+
+        menuSectionOff(label: invasivePlantsLabel)
+        invasivePlantsBoxImage.image = UIImage(named: "icon_invasivePlants_off")
+        invasivePlantsBoxLeft.backgroundColor = UIColor.clear
+
+        menuSectionOff(label: additionalRequirementsLabel)
+        additionalRequirementsImage.image = UIImage(named: "icon_additionalReqs_off")
+        additionalRequirementsBoxLeft.backgroundColor = UIColor.clear
+
+        menuSectionOff(label: managementLabel)
+        managementBoxImage.image = UIImage(named: "icon_Management_off")
+        managementBoxLeft.backgroundColor = UIColor.clear
 
     }
 

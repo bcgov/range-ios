@@ -64,7 +64,20 @@ class TagImage: UIView, Theme {
 //        }
     }
 
-    @objc func selectRAN() {
+//    @objc func selectRAN() {
+//        guard let parent = self.parent, let base = parent as? BaseViewController else {return}
+//        let vm = ViewManager()
+//        let lookup = vm.lookup
+//        let rans = Options.shared.getRANLookup()
+//        lookup.setupSimple(objects: rans) { (done, selected) in
+//            if let ran = selected {
+//                self.ranField.text = ran.display
+//            }
+//        }
+//        base.showPopUp(vc: lookup, on: ranField.layer, inView: ranField)
+//    }
+
+    @IBAction func chooseRan(_ sender: UIButton) {
         guard let parent = self.parent, let base = parent as? BaseViewController else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
@@ -74,8 +87,9 @@ class TagImage: UIView, Theme {
                 self.ranField.text = ran.display
             }
         }
-        base.showPopUp(vc: lookup, on: ranField.layer, inView: ranField)
+        base.showPopUp(vc: lookup, on: sender)
     }
+
 
     func autoFill() {
         guard let photo = self.photo else {return}
@@ -84,7 +98,8 @@ class TagImage: UIView, Theme {
         } else {
             self.tagField.text = photo.content
         }
-        self.headingLabel.text = "\(photo.trueHeading.roundToDecimal(2))"
+        let headingInt: Int = Int(photo.trueHeading.roundToDecimal(0))
+        self.headingLabel.text = "\(headingInt)°"
         self.locationField.text = ("\(photo.lat.roundToDecimal(5)), \(photo.long.roundToDecimal(5))")
         if let timestamp = photo.timeStamp {
             self.timeStampField.text = timestamp.stringWithTime()
@@ -116,7 +131,7 @@ class TagImage: UIView, Theme {
         styleFillButton(button: saveButton)
         backgroundColor = Colors.primaryBg
 
-        ranField.addTarget(self, action: #selector(selectRAN), for: UIControl.Event.touchDown)
+//        ranField.addTarget(self, action: #selector(selectRAN), for: UIControl.Event.touchDown)
     }
 
     public func show(with photo: RangePhoto, in viewController: UIViewController, then: @escaping () -> Void) {
@@ -150,12 +165,23 @@ class TagImage: UIView, Theme {
         bg.alpha = invisibleAlpha
         view.insertSubview(bg, belowSubview: self)
         view.layoutIfNeeded()
-        NSLayoutConstraint.activate([
-            bg.widthAnchor.constraint(equalTo: view.widthAnchor),
-            bg.heightAnchor.constraint(equalTo:  view.heightAnchor),
-            bg.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bg.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
+        let isWidthLarger = view.frame.width > view.frame.height
+
+        if isWidthLarger {
+            NSLayoutConstraint.activate([
+                bg.widthAnchor.constraint(equalTo: view.widthAnchor),
+                bg.heightAnchor.constraint(equalTo:  view.widthAnchor),
+                bg.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                bg.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                ])
+        } else {
+            NSLayoutConstraint.activate([
+                bg.widthAnchor.constraint(equalTo: view.heightAnchor),
+                bg.heightAnchor.constraint(equalTo:  view.heightAnchor),
+                bg.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                bg.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                ])
+        }
 
         self.autoFill()
         self.layoutIfNeeded()

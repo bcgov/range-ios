@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="333" id="KGk-i7-Jjw" customClass="ManagementConsiderationsTableViewCell" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="333"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="510" height="332.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vw8-1r-Wzl" userLabel="Head">
+                        <rect key="frame" x="0.0" y="0.0" width="510" height="80"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Management Considerations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0d-Oi-V93">
+                                <rect key="frame" x="15" y="29.5" width="236" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iui-gw-DeH">
+                                <rect key="frame" x="15" y="78" width="480" height="2"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="zGf-ze-vz5"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eze-PO-Oba">
+                                <rect key="frame" x="256" y="28" width="24" height="24"/>
+                                <state key="normal" image="icon_Question"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQF-Gb-fcd">
+                                <rect key="frame" x="312" y="19" width="190" height="42"/>
+                                <color key="backgroundColor" red="0.60784906149999995" green="0.6078355312" blue="0.60783821339999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <accessibility key="accessibilityConfiguration" identifier="AddPastureButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="190" id="Ha1-kK-vQF"/>
+                                    <constraint firstAttribute="height" constant="42" id="e9x-bF-xbL"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Add Consideration" image="add">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MA6-oE-0Mg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="G0d-Oi-V93" firstAttribute="leading" secondItem="vw8-1r-Wzl" secondAttribute="leading" constant="15" id="8B0-9s-OO8"/>
+                            <constraint firstItem="iui-gw-DeH" firstAttribute="leading" secondItem="vw8-1r-Wzl" secondAttribute="leading" constant="15" id="TkG-Xa-gkk"/>
+                            <constraint firstItem="2C3-QC-gYd" firstAttribute="trailing" secondItem="nQF-Gb-fcd" secondAttribute="trailing" constant="8" id="WdI-EU-qao"/>
+                            <constraint firstAttribute="trailing" secondItem="iui-gw-DeH" secondAttribute="trailing" constant="15" id="jHd-Ec-NgU"/>
+                            <constraint firstItem="G0d-Oi-V93" firstAttribute="centerY" secondItem="vw8-1r-Wzl" secondAttribute="centerY" id="jkE-0e-gtM"/>
+                            <constraint firstAttribute="bottom" secondItem="iui-gw-DeH" secondAttribute="bottom" id="ncu-pa-hAp"/>
+                            <constraint firstItem="eze-PO-Oba" firstAttribute="leading" secondItem="G0d-Oi-V93" secondAttribute="trailing" constant="5" id="ote-Dx-F1u"/>
+                            <constraint firstItem="eze-PO-Oba" firstAttribute="centerY" secondItem="G0d-Oi-V93" secondAttribute="centerY" id="pJ5-zF-obf"/>
+                            <constraint firstItem="nQF-Gb-fcd" firstAttribute="centerY" secondItem="vw8-1r-Wzl" secondAttribute="centerY" id="sWU-XH-TVn"/>
+                            <constraint firstAttribute="height" constant="80" id="uoR-qr-FrX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2C3-QC-gYd"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This content is not part of the legal Range Use Plan and is available for information purposes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEj-mJ-QbF">
+                        <rect key="frame" x="8" y="88" width="494" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="55" id="n0C-lY-JRt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qSv-I6-4yH">
+                        <rect key="frame" x="28" y="151" width="454" height="163"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="750" id="XI4-m1-Cns"/>
+                        </constraints>
+                    </tableView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="qSv-I6-4yH" secondAttribute="bottom" constant="8" id="7QC-6g-x4t"/>
+                    <constraint firstItem="vw8-1r-Wzl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8lL-cS-aHO"/>
+                    <constraint firstItem="qSv-I6-4yH" firstAttribute="top" secondItem="FEj-mJ-QbF" secondAttribute="bottom" constant="8" id="8sZ-9Z-dRi"/>
+                    <constraint firstItem="vw8-1r-Wzl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9se-Yc-Lmf"/>
+                    <constraint firstItem="qSv-I6-4yH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="NLz-0V-r9J"/>
+                    <constraint firstAttribute="trailing" secondItem="FEj-mJ-QbF" secondAttribute="trailing" constant="8" id="QvF-5J-my1"/>
+                    <constraint firstItem="FEj-mJ-QbF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="TF5-Kr-yJq"/>
+                    <constraint firstItem="FEj-mJ-QbF" firstAttribute="top" secondItem="vw8-1r-Wzl" secondAttribute="bottom" constant="8" id="byT-Vy-fYb"/>
+                    <constraint firstAttribute="trailing" secondItem="vw8-1r-Wzl" secondAttribute="trailing" id="e5p-7e-cvi"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="qSv-I6-4yH" secondAttribute="trailing" constant="8" id="hFw-9D-XVJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addButton" destination="nQF-Gb-fcd" id="Pfi-Yf-dd1"/>
+                <outlet property="divider" destination="iui-gw-DeH" id="UMb-Pc-mPr"/>
+                <outlet property="subtitle" destination="FEj-mJ-QbF" id="XtE-CF-EMh"/>
+                <outlet property="tableHeight" destination="XI4-m1-Cns" id="fbb-V4-4pH"/>
+                <outlet property="tableView" destination="qSv-I6-4yH" id="9oA-0g-GHa"/>
+                <outlet property="titleLabel" destination="G0d-Oi-V93" id="mRd-3p-TSK"/>
+            </connections>
+            <point key="canvasLocation" x="289.60000000000002" y="284.70764617691157"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="add" width="20" height="20"/>
+        <image name="icon_Question" width="24" height="24"/>
+    </resources>
+</document>

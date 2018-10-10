@@ -98,9 +98,9 @@ class MinisterIssue: Object, MyraObject {
         }
     }
 
-    func addAction(type: MinisterIssueActionType) {
+    func addAction(type: MinisterIssueActionType, name: String) {
         let new = MinisterIssueAction()
-        new.actionType = type.name
+        new.actionType = name
         new.actionTypeID = type.id
         do {
             let realm = try Realm()

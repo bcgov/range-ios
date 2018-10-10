@@ -98,7 +98,7 @@
                 return(false, "One or more plant communities is missing minister's approval")
             }
         }
-        
+
         return (true, "")
     }
     

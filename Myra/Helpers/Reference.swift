@@ -302,6 +302,8 @@ class Reference {
             let realm = try Realm()
             if let obj = realm.objects(MinisterIssueType.self).filter("name = %@", named).first {
                 return obj
+            } else if let obj = realm.objects(MinisterIssueType.self).filter("name = %@", "Other").first {
+                return obj
             }
         } catch _ {
             fatalError()
@@ -313,6 +315,8 @@ class Reference {
         do {
             let realm = try Realm()
             if let obj = realm.objects(MinisterIssueActionType.self).filter("name = %@", named).first {
+                return obj
+            } else if let obj = realm.objects(MinisterIssueActionType.self).filter("name = %@", "Other").first {
                 return obj
             }
         } catch _ {

@@ -84,6 +84,9 @@ class RUP: Object, MyraObject {
     var ministerIssues = List<MinisterIssue>()
     var zones = List<Zone>()
     var clients = List<Client>()
+    var invasivePlants = List<InvasivePlants>()
+    var additionalRequirements = List<AdditionalRequirement>()
+    var managementConsiderations = List<ManagementConsideration>()
 
     func populateFrom(json: JSON) {
         if let id = json["id"].int {
@@ -279,6 +282,18 @@ class RUP: Object, MyraObject {
 
         for object in self.ministerIssues {
             plan.ministerIssues.append(object.copy())
+        }
+
+        for object in self.invasivePlants {
+            plan.invasivePlants.append(object.copy())
+        }
+
+        for object in self.managementConsiderations {
+            plan.managementConsiderations.append(object.copy())
+        }
+
+        for object in self.additionalRequirements {
+            plan.additionalRequirements.append(object.copy())
         }
 
         // Cients, zones and Range usage years should not be deletable/editable, so no need to call copy() on them

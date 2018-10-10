@@ -284,10 +284,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func copyEntry() {
+//        for i in 0...100 {
+//            guard let scheduleVC = self.scheduleViewReference, let entry = self.scheduleObject else {return}
+//            scheduleVC.createEntry(from: entry)
+//        }
         guard let scheduleVC = self.scheduleViewReference, let entry = self.scheduleObject else {return}
         scheduleVC.createEntry(from: entry)
     }
-
+    
     func handleDateIn(date: Date) {
         guard let so = scheduleObject else {return}
         self.dateIn.text = DateManager.toStringNoYear(date: date)

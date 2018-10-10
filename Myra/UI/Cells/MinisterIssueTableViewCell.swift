@@ -129,7 +129,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             parent.dismissPopOver()
             if selected, let option = selection {
                 if let type = Reference.shared.getIssueActionType(named: option.display) {
-                    i.addAction(type: type)
+                    i.addAction(type: type, name: option.display)
                     self.updateTableHeight(scrollToBottom: false)
                 }
             }

@@ -96,6 +96,17 @@
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
 		293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 293C95CB20335D4100BF1113 /* Assets.xcassets */; };
 		293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */; };
+		293D417C216D12E7006214E1 /* InvasivePlants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D417B216D12E7006214E1 /* InvasivePlants.swift */; };
+		293D417F216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D417D216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift */; };
+		293D4180216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D417E216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib */; };
+		293D4183216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D4181216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift */; };
+		293D4184216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D4182216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib */; };
+		293D4187216D3109006214E1 /* AdditionalRequirementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D4185216D3109006214E1 /* AdditionalRequirementTableViewCell.swift */; };
+		293D4188216D3109006214E1 /* AdditionalRequirementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D4186216D3109006214E1 /* AdditionalRequirementTableViewCell.xib */; };
+		293D418B216D313D006214E1 /* ManagementConsiderationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D4189216D313D006214E1 /* ManagementConsiderationTableViewCell.swift */; };
+		293D418C216D313D006214E1 /* ManagementConsiderationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */; };
+		293D418E216D3172006214E1 /* ManagementConsideration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D418D216D3172006214E1 /* ManagementConsideration.swift */; };
+		293D4190216D3184006214E1 /* AdditionalRequirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D418F216D3184006214E1 /* AdditionalRequirement.swift */; };
 		2940057F208FCD5700AA1BDC /* PlanInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2940057D208FCD5700AA1BDC /* PlanInformationTableViewCell.swift */; };
 		29400580208FCD5700AA1BDC /* PlanInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2940057E208FCD5700AA1BDC /* PlanInformationTableViewCell.xib */; };
 		29400583208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */; };
@@ -141,6 +152,12 @@
 		2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270D2044949B0033BC47 /* LiveStockID.swift */; };
 		297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297427102044969A0033BC47 /* LiveStockTableViewCell.swift */; };
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
+		297E9987216545D100FB6F04 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297E9986216545D100FB6F04 /* Map.storyboard */; };
+		297E9989216545E700FB6F04 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E9988216545E700FB6F04 /* MapViewController.swift */; };
+		297E998B2165479F00FB6F04 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E998A2165479F00FB6F04 /* Pin.swift */; };
+		297E998D2165482000FB6F04 /* Pin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297E998C2165482000FB6F04 /* Pin.xib */; };
+		297E99972166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E99952166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift */; };
+		297E99982166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297E99962166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib */; };
 		299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */; };
 		299491EE20B62588005FCF94 /* MinisterIssuesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */; };
 		299491F020B62763005FCF94 /* MinisterIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EF20B62763005FCF94 /* MinisterIssue.swift */; };
@@ -301,6 +318,17 @@
 		293C95CB20335D4100BF1113 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		293C95CE20335D4100BF1113 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		293C95D020335D4100BF1113 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		293D417B216D12E7006214E1 /* InvasivePlants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvasivePlants.swift; sourceTree = "<group>"; };
+		293D417D216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalRequirementsTableViewCell.swift; sourceTree = "<group>"; };
+		293D417E216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdditionalRequirementsTableViewCell.xib; sourceTree = "<group>"; };
+		293D4181216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementConsiderationsTableViewCell.swift; sourceTree = "<group>"; };
+		293D4182216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManagementConsiderationsTableViewCell.xib; sourceTree = "<group>"; };
+		293D4185216D3109006214E1 /* AdditionalRequirementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalRequirementTableViewCell.swift; sourceTree = "<group>"; };
+		293D4186216D3109006214E1 /* AdditionalRequirementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdditionalRequirementTableViewCell.xib; sourceTree = "<group>"; };
+		293D4189216D313D006214E1 /* ManagementConsiderationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementConsiderationTableViewCell.swift; sourceTree = "<group>"; };
+		293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManagementConsiderationTableViewCell.xib; sourceTree = "<group>"; };
+		293D418D216D3172006214E1 /* ManagementConsideration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementConsideration.swift; sourceTree = "<group>"; };
+		293D418F216D3184006214E1 /* AdditionalRequirement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalRequirement.swift; sourceTree = "<group>"; };
 		2940057D208FCD5700AA1BDC /* PlanInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanInformationTableViewCell.swift; sourceTree = "<group>"; };
 		2940057E208FCD5700AA1BDC /* PlanInformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanInformationTableViewCell.xib; sourceTree = "<group>"; };
 		29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementHoldersTableViewCell.swift; sourceTree = "<group>"; };
@@ -346,6 +374,12 @@
 		2974270D2044949B0033BC47 /* LiveStockID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockID.swift; sourceTree = "<group>"; };
 		297427102044969A0033BC47 /* LiveStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockTableViewCell.swift; sourceTree = "<group>"; };
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
+		297E9986216545D100FB6F04 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		297E9988216545E700FB6F04 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		297E998A2165479F00FB6F04 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		297E998C2165482000FB6F04 /* Pin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Pin.xib; sourceTree = "<group>"; };
+		297E99952166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvasivePlantsTableViewCell.swift; sourceTree = "<group>"; };
+		297E99962166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvasivePlantsTableViewCell.xib; sourceTree = "<group>"; };
 		299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssuesTableViewCell.swift; sourceTree = "<group>"; };
 		299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinisterIssuesTableViewCell.xib; sourceTree = "<group>"; };
 		299491EF20B62763005FCF94 /* MinisterIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssue.swift; sourceTree = "<group>"; };
@@ -459,6 +493,7 @@
 				290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */,
 				293020072139A22000E121E0 /* Router.swift */,
 				2935A76921484A1900441539 /* TooltipViewController.swift */,
+				297E9988216545E700FB6F04 /* MapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -549,6 +584,8 @@
 				2943BDA42162995100EFC428 /* TagImage.swift */,
 				295FBF7821641EA200DD2C53 /* TagImageMLextension.swift */,
 				2943BDA82162A84200EFC428 /* test.xib */,
+				297E998A2165479F00FB6F04 /* Pin.swift */,
+				297E998C2165482000FB6F04 /* Pin.xib */,
 			);
 			path = Nibs;
 			sourceTree = "<group>";
@@ -584,6 +621,9 @@
 				29227B5720EE95A50042B88E /* MonitoringArea.swift */,
 				29227B7320F013F90042B88E /* PastureAction.swift */,
 				2933183E20FE60390070A6A9 /* IndicatorPlant.swift */,
+				293D417B216D12E7006214E1 /* InvasivePlants.swift */,
+				293D418D216D3172006214E1 /* ManagementConsideration.swift */,
+				293D418F216D3184006214E1 /* AdditionalRequirement.swift */,
 			);
 			path = "Plan Components";
 			sourceTree = "<group>";
@@ -616,7 +656,6 @@
 				2920F82E2034C0000090E7B4 /* Helpers */,
 				2920F82B2034BF9A0090E7B4 /* Models and enums */,
 				29EB8442203DEE7A00D73F6B /* UI */,
-				2920F83F2034F37A0090E7B4 /* Base */,
 				2920F8202034B98D0090E7B4 /* ViewControllers */,
 				293C95C420335D4100BF1113 /* AppDelegate.swift */,
 				299BD277207BF488004B1D07 /* Constants.swift */,
@@ -658,9 +697,10 @@
 		29EB8442203DEE7A00D73F6B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				29301FDB21385BC900E121E0 /* Nibs */,
-				29EB8444203DEEAE00D73F6B /* Storyboards */,
 				29EB8443203DEE8600D73F6B /* Cells */,
+				29301FDB21385BC900E121E0 /* Nibs */,
+				2920F83F2034F37A0090E7B4 /* Base */,
+				29EB8444203DEEAE00D73F6B /* Storyboards */,
 				29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */,
 				29227B6D20F0057C0042B88E /* CustomSectionHeader.xib */,
 			);
@@ -748,6 +788,16 @@
 				29055212213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib */,
 				290552172134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift */,
 				290552182134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib */,
+				297E99952166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift */,
+				297E99962166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib */,
+				293D417D216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift */,
+				293D417E216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib */,
+				293D4181216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift */,
+				293D4182216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib */,
+				293D4185216D3109006214E1 /* AdditionalRequirementTableViewCell.swift */,
+				293D4186216D3109006214E1 /* AdditionalRequirementTableViewCell.xib */,
+				293D4189216D313D006214E1 /* ManagementConsiderationTableViewCell.swift */,
+				293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -769,6 +819,7 @@
 				29227B5D20EEAA850042B88E /* TextEntry.storyboard */,
 				290551F921345E3A00785B5E /* AmendmentFlow.storyboard */,
 				2935A7672148399500441539 /* Tooltip.storyboard */,
+				297E9986216545D100FB6F04 /* Map.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -863,10 +914,12 @@
 				29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */,
 				29EA02992069565C0076403B /* checked_done_.json in Resources */,
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
+				297E99982166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib in Resources */,
 				29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */,
 				299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */,
 				29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */,
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
+				297E998D2165482000FB6F04 /* Pin.xib in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
@@ -895,12 +948,15 @@
 				2974270C20448F720033BC47 /* LiveStockIDTableViewCell.xib in Resources */,
 				29227B5C20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib in Resources */,
 				29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */,
+				293D418C216D313D006214E1 /* ManagementConsiderationTableViewCell.xib in Resources */,
+				297E9987216545D100FB6F04 /* Map.storyboard in Resources */,
 				2933183720FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.xib in Resources */,
 				2905521A2134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib in Resources */,
 				29400584208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib in Resources */,
 				29174683207426E2005F70B4 /* Home.storyboard in Resources */,
 				29400580208FCD5700AA1BDC /* PlanInformationTableViewCell.xib in Resources */,
 				29227B6A20EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib in Resources */,
+				293D4180216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib in Resources */,
 				29227B7220F00EF00042B88E /* PlantCommunityActionTableViewCell.xib in Resources */,
 				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
@@ -917,8 +973,10 @@
 				295F8F1120F7F60E009D7717 /* MonitoringArea.storyboard in Resources */,
 				29055214213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
+				293D4184216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib in Resources */,
 				29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */,
 				295F8F1720F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */,
+				293D4188216D3109006214E1 /* AdditionalRequirementTableViewCell.xib in Resources */,
 				2943BDA72162996900EFC428 /* TagImage.xib in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
@@ -1033,9 +1091,11 @@
 				2962B0EC204F2BB400F71B9C /* ScheduleObject.swift in Sources */,
 				2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */,
 				292E65252076AB12003D4AF0 /* AgreementExemptionStatus.swift in Sources */,
+				293D418B216D313D006214E1 /* ManagementConsiderationTableViewCell.swift in Sources */,
 				2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */,
 				299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */,
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
+				293D4187216D3109006214E1 /* AdditionalRequirementTableViewCell.swift in Sources */,
 				29055213213465B500785B5E /* AmendmentPageThreeCollectionViewCell.swift in Sources */,
 				2901C4C52141DB4000AE72FC /* Options.swift in Sources */,
 				2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */,
@@ -1047,6 +1107,7 @@
 				2932BB4F2085209000579A57 /* Fonts.swift in Sources */,
 				295F8F1320F7F625009D7717 /* MonitoringAreaViewController.swift in Sources */,
 				2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */,
+				297E998B2165479F00FB6F04 /* Pin.swift in Sources */,
 				29103A9A21519AD000032076 /* Loading.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,
 				2917468920742A7A005F70B4 /* MainViewController.swift in Sources */,
@@ -1057,9 +1118,11 @@
 				2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */,
 				2905520F213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
+				293D417C216D12E7006214E1 /* InvasivePlants.swift in Sources */,
 				294764E52149BBC7007E8576 /* Banner.swift in Sources */,
 				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,
 				29227B5520EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
+				293D418E216D3172006214E1 /* ManagementConsideration.swift in Sources */,
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */,
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
@@ -1073,8 +1136,10 @@
 				295FBF8021641F1400DD2C53 /* Animal.mlmodel in Sources */,
 				2972381820ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift in Sources */,
 				29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */,
+				293D4183216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
+				293D417F216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift in Sources */,
 				2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */,
 				295F8F1620F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift in Sources */,
 				294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */,
@@ -1085,6 +1150,7 @@
 				2972381520ED3465006EBCBB /* PlantCommunityViewController.swift in Sources */,
 				2933184120FE63590070A6A9 /* IndicatorPlantSection.swift in Sources */,
 				2940057F208FCD5700AA1BDC /* PlanInformationTableViewCell.swift in Sources */,
+				293D4190216D3184006214E1 /* AdditionalRequirement.swift in Sources */,
 				56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */,
 				29400583208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift in Sources */,
 				29EADF80206039D60087593F /* AgreementStatus.swift in Sources */,
@@ -1115,6 +1181,7 @@
 				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,
 				293020082139A22000E121E0 /* Router.swift in Sources */,
 				29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */,
+				297E9989216545E700FB6F04 /* MapViewController.swift in Sources */,
 				2943BDA3215E90C300EFC428 /* RangePhoto.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,
 				2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */,
@@ -1139,6 +1206,7 @@
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
 				2935A76C21485A2500441539 /* ConstantStrings.swift in Sources */,
 				292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */,
+				297E99972166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift in Sources */,
 				29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */,
 				292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */,
 				29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */,

@@ -26,6 +26,9 @@ enum FromSection: Int {
     case Pastures
     case YearlySchedule
     case MinistersIssues
+    case InvasivePlants
+    case AdditionalRequirements
+    case ManagementConsiderations
 }
 
 class CreateNewRUPViewController: BaseViewController {
@@ -33,7 +36,7 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
     let portraitMenuWidth: CGFloat = 64
-    let numberOfSections = 7
+    let numberOfSections = 8
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
@@ -142,20 +145,32 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var ministersIssuesBoxLeft: UIView!
     @IBOutlet weak var ministersIssuesIconLeading: NSLayoutConstraint!
 
-    /*
+     @IBOutlet weak var invasivePlantsBox: UIView!
+     @IBOutlet weak var invasivePlantsLabel: UILabel!
+     @IBOutlet weak var invasivePlantsButton: UIButton!
+     @IBOutlet weak var invasivePlantsBoxImage: UIImageView!
+     @IBOutlet weak var invasivePlantsLowerBar: UIView!
+     @IBOutlet weak var invasivePlantsBoxLeft: UIView!
+     @IBOutlet weak var invasivePlantsIconLeading: NSLayoutConstraint!
 
-    @IBOutlet weak var invasivePlantsLabel: UILabel!
-    @IBOutlet weak var invasivePlantsButton: UIButton!
-    @IBOutlet weak var invasivePlantsBoxImage: UIImageView!
 
-    @IBOutlet weak var additionalRequirementsLabel: UILabel!
-    @IBOutlet weak var additionalRequirementsButton: UIButton!
-    @IBOutlet weak var additionalRequirementsBoxImage: UIImageView!
+     @IBOutlet weak var additionalRequirementsBox: UIView!
+     @IBOutlet weak var additionalRequirementsLabel: UILabel!
+     @IBOutlet weak var additionalRequirementsButton: UIButton!
+     @IBOutlet weak var additionalRequirementsImage: UIImageView!
+     @IBOutlet weak var additionalRequirementsLowerBar: UIView!
+     @IBOutlet weak var additionalRequirementsBoxLeft: UIView!
+     @IBOutlet weak var additionalRequirementsIconLeading: NSLayoutConstraint!
 
-    @IBOutlet weak var managementLabel: UILabel!
-    @IBOutlet weak var managementButton: UIButton!
-    @IBOutlet weak var managementBoxImage: UIImageView!
+     @IBOutlet weak var managementBox: UIView!
+     @IBOutlet weak var managementLabel: UILabel!
+     @IBOutlet weak var managementButton: UIButton!
+     @IBOutlet weak var managementBoxImage: UIImageView!
+     @IBOutlet weak var managementLowerBar: UIView!
+     @IBOutlet weak var managementBoxLeft: UIView!
+     @IBOutlet weak var managementIconLeading: NSLayoutConstraint!
 
+     /*
     @IBOutlet weak var mapLabel: UILabel!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var mapInfoBoxImage: UIImageView!
@@ -168,7 +183,6 @@ class CreateNewRUPViewController: BaseViewController {
 
     // Body
     @IBOutlet weak var tableView: UITableView!
-
 
     // MARK: ViewController Functions
     override func viewDidLoad() {
@@ -295,17 +309,21 @@ class CreateNewRUPViewController: BaseViewController {
     @IBAction func ministersIssuesAction(_ sender: UIButton) {
         tableView.scrollToRow(at: minsterActionsIndexPath, at: .top, animated: true)
     }
-    /*
+
     @IBAction func invasivePlantsAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: invasivePlantsIndexPath, at: .top, animated: true)
     }
     @IBAction func additionalRequirementsAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: additionalRequirementsIndexPath, at: .top, animated: true)
     }
     @IBAction func managementAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: managementIndexPath, at: .top, animated: true)
     }
+    /*
     @IBAction func mapAction(_ sender: UIButton) {
         tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
-    }
-    */
+    }*/
+
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}
@@ -481,6 +499,9 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         registerCell(name: "MapTableViewCell")
         registerCell(name: "ScheduleTableViewCell")
         registerCell(name: "MinisterIssuesTableViewCell")
+        registerCell(name: "InvasivePlantsTableViewCell")
+        registerCell(name: "AdditionalRequirementsTableViewCell")
+        registerCell(name: "ManagementConsiderationsTableViewCell")
     }
 
     @objc func doThisWhenNotify() { return }
@@ -522,12 +543,26 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "MinisterIssuesTableViewCell", for: indexPath) as! MinisterIssuesTableViewCell
     }
 
+    func getInvasivePlantsCell(indexPath: IndexPath) -> InvasivePlantsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "InvasivePlantsTableViewCell", for: indexPath) as! InvasivePlantsTableViewCell
+    }
+
+    func getAdditionalRequirementsCell(indexPath: IndexPath) -> AdditionalRequirementsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "AdditionalRequirementsTableViewCell", for: indexPath) as! AdditionalRequirementsTableViewCell
+    }
+
+    func getManagementConsiderationsCell(indexPath: IndexPath) -> ManagementConsiderationsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ManagementConsiderationsTableViewCell", for: indexPath) as! ManagementConsiderationsTableViewCell
+    }
+
     func getMapCell(indexPath: IndexPath) -> MapTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "MapTableViewCell", for: indexPath) as! MapTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        if rup == nil {
+            return getBasicInfoCell(indexPath: indexPath)
+        }
         if let cellType = FromSection(rawValue: Int(indexPath.row)) {
 
             switch cellType {
@@ -563,8 +598,22 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 return cell
             case .MinistersIssues:
                 self.minsterActionsIndexPath = indexPath
-                self.minsterActionsIndexPath = indexPath
                 let cell = getMinistersIssuesCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .InvasivePlants:
+                self.invasivePlantsIndexPath = indexPath
+                let cell = getInvasivePlantsCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .AdditionalRequirements:
+                self.additionalRequirementsIndexPath = indexPath
+                let cell = getAdditionalRequirementsCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .ManagementConsiderations:
+                self.managementIndexPath = indexPath
+                let cell = getManagementConsiderationsCell(indexPath: indexPath)
                 cell.setup(mode: mode, rup: rup!)
                 return cell
             }
@@ -657,6 +706,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 menuScheduleOn()
             } else if indexPath == minsterActionsIndexPath {
                 menuMinistersIssuesOn()
+            } else if indexPath == invasivePlantsIndexPath {
+                menuInvasivePlantsOn()
+            } else if indexPath == additionalRequirementsIndexPath {
+                menuAdditionalRequirementsOn()
+            } else if indexPath == managementIndexPath {
+                menuManagementConsiderationsOn()
             }
         }
     }

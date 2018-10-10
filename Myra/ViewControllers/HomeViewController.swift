@@ -116,6 +116,12 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Outlet actions
+
+    @IBAction func picMap(_ sender: UIButton) {
+        let vm = ViewManager()
+        present(vm.mapViewController, animated: true, completion: nil)
+    }
+
     @IBAction func testCam(_ sender: UIButton) {
         let cam = Cam()
         cam.display(on: self) { (photo) in
