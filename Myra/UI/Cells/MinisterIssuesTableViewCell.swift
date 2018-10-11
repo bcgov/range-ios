@@ -49,6 +49,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                         try realm.write {
                             aRup.ministerIssues.append(newIssue)
                             realm.add(newIssue)
+                            NewElementAddedBanner.shared.show()
                         }
                         self.rup = aRup
                     } catch _ {

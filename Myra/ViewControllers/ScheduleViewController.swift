@@ -157,6 +157,7 @@ class ScheduleViewController: BaseViewController {
         self.tableView.beginUpdates()
         self.tableView.insertRows(at: [newEntryIndexPath], with: .right)
         self.tableView.endUpdates()
+        NewElementAddedBanner.shared.show()
         self.validate()
     }
 

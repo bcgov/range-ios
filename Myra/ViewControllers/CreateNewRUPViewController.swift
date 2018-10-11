@@ -36,7 +36,7 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
     let portraitMenuWidth: CGFloat = 64
-    let numberOfSections = 8
+    let numberOfSections = 10
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?

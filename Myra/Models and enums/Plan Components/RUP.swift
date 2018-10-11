@@ -285,15 +285,15 @@ class RUP: Object, MyraObject {
         }
 
         for object in self.invasivePlants {
-            plan.invasivePlants.append(object.copy())
+            plan.invasivePlants.append(object.clone())
         }
 
         for object in self.managementConsiderations {
-            plan.managementConsiderations.append(object.copy())
+            plan.managementConsiderations.append(object.clone())
         }
 
         for object in self.additionalRequirements {
-            plan.additionalRequirements.append(object.copy())
+            plan.additionalRequirements.append(object.clone())
         }
 
         // Cients, zones and Range usage years should not be deletable/editable, so no need to call copy() on them

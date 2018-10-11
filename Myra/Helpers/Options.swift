@@ -138,4 +138,24 @@ class Options {
         }
         return returnArray
     }
+
+    func getManagementConsiderationLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Option-1"))
+        returnArray.append(SelectionPopUpObject(display: "Option-2"))
+        returnArray.append(SelectionPopUpObject(display: "Option-3"))
+        returnArray.append(SelectionPopUpObject(display: "Option-4"))
+        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        return returnArray
+    }
+
+    func getAdditionalRequirementLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Option-1"))
+        returnArray.append(SelectionPopUpObject(display: "Option-2"))
+        returnArray.append(SelectionPopUpObject(display: "Option-3"))
+        returnArray.append(SelectionPopUpObject(display: "Option-4"))
+        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        return returnArray
+    }
 }

@@ -45,7 +45,7 @@ class AdditionalRequirement: Object {
         }
     }
 
-    func copy() -> AdditionalRequirement {
+    func clone() -> AdditionalRequirement {
         let new = AdditionalRequirement()
         new.category = self.category
         new.url = self.url

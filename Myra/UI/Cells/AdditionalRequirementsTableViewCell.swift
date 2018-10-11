@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class AdditionalRequirementsTableViewCell: BaseFormCell {
 
@@ -20,7 +22,16 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
     @IBAction func addAction(_ sender: UIButton) {
-        
+        do {
+            let realm = try Realm()
+            try realm.write {
+                rup.additionalRequirements.append(AdditionalRequirement())
+                NewElementAddedBanner.shared.show()
+            }
+        } catch {
+            fatalError()
+        }
+        updateTableHeight(scrollToBottom: true)
     }
 
     override func awakeFromNib() {
@@ -37,6 +48,7 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
         self.rup = rup
         style()
         autoFill()
+        tableHeight.constant = computeHeight()
     }
 
     func autoFill() {
@@ -50,30 +62,37 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
         case .Edit:
             styleHollowButton(button: addButton)
         }
+
+        styleHeader(label: titleLabel, divider: divider)
+        titleLabel.increaseFontSize(by: -4)
+        styleSubHeader(label: subtitle)
     }
 
-    /*
-    func updateTableHeight(newAdded: Bool? = false) {
-        let parent = self.parentViewController as! CreateNewRUPViewController
+    func updateTableHeight(scrollToBottom: Bool) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         tableHeight.constant = computeHeight()
-        parent.reload {
-            self.tableView.reloadData()
-            self.tableView.layoutIfNeeded()
+
+        if scrollToBottom {
+            parent.realod(bottomOf: parent.additionalRequirementsIndexPath, then: {
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+            })
+        } else {
+            parent.reload {
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+            }
         }
     }
 
     func computeHeight() -> CGFloat {
-        /*
-         Height of Pastures cell =
-         */
-        let padding: CGFloat = 5
         var h: CGFloat = 0.0
-        for pasture in (rup.pastures) {
-            h = h + computePastureHeight(pasture: pasture) + padding
+        for _ in rup.additionalRequirements {
+            h = h + AdditionalRequirementTableViewCell.cellHeight
         }
         return h
     }
-     */
+
 }
 
 
@@ -96,7 +115,7 @@ extension AdditionalRequirementsTableViewCell:  UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getAdditionalRequirementCell(indexPath: indexPath)
-        cell.setup(mode: mode, object: self.rup.additionalRequirements[indexPath.row])
+        cell.setup(mode: mode, object: self.rup.additionalRequirements[indexPath.row], parentCell: self)
         return cell
     }
 

@@ -45,7 +45,7 @@ class ManagementConsideration: Object {
         }
     }
 
-    func copy() -> ManagementConsideration {
+    func clone() -> ManagementConsideration {
         let new = ManagementConsideration()
         new.consideration = self.consideration
         new.url = self.url

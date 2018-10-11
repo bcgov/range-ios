@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
 
-    static let cellHeight:CGFloat = 255
+    static let cellHeight:CGFloat = 271
 
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var considerationHeader: UILabel!
@@ -27,8 +29,11 @@ class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
     var managementConsideration: ManagementConsideration?
     var mode: FormMode = .View
 
+    var managementConsiderationsParent: ManagementConsiderationsTableViewCell?
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        detailsField.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,10 +41,67 @@ class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
     }
 
     @IBAction func considerationAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController, let obj = self.managementConsideration else {return}
+        let vm = ViewManager()
+        let lookup = vm.lookup
 
+        lookup.setup(objects: Options.shared.getManagementConsiderationLookup(), onVC: parent, onButton: sender) { (selected, selection) in
+            lookup.dismiss(animated: true, completion: nil)
+            if selected, let option = selection {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        obj.consideration = option.display
+                    }
+                    self.autoFill()
+                } catch _ {
+                    fatalError()
+                }
+            }
+        }
+    }
+    
+    @IBAction func urlAction(_ sender: UITextField) {
+        guard let obj = self.managementConsideration else {return}
+        obj.setValue(url: sender.text)
     }
 
-    func setup(mode: FormMode, object: ManagementConsideration) {
+    @IBAction func optionsAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController, let obj = self.managementConsideration, let parentCell = self.managementConsiderationsParent else {return}
+        let vm = ViewManager()
+        let optionsVC = vm.options
+
+        let options: [Option] = [Option(type: .Copy, display: "Copy"),Option(type: .Delete, display: "Delete")]
+
+        optionsVC.setup(options: options, onVC: parent, onButton: sender) { (option) in
+            switch option.type {
+            case .Delete:
+                parent.showAlert(title: "Are you sure?", description: "Would you like to delete this Management Consideration?", yesButtonTapped: {
+                    RealmRequests.deleteObject(obj)
+                    parentCell.updateTableHeight(scrollToBottom: false)
+                }, noButtonTapped: {})
+            case .Copy:
+                self.duplicate()
+            }
+        }
+    }
+
+    func duplicate() {
+        guard let obj = self.managementConsideration, let parentCell = self.managementConsiderationsParent else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                parentCell.rup.managementConsiderations.append(obj.clone())
+                NewElementAddedBanner.shared.show()
+            }
+        } catch {
+            fatalError()
+        }
+        parentCell.updateTableHeight(scrollToBottom: true)
+    }
+
+    func setup(mode: FormMode, object: ManagementConsideration, parentCell: ManagementConsiderationsTableViewCell) {
+        self.managementConsiderationsParent = parentCell
         self.mode = mode
         self.managementConsideration = object
         style()
@@ -57,7 +119,7 @@ class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
         guard let _ = self.container else {return}
         roundCorners(layer: container.layer)
         addShadow(to: container.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 3)
-        styleHeader(label: considerationHeader)
+        styleFieldHeader(label: considerationHeader)
         styleInputField(field: considerationField, editable: (mode == .Edit), height: fieldHeight)
         switch self.mode {
         case .View:
@@ -79,5 +141,15 @@ class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
             styleInput(input: urlField, height: fieldHeight)
             styleTextviewInputField(field: detailsField, header: detailsHeader)
         }
+    }
+}
+
+// MARK: Notes
+extension ManagementConsiderationTableViewCell: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {}
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let obj = self.managementConsideration else {return}
+        obj.setValue(detail: textView.text)
     }
 }

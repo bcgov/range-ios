@@ -53,7 +53,7 @@ class InvasivePlants: Object {
         }
     }
 
-    func copy() -> InvasivePlants {
+    func clone() -> InvasivePlants {
         let invasivePlants = InvasivePlants()
         invasivePlants.other = self.other
         invasivePlants.equipmentAndVehiclesParking = self.equipmentAndVehiclesParking

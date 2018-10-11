@@ -111,6 +111,9 @@ extension CreateNewRUPViewController {
         pasturesIconLeading.constant = to
         scheduleIconLeading.constant = to
         ministersIssuesIconLeading.constant = to
+        invasivePlantsIconLeading.constant = to
+        additionalRequirementsIconLeading.constant = to
+        managementIconLeading.constant = to
     }
 
     func setMenuLabelsAlpha(to alpha: CGFloat) {
@@ -118,6 +121,9 @@ extension CreateNewRUPViewController {
         pasturesLabel.alpha = alpha
         scheduleLabel.alpha = alpha
         ministersIssuesLabel.alpha = alpha
+        invasivePlantsLabel.alpha = alpha
+        additionalRequirementsLabel.alpha = alpha
+        managementLabel.alpha = alpha
 //        submitButton.alpha = alpha
     }
 

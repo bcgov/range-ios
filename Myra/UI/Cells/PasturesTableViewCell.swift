@@ -47,6 +47,7 @@ class PasturesTableViewCell: BaseFormCell {
                     try realm.write {
                         aRup.pastures.append(newPasture)
                         realm.add(newPasture)
+                        NewElementAddedBanner.shared.show()
                     }
                     self.rup = aRup
                 } catch _ {

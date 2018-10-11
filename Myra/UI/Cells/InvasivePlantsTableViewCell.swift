@@ -124,7 +124,6 @@ class InvasivePlantsTableViewCell: BaseFormCell {
 
     // MARK: Style
     func style() {
-        styleDivider(divider: divider)
         styleHeader(label: titleLabel, divider: divider)
         titleLabel.increaseFontSize(by: -4)
         styleSubHeader(label: subtitle)
