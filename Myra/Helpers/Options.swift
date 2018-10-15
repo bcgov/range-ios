@@ -71,11 +71,13 @@ class Options {
 
     func getRangeLandHealthLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Highly at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Moderately at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Non-functional"))
-        returnArray.append(SelectionPopUpObject(display: "Properly Functioning Condition"))
+         returnArray.append(SelectionPopUpObject(display: "Properly Functioning Condition"))
         returnArray.append(SelectionPopUpObject(display: "Slightly at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Moderately at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Highly at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Non-functional"))
+
+
         return returnArray
     }
 

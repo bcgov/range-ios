@@ -8,6 +8,7 @@
 
 import UIKit
 import Extended
+import IQKeyboardManagerSwift
 
 class TextEntryViewController: UIViewController, Theme {
 
@@ -141,10 +142,19 @@ class TextEntryViewController: UIViewController, Theme {
         self.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         self.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         self.didMove(toParent: parent)
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = getDistanceFromField()
         self.input.becomeFirstResponder()
     }
 
+    func getDistanceFromField() -> CGFloat {
+        let total = self.view.frame.height
+
+        // 15 and 8 are title lable's top and bottom constraints
+        return total - (inputHeight.constant + titleLabel.frame.height + 15 + 8)
+    }
+
     func remove() {
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 10
         guard let parent = self.parentVC else {return}
         parent.removeWhiteScreen()
         self.view.removeFromSuperview()

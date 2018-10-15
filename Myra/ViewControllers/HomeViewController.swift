@@ -88,6 +88,9 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var rangeNameHeader: UILabel!
     @IBOutlet weak var statusHeader: UILabel!
 
+    // Tour
+    @IBOutlet weak var endTourView: UIView!
+    @IBOutlet weak var endTourLabel: UILabel!
 
     // MARK: ViewController functions
     override func viewDidLoad() {
@@ -110,12 +113,16 @@ class HomeViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         if presentedAfterLogin {
             self.view.layoutIfNeeded()
-            beginTourTip()
+//            beginTourTip()
             self.presentedAfterLogin = false
         }
     }
 
     // MARK: Outlet actions
+
+    @IBAction func endTour(_ sender: Any) {
+        endTourTip()
+    }
 
     @IBAction func picMap(_ sender: UIButton) {
         let vm = ViewManager()
@@ -713,9 +720,7 @@ extension HomeViewController {
     }
 }
 
-
 // MARK: TourTip
-
 extension HomeViewController: MaterialShowcaseDelegate {
 
     // This begins displaying elements in tours array
@@ -893,6 +898,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         showcase.delegate = self
 
         showcase.show(completion: {})
+//        self.view.addSubview(endTourView)
     }
 
 

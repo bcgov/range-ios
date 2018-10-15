@@ -428,6 +428,36 @@
                                             <constraint firstItem="T6m-EW-ACS" firstAttribute="leading" secondItem="Wr9-CG-TF1" secondAttribute="leading" id="uuo-sl-0Kx"/>
                                         </constraints>
                                     </view>
+                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85q-HK-het">
+                                        <rect key="frame" x="8" y="746" width="80" height="80"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Tour" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19b-Nk-Wi4">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0T-mT-Bx2">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                <connections>
+                                                    <action selector="endTour:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="I2o-sn-RQ3"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="19b-Nk-Wi4" firstAttribute="leading" secondItem="85q-HK-het" secondAttribute="leading" id="0nV-HJ-u8b"/>
+                                            <constraint firstItem="V0T-mT-Bx2" firstAttribute="centerY" secondItem="85q-HK-het" secondAttribute="centerY" id="2Ll-LV-GpS"/>
+                                            <constraint firstItem="V0T-mT-Bx2" firstAttribute="width" secondItem="85q-HK-het" secondAttribute="width" id="2Oc-83-JQN"/>
+                                            <constraint firstItem="19b-Nk-Wi4" firstAttribute="top" secondItem="85q-HK-het" secondAttribute="top" id="BON-5x-Jbq"/>
+                                            <constraint firstAttribute="bottom" secondItem="19b-Nk-Wi4" secondAttribute="bottom" id="T8y-yt-08U"/>
+                                            <constraint firstItem="V0T-mT-Bx2" firstAttribute="height" secondItem="85q-HK-het" secondAttribute="height" id="YQR-Bz-7jl"/>
+                                            <constraint firstAttribute="width" secondItem="85q-HK-het" secondAttribute="height" multiplier="1:1" id="anW-LD-XQg"/>
+                                            <constraint firstItem="V0T-mT-Bx2" firstAttribute="centerX" secondItem="85q-HK-het" secondAttribute="centerX" id="ccP-Q2-Xqm"/>
+                                            <constraint firstAttribute="height" constant="80" id="lzp-Rt-Sm8"/>
+                                            <constraint firstAttribute="trailing" secondItem="19b-Nk-Wi4" secondAttribute="trailing" id="vV5-2j-Fcp"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -435,6 +465,7 @@
                                     <constraint firstItem="w4D-3Y-tFB" firstAttribute="top" secondItem="Z9c-y2-y5e" secondAttribute="bottom" id="0kl-ol-85z"/>
                                     <constraint firstItem="Wr9-CG-TF1" firstAttribute="leading" secondItem="lHw-T8-NdB" secondAttribute="leading" id="1lO-QR-mZg"/>
                                     <constraint firstAttribute="trailing" secondItem="Wr9-CG-TF1" secondAttribute="trailing" id="2Fk-LS-P6e"/>
+                                    <constraint firstAttribute="bottom" secondItem="85q-HK-het" secondAttribute="bottom" constant="8" id="AJx-7A-aWj"/>
                                     <constraint firstItem="fLM-kb-vPN" firstAttribute="leading" secondItem="lHw-T8-NdB" secondAttribute="leading" id="BSG-qS-8nm"/>
                                     <constraint firstItem="Z9c-y2-y5e" firstAttribute="top" secondItem="lHw-T8-NdB" secondAttribute="top" constant="30" id="H4N-kZ-TLv"/>
                                     <constraint firstItem="Z9c-y2-y5e" firstAttribute="top" secondItem="s76-Rw-97m" secondAttribute="bottom" id="KTW-8x-q0x"/>
@@ -452,6 +483,7 @@
                                     <constraint firstItem="Z9c-y2-y5e" firstAttribute="leading" secondItem="lHw-T8-NdB" secondAttribute="leading" id="mDE-Mt-Rrr"/>
                                     <constraint firstAttribute="trailing" secondItem="Z9c-y2-y5e" secondAttribute="trailing" id="mWh-gX-7V5"/>
                                     <constraint firstItem="w4D-3Y-tFB" firstAttribute="leading" secondItem="lHw-T8-NdB" secondAttribute="leading" id="scb-j9-Adl"/>
+                                    <constraint firstItem="85q-HK-het" firstAttribute="leading" secondItem="lHw-T8-NdB" secondAttribute="leading" constant="8" id="sip-Fd-fOX"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -473,6 +505,8 @@
                         <outlet property="containerView" destination="lHw-T8-NdB" id="34Y-Qb-5xL"/>
                         <outlet property="createButton" destination="6er-jo-Ncd" id="6zX-aE-5nw"/>
                         <outlet property="draftsFilter" destination="SZi-bs-JRv" id="xFm-Bi-XFO"/>
+                        <outlet property="endTourLabel" destination="19b-Nk-Wi4" id="hhc-0a-Jw1"/>
+                        <outlet property="endTourView" destination="85q-HK-het" id="so8-OL-xfU"/>
                         <outlet property="filtersStack" destination="Kxf-Sw-J8K" id="5ls-f9-UWE"/>
                         <outlet property="lastSyncLabel" destination="JzH-RI-Kcw" id="gfy-xB-3Fu"/>
                         <outlet property="navBar" destination="Z9c-y2-y5e" id="e6j-Ib-htD"/>

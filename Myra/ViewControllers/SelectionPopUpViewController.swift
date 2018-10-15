@@ -93,7 +93,8 @@ class SelectionPopUpViewController: UIViewController, Theme {
         guard let parent = self.parentVC else {
             return
         }
-        parent.showPopUp(vc: self, on: on)
+        parent.showPopOver(on: on, vc: self, height: getEstimatedHeight(), width: getEstimatedWidth(), arrowColor: nil)
+//        parent.showPopUp(vc: self, on: on)
     }
 
     func setupMulti(header: String? = "", selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ done: Bool,_ result: [SelectionPopUpObject]?) -> Void) {
@@ -140,6 +141,18 @@ class SelectionPopUpViewController: UIViewController, Theme {
             total += Int(headerHeightConstant)
         }
         return total
+    }
+
+    func getEstimatedWidth() -> Int {
+        var max: CGFloat = 0
+        for element in objects {
+            let w = element.display.width(withConstrainedHeight: 33, font: Fonts.getPrimary(size: 17))
+            if w > max {
+                max = w
+            }
+        }
+        // 20 is the leading + trailing of cell
+        return Int((max + 20.0))
     }
 
     func canDisplayFullContentIn(height: Int) -> Bool {

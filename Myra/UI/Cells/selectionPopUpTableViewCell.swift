@@ -17,8 +17,8 @@ class selectionPopUpTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        if object != nil {
-            label.text = object?.display
+        if let obj = object {
+            label.text = obj.display
         }
     }
 

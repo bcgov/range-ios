@@ -44,15 +44,16 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
 
     // MARK: Outlet Actions
     @IBAction func singleFieldAction(_ sender: UIButton) {
-        guard let a = area, let parent = parentReference, let plan = parent.plan, let start = plan.planStartDate, let end = plan.planEndDate else {return}
-
+        guard let a = area, let parent = parentReference else {return}
         let picker = DatePicker()
-        picker.setup(min: start, max: end) { (selected, date) in
-            if let date = date {
+
+        picker.setupYearless() { (selected, month, day) in
+            if selected, let day = day, let month = month {
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        a.readinessDate = date
+                        a.readinessDay = day
+                        a.readinessMonth = month
                     }
                 } catch _ {
                     fatalError()
@@ -84,8 +85,10 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
 
     func autofill() {
-        guard let a = self.area, let date = a.readinessDate else {return}
-        self.singleFieldValue.text = date.string()
+        guard let a = self.area else {return}
+        if a.readinessDay != -1 && a.readinessMonth != -1 {
+            self.singleFieldValue.text = "\(DatePickerHelper.shared.month(number: a.readinessMonth)) \(a.readinessDay)"
+        }
     }
 
     func style() {

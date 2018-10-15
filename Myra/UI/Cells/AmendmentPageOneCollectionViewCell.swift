@@ -48,7 +48,11 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
         if let amendment = self.amendment, let _ = amendment.type {
             parent.gotoPage(row: 1)
         } else {
-            fadeLabelMessage(label: subtitleLabel, text: "Select an updated amendment status below")
+            if mode == .Create {
+                 fadeLabelMessage(label: subtitleLabel, text: "Select a submission type below")
+            } else {
+                 fadeLabelMessage(label: subtitleLabel, text: "Select an updated amendment status below")
+            }
         }
     }
 
@@ -83,6 +87,8 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .NotApproved
         case .Initial:
             amendment.type = .ChangeRequested
+        case .Create:
+            amendment.type = .RequestAgreementHolderInput
         }
         autoFill()
     }
@@ -98,6 +104,8 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .Approved
         case .Initial:
             amendment.type = .Completed
+        case .Create:
+            amendment.type = .RequestAgreementHolderEsignature
         }
         autoFill()
     }
@@ -135,6 +143,10 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
                 selectOptionTwo()
             case .ChangeRequested:
                 selectOptionOne()
+            case .RequestAgreementHolderInput:
+                selectOptionOne()
+            case .RequestAgreementHolderEsignature:
+                selectOptionTwo()
             }
         } 
     }
@@ -164,6 +176,12 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             self.optionTwoLabel.text = "Completed"
             self.titleLabel.text = "Update Plan Status"
             self.subtitleLabel.text = "Select the new status of this Range Use Plan"
+            self.optionZeroContainer.isHidden = true
+        case .Create:
+            self.optionOneLabel.text = "Request Agreement Holder Input"
+            self.optionTwoLabel.text = "Request Agreement Holder eSignature"
+            self.titleLabel.text = "Ready to Submit?"
+            self.subtitleLabel.text = "Choose Your Submission Type"
             self.optionZeroContainer.isHidden = true
         }
         styleHollowButton(button: cancelButton)

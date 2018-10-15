@@ -32,7 +32,7 @@ class Reference {
         reference.append(contentsOf: getAgreementExeptionStatuses())
         reference.append(contentsOf: getIssueType())
         reference.append(contentsOf: getIssueActionType())
-        reference.append(contentsOf: getAmendmentType())
+        reference.append(contentsOf: getAmendmentTypes())
         return reference
     }
 
@@ -80,6 +80,14 @@ class Reference {
         }
     }
 
+    func getAmendmentType(named: String) -> AmendmentType? {
+        let all = getAmendmentTypes()
+        for item in all where item.name.lowercased() == named.lowercased() {
+            return item
+        }
+        return nil
+    }
+
     func getAgreementStatuses() -> [AgreementStatus] {
         let query = RealmRequests.getObject(AgreementStatus.self)
         if query != nil {
@@ -117,7 +125,7 @@ class Reference {
         }
     }
 
-    func getAmendmentType() -> [AmendmentType] {
+    func getAmendmentTypes() -> [AmendmentType] {
         let query = RealmRequests.getObject(AmendmentType.self)
         if query != nil {
             return query!
@@ -214,6 +222,8 @@ class Reference {
             code = "O"
         } else if status == .ChangeRequested {
             code = "R"
+        } else if status == .StaffDraft {
+            code = "SD"
         }
 
         let query = RealmRequests.getObject(PlanStatus.self)

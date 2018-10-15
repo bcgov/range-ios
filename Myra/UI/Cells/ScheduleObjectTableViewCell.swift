@@ -181,8 +181,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let scheduleVC = self.scheduleViewReference else {return}
         let picker = DatePicker()
         guard let sched = scheduleVC.schedule,
-            let minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
-            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
+            let minDate = DatePickerHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
+            let maxDate = DatePickerHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
 
         if let entry = self.scheduleObject, let dateIn = entry.dateIn {
             picker.setup(beginWith: dateIn, min: minDate, max: maxDate) { (selected, date) in
@@ -210,8 +210,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         dismissKeyboard()
         guard let scheduleVC = self.scheduleViewReference else {return}
         guard let sched = scheduleVC.schedule,
-            var minDate = FDHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
-            let maxDate = FDHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
+            var minDate = DatePickerHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
+            let maxDate = DatePickerHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
         let picker = DatePicker()
         if let entry = self.scheduleObject, let dateOut = entry.dateOut {
             picker.setup(beginWith: dateOut, min: minDate, max: maxDate) { (selected, date) in

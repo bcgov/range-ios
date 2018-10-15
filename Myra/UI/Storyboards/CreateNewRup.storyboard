@@ -124,30 +124,59 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6w-8K-Hab">
-                                        <rect key="frame" x="734" y="22.5" width="138" height="30"/>
-                                        <state key="normal" title="Update Amendment"/>
-                                        <connections>
-                                            <action selector="updateAmendmentAction:" destination="q34-99-p1g" eventType="touchUpInside" id="FcO-mw-ss6"/>
-                                        </connections>
-                                    </button>
+                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkN-x8-adi">
+                                        <rect key="frame" x="746" y="21" width="140" height="33"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6w-8K-Hab">
+                                                <rect key="frame" x="8" y="0.0" width="101" height="33"/>
+                                                <state key="normal" title="Plan Actions">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="planActionActions:" destination="q34-99-p1g" eventType="touchUpInside" id="FcO-mw-ss6"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4d-Z0-9gO">
+                                                <rect key="frame" x="111" y="4.5" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="5Ns-AE-Yfx"/>
+                                                    <constraint firstAttribute="width" secondItem="i4d-Z0-9gO" secondAttribute="height" multiplier="1:1" id="NnX-K8-iJD"/>
+                                                </constraints>
+                                                <state key="normal" image="icons_form_dropdownarrow"/>
+                                                <connections>
+                                                    <action selector="planActionActions:" destination="q34-99-p1g" eventType="touchUpInside" id="RaH-aJ-AeE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="i4d-Z0-9gO" firstAttribute="leading" secondItem="K6w-8K-Hab" secondAttribute="trailing" constant="2" id="1tF-LV-dE5"/>
+                                            <constraint firstAttribute="trailing" secondItem="i4d-Z0-9gO" secondAttribute="trailing" constant="5" id="6gS-69-fXe"/>
+                                            <constraint firstAttribute="bottom" secondItem="K6w-8K-Hab" secondAttribute="bottom" id="9k0-4l-XcL"/>
+                                            <constraint firstAttribute="width" constant="140" id="Frp-uM-HJc"/>
+                                            <constraint firstItem="i4d-Z0-9gO" firstAttribute="centerY" secondItem="fkN-x8-adi" secondAttribute="centerY" id="elR-oZ-sbY"/>
+                                            <constraint firstItem="K6w-8K-Hab" firstAttribute="top" secondItem="fkN-x8-adi" secondAttribute="top" id="fhc-NJ-ibN"/>
+                                            <constraint firstItem="K6w-8K-Hab" firstAttribute="leading" secondItem="fkN-x8-adi" secondAttribute="leading" constant="8" id="oXk-Ya-JTc"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9076380076142132" green="0.9076380076142132" blue="0.9076380076142132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="y4Y-I5-Z9f" firstAttribute="leading" secondItem="K6w-8K-Hab" secondAttribute="trailing" constant="30" id="11e-Hi-eV6"/>
                                     <constraint firstAttribute="height" constant="75" id="8z7-dn-Qms"/>
-                                    <constraint firstItem="K6w-8K-Hab" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="B2x-vm-bnX"/>
                                     <constraint firstItem="RbP-fQ-Vhx" firstAttribute="leading" secondItem="wqq-yl-p8l" secondAttribute="trailing" id="C9G-Hm-e5t"/>
                                     <constraint firstItem="Dvu-os-1VU" firstAttribute="leading" secondItem="LiW-fN-wXA" secondAttribute="leading" constant="20" id="GL9-8p-sn6"/>
                                     <constraint firstItem="Nzd-Uv-eO9" firstAttribute="leading" secondItem="RbP-fQ-Vhx" secondAttribute="trailing" constant="5" id="GTF-1C-VTW"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="JIU-mi-aTR"/>
                                     <constraint firstItem="Nzd-Uv-eO9" firstAttribute="centerY" secondItem="wqq-yl-p8l" secondAttribute="centerY" id="OBX-Y5-vjl"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="Tw7-5j-4oq"/>
+                                    <constraint firstItem="fkN-x8-adi" firstAttribute="centerY" secondItem="y4Y-I5-Z9f" secondAttribute="centerY" id="UlS-ap-P6v"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="centerX" secondItem="LiW-fN-wXA" secondAttribute="centerX" id="XjG-Fk-FEt"/>
                                     <constraint firstItem="wqq-yl-p8l" firstAttribute="leading" secondItem="Dvu-os-1VU" secondAttribute="trailing" constant="8" id="aER-Ds-9Qd"/>
                                     <constraint firstItem="RbP-fQ-Vhx" firstAttribute="centerY" secondItem="wqq-yl-p8l" secondAttribute="centerY" id="cWk-2S-lgE"/>
+                                    <constraint firstItem="fkN-x8-adi" firstAttribute="height" secondItem="y4Y-I5-Z9f" secondAttribute="height" id="e5C-6L-Apa"/>
                                     <constraint firstItem="Dvu-os-1VU" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="f6P-9f-Gvp"/>
                                     <constraint firstItem="4Ob-oN-R5i" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nzd-Uv-eO9" secondAttribute="trailing" constant="2" id="i6N-ds-pIo"/>
+                                    <constraint firstItem="y4Y-I5-Z9f" firstAttribute="leading" secondItem="fkN-x8-adi" secondAttribute="trailing" constant="16" id="jVA-QK-9Ia"/>
                                     <constraint firstAttribute="trailing" secondItem="y4Y-I5-Z9f" secondAttribute="trailing" constant="20" id="wP8-Rl-j5D"/>
                                     <constraint firstItem="y4Y-I5-Z9f" firstAttribute="centerY" secondItem="LiW-fN-wXA" secondAttribute="centerY" id="zKQ-IC-cBi"/>
                                 </constraints>
@@ -690,6 +719,9 @@
                         <outlet property="pasturesIconLeading" destination="ZF4-rU-JlR" id="qso-IK-JZb"/>
                         <outlet property="pasturesLabel" destination="cRi-Bb-F5l" id="dVb-F2-Xzs"/>
                         <outlet property="pasturesLowerBar" destination="r7r-Lf-6aR" id="ZQC-me-1tz"/>
+                        <outlet property="planActions" destination="fkN-x8-adi" id="EgH-5Y-JwA"/>
+                        <outlet property="planActionsButton" destination="K6w-8K-Hab" id="ewm-Ul-Zb0"/>
+                        <outlet property="planActionsDropdownButton" destination="i4d-Z0-9gO" id="hhG-2P-nAE"/>
                         <outlet property="ranLabel" destination="wqq-yl-p8l" id="MRa-fg-afV"/>
                         <outlet property="requiredFieldNeededLabel" destination="a85-B1-2GU" id="JcU-dO-w9s"/>
                         <outlet property="saveToDraftButton" destination="y4Y-I5-Z9f" id="vNA-jW-UIq"/>
@@ -706,7 +738,6 @@
                         <outlet property="submitButton" destination="o6w-yp-OeT" id="skn-mW-GNk"/>
                         <outlet property="submitButtonContainer" destination="rec-4X-Frs" id="n1x-lx-bDI"/>
                         <outlet property="tableView" destination="eHi-0H-7J4" id="8ub-WB-oSY"/>
-                        <outlet property="updateAmendmentButton" destination="K6w-8K-Hab" id="1rC-D6-U7o"/>
                         <outlet property="viewTitle" destination="4Ob-oN-R5i" id="lLS-Dh-AWz"/>
                     </connections>
                 </viewController>
@@ -720,5 +751,6 @@
         <image name="icon_Pastures" width="32" height="32"/>
         <image name="icon_Question_White" width="24" height="24"/>
         <image name="icon_check_white" width="24" height="24"/>
+        <image name="icons_form_dropdownarrow" width="24" height="24"/>
     </resources>
 </document>

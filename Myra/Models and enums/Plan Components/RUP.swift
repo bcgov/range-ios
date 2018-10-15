@@ -125,7 +125,6 @@ class RUP: Object, MyraObject {
             self.rangeName = rangeName
         }
 
-
         if let altName = json["altBusinessName"].string {
             self.alternativeName = altName
         }
@@ -243,7 +242,7 @@ class RUP: Object, MyraObject {
         }
     }
 
-    func copy() -> RUP {
+    func clone() -> RUP {
         let plan = RUP()
 
         // Copy values
@@ -263,6 +262,7 @@ class RUP: Object, MyraObject {
         plan.typeId = self.typeId
         plan.ranNumber = self.ranNumber
         plan.isNew = self.isNew
+        plan.amendmentTypeId = self.amendmentTypeId
 
         // Copy objects in lists:
 
@@ -370,6 +370,10 @@ class RUP: Object, MyraObject {
          Set status to staff draft if this plan is a local draft
          Set status to Created is plan needs to be uploaded
          */
+        var amendmentTypeIdTemp: Int? = amendmentTypeId
+        if amendmentTypeIdTemp == -1 {
+            amendmentTypeIdTemp = nil
+        }
         var currStatusId = 1
         if self.status == RUPStatus.LocalDraft.rawValue {
              currStatusId = Reference.shared.getStaffDraftPlanStatus().id
@@ -382,6 +386,7 @@ class RUP: Object, MyraObject {
             "planStartDate": DateManager.toUTC(date: planStartDate!),
             "planEndDate": DateManager.toUTC(date: planEndDate!),
             "altBusinessName": alternativeName,
+            "amendmentTypeId": amendmentTypeIdTemp,
             "statusId": currStatusId
         ]
     }

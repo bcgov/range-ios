@@ -69,6 +69,11 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         if currentLocation == nil, CLLocationManager.locationServicesEnabled() {
             Loading.shared.begin()
             initLocation()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+                Banner.shared.show(message: "Could not get your location")
+                self.locationManager.stopUpdatingLocation()
+                Loading.shared.end()
+            }
         } else {
             autofillLatLong()
         }

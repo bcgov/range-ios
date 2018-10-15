@@ -5,7 +5,7 @@ target 'Myra' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'MaterialShowcase', '0.6.2'
-  pod 'DatePicker', '0.1.8'
+  pod 'DatePicker', '1.0.0'
   pod 'Realm'
   pod 'RealmSwift'
   pod 'IQKeyboardManagerSwift', '6.1.1'

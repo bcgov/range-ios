@@ -20,6 +20,8 @@ enum AmendmentChangeType {
     case Approved
     case Completed
     case ChangeRequested
+    case RequestAgreementHolderInput
+    case RequestAgreementHolderEsignature
 }
 
 class Amendment {
@@ -54,6 +56,10 @@ class Amendment {
                 return .Completed
             case .ChangeRequested:
                 return .ChangeRequested
+            case .RequestAgreementHolderInput:
+                return .LocalDraft
+            case .RequestAgreementHolderEsignature:
+                return .LocalDraft
             }
         }
         return nil

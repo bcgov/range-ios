@@ -12,6 +12,17 @@ import Realm
 import RealmSwift
 
 
+enum PlanAction {
+    case UpdateAmendment
+    case ApproveAmendment
+    case FinalReview
+    case UpdateStatus
+    case CreateMandatoryAmendment
+    case CancelAmendment
+    case PrepareForSubmission
+}
+
+
 // This extention has all the styling for create page.
 extension CreateNewRUPViewController {
 
@@ -19,7 +30,6 @@ extension CreateNewRUPViewController {
     func style() {
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
         StyleNavBarButton(button: cancelButton)
-        StyleNavBarButton(button: updateAmendmentButton)
         styleMenu()
 
         switch mode {
@@ -36,42 +46,29 @@ extension CreateNewRUPViewController {
         }
     }
 
-    func styleUpdateAmendmentButton() {
+    func stylePlanActions() {
         guard let rup = self.rup else {return}
+        planActions.alpha = 0
+        roundCorners(layer: planActions.layer)
+        planActionsButton.setTitleColor(Colors.inputText, for: .normal)
+        planActionsButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
+        //        planActionsButton.setTitleColor(.white, for: .normal)
+        planActions.backgroundColor = Colors.inputBG
 
-        let current = rup.getStatus()
-        if current == .Stands {
-            updateAmendmentButton.setTitle("Update Amendment", for: .normal)
-            updateAmendmentEnabled = true
-        } else if current == .SubmittedForFinalDecision || current == .SubmittedForReview {
-            updateAmendmentButton.setTitle("Approve Amendment", for: .normal)
-            updateAmendmentEnabled = true
-        } else if current == .RecommendReady {
-            updateAmendmentButton.setTitle("Final Review", for: .normal)
-            updateAmendmentEnabled = true
-        } else if current == .Pending || current == .Created {
-            updateAmendmentButton.setTitle("Update Status", for: .normal)
-            // completed / change requested
-            updateAmendmentEnabled = true
-        } else {
-            updateAmendmentEnabled = false
+        updateAmendmentEnabled = (!getPlanActions(for: rup).isEmpty)
+
+        if updateAmendmentEnabled {
+            UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
+                self.planActions.alpha = 1
+                self.view.layoutIfNeeded()
+            })
         }
-        
-        self.updateAmendmentButton.alpha = 0
-        UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
-            if self.updateAmendmentEnabled {
-                self.updateAmendmentButton.alpha = 1
-            } else {
-                self.updateAmendmentButton.alpha = 0
-            }
-            self.view.layoutIfNeeded()
-        })
     }
 
     func styleStatus() {
         styleNavBarLabel(label: statusAndagreementHolderLabel)
         makeCircle(view: statusLight)
-         guard let plan = self.rup else {return}
+        guard let plan = self.rup else {return}
         self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
     }
 
@@ -124,7 +121,7 @@ extension CreateNewRUPViewController {
         invasivePlantsLabel.alpha = alpha
         additionalRequirementsLabel.alpha = alpha
         managementLabel.alpha = alpha
-//        submitButton.alpha = alpha
+        //        submitButton.alpha = alpha
     }
 
     func styleMenu() {
@@ -327,7 +324,7 @@ extension CreateNewRUPViewController {
                 }, completion: { (done) in
                     // MARK: End of opening animations
                     self.view.isUserInteractionEnabled = true
-                    self.styleUpdateAmendmentButton()
+                    self.stylePlanActions()
                     return callBack()
                 })
 
