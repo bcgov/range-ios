@@ -79,6 +79,7 @@ class AutoSync {
         self.isSynchronizing = true
         DispatchQueue.global(qos: .background).async {
             self.lockScreenForSync()
+            var hadFails: Bool = false
             var syncedItems: [SyncedItem] = [SyncedItem]()
 
             let dispatchGroup = DispatchGroup()
@@ -89,6 +90,8 @@ class AutoSync {
                 API.upload(plans: outboxPlans, completion: { (success) in
                     if success {
                         syncedItems.append(.Outbox)
+                        dispatchGroup.leave()
+                    } else {
                         dispatchGroup.leave()
                     }
                 })
@@ -101,6 +104,8 @@ class AutoSync {
                     if success {
                         syncedItems.append(.Statuses)
                         dispatchGroup.leave()
+                    } else {
+                        dispatchGroup.leave()
                     }
                 })
             }
@@ -111,6 +116,8 @@ class AutoSync {
                 API.upload(plans: draftPlans, completion: { (success) in
                     if success {
                         syncedItems.append(.Drafts)
+                        dispatchGroup.leave()
+                    } else {
                         dispatchGroup.leave()
                     }
                 })

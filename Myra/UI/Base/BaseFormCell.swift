@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extended
 
 class BaseFormCell: UITableViewCell, Theme {
 

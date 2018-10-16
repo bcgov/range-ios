@@ -103,19 +103,30 @@ class ScheduleObject: Object, MyraObject {
     }
 
     func toDictionary() -> [String : Any] {
-        if let pastureID = pasture?.remoteId, liveStockTypeId != -1, let inDate = dateIn, let outDate = dateOut {
-            let schedule: [String: Any] = [
-                "dateIn": DateManager.toUTC(date: inDate),
-                "dateOut": DateManager.toUTC(date: outDate),
-                "graceDays": graceDays,
-                "livestockCount": numberOfAnimals,
-                "livestockTypeId": liveStockTypeId,
-                "pastureId": pastureID
-            ]
-            return schedule
-        } else {
+        guard let pasture = pasture else {
+            print("No pasture connected to this schedule entry\n Returning empty dictionary")
             return [String:Any]()
         }
+
+        guard let inDate = dateIn, let outDate = dateOut else {
+            print("Missing in or out cate for this schedule entry\n Returning empty dictionary")
+            return [String:Any]()
+        }
+
+        if liveStockTypeId == -1 {
+            print("Missing livestock ID for this schedule entry.\n Returning empty dictionary")
+            return [String:Any]()
+        }
+
+        let schedule: [String: Any] = [
+            "dateIn": DateManager.toUTC(date: inDate),
+            "dateOut": DateManager.toUTC(date: outDate),
+            "graceDays": graceDays,
+            "livestockCount": numberOfAnimals,
+            "livestockTypeId": liveStockTypeId,
+            "pastureId": pasture.remoteId
+        ]
+        return schedule
     }
 
     convenience init(json: JSON, plan: RUP) {

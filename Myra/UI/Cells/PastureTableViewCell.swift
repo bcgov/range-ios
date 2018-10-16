@@ -9,7 +9,6 @@
 import UIKit
 import Realm
 import RealmSwift
-
 class PastureTableViewCell: BaseFormCell {
 
     // MARK: Variables
@@ -218,14 +217,15 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
+        style()
         self.parentCell = pastures
         self.mode = mode
         self.pasture = pasture
         self.rup = pastures.rup
         autofill()
         setupTable()
-        self.pastureNotesTextField.delegate = self
         style()
+        self.pastureNotesTextField.delegate = self
         switch mode {
         case .View:
             options.isEnabled = false
@@ -252,9 +252,17 @@ class PastureTableViewCell: BaseFormCell {
             self.aumsField.text = "not set"
         }
 
-        if self.mode == .View && self.pastureNotesTextField.text == "" {
-            self.pastureNotesTextField.text = "Notes not provided"
+        if pastureNotesTextField.text == "" {
+            switch mode {
+            case .View:
+                 self.pastureNotesTextField.text = "Notes not provided"
+            case .Edit:
+                addPlaceHolder()
+            }
         }
+//        if self.mode == .View && self.pastureNotesTextField.text == "" {
+//            self.pastureNotesTextField.text = "Notes not provided"
+//        }
 
         let padding = 5
         tableHeight.constant = CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
@@ -336,6 +344,12 @@ class PastureTableViewCell: BaseFormCell {
             styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
             styleFillButton(button: addPlantCommunityButton)
+
+            addPlantCommunityButton.alpha = 1
+            ministerSwitch.isEnabled = true
+            if pastureNotesTextField.text == PlaceHolders.Pasture.notes {
+                pastureNotesTextField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
         }
         ministerSwitch.onTintColor = Colors.switchOn
         styleSubHeader(label: switchLabel)
@@ -386,16 +400,38 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
 // MARK: Notes
 extension PastureTableViewCell: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {}
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == PlaceHolders.Pasture.notes {
+            removePlaceHolder()
+        }
+    }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.pasture?.notes = textView.text
+        guard let pasture = self.pasture else {return}
+
+        if textView.text != PlaceHolders.Pasture.notes {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    pasture.notes = textView.text
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
         }
+
+        if textView.text == "" {
+            addPlaceHolder()
+        }
+    }
+
+    func addPlaceHolder() {
+        pastureNotesTextField.text = PlaceHolders.Pasture.notes
+        pastureNotesTextField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder() {
+        pastureNotesTextField.text = ""
+        pastureNotesTextField.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }
