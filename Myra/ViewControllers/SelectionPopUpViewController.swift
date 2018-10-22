@@ -152,7 +152,11 @@ class SelectionPopUpViewController: UIViewController, Theme {
             }
         }
         // 20 is the leading + trailing of cell
-        return Int((max + 20.0))
+        var padding: CGFloat = 20.0
+        if liveMultiSelect {
+            padding += 32.0
+        }
+        return Int((max + padding))
     }
 
     func canDisplayFullContentIn(height: Int) -> Bool {

@@ -476,11 +476,19 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
     override func whenLandscape() {
-        setMenuSize()
+        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
+            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+        }
+        styleLandscapeMenu()
+//        setMenuSize()
         setBarInfoBasedOnOrientation()
     }
     override func whenPortrait() {
-        setMenuSize()
+        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
+            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+        }
+        stylePortaitMenu()
+//        setMenuSize()
         setBarInfoBasedOnOrientation()
     }
 

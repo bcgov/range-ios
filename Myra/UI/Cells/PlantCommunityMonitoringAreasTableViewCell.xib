@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,19 +20,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kN2-BI-6Ba">
-                        <rect key="frame" x="20" y="0.0" width="585" height="195.5"/>
+                        <rect key="frame" x="20" y="0.0" width="585" height="183.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="750" id="250-QD-HhX"/>
                         </constraints>
                     </tableView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTT-FD-stR">
-                        <rect key="frame" x="28" y="200.5" width="190" height="30"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTT-FD-stR">
+                        <rect key="frame" x="28" y="188.5" width="220" height="42"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="190" id="Nbt-wW-wez"/>
-                            <constraint firstAttribute="height" constant="30" id="r97-xD-eiA"/>
+                            <constraint firstAttribute="width" constant="220" id="Nbt-wW-wez"/>
+                            <constraint firstAttribute="height" constant="42" id="r97-xD-eiA"/>
                         </constraints>
-                        <state key="normal" title="+ Add Monitoring Area"/>
+                        <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Add Monitoring Area" image="add"/>
                         <connections>
                             <action selector="addMonitoringArea:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lMo-P3-iA8"/>
                         </connections>
@@ -57,4 +57,7 @@
             <point key="canvasLocation" x="-10.5" y="44.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="add" width="20" height="20"/>
+    </resources>
 </document>

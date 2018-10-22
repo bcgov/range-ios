@@ -54,7 +54,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
                     fatalError()
                 }
                 self.updateTableHeight()
-                parent.showMonitoringAreaDetailsPage(monitoringArea: newMonitoringArea)
+//                parent.showMonitoringAreaDetailsPage(monitoringArea: newMonitoringArea)
             }
         }
     }
@@ -93,7 +93,9 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
 
     func computeHeight() -> CGFloat {
         guard let p = self.plantCommunity else {return 0.0}
-        return CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
+//        return CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
+        return CGFloat(p.monitoringAreas.count) * CGFloat(MonitoringAreaBasicInfoTableViewCell.cellHeight)
+
     }
 
     // MARK: Styles
@@ -108,7 +110,8 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
         self.tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
-        registerCell(name: "PlantCommunityMonitoringAreaTableViewCell")
+        registerCell(name: "MonitoringAreaBasicInfoTableViewCell")
+//        registerCell(name: "PlantCommunityMonitoringAreaTableViewCell")
     }
     @objc func doThisWhenNotify() { return }
 
@@ -121,10 +124,16 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
         return tableView.dequeueReusableCell(withIdentifier: "PlantCommunityMonitoringAreaTableViewCell", for: indexPath) as! PlantCommunityMonitoringAreaTableViewCell
     }
 
+    func getMonitoringAreaBasicInfoTableViewCell(indexPath: IndexPath) -> MonitoringAreaBasicInfoTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "MonitoringAreaBasicInfoTableViewCell", for: indexPath) as! MonitoringAreaBasicInfoTableViewCell
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = getMonitoringAreaCell(indexPath: indexPath)
+//        let cell = getMonitoringAreaCell(indexPath: indexPath)
+        let cell = getMonitoringAreaBasicInfoTableViewCell(indexPath: indexPath)
         if let pc = self.plantCommunity, let parent = parentReference {
-            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode, parentCellReference: self, parentReference: parent)
+            cell.setup(mode: self.mode, monitoringArea:  pc.monitoringAreas[indexPath.row], parentReference: parent)
+//            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode, parentCellReference: self, parentReference: parent)
         }
         return cell
     }

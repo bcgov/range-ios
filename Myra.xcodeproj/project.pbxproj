@@ -168,6 +168,8 @@
 		299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */; };
 		299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */; };
 		299BD278207BF488004B1D07 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BD277207BF488004B1D07 /* Constants.swift */; };
+		299D3EB3217E66F60000781E /* EmptyPastureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */; };
+		299D3EB4217E66F60000781E /* EmptyPastureTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */; };
 		29A52745205B301400C871F7 /* SelectionPopup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A52744205B301400C871F7 /* SelectionPopup.storyboard */; };
 		29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */; };
 		29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */; };
@@ -393,6 +395,8 @@
 		299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinisterIssueTableViewCell.xib; sourceTree = "<group>"; };
 		299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueAction.swift; sourceTree = "<group>"; };
 		299BD277207BF488004B1D07 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPastureTableViewCell.swift; sourceTree = "<group>"; };
+		299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyPastureTableViewCell.xib; sourceTree = "<group>"; };
 		29A52744205B301400C871F7 /* SelectionPopup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectionPopup.storyboard; sourceTree = "<group>"; };
 		29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpViewController.swift; sourceTree = "<group>"; };
 		29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpObject.swift; sourceTree = "<group>"; };
@@ -807,6 +811,8 @@
 				293D4186216D3109006214E1 /* AdditionalRequirementTableViewCell.xib */,
 				293D4189216D313D006214E1 /* ManagementConsiderationTableViewCell.swift */,
 				293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */,
+				299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */,
+				299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -988,6 +994,7 @@
 				295F8F1720F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */,
 				293D4188216D3109006214E1 /* AdditionalRequirementTableViewCell.xib in Resources */,
 				2943BDA72162996900EFC428 /* TagImage.xib in Resources */,
+				299D3EB4217E66F60000781E /* EmptyPastureTableViewCell.xib in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
 			);
@@ -1090,6 +1097,7 @@
 				29616EA721063ADA003102F8 /* EmptyTableViewCell.swift in Sources */,
 				292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */,
 				29227B7120F00EF00042B88E /* PlantCommunityActionTableViewCell.swift in Sources */,
+				299D3EB3217E66F60000781E /* EmptyPastureTableViewCell.swift in Sources */,
 				290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */,
 				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
 				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,

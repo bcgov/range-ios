@@ -32,6 +32,15 @@ class MinisterIssue: Object, MyraObject {
     var actions = List<MinisterIssueAction>()
     var pastures = List<Pasture>()
 
+
+    func requiredFieldsAreFilled() -> Bool {
+        if self.issueTypeID == -1 || self.details.isEmpty || self.objective.isEmpty || !self.identified {
+            return false
+        } else {
+            return true
+        }
+    }
+
     func set(details: String) {
         do {
             let realm = try Realm()

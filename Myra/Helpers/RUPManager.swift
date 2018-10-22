@@ -76,8 +76,10 @@
     
     func isValid(rup: RUP) -> (Bool, String) {
         // check required fields
-        if !rup.isValid {return (false, "Missing required fields")}
+//        if !rup.isValid {return (false, "Missing required fields")}
         
+        // Changed: Checking required fields after validity check
+
         // check validity of schedules
         for element in rup.schedules {
             if !isScheduleValid(schedule: element, agreementID: rup.agreementId) {
@@ -93,11 +95,72 @@
         }
 
         // check minister approval on pastures
-//        for pasture in rup.pastures {
-//            if !pasture.ministerApprovalObrained {
-//                return(false, "One or more plant communities is missing minister's approval")
-//            }
-//        }
+        for pasture in rup.pastures {
+            if !pasture.ministerApprovalObrained {
+                return(false, "One or more plant communities is missing minister's approval")
+            }
+        }
+
+        return checkRequiredFields(in: rup)
+
+//        return (true, "")
+    }
+
+    func checkRequiredFields(in rup: RUP) -> (Bool, String) {
+
+        if rup.planStartDate == nil {
+            return (false, "Plan start date is missing")
+        }
+
+        if rup.planEndDate == nil {
+            return (false, "Plan End date is missing")
+        }
+
+        if rup.rangeName.isEmpty {
+            return (false, "Range Name is missing")
+        }
+
+        if rup.pastures.count < 1 {
+            return (false, "You must add at least 1 Pasture")
+        }
+
+        // Pastures
+        for pasture in rup.pastures {
+            if !pasture.requiredFieldsAreFilled() {
+                return (false, "One or more Pasture's required fields are missing")
+            }
+            for pc in pasture.plantCommunities {
+                if !pc.requiredFieldsAreFilled() {
+                    return (false, "One or more Plant communities' required fields are missing.\nIn Pasture: \(pasture.name),\n In Plant Community: \(pc.name)")
+                }
+                for ma in pc.monitoringAreas where !ma.requiredFieldsAreFilled() {
+                    return (false, "One or more Monitoring Areas' required fields are missing.\nIn Pasture: \(pasture.name),\n In Plant Community: \(pc.name)")
+                }
+            }
+        }
+
+        for schedule in rup.schedules {
+            for entry in schedule.scheduleObjects where !entry.requiredFieldsAreFilled() {
+                return (false, "One or more Schedule entries' required fields are missing")
+            }
+        }
+
+        for issue in rup.ministerIssues {
+            if !issue.requiredFieldsAreFilled() {
+                return (false, "One of more Minister's Issues' required fields are missing")
+            }
+            for action in issue.actions where !action.requiredFieldsAreFilled(){
+                return (false, "One of more Minister's Issues' Action's required fields are missing")
+            }
+        }
+
+        for invasivePlants in rup.invasivePlants where !invasivePlants.requiredFieldsAreFilled() {
+            return (false, "Missing required fields in Invasive Plants section")
+        }
+
+        for req in rup.additionalRequirements where !req.requiredFieldsAreFilled() {
+            return (false, "One of more Additional requirement's required fields are missing")
+        }
 
         return (true, "")
     }

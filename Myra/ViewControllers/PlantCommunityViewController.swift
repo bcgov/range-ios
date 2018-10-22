@@ -201,6 +201,7 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         registerCell(name: "PlanCommunityBasicInfoTableViewCell")
         registerCell(name: "PlantCommunityMonitoringAreasTableViewCell")
         registerCell(name: "PlantCommunityPastureActionsTableViewCell")
+        registerCell(name: "MonitoringAreaCustomDetailsTableViewCell")
         registerCell(name: "EmptyTableViewCell")
 
         let nib = UINib(nibName: "CustomSectionHeader", bundle: nil)
@@ -222,6 +223,10 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
 
     func getPastureActionsCell(indexPath: IndexPath) -> PlantCommunityPastureActionsTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "PlantCommunityPastureActionsTableViewCell", for: indexPath) as! PlantCommunityPastureActionsTableViewCell
+    }
+
+    func getPlantIndicatorsCell(indexPath: IndexPath) -> MonitoringAreaCustomDetailsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "MonitoringAreaCustomDetailsTableViewCell", for: indexPath) as! MonitoringAreaCustomDetailsTableViewCell
     }
 
     func getEmptyCell(indexPath: IndexPath) -> EmptyTableViewCell {
@@ -246,6 +251,18 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
                 return cell
             }
         case 2:
+            let cell = getPlantIndicatorsCell(indexPath: indexPath)
+            cell.setup(section: .RangeReadiness, mode: mode, plantCommunity: community, parentReference: self)
+            return cell
+        case 3:
+            let cell = getPlantIndicatorsCell(indexPath: indexPath)
+            cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
+            return cell
+        case 4:
+            let cell = getPlantIndicatorsCell(indexPath: indexPath)
+            cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
+            return cell
+        case 5:
             let cell = getMonitoringAreasCell(indexPath: indexPath)
             cell.setup(plantCommunity: community, mode: mode, rup: pl, parentReference: self)
             return cell
@@ -256,14 +273,19 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var sectionTitle = ""
+        var icon: UIImage? = UIImage(named: "icon_MinistersIssues")!
         switch section {
         case 0:
             sectionTitle =  "Basic Plant Community Information"
         case 1:
-            if hasPurposeOfActions() {
-                 sectionTitle =  "Plant Community Actions"
-            }
+           sectionTitle =  "Plant Community Actions"
         case 2:
+            sectionTitle =  "Range Readiness"
+        case 3:
+            sectionTitle =  "Stubble Height"
+        case 4:
+            sectionTitle =  "Shrub Use"
+        case 5:
             sectionTitle =  "Monitoring Areas"
         default:
             sectionTitle =  ""
@@ -272,13 +294,17 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         // Dequeue with the reuse identifier
         let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
         let header = cell as! CustomSectionHeader
-        header.setup(title: sectionTitle)
+        header.setup(title: sectionTitle, iconImage: icon)
 
         return cell
     }
 
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60.0
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 6
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

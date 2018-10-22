@@ -148,6 +148,10 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         self.header.text = a.actionType
         if self.mode == .View {
             setDefaultValueIfEmpty(field: desc)
+        } else {
+            if a.desc.isEmpty {
+                setPlaceHolder()
+            }
         }
         if a.noGrazeInSelected {
             self.noGrazeIn.text = "\(DatePickerHelper.shared.month(number: a.noGrazeInMonth)) \(a.noGrazeInDay)"
@@ -170,6 +174,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         animateIt()
     }
 
+
     // MARK: Style
     func style() {
         guard let _ = self.container else {return}
@@ -186,6 +191,9 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
             styleInputField(field: noGrazeIn, header: noGrazePeriodLabel, height: inputFieldHeight)
             styleInputField(field: noGrazeOut, header: noGrazePeriodLabel, height: inputFieldHeight)
             styleTextviewInputField(field: desc, header: header)
+            if isPlaceHolder(text: desc.text) {
+                desc.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
         }
     }
 
@@ -229,12 +237,21 @@ extension MinistersIssueActionTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-
+        if isPlaceHolder(text: textView.text) {
+            removePlaceHolder()
+        }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let a = action else {return}
-        a.set(desc: textView.text)
+
+        if !isPlaceHolder(text: textView.text) {
+            a.set(desc: textView.text)
+        }
+
+        if textView.text == "" {
+            setPlaceHolder()
+        }
 //        if textView.text.isEmpty {
 //            guard let converted = getLocalTypeFromRemoteType() else {return}
 //            switch converted {
@@ -244,5 +261,59 @@ extension MinistersIssueActionTableViewCell: UITextViewDelegate {
 //
 //            }
 //        }
+    }
+
+    func isPlaceHolder(text: String) -> Bool {
+        switch text {
+        case PlaceHolders.Actions.herding:
+            return true
+        case PlaceHolders.Actions.livestockVariables:
+            return true
+        case PlaceHolders.Actions.other:
+            return true
+        case PlaceHolders.Actions.salting:
+            return true
+        case PlaceHolders.Actions.timing:
+            return true
+        case PlaceHolders.Actions.supplementalFeeding:
+            return true
+        default:
+            return false
+        }
+    }
+
+    func getPlaceHolder(for option: String) -> String {
+        switch option.lowercased() {
+        case "herding":
+            return PlaceHolders.Actions.herding
+        case "livestock variables":
+            return PlaceHolders.Actions.livestockVariables
+        case "salting":
+            return PlaceHolders.Actions.salting
+        case "supplemental feeding":
+            return PlaceHolders.Actions.supplementalFeeding
+        case "timing":
+            return PlaceHolders.Actions.timing
+        case "":
+            return ""
+        default:
+            return PlaceHolders.Actions.other
+        }
+    }
+
+    func setPlaceHolder() {
+        guard let action = self.action else {return}
+        let placeholder: String = getPlaceHolder(for: action.actionType.lowercased())
+        addPlaceHolder(string: placeholder)
+    }
+
+    func addPlaceHolder(string: String) {
+        self.desc.text = string
+        self.desc.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder() {
+        self.desc.text = ""
+        self.desc.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }

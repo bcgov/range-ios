@@ -33,6 +33,14 @@ class Pasture: Object, MyraObject {
 
     var plantCommunities = List<PlantCommunity>()
 
+    func requiredFieldsAreFilled() -> Bool {
+        if self.name.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
+
     convenience init(data: [String: Any]) {
         self.init()
 

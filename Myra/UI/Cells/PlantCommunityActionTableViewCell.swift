@@ -233,6 +233,10 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
         }
 
         self.descriptionField.text = current.details
+        if self.mode == .Edit, current.details.isEmpty {
+            setPlaceHolder()
+        }
+
         if current.noGrazeInSelected {
             self.noGrazeIn.text = "\(DatePickerHelper.shared.month(number: current.noGrazeInMonth)) \(current.noGrazeInDay)"
         } else {
@@ -278,6 +282,9 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
             styleInputField(field: noGrazeIn, header: noGrazePeriodLabel, height: inputFieldHeight)
             styleInputField(field: noGrazeOut, header: noGrazePeriodLabel, height: inputFieldHeight)
             styleTextviewInputField(field: descriptionField, header: descriptionHeader)
+            if isPlaceHolder(text: descriptionField.text) {
+                descriptionField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
         }
     }
 
@@ -291,15 +298,84 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
 extension PlantCommunityActionTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if isPlaceHolder(text: textView.text) {
+            removePlaceHolder()
+        }
+    }
+
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let act = self.action, let text = textView.text else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                act.details = text
+
+        if !isPlaceHolder(text: textView.text) {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    act.details = text
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
         }
+
+        if textView.text == "" {
+            setPlaceHolder()
+        }
+
+    }
+
+    /* Exact same functions found in MinistersIssueActionTableViewCell */
+    func isPlaceHolder(text: String) -> Bool {
+        switch text {
+        case PlaceHolders.Actions.herding:
+            return true
+        case PlaceHolders.Actions.livestockVariables:
+            return true
+        case PlaceHolders.Actions.other:
+            return true
+        case PlaceHolders.Actions.salting:
+            return true
+        case PlaceHolders.Actions.timing:
+            return true
+        case PlaceHolders.Actions.supplementalFeeding:
+            return true
+        default:
+            return false
+        }
+    }
+
+    func getPlaceHolder(for option: String) -> String {
+        switch option.lowercased() {
+        case "herding":
+            return PlaceHolders.Actions.herding
+        case "livestock variables":
+            return PlaceHolders.Actions.livestockVariables
+        case "salting":
+            return PlaceHolders.Actions.salting
+        case "supplemental feeding":
+            return PlaceHolders.Actions.supplementalFeeding
+        case "timing":
+            return PlaceHolders.Actions.timing
+        case "":
+            return ""
+        default:
+            return PlaceHolders.Actions.other
+        }
+    }
+
+    func setPlaceHolder() {
+        guard let action = self.action else {return}
+        let placeholder: String = getPlaceHolder(for: action.action.lowercased())
+        addPlaceHolder(string: placeholder)
+    }
+
+    func addPlaceHolder(string: String) {
+        descriptionField.text = string
+        descriptionField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder() {
+        descriptionField.text = ""
+        descriptionField.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }

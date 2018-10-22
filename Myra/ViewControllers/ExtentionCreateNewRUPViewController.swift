@@ -42,7 +42,7 @@ extension CreateNewRUPViewController {
             self.requiredFieldNeededLabel.alpha = 0
         case .Edit:
             self.viewTitle.text = "Create New RUP"
-            self.saveToDraftButton.setTitle("Save to Draft", for: .normal)
+            self.saveToDraftButton.setTitle("Save", for: .normal)
         }
     }
 
@@ -77,13 +77,18 @@ extension CreateNewRUPViewController {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
             self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
         }
-        if UIDevice.current.orientation.isLandscape{
-            styleLandscapeMenu()
-        } else if UIDevice.current.orientation.isPortrait {
-            stylePortaitMenu()
+        if self.view.frame.width > self.view.frame.height {
+             styleLandscapeMenu()
         } else {
-            styleLandscapeMenu()
+             stylePortaitMenu()
         }
+//        if UIDevice.current.orientation.isLandscape{
+//            styleLandscapeMenu()
+//        } else if UIDevice.current.orientation.isPortrait {
+//            stylePortaitMenu()
+//        } else {
+//            styleLandscapeMenu()
+//        }
         self.animateIt()
     }
 

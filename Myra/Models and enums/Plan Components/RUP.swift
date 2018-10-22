@@ -201,7 +201,7 @@ class RUP: Object, MyraObject {
                 return .Unknown
             }
             return result
-        // otherwise use local status
+            // otherwise use local status
         } else {
             return self.statusEnum
         }
@@ -275,7 +275,7 @@ class RUP: Object, MyraObject {
          Note: Schedule objects will lose their reference to pasture during copy
          So we pass the plan so that copy() function of schedule entry can find
          reference to the new pasture object with the same name
-        */
+         */
         for object in self.schedules {
             plan.schedules.append(object.copy(in: plan))
         }
@@ -309,7 +309,7 @@ class RUP: Object, MyraObject {
         // TODO: Delete innder objects
         /*
          when deleting, we need to remove all pastures and schedule objects manually.
-        */
+         */
         for object in self.pastures {
             RealmRequests.deleteObject(object)
         }
@@ -319,6 +319,7 @@ class RUP: Object, MyraObject {
         }
     }
 
+    // Checks required fields
     var isValid: Bool {
         if planEndDate == nil ||
             planEndDate == nil ||
@@ -376,7 +377,7 @@ class RUP: Object, MyraObject {
         }
         var currStatusId = 1
         if self.status == RUPStatus.LocalDraft.rawValue {
-             currStatusId = Reference.shared.getStaffDraftPlanStatus().id
+            currStatusId = Reference.shared.getStaffDraftPlanStatus().id
         } else if self.status == RUPStatus.Outbox.rawValue {
             currStatusId = Reference.shared.getCreatedPlanStatus().id
         }
