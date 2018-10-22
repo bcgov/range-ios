@@ -8,6 +8,54 @@
 
 import Foundation
 
+struct PlaceHolders {
+
+    struct Pasture {
+        static let name: String = "Name of pasture (ex. \"crown\" if a single pasture)"
+        static let allowableAUMs: String = "Approved maximum AUM allocation for this pasture"
+        static let pld: String = "Percentage of use in this pasture occuring on private land"
+        static let graceDays: String = "Acceptable +/- days for livestock movement"
+        static let notes: String = "Pasture specific information (ie. not schedule, plant community or Minister's Issue specific). Examples may include relevant history or topographical considerations."
+    }
+
+    struct Schedule {
+        static let description: String = "Description of movement of livestock through agreement area. May include WHEN, WHERE and HOW management tools are used to create that flow. May be of particular value when an agreement consists of a single pasture or multiple unfenced pastures."
+    }
+
+    struct PlantCommunity {
+        static let name: String = "Provincial community name or descriptive"
+        static let aspect: String = "Dominant aspect. Ex. SSW or SE"
+        static let communityURL: String = "Link to provincial plant community description"
+        static let description: String = "Description of the CURRENT plant community. Include a description of the INTENDED plant community (or refer to the provincial description) if actions to establish a plant community are required. As basic or detailed as needed for the purposes required (ex. may be more basic if intended for range readiness assessment than if intended to maintain a plant community). Based on on-site assessments and provincial plant community descriptions."
+    }
+
+    struct RangeReadiness {
+        static let otherCriteria: String = "Physical conditions that are present when ready for grazing.  Ex. soil is sufficiently dry that livestock use will not result in pugging"
+    }
+
+    struct MonitoringAreas {
+        static let location: String = "General description of the location (ex. relationship to a known feature or infrastrcture)"
+        static let transectAzimuth: String = "The direction from the lat/long point that reflects the position of a transect (if used)"
+        static let description: String = "The reason for establishing the monitoring area"
+    }
+
+    struct MinistersIssuesAndActions {
+        static let details: String = "Accurate description of the issue including WHAT and WHERE the issue is and, if relevant, the TIMING of the issue"
+        static let objective: String = "Description of the conditions that will exist when the issue has been resolved (desired state)."
+    }
+
+    struct AdditionalRequirements {
+        static let name: String = "Name of the requirement (ex. GAR Name)"
+        static let description: String = "Not a repeat of requirements but a general statement re. intent"
+        static let linkToDocument: String = "Link to legal document"
+    }
+
+    struct ManagementConsiderations {
+        let name: String = "Descriptive name ex. short term forage"
+        let description: String = "ex. proposed harvesting by company Y in pasture X could provide an opportunity for short term forage"
+    }
+}
+
 // Tooltip
 let tooltipPlanInformationTitle: String = "Tooltip Title"
 let tooltipPlanInformationDescription: String = "Create a list with all possible keywords that fit to your product, service or business field. The more the better. So you will get also a lot of keywords which you must pay for only the minimal commandment of 5 cents."
@@ -68,5 +116,3 @@ let bannerMandatoryAmendmentReviewRequiredDescription = "Review the amendment an
 //let bannerMinorAmendment
 //let bannerMinorAmendment
 //let bannerMinorAmendment
-
-

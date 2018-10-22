@@ -429,6 +429,7 @@ class API {
         for schedule in refetchedPlan.schedules {
             let localId = schedule.localId
              group.enter()
+            
             guard let mySchedule = RealmManager.shared.schedule(withLocalId: localId) else {
                 hadFails = true
                 group.leave()

@@ -45,8 +45,13 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
     func autofill() {
         guard let schedule = self.schedule else {return}
         self.textView.text = schedule.notes
-        if self.mode == .View && self.textView.text == "" {
-            self.textView.text = "Description not provided"
+        if self.textView.text.isEmpty {
+            switch mode {
+            case .View:
+                self.textView.text = "Description not provided"
+            case .Edit:
+                addPlaceHolder()
+            }
         }
     }
 
@@ -57,6 +62,9 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
             styleTextviewInputFieldReadOnly(field: textView, header: scheduleDescriptionHeader)
         case .Edit:
             styleTextviewInputField(field: textView, header: scheduleDescriptionHeader)
+            if textView.text == PlaceHolders.Schedule.description {
+                textView.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
         }
         styleDivider(divider: divider)
     }
@@ -64,17 +72,37 @@ class ScheduleFooterTableViewCell: UITableViewCell, Theme {
 
 // MARK: Notes
 extension ScheduleFooterTableViewCell: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == PlaceHolders.Schedule.description {
+            removePlaceHolder()
+        }
+    }
     func textViewDidChange(_ textView: UITextView) {}
 
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let schedule = self.schedule else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                schedule.notes = textView.text
+        if textView.text != PlaceHolders.Schedule.description {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    schedule.notes = textView.text
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
         }
+        if textView.text == "" {
+            addPlaceHolder()
+        }
+    }
+
+    func addPlaceHolder() {
+        textView.text = PlaceHolders.Schedule.description
+        textView.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder() {
+        textView.text = ""
+        textView.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }

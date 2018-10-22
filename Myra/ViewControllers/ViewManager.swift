@@ -62,4 +62,8 @@ class ViewManager {
     lazy var tooltip: TooltipViewController = {
         return UIStoryboard(name: "Tooltip", bundle: Bundle.main).instantiateViewController(withIdentifier: "Tooltip") as! TooltipViewController
     }()
+
+    lazy var mapViewController: MapViewController = {
+    return UIStoryboard(name: "Map", bundle: Bundle.main).instantiateViewController(withIdentifier: "Map") as! MapViewController
+    }()
 }

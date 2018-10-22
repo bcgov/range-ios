@@ -9,7 +9,6 @@
 import UIKit
 import Realm
 import RealmSwift
-
 class PastureTableViewCell: BaseFormCell {
 
     // MARK: Variables
@@ -42,6 +41,10 @@ class PastureTableViewCell: BaseFormCell {
     @IBOutlet weak var addPlantCommunityButtonHeight: NSLayoutConstraint!
 
     @IBOutlet weak var plantCommunitiesLabel: UILabel!
+
+    @IBOutlet weak var switchLabel: UILabel!
+    @IBOutlet weak var ministerSwitch: UISwitch!
+
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,12 +52,15 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Outlet Actions
+    @IBAction func ministerSwitchAction(_ sender: UISwitch) {
+        guard let pasture = self.pasture else {return}
+        pasture.setMinisterApprovalObtained(to: sender.isOn)
+    }
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: tooltipPlantCommunitiesTitle, desc: tooltipPlantCommunitiesDescription)
     }
-
 
     @IBAction func editNameAction(_ sender: UIButton) {
         editName()
@@ -211,14 +217,15 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Functions
     func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
+        style()
         self.parentCell = pastures
         self.mode = mode
         self.pasture = pasture
         self.rup = pastures.rup
         autofill()
         setupTable()
-        self.pastureNotesTextField.delegate = self
         style()
+        self.pastureNotesTextField.delegate = self
         switch mode {
         case .View:
             options.isEnabled = false
@@ -237,15 +244,25 @@ class PastureTableViewCell: BaseFormCell {
         self.deductionFIeld.text = "\(Int(p.privateLandDeduction))"
         self.graceDaysField.text = "\(p.graceDays)"
 
+        self.ministerSwitch.isOn = p.ministerApprovalObrained
+
         self.pastureNotesTextField.text = p.notes
 
         if p.allowedAUMs == -1 {
             self.aumsField.text = "not set"
         }
 
-        if self.mode == .View && self.pastureNotesTextField.text == "" {
-            self.pastureNotesTextField.text = "Notes not provided"
+        if pastureNotesTextField.text == "" {
+            switch mode {
+            case .View:
+                 self.pastureNotesTextField.text = "Notes not provided"
+            case .Edit:
+                addPlaceHolder()
+            }
         }
+//        if self.mode == .View && self.pastureNotesTextField.text == "" {
+//            self.pastureNotesTextField.text = "Notes not provided"
+//        }
 
         let padding = 5
         tableHeight.constant = CGFloat((p.plantCommunities.count) * PlantCommunityTableViewCell.cellHeight + padding)
@@ -319,6 +336,7 @@ class PastureTableViewCell: BaseFormCell {
             styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
             addPlantCommunityButton.alpha = 0
+            ministerSwitch.isEnabled = false
 //            addPlantCommunityButtonHeight.constant = 0
         case .Edit:
             styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)
@@ -326,8 +344,15 @@ class PastureTableViewCell: BaseFormCell {
             styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
             styleFillButton(button: addPlantCommunityButton)
-        }
 
+            addPlantCommunityButton.alpha = 1
+            ministerSwitch.isEnabled = true
+            if pastureNotesTextField.text == PlaceHolders.Pasture.notes {
+                pastureNotesTextField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
+        }
+        ministerSwitch.onTintColor = Colors.switchOn
+        styleSubHeader(label: switchLabel)
         styleContainer(view: containerView)
         styleSubHeader(label: pastureNameHeader)
         styleSubHeader(label: pastureNameLabel)
@@ -375,16 +400,38 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
 // MARK: Notes
 extension PastureTableViewCell: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {}
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == PlaceHolders.Pasture.notes {
+            removePlaceHolder()
+        }
+    }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.pasture?.notes = textView.text
+        guard let pasture = self.pasture else {return}
+
+        if textView.text != PlaceHolders.Pasture.notes {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    pasture.notes = textView.text
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
         }
+
+        if textView.text == "" {
+            addPlaceHolder()
+        }
+    }
+
+    func addPlaceHolder() {
+        pastureNotesTextField.text = PlaceHolders.Pasture.notes
+        pastureNotesTextField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder() {
+        pastureNotesTextField.text = ""
+        pastureNotesTextField.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }

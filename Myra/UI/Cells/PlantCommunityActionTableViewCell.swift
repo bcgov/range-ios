@@ -234,13 +234,13 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
 
         self.descriptionField.text = current.details
         if current.noGrazeInSelected {
-            self.noGrazeIn.text = "\(FDHelper.shared.month(number: current.noGrazeInMonth)) \(current.noGrazeInDay)"
+            self.noGrazeIn.text = "\(DatePickerHelper.shared.month(number: current.noGrazeInMonth)) \(current.noGrazeInDay)"
         } else {
             self.noGrazeIn.text = ""
         }
 
         if current.noGrazeOutSelected {
-            self.noGrazeOut.text = "\(FDHelper.shared.month(number: current.noGrazeOutMonth)) \(current.noGrazeOutDay)"
+            self.noGrazeOut.text = "\(DatePickerHelper.shared.month(number: current.noGrazeOutMonth)) \(current.noGrazeOutDay)"
         } else {
             self.noGrazeOut.text = ""
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -83,16 +83,38 @@
                                             <action selector="addAction:" destination="s8D-5X-e7F" eventType="touchUpInside" id="ivi-JV-pSv"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6j-ya-SuL">
+                                        <rect key="frame" x="778" y="27" width="70" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="6b7-ZO-IWO"/>
+                                        </constraints>
+                                        <state key="normal" title="Bottom"/>
+                                        <connections>
+                                            <action selector="scrollToButtom:" destination="s8D-5X-e7F" eventType="touchUpInside" id="wkf-A9-CxT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVD-lh-zMd">
+                                        <rect key="frame" x="692" y="27" width="70" height="30"/>
+                                        <state key="normal" title="Top"/>
+                                        <connections>
+                                            <action selector="scrollToTop:" destination="s8D-5X-e7F" eventType="touchUpInside" id="jK1-sy-xJV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="x6j-ya-SuL" firstAttribute="centerY" secondItem="xjp-hA-kwh" secondAttribute="centerY" id="0Pr-YD-bQO"/>
                                     <constraint firstItem="ll5-lG-1nr" firstAttribute="top" secondItem="mvf-uz-dBk" secondAttribute="top" constant="14" id="9HV-eb-wZX"/>
+                                    <constraint firstItem="xVD-lh-zMd" firstAttribute="centerY" secondItem="xjp-hA-kwh" secondAttribute="centerY" id="E03-61-1gG"/>
                                     <constraint firstAttribute="height" constant="84" id="Mjb-tD-6ur"/>
                                     <constraint firstItem="ll5-lG-1nr" firstAttribute="leading" secondItem="mvf-uz-dBk" secondAttribute="leading" constant="20" id="Tuk-Kl-QYM"/>
+                                    <constraint firstItem="x6j-ya-SuL" firstAttribute="leading" secondItem="xVD-lh-zMd" secondAttribute="trailing" constant="16" id="bm6-VA-ZTQ"/>
                                     <constraint firstItem="ebn-yk-vEf" firstAttribute="leading" secondItem="mvf-uz-dBk" secondAttribute="leading" constant="20" id="cIu-Vz-Uzt"/>
                                     <constraint firstItem="ebn-yk-vEf" firstAttribute="top" secondItem="ll5-lG-1nr" secondAttribute="bottom" constant="5" id="d6g-jF-0er"/>
                                     <constraint firstItem="xjp-hA-kwh" firstAttribute="centerY" secondItem="mvf-uz-dBk" secondAttribute="centerY" id="do8-UX-zds"/>
                                     <constraint firstAttribute="trailing" secondItem="xjp-hA-kwh" secondAttribute="trailing" constant="20" id="kff-H9-QWv"/>
+                                    <constraint firstItem="xVD-lh-zMd" firstAttribute="width" secondItem="x6j-ya-SuL" secondAttribute="width" id="oub-RI-IIt"/>
+                                    <constraint firstItem="xjp-hA-kwh" firstAttribute="leading" secondItem="x6j-ya-SuL" secondAttribute="trailing" constant="16" id="tsd-zT-4gz"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FfS-yq-3AT">
@@ -136,7 +158,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total AUMs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ml6-ZF-ehZ">
-                                <rect key="frame" x="820" y="708" width="88" height="40"/>
+                                <rect key="frame" x="820.5" y="708" width="87.5" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="pq0-yx-hDo"/>
                                 </constraints>
@@ -145,7 +167,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qer-VO-rpX">
-                                <rect key="frame" x="712" y="708" width="100" height="40"/>
+                                <rect key="frame" x="712.5" y="708" width="100" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Q0D-hA-nC8"/>
                                     <constraint firstAttribute="height" constant="40" id="omP-CM-7QM"/>
@@ -155,7 +177,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authorized AUMs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-UZ-eRm">
-                                <rect key="frame" x="570" y="708" width="134" height="40"/>
+                                <rect key="frame" x="571" y="708" width="133.5" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Kt8-IM-A8h"/>
                                 </constraints>
@@ -197,7 +219,7 @@
                                         <rect key="frame" x="107.5" y="0.0" width="97.5" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAs-4d-URM">
-                                                <rect key="frame" x="-0.5" y="0.0" width="98" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="97.5" height="40"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="FilterLiveStock"/>
                                                 <state key="normal" title="Livestock"/>
                                                 <connections>
@@ -237,7 +259,7 @@
                                         <rect key="frame" x="322.5" y="0.0" width="97.5" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdy-hY-hrf">
-                                                <rect key="frame" x="-0.5" y="0.0" width="98" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="97.5" height="40"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="FilterDateIn"/>
                                                 <state key="normal" title="Date In"/>
                                                 <connections>
@@ -364,6 +386,8 @@
                         <outlet property="numAnimals" destination="C2d-r5-iqs" id="rVw-Tz-cmm"/>
                         <outlet property="pasture" destination="D95-Aj-D4r" id="O87-9e-iEL"/>
                         <outlet property="scheduleTitle" destination="ll5-lG-1nr" id="QuQ-qd-8SQ"/>
+                        <outlet property="scrollToBottomButton" destination="x6j-ya-SuL" id="KYq-nq-RS8"/>
+                        <outlet property="scrollToTopButton" destination="xVD-lh-zMd" id="f66-wy-961"/>
                         <outlet property="statusbar" destination="Kaq-uy-hhf" id="mgl-hK-U28"/>
                         <outlet property="subtitle" destination="ebn-yk-vEf" id="gl6-uD-kcx"/>
                         <outlet property="tableView" destination="FfS-yq-3AT" id="iif-B1-XlU"/>

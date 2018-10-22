@@ -52,11 +52,11 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
 
         let statusChangeMessage = "Please confirm that you have informed the agreement holder about the status change."
 
-        // checkbox is mandatory
-        if !amendment.InformedAgreementHolder {
-            fadeLabelMessage(label: subtitleLabel, text: statusChangeMessage)
-            return
-        }
+//        // checkbox is mandatory
+//        if !amendment.InformedAgreementHolder {
+//            fadeLabelMessage(label: subtitleLabel, text: statusChangeMessage)
+//            return
+//        }
         switch mode {
         case .Minor:
             // checkbox is mandatory
@@ -96,6 +96,9 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
             } else {
                 parent.gotoPage(row: 2)
             }
+        case .Create:
+            // no checkbox
+            parent.gotoPage(row: 2)
         }
     }
 
@@ -126,6 +129,12 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
 
         self.subtitleLabel.text = "Are you ready to mark this \(thisThing) as \(typeString.convertFromCamelCase().uppercased())?"
         self.informedLabel.text = "I Have informed the agreement holder about the *\(typeString.convertFromCamelCase()) status*"
+
+        if mode == .Create {
+            self.informedIndicator.alpha = 0
+            self.informedLabel.alpha = 0
+            self.subtitleLabel.text = "Add Description. (Visible to staff and agreement holders.)"
+        }
     }
 
     func styleSelection() {
@@ -150,6 +159,8 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
             self.titleLabel.text = "Update Amendment Descision"
         case .Initial:
             self.titleLabel.text = "Update Plan Status"
+        case .Create:
+            self.titleLabel.text = "Ready to Submit?"
         }
         informedIndicator.layer.borderWidth = 1
         informedIndicator.layer.borderColor = Colors.active.blue.cgColor

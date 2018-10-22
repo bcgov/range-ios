@@ -29,6 +29,7 @@ class Pasture: Object, MyraObject {
     @objc dynamic var privateLandDeduction: Double = 0.0
     @objc dynamic var graceDays: Int = 3
     @objc dynamic var notes: String = ""
+    @objc dynamic var ministerApprovalObrained: Bool = false
 
     var plantCommunities = List<PlantCommunity>()
 
@@ -75,6 +76,17 @@ class Pasture: Object, MyraObject {
             let realm = try Realm()
             try realm.write {
                 self.remoteId = id
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
+    func setMinisterApprovalObtained(to: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.ministerApprovalObrained = to
             }
         } catch {
             fatalError()

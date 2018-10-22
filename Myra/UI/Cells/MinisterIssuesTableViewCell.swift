@@ -25,6 +25,12 @@ class MinisterIssuesTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
 
+
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: tooltipMinistersIssuesAndActionsTitle, desc: tooltipMinistersIssuesAndActionsDescription)
+    }
+
     // misleading name. this adds an issue. its the action of adding an issue.
     @IBAction func addAction(_ sender: UIButton) {
         let parent = self.parentViewController as! CreateNewRUPViewController
@@ -35,7 +41,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
                 if let type = Reference.shared.getIssueType(named: option.display) {
-                    newIssue.issueType = type.name
+                    newIssue.issueType = option.display
                     newIssue.issueTypeID = type.id
                     do {
                         let realm = try Realm()
@@ -43,6 +49,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                         try realm.write {
                             aRup.ministerIssues.append(newIssue)
                             realm.add(newIssue)
+                            NewElementAddedBanner.shared.show()
                         }
                         self.rup = aRup
                     } catch _ {
@@ -52,11 +59,6 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                 self.updateTableHeight(scrollToBottom: true, then: {})
             }
         }
-    }
-
-    @IBAction func tooltipAction(_ sender: UIButton) {
-        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipMinistersIssuesAndActionsTitle, desc: tooltipMinistersIssuesAndActionsDescription)
     }
 
 

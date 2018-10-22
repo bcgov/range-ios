@@ -112,11 +112,11 @@ class BaseViewController: UIViewController, Theme {
         self.view.endEditing(true)
         vc.modalPresentationStyle = .popover
         vc.preferredContentSize = CGSize(width: width, height: height)
-        let popover = vc.popoverPresentationController
-        popover?.backgroundColor = arrowColor ?? UIColor.white
-        popover?.permittedArrowDirections = .any
-        popover?.sourceView = on
-        popover?.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.midY, width: 0, height: 0)
+        guard let popover = vc.popoverPresentationController else {return}
+        popover.backgroundColor = arrowColor ?? UIColor.white
+        popover.permittedArrowDirections = .any
+        popover.sourceView = on
+        popover.sourceRect = CGRect(x: on.bounds.midX, y: on.bounds.midY, width: 0, height: 0)
         self.currentPopOver = vc
         present(vc, animated: true, completion: nil)
     }
@@ -125,11 +125,11 @@ class BaseViewController: UIViewController, Theme {
         self.view.endEditing(true)
         vc.modalPresentationStyle = .popover
         vc.preferredContentSize = CGSize(width: width, height: height)
-        let popover = vc.popoverPresentationController
-        popover?.backgroundColor = arrowColor ?? UIColor.white
-        popover?.permittedArrowDirections = .any
-        popover?.sourceView = inView
-        popover?.sourceRect = CGRect(x: on.frame.midX, y: on.frame.midY, width: 0, height: 0)
+        guard let popover = vc.popoverPresentationController else {return}
+        popover.backgroundColor = arrowColor ?? UIColor.white
+        popover.permittedArrowDirections = .any
+        popover.sourceView = inView
+        popover.sourceRect = CGRect(x: on.frame.midX, y: on.frame.midY, width: 0, height: 0)
         self.currentPopOver = vc
         present(vc, animated: true, completion: nil)
     }
@@ -266,16 +266,16 @@ extension BaseViewController {
 // MARK: Alerts
 extension BaseViewController {
     
-    func showAlert(with title: String, message: String) {
+    func alert(with title: String, message: String) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         ac.addAction(cancel)
 
         present(ac, animated: true, completion: nil)
     }
-    
+
     func showAlert(title: String, description: String, yesButtonTapped:@escaping () -> (), noButtonTapped:@escaping () -> ()) {
-        let alert = UIAlertController(title: title, message: description, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: title, message: description, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             DispatchQueue.main.async {
                 yesButtonTapped()
@@ -334,7 +334,7 @@ extension BaseViewController {
                     let title = "Authentication"
                     let message = "Authentication didn't work. Please try again."
 
-                    self.showAlert(with: title, message: message)
+                    self.alert(with: title, message: message)
                     if let senderButton = sender {
                         senderButton.isUserInteractionEnabled = true
                     }
@@ -356,7 +356,7 @@ extension BaseViewController {
                             let title = "Authentication"
                             let message = "Authentication didn't work. Please try again."
 
-                            self.showAlert(with: title, message: message)
+                            self.alert(with: title, message: message)
                             if let senderButton = sender {
                                 senderButton.isUserInteractionEnabled = true
                             }

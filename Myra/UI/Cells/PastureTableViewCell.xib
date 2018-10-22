@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,14 +35,14 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pasture" translatesAutoresizingMaskIntoConstraints="NO" id="EjY-Uy-5TR">
-                                <rect key="frame" x="15" y="14.5" width="22" height="22"/>
+                                <rect key="frame" x="15" y="15" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="U9y-ba-sK5"/>
                                     <constraint firstAttribute="width" constant="22" id="hvg-WE-02t"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zuB-WJ-S4r">
-                                <rect key="frame" x="15" y="51.5" width="671" height="95"/>
+                                <rect key="frame" x="15" y="52" width="671" height="95"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOu-zn-fVu" userLabel="input box">
                                         <rect key="frame" x="0.0" y="0.0" width="217" height="95"/>
@@ -182,13 +181,13 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billy's Bluff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6P-6l-YOY">
-                                <rect key="frame" x="114.5" y="10.5" width="84.5" height="30"/>
+                                <rect key="frame" x="114.5" y="11" width="84.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasture Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFx-h9-LGF">
-                                <rect key="frame" x="15" y="162.5" width="671" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasture Notes (non Legal content)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFx-h9-LGF">
+                                <rect key="frame" x="15" y="163" width="671" height="27.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.60784906149999995" green="0.6078355312" blue="0.60783821339999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -241,35 +240,48 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-28-cfD">
-                                <rect key="frame" x="114.5" y="10" width="84.5" height="30"/>
+                                <rect key="frame" x="114.5" y="11" width="84.5" height="30"/>
                                 <connections>
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gj8-vE-938"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5n-SP-CTY">
-                                <rect key="frame" x="207" y="14" width="12" height="22"/>
+                                <rect key="frame" x="207" y="15" width="12" height="22"/>
                                 <state key="normal" image="icon_edit"/>
                                 <connections>
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Eeu-Ro-Kx2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Al9-7x-BGA">
-                                <rect key="frame" x="114.5" y="10" width="104.5" height="30"/>
+                                <rect key="frame" x="114.5" y="11" width="104.5" height="30"/>
                                 <connections>
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r9O-vJ-LcH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-9c-Xr7">
-                                <rect key="frame" x="164" y="309" width="24" height="24"/>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-9c-Xr7">
+                                <rect key="frame" x="164" y="309.5" width="24" height="24"/>
                                 <state key="normal" image="icon_Question"/>
                                 <connections>
                                     <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="m3W-md-zi9"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yj1-Ap-FmD">
+                                <rect key="frame" x="637" y="306" width="51" height="31"/>
+                                <connections>
+                                    <action selector="ministerSwitchAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="zBC-Kp-p8S"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minister approval for inclusion obtained" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bp-0S-jeW">
+                                <rect key="frame" x="422" y="315" width="207" height="13.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tAI-sm-UTn" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="40F-mt-yDz"/>
+                            <constraint firstItem="Yj1-Ap-FmD" firstAttribute="leading" secondItem="8Bp-0S-jeW" secondAttribute="trailing" constant="8" id="6F2-kh-H4V"/>
                             <constraint firstItem="Lmo-yi-ffD" firstAttribute="top" secondItem="d10-4y-3Jf" secondAttribute="top" constant="15.5" id="6kL-Cz-mfa"/>
                             <constraint firstAttribute="bottom" secondItem="Soa-UZ-bH2" secondAttribute="bottom" constant="16.5" id="AMf-1i-6LR"/>
                             <constraint firstItem="zFx-h9-LGF" firstAttribute="top" secondItem="zuB-WJ-S4r" secondAttribute="bottom" constant="16" id="DnY-ih-AdF"/>
@@ -283,10 +295,13 @@
                             <constraint firstItem="zf3-9c-Xr7" firstAttribute="leading" secondItem="ncF-tG-42g" secondAttribute="trailing" constant="5" id="MGH-dL-Hqp"/>
                             <constraint firstItem="kqn-88-dK7" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="Oxo-Kj-ueL"/>
                             <constraint firstItem="QpF-28-cfD" firstAttribute="bottom" secondItem="E6P-6l-YOY" secondAttribute="bottom" id="Qdd-rA-z0I"/>
+                            <constraint firstItem="8Bp-0S-jeW" firstAttribute="centerY" secondItem="Yj1-Ap-FmD" secondAttribute="centerY" id="U0v-tt-wne"/>
                             <constraint firstItem="w5n-SP-CTY" firstAttribute="leading" secondItem="E6P-6l-YOY" secondAttribute="trailing" constant="8" id="U6y-r6-81c"/>
+                            <constraint firstAttribute="trailing" secondItem="Yj1-Ap-FmD" secondAttribute="trailing" constant="15" id="VGh-FG-lms"/>
                             <constraint firstItem="E6P-6l-YOY" firstAttribute="centerY" secondItem="Lmo-yi-ffD" secondAttribute="centerY" id="Vvn-9q-1Jh"/>
                             <constraint firstItem="zFx-h9-LGF" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="X2U-vF-yoO"/>
                             <constraint firstItem="zuB-WJ-S4r" firstAttribute="top" secondItem="EjY-Uy-5TR" secondAttribute="bottom" constant="15" id="X7N-F1-oEQ"/>
+                            <constraint firstItem="Yj1-Ap-FmD" firstAttribute="centerY" secondItem="ncF-tG-42g" secondAttribute="centerY" id="YWP-FK-XDK"/>
                             <constraint firstAttribute="trailing" secondItem="tAI-sm-UTn" secondAttribute="trailing" constant="15" id="Zzy-4J-2SE"/>
                             <constraint firstAttribute="trailing" secondItem="1yy-6Z-4n7" secondAttribute="trailing" id="aLq-YM-QLW"/>
                             <constraint firstItem="E6P-6l-YOY" firstAttribute="leading" secondItem="Lmo-yi-ffD" secondAttribute="trailing" constant="5" id="asZ-Sy-kgp"/>
@@ -327,6 +342,7 @@
                 <outlet property="fieldHeight" destination="0Cp-Wk-7rx" id="FnW-99-hEQ"/>
                 <outlet property="graceDaysField" destination="Y8J-IT-yrY" id="vN7-hI-ML5"/>
                 <outlet property="graceDaysHeader" destination="4Rd-em-TrO" id="hNu-yJ-eCU"/>
+                <outlet property="ministerSwitch" destination="Yj1-Ap-FmD" id="YyE-zU-RvJ"/>
                 <outlet property="options" destination="1yy-6Z-4n7" id="wRd-1D-lKq"/>
                 <outlet property="pastureNameHeader" destination="Lmo-yi-ffD" id="bmP-Dn-x26"/>
                 <outlet property="pastureNameLabel" destination="E6P-6l-YOY" id="QYI-5O-1I1"/>
@@ -334,6 +350,7 @@
                 <outlet property="pastureNotesTextField" destination="tAI-sm-UTn" id="FX3-I3-frs"/>
                 <outlet property="plantCommunitiesLabel" destination="ncF-tG-42g" id="Gl6-Qn-8k6"/>
                 <outlet property="pldHeader" destination="Wje-rC-PmX" id="wBk-Qq-Tpi"/>
+                <outlet property="switchLabel" destination="8Bp-0S-jeW" id="1qe-jn-6HJ"/>
                 <outlet property="tableHeight" destination="1TJ-O3-kaG" id="kdf-Ud-ilS"/>
                 <outlet property="tableView" destination="kqn-88-dK7" id="fCv-Vf-tS5"/>
             </connections>

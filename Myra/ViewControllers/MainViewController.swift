@@ -82,11 +82,11 @@ extension MainViewController {
 extension MainViewController {
     func add(asChildViewController viewController: UIViewController) {
         self.currentChildVC = viewController
-        addChildViewController(viewController)
+        addChild(viewController)
         self.container.addSubview(viewController.view)
         viewController.view.frame = self.container.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParentViewController: self)
+        viewController.didMove(toParent: self)
     }
 
     func removeSubviews() {
@@ -109,8 +109,8 @@ extension MainViewController {
     }
 
     func remove(asChildViewController viewController: UIViewController) {
-        viewController.willMove(toParentViewController: nil)
+        viewController.willMove(toParent: nil)
         viewController.view.removeFromSuperview()
-        viewController.removeFromParentViewController()
+        viewController.removeFromParent()
     }
 }

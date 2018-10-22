@@ -13,6 +13,9 @@ import Lottie
 import RealmSwift
 import Realm
 import MaterialShowcase
+import Extended
+import Cam
+import CoreML
 
 class HomeViewController: BaseViewController {
 
@@ -85,6 +88,9 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var rangeNameHeader: UILabel!
     @IBOutlet weak var statusHeader: UILabel!
 
+    // Tour
+    @IBOutlet weak var endTourView: UIView!
+    @IBOutlet weak var endTourLabel: UILabel!
 
     // MARK: ViewController functions
     override func viewDidLoad() {
@@ -107,12 +113,81 @@ class HomeViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         if presentedAfterLogin {
             self.view.layoutIfNeeded()
-            beginTourTip()
+//            beginTourTip()
             self.presentedAfterLogin = false
         }
     }
 
     // MARK: Outlet actions
+
+    @IBAction func endTour(_ sender: Any) {
+        endTourTip()
+    }
+
+    @IBAction func picMap(_ sender: UIButton) {
+        let vm = ViewManager()
+        present(vm.mapViewController, animated: true, completion: nil)
+    }
+
+    @IBAction func testCam(_ sender: UIButton) {
+        let cam = Cam()
+        cam.display(on: self) { (photo) in
+            if let photo = photo {
+                Loading.shared.begin()
+                let pic = RangePhoto()
+                pic.save(from: photo)
+                let preview: TagImage = TagImage.fromNib()
+                preview.show(with: pic, in: self, then: {})
+            }
+        }
+    }
+
+//    func slideShow(images: [RangePhoto]) {
+//        let imageView = UIImageView(frame: self.view.frame)
+//
+//        //            imageView.image = image.getImage()
+//        self.view.addSubview(imageView)
+//
+//
+//    }
+//
+//    func loopSlideShow(images: [RangePhoto], in imageView: UIImageView, done: @escaping () -> Void) {
+//        var all: [RangePhoto] = images
+//        if let last = all.popLast() {
+//            imageView.image = last.getImage()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                self.loopSlideShow(images: all, in: imageView, done: done)
+//            }
+//        } else {
+//            imageView.removeFromSuperview()
+//            return done()
+//        }
+//    }
+
+    func buffer(from image: UIImage) -> CVPixelBuffer? {
+        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+        var pixelBuffer : CVPixelBuffer?
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
+        guard (status == kCVReturnSuccess) else {
+            return nil
+        }
+
+        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
+
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(data: pixelData, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+
+        context?.translateBy(x: 0, y: image.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+
+        UIGraphicsPushContext(context!)
+        image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        UIGraphicsPopContext()
+        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+
+        return pixelBuffer
+    }
 
     @IBAction func tourAction(_ sender: UIButton) {
         beginTourTip()
@@ -645,9 +720,7 @@ extension HomeViewController {
     }
 }
 
-
 // MARK: TourTip
-
 extension HomeViewController: MaterialShowcaseDelegate {
 
     // This begins displaying elements in tours array
@@ -825,6 +898,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         showcase.delegate = self
 
         showcase.show(completion: {})
+//        self.view.addSubview(endTourView)
     }
 
 

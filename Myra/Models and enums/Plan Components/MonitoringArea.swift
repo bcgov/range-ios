@@ -31,7 +31,10 @@ class MonitoringArea: Object, MyraObject {
     @objc dynamic var rangelandHealth: String = ""
     @objc dynamic var purpose: String = ""
 
-    @objc dynamic var readinessDate: Date?
+//    @objc dynamic var readinessDate: Date?
+
+    @objc dynamic var readinessDay: Int = -1
+    @objc dynamic var readinessMonth: Int = -1
 
     var rangeReadiness = List<IndicatorPlant>()
     var stubbleHeight = List<IndicatorPlant>()

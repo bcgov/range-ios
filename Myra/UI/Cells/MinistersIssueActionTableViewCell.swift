@@ -150,13 +150,13 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
             setDefaultValueIfEmpty(field: desc)
         }
         if a.noGrazeInSelected {
-            self.noGrazeIn.text = "\(FDHelper.shared.month(number: a.noGrazeInMonth)) \(a.noGrazeInDay)"
+            self.noGrazeIn.text = "\(DatePickerHelper.shared.month(number: a.noGrazeInMonth)) \(a.noGrazeInDay)"
         } else {
             self.noGrazeIn.text = ""
         }
 
         if a.noGrazeOutSelected {
-             self.noGrazeOut.text = "\(FDHelper.shared.month(number: a.noGrazeOutMonth)) \(a.noGrazeOutDay)"
+             self.noGrazeOut.text = "\(DatePickerHelper.shared.month(number: a.noGrazeOutMonth)) \(a.noGrazeOutDay)"
         } else {
             self.noGrazeOut.text = ""
         }

@@ -9,6 +9,7 @@
  import Foundation
  import Realm
  import RealmSwift
+ import Extended
  
  class RUPManager {
     
@@ -90,7 +91,14 @@
                 return(false, "One or more Minister's Issues and Actions has not been identified by minister")
             }
         }
-        
+
+        // check minister approval on pastures
+//        for pasture in rup.pastures {
+//            if !pasture.ministerApprovalObrained {
+//                return(false, "One or more plant communities is missing minister's approval")
+//            }
+//        }
+
         return (true, "")
     }
     
@@ -701,7 +709,7 @@
     
     func isNewScheduleYearValidFor(rup: RUP, newYear: Int) -> Bool {
         
-        guard let start = rup.planStartDate?.yearOfDate(), let end = rup.planEndDate?.yearOfDate() else {
+        guard let start = rup.planStartDate?.year(), let end = rup.planEndDate?.year() else {
             return false
         }
         
@@ -726,8 +734,8 @@
             return schedule.year
         }).sorted {$0 < $1}
         
-        guard let planStart = rup.planStartDate?.yearOfDate() else { return nil}
-        guard let plantEnd = rup.planEndDate?.yearOfDate() else { return nil}
+        guard let planStart = rup.planStartDate?.year() else { return nil}
+        guard let plantEnd = rup.planEndDate?.year() else { return nil}
         
         let y_forward = computeNextScheduleYearFor(from: from, to: plantEnd, taken: years)
         if isNewScheduleYearValidFor(rup: rup, newYear: y_forward) {

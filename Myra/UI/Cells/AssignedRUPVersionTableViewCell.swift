@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extended
 
 class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
     static let cellHeight = 40

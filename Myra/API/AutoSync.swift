@@ -11,6 +11,7 @@ import Reachability
 import Realm
 import RealmSwift
 import Lottie
+import Extended
 
 enum SyncedItem {
     case Drafts
@@ -78,6 +79,7 @@ class AutoSync {
         self.isSynchronizing = true
         DispatchQueue.global(qos: .background).async {
             self.lockScreenForSync()
+            var hadFails: Bool = false
             var syncedItems: [SyncedItem] = [SyncedItem]()
 
             let dispatchGroup = DispatchGroup()
@@ -88,6 +90,8 @@ class AutoSync {
                 API.upload(plans: outboxPlans, completion: { (success) in
                     if success {
                         syncedItems.append(.Outbox)
+                        dispatchGroup.leave()
+                    } else {
                         dispatchGroup.leave()
                     }
                 })
@@ -100,6 +104,8 @@ class AutoSync {
                     if success {
                         syncedItems.append(.Statuses)
                         dispatchGroup.leave()
+                    } else {
+                        dispatchGroup.leave()
                     }
                 })
             }
@@ -110,6 +116,8 @@ class AutoSync {
                 API.upload(plans: draftPlans, completion: { (success) in
                     if success {
                         syncedItems.append(.Drafts)
+                        dispatchGroup.leave()
+                    } else {
                         dispatchGroup.leave()
                     }
                 })
@@ -195,7 +203,7 @@ class AutoSync {
         // 2) There is 1 case where create is not presented by home: when initially creating one
         var isIt = false
         if Thread.isMainThread {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.childViewControllers.first, home is HomeViewController, let presented = home.presentedViewController {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let presented = home.presentedViewController {
                 if presented is CreateNewRUPViewController {
                     isIt = true
                 } else if presented is SelectAgreementViewController, let presentedDeeper = presented.presentedViewController, presentedDeeper is CreateNewRUPViewController {
@@ -205,7 +213,7 @@ class AutoSync {
             return isIt
         } else {
             DispatchQueue.main.sync {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.childViewControllers.first, home is HomeViewController, let presented = home.presentedViewController {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let presented = home.presentedViewController {
                     if presented is CreateNewRUPViewController {
                         isIt = true
                     } else if presented is SelectAgreementViewController, let presentedDeeper = presented.presentedViewController, presentedDeeper is CreateNewRUPViewController {
@@ -282,5 +290,22 @@ class AutoSync {
                 view.removeFromSuperview()
             }
         }
+    }
+}
+extension UIApplication {
+
+    public class func getTopMostViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return getTopMostViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return getTopMostViewController(base: selected)
+            }
+        }
+        if let presented = base?.presentedViewController {
+            return getTopMostViewController(base: presented)
+        }
+        return base
     }
 }
