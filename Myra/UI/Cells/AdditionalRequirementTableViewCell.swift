@@ -106,6 +106,16 @@ class AdditionalRequirementTableViewCell: UITableViewCell, Theme {
         self.categoryField.text = additionalRequirement.category
         self.detailsField.text = additionalRequirement.detail
         self.urlField.text = additionalRequirement.url
+
+        if detailsField.text == "" {
+            switch mode {
+            case .View:
+                detailsField.text = "Details not provided"
+            case .Edit:
+                addPlaceHolder()
+            }
+        }
+
     }
 
     func style() {
@@ -133,16 +143,44 @@ class AdditionalRequirementTableViewCell: UITableViewCell, Theme {
             detailsField.isEditable = true
             styleInput(input: urlField, height: fieldHeight)
             styleTextviewInputField(field: detailsField, header: detailsHeader)
+
+            if detailsField.text == PlaceHolders.AdditionalRequirements.description {
+                detailsField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
         }
     }
     
 }
 // MARK: Notes
 extension AdditionalRequirementTableViewCell: UITextViewDelegate {
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == PlaceHolders.AdditionalRequirements.description {
+            removePlaceHolder()
+        }
+
+    }
+
     func textViewDidChange(_ textView: UITextView) {}
 
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let req = self.additionalRequirement else {return}
-        req.setValue(detail: textView.text)
+        if textView.text != PlaceHolders.AdditionalRequirements.description {
+            req.setValue(detail: textView.text)
+        }
+
+        if textView.text == "" {
+            addPlaceHolder()
+        }
+    }
+
+    func addPlaceHolder() {
+        detailsField.text = PlaceHolders.AdditionalRequirements.description
+        detailsField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder() {
+        detailsField.text = ""
+        detailsField.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }

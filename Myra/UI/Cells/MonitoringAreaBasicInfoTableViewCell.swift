@@ -13,6 +13,10 @@ import RealmSwift
 
 class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
 
+    static let cellHeight: CGFloat = (320 + 16)
+
+
+
     // MARK: Outlets
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
 
@@ -38,11 +42,16 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var purposeDropDown: UIButton!
     @IBOutlet weak var getMyCoordinatesButton: UIButton!
 
+    @IBOutlet weak var nameHeader: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+
+    @IBOutlet weak var container: UIView!
+    @IBOutlet weak var divider: UIView!
 
     // MARK: Variables
     var mode: FormMode = .View
     var monitoringArea: MonitoringArea?
-    var parentReference: MonitoringAreaViewController?
+    var parentReference: PlantCommunityViewController?
 
     // location
     let maxNumberOfAdjustments = 4
@@ -169,11 +178,18 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         }
     }
 
+    @IBAction func optionsAction(_ sender: Any) {
+
+    }
+
     func autofillLatLong() {
         // Do not continue if in view mode
         if self.mode == .View {return}
         // Do not confinue of max number of adjustments has been reached
-        if currentNumberOfAdjustments >= maxNumberOfAdjustments {return}
+        if currentNumberOfAdjustments >= maxNumberOfAdjustments {
+            locationManager.stopUpdatingLocation()
+            return
+        }
 
         guard let location = currentLocation, let monitoringArea = self.monitoringArea else {return}
         let lat = "\(location.coordinate.latitude)"
@@ -194,7 +210,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Setup
-    func setup(mode: FormMode, monitoringArea: MonitoringArea, parentReference: MonitoringAreaViewController) {
+    func setup(mode: FormMode, monitoringArea: MonitoringArea, parentReference: PlantCommunityViewController) {
         self.mode = mode
         self.monitoringArea = monitoringArea
         self.parentReference = parentReference
@@ -204,6 +220,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
 
     func autoFill() {
         guard let ma = self.monitoringArea else {return}
+        self.nameLabel.text = ma.name
         self.locationField.text = ma.location
         self.rangeLandField.text = ma.rangelandHealth
         self.latitudeField.text = ma.latitude
@@ -233,6 +250,10 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             getMyCoordinatesButton.isHidden = false
             styleHollowButton(button: getMyCoordinatesButton)
         }
+//        styleDivider(divider: divider)
+        styleSubHeader(label: nameLabel)
+        styleSubHeader(label: nameHeader)
+        styleContainer(view: container)
     }
 }
 

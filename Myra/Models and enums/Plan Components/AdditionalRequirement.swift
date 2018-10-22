@@ -26,6 +26,15 @@ class AdditionalRequirement: Object {
     @objc dynamic var detail: String = ""
     @objc dynamic var url: String = ""
 
+    func requiredFieldsAreFilled() -> Bool {
+        if category.isEmpty || detail.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
+
+
     func setValue(category: String? = nil, detail: String? = nil, url: String? = nil) {
         do {
             let realm = try Realm()

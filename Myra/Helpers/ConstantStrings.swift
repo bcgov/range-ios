@@ -10,11 +10,20 @@ import Foundation
 
 struct PlaceHolders {
 
+    struct Actions {
+        static let herding: String = "Frequency, distance and direction livestock will be herded. Identify the high pressure area and/or lower use areas if relevant. Ex. livestock will be herded at least 1 km away from Fish Lake towards the north 3 times per week."
+        static let livestockVariables: String = "Type and/or age of livestock to be used to address the issue. If necessary update the grazing schedule to reflect the livestock type. Ex. calves will be 5 months or older before grazing in the riparian area."
+        static let salting: String = "Location and timing of salting using an identifiable location and a distance in metres. Ex. remove salt from the NE station (on map) after July 1st."
+        static let supplementalFeeding: String = "Type, location and time frame of supplemental feed. Ex. locate protein tub in the south east block in the Pine pasture during the fall rotation."
+        static let timing: String = "How livestock use will be timed. Complete the dates for the no grazing window and update the schedule as needed.  Ex. rest the Owl pasture every other year."
+        static let other: String = "Describe the action to be taken including what, where and when."
+    }
+
     struct Pasture {
         static let name: String = "Name of pasture (ex. \"crown\" if a single pasture)"
-        static let allowableAUMs: String = "Approved maximum AUM allocation for this pasture"
+        static let allowableAUMs: String = "Approved maximum AUM allocation for this pasture if applicable"
         static let pld: String = "Percentage of use in this pasture occuring on private land"
-        static let graceDays: String = "Acceptable +/- days for livestock movement"
+        static let graceDays: String = "Acceptable +/- days for livestock movement. Can be tailored by staff in schedule rows."
         static let notes: String = "Pasture specific information (ie. not schedule, plant community or Minister's Issue specific). Examples may include relevant history or topographical considerations."
     }
 
@@ -46,7 +55,7 @@ struct PlaceHolders {
 
     struct AdditionalRequirements {
         static let name: String = "Name of the requirement (ex. GAR Name)"
-        static let description: String = "Not a repeat of requirements but a general statement re. intent"
+        static let description: String = "Name, date, summary (ex. WHA Badger #8-329/#8-330, 2009, attractants and stubble heights)"
         static let linkToDocument: String = "Link to legal document"
     }
 

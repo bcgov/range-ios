@@ -102,6 +102,14 @@ class ScheduleObject: Object, MyraObject {
         return entry
     }
 
+    func requiredFieldsAreFilled() -> Bool {
+        if self.pasture == nil || self.liveStockTypeId == -1 || self.dateIn == nil || self.dateOut == nil {
+            return false
+        } else {
+            return true
+        }
+    }
+
     func toDictionary() -> [String : Any] {
         guard let pasture = pasture else {
             print("No pasture connected to this schedule entry\n Returning empty dictionary")

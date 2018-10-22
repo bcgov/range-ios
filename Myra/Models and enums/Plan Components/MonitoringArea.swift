@@ -31,30 +31,11 @@ class MonitoringArea: Object, MyraObject {
     @objc dynamic var rangelandHealth: String = ""
     @objc dynamic var purpose: String = ""
 
-//    @objc dynamic var readinessDate: Date?
-
-    @objc dynamic var readinessDay: Int = -1
-    @objc dynamic var readinessMonth: Int = -1
-
-    var rangeReadiness = List<IndicatorPlant>()
-    var stubbleHeight = List<IndicatorPlant>()
-    var shrubUse = List<IndicatorPlant>()
-
-    func addIndicatorPlant(type: IndicatorPlantSection) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                switch type {
-                case .RangeReadiness:
-                    rangeReadiness.append(IndicatorPlant())
-                case .StubbleHeight:
-                    stubbleHeight.append(IndicatorPlant())
-                case .ShrubUse:
-                    shrubUse.append(IndicatorPlant())
-                }
-            }
-        } catch _ {
-            fatalError()
+    func requiredFieldsAreFilled() -> Bool {
+        if self.rangelandHealth.isEmpty || self.name.isEmpty || self.location.isEmpty || self.purpose.isEmpty {
+            return false
+        } else {
+            return true
         }
     }
 
@@ -66,20 +47,7 @@ class MonitoringArea: Object, MyraObject {
         new.transectAzimuth = self.transectAzimuth
         new.rangelandHealth = self.rangelandHealth
         new.purpose = self.purpose
-        
         new.name = self.name
-        for rr in self.rangeReadiness {
-            new.rangeReadiness.append(rr)
-        }
-
-        for sh in self.stubbleHeight {
-            new.stubbleHeight.append(sh)
-        }
-
-        for su in self.shrubUse {
-            new.shrubUse.append(su)
-        }
-
         return new
     }
 

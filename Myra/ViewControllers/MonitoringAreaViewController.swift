@@ -186,20 +186,20 @@ extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSou
         switch indexPath.section {
         case 0:
             let cell = getBasicInfoCell(indexPath: indexPath)
-            cell.setup(mode: mode, monitoringArea: ma, parentReference: self)
+//            cell.setup(mode: mode, monitoringArea: ma, parentReference: self)
             return cell
-        case 1:
-            let cell = getPlantIndicatorCell(indexPath: indexPath)
-            cell.setup(section: .RangeReadiness, mode: mode, area: ma, parentReference: self)
-            return cell
-        case 2:
-            let cell = getPlantIndicatorCell(indexPath: indexPath)
-            cell.setup(section: .StubbleHeight, mode: mode, area: ma, parentReference: self)
-            return cell
-        case 3:
-            let cell = getPlantIndicatorCell(indexPath: indexPath)
-            cell.setup(section: .ShrubUse, mode: mode, area: ma, parentReference: self)
-            return cell
+//        case 1:
+//            let cell = getPlantIndicatorCell(indexPath: indexPath)
+//            cell.setup(section: .RangeReadiness, mode: mode, area: ma, parentReference: self)
+//            return cell
+//        case 2:
+//            let cell = getPlantIndicatorCell(indexPath: indexPath)
+//            cell.setup(section: .StubbleHeight, mode: mode, area: ma, parentReference: self)
+//            return cell
+//        case 3:
+//            let cell = getPlantIndicatorCell(indexPath: indexPath)
+//            cell.setup(section: .ShrubUse, mode: mode, area: ma, parentReference: self)
+//            return cell
         default:
             return getBasicInfoCell(indexPath: indexPath)
         }
@@ -227,7 +227,7 @@ extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

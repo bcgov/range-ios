@@ -194,6 +194,16 @@ class PastureTableViewCell: BaseFormCell {
         }
     }
 
+    @IBAction func allowableAUMInfo(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Allowable AUMs", desc: PlaceHolders.Pasture.allowableAUMs)
+    }
+
+    @IBAction func graceDaysInfo(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Grace Days", desc: PlaceHolders.Pasture.graceDays)
+    }
+
     func editName(){
         guard let past = pasture else {return}
         let grandParent = self.parentViewController as! CreateNewRUPViewController
