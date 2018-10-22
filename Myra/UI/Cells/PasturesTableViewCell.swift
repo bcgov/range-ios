@@ -37,7 +37,7 @@ class PasturesTableViewCell: BaseFormCell {
         let vm = ViewManager()
         let textEntry = vm.textEntry
         textEntry.taken = Options.shared.getPastureNames(rup: rup)
-        textEntry.setup(on: parent, header: "Pasture") { (accepted, value) in
+        textEntry.setup(on: parent, header: PlaceHolders.Pasture.name) { (accepted, value) in
             if accepted {
                 let newPasture = Pasture()
                 newPasture.name = value
@@ -93,7 +93,11 @@ class PasturesTableViewCell: BaseFormCell {
         for pasture in (rup.pastures) {
             h = h + computePastureHeight(pasture: pasture) + padding
         }
-        return h
+        if h == 0.0 {
+            return 230
+        } else {
+            return h
+        }
     }
 
     func computePastureHeight(pasture: Pasture) -> CGFloat {
@@ -118,6 +122,7 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "PastureTableViewCell")
+        registerCell(name: "EmptyPastureTableViewCell")
     }
 
     func registerCell(name: String) {
@@ -125,19 +130,32 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getYearCell(indexPath: IndexPath) -> PastureTableViewCell {
+    func getPastureCell(indexPath: IndexPath) -> PastureTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "PastureTableViewCell", for: indexPath) as! PastureTableViewCell
     }
 
+    func getEmptyPastureCell(indexPath: IndexPath) -> EmptyPastureTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "EmptyPastureTableViewCell", for: indexPath) as! EmptyPastureTableViewCell
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = getYearCell(indexPath: indexPath)
+        let count = rup.pastures.count
+        if count < 1 {
+            return getEmptyPastureCell(indexPath: indexPath)
+        }
+        let cell = getPastureCell(indexPath: indexPath)
         if (rup.pastures.count) <= indexPath.row {return cell}
         cell.setup(mode: mode, pasture: (rup.pastures[indexPath.row]), pastures: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (rup.pastures.count)
+        let count = rup.pastures.count
+        if count < 1 {
+            return 1
+        } else {
+            return count
+        }
     }
 
 }

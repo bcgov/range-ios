@@ -8,17 +8,22 @@
 
 import UIKit
 
-class EmptyPastureTableViewCell: UITableViewCell {
+class EmptyPastureTableViewCell: UITableViewCell, Theme {
 
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var container: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        style()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
 
-        // Configure the view for the selected state
+    func style() {
+        styleSubHeader(label: label)
+        styleContainer(view: container)
     }
     
 }

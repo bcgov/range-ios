@@ -16,8 +16,8 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
 
     // MARK: Variables
     var mode: FormMode = .View
-    var area: MonitoringArea?
-    var parentReference: MonitoringAreaViewController?
+    var plantCommunity: PlantCommunity?
+    var parentReference: PlantCommunityViewController?
     var indicatorPlant: IndicatorPlant?
     var parentCellReference: MonitoringAreaCustomDetailsTableViewCell?
 
@@ -94,9 +94,9 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         }
     }
     
-    func setup(mode: FormMode, indicatorPlant: IndicatorPlant, area: MonitoringArea, parentReference: MonitoringAreaViewController, parentCellReference: MonitoringAreaCustomDetailsTableViewCell) {
+    func setup(mode: FormMode, indicatorPlant: IndicatorPlant, plantCommunity: PlantCommunity, parentReference: PlantCommunityViewController, parentCellReference: MonitoringAreaCustomDetailsTableViewCell) {
         self.mode = mode
-        self.area = area
+        self.plantCommunity = plantCommunity
         self.parentReference = parentReference
         self.indicatorPlant = indicatorPlant
         self.parentCellReference = parentCellReference

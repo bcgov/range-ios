@@ -90,7 +90,7 @@ class BaseViewController: UIViewController, Theme {
     // MARK: Input container
     func getInputViewContainer() -> UIView {
         // white screen
-        let layerWidth: CGFloat = 300
+        let layerWidth: CGFloat = 330
         let layerHeight: CGFloat = 150
         let layer = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: layerWidth, height: layerHeight))
         layer.layer.cornerRadius = 5
@@ -156,7 +156,7 @@ class BaseViewController: UIViewController, Theme {
 
     // wrapper for showPopOver()
     func showPopUp(vc: SelectionPopUpViewController, on: UIButton) {
-        let popOverWidth = 200
+        let popOverWidth = vc.getEstimatedWidth()
         var popOverHeight = 300
         if vc.canDisplayFullContentIn(height: popOverHeight) {
             popOverHeight =  vc.getEstimatedHeight()
@@ -165,7 +165,7 @@ class BaseViewController: UIViewController, Theme {
     }
 
     func showPopUp(vc: SelectionPopUpViewController, on: CALayer, inView: UIView) {
-        let popOverWidth = 200
+        let popOverWidth = vc.getEstimatedWidth()
         var popOverHeight = 300
         if vc.canDisplayFullContentIn(height: popOverHeight) {
             popOverHeight =  vc.getEstimatedHeight()
@@ -252,13 +252,18 @@ extension BaseViewController {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
             self.notifyOrientationChange()
-            if UIDevice.current.orientation.isLandscape{
+            if size.width > size.height {
                 self.whenLandscape()
-            } else if UIDevice.current.orientation.isPortrait {
-                self.whenPortrait()
             } else {
-                self.whenLandscape()
+                self.whenPortrait()
             }
+//            if UIDevice.current.orientation.isLandscape{
+//                self.whenLandscape()
+//            } else if UIDevice.current.orientation.isPortrait {
+//                self.whenPortrait()
+//            } else {
+//                self.whenLandscape()
+//            }
         }
     }
 }

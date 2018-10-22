@@ -118,6 +118,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                         pc.clearPurposeOfAction()
                         self.autofill()
                         self.reloadPlantCommunityActions()
+                        grandParent.tableView.reloadData()
                     }, noButtonTapped: {
                         return
                     })

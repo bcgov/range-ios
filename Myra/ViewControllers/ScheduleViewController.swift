@@ -352,6 +352,13 @@ class ScheduleViewController: BaseViewController {
         self.view.layoutIfNeeded()
     }
 
+    override func whenPortrait() {
+        self.view.layoutIfNeeded()
+    }
+
+    override func whenLandscape() {
+        self.view.layoutIfNeeded()
+    }
 
     // MARK: Banner
     func openBanner(message: String) {

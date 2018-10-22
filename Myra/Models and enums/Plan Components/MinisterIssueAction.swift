@@ -34,6 +34,18 @@ class MinisterIssueAction: Object, MyraObject {
     @objc dynamic var noGrazeOutDay: Int = 1
     @objc dynamic var noGrazeOutMonth: Int = 12
 
+
+    func requiredFieldsAreFilled() -> Bool {
+        if self.actionType.lowercased() == "timing" && (!noGrazeInSelected || !noGrazeInSelected) {
+            return false
+        }
+        if self.actionTypeID == -1 || self.desc.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
+
     func set(desc: String) {
         do {
             let realm = try Realm()

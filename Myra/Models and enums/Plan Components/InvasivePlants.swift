@@ -28,6 +28,14 @@ class InvasivePlants: Object {
     @objc dynamic var undercarrigesInspected: Bool = false
     @objc dynamic var revegetate: Bool = false
 
+    func requiredFieldsAreFilled() -> Bool {
+        if !equipmentAndVehiclesParking || !beginInUninfestedArea || !undercarrigesInspected || !revegetate {
+            return false
+        } else {
+            return true
+        }
+    }
+
     func setValue(other: String? = nil, equipmentAndVehiclesParking: Bool? = nil, beginInUninfestedArea: Bool? = nil, undercarrigesInspected: Bool? = nil, revegetate: Bool? = nil) {
         do {
             let realm = try Realm()

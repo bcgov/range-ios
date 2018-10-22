@@ -32,6 +32,14 @@ class PastureAction: Object, MyraObject {
     @objc dynamic var noGrazeOutDay: Int = 1
     @objc dynamic var noGrazeOutMonth: Int = 12
 
+    func requiredFieldsAreFilled() -> Bool {
+        if self.details.isEmpty || self.action.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
+
     func copy() -> PastureAction {
         let new = PastureAction()
         new.details = self.details
@@ -47,5 +55,5 @@ class PastureAction: Object, MyraObject {
 
     func toDictionary() -> [String : Any] {
         return [String:Any]()
-    }
+    } 
 }

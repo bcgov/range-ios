@@ -106,7 +106,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             selected.append(SelectionPopUpObject(display: pasture.name, value: pasture.name))
         }
         
-        lookup.setupLive(header: "select something",selected: selected, objects: pastureNames) { (selections) in
+        lookup.setupLive(header: "Select Pastures",selected: selected, objects: pastureNames) { (selections) in
             if let selected = selections  {
                 i.clearPastures()
                 for selection in selected {
@@ -216,6 +216,24 @@ class MinisterIssueTableViewCell: BaseFormCell {
             setDefaultValueIfEmpty(field: objectiveValue)
 
         }
+
+        if detailsValue.text == "" {
+            switch mode {
+            case .View:
+                detailsValue.text = "Details not provided"
+            case .Edit:
+                addPlaceHolder(on: detailsValue)
+            }
+        }
+
+        if objectiveValue.text == "" {
+            switch mode {
+            case .View:
+                objectiveValue.text = "Objectives not provided"
+            case .Edit:
+                addPlaceHolder(on: objectiveValue)
+            }
+        }
     }
 
     func computeTableHeight() -> CGFloat {
@@ -260,6 +278,13 @@ class MinisterIssueTableViewCell: BaseFormCell {
             addShadow(layer: addPasturesButton.layer)
             styleTextviewInputField(field: detailsValue, header: detailsHeader)
             styleTextviewInputField(field: objectiveValue, header: objectiveHeader)
+            if detailsValue.text == PlaceHolders.MinistersIssuesAndActions.details {
+                detailsValue.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
+
+            if objectiveValue.text == PlaceHolders.MinistersIssuesAndActions.objective {
+                detailsValue.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
         }
     }
 
@@ -290,12 +315,54 @@ extension MinisterIssueTableViewCell: UITextViewDelegate {
         guard let i = issue else {return}
         switch textView {
         case detailsValue:
-            i.set(details: textView.text)
+            if textView.text != PlaceHolders.MinistersIssuesAndActions.details {
+                i.set(details: textView.text)
+            }
         case objectiveValue:
-            i.set(objective: textView.text)
+            if textView.text != PlaceHolders.MinistersIssuesAndActions.objective {
+                i.set(objective: textView.text)
+            }
         default:
             return
         }
+
+        if textView.text == "" {
+            addPlaceHolder(on: textView)
+        }
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        switch textView {
+        case detailsValue:
+
+            if textView.text == PlaceHolders.MinistersIssuesAndActions.details {
+                removePlaceHolder(on: textView)
+            }
+        case objectiveValue:
+
+            if textView.text == PlaceHolders.MinistersIssuesAndActions.objective {
+                removePlaceHolder(on: textView)
+            }
+        default:
+            return
+        }
+    }
+
+    func addPlaceHolder(on textView: UITextView) {
+        switch textView {
+        case detailsValue:
+            textView.text = PlaceHolders.MinistersIssuesAndActions.details
+        case objectiveValue:
+            textView.text = PlaceHolders.MinistersIssuesAndActions.objective
+        default:
+            return
+        }
+        textView.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder(on textView: UITextView) {
+        textView.text = ""
+        textView.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }
 
