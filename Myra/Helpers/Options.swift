@@ -71,11 +71,13 @@ class Options {
 
     func getRangeLandHealthLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Highly at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Moderately at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Non-functional"))
-        returnArray.append(SelectionPopUpObject(display: "Properly Functioning Condition"))
+         returnArray.append(SelectionPopUpObject(display: "Properly Functioning Condition"))
         returnArray.append(SelectionPopUpObject(display: "Slightly at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Moderately at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Highly at risk"))
+        returnArray.append(SelectionPopUpObject(display: "Non-functional"))
+
+
         return returnArray
     }
 
@@ -128,5 +130,34 @@ class Options {
             }
         }
         return nil
+    }
+
+    func getRANLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        let agreements = RUPManager.shared.getAgreements()
+        for agreement in agreements {
+            returnArray.append(SelectionPopUpObject(display: agreement.agreementId))
+        }
+        return returnArray
+    }
+
+    func getManagementConsiderationLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Option-1"))
+        returnArray.append(SelectionPopUpObject(display: "Option-2"))
+        returnArray.append(SelectionPopUpObject(display: "Option-3"))
+        returnArray.append(SelectionPopUpObject(display: "Option-4"))
+        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        return returnArray
+    }
+
+    func getAdditionalRequirementLookup() -> [SelectionPopUpObject] {
+        var returnArray = [SelectionPopUpObject]()
+        returnArray.append(SelectionPopUpObject(display: "Option-1"))
+        returnArray.append(SelectionPopUpObject(display: "Option-2"))
+        returnArray.append(SelectionPopUpObject(display: "Option-3"))
+        returnArray.append(SelectionPopUpObject(display: "Option-4"))
+        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        return returnArray
     }
 }

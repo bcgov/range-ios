@@ -67,6 +67,12 @@ class AmendmentPageThreeCollectionViewCell: BaseCollectionViewCell, Theme {
         let typeString: String = "\(type)"
 
         self.subtitleLabel.text = "Are you ready to mark this \(thisThing) as \(typeString.convertFromCamelCase().uppercased())?"
+
+        if mode == .Create {
+            titleLabel.text = "Ready to Submit?"
+            self.subtitleLabel.text = "Are you ready to submit this Mandatory Amendment?"
+            self.confirmButton.setTitle("Submit", for: .normal)
+        }
     }
 
     func style() {

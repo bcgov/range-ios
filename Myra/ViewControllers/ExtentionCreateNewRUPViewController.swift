@@ -12,6 +12,17 @@ import Realm
 import RealmSwift
 
 
+enum PlanAction {
+    case UpdateAmendment
+    case ApproveAmendment
+    case FinalReview
+    case UpdateStatus
+    case CreateMandatoryAmendment
+    case CancelAmendment
+    case PrepareForSubmission
+}
+
+
 // This extention has all the styling for create page.
 extension CreateNewRUPViewController {
 
@@ -19,7 +30,6 @@ extension CreateNewRUPViewController {
     func style() {
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
         StyleNavBarButton(button: cancelButton)
-        StyleNavBarButton(button: updateAmendmentButton)
         styleMenu()
 
         switch mode {
@@ -36,42 +46,29 @@ extension CreateNewRUPViewController {
         }
     }
 
-    func styleUpdateAmendmentButton() {
+    func stylePlanActions() {
         guard let rup = self.rup else {return}
+        planActions.alpha = 0
+        roundCorners(layer: planActions.layer)
+        planActionsButton.setTitleColor(Colors.inputText, for: .normal)
+        planActionsButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
+        //        planActionsButton.setTitleColor(.white, for: .normal)
+        planActions.backgroundColor = Colors.inputBG
 
-        let current = rup.getStatus()
-        if current == .Stands {
-            updateAmendmentButton.setTitle("Update Amendment", for: .normal)
-            updateAmendmentEnabled = true
-        } else if current == .SubmittedForFinalDecision || current == .SubmittedForReview {
-            updateAmendmentButton.setTitle("Approve Amendment", for: .normal)
-            updateAmendmentEnabled = true
-        } else if current == .RecommendReady {
-            updateAmendmentButton.setTitle("Final Review", for: .normal)
-            updateAmendmentEnabled = true
-        } else if current == .Pending || current == .Created {
-            updateAmendmentButton.setTitle("Update Status", for: .normal)
-            // completed / change requested
-            updateAmendmentEnabled = true
-        } else {
-            updateAmendmentEnabled = false
+        updateAmendmentEnabled = (!getPlanActions(for: rup).isEmpty)
+
+        if updateAmendmentEnabled {
+            UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
+                self.planActions.alpha = 1
+                self.view.layoutIfNeeded()
+            })
         }
-        
-        self.updateAmendmentButton.alpha = 0
-        UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
-            if self.updateAmendmentEnabled {
-                self.updateAmendmentButton.alpha = 1
-            } else {
-                self.updateAmendmentButton.alpha = 0
-            }
-            self.view.layoutIfNeeded()
-        })
     }
 
     func styleStatus() {
         styleNavBarLabel(label: statusAndagreementHolderLabel)
         makeCircle(view: statusLight)
-         guard let plan = self.rup else {return}
+        guard let plan = self.rup else {return}
         self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
     }
 
@@ -111,6 +108,9 @@ extension CreateNewRUPViewController {
         pasturesIconLeading.constant = to
         scheduleIconLeading.constant = to
         ministersIssuesIconLeading.constant = to
+        invasivePlantsIconLeading.constant = to
+        additionalRequirementsIconLeading.constant = to
+        managementIconLeading.constant = to
     }
 
     func setMenuLabelsAlpha(to alpha: CGFloat) {
@@ -118,7 +118,10 @@ extension CreateNewRUPViewController {
         pasturesLabel.alpha = alpha
         scheduleLabel.alpha = alpha
         ministersIssuesLabel.alpha = alpha
-//        submitButton.alpha = alpha
+        invasivePlantsLabel.alpha = alpha
+        additionalRequirementsLabel.alpha = alpha
+        managementLabel.alpha = alpha
+        //        submitButton.alpha = alpha
     }
 
     func styleMenu() {
@@ -180,6 +183,9 @@ extension CreateNewRUPViewController {
         self.pasturesLowerBar.alpha = 0.1
         self.scheduleLowerBar.alpha = 0.1
         self.ministersIssuesLowerBar.alpha = 0.1
+        self.invasivePlantsLowerBar.alpha = 0.1
+        self.additionalRequirementsLowerBar.alpha = 0.1
+        self.managementLowerBar.alpha = 0.1
     }
 
     func menuBasicInfoOn() {
@@ -210,6 +216,27 @@ extension CreateNewRUPViewController {
         ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_MinistersIssues")
     }
 
+    func menuInvasivePlantsOn() {
+        menuSectionsOff()
+        invasivePlantsBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: invasivePlantsLabel)
+        invasivePlantsBoxImage.image = UIImage(named: "icon_invasivePlants")
+    }
+
+    func menuAdditionalRequirementsOn() {
+        menuSectionsOff()
+        additionalRequirementsBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: additionalRequirementsLabel)
+        additionalRequirementsImage.image = UIImage(named: "icon_additionalReqs")
+    }
+
+    func menuManagementConsiderationsOn() {
+        menuSectionsOff()
+        managementBoxLeft.backgroundColor = Colors.secondary
+        menuSectionOn(label: managementLabel)
+        managementBoxImage.image =  UIImage(named: "icon_Management")
+    }
+
     func menuSectionsOff() {
         menuSectionOff(label: basicInfoLabel)
         basicInfoBoxImage.image = #imageLiteral(resourceName: "icon_basicInformation_off")
@@ -226,6 +253,18 @@ extension CreateNewRUPViewController {
         menuSectionOff(label: ministersIssuesLabel)
         ministersIssuesBoxImage.image = #imageLiteral(resourceName: "icon_MinistersIssues_off")
         ministersIssuesBoxLeft.backgroundColor = UIColor.clear
+
+        menuSectionOff(label: invasivePlantsLabel)
+        invasivePlantsBoxImage.image = UIImage(named: "icon_invasivePlants_off")
+        invasivePlantsBoxLeft.backgroundColor = UIColor.clear
+
+        menuSectionOff(label: additionalRequirementsLabel)
+        additionalRequirementsImage.image = UIImage(named: "icon_additionalReqs_off")
+        additionalRequirementsBoxLeft.backgroundColor = UIColor.clear
+
+        menuSectionOff(label: managementLabel)
+        managementBoxImage.image = UIImage(named: "icon_Management_off")
+        managementBoxLeft.backgroundColor = UIColor.clear
 
     }
 
@@ -285,7 +324,7 @@ extension CreateNewRUPViewController {
                 }, completion: { (done) in
                     // MARK: End of opening animations
                     self.view.isUserInteractionEnabled = true
-                    self.styleUpdateAmendmentButton()
+                    self.stylePlanActions()
                     return callBack()
                 })
 

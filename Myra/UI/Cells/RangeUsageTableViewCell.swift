@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import Extended
 
 class RangeUsageTableViewCell: BaseFormCell {
 
@@ -58,7 +59,7 @@ class RangeUsageTableViewCell: BaseFormCell {
         setUpTable()
         self.usageYears = [RangeUsageYear]()
         if let plansStart = rup.planStartDate, let planEnd = rup.planEndDate {
-            for usage in rup.rangeUsageYears where usage.year >= plansStart.yearOfDate()! && usage.year <= planEnd.yearOfDate()!  {
+            for usage in rup.rangeUsageYears where usage.year >= plansStart.year() && usage.year <= planEnd.year()  {
                 usageYears.append(usage)
             }
             warningLabel.text = ""

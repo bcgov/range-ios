@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import Extended
 
 class IndicatorPlant: Object, MyraObject {
     @objc dynamic var localId: String = {

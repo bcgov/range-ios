@@ -47,7 +47,6 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
                 self.autofill()
             }
         }
-
     }
 
     @IBAction func rightFieldAction(_ sender: UIButton) {}

@@ -32,6 +32,9 @@ class ScheduleViewController: BaseViewController {
 
     // MARK: Outlets
     // Top
+    @IBOutlet weak var scrollToTopButton: UIButton!
+
+    @IBOutlet weak var scrollToBottomButton: UIButton!
     @IBOutlet weak var scheduleTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -83,6 +86,15 @@ class ScheduleViewController: BaseViewController {
     }
 
     // MARK: Outlet Actions
+    @IBAction func scrollToTop(_ sender: UIButton) {
+        let indexPath = IndexPath(row:0, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+    @IBAction func scrollToButtom(_ sender: UIButton) {
+        let indexPath = IndexPath(row: entries.count - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+
     @IBAction func backAction(_ sender: UIButton) {
         calculateEntries()
         validate()
@@ -145,6 +157,7 @@ class ScheduleViewController: BaseViewController {
         self.tableView.beginUpdates()
         self.tableView.insertRows(at: [newEntryIndexPath], with: .right)
         self.tableView.endUpdates()
+        NewElementAddedBanner.shared.show()
         self.validate()
     }
 
@@ -282,6 +295,8 @@ class ScheduleViewController: BaseViewController {
         styleResult(label: authAUMs)
         styleResult(label: totalAUMs)
         styleSortHeaders()
+        styleFillButton(button: scrollToTopButton)
+        styleFillButton(button: scrollToBottomButton)
     }
 
     func styleResult(label: UILabel) {

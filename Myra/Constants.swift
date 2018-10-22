@@ -19,7 +19,7 @@ struct Constants {
         static let maxConcurentEndpointRequests = 3
         static let baseURL = URL(string: "https://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")
         //http://10.10.10.190:8000
-//        static let baseURL = URL(string: "http://10.10.10.190:8000/api/v1/")
+//        static let baseURL = URL(string: "http://10.10.10.194:8000/api/v1/")
         static let referencePath = "reference/"
         static let planPath = "plan/"
         static let pasturePath = "plan/:id/pasture"

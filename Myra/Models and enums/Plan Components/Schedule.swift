@@ -66,7 +66,7 @@ class Schedule: Object, MyraObject {
     // Note: If schedule object is invalid, it won't be added
     func getEntriesDictionary() -> [[String: Any]]{
         var r = [[String: Any]]()
-        for obj in scheduleObjects {
+        for obj in scheduleObjects where !obj.toDictionary().isEmpty{
             r.append(obj.toDictionary())
         }
         return r

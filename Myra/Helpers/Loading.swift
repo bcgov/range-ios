@@ -10,8 +10,8 @@ import Foundation
 import Lottie
 
 
-class Loading {
-    static let shared = Loading()
+public class Loading {
+    public static let shared = Loading()
     private init() {}
 
     let tag = 987

@@ -167,6 +167,14 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         plantCommunityField.text = pc.notes
         communityURLField.text = pc.communityURL
         purposeOfActionsField.text = pc.purposeOfAction
+        if self.plantCommunityField.text.isEmpty {
+            switch mode {
+            case .View:
+                self.plantCommunityField.text = "Description not provided"
+            case .Edit:
+                addPlaceHolder()
+            }
+        }
     }
 
     // MARK: Style
@@ -184,6 +192,9 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputField(field: communityURLField, header: communityURLHeader, height: inputFieldHeight)
             styleInputField(field: purposeOfActionsField, header: purposeOfActionHeader, height: inputFieldHeight)
             styleTextviewInputField(field: plantCommunityField, header: plantCommunityNotesHeader)
+            if plantCommunityField.text == PlaceHolders.PlantCommunity.description {
+                plantCommunityField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+            }
         }
     }
 
@@ -200,17 +211,39 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
 
 // MARK: Notes
 extension PlanCommunityBasicInfoTableViewCell: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == PlaceHolders.PlantCommunity.description {
+            removePlaceHolder()
+        }
+    }
+
     func textViewDidChange(_ textView: UITextView) {}
 
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let pc = self.plantCommunity, let text = textView.text else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                pc.notes = text
+        if textView.text != PlaceHolders.PlantCommunity.description {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    pc.notes = text
+                }
+            } catch _ {
+                fatalError()
             }
-        } catch _ {
-            fatalError()
         }
+
+        if textView.text == "" {
+            addPlaceHolder()
+        }
+    }
+
+    func addPlaceHolder() {
+        plantCommunityField.text = PlaceHolders.PlantCommunity.description
+        plantCommunityField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
+    }
+
+    func removePlaceHolder() {
+        plantCommunityField.text = ""
+        plantCommunityField.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
     }
 }

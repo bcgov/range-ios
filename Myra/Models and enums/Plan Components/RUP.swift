@@ -10,6 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 import SwiftyJSON
+import Extended
 
 class RUP: Object, MyraObject {
 
@@ -83,6 +84,9 @@ class RUP: Object, MyraObject {
     var ministerIssues = List<MinisterIssue>()
     var zones = List<Zone>()
     var clients = List<Client>()
+    var invasivePlants = List<InvasivePlants>()
+    var additionalRequirements = List<AdditionalRequirement>()
+    var managementConsiderations = List<ManagementConsideration>()
 
     func populateFrom(json: JSON) {
         if let id = json["id"].int {
@@ -121,7 +125,6 @@ class RUP: Object, MyraObject {
             self.rangeName = rangeName
         }
 
-
         if let altName = json["altBusinessName"].string {
             self.alternativeName = altName
         }
@@ -130,7 +133,7 @@ class RUP: Object, MyraObject {
             // set remote status
             self.statusId = statusId
             self.statusIdValue = statusObject.name
-            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces).removeWhitespace()
+            let statusName = statusObject.name.trimmingCharacters(in: .whitespaces).removeWhitespaces()
             let newTry = statusName.replacingOccurrences(of: "-", with: "")
             // set local status
             if let result = RUPStatus(rawValue: newTry) {
@@ -194,7 +197,7 @@ class RUP: Object, MyraObject {
             statusName = statusName.replacingOccurrences(of: "-", with: "")
             // Remote Draft status means its a client's draft
             if statusName == "Draft" { statusName = "ClientDraft" }
-            guard let result = RUPStatus(rawValue: statusName.removeWhitespace()) else {
+            guard let result = RUPStatus(rawValue: statusName.removeWhitespaces()) else {
                 return .Unknown
             }
             return result
@@ -239,7 +242,7 @@ class RUP: Object, MyraObject {
         }
     }
 
-    func copy() -> RUP {
+    func clone() -> RUP {
         let plan = RUP()
 
         // Copy values
@@ -259,6 +262,7 @@ class RUP: Object, MyraObject {
         plan.typeId = self.typeId
         plan.ranNumber = self.ranNumber
         plan.isNew = self.isNew
+        plan.amendmentTypeId = self.amendmentTypeId
 
         // Copy objects in lists:
 
@@ -278,6 +282,18 @@ class RUP: Object, MyraObject {
 
         for object in self.ministerIssues {
             plan.ministerIssues.append(object.copy())
+        }
+
+        for object in self.invasivePlants {
+            plan.invasivePlants.append(object.clone())
+        }
+
+        for object in self.managementConsiderations {
+            plan.managementConsiderations.append(object.clone())
+        }
+
+        for object in self.additionalRequirements {
+            plan.additionalRequirements.append(object.clone())
         }
 
         // Cients, zones and Range usage years should not be deletable/editable, so no need to call copy() on them
@@ -354,6 +370,10 @@ class RUP: Object, MyraObject {
          Set status to staff draft if this plan is a local draft
          Set status to Created is plan needs to be uploaded
          */
+        var amendmentTypeIdTemp: Int? = amendmentTypeId
+        if amendmentTypeIdTemp == -1 {
+            amendmentTypeIdTemp = nil
+        }
         var currStatusId = 1
         if self.status == RUPStatus.LocalDraft.rawValue {
              currStatusId = Reference.shared.getStaffDraftPlanStatus().id
@@ -366,6 +386,7 @@ class RUP: Object, MyraObject {
             "planStartDate": DateManager.toUTC(date: planStartDate!),
             "planEndDate": DateManager.toUTC(date: planEndDate!),
             "altBusinessName": alternativeName,
+            "amendmentTypeId": amendmentTypeIdTemp,
             "statusId": currStatusId
         ]
     }

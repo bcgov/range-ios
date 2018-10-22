@@ -26,6 +26,9 @@ enum FromSection: Int {
     case Pastures
     case YearlySchedule
     case MinistersIssues
+    case InvasivePlants
+    case AdditionalRequirements
+    case ManagementConsiderations
 }
 
 class CreateNewRUPViewController: BaseViewController {
@@ -33,15 +36,15 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
     let portraitMenuWidth: CGFloat = 64
-    let numberOfSections = 7
+    let numberOfSections = 10
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
 
     /* need to hold the inxedpath of sections to be able to scroll back to them.
-       at this point, the indexpaths of the sections may not be known, and change
-       at runtime.
-    */
+     at this point, the indexpaths of the sections may not be known, and change
+     at runtime.
+     */
     var basicInformationIndexPath: IndexPath = [0,0]
     var agreementInformationIndexPath: IndexPath = [0,0]
     var liveStockIDIndexPath: IndexPath = [0,0]
@@ -97,7 +100,9 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
 
-    @IBOutlet weak var updateAmendmentButton: UIButton!
+    @IBOutlet weak var planActionsButton: UIButton!
+    @IBOutlet weak var planActionsDropdownButton: UIButton!
+    @IBOutlet weak var planActions: UIView!
 
     // Banner
     @IBOutlet weak var bannerContainerHeight: NSLayoutConstraint!
@@ -142,24 +147,36 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var ministersIssuesBoxLeft: UIView!
     @IBOutlet weak var ministersIssuesIconLeading: NSLayoutConstraint!
 
-    /*
-
+    @IBOutlet weak var invasivePlantsBox: UIView!
     @IBOutlet weak var invasivePlantsLabel: UILabel!
     @IBOutlet weak var invasivePlantsButton: UIButton!
     @IBOutlet weak var invasivePlantsBoxImage: UIImageView!
+    @IBOutlet weak var invasivePlantsLowerBar: UIView!
+    @IBOutlet weak var invasivePlantsBoxLeft: UIView!
+    @IBOutlet weak var invasivePlantsIconLeading: NSLayoutConstraint!
 
+
+    @IBOutlet weak var additionalRequirementsBox: UIView!
     @IBOutlet weak var additionalRequirementsLabel: UILabel!
     @IBOutlet weak var additionalRequirementsButton: UIButton!
-    @IBOutlet weak var additionalRequirementsBoxImage: UIImageView!
+    @IBOutlet weak var additionalRequirementsImage: UIImageView!
+    @IBOutlet weak var additionalRequirementsLowerBar: UIView!
+    @IBOutlet weak var additionalRequirementsBoxLeft: UIView!
+    @IBOutlet weak var additionalRequirementsIconLeading: NSLayoutConstraint!
 
+    @IBOutlet weak var managementBox: UIView!
     @IBOutlet weak var managementLabel: UILabel!
     @IBOutlet weak var managementButton: UIButton!
     @IBOutlet weak var managementBoxImage: UIImageView!
+    @IBOutlet weak var managementLowerBar: UIView!
+    @IBOutlet weak var managementBoxLeft: UIView!
+    @IBOutlet weak var managementIconLeading: NSLayoutConstraint!
 
-    @IBOutlet weak var mapLabel: UILabel!
-    @IBOutlet weak var mapButton: UIButton!
-    @IBOutlet weak var mapInfoBoxImage: UIImageView!
-    */
+    /*
+     @IBOutlet weak var mapLabel: UILabel!
+     @IBOutlet weak var mapButton: UIButton!
+     @IBOutlet weak var mapInfoBoxImage: UIImageView!
+     */
 
     @IBOutlet weak var submitButtonContainer: UIView!
     @IBOutlet weak var submitButton: UIButton!
@@ -168,7 +185,6 @@ class CreateNewRUPViewController: BaseViewController {
 
     // Body
     @IBOutlet weak var tableView: UITableView!
-
 
     // MARK: ViewController Functions
     override func viewDidLoad() {
@@ -185,7 +201,7 @@ class CreateNewRUPViewController: BaseViewController {
         openingAnimations(callBack: {
             // open banner here
             if self.shouldShowBanner() {
-                 self.openBanner()
+                self.openBanner()
             }
         })
     }
@@ -195,31 +211,35 @@ class CreateNewRUPViewController: BaseViewController {
         showTooltip(on: sender, title: getBannerTitle(), desc: getBannerDescription())
     }
 
-    @IBAction func updateAmendmentAction(_ sender: UIButton) {
+    @IBAction func planActionActions(_ sender: UIButton) {
         guard let plan = self.rup else {return}
-
-        // get flow view controller
+        let planActionsArray = getPlanActions(for: plan)
         let vm = ViewManager()
-        let flow = vm.amendmentFlow
-
-        // select mode
-        var mode: AmendmentFlowMode = .Initial
-        if let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) {
-            mode = .FinalReview
-            if amendmentType.name.lowercased().contains("minor") {
-                mode = .Minor
-            } else if amendmentType.name.lowercased().contains("mandatory") && plan.getStatus() != .RecommendReady {
-                mode = .Mandatory
-            }
+        let lookup = vm.lookup
+        var lookupOptions: [SelectionPopUpObject] = [SelectionPopUpObject]()
+        for element in planActionsArray {
+            let elementName = "\(element)"
+            lookupOptions.append(SelectionPopUpObject(display: elementName.convertFromCamelCase()))
         }
 
-        // display
-        flow.display(on: self, mode: mode) { (amendment) in
-            if let result = amendment, let newStatus = result.getStatus() {
-                // process new status
-                plan.updateStatus(with: newStatus)
-                self.autofill()
-                self.styleUpdateAmendmentButton()
+        lookup.setup(objects: lookupOptions, onVC: self, onButton: planActionsDropdownButton) {  (done, selected) in
+            if let selectedAction = selected, let action = self.getPlanAction(fromString: selectedAction.display) {
+                switch action {
+                case .UpdateAmendment:
+                    self.showAmendmentFlow()
+                case .ApproveAmendment:
+                    self.showAmendmentFlow()
+                case .FinalReview:
+                    self.showAmendmentFlow()
+                case .UpdateStatus:
+                    self.showAmendmentFlow()
+                case .CreateMandatoryAmendment:
+                    self.createMandatoryAmendment()
+                case .CancelAmendment:
+                    self.cancelAmendment()
+                case .PrepareForSubmission:
+                    self.showAmendmentSubmissionFlow()
+                }
             }
         }
     }
@@ -261,23 +281,23 @@ class CreateNewRUPViewController: BaseViewController {
     
     @IBAction func saveToDraftAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    plan.isNew = false
-                    plan.locallyUpdatedAt = Date()
-                }
-            } catch _ {
-                fatalError()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                plan.isNew = false
+                plan.locallyUpdatedAt = Date()
             }
+        } catch _ {
+            fatalError()
+        }
 
-            RealmRequests.updateObject(plan)
+        RealmRequests.updateObject(plan)
 
-            self.dismiss(animated: true) {
-                if self.parentCallBack != nil {
-                    return self.parentCallBack!(true, false)
-                }
+        self.dismiss(animated: true) {
+            if self.parentCallBack != nil {
+                return self.parentCallBack!(true, false)
             }
+        }
     }
 
     @IBAction func basicInfoAction(_ sender: UIButton) {
@@ -295,17 +315,21 @@ class CreateNewRUPViewController: BaseViewController {
     @IBAction func ministersIssuesAction(_ sender: UIButton) {
         tableView.scrollToRow(at: minsterActionsIndexPath, at: .top, animated: true)
     }
-    /*
+
     @IBAction func invasivePlantsAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: invasivePlantsIndexPath, at: .top, animated: true)
     }
     @IBAction func additionalRequirementsAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: additionalRequirementsIndexPath, at: .top, animated: true)
     }
     @IBAction func managementAction(_ sender: UIButton) {
+        tableView.scrollToRow(at: managementIndexPath, at: .top, animated: true)
     }
-    @IBAction func mapAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
-    }
-    */
+    /*
+     @IBAction func mapAction(_ sender: UIButton) {
+     tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
+     }*/
+
 
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
         guard let plan = self.rup else {return}
@@ -374,7 +398,7 @@ class CreateNewRUPViewController: BaseViewController {
              If cancel is pressed, store copy and delete rup
              Otherwise don't save the Plan copy object.
              */
-            self.copy = rup.copy()
+            self.copy = rup.clone()
             do {
                 let realm = try Realm()
                 try realm.write {
@@ -386,11 +410,11 @@ class CreateNewRUPViewController: BaseViewController {
         }
 
         // Moved - being done after openingAminations
-//        if rup.getStatus() == .Stands {
-//            updateAmendmentEnabled = true
-//        } else {
-//            updateAmendmentEnabled = false
-//        }
+        //        if rup.getStatus() == .Stands {
+        //            updateAmendmentEnabled = true
+        //        } else {
+        //            updateAmendmentEnabled = false
+        //        }
 
         setUpTable()
 
@@ -460,6 +484,124 @@ class CreateNewRUPViewController: BaseViewController {
         setBarInfoBasedOnOrientation()
     }
 
+    // MARK: Amendments - Plan Actions
+    func getPlanAction(fromString name: String) -> PlanAction? {
+        switch name.lowercased() {
+        case "update amendment":
+            return .UpdateAmendment
+        case "approve amendment":
+            return .ApproveAmendment
+        case "final review":
+            return .FinalReview
+        case "update status":
+            return .UpdateStatus
+        case "create mandatory amendment":
+            return .CreateMandatoryAmendment
+        case "cancel amendment":
+            return .CancelAmendment
+        case "prepare for submission":
+            return .PrepareForSubmission
+        default:
+            return nil
+        }
+    }
+
+    func getPlanActions(for plan: RUP) -> [PlanAction] {
+        var returnValue: [PlanAction] = [PlanAction]()
+        let current = plan.getStatus()
+
+        if current == .Stands {
+            returnValue.append(.UpdateAmendment)
+        } else if current == .SubmittedForFinalDecision || current == .SubmittedForReview {
+            returnValue.append(.ApproveAmendment)
+        } else if current == .RecommendReady {
+            returnValue.append(.FinalReview)
+        } else if current == .Pending || current == .Created {
+            returnValue.append(.UpdateStatus)
+            // completed / change requested
+        } else if current == .Approved {
+            returnValue.append(.CreateMandatoryAmendment)
+        } else if (current == .StaffDraft || current == .LocalDraft) && plan.amendmentTypeId != -1 {
+            returnValue.append(.CancelAmendment)
+            returnValue.append(.PrepareForSubmission)
+        }
+        return returnValue
+    }
+
+    func createMandatoryAmendment() {
+        guard let plan = self.rup else {return}
+        AutoSync.shared.endListener()
+        if let agreement = RUPManager.shared.getAgreement(with: plan.agreementId), let inital = Reference.shared.getAmendmentType(named: "Mandatory Amendment"), let callback = self.parentCallBack {
+            let new = plan.clone()
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    new.setFrom(agreement: agreement)
+                    new.amendmentTypeId = inital.id
+                    new.isNew = false
+                    new.remoteId = -1
+                    new.statusId = 0
+                    new.statusIdValue = ""
+                }
+            } catch _ {
+                fatalError()
+            }
+            agreement.add(plan: new)
+            RealmRequests.saveObject(object: new)
+            new.updateStatus(with: .StaffDraft)
+            self.setup(rup: new, mode: .Edit, callBack: callback)
+            self.tableView.reloadData()
+            self.autofill()
+            AutoSync.shared.beginListener()
+        }
+    }
+
+    func showAmendmentSubmissionFlow() {
+        guard let plan = self.rup else {return}
+        let vm = ViewManager()
+        let flow = vm.amendmentFlow
+        let mode: AmendmentFlowMode = .Create
+        // display
+        flow.display(on: self, mode: mode) { (amendment) in
+            if let result = amendment, let newStatus = result.getStatus() {
+                // process new status
+                plan.updateStatus(with: newStatus)
+                self.autofill()
+                self.stylePlanActions()
+            }
+        }
+
+    }
+
+    func cancelAmendment() {
+
+    }
+
+    func showAmendmentFlow() {
+        guard let plan = self.rup else {return}
+        let vm = ViewManager()
+        let flow = vm.amendmentFlow
+        var mode: AmendmentFlowMode = .Initial
+        if let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) {
+            mode = .FinalReview
+            if amendmentType.name.lowercased().contains("minor") {
+                mode = .Minor
+            } else if amendmentType.name.lowercased().contains("mandatory") && plan.getStatus() != .RecommendReady {
+                mode = .Mandatory
+            }
+        }
+
+        // display
+        flow.display(on: self, mode: mode) { (amendment) in
+            if let result = amendment, let newStatus = result.getStatus() {
+                // process new status
+                plan.updateStatus(with: newStatus)
+                self.autofill()
+                self.stylePlanActions()
+            }
+        }
+    }
+
 }
 
 // MARK: Tableview
@@ -481,6 +623,9 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         registerCell(name: "MapTableViewCell")
         registerCell(name: "ScheduleTableViewCell")
         registerCell(name: "MinisterIssuesTableViewCell")
+        registerCell(name: "InvasivePlantsTableViewCell")
+        registerCell(name: "AdditionalRequirementsTableViewCell")
+        registerCell(name: "ManagementConsiderationsTableViewCell")
     }
 
     @objc func doThisWhenNotify() { return }
@@ -522,12 +667,26 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "MinisterIssuesTableViewCell", for: indexPath) as! MinisterIssuesTableViewCell
     }
 
+    func getInvasivePlantsCell(indexPath: IndexPath) -> InvasivePlantsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "InvasivePlantsTableViewCell", for: indexPath) as! InvasivePlantsTableViewCell
+    }
+
+    func getAdditionalRequirementsCell(indexPath: IndexPath) -> AdditionalRequirementsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "AdditionalRequirementsTableViewCell", for: indexPath) as! AdditionalRequirementsTableViewCell
+    }
+
+    func getManagementConsiderationsCell(indexPath: IndexPath) -> ManagementConsiderationsTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ManagementConsiderationsTableViewCell", for: indexPath) as! ManagementConsiderationsTableViewCell
+    }
+
     func getMapCell(indexPath: IndexPath) -> MapTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "MapTableViewCell", for: indexPath) as! MapTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        if rup == nil {
+            return getBasicInfoCell(indexPath: indexPath)
+        }
         if let cellType = FromSection(rawValue: Int(indexPath.row)) {
 
             switch cellType {
@@ -563,8 +722,22 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 return cell
             case .MinistersIssues:
                 self.minsterActionsIndexPath = indexPath
-                self.minsterActionsIndexPath = indexPath
                 let cell = getMinistersIssuesCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .InvasivePlants:
+                self.invasivePlantsIndexPath = indexPath
+                let cell = getInvasivePlantsCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .AdditionalRequirements:
+                self.additionalRequirementsIndexPath = indexPath
+                let cell = getAdditionalRequirementsCell(indexPath: indexPath)
+                cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .ManagementConsiderations:
+                self.managementIndexPath = indexPath
+                let cell = getManagementConsiderationsCell(indexPath: indexPath)
                 cell.setup(mode: mode, rup: rup!)
                 return cell
             }
@@ -657,6 +830,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 menuScheduleOn()
             } else if indexPath == minsterActionsIndexPath {
                 menuMinistersIssuesOn()
+            } else if indexPath == invasivePlantsIndexPath {
+                menuInvasivePlantsOn()
+            } else if indexPath == additionalRequirementsIndexPath {
+                menuAdditionalRequirementsOn()
+            } else if indexPath == managementIndexPath {
+                menuManagementConsiderationsOn()
             }
         }
     }

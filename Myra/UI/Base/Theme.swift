@@ -173,6 +173,7 @@ extension Theme {
     }
 
     func styleContainer(layer: CALayer) {
+        layer.masksToBounds = true
         roundCorners(layer: layer)
         addShadow(to: layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight())
     }
@@ -213,8 +214,8 @@ extension Theme {
         button.titleLabel?.font = Fonts.getPrimaryBold(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlightOff"), for: .normal)
         // set button image on the right
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, (0.0 - (button.imageView?.frame.size.width)!), 0, (button.imageView?.frame.size.width)!);
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, (button.titleLabel?.frame.size.width)!, 0, (0.0 - (button.titleLabel?.frame.size.width)!))
+        button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: (0.0 - (button.imageView?.frame.size.width)!), bottom: 0, right: (button.imageView?.frame.size.width)!);
+        button.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: (button.titleLabel?.frame.size.width)!, bottom: 0, right: (0.0 - (button.titleLabel?.frame.size.width)!))
     }
 
     func styleSortHeaderOn(button: UIButton) {
@@ -222,8 +223,8 @@ extension Theme {
         button.titleLabel?.font = Fonts.getPrimaryBold(size: 12)
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlight"), for: .normal)
         // set button image on the right
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, (0.0 - (button.imageView?.frame.size.width)!), 0, (button.imageView?.frame.size.width)!);
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, (button.titleLabel?.frame.size.width)!, 0, (0.0 - (button.titleLabel?.frame.size.width)!))
+        button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: (0.0 - (button.imageView?.frame.size.width)!), bottom: 0, right: (button.imageView?.frame.size.width)!);
+        button.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: (button.titleLabel?.frame.size.width)!, bottom: 0, right: (0.0 - (button.titleLabel?.frame.size.width)!))
     }
 
     func styleSubHeader(label: UILabel) {

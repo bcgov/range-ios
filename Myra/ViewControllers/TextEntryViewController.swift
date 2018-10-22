@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Extended
+import IQKeyboardManagerSwift
 
 class TextEntryViewController: UIViewController, Theme {
 
@@ -44,7 +46,7 @@ class TextEntryViewController: UIViewController, Theme {
         if let c = self.callBack, inputIsValid {
             c(true, value)
             remove()
-        } else if input.text?.removeWhitespace() == "" {
+        } else if input.text?.removeWhitespaces() == "" {
             invalidInput(message: "Please enter a value")
         }
     }
@@ -52,7 +54,7 @@ class TextEntryViewController: UIViewController, Theme {
     @IBAction func inputChanged(_ sender: UITextField) {
         if let text = sender.text {
             // has value
-            if text.removeWhitespace() == "" {
+            if text.removeWhitespaces() == "" {
                 invalidInput(message: "Please enter a value")
                 return
             } else {
@@ -132,22 +134,31 @@ class TextEntryViewController: UIViewController, Theme {
         let inputContainer = parent.getInputViewContainer()
         whiteScreen.addSubview(inputContainer)
         parent.view.addSubview(whiteScreen)
-        parent.addChildViewController(self)
+        parent.addChild(self)
         self.view.frame = inputContainer.frame
         self.view.center.x = parent.view.center.x
         self.view.center.y = parent.view.center.y
         parent.view.addSubview(self.view)
         self.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         self.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        self.didMove(toParentViewController: parent)
+        self.didMove(toParent: parent)
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = getDistanceFromField()
         self.input.becomeFirstResponder()
     }
 
+    func getDistanceFromField() -> CGFloat {
+        let total = self.view.frame.height
+
+        // 15 and 8 are title lable's top and bottom constraints
+        return total - (inputHeight.constant + titleLabel.frame.height + 15 + 8)
+    }
+
     func remove() {
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 10
         guard let parent = self.parentVC else {return}
         parent.removeWhiteScreen()
         self.view.removeFromSuperview()
-        self.removeFromParentViewController()
+        self.removeFromParent()
     }
 
 }

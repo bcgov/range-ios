@@ -16,11 +16,11 @@ class Router {
 
     static func add(childViewController viewController: UIViewController, to parentViewController: UIViewController) {
         self.currentChildVC = viewController
-        parentViewController.addChildViewController(viewController)
+        parentViewController.addChild(viewController)
         parentViewController.view.addSubview(viewController.view)
         viewController.view.frame = parentViewController.view.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParentViewController: parentViewController)
+        viewController.didMove(toParent: parentViewController)
     }
 
     static func removeCurrentChild() {
@@ -29,8 +29,8 @@ class Router {
     }
 
     static func remove(asChildViewController viewController: UIViewController) {
-        viewController.willMove(toParentViewController: nil)
+        viewController.willMove(toParent: nil)
         viewController.view.removeFromSuperview()
-        viewController.removeFromParentViewController()
+        viewController.removeFromParent()
     }
 }
