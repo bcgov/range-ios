@@ -35,7 +35,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     }
 
     @IBAction func leftFieldAction(_ sender: UIButton) {
-        guard let plant = self.indicatorPlant, let parent = self.parentReference else {return}
+        guard let plant = self.indicatorPlant, let parent = self.parentReference, let parentCell = self.parentCellReference, let section = parentCell.section else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
         var options = Options.shared.getIndicatorPlantLookup()
@@ -43,7 +43,16 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
             if accepted, let option = selection {
+                let species = Reference.shared.getIndicatorPlant(named: option.display)
                 plant.setType(string: option.display)
+                switch section {
+                case .RangeReadiness:
+                    plant.setDetail(text: "\(species.leafStage)")
+                case .StubbleHeight:
+                    plant.setDetail(text: "\(species.stubbleHeight)")
+                case .ShrubUse:
+                    plant.setDetail(text: "\(species.annualGrowth)")
+                }
                 self.autofill()
             }
         }

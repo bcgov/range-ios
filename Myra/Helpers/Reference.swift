@@ -33,6 +33,12 @@ class Reference {
         reference.append(contentsOf: getIssueType())
         reference.append(contentsOf: getIssueActionType())
         reference.append(contentsOf: getAmendmentTypes())
+        reference.append(contentsOf: getPlantSpecies())
+        reference.append(contentsOf: getPlantCommunityActionType())
+        reference.append(contentsOf: getPlantCommunityElevation())
+        reference.append(contentsOf: getPlantCommunityType())
+        reference.append(contentsOf: getMonitoringAreaHealth())
+        reference.append(contentsOf: getMonitoringAreaPurposeType())
         return reference
     }
 
@@ -134,6 +140,62 @@ class Reference {
         }
     }
 
+
+    func getPlantSpecies() -> [PlantSpecies] {
+        let query = RealmRequests.getObject(PlantSpecies.self)
+        if query != nil {
+            return query!
+        } else {
+            return [PlantSpecies]()
+        }
+    }
+
+    func getPlantCommunityType() -> [PlantCommunityType] {
+        let query = RealmRequests.getObject(PlantCommunityType.self)
+        if query != nil {
+            return query!
+        } else {
+            return [PlantCommunityType]()
+        }
+    }
+
+    func getPlantCommunityElevation() -> [PlantCommunityElevation] {
+        let query = RealmRequests.getObject(PlantCommunityElevation.self)
+        if query != nil {
+            return query!
+        } else {
+            return [PlantCommunityElevation]()
+        }
+    }
+
+    func getPlantCommunityActionType() -> [PlantCommunityActionType] {
+        let query = RealmRequests.getObject(PlantCommunityActionType.self)
+        if query != nil {
+            return query!
+        } else {
+            return [PlantCommunityActionType]()
+        }
+    }
+
+    func getMonitoringAreaHealth() -> [MonitoringAreaHealth] {
+        let query = RealmRequests.getObject(MonitoringAreaHealth.self)
+        if query != nil {
+            return query!
+        } else {
+            return [MonitoringAreaHealth]()
+        }
+    }
+
+    func getMonitoringAreaPurposeType() -> [MonitoringAreaPurposeType] {
+        let query = RealmRequests.getObject(MonitoringAreaPurposeType.self)
+        if query != nil {
+            return query!
+        } else {
+            return [MonitoringAreaPurposeType]()
+        }
+    }
+
+    ////////////////////////
     func getAgreementTypeLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
         let objects = getAgreementTypes()
@@ -350,6 +412,13 @@ class Reference {
         referenceObjects.append(contentsOf: handleMinisterIssueType(json: json["MINISTER_ISSUE_TYPE"]))
         referenceObjects.append(contentsOf: handleMinisterIssueActionType(json: json["MINISTER_ISSUE_ACTION_TYPE"]))
         referenceObjects.append(contentsOf: handleAmendmentType(json: json["AMENDMENT_TYPE"]))
+
+        referenceObjects.append(contentsOf: handlePlantSpecies(json: json["PLANT_SPECIES"]))
+        referenceObjects.append(contentsOf: handlePlantCommunityType(json: json["PLANT_COMMUNITY_TYPE"]))
+        referenceObjects.append(contentsOf: handlePlantCommunityElevation(json: json["PLANT_COMMUNITY_ELEVATION"]))
+        referenceObjects.append(contentsOf: handlePlantCommunityActionType(json: json["PLANT_COMMUNITY_ACTION_TYPE"]))
+        referenceObjects.append(contentsOf: handleMonitoringAreaHealth(json: json["MONITORING_AREA_HEALTH"]))
+        referenceObjects.append(contentsOf: handleMonitoringAreaPurposeType(json: json["MONITORING_AREA_PURPOSE_TYPE"]))
         return referenceObjects
     }
 
@@ -533,6 +602,134 @@ class Reference {
             result.append(obj)
         }
         return result
+    }
+
+    func handlePlantSpecies(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = PlantSpecies()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+
+            if let stubbleHeight = item["stubbleHeight"].double {
+                obj.stubbleHeight = stubbleHeight
+            }
+
+            if let annualGrowth = item["annualGrowth"].double {
+                obj.annualGrowth = annualGrowth
+            }
+
+            if let leafStage = item["leafStage"].double {
+                obj.leafStage = leafStage
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handlePlantCommunityType(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = PlantCommunityType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handlePlantCommunityElevation(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = PlantCommunityElevation()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handlePlantCommunityActionType(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = PlantCommunityActionType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handleMonitoringAreaHealth(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = MonitoringAreaHealth()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handleMonitoringAreaPurposeType(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = MonitoringAreaPurposeType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func getIndicatorPlant(named: String) -> PlantSpecies {
+        let all = getPlantSpecies()
+        for plant in all where plant.name == named {
+            return plant
+        }
+        return PlantSpecies()
     }
 
 }
