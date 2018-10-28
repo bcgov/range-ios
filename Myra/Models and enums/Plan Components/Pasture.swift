@@ -126,5 +126,10 @@ class Pasture: Object, MyraObject {
         if let notes = json["notes"].string {
             self.notes = notes
         }
+
+        let communities = json["plantCommunities"]
+        for element in communities {
+            self.plantCommunities.append(PlantCommunity(json: element.1))
+        }
     }
 }

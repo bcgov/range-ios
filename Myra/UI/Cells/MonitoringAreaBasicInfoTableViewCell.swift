@@ -15,8 +15,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
 
     static let cellHeight: CGFloat = (320 + 16)
 
-
-
     // MARK: Outlets
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
 
@@ -55,6 +53,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
 
     // location
     let maxNumberOfAdjustments = 4
+    let minNumberOfAdjustments = 2
     var currentNumberOfAdjustments = 0
     var locationManager: CLLocationManager = CLLocationManager()
     var status: CLAuthorizationStatus?
@@ -78,9 +77,17 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         if currentLocation == nil, CLLocationManager.locationServicesEnabled() {
             Loading.shared.begin()
             initLocation()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
-                Banner.shared.show(message: "Could not get your location")
-                self.locationManager.stopUpdatingLocation()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                if self.currentLocation == nil {
+                    Banner.shared.show(message: "Could not get your location")
+                    self.currentNumberOfAdjustments = 0
+                }
+
+                if self.currentNumberOfAdjustments >= self.maxNumberOfAdjustments {
+                     self.locationManager.stopUpdatingLocation()
+                    self.currentNumberOfAdjustments = 0
+                }
+
                 Loading.shared.end()
             }
         } else {
@@ -185,11 +192,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     func autofillLatLong() {
         // Do not continue if in view mode
         if self.mode == .View {return}
-        // Do not confinue of max number of adjustments has been reached
-        if currentNumberOfAdjustments >= maxNumberOfAdjustments {
-            locationManager.stopUpdatingLocation()
-            return
-        }
 
         guard let location = currentLocation, let monitoringArea = self.monitoringArea else {return}
         let lat = "\(location.coordinate.latitude)"
@@ -206,7 +208,17 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         }
         self.latitudeField.text = monitoringArea.latitude
         self.longitudeField.text = monitoringArea.longitude
-        Loading.shared.end()
+
+        if currentNumberOfAdjustments < minNumberOfAdjustments {
+            Loading.shared.end()
+        }
+
+        // Do not confinue of max number of adjustments has been reached
+        if currentNumberOfAdjustments > maxNumberOfAdjustments {
+            self.locationManager.stopUpdatingLocation()
+            self.currentNumberOfAdjustments = 0
+            Loading.shared.end()
+        }
     }
 
     // MARK: Setup

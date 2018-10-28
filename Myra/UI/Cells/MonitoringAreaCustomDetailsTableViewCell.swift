@@ -122,16 +122,19 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
         switch current {
         case .RangeReadiness:
             self.singleFieldSectionHeight.constant = 70
+            self.singleFieldHeader.alpha = 1
 //            self.sectionName.text = "Range Readiness"
             self.headerRight.text = "Criteria (Leaf Stage)"
 //            self.banner.text = ""
         case .StubbleHeight:
             self.singleFieldSectionHeight.constant = 0
+            self.singleFieldHeader.alpha = 0
 //            self.sectionName.text = "Stubble Height"
             self.headerRight.text = "Height After Grazing (cm)"
 //            self.banner.text = ""
         case .ShrubUse:
             self.singleFieldSectionHeight.constant = 0
+            self.singleFieldHeader.alpha = 0
 //            self.sectionName.text = "Shrub Use"
             self.headerRight.text = "% of Current Annual Growth"
 //            self.banner.text = "The default allowable browse level is 25% of current annual growth"

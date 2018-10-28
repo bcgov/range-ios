@@ -24,6 +24,8 @@ class HomeViewController: BaseViewController {
     var syncButtonAnimationTag = 120
     var syncButtonActionTag = 121
 
+    var blockSync = false
+
     // MARK: Variables
     var realmNotificationToken: NotificationToken?
     var parentReference: MainViewController?
@@ -204,17 +206,26 @@ class HomeViewController: BaseViewController {
 
     @IBAction func syncAction(_ sender: UIButton) {
         sender.isUserInteractionEnabled = false
-        syncButtonLabel.alpha = 1
+
+//        syncButtonLabel.alpha = 1
+        blockSync = true
         if authServices.isAuthenticated() {
-            syncButtonLabel.text = "Connecting..."
+            playSyncButtonAnimation()
+            Banner.shared.show(message: "Connecting...")
+//            syncButtonLabel.text = "Connecting..."
             animateIt()
             showSyncMessage(text: "Connection taking longer than expected...", after: 5)
             showSyncMessage(text: "Your connection is very unstable...", after: 10)
             DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
-                if self.syncButtonLabel.alpha == 1 {
+                self.stopSyncButtonAnimation()
+
+                if self.blockSync == true{
                     self.unstableConnection = true
+                    sender.isUserInteractionEnabled = true
                 }
             })
+        } else {
+            sender.isUserInteractionEnabled = true
         }
         authenticateIfRequred()
     }
@@ -494,29 +505,28 @@ class HomeViewController: BaseViewController {
     // MARK: Sync
     func showSyncMessage(text: String, after: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: {
-            self.syncButtonLabel.text = text
-            self.animateIt()
+            Banner.shared.show(message: text)
         })
     }
 
     override func onAuthenticationSuccess() {
         //        print(APIManager.headers())
         if unstableConnection {
-            syncButtonLabel.text = "Connections is not stable for enough for a full sync"
+            Banner.shared.show(message: "Connections is not stable for enough for a full sync")
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                self.syncButtonLabel.alpha = 0
+                self.blockSync = false
                 self.syncButton.isUserInteractionEnabled = true
                 self.unstableConnection = false
                 self.animateIt()
             })
             return
         }
-        self.syncButtonLabel.alpha = 0
+        blockSync = false
         synchronize()
     }
 
     override func onAuthenticationFail() {
-        self.syncButtonLabel.alpha = 0
+        blockSync = false
         self.syncButton.isUserInteractionEnabled = true
     }
 

@@ -732,4 +732,55 @@ class Reference {
         return PlantSpecies()
     }
 
+    func getPlantCommunitType(named: String) -> PlantCommunityType? {
+        let all = getPlantCommunityType()
+
+        for community in all where community.name.lowercased() == named.lowercased() {
+            return community
+        }
+
+        for community in all where community.name.lowercased() == "other" {
+            return community
+        }
+
+        return nil
+    }
+
+    func getPlantCommunityActionType(named: String) -> PlantCommunityActionType? {
+        let all = getPlantCommunityActionType()
+        for each in all where each.name.lowercased() == named.lowercased() {
+            return each
+        }
+
+        for each in all where each.name.lowercased() == "other" {
+            return each
+        }
+
+        return nil
+    }
+
+    func getPlantCommunityElevation(named: String) -> PlantCommunityElevation? {
+        let all = getPlantCommunityElevation()
+        for elevation in all where elevation.name.lowercased() == named.lowercased() {
+            return elevation
+        }
+        return nil
+    }
+
+    func getMonitoringAreaHealh(named: String) -> MonitoringAreaHealth? {
+        let all = getMonitoringAreaHealth()
+        for each in all where each.name.lowercased() == named.lowercased() {
+            return each
+        }
+        return nil
+    }
+
+    func getMonitoringAreaPurposeType(named: String) -> MonitoringAreaPurposeType? {
+        let all = getMonitoringAreaPurposeType()
+        for each in all where each.name.lowercased() == named.lowercased() {
+            return each
+        }
+        return nil
+    }
+
 }

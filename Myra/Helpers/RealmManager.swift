@@ -160,6 +160,42 @@ class RealmManager {
         return pasture
     }
 
+    func plantCommunity(withLocalId localId: String) -> PlantCommunity? {
+        guard let plantCommunities = try? Realm().objects(PlantCommunity.self).filter("localId = %@", localId), let plantCommunity = plantCommunities.first else {
+            return nil
+        }
+        return plantCommunity
+    }
+
+    func indicatorPlant(withLocalId localId: String) -> IndicatorPlant? {
+        guard let indicatorPlants = try? Realm().objects(IndicatorPlant.self).filter("localId = %@", localId), let indicatorPlant = indicatorPlants.first else {
+            return nil
+        }
+        return indicatorPlant
+    }
+
+    func monitoringArea(withLocalId localId: String) -> MonitoringArea? {
+        guard let monitoringAreas = try? Realm().objects(MonitoringArea.self).filter("localId = %@", localId), let monitoringArea = monitoringAreas.first else {
+            return nil
+        }
+        return monitoringArea
+    }
+
+    func invasivePlants(withLocalId localId: String) -> InvasivePlants? {
+        guard let invasivePlants = try? Realm().objects(InvasivePlants.self).filter("localId = %@", localId), let invasivePlantsObj = invasivePlants.first else {
+            return nil
+        }
+        return invasivePlantsObj
+    }
+
+    func pastureAction(withLocalId localId: String) -> PastureAction? {
+        guard let pastureActions = try? Realm().objects(PastureAction.self).filter("localId = %@", localId), let pastureAction = pastureActions.first else {
+            return nil
+        }
+        return pastureAction
+    }
+
+
     func ministersIssue(withLocalId localId: String) -> MinisterIssue? {
         guard let issues = try? Realm().objects(MinisterIssue.self).filter("localId = %@", localId), let issue = issues.first else {
             return nil

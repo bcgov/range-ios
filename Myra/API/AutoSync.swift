@@ -12,6 +12,7 @@ import Realm
 import RealmSwift
 import Lottie
 import Extended
+import SingleSignOn
 
 enum SyncedItem {
     case Drafts
@@ -28,6 +29,11 @@ class AutoSync {
 
     // MARK: Constants
     let lockScreenTag = 204
+    let authServices: AuthServices = {
+        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
+                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+                            idpHint: Constants.SSO.idpHint)
+    }()
 
     private init() {}
 
@@ -74,6 +80,12 @@ class AutoSync {
             print("Nothing to sync")
             return
         }
+
+//        if !authServices.isAuthenticated() {
+//            print("But not authenticated.")
+//            Banner.shared.show(message: "Please Synchronize manually: Authentication is required")
+//            return
+//        }
 
         // great, if we're here then there is something to sync!
         self.isSynchronizing = true

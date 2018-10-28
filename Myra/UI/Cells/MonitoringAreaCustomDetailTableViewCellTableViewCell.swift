@@ -39,7 +39,6 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         let vm = ViewManager()
         let lookup = vm.lookup
         var options = Options.shared.getIndicatorPlantLookup()
-        options.append(SelectionPopUpObject(display: freeTextOption))
         lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
             if accepted, let option = selection {

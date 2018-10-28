@@ -71,8 +71,52 @@ class InvasivePlants: Object {
         return invasivePlants
     }
 
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let equipmentAndVehiclesParkingg = json["equipmentAndVehiclesParking"].bool {
+            self.equipmentAndVehiclesParking = equipmentAndVehiclesParkingg
+        }
+
+        if let beginInUninfestedAreaa = json["beginInUninfestedArea"].bool {
+            self.beginInUninfestedArea = beginInUninfestedAreaa
+        }
+
+        if let undercarrigesInspectedd = json["undercarrigesInspected"].bool {
+            self.undercarrigesInspected = undercarrigesInspectedd
+        }
+
+        if let revegetatee = json["revegetate"].bool {
+            self.revegetate = revegetatee
+        }
+
+        if let otherr = json["other"].string {
+            self.other = otherr
+        }
+    }
+
     func toDictionary() -> [String : Any] {
-        return [String:Any]()
+        return [
+            "equipmentAndVehiclesParking": equipmentAndVehiclesParking,
+            "beginInUninfestedArea": beginInUninfestedArea,
+            "undercarrigesInspected": undercarrigesInspected,
+            "revegetate": revegetate,
+            "other": other
+        ]
     }
     
 }
