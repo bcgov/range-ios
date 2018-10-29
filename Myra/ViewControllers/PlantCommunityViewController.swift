@@ -184,7 +184,7 @@ class PlantCommunityViewController: BaseViewController {
 
     // MARK: Utilities
     func hasPurposeOfActions() -> Bool {
-        if let pc = self.plantCommunity, pc.purposeOfAction != "" {
+        if let pc = self.plantCommunity, pc.purposeOfAction != "" || pc.purposeOfAction.lowercased() != "clear"{
             return true
         }
         return false

@@ -101,6 +101,12 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
     // MARK: Styles
     func style() {
         styleHollowButton(button: addButton)
+        switch mode {
+        case .View:
+            addButton.alpha = 0
+        case .Edit:
+            addButton.alpha = 1
+        }
     }
     
 }

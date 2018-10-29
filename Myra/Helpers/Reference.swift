@@ -187,7 +187,10 @@ class Reference {
     }
 
     func getMonitoringAreaPurposeType() -> [MonitoringAreaPurposeType] {
-        let query = RealmRequests.getObject(MonitoringAreaPurposeType.self)
+        var query = RealmRequests.getObject(MonitoringAreaPurposeType.self)
+        let other = MonitoringAreaPurposeType()
+        other.name = "other"
+        query?.append(other)
         if query != nil {
             return query!
         } else {
@@ -780,6 +783,11 @@ class Reference {
         for each in all where each.name.lowercased() == named.lowercased() {
             return each
         }
+
+        for each in all where each.name.lowercased() == "other" {
+            return each
+        }
+
         return nil
     }
 

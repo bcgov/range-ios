@@ -157,6 +157,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
             optionThreeButton.isEnabled = false
             optionFourButton.isEnabled = false
             optionFiveButton.isEnabled = false
+            textView.isEditable = false
         }
     }
 

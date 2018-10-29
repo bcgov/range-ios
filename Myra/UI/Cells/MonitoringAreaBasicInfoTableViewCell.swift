@@ -46,6 +46,10 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var divider: UIView!
 
+    @IBOutlet weak var purposeButton: UIButton!
+    @IBOutlet weak var healthButton: UIButton!
+    @IBOutlet weak var optionsButton: UIButton!
+
     // MARK: Variables
     var mode: FormMode = .View
     var monitoringArea: MonitoringArea?
@@ -148,13 +152,28 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: Options.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
-            lookup.dismiss(animated: true, completion: nil)
-            if selected, let option = selection {
+        let purposesArray = ma.purpose.split{$0 == ","}.map(String.init)
+        var selectedObjects = [SelectionPopUpObject]()
+        for element in purposesArray {
+            if let pType = Reference.shared.getMonitoringAreaPurposeType(named: element) {
+                selectedObjects.append(SelectionPopUpObject(display: pType.name))
+            }
+        }
+
+        lookup.setupLive(selected: selectedObjects, objects: Options.shared.getMonitoringAreaPurposeLookup()) { (selection) in
+            if let selectedOptions = selection {
+                var selectedOptionsString = ""
+                for selectedOption in selectedOptions {
+                    if selectedOptionsString.isEmpty {
+                        selectedOptionsString = "\(selectedOption.display)"
+                    } else {
+                        selectedOptionsString = "\(selectedOptionsString),\(selectedOption.display)"
+                    }
+                }
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        ma.purpose = option.display
+                        ma.purpose = selectedOptionsString
                     }
                     self.autoFill()
                 } catch _ {
@@ -162,6 +181,24 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                 }
             }
         }
+
+        lookup.parentVC = parent
+
+        parent.showPopUp(vc: lookup, on: sender)
+//        lookup.setup(objects: Options.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
+//            lookup.dismiss(animated: true, completion: nil)
+//            if selected, let option = selection {
+//                do {
+//                    let realm = try Realm()
+//                    try realm.write {
+//                        ma.purpose = option.display
+//                    }
+//                    self.autoFill()
+//                } catch _ {
+//                    fatalError()
+//                }
+//            }
+//        }
     }
 
     @IBAction func rangelandHealthAction(_ sender: UIButton) {
@@ -252,6 +289,13 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputFieldReadOnly(field: transectField, header: transectHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: typeField, header: typeHeader, height: fieldHeight)
             getMyCoordinatesButton.isHidden = true
+            healthButton.isUserInteractionEnabled = false
+            purposeButton.isUserInteractionEnabled = false
+            optionsButton.alpha = 0
+            optionsButton.isUserInteractionEnabled = false
+            purposeDropDown.alpha = 0
+            rangelandHealthDropDown.alpha = 0
+            
         case .Edit:
             styleInputField(field: locationField, header: locationHeader, height: fieldHeight)
             styleInputField(field: rangeLandField, header: rangeLandHeader, height: fieldHeight)

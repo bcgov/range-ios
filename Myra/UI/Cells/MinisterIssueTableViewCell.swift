@@ -96,8 +96,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
     }
 
     @IBAction func pasturesAction(_ sender: UIButton) {
-        guard let i = issue else {return}
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        guard let i = issue, let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
         let pastureNames = Options.shared.getPasturesLookup(rup: rup)

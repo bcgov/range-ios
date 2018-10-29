@@ -28,6 +28,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     @IBOutlet weak var leftFieldButton: UIButton!
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var leftFieldDropDown: UIButton!
+    @IBOutlet weak var optionsButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -143,8 +144,12 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         case .View:
             leftFieldButton.isUserInteractionEnabled = false
             rightFIeldButton.isUserInteractionEnabled = false
-            styleInputReadOnly(input: leftField, height: fieldHeight)
-            styleInputReadOnly(input: rightField, height: fieldHeight)
+            optionsButton.isUserInteractionEnabled = false
+            optionsButton.alpha = 0
+            leftFieldDropDown.isUserInteractionEnabled = false
+            leftFieldDropDown.alpha = 0
+            styleInputField(field:leftField, editable: false, height: fieldHeight)
+            styleInputField(field:rightField, editable: false, height: fieldHeight)
         case .Edit:
             styleInput(input: rightField, height: fieldHeight)
             styleInput(input: leftField, height: fieldHeight)

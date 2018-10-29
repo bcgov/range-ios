@@ -83,6 +83,10 @@ class MonitoringArea: Object, MyraObject {
 
         purpose = ""
 
+        if let p = json["otherPurpose"].string {
+            purpose = p
+        }
+
         for purposeJSON in purposesJSON {
             if let ptype = purposeJSON.1["purposeType"].dictionaryObject, let pName = ptype["name"] as? String {
                 if purpose.isEmpty {
@@ -92,7 +96,6 @@ class MonitoringArea: Object, MyraObject {
                 }
             }
         }
-        
     }
 
     func setRemoteId(id: Int) {
@@ -111,14 +114,19 @@ class MonitoringArea: Object, MyraObject {
         let lo = Double(longitude) ?? 0.0
         var ids: [Int] = [Int]()
         var healthId = 0
+
         if let healthObj = Reference.shared.getMonitoringAreaHealh(named: rangelandHealth) {
             healthId = healthObj.id
         }
 
+        var otherPurpose: String = ""
         let purposesArray = purpose.split{$0 == ","}.map(String.init)
         for element in purposesArray {
             if let pType = Reference.shared.getMonitoringAreaPurposeType(named: element) {
                 ids.append(pType.id)
+                if pType.name.lowercased() == "other" {
+                    otherPurpose = element
+                }
             }
         }
         
@@ -128,7 +136,9 @@ class MonitoringArea: Object, MyraObject {
             "location": location,
             "latitude": la,
             "longitude": lo,
-            "purposeTypeIds": ids
+            "purposeTypeIds": ids,
+            "otherPurpose": otherPurpose
         ]
     }
+
 }

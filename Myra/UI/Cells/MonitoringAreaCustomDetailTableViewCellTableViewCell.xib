@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="66"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ws-eI-NxI">
-                                <rect key="frame" x="744" y="9" width="48" height="48"/>
+                                <rect key="frame" x="744" y="22" width="48" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="pFZ-hN-ORd"/>
                                 </constraints>
@@ -34,7 +33,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VxO-d6-gIk">
-                                <rect key="frame" x="16" y="11" width="723" height="45"/>
+                                <rect key="frame" x="16" y="10.5" width="723" height="45"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o56-fe-Di9">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="45"/>
@@ -52,7 +51,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3h-SB-VFP">
-                                                <rect key="frame" x="334" y="10" width="24" height="24"/>
+                                                <rect key="frame" x="334" y="10.5" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="W3h-SB-VFP" secondAttribute="height" multiplier="1:1" id="Fxi-fX-8wi"/>
                                                     <constraint firstAttribute="height" constant="24" id="eHR-rs-Yox"/>
@@ -143,6 +142,7 @@
                 <outlet property="leftField" destination="yU6-fT-qDQ" id="agv-UW-Tj6"/>
                 <outlet property="leftFieldButton" destination="Ehk-29-esW" id="gSU-YI-HB0"/>
                 <outlet property="leftFieldDropDown" destination="W3h-SB-VFP" id="fkw-uE-eav"/>
+                <outlet property="optionsButton" destination="1Ws-eI-NxI" id="yip-ta-6FD"/>
                 <outlet property="rightFIeldButton" destination="ElC-Pf-I8P" id="Zns-zi-Qjd"/>
                 <outlet property="rightField" destination="N8w-zP-oFk" id="tpL-HP-j7a"/>
             </connections>
@@ -150,7 +150,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="expandicon" width="48" height="48"/>
+        <image name="expandicon" width="4" height="12"/>
         <image name="icons_form_dropdownarrow" width="24" height="24"/>
     </resources>
 </document>

@@ -27,6 +27,8 @@ class SelectionPopUpViewController: UIViewController, Theme {
 
     var headerTxt: String = ""
 
+    var otherText: String = ""
+
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectButton: UIButton!
@@ -62,7 +64,11 @@ class SelectionPopUpViewController: UIViewController, Theme {
     func sendBack() {
         var selected = [SelectionPopUpObject]()
         for i in selectedIndexes {
-            selected.append(objects[i])
+            if objects[i].display.lowercased() == "other", !otherText.isEmpty {
+                selected.append(SelectionPopUpObject(display: otherText))
+            } else {
+                 selected.append(objects[i])
+            }
         }
         if multiSelect, let callback = multiCompletion {
             return callback(true, selected)
@@ -250,14 +256,44 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
                 guard let index = selectedIndexes.index(of: indexPath.row) else {return}
                 selectedIndexes.remove(at: index)
             } else {
-                // select
-                selectedIndexes.append(indexPath.row)
+
+                if objects[indexPath.row].display.lowercased() != "other" {
+                    // select
+                    selectedIndexes.append(indexPath.row)
+                } else {
+                    showOtherOption { (customText) in
+                        if !customText.isEmpty {
+                            self.otherText = customText
+                            self.selectedIndexes.append(indexPath.row)
+                            if self.liveMultiSelect {
+                                self.sendBack()
+                            }
+                        } else {
+                            self.otherText = ""
+                        }
+                    }
+                }
             }
             self.tableView.reloadData()
         }
 
         if liveMultiSelect {
             sendBack()
+        }
+    }
+
+    func showOtherOption(completion: @escaping(_ text: String) -> Void) {
+        guard let parent = self.parentVC else {return}
+        // Prompt input
+        let vm = ViewManager()
+        let textEntry = vm.textEntry
+        parent.dismissPopOver()
+        textEntry.setup(on: parent, header: "Other") { (accepted, value) in
+            if accepted {
+               return completion(value)
+            } else {
+                return completion("")
+            }
         }
     }
 

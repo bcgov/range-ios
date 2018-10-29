@@ -45,6 +45,12 @@ class PastureTableViewCell: BaseFormCell {
     @IBOutlet weak var switchLabel: UILabel!
     @IBOutlet weak var ministerSwitch: UISwitch!
 
+    @IBOutlet weak var pastureNameButton: UIButton!
+    @IBOutlet weak var pastureNameEditButton: UIButton!
+    // Remove this button
+    @IBOutlet weak var pastureNameEdit: UIButton!
+
+
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -347,6 +353,9 @@ class PastureTableViewCell: BaseFormCell {
             styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
             addPlantCommunityButton.alpha = 0
             ministerSwitch.isEnabled = false
+            pastureNameButton.isEnabled = false
+            pastureNameEditButton.isEnabled = false
+            pastureNameEdit.isEnabled = false
 //            addPlantCommunityButtonHeight.constant = 0
         case .Edit:
             styleInputField(field: aumsField, header: aumHeader, height: fieldHeight)

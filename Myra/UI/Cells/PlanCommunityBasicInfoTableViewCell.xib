@@ -299,13 +299,15 @@
                 <outlet property="aspectHeader" destination="vIp-ev-fiU" id="6q3-Ru-jlN"/>
                 <outlet property="communityURLField" destination="KNz-7P-aps" id="A1Y-r2-ilk"/>
                 <outlet property="communityURLHeader" destination="nBg-oL-Z3V" id="4xq-Pt-ei8"/>
+                <outlet property="elevationButton" destination="KON-c3-Vnh" id="SfR-Pm-INi"/>
                 <outlet property="elevationDropdown" destination="WR3-tP-7D0" id="sRv-9m-7Eq"/>
                 <outlet property="elevationField" destination="ztd-Js-xHa" id="j71-uf-pdb"/>
                 <outlet property="elevationHeader" destination="58I-OZ-7FB" id="hbV-u5-llK"/>
                 <outlet property="inputFieldHeight" destination="ary-jv-Ixa" id="zaQ-kx-NmD"/>
                 <outlet property="plantCommunityField" destination="d4b-jC-eGC" id="wPs-NY-yac"/>
                 <outlet property="plantCommunityNotesHeader" destination="pqh-9D-16x" id="3LY-Ha-qxh"/>
-                <outlet property="purposeDropdown" destination="z7n-gk-oRx" id="61V-jk-7jN"/>
+                <outlet property="purposeButton" destination="XXb-jK-nM0" id="QSY-cW-VeT"/>
+                <outlet property="purposeDropdown" destination="z7n-gk-oRx" id="zDs-Qe-Wsj"/>
                 <outlet property="purposeOfActionHeader" destination="s7E-lA-im8" id="sYX-iy-1RO"/>
                 <outlet property="purposeOfActionsField" destination="Dwf-bL-6ut" id="8w3-mb-kZg"/>
             </connections>

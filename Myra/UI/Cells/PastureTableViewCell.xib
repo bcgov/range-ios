@@ -365,6 +365,9 @@
                 <outlet property="graceDaysHeader" destination="4Rd-em-TrO" id="hNu-yJ-eCU"/>
                 <outlet property="ministerSwitch" destination="Yj1-Ap-FmD" id="YyE-zU-RvJ"/>
                 <outlet property="options" destination="1yy-6Z-4n7" id="wRd-1D-lKq"/>
+                <outlet property="pastureNameButton" destination="Al9-7x-BGA" id="KOH-EG-BeS"/>
+                <outlet property="pastureNameEdit" destination="QpF-28-cfD" id="UbK-LP-FH7"/>
+                <outlet property="pastureNameEditButton" destination="w5n-SP-CTY" id="rz0-Aw-Dhz"/>
                 <outlet property="pastureNameHeader" destination="Lmo-yi-ffD" id="bmP-Dn-x26"/>
                 <outlet property="pastureNameLabel" destination="E6P-6l-YOY" id="QYI-5O-1I1"/>
                 <outlet property="pastureNotesHeader" destination="zFx-h9-LGF" id="yiC-qO-Tkt"/>

@@ -31,7 +31,9 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var inputFieldHeight: NSLayoutConstraint!
 
     @IBOutlet weak var elevationDropdown: UIButton!
+    @IBOutlet weak var elevationButton: UIButton!
     @IBOutlet weak var purposeDropdown: UIButton!
+    @IBOutlet weak var purposeButton: UIButton!
     
     // MARK: Variables
     var mode: FormMode = .View
@@ -47,6 +49,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Outlet Actions
+    /*
     @IBAction func aspectAction(_ sender: UIButton) {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
@@ -67,6 +70,8 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             }
         }
     }
+    */
+    
     @IBAction func aspectFieldChanged(_ sender: UITextField) {
         guard let pc = self.plantCommunity, let text = aspectField.text else {return}
         do {
@@ -187,6 +192,12 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputFieldReadOnly(field: communityURLField, header: communityURLHeader, height: inputFieldHeight)
             styleInputFieldReadOnly(field: purposeOfActionsField, header: purposeOfActionHeader, height: inputFieldHeight)
             styleTextviewInputFieldReadOnly(field: plantCommunityField, header: plantCommunityNotesHeader)
+            elevationButton.isUserInteractionEnabled = false
+            elevationDropdown.isUserInteractionEnabled = false
+            purposeButton.isUserInteractionEnabled = false
+            purposeDropdown.isUserInteractionEnabled = false
+            purposeDropdown.alpha = 0
+            elevationDropdown.alpha = 0
         case .Edit:
             styleInputField(field: aspectField, header: aspectHeader, height: inputFieldHeight)
             styleInputField(field: elevationField, header: elevationHeader, height: inputFieldHeight)

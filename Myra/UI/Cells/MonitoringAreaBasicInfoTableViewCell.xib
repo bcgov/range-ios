@@ -462,6 +462,7 @@
                 <outlet property="divider" destination="7Fc-lq-83N" id="deD-sP-qJ0"/>
                 <outlet property="fieldHeight" destination="wKV-S9-wzh" id="0AD-VK-0d0"/>
                 <outlet property="getMyCoordinatesButton" destination="IiE-JK-EHc" id="7t8-s9-UVV"/>
+                <outlet property="healthButton" destination="dLN-S6-UC3" id="75b-cJ-gSh"/>
                 <outlet property="latitudeField" destination="TFD-Fc-7H9" id="m8O-Dg-4eh"/>
                 <outlet property="latitudeHeader" destination="woc-hI-5yb" id="wUn-AR-Xym"/>
                 <outlet property="locationField" destination="6O7-d4-6ZX" id="4xo-8r-eEj"/>
@@ -470,6 +471,8 @@
                 <outlet property="longitudeHeader" destination="Gfj-Lx-Pfb" id="RCC-L7-gE1"/>
                 <outlet property="nameHeader" destination="Rak-jM-qQ2" id="Vyw-2E-AZI"/>
                 <outlet property="nameLabel" destination="6Sq-Ln-Wop" id="EXp-nV-5Aa"/>
+                <outlet property="optionsButton" destination="lvb-sT-Lre" id="JBW-l5-eCo"/>
+                <outlet property="purposeButton" destination="m3w-p5-qaT" id="r3G-n5-qmx"/>
                 <outlet property="purposeDropDown" destination="fET-9S-Lnq" id="1we-8H-xGj"/>
                 <outlet property="rangeLandField" destination="q8t-UT-k4Q" id="2ha-MF-KEc"/>
                 <outlet property="rangeLandHeader" destination="mgf-on-MmB" id="GaD-2k-KVo"/>
