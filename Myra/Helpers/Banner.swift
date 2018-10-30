@@ -16,11 +16,26 @@ class Banner {
     var showing = false
     private init() {}
 
+
+
+    // We don't want to bomard user with "Authentication required" message.
+    // Show it only once per session
+    var manualSyncRequiredShown = false
+
     func show(message: String) {
         if !message.isEmpty {
             /* Avoid repeating the same messsage */
             if !messages.contains(message) {
-                messages.append(message)
+                // As mentioned above, we only show this message once per session
+                // TODO: Actually move this check to AutoSync
+                if message == Messages.AutoSync.manualSyncRequired {
+                    if !manualSyncRequiredShown {
+                        messages.append(message)
+                    }
+                    manualSyncRequiredShown = true
+                } else {
+                     messages.append(message)
+                }
             }
             if !showing {
                 recursiveShow()

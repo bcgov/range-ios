@@ -81,17 +81,16 @@ class AutoSync {
             return
         }
 
-//        if !authServices.isAuthenticated() {
-//            print("But not authenticated.")
-//            Banner.shared.show(message: "Please Synchronize manually: Authentication is required")
-//            return
-//        }
+        if !authServices.isAuthenticated() {
+            print("But not authenticated.")
+            Banner.shared.show(message: Messages.AutoSync.manualSyncRequired)
+            return
+        }
 
-        // great, if we're here then there is something to sync!
+        // great, if we're here then there is something to sync! ( and we can sync)
         self.isSynchronizing = true
         DispatchQueue.global(qos: .background).async {
             self.lockScreenForSync()
-            var hadFails: Bool = false
             var syncedItems: [SyncedItem] = [SyncedItem]()
 
             let dispatchGroup = DispatchGroup()

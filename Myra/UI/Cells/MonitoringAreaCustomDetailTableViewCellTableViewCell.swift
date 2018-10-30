@@ -42,8 +42,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         var options = Options.shared.getIndicatorPlantLookup()
         lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
-            if accepted, let option = selection {
-                let species = Reference.shared.getIndicatorPlant(named: option.display)
+            if accepted, let option = selection, let species = Reference.shared.getIndicatorPlant(named: option.display) {
                 plant.setType(string: option.display)
                 switch section {
                 case .RangeReadiness:

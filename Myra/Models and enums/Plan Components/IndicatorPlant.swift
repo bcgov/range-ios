@@ -141,13 +141,27 @@ class IndicatorPlant: Object, MyraObject {
         if let plantSpecies = json["plantSpecies"].dictionaryObject, let plantSpeciesName = plantSpecies["name"] as? String {
             self.type = plantSpeciesName
         }
+
+        if let name = json["name"].string {
+            if !name.isEmpty {
+                self.type = name
+            }
+        }
     }
 
     func toDictionary() -> [String : Any] {
-        let species = Reference.shared.getIndicatorPlant(named: type)
+        var speciesId = 0
+        var otherSpecies = ""
+        if let species = Reference.shared.getIndicatorPlant(named: type) {
+            speciesId = species.id
+            if species.name.lowercased() == "other" {
+                otherSpecies = type
+            }
+        }
 
         return [
-            "plantSpeciesId": species.id,
+            "plantSpeciesId": speciesId,
+            "name": otherSpecies,
             "criteria": criteria.lowercased(),
             "value": number,
         ]

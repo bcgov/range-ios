@@ -105,7 +105,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             selected.append(SelectionPopUpObject(display: pasture.name, value: pasture.name))
         }
         
-        lookup.setupLive(header: "Select Pastures",selected: selected, objects: pastureNames) { (selections) in
+        lookup.setupLive(header: "Select Pastures", onVC: grandParent, onButton: sender, selected: selected, objects: pastureNames) { (selections) in
             if let selected = selections  {
                 i.clearPastures()
                 for selection in selected {
@@ -116,7 +116,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 self.autofill()
             }
         }
-        grandParent.showPopUp(vc: lookup, on: sender)
     }
 
     @IBAction func addActionAction(_ sender: UIButton) {
@@ -168,7 +167,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setupSimple(objects: Options.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setup(header: "", objects: Options.shared.getMinistersIssueTypesOptions(), onVC: grandParent, onLayer: issueTypeValue.layer, inView: containerView) { (selected, selection) in
             grandParent.dismissPopOver()
             if selected, let option = selection {
                 if let i = self.issue {
@@ -178,7 +177,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 self.updateTableHeight(scrollToBottom: false)
             }
         }
-        grandParent.showPopUp(vc: lookup, on: issueTypeValue.layer, inView: containerView)
     }
 
     func autofill() {

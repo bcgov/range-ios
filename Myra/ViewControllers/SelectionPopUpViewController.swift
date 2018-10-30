@@ -86,13 +86,25 @@ class SelectionPopUpViewController: UIViewController, Theme {
         setupTable()
     }
 
-    func setup(header: String? = "", objects: [SelectionPopUpObject], onVC: BaseViewController, onButton: UIButton, completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
+    func setup(header: String? = "", objects: [SelectionPopUpObject], onVC: BaseViewController, onButton: UIButton? = nil, onLayer: CALayer? = nil, inView: UIView? = nil, completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
         self.completion = completion
         self.objects = objects
         self.headerTxt = header ?? ""
         self.parentVC = onVC
         setupTable()
-        display(on: onButton)
+        if let button = onButton {
+            display(on: button)
+        } else if let layer = onLayer, let container = inView {
+            display(on: layer, in: container)
+        }
+
+    }
+
+    func display(on layer: CALayer, in view: UIView) {
+        guard let parent = self.parentVC else {
+            return
+        }
+        parent.showPopUp(vc: self, on: layer, inView: view)
     }
 
     func display(on: UIButton) {
@@ -118,7 +130,7 @@ class SelectionPopUpViewController: UIViewController, Theme {
         setupTable()
     }
 
-    func setupLive(header: String? = "", selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ result: [SelectionPopUpObject]?) -> Void) {
+    func setupLive(header: String? = "",onVC: BaseViewController, onButton: UIButton, selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ result: [SelectionPopUpObject]?) -> Void) {
         self.liveMultiSelect = true
         self.liveMultiCompletion = completion
         self.objects = objects
@@ -131,6 +143,8 @@ class SelectionPopUpViewController: UIViewController, Theme {
         }
         self.headerTxt = header ?? ""
         setupTable()
+        self.parentVC = onVC
+        onVC.showPopUp(vc: self, on: onButton)
     }
 
     func getEstimatedHeight() -> Int {

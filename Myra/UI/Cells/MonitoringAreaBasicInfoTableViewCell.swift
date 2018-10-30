@@ -154,13 +154,19 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
 
         let purposesArray = ma.purpose.split{$0 == ","}.map(String.init)
         var selectedObjects = [SelectionPopUpObject]()
+        var otherText = ""
         for element in purposesArray {
             if let pType = Reference.shared.getMonitoringAreaPurposeType(named: element) {
                 selectedObjects.append(SelectionPopUpObject(display: pType.name))
+                if pType.name.lowercased() == "other" {
+                    otherText = element
+                }
             }
         }
 
-        lookup.setupLive(selected: selectedObjects, objects: Options.shared.getMonitoringAreaPurposeLookup()) { (selection) in
+        lookup.otherText = otherText
+
+        lookup.setupLive(onVC: parent, onButton: sender, selected: selectedObjects, objects: Options.shared.getMonitoringAreaPurposeLookup()) { (selection) in
             if let selectedOptions = selection {
                 var selectedOptionsString = ""
                 for selectedOption in selectedOptions {
@@ -182,9 +188,9 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             }
         }
 
-        lookup.parentVC = parent
-
-        parent.showPopUp(vc: lookup, on: sender)
+//        lookup.parentVC = parent
+//
+//        parent.showPopUp(vc: lookup, on: sender)
 //        lookup.setup(objects: Options.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
 //            if selected, let option = selection {
@@ -275,7 +281,22 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         self.latitudeField.text = ma.latitude
         self.longitudeField.text = ma.longitude
         self.transectField.text = ma.transectAzimuth
-        self.typeField.text = ma.purpose
+//        self.typeField.text = ma.purpose
+
+        // Doing this to add spaces between commas.
+        // We don't store with the spaces because we need to break the names
+        // in order to find and send the ids to backend. white spaces would make it tricky
+        var newString = ""
+        let purposesArray = ma.purpose.split{$0 == ","}.map(String.init)
+        for element in purposesArray {
+            if newString.isEmpty {
+                newString = element
+            } else {
+                newString = "\(newString), \(element)"
+            }
+        }
+
+        self.typeField.text = newString.replacingLastOccurrenceOfString(", ", with: " and ")
     }
 
     // MARK: Style

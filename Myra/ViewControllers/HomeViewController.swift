@@ -50,6 +50,9 @@ class HomeViewController: BaseViewController {
     var lastTourTargetAlpha: CGFloat = 1
     var presentedAfterLogin: Bool = false
 
+    var lastSyncLabelTimer = Timer()
+    var lastSyncTimerActive = false
+
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
 
@@ -209,17 +212,16 @@ class HomeViewController: BaseViewController {
 
 //        syncButtonLabel.alpha = 1
         blockSync = true
+        showSyncMessage(text: "Connecting...", after: 0)
         if authServices.isAuthenticated() {
             playSyncButtonAnimation()
-            Banner.shared.show(message: "Connecting...")
-//            syncButtonLabel.text = "Connecting..."
             animateIt()
             showSyncMessage(text: "Connection taking longer than expected...", after: 5)
             showSyncMessage(text: "Your connection is very unstable...", after: 10)
             DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
                 self.stopSyncButtonAnimation()
-
-                if self.blockSync == true{
+                if self.blockSync == true {
+                    self.showSyncMessage(text: "Cannot Sync at this time.", after: 0)
                     self.unstableConnection = true
                     sender.isUserInteractionEnabled = true
                 }
@@ -323,12 +325,21 @@ class HomeViewController: BaseViewController {
         style()
         if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
             lastSyncLabel.text = last.timeSince()
+            if !lastSyncTimerActive {
+                lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
+            }
         } else {
             authenticateIfRequred()
         }
         setUpTable()
         filterByAll()
         beginChangeListener()
+    }
+
+    @objc func updateLastSyncLabel() {
+        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
+            lastSyncLabel.text = last.timeSince()
+        }
     }
 
     func loadRUPs() {
@@ -505,14 +516,14 @@ class HomeViewController: BaseViewController {
     // MARK: Sync
     func showSyncMessage(text: String, after: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: {
-            Banner.shared.show(message: text)
+            if self.blockSync {
+                Banner.shared.show(message: text)
+            }
         })
     }
 
     override func onAuthenticationSuccess() {
-        //        print(APIManager.headers())
         if unstableConnection {
-            Banner.shared.show(message: "Connections is not stable for enough for a full sync")
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
                 self.blockSync = false
                 self.syncButton.isUserInteractionEnabled = true
@@ -520,9 +531,10 @@ class HomeViewController: BaseViewController {
                 self.animateIt()
             })
             return
+        } else {
+            blockSync = false
+            synchronize()
         }
-        blockSync = false
-        synchronize()
     }
 
     override func onAuthenticationFail() {

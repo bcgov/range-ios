@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct Messages {
+    struct AutoSync {
+        static let manualSyncRequired = "Please Synchronize manually: Authentication is required"
+    }
+}
+
 struct PlaceHolders {
 
     struct Actions {

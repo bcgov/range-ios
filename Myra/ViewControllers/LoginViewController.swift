@@ -35,6 +35,7 @@ class LoginViewController: BaseViewController {
             if synced, let parent = self.parentRef {
                 parent.removeCurrentVCAndReload()
             } else {
+                self.authServices.logout()
                 self.loginButton.isUserInteractionEnabled = true
             }
         }

@@ -189,8 +189,8 @@ class Reference {
     func getMonitoringAreaPurposeType() -> [MonitoringAreaPurposeType] {
         var query = RealmRequests.getObject(MonitoringAreaPurposeType.self)
         let other = MonitoringAreaPurposeType()
-        other.name = "other"
-        query?.append(other)
+//        other.name = "other"
+//        query?.append(other)
         if query != nil {
             return query!
         } else {
@@ -727,12 +727,17 @@ class Reference {
         return result
     }
 
-    func getIndicatorPlant(named: String) -> PlantSpecies {
+    func getIndicatorPlant(named: String) -> PlantSpecies? {
         let all = getPlantSpecies()
         for plant in all where plant.name == named {
             return plant
         }
-        return PlantSpecies()
+
+        for plant in all where plant.name.lowercased() == "other" {
+            return plant
+        }
+
+        return nil
     }
 
     func getPlantCommunitType(named: String) -> PlantCommunityType? {
