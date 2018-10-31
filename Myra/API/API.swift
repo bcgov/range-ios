@@ -366,13 +366,25 @@ class API {
                             if uploadedMinistersIssues {
                                 API.upload(invasivePlantsIn: refetchPlan, completion: { (uploadedInvasivePlants) in
                                     if uploadedInvasivePlants {
-                                        API.completeUpload(for: refetchPlan, completion: { (completed) in
-                                            if completed {
-                                                API.refetch(plan: refetchPlan, completion: { (done) in
-                                                    return completion(done)
+                                        API.upload(managementConsiderations: refetchPlan, completion: { (uploadedManagementConsideration) in
+                                            if uploadedManagementConsideration {
+                                                API.upload(additionalRequirements: refetchPlan, completion: { (uploadedAdditionalRequirements) in
+                                                    if uploadedAdditionalRequirements {
+                                                        API.completeUpload(for: refetchPlan, completion: { (completed) in
+                                                            if completed {
+                                                                API.refetch(plan: refetchPlan, completion: { (done) in
+                                                                    return completion(done)
+                                                                })
+                                                            } else {
+                                                                return completion(false)
+                                                            }
+                                                        })
+                                                    } else {
+                                                         return completion(false)
+                                                    }
                                                 })
                                             } else {
-                                                return completion(false)
+                                                 return completion(false)
                                             }
                                         })
                                     } else {
@@ -424,6 +436,94 @@ class API {
             }
         } else {
             return completion(true)
+        }
+    }
+    // MARK: Management Considerations
+    static func upload(managementConsideration: ManagementConsideration, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
+        let pathKey = ":planId"
+        let path = Constants.API.managementConsideration.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+        var params = managementConsideration.toDictionary()
+        let localId = managementConsideration.localId
+        API.post(endpoint: endpoint, params: params) { (response) in
+            guard let response = response, let remoteId = response["id"] as? Int, let refetchedIObjects = RealmManager.shared.managementConsideration(withLocalId: localId) else {
+                return completion(false)
+            }
+            refetchedIObjects.setRemoteId(id: remoteId)
+            return completion(true)
+        }
+    }
+
+    static func upload(managementConsiderations plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+        guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
+        let group = DispatchGroup()
+        var hadFails = false
+        for managementConsideration in refetchedPlan.managementConsiderations {
+            let localId = managementConsideration.localId
+            group.enter()
+            guard let myManagementConsideration =  RealmManager.shared.managementConsideration(withLocalId: localId) else {
+                hadFails = true
+                group.leave()
+                return
+            }
+
+            upload(managementConsideration: myManagementConsideration, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
+                if !success {
+                    Banner.shared.show(message: "ERROR while uploading a Management Consideration")
+                    hadFails = true
+                }
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            return completion(!hadFails)
+        }
+    }
+    // MARK: Additional Requirements
+    static func upload(additionalRequirement: AdditionalRequirement, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
+        let pathKey = ":planId"
+        let path = Constants.API.additionalRequirement.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+            return
+        }
+        var params = additionalRequirement.toDictionary()
+        let localId = additionalRequirement.localId
+        API.post(endpoint: endpoint, params: params) { (response) in
+            guard let response = response, let remoteId = response["id"] as? Int, let refetchedIObjects = RealmManager.shared.additionalRequirement(withLocalId: localId) else {
+                return completion(false)
+            }
+            refetchedIObjects.setRemoteId(id: remoteId)
+            return completion(true)
+        }
+    }
+
+    static func upload(additionalRequirements plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+        guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
+        let group = DispatchGroup()
+        var hadFails = false
+        for additionalRequirement in refetchedPlan.additionalRequirements {
+            let localId = additionalRequirement.localId
+            group.enter()
+            guard let myAdditionalRequirement =  RealmManager.shared.additionalRequirement(withLocalId: localId) else {
+                hadFails = true
+                group.leave()
+                return
+            }
+
+            upload(additionalRequirement: myAdditionalRequirement, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
+                if !success {
+                    Banner.shared.show(message: "ERROR while uploading an Additional Consideration")
+                    hadFails = true
+                }
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            return completion(!hadFails)
         }
     }
     // MARK: Pasture

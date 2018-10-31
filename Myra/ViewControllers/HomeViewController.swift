@@ -112,6 +112,7 @@ class HomeViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.endChangeListener()
+        self.lastSyncLabelTimer = Timer()
     }
 
     override func viewDidLayoutSubviews() {
@@ -326,7 +327,7 @@ class HomeViewController: BaseViewController {
         if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
             lastSyncLabel.text = last.timeSince()
             if !lastSyncTimerActive {
-                lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
+                lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
             }
         } else {
             authenticateIfRequred()

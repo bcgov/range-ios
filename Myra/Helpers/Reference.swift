@@ -39,6 +39,8 @@ class Reference {
         reference.append(contentsOf: getPlantCommunityType())
         reference.append(contentsOf: getMonitoringAreaHealth())
         reference.append(contentsOf: getMonitoringAreaPurposeType())
+        reference.append(contentsOf: getAdditionalRequirementCategory())
+        reference.append(contentsOf: getManagegementConsiderationType())
         return reference
     }
 
@@ -187,14 +189,32 @@ class Reference {
     }
 
     func getMonitoringAreaPurposeType() -> [MonitoringAreaPurposeType] {
-        var query = RealmRequests.getObject(MonitoringAreaPurposeType.self)
-        let other = MonitoringAreaPurposeType()
+        let query = RealmRequests.getObject(MonitoringAreaPurposeType.self)
+//        let other = MonitoringAreaPurposeType()
 //        other.name = "other"
 //        query?.append(other)
         if query != nil {
             return query!
         } else {
             return [MonitoringAreaPurposeType]()
+        }
+    }
+
+    func getManagegementConsiderationType() -> [ManagegementConsiderationType] {
+        let query = RealmRequests.getObject(ManagegementConsiderationType.self)
+        if query != nil {
+            return query!
+        } else {
+            return [ManagegementConsiderationType]()
+        }
+    }
+
+    func getAdditionalRequirementCategory() -> [AdditionalRequirementCategory] {
+        let query = RealmRequests.getObject(AdditionalRequirementCategory.self)
+        if query != nil {
+            return query!
+        } else {
+            return [AdditionalRequirementCategory]()
         }
     }
 
@@ -402,7 +422,6 @@ class Reference {
 
 
     // MARK: Handling reference JSON
-
     func handleReference(json: JSON) -> [Object] {
         var referenceObjects = [Object]()
         referenceObjects.append(contentsOf: handleLiveStockType(json: json["LIVESTOCK_TYPE"]))
@@ -422,6 +441,8 @@ class Reference {
         referenceObjects.append(contentsOf: handlePlantCommunityActionType(json: json["PLANT_COMMUNITY_ACTION_TYPE"]))
         referenceObjects.append(contentsOf: handleMonitoringAreaHealth(json: json["MONITORING_AREA_HEALTH"]))
         referenceObjects.append(contentsOf: handleMonitoringAreaPurposeType(json: json["MONITORING_AREA_PURPOSE_TYPE"]))
+        referenceObjects.append(contentsOf: handleManagegementConsiderationType(json: json["MANAGEMENT_CONSIDERATION_TYPE"]))
+        referenceObjects.append(contentsOf: handleAdditionalRequirementCategory(json: json["ADDITIONAL_REQUIREMENT_CATEGORY"]))
         return referenceObjects
     }
 
@@ -727,6 +748,42 @@ class Reference {
         return result
     }
 
+    func handleAdditionalRequirementCategory(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = AdditionalRequirementCategory()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
+    func handleManagegementConsiderationType(json: JSON) -> [Object] {
+        var result = [Object]()
+        for (_,item) in json {
+            let obj = ManagegementConsiderationType()
+            if let name = item["name"].string {
+                obj.name = name
+            }
+            if let id = item["id"].int {
+                obj.id = id
+            }
+            if let active = item["active"].bool {
+                obj.active = active
+            }
+            result.append(obj)
+        }
+        return result
+    }
+
     func getIndicatorPlant(named: String) -> PlantSpecies? {
         let all = getPlantSpecies()
         for plant in all where plant.name == named {
@@ -785,6 +842,32 @@ class Reference {
 
     func getMonitoringAreaPurposeType(named: String) -> MonitoringAreaPurposeType? {
         let all = getMonitoringAreaPurposeType()
+        for each in all where each.name.lowercased() == named.lowercased() {
+            return each
+        }
+
+        for each in all where each.name.lowercased() == "other" {
+            return each
+        }
+
+        return nil
+    }
+
+    func getAdditionalRequirementCategory(named: String) -> AdditionalRequirementCategory? {
+        let all = getAdditionalRequirementCategory()
+        for each in all where each.name.lowercased() == named.lowercased() {
+            return each
+        }
+
+        for each in all where each.name.lowercased() == "other" {
+            return each
+        }
+
+        return nil
+    }
+
+    func getManagementConsideration(named: String) -> ManagegementConsiderationType? {
+        let all = getManagegementConsiderationType()
         for each in all where each.name.lowercased() == named.lowercased() {
             return each
         }

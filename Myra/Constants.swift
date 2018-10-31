@@ -32,6 +32,8 @@ struct Constants {
         static let schedulePath = "plan/:id/schedule"
         static let issuePath = "plan/:id/issue"
         static let actionPath = "plan/:planId?/issue/:issueId?/action"
+        static let additionalRequirement = "plan/:planId/additional-requirement"
+        static let managementConsideration = "plan/:planId/management-consideration"
     }
     
     struct SSO {

@@ -28,6 +28,7 @@ class SelectionPopUpViewController: UIViewController, Theme {
     var headerTxt: String = ""
 
     var otherText: String = ""
+    var otherEnabled: Bool = true
 
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -86,7 +87,7 @@ class SelectionPopUpViewController: UIViewController, Theme {
         setupTable()
     }
 
-    func setup(header: String? = "", objects: [SelectionPopUpObject], onVC: BaseViewController, onButton: UIButton? = nil, onLayer: CALayer? = nil, inView: UIView? = nil, completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
+    func setup(header: String? = "", objects: [SelectionPopUpObject], onVC: BaseViewController, onButton: UIButton? = nil, onLayer: CALayer? = nil, inView: UIView? = nil, otherEnabled: Bool? = true ,completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
         self.completion = completion
         self.objects = objects
         self.headerTxt = header ?? ""
@@ -96,6 +97,10 @@ class SelectionPopUpViewController: UIViewController, Theme {
             display(on: button)
         } else if let layer = onLayer, let container = inView {
             display(on: layer, in: container)
+        }
+
+        if let enabledOther = otherEnabled, !enabledOther {
+            self.otherEnabled = enabledOther
         }
 
     }
@@ -248,7 +253,7 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
 
         if !multiSelect && !liveMultiSelect {
             guard let callback = completion else {return}
-            if let parent = self.parentVC, objects[indexPath.row].display.lowercased() == "other" {
+            if let parent = self.parentVC, objects[indexPath.row].display.lowercased() == "other", otherEnabled {
                 // Prompt input
                 let vm = ViewManager()
                 let textEntry = vm.textEntry
@@ -271,7 +276,7 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
                 selectedIndexes.remove(at: index)
             } else {
 
-                if objects[indexPath.row].display.lowercased() != "other" {
+                if objects[indexPath.row].display.lowercased() != "other", otherEnabled {
                     // select
                     selectedIndexes.append(indexPath.row)
                 } else {

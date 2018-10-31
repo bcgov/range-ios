@@ -130,21 +130,19 @@ class Options {
 
     func getManagementConsiderationLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Option-1"))
-        returnArray.append(SelectionPopUpObject(display: "Option-2"))
-        returnArray.append(SelectionPopUpObject(display: "Option-3"))
-        returnArray.append(SelectionPopUpObject(display: "Option-4"))
-        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        let objects = Reference.shared.getManagegementConsiderationType()
+        for object in objects {
+             returnArray.append(SelectionPopUpObject(display: object.name))
+        }
         return returnArray
     }
 
     func getAdditionalRequirementLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Option-1"))
-        returnArray.append(SelectionPopUpObject(display: "Option-2"))
-        returnArray.append(SelectionPopUpObject(display: "Option-3"))
-        returnArray.append(SelectionPopUpObject(display: "Option-4"))
-        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        let objects = Reference.shared.getAdditionalRequirementCategory()
+        for object in objects {
+            returnArray.append(SelectionPopUpObject(display: object.name))
+        }
         return returnArray
     }
 }

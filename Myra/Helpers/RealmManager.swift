@@ -223,4 +223,18 @@ class RealmManager {
         }
         return agreement
     }
+
+    func managementConsideration(withLocalId localId: String) -> ManagementConsideration? {
+        guard let objects = try? Realm().objects(ManagementConsideration.self).filter("localId = %@", localId), let object = objects.first else {
+            return nil
+        }
+        return object
+    }
+
+    func additionalRequirement(withLocalId localId: String) -> AdditionalRequirement? {
+        guard let objects = try? Realm().objects(AdditionalRequirement.self).filter("localId = %@", localId), let object = objects.first else {
+            return nil
+        }
+        return object
+    }
 }

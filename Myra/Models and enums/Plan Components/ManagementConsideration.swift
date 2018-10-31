@@ -53,8 +53,46 @@ class ManagementConsideration: Object {
         return new
     }
 
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let considerationTypeJSON = json["considerationType"].dictionaryObject, let considerationTypeName = considerationTypeJSON["name"] as? String {
+            self.consideration = considerationTypeName
+        }
+
+        if let detailValue = json["detail"].string {
+            self.detail = detailValue
+        }
+
+        if let urlValue = json["url"].string {
+            self.url = urlValue
+        }
+    }
+
     func toDictionary() -> [String : Any] {
-        return [String:Any]()
+        var typeId = 0
+        if let considerationType = Reference.shared.getManagementConsideration(named: consideration) {
+            typeId = considerationType.id
+        }
+        return [
+            "considerationTypeId":typeId,
+            "url": self.url,
+            "detail": self.detail
+        ]
     }
 
 }

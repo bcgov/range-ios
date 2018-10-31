@@ -62,8 +62,43 @@ class AdditionalRequirement: Object {
         return new
     }
 
-    func toDictionary() -> [String : Any] {
-        return [String:Any]()
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+        if let categoryJSON = json["category"].dictionaryObject, let categoryName = categoryJSON["name"] as? String {
+            self.category = categoryName
+        }
+        if let detailValue = json["detail"].string {
+            self.detail = detailValue
+        }
+
+        if let urlValue = json["url"].string {
+            self.url = urlValue
+        }
+    }
+    
+    func toDictionary() -> [String : Any] {
+        var typeId = 0
+        if let considerationType = Reference.shared.getAdditionalRequirementCategory(named: category) {
+            typeId = considerationType.id
+        }
+        return [
+            "categoryId":typeId,
+            "url": self.url,
+            "detail": self.detail
+        ]
+    }
 }

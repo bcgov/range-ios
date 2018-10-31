@@ -162,6 +162,17 @@ class RUP: Object, MyraObject {
         let invasiveCheckList = json["invasivePlantChecklist"]
         self.invasivePlants.append(InvasivePlants(json: invasiveCheckList))
         //        RealmRequests.saveObject(object: self)
+
+        let additionalRequirements = json["additionalRequirements"]
+        for element in additionalRequirements {
+            self.additionalRequirements.append(AdditionalRequirement(json: element.1))
+        }
+
+        let managementConsiderations = json["managementConsiderations"]
+        for element in managementConsiderations {
+            self.managementConsiderations.append(ManagementConsideration(json: element.1))
+        }
+
     }
 
     func setFrom(agreement: Agreement) {
