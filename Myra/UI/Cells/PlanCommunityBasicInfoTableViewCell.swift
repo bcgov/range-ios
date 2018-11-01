@@ -193,6 +193,9 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         plantCommunityField.text = pc.notes
         communityURLField.text = pc.communityURL
         purposeOfActionsField.text = pc.purposeOfAction
+        if pc.purposeOfAction.lowercased() == "clear" {
+            purposeOfActionsField.text = ""
+        }
         approvedByMinisterSwitch.isOn = pc.approvedByMinister
         if self.plantCommunityField.text.isEmpty {
             switch mode {
@@ -206,6 +209,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
 
     // MARK: Style
     func style() {
+        styleFieldHeader(label: approvedByMinisterHeader)
         switch mode {
         case .View:
             styleInputFieldReadOnly(field: aspectField, header: aspectHeader, height: inputFieldHeight)

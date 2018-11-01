@@ -28,7 +28,7 @@ class PlantCommunity: Object, MyraObject {
     @objc dynamic var elevation: String = ""
     @objc dynamic var notes: String = ""
     @objc dynamic var communityURL: String = ""
-    @objc dynamic var purposeOfAction: String = "none"
+    @objc dynamic var purposeOfAction: String = "Clear"
 
     @objc dynamic var readinessDay: Int = -1
     @objc dynamic var readinessMonth: Int = -1
@@ -55,7 +55,7 @@ class PlantCommunity: Object, MyraObject {
         do {
             let realm = try Realm()
             try realm.write {
-                self.purposeOfAction = "none"
+                self.purposeOfAction = "Clear"
             }
         } catch _ {
             fatalError()

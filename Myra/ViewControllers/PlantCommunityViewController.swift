@@ -204,7 +204,7 @@ class PlantCommunityViewController: BaseViewController {
     func hasPurposeOfActions() -> Bool {
         guard let pc = self.plantCommunity else {return false}
 
-        if pc.purposeOfAction != "" || pc.purposeOfAction.lowercased() != "clear"{
+        if pc.purposeOfAction != "" && pc.purposeOfAction.lowercased() != "clear" {
             return true
         }
         return false
@@ -254,7 +254,46 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let community = self.plantCommunity, let pl = self.plan else {return getBasicInfoCell(indexPath: indexPath)}
+        guard let community = self.plantCommunity, let pl = self.plan,  let sectionType = PlantCommunityFromSection(rawValue: Int(indexPath.section)) else {return getBasicInfoCell(indexPath: indexPath)}
+
+        switch sectionType {
+        case .BasicInfo:
+            let cell = getBasicInfoCell(indexPath: indexPath)
+            cell.setup(plantCommunity: community, mode: mode, parentReference: self)
+            return cell
+        case .Actions:
+            if hasPurposeOfActions() {
+                let cell = getPastureActionsCell(indexPath: indexPath)
+                cell.setup(plantCommunity: community, mode: mode, parentReference: self)
+                return cell
+            } else {
+                let cell = getEmptyCell(indexPath: indexPath)
+                cell.setup(placeHolder: "", height: 1)
+                return cell
+            }
+        case .MonitoringAreas:
+            let cell = getMonitoringAreasCell(indexPath: indexPath)
+            cell.setup(plantCommunity: community, mode: mode, rup: pl, parentReference: self)
+            return cell
+        case .Criteria:
+            guard let criteriaSectionType = PlantCommunityCriteriaFromSection(rawValue: Int(indexPath.row)) else {return getBasicInfoCell(indexPath: indexPath)}
+            switch criteriaSectionType {
+            case .RangeReadiness:
+                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+                cell.setup(section: .RangeReadiness, mode: mode, plantCommunity: community, parentReference: self)
+                return cell
+            case .StubbleHeight:
+                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+                cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
+                return cell
+            case .ShrubUse:
+                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+                cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
+                return cell
+            }
+        }
+
+        /*
         switch indexPath.section {
         case 0:
             let cell = getBasicInfoCell(indexPath: indexPath)
@@ -289,26 +328,26 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         default:
             return getBasicInfoCell(indexPath: indexPath)
         }
+ */
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var sectionTitle = ""
         var icon: UIImage? = UIImage(named: "icon_MinistersIssues")!
-        switch section {
-        case 0:
-            sectionTitle =  "Basic Plant Community Information"
-        case 1:
-           sectionTitle =  "Plant Community Actions"
-        case 2:
-            sectionTitle =  "Range Readiness"
-        case 3:
-            sectionTitle =  "Stubble Height"
-        case 4:
-            sectionTitle =  "Shrub Use"
-        case 5:
-            sectionTitle =  "Monitoring Areas"
-        default:
-            sectionTitle =  ""
+
+        guard let sectionType = PlantCommunityFromSection(rawValue: Int(section)) else {
+            return nil
+        }
+
+        switch sectionType {
+            case .BasicInfo:
+                 sectionTitle =  "Basic Plant Community Information"
+            case .Actions:
+                sectionTitle =  "Plant Community Actions"
+            case .MonitoringAreas:
+                sectionTitle =  "Monitoring Areas"
+            case .Criteria:
+                sectionTitle =  "Criteria"
         }
         
         // Dequeue with the reuse identifier
@@ -324,11 +363,15 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return numberOfSections
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if PlantCommunityFromSection(rawValue: Int(section)) == PlantCommunityFromSection.Criteria {
+            return numberOfCriteriaSections
+        } else {
+            return 1
+        }
     }
 
 }
