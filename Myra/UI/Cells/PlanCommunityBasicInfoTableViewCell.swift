@@ -35,6 +35,9 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var purposeDropdown: UIButton!
     @IBOutlet weak var purposeButton: UIButton!
     
+    @IBOutlet weak var approvedByMinisterHeader: UILabel!
+    @IBOutlet weak var approvedByMinisterSwitch: UISwitch!
+    
     // MARK: Variables
     var mode: FormMode = .View
     var plantCommunity: PlantCommunity?
@@ -71,6 +74,23 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         }
     }
     */
+
+    @IBAction func approvedByMinisterInfo(_ sender: UIButton) {
+        guard let p = parentReference else {return}
+        p.showTooltip(on: sender, title: tooltipPlantCommunityApprovedByMinisterTitle, desc: tooltipPlantCommunityApprovedByMinisterDescription)
+    }
+
+    @IBAction func approvedByMinisterAction(_ sender: UISwitch) {
+        guard let plantCommunity = self.plantCommunity else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                 plantCommunity.approvedByMinister = sender.isOn
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
     
     @IBAction func aspectFieldChanged(_ sender: UITextField) {
         guard let pc = self.plantCommunity, let text = aspectField.text else {return}
@@ -173,6 +193,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         plantCommunityField.text = pc.notes
         communityURLField.text = pc.communityURL
         purposeOfActionsField.text = pc.purposeOfAction
+        approvedByMinisterSwitch.isOn = pc.approvedByMinister
         if self.plantCommunityField.text.isEmpty {
             switch mode {
             case .View:
@@ -198,6 +219,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             purposeDropdown.isUserInteractionEnabled = false
             purposeDropdown.alpha = 0
             elevationDropdown.alpha = 0
+            approvedByMinisterSwitch.isUserInteractionEnabled = false
         case .Edit:
             styleInputField(field: aspectField, header: aspectHeader, height: inputFieldHeight)
             styleInputField(field: elevationField, header: elevationHeader, height: inputFieldHeight)

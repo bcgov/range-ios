@@ -87,6 +87,9 @@ let tooltipMinistersIssuesAndActionsDescription: String = "Create a list with al
 let tooltipPlantCommunitiesTitle: String = "Tooltip Title"
 let tooltipPlantCommunitiesDescription: String = "Create a list with all possible keywords that fit to your product, service or business field. The more the better. So you will get also a lot of keywords which you must pay for only the minimal commandment of 5 cents."
 
+let tooltipPlantCommunityApprovedByMinisterTitle: String = "Approved By Minister"
+let  tooltipPlantCommunityApprovedByMinisterDescription: String = "Place documentation of descision makers approval on file before updating & sending to agreement holders."
+
 // TourTip
 let tourTourTitle: String = "Begin Tour"
 let tourTourDesc: String = "You can click here to begin this tour again."

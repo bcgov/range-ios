@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +34,7 @@
                                         </constraints>
                                         <state key="normal" image="expandicon"/>
                                         <connections>
-                                            <action selector="optionsAction:" destination="uNR-ed-eN6" eventType="touchUpInside" id="V5n-IJ-nNJ"/>
+                                            <action selector="optionsAction:" destination="uNR-ed-eN6" eventType="touchUpInside" id="pny-5Q-SFR"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitoring Area:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rak-jM-qQ2">
@@ -201,44 +201,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="TH7-aL-HUd">
                                         <rect key="frame" x="0.0" y="81" width="718" height="80"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OUN-mt-d0V">
-                                                <rect key="frame" x="0.0" y="0.0" width="349" height="80"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transect Azimuth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NhB-se-5sR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="134" height="30"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nQ-9e-Hpd">
-                                                        <rect key="frame" x="0.0" y="35" width="349" height="45"/>
-                                                        <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qeS-At-DO1">
-                                                                <rect key="frame" x="0.0" y="0.0" width="349" height="45"/>
-                                                                <nil key="textColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
-                                                                <connections>
-                                                                    <action selector="transectAzimuthChanged:" destination="uNR-ed-eN6" eventType="editingChanged" id="S32-oQ-q5M"/>
-                                                                </connections>
-                                                            </textField>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="qeS-At-DO1" secondAttribute="trailing" id="6Y1-gO-kMa"/>
-                                                            <constraint firstAttribute="bottom" secondItem="qeS-At-DO1" secondAttribute="bottom" id="NGG-CF-TNr"/>
-                                                            <constraint firstItem="qeS-At-DO1" firstAttribute="top" secondItem="5nQ-9e-Hpd" secondAttribute="top" id="daN-xr-JNV"/>
-                                                            <constraint firstItem="qeS-At-DO1" firstAttribute="leading" secondItem="5nQ-9e-Hpd" secondAttribute="leading" id="vr7-uL-IYI"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="5nQ-9e-Hpd" firstAttribute="leading" secondItem="OUN-mt-d0V" secondAttribute="leading" id="HZg-Ef-qpT"/>
-                                                    <constraint firstAttribute="trailing" secondItem="5nQ-9e-Hpd" secondAttribute="trailing" id="qT2-cL-Q3K"/>
-                                                </constraints>
-                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oln-qT-aWF">
-                                                <rect key="frame" x="369" y="0.0" width="349" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="718" height="80"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yUN-mL-Z8X">
                                                         <rect key="frame" x="0.0" y="0.0" width="76.5" height="30"/>
@@ -258,22 +222,22 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9J-Vz-XVI">
-                                                        <rect key="frame" x="0.0" y="35" width="349" height="45"/>
+                                                        <rect key="frame" x="0.0" y="35" width="718" height="45"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bho-05-c3K">
-                                                                <rect key="frame" x="0.0" y="0.0" width="349" height="45"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="718" height="45"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3w-p5-qaT">
-                                                                <rect key="frame" x="0.0" y="0.0" width="349" height="45"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="718" height="45"/>
                                                                 <connections>
                                                                     <action selector="purposeAction:" destination="uNR-ed-eN6" eventType="touchUpInside" id="iqe-wG-BEQ"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fET-9S-Lnq">
-                                                                <rect key="frame" x="324" y="10.5" width="24" height="24"/>
+                                                                <rect key="frame" x="693" y="10.5" width="24" height="24"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="fET-9S-Lnq" secondAttribute="height" multiplier="1:1" id="33Z-r8-HqY"/>
                                                                     <constraint firstAttribute="height" constant="24" id="YmV-Ok-uRd"/>
@@ -426,7 +390,6 @@
                                     <constraint firstItem="TH7-aL-HUd" firstAttribute="leading" secondItem="fKg-Cs-aTD" secondAttribute="leading" id="QHJ-zo-kxj"/>
                                     <constraint firstAttribute="trailing" secondItem="1oA-ec-kGl" secondAttribute="trailing" id="YPu-Fh-SUi"/>
                                     <constraint firstAttribute="trailing" secondItem="XKx-Jv-q1H" secondAttribute="trailing" id="aWX-1h-RUK"/>
-                                    <constraint firstItem="5nQ-9e-Hpd" firstAttribute="height" secondItem="keq-UF-Xmz" secondAttribute="height" id="eXQ-1b-xmV"/>
                                     <constraint firstItem="TH7-aL-HUd" firstAttribute="height" secondItem="1oA-ec-kGl" secondAttribute="height" id="fqe-CX-UsE"/>
                                     <constraint firstItem="1oA-ec-kGl" firstAttribute="leading" secondItem="fKg-Cs-aTD" secondAttribute="leading" id="fwn-XD-UoA"/>
                                     <constraint firstAttribute="trailing" secondItem="TH7-aL-HUd" secondAttribute="trailing" id="iMQ-U8-i7N"/>
@@ -477,8 +440,6 @@
                 <outlet property="rangeLandField" destination="q8t-UT-k4Q" id="2ha-MF-KEc"/>
                 <outlet property="rangeLandHeader" destination="mgf-on-MmB" id="GaD-2k-KVo"/>
                 <outlet property="rangelandHealthDropDown" destination="aWy-hV-6lo" id="ywP-HD-j2s"/>
-                <outlet property="transectField" destination="qeS-At-DO1" id="2Zf-UX-Dof"/>
-                <outlet property="transectHeader" destination="NhB-se-5sR" id="UXp-RA-FNU"/>
                 <outlet property="typeField" destination="bho-05-c3K" id="rty-6W-2Uv"/>
                 <outlet property="typeHeader" destination="yvC-Ik-bI4" id="OIf-zD-qHc"/>
             </connections>

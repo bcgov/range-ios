@@ -30,9 +30,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var longitudeHeader: UILabel!
     @IBOutlet weak var longitudeField: UITextField!
 
-    @IBOutlet weak var transectHeader: UILabel!
-    @IBOutlet weak var transectField: UITextField!
-
     @IBOutlet weak var typeHeader: UILabel!
     @IBOutlet weak var typeField: UITextField!
 
@@ -54,6 +51,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     var mode: FormMode = .View
     var monitoringArea: MonitoringArea?
     var parentReference: PlantCommunityViewController?
+    var parentCellReference: PlantCommunityMonitoringAreasTableViewCell?
 
     // location
     let maxNumberOfAdjustments = 4
@@ -129,18 +127,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             let realm = try Realm()
             try realm.write {
                 ma.longitude = text
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
-    @IBAction func transectAzimuthChanged(_ sender: UITextField) {
-        guard let ma = self.monitoringArea, let text = sender.text else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                ma.transectAzimuth = text
             }
         } catch _ {
             fatalError()
@@ -228,8 +214,67 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         }
     }
 
-    @IBAction func optionsAction(_ sender: Any) {
+    @IBAction func optionsAction(_ sender: UIButton) {
+        guard let ma = self.monitoringArea, let p = self.parentReference, let parentCell = self.parentCellReference else {return}
+        let vm = ViewManager()
+        let optionsVC = vm.options
 
+        // create options for module, in this case copy and delete
+        let options: [Option] = [Option(type: .Copy, display: "Copy"),Option(type: .Delete, display: "Delete")]
+
+        // set up and handle call back
+        optionsVC.setup(options: options, onVC: p, onButton: sender) { (option) in
+            switch option.type {
+            case .Delete:
+                p.showAlert(title: "Are you sure?", description: "Remove this monitoring area?", yesButtonTapped: {
+                    RUPManager.shared.deleteMonitoringArea(monitoringArea: ma)
+                    parentCell.updateTableHeight()
+                }, noButtonTapped: {})
+
+            case .Copy:
+                self.duplicate()
+            }
+        }
+    }
+    // MARK: Utility
+    func duplicate() {
+        guard let ma = self.monitoringArea, let parentCell = self.parentCellReference else {return}
+        parentCell.addNewMonitoringArea(copyFrom: ma)
+    }
+
+    // MARK: Setup
+    func setup(mode: FormMode, monitoringArea: MonitoringArea, parentReference: PlantCommunityViewController, parentCellReference: PlantCommunityMonitoringAreasTableViewCell) {
+        self.mode = mode
+        self.monitoringArea = monitoringArea
+        self.parentReference = parentReference
+        self.parentCellReference = parentCellReference
+        style()
+        autoFill()
+    }
+
+    func autoFill() {
+        guard let ma = self.monitoringArea else {return}
+        self.nameLabel.text = ma.name
+        self.locationField.text = ma.location
+        self.rangeLandField.text = ma.rangelandHealth
+        self.latitudeField.text = ma.latitude
+        self.longitudeField.text = ma.longitude
+
+        // Doing this to add spaces between commas.
+        // We don't store with the spaces because we need to break the names
+        // in order to find and send the ids to backend. white spaces would make it tricky
+        var newString = ""
+        let purposesArray = ma.purpose.split{$0 == ","}.map(String.init)
+        for element in purposesArray {
+            if newString.isEmpty {
+                newString = element
+            } else {
+                newString = "\(newString), \(element)"
+            }
+        }
+
+        // change the last comma to "and" for better grammar.
+        self.typeField.text = newString.replacingLastOccurrenceOfString(", ", with: " and ")
     }
 
     func autofillLatLong() {
@@ -237,9 +282,11 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         if self.mode == .View {return}
 
         guard let location = currentLocation, let monitoringArea = self.monitoringArea else {return}
+
         let lat = "\(location.coordinate.latitude)"
         let long = "\(location.coordinate.longitude)"
         self.currentNumberOfAdjustments += 1
+
         do {
             let realm = try Realm()
             try realm.write {
@@ -249,6 +296,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         } catch _ {
             fatalError()
         }
+
         self.latitudeField.text = monitoringArea.latitude
         self.longitudeField.text = monitoringArea.longitude
 
@@ -264,41 +312,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         }
     }
 
-    // MARK: Setup
-    func setup(mode: FormMode, monitoringArea: MonitoringArea, parentReference: PlantCommunityViewController) {
-        self.mode = mode
-        self.monitoringArea = monitoringArea
-        self.parentReference = parentReference
-        style()
-        autoFill()
-    }
-
-    func autoFill() {
-        guard let ma = self.monitoringArea else {return}
-        self.nameLabel.text = ma.name
-        self.locationField.text = ma.location
-        self.rangeLandField.text = ma.rangelandHealth
-        self.latitudeField.text = ma.latitude
-        self.longitudeField.text = ma.longitude
-        self.transectField.text = ma.transectAzimuth
-//        self.typeField.text = ma.purpose
-
-        // Doing this to add spaces between commas.
-        // We don't store with the spaces because we need to break the names
-        // in order to find and send the ids to backend. white spaces would make it tricky
-        var newString = ""
-        let purposesArray = ma.purpose.split{$0 == ","}.map(String.init)
-        for element in purposesArray {
-            if newString.isEmpty {
-                newString = element
-            } else {
-                newString = "\(newString), \(element)"
-            }
-        }
-
-        self.typeField.text = newString.replacingLastOccurrenceOfString(", ", with: " and ")
-    }
-
     // MARK: Style
     func style() {
         switch mode {
@@ -307,7 +320,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputFieldReadOnly(field: rangeLandField, header: rangeLandHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: latitudeField, header: latitudeHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: longitudeField, header: longitudeHeader, height: fieldHeight)
-            styleInputFieldReadOnly(field: transectField, header: transectHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: typeField, header: typeHeader, height: fieldHeight)
             getMyCoordinatesButton.isHidden = true
             healthButton.isUserInteractionEnabled = false
@@ -322,7 +334,6 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputField(field: rangeLandField, header: rangeLandHeader, height: fieldHeight)
             styleInputField(field: latitudeField, header: latitudeHeader, height: fieldHeight)
             styleInputField(field: longitudeField, header: longitudeHeader, height: fieldHeight)
-            styleInputField(field: transectField, header: transectHeader, height: fieldHeight)
             styleInputField(field: typeField, header: typeHeader, height: fieldHeight)
             getMyCoordinatesButton.isHidden = false
             styleHollowButton(button: getMyCoordinatesButton)

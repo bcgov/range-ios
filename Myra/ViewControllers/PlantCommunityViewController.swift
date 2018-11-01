@@ -10,6 +10,19 @@ import UIKit
 import Realm
 import RealmSwift
 
+enum PlantCommunityFromSection: Int {
+    case BasicInfo = 0
+    case Actions
+    case MonitoringAreas
+    case Criteria
+}
+
+enum PlantCommunityCriteriaFromSection: Int {
+    case RangeReadiness = 0
+    case StubbleHeight
+    case ShrubUse
+}
+
 class PlantCommunityViewController: BaseViewController {
 
     // MARK: Variables
@@ -18,8 +31,9 @@ class PlantCommunityViewController: BaseViewController {
     var pasture: Pasture?
     var mode: FormMode = .View
     var plan: RUP?
-//    var popupContainerTag = 200
-//    var popover: UIPopoverPresentationController?
+
+    let numberOfSections = 4
+    let numberOfCriteriaSections = 3
 
     // MARK: Outlets
     @IBOutlet weak var pageTitle: UILabel!
@@ -77,6 +91,10 @@ class PlantCommunityViewController: BaseViewController {
         self.completion = completion
         self.plan = plan
         setUpTable()
+        autofill()
+    }
+
+    func autofill() {
         setTitle()
         setSubtitle()
     }
@@ -90,7 +108,7 @@ class PlantCommunityViewController: BaseViewController {
     func setSubtitle() {
         if self.subtitle == nil { return }
         guard let p = self.pasture else {return}
-        self.subtitle.text = p.name
+        self.subtitle.text = "Pasture: \(p.name)"
     }
 
     func refreshPlantCommunityObject() {
@@ -184,7 +202,9 @@ class PlantCommunityViewController: BaseViewController {
 
     // MARK: Utilities
     func hasPurposeOfActions() -> Bool {
-        if let pc = self.plantCommunity, pc.purposeOfAction != "" || pc.purposeOfAction.lowercased() != "clear"{
+        guard let pc = self.plantCommunity else {return false}
+
+        if pc.purposeOfAction != "" || pc.purposeOfAction.lowercased() != "clear"{
             return true
         }
         return false

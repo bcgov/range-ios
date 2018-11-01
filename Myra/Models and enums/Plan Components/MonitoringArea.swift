@@ -29,6 +29,7 @@ class MonitoringArea: Object, MyraObject {
     @objc dynamic var location: String = ""
     @objc dynamic var latitude: String = ""
     @objc dynamic var longitude: String = ""
+    // TODO: Remove this
     @objc dynamic var transectAzimuth: String = ""
     @objc dynamic var rangelandHealth: String = ""
     @objc dynamic var purpose: String = ""
@@ -88,7 +89,7 @@ class MonitoringArea: Object, MyraObject {
         }
 
         for purposeJSON in purposesJSON {
-            if let ptype = purposeJSON.1["purposeType"].dictionaryObject, let pName = ptype["name"] as? String {
+            if let ptype = purposeJSON.1["purposeType"].dictionaryObject, let pName = ptype["name"] as? String, pName.lowercased() != "other" {
                 if purpose.isEmpty {
                     purpose = "\(pName)"
                 } else {

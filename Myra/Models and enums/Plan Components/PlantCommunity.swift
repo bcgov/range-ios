@@ -38,8 +38,7 @@ class PlantCommunity: Object, MyraObject {
     var stubbleHeight = List<IndicatorPlant>()
     var shrubUse = List<IndicatorPlant>()
 
-    // TODO: Delete
-    @objc dynamic var isPurposeOfActionEstablish: Bool = false
+    @objc dynamic var approvedByMinister: Bool = false
 
     var monitoringAreas = List<MonitoringArea>()
     var pastureActions = List<PastureAction>()
