@@ -90,6 +90,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
         setupSection()
         style()
         autofill()
+        readinessNotesTextView.delegate = self
         self.tableView.reloadData()
     }
 
@@ -98,6 +99,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
         if a.readinessDay != -1 && a.readinessMonth != -1 {
             self.singleFieldValue.text = "\(DatePickerHelper.shared.month(number: a.readinessMonth)) \(a.readinessDay)"
         }
+        self.readinessNotesTextView.text = a.readinessNotes
         styleTableHeaders()
     }
 
@@ -209,6 +211,21 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
     
 }
+
+extension MonitoringAreaCustomDetailsTableViewCell: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let a = plantCommunity, let text = textView.text else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                a.readinessNotes = text
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+}
+
 
 extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
