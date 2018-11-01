@@ -30,6 +30,12 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var singleFieldSectionHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var readinessNotesHeader: UILabel!
+    @IBOutlet weak var sectionTitle: UILabel!
+    @IBOutlet weak var readinessNotesTextView: UITextView!
+    @IBOutlet weak var readinessNotesSectionHeight: NSLayoutConstraint!
+    @IBOutlet weak var sectionTitleContainerHeight: NSLayoutConstraint!
+
     @IBOutlet weak var tableHeadersHeight: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -102,17 +108,18 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
 
     func style() {
-//        styleSubHeader(label: sectionName)
         styleFieldHeader(label: headerLeft)
         styleFieldHeader(label: headerRight)
-//        styleFieldHeader(label: banner)
+        styleSubHeader(label: sectionTitle)
         switch self.mode {
         case .View:
             addButton.alpha = 0
             styleInputFieldReadOnly(field: singleFieldValue, header: singleFieldHeader, height: singleFieldHeight)
+            styleTextviewInputFieldReadOnly(field: readinessNotesTextView, header: readinessNotesHeader)
         case .Edit:
             styleHollowButton(button: addButton)
             styleInputField(field: singleFieldValue, header: singleFieldHeader, height: singleFieldHeight)
+            styleTextviewInputField(field: readinessNotesTextView, header: readinessNotesHeader)
         }
     }
 
@@ -121,21 +128,27 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
         self.headerLeft.text = "Indicator Plant"
         switch current {
         case .RangeReadiness:
+            self.sectionTitleContainerHeight.constant = 50
+            self.readinessNotesSectionHeight.constant = 100
             self.singleFieldSectionHeight.constant = 70
             self.singleFieldHeader.alpha = 1
-//            self.sectionName.text = "Range Readiness"
+            self.sectionTitle.text = "Range Readiness"
             self.headerRight.text = "Criteria (Leaf Stage)"
 //            self.banner.text = ""
         case .StubbleHeight:
+            self.sectionTitleContainerHeight.constant = 0
+            self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
             self.singleFieldHeader.alpha = 0
-//            self.sectionName.text = "Stubble Height"
+            self.sectionTitle.text = "Stubble Height"
             self.headerRight.text = "Height After Grazing (cm)"
 //            self.banner.text = ""
         case .ShrubUse:
+            self.sectionTitleContainerHeight.constant = 0
+            self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
             self.singleFieldHeader.alpha = 0
-//            self.sectionName.text = "Shrub Use"
+            self.sectionTitle.text = "Shrub Use"
             self.headerRight.text = "% of Current Annual Growth"
 //            self.banner.text = "The default allowable browse level is 25% of current annual growth"
         }

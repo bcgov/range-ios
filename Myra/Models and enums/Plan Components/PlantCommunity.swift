@@ -91,6 +91,7 @@ class PlantCommunity: Object, MyraObject {
         new.notes = self.notes
         new.communityURL = self.communityURL
         new.purposeOfAction = self.purposeOfAction
+        new.approvedByMinister = self.approvedByMinister
 
         for object in self.monitoringAreas {
             new.monitoringAreas.append(object.copy())
@@ -146,6 +147,10 @@ class PlantCommunity: Object, MyraObject {
 
         if let url = json["url"].string {
             self.communityURL = url
+        }
+
+        if let approved = json["approved"].bool{
+            self.approvedByMinister = approved
         }
 
         if let rangeReadinessMonth = json["rangeReadinessMonth"].int {
@@ -233,7 +238,8 @@ class PlantCommunity: Object, MyraObject {
             "notes": notes,
             "rangeReadinessDay": readyDay,
             "rangeReadinessMonth": readyMonth,
-            "rangeReadinessNote": readinessNotes
+            "rangeReadinessNote": readinessNotes,
+            "approved": approvedByMinister
         ]
     }
 
