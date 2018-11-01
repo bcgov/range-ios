@@ -20,24 +20,44 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wwo-fw-uCt" userLabel="Header">
-                        <rect key="frame" x="0.0" y="8" width="868" height="50"/>
+                        <rect key="frame" x="0.0" y="8" width="868" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mz5-j1-fqi">
-                                <rect key="frame" x="24" y="15" width="42" height="20.5"/>
+                                <rect key="frame" x="24" y="8" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If more than one readiness criteria is provided, all such criteria must be met before grazing may accur" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESO-Gc-1L8">
+                                <rect key="frame" x="24" y="36.5" width="820" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5IB-wo-77p">
+                                <rect key="frame" x="14" y="0.0" width="2" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="2" id="527-BU-Fv9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="CdK-0e-QxK"/>
-                            <constraint firstItem="Mz5-j1-fqi" firstAttribute="centerY" secondItem="wwo-fw-uCt" secondAttribute="centerY" id="aYI-B2-eSd"/>
+                            <constraint firstItem="Mz5-j1-fqi" firstAttribute="leading" secondItem="5IB-wo-77p" secondAttribute="trailing" constant="8" id="3ev-IR-65T"/>
+                            <constraint firstAttribute="bottom" secondItem="5IB-wo-77p" secondAttribute="bottom" id="6ww-AQ-5eR"/>
+                            <constraint firstAttribute="height" constant="80" id="CdK-0e-QxK"/>
+                            <constraint firstItem="5IB-wo-77p" firstAttribute="top" secondItem="wwo-fw-uCt" secondAttribute="top" id="GqE-lW-6sK"/>
+                            <constraint firstAttribute="trailing" secondItem="ESO-Gc-1L8" secondAttribute="trailing" constant="24" id="IRd-qc-mf4"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ESO-Gc-1L8" secondAttribute="bottom" constant="8" id="M61-r8-zTa"/>
+                            <constraint firstItem="ESO-Gc-1L8" firstAttribute="leading" secondItem="wwo-fw-uCt" secondAttribute="leading" constant="24" id="iZp-e9-JKx"/>
+                            <constraint firstItem="Mz5-j1-fqi" firstAttribute="top" secondItem="wwo-fw-uCt" secondAttribute="top" constant="8" id="ioR-vQ-dN2"/>
                             <constraint firstItem="Mz5-j1-fqi" firstAttribute="leading" secondItem="wwo-fw-uCt" secondAttribute="leading" constant="24" id="mrp-xO-8qO"/>
+                            <constraint firstItem="ESO-Gc-1L8" firstAttribute="top" secondItem="Mz5-j1-fqi" secondAttribute="bottom" constant="8" id="qCp-mL-jqV"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAz-e9-ROi" userLabel="ReadinessDate">
-                        <rect key="frame" x="8" y="66" width="852" height="70"/>
+                        <rect key="frame" x="0.0" y="96" width="868" height="70"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q8m-rG-H9S" userLabel="Action Stack">
                                 <rect key="frame" x="24" y="0.0" width="190" height="70"/>
@@ -100,7 +120,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsi-vm-VTs" userLabel="Notes">
-                        <rect key="frame" x="0.0" y="144" width="868" height="100"/>
+                        <rect key="frame" x="0.0" y="174" width="868" height="100"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klt-11-1bj">
                                 <rect key="frame" x="24" y="8" width="50.5" height="20.5"/>
@@ -127,7 +147,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UwS-9k-5Hd" userLabel="Header">
-                        <rect key="frame" x="24" y="252" width="836" height="50"/>
+                        <rect key="frame" x="24" y="282" width="836" height="50"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="G7w-jN-rP7">
                                 <rect key="frame" x="8" y="0.0" width="767" height="50"/>
@@ -157,7 +177,7 @@
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hCX-D5-3le">
-                        <rect key="frame" x="16" y="302" width="836" height="153.5"/>
+                        <rect key="frame" x="16" y="332" width="836" height="123.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="750" id="pkx-kL-bWf"/>
@@ -187,11 +207,11 @@
                     <constraint firstItem="WWF-FX-LTo" firstAttribute="top" secondItem="hCX-D5-3le" secondAttribute="bottom" constant="8" id="Gwh-Mi-hQh"/>
                     <constraint firstAttribute="trailing" secondItem="UwS-9k-5Hd" secondAttribute="trailing" constant="8" id="Nev-6n-AgW"/>
                     <constraint firstAttribute="trailing" secondItem="wwo-fw-uCt" secondAttribute="trailing" id="bTV-WM-cnf"/>
-                    <constraint firstAttribute="trailing" secondItem="BAz-e9-ROi" secondAttribute="trailing" constant="8" id="bjo-3x-FVi"/>
+                    <constraint firstAttribute="trailing" secondItem="BAz-e9-ROi" secondAttribute="trailing" id="bjo-3x-FVi"/>
                     <constraint firstAttribute="bottom" secondItem="WWF-FX-LTo" secondAttribute="bottom" constant="32" id="gge-0J-ezN"/>
                     <constraint firstItem="UwS-9k-5Hd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="gnD-0w-hSi"/>
                     <constraint firstItem="WWF-FX-LTo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="j7K-Wf-sun"/>
-                    <constraint firstItem="BAz-e9-ROi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="jM1-Dt-eaL"/>
+                    <constraint firstItem="BAz-e9-ROi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jM1-Dt-eaL"/>
                     <constraint firstItem="BAz-e9-ROi" firstAttribute="top" secondItem="wwo-fw-uCt" secondAttribute="bottom" constant="8" id="nil-qA-FjI"/>
                     <constraint firstAttribute="trailing" secondItem="nsi-vm-VTs" secondAttribute="trailing" id="tYR-7C-CD3"/>
                     <constraint firstItem="hCX-D5-3le" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="uS4-6L-aW6"/>
@@ -208,8 +228,10 @@
                 <outlet property="readinessNotesHeader" destination="Klt-11-1bj" id="Ja8-VJ-lI8"/>
                 <outlet property="readinessNotesSectionHeight" destination="jMw-od-iIK" id="Npa-9e-1i9"/>
                 <outlet property="readinessNotesTextView" destination="ydj-5n-b5E" id="mlu-Sb-dg3"/>
+                <outlet property="sectionSubtitle" destination="ESO-Gc-1L8" id="hnT-HH-bPM"/>
                 <outlet property="sectionTitle" destination="Mz5-j1-fqi" id="cWc-XB-lXT"/>
                 <outlet property="sectionTitleContainerHeight" destination="CdK-0e-QxK" id="cP3-Mw-D3b"/>
+                <outlet property="sideBar" destination="5IB-wo-77p" id="feJ-Yx-dwU"/>
                 <outlet property="singleFieldHeader" destination="8kx-ng-D2P" id="Dtz-qA-LAV"/>
                 <outlet property="singleFieldHeight" destination="ZMm-Ps-yWz" id="faU-vG-ZlX"/>
                 <outlet property="singleFieldSectionHeight" destination="wk9-tU-xqe" id="tli-1t-62U"/>
