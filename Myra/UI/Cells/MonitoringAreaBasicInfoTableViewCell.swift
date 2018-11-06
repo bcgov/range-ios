@@ -13,7 +13,7 @@ import RealmSwift
 
 class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
 
-    static let cellHeight: CGFloat = (320 + 16)
+    static let cellHeight: CGFloat = (320 + 16 + 8)
 
     // MARK: Outlets
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!

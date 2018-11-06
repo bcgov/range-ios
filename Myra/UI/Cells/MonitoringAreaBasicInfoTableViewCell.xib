@@ -421,7 +421,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="JVK-5r-icA" firstAttribute="trailing" secondItem="72b-Ly-QaS" secondAttribute="trailingMargin" constant="8" id="EJD-uv-jtj"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="JVK-5r-icA" secondAttribute="bottom" constant="8" id="JVu-RP-MnL"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="JVK-5r-icA" secondAttribute="bottom" constant="16" id="JVu-RP-MnL"/>
                     <constraint firstItem="JVK-5r-icA" firstAttribute="leading" secondItem="72b-Ly-QaS" secondAttribute="leading" constant="8" id="ap3-z7-MnH"/>
                     <constraint firstItem="JVK-5r-icA" firstAttribute="top" secondItem="72b-Ly-QaS" secondAttribute="topMargin" constant="8" id="oya-Vm-5Su"/>
                 </constraints>

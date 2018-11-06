@@ -20,6 +20,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     var section: IndicatorPlantSection?
 
     // MARK: Outlets
+    @IBOutlet weak var container: UIView!
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     @IBOutlet weak var singleFieldHeight: NSLayoutConstraint!
@@ -41,7 +43,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
 
     @IBOutlet weak var tableHeadersHeight: NSLayoutConstraint!
 
-    @IBOutlet weak var sideBar: UIView!
+    @IBOutlet weak var readinessSection: UIView!
+    @IBOutlet weak var notesSection: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -116,11 +119,11 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
 
     func style() {
-        styleDivider(divider: sideBar)
         styleFieldHeader(label: headerLeft)
         styleFieldHeader(label: headerRight)
         styleSubHeader(label: sectionTitle)
         sectionSubtitle.font = Fonts.getPrimary(size: 17)
+        styleContainer(view: container)
         switch self.mode {
         case .View:
             addButton.alpha = 0
