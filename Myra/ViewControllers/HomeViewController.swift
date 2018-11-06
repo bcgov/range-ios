@@ -323,6 +323,7 @@ class HomeViewController: BaseViewController {
 
     func loadHome() {
         style()
+        updateLastSyncLabel()
         if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
             lastSyncLabel.text = last.timeSince()
             if !lastSyncTimerActive {
@@ -353,7 +354,7 @@ class HomeViewController: BaseViewController {
          */
         RUPManager.shared.cleanPlans()
         let rups = RUPManager.shared.getRUPs()
-        print(rups.count)
+        print("Loading \(rups.count) plans")
         let agreements = RUPManager.shared.getAgreements()
         for agreement in agreements where agreement.rups.count > 0 {
             if let p = agreement.getLatestPlan() {
@@ -362,6 +363,7 @@ class HomeViewController: BaseViewController {
         }
         self.expandIndexPath = nil
         self.tableView.reloadData()
+        self.tableView.isScrollEnabled = true
         AutoSync.shared.autoSync()
     }
 
@@ -621,41 +623,35 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if expandIndexPath == nil {
             self.expandIndexPath = indexPath
             self.tableView.isScrollEnabled = false
-            if #available(iOS 11.0, *) {
-                self.tableView.performBatchUpdates({
-                    self.tableView.reloadRows(at: [indexPath], with: .fade)
-                }) { (done) in
-                    self.tableView.reloadData()
-                    // if indexpath is the last visible, scroll to bottom of it
-                    if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
-                        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                    }
-                }
-            } else {
-                // PRE ios 11
-                self.tableView.reloadData()
+            self.tableView.performBatchUpdates({
+                self.reloadAllCellsExcept(at: [indexPath])
+            }) { (done) in
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
                 // if indexpath is the last visible, scroll to bottom of it
                 if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
                     self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
                 }
             }
         } else {
-            if #available(iOS 11.0, *) {
-                self.tableView.performBatchUpdates({
-                    if let i = expandIndexPath {
-                        let cell = self.tableView.cellForRow(at: i) as! AssignedRUPTableViewCell
-                        cell.styleDefault()
-                        self.expandIndexPath = nil
-                        self.tableView.reloadRows(at: [indexPath], with: .fade)
-                    }
-                }) { (done) in
-                    self.tableView.reloadData()
+            self.tableView.performBatchUpdates({
+                if let i = expandIndexPath {
+                    let cell = self.tableView.cellForRow(at: i) as! AssignedRUPTableViewCell
+                    cell.styleDefault()
+                    self.expandIndexPath = nil
+                    self.reloadAllCellsExcept(at: [indexPath])
                 }
-            } else {
-                self.expandIndexPath = nil
-                self.tableView.reloadData()
+            }) { (done) in
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
             }
             self.tableView.isScrollEnabled = true
+        }
+    }
+
+    func reloadAllCellsExcept(at exclude: [IndexPath]) {
+        guard let all = self.tableView.indexPathsForVisibleRows else {return}
+
+        for each in all where !exclude.contains(each) {
+            self.tableView.reloadRows(at: [each], with: .fade)
         }
     }
 }

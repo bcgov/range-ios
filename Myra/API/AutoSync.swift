@@ -136,6 +136,10 @@ class AutoSync {
 
             // End
             dispatchGroup.notify(queue: .main) {
+                // if home page is presented, reload it
+                if let home = self.getPresentedHome() {
+                    home.loadRUPs()
+                }
                 Banner.shared.show(message: self.generateSyncMessage(elements: syncedItems))
                 self.isSynchronizing = false
                 self.removeSyncLock()
@@ -234,7 +238,40 @@ class AutoSync {
             }
             return isIt
         }
+    }
 
+    func isHomePagePresented() -> Bool {
+        var isIt = false
+        if Thread.isMainThread {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
+                    isIt = true
+            }
+            return isIt
+        } else {
+            DispatchQueue.main.sync {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
+                    isIt = true
+                }
+            }
+            return isIt
+        }
+    }
+
+    func getPresentedHome() -> HomeViewController? {
+        var homeVC: HomeViewController? = nil
+        if Thread.isMainThread {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
+                homeVC = h
+            }
+            return homeVC
+        } else {
+            DispatchQueue.main.sync {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
+                    homeVC = h
+                }
+            }
+            return homeVC
+        }
     }
 
     func shouldUploadOutbox() -> Bool {

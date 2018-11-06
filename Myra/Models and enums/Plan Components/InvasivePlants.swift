@@ -29,11 +29,12 @@ class InvasivePlants: Object {
     @objc dynamic var revegetate: Bool = false
 
     func requiredFieldsAreFilled() -> Bool {
-        if !equipmentAndVehiclesParking || !beginInUninfestedArea || !undercarrigesInspected || !revegetate {
-            return false
-        } else {
-            return true
-        }
+        return (equipmentAndVehiclesParking || beginInUninfestedArea || undercarrigesInspected || revegetate || !other.isEmpty)
+//        if equipmentAndVehiclesParking || beginInUninfestedArea || undercarrigesInspected || revegetate || !other.isEmpty {
+//            return true
+//        } else {
+//            return false
+//        }
     }
 
     func setOtherText(to text: String) {

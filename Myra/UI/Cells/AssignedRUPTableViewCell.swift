@@ -57,11 +57,16 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         self.bg = color
         if let exp = expand {
             if exp {
+                print(" Selecting - \(rup.rangeName)")
                 styleSelected()
             } else {
+                // Locked means it has decreased Alpham so the
+                // selected one stands out
+                print(" Locking - \(rup.rangeName)")
                 setLocked()
             }
         } else {
+            print(" Basic Styling - \(rup.rangeName)")
             style()
         }
         setUpTable()
