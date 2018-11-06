@@ -84,10 +84,14 @@ class Options {
         return options
     }
 
-    func getIndicatorPlantLookup() -> [SelectionPopUpObject] {
+    func getIndicatorPlantLookup(forShrubUse: Bool? = false) -> [SelectionPopUpObject] {
+        var shrubUse = false
+        if let su = forShrubUse, su {
+            shrubUse = su
+        }
         var options = [SelectionPopUpObject]()
         let query = Reference.shared.getPlantSpecies()
-        for item in query {
+        for item in query where item.isShrubUse == shrubUse {
             options.append(SelectionPopUpObject(display: item.name))
         }
         return options

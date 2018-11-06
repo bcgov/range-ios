@@ -27,7 +27,7 @@ class ScheduleTableViewCell: BaseFormCell {
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipScheduleTitle, desc: tooltipScheduleDescription)
+        parent.showTooltip(on: sender, title: "Yearly Schedule", desc: InfoTips.yearlySchedule)
     }
 
     // MARK: Outlet Action

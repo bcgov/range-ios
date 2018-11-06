@@ -36,6 +36,17 @@ class InvasivePlants: Object {
         }
     }
 
+    func setOtherText(to text: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.other = text
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
     func setValue(other: String? = nil, equipmentAndVehiclesParking: Bool? = nil, beginInUninfestedArea: Bool? = nil, undercarrigesInspected: Bool? = nil, revegetate: Bool? = nil) {
         do {
             let realm = try Realm()

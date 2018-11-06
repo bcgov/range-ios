@@ -332,13 +332,15 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
+        guard let imagePlaceHolder = UIImage(named: "icon_MinistersIssues"), let header = cell as? CustomSectionHeader else {return nil}
         var sectionTitle = ""
-        var icon: UIImage? = UIImage(named: "icon_MinistersIssues")!
+        var icon: UIImage? = imagePlaceHolder
 
         guard let sectionType = PlantCommunityFromSection(rawValue: Int(section)) else {
             return nil
         }
-
+        var toolTipText: String?
         switch sectionType {
             case .BasicInfo:
                  sectionTitle =  "Basic Plant Community Information"
@@ -348,13 +350,10 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
                 sectionTitle =  "Monitoring Areas"
             case .Criteria:
                 sectionTitle =  "Criteria"
+                toolTipText = InfoTips.criteria
         }
         
-        // Dequeue with the reuse identifier
-        let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
-        let header = cell as! CustomSectionHeader
-        header.setup(title: sectionTitle, iconImage: icon)
-
+        header.setup(title: sectionTitle, iconImage: icon, helpDescription: toolTipText)
         return cell
     }
 

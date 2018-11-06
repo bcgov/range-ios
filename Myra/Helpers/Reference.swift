@@ -642,6 +642,10 @@ class Reference {
                 obj.active = active
             }
 
+            if let isShrubUse = item["isShrubUse"].bool {
+                obj.isShrubUse = isShrubUse
+            }
+
             if let stubbleHeight = item["stubbleHeight"].double {
                 obj.stubbleHeight = stubbleHeight
             }

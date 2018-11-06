@@ -34,6 +34,11 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
         updateTableHeight(scrollToBottom: true)
     }
 
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Additional Requirements", desc: InfoTips.additionalRequirements)
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpTable()

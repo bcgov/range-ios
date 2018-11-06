@@ -82,6 +82,14 @@ extension Theme {
         return Colors.primary
     }
 
+    func defaultBodyTextColor() -> UIColor {
+        return Colors.technical.mainText
+    }
+
+    func defaultBodyFont() -> UIFont {
+        return Fonts.getPrimary(size: 15)
+    }
+
     func defaultSectionSubHeaderFont() -> UIFont {
         return Fonts.getPrimaryBold(size: 17)
     }
@@ -230,6 +238,12 @@ extension Theme {
     func styleSubHeader(label: UILabel) {
         label.textColor = defaultSectionSubHeaderColor()
         label.font = defaultSectionSubHeaderFont()
+        label.change(kernValue: -0.52)
+    }
+
+    func styleBody(label: UILabel) {
+        label.textColor = defaultBodyTextColor()
+        label.font = defaultBodyFont()
         label.change(kernValue: -0.52)
     }
 

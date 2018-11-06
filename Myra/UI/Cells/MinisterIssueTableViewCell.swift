@@ -64,16 +64,9 @@ class MinisterIssueTableViewCell: BaseFormCell {
         autofill()
     }
 
-    @IBAction func identifiedByMinisterAction(_ sender: UIButton) {
-        guard let i = self.issue else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                i.identified = !i.identified
-            }
-        } catch _ {
-            fatalError()
-        }
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Identified by Minister", desc: InfoTips.identifiedbyMinistertoggle)
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {

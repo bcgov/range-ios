@@ -97,6 +97,11 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         }
     }
 
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentReference else {return}
+        parent.showTooltip(on: sender, title: "Monitoring Area Purpose", desc: InfoTips.monitoringAreaPurpose)
+    }
+
     @IBAction func locationFieldChanged(_ sender: UITextField) {
         guard let ma = self.monitoringArea, let text = sender.text else {return}
         do {

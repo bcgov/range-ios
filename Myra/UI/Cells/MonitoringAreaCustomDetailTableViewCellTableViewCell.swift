@@ -39,7 +39,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         guard let plant = self.indicatorPlant, let parent = self.parentReference, let parentCell = self.parentCellReference, let section = parentCell.section else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        var options = Options.shared.getIndicatorPlantLookup()
+        let options = Options.shared.getIndicatorPlantLookup(forShrubUse: section == .ShrubUse)
         lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
             if accepted, let option = selection, let species = Reference.shared.getIndicatorPlant(named: option.display) {

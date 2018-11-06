@@ -145,25 +145,22 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             self.singleFieldHeader.alpha = 1
             self.sectionTitle.text = "Range Readiness:"
             self.headerRight.text = "Criteria (Leaf Stage)"
-//            self.banner.text = ""
         case .StubbleHeight:
-            self.sectionSubtitle.text = ""
-            self.sectionTitleContainerHeight.constant = 50
+            self.sectionSubtitle.text = "Livestock must be removed on the first to occur of the date in the plan (ex. schedule), stubble height criteria or average browse criteria."
+            self.sectionTitleContainerHeight.constant = 80
             self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
             self.singleFieldHeader.alpha = 0
             self.sectionTitle.text = "Stubble Height:"
             self.headerRight.text = "Height After Grazing (cm)"
-//            self.banner.text = ""
         case .ShrubUse:
-            self.sectionSubtitle.text = ""
-            self.sectionTitleContainerHeight.constant = 50
+            self.sectionSubtitle.text = "Livestock must be removed on the first to occur of the date in the plan (ex. schedule), stubble height criteria or average browse criteria."
+            self.sectionTitleContainerHeight.constant = 80
             self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
             self.singleFieldHeader.alpha = 0
             self.sectionTitle.text = "Shrub Use:"
             self.headerRight.text = "% of Current Annual Growth"
-//            self.banner.text = "The default allowable browse level is 25% of current annual growth"
         }
     }
 
@@ -191,12 +188,6 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()
         })
-
-//        self.tableView.reloadData()
-//        self.tableView.layoutIfNeeded()
-//        self.tableHeight.constant = computeHeight()
-//        self.layoutIfNeeded()
-//        parent.reload()
     }
 
     func refreshMonitoringAreaObject() {

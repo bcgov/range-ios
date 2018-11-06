@@ -125,7 +125,6 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Outlet actions
-
     @IBAction func endTour(_ sender: Any) {
         endTourTip()
     }

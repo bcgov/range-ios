@@ -26,4 +26,5 @@ class PlantSpecies: Object {
     @objc dynamic var stubbleHeight: Double = 0.0
     @objc dynamic var annualGrowth: Double = 0.0
     @objc dynamic var leafStage: Double = 0.0
+    @objc dynamic var isShrubUse: Bool = false
 }

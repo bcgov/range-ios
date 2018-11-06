@@ -42,9 +42,6 @@ class PastureTableViewCell: BaseFormCell {
 
     @IBOutlet weak var plantCommunitiesLabel: UILabel!
 
-    @IBOutlet weak var switchLabel: UILabel!
-    @IBOutlet weak var ministerSwitch: UISwitch!
-
     @IBOutlet weak var pastureNameButton: UIButton!
     @IBOutlet weak var pastureNameEditButton: UIButton!
     // Remove this button
@@ -58,14 +55,19 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Outlet Actions
-    @IBAction func ministerSwitchAction(_ sender: UISwitch) {
-        guard let pasture = self.pasture else {return}
-        pasture.setMinisterApprovalObtained(to: sender.isOn)
+    @IBAction func pldToolTipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Private Land Deduction", desc: InfoTips.privateLandDeduction)
+    }
+
+    @IBAction func allowableAUMTipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Allowable AUMs", desc: InfoTips.privateLandDeduction)
     }
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipPlantCommunitiesTitle, desc: tooltipPlantCommunitiesDescription)
+        parent.showTooltip(on: sender, title: "Plant Community", desc: tooltipPlantCommunitiesDescription)
     }
 
     @IBAction func editNameAction(_ sender: UIButton) {
@@ -200,11 +202,6 @@ class PastureTableViewCell: BaseFormCell {
         }
     }
 
-    @IBAction func allowableAUMInfo(_ sender: UIButton) {
-        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: "Allowable AUMs", desc: PlaceHolders.Pasture.allowableAUMs)
-    }
-
     @IBAction func graceDaysInfo(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: "Grace Days", desc: PlaceHolders.Pasture.graceDays)
@@ -259,8 +256,6 @@ class PastureTableViewCell: BaseFormCell {
         self.aumsField.text = "\(p.allowedAUMs)"
         self.deductionFIeld.text = "\(Int(p.privateLandDeduction))"
         self.graceDaysField.text = "\(p.graceDays)"
-
-        self.ministerSwitch.isOn = p.ministerApprovalObrained
 
         self.pastureNotesTextField.text = p.notes
 
@@ -352,7 +347,6 @@ class PastureTableViewCell: BaseFormCell {
             styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
             addPlantCommunityButton.alpha = 0
-            ministerSwitch.isEnabled = false
             pastureNameButton.isEnabled = false
             pastureNameEditButton.isEnabled = false
             pastureNameEdit.isEnabled = false
@@ -365,13 +359,10 @@ class PastureTableViewCell: BaseFormCell {
             styleFillButton(button: addPlantCommunityButton)
 
             addPlantCommunityButton.alpha = 1
-            ministerSwitch.isEnabled = true
             if pastureNotesTextField.text == PlaceHolders.Pasture.notes {
                 pastureNotesTextField.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
             }
         }
-        ministerSwitch.onTintColor = Colors.switchOn
-        styleSubHeader(label: switchLabel)
         styleContainer(view: containerView)
         styleSubHeader(label: pastureNameHeader)
         styleSubHeader(label: pastureNameLabel)

@@ -28,7 +28,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipMinistersIssuesAndActionsTitle, desc: tooltipMinistersIssuesAndActionsDescription)
+        parent.showTooltip(on: sender, title: "Minister’s Issues and Actions", desc: InfoTips.ministersIssuesandActions)
     }
 
     // misleading name. this adds an issue. its the action of adding an issue.

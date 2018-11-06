@@ -66,9 +66,43 @@ struct PlaceHolders {
     }
 
     struct ManagementConsiderations {
-        let name: String = "Descriptive name ex. short term forage"
-        let description: String = "ex. proposed harvesting by company Y in pasture X could provide an opportunity for short term forage"
+        static let name: String = "Descriptive name ex. short term forage"
+        static let description: String = "ex. proposed harvesting by company Y in pasture X could provide an opportunity for short term forage"
     }
+}
+
+struct InfoTips {
+    static let basicInformation = "Agreement specifics from FTA (including usage) and plan specifics entered by staff. If there is agreement information that is incorrect, update FTA and wait until next FTA sync (daily)."
+
+    static let rangeName = "Each agreement needs to have a common name (descriptive or nickname) to easily distinguish between ranges when an agreement holder has more than one. If the agreement holder has only one agreement the range name might be simply “crown.”"
+
+    static let pastures = "FRPA section 33 indicates that an RUP for grazing must include both a map showing pastures and a schedule having livestock class, number and period of use for each pasture.\nWhere an agreement area is not subdivided into pastures there is a single pastures whose boundary matches that of the agreement.\nPastures may be one of two types\n1. Closed: those having the entire boundary accurately defined by physical barriers (ex.fence or NRB)\n2. Open: those not having the entire boundary accurately defined by physical barriers (i.e. at least a portion of the boundary reflects an approximate transition between one pasture and the next)\nYou might choose to select a ‘grace days’ value appropriate for the pasture type."
+
+    static let privateLandDeduction = "Percentage of total forage grazed from this pasture attributed to private land."
+
+    static let allowableAUMs = "Approved maximum AUM allocation for this pasture. The default is “not set” to indicate that there is not a approved AUM allocation for the pastures. Overwrite this value if there is an approved AUM allocation."
+
+    static let plantCommunityActions = "RPPR section 13(1) allows the minister to specify actions to establish or maintain a described plant community. Actions are to be determined by staff and accepted by the decision maker before sending the RUP or amendment to the agreement holder. In some situations it may be appropriate to discuss the specifics of the plant community with the agreement holder before determining the actions and seeking acceptance from the decision maker."
+
+    static let criteria = "RPPR section 13 allows the minister to specify range readiness and stubble height criteria that are either described in the Schedule or consistent with objectives set by government. Readiness defaults by species are consistent with the schedule."
+
+    static let browseUsage = "RPPR section 29 indicates that unless otherwise specified in the RUP acceptable average browse is 25% of current annual grown."
+
+    static let monitoringAreas = "Every plant community must have at least one monitoring area.\nRather than an extensive sampling approach to determine an average criteria measurement (ex. leaf stage or stubble height), monitoring areas are selected in locations that reflect an average condition within the plant community for the purpose selected. The location of monitoring areas should be carefully selected based on the purpose(s) of the monitoring area. An appropriate location for sampling for average readiness criteria may not be appropriate for sampling for average stubble height.\nRecognizing that management occurs primarily at the pasture level, where a pasture includes multiple plant communities you will likely want to select monitoring areas within the plant communities that are most relevant for the various criteria included."
+
+    static let monitoringAreaPurpose = "Each monitoring area must be selected carefully based on the purpose it is needed.\nRange Readiness: date, average plant growth or text statement that identifies when range is ready to be grazed\nStubble Height: the average height of plants remaining after grazing\nShrub Use: average browse use level of current annual growth\nKey Area: a relatively small portion of a range selected because of its location, use or grazing values as a monitoring point for grazing use. It is assumed that, if properly selected, key areas will reflect the overall acceptability of current grazing management over the range.\nOther: text description of why a monitoring area is selected (ex. tracking an issue)"
+
+    static let yearlySchedule = "FRPA section 33 states that every RUP must include a schedule that includes livestock class, number and period of use for each pasture.\nEvery schedule must have at least one row in the schedule grid. The schedule description/narrative is optional but when included is legal content.\nOn/off schedules (off being on private land) are addressed using PLD % at the pasture level.\nStraggler clause is recorded using “grace days.” A default is entered for the pasture but it can be overwritten in the individual entries in the schedule as needed.\nStaff may either require that a schedule be provided for all plan years at the time of RUP approval OR that a new schedule be provided every year.\nOptions to copy an entire schedule to another year or to copy a single schedule row are available by selecting the three dots at the right."
+
+    static let ministersIssuesandActions = "FRPA section 33 indicates that actions to to deal with issues identified by the minister must be specified in the RUP.\nIssues must be identified by the delegated decision maker (either on a site-specific basis or as a set of issues and conditions where they apply for a district) and documentation included on file before an RUP can be sent to an agreement holder for their input.\nRefer to the Minister’s Issue Policy for details on identifying issues for RUP content."
+
+    static let identifiedbyMinistertoggle = "Do not move the toggle to “identified” until documentation regarding the identification by the delegated decision maker is on file."
+
+    static let invasivePlants = "RPPR 15 indicates that an RUP must include measures to prevent the introduction and spread of invasive plant species if the the introduction, spread, or both are likely to be the result of the person’s range pracitices.  This content is specific to the practices of the agreement holder not other crown land users.\nAll range practices have the potential to result in introduction or spread of invasive plants and this is a required section of the plan."
+
+    static let additionalRequirements = "Other orders, agreements, plans etc. may have content that is relevant to range related activities. Inclusion of that content in the RUP is redundant and creates potential for inconsistency or error.\nThis section is included to inform the agreement holder and the decision maker of other agreements for consideration/review when preparing and making a decision on an RUP.\nWhen an agreement is available online include the URL for convenience."
+
+    static let managementConsiderations = "Agreement holders may have information related to their operations that they want to have documented with their RUP. While not legal, this content can help explain the context for operations. This section is completely optional and fully within the domain of the agreement holder."
 }
 
 // Tooltip

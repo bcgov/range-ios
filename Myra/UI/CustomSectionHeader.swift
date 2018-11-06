@@ -13,6 +13,10 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var tooltipButton: UIButton!
+    @IBOutlet weak var titleWidth: NSLayoutConstraint!
+
+    var toolTipHelpText = ""
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -22,7 +26,7 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
     }
     */
 
-    func setup(title: String, iconImage: UIImage? = nil) {
+    func setup(title: String, iconImage: UIImage? = nil, helpDescription: String? = nil) {
         self.titleLabel.text = title
 //        styleSubHeader(label: titleLabel)
         styleHeader(label: titleLabel, divider: divider)
@@ -34,7 +38,24 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
         } else {
             self.icon.alpha = 0
         }
+
+        if let help = helpDescription {
+            tooltipButton.isHidden = false
+            self.toolTipHelpText = help
+
+        } else {
+            tooltipButton.isHidden = true
+        }
+        titleWidth.constant = title.width(withConstrainedHeight: 60, font: defaultSectionHeaderFont())
     }
+
+
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? BaseViewController, let titleText = titleLabel.text else {return}
+        parent.showTooltip(on: sender, title: titleText, desc: toolTipHelpText)
+    }
+
+
 
     
 
