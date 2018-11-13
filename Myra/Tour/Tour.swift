@@ -88,11 +88,26 @@ class Tour {
         popover.permittedArrowDirections = .any
         popover.backgroundColor = self.backgroundColor
         popover.sourceView = element.view
-        popover.sourceRect = CGRect(x: element.view.layer.frame.midX, y: element.view.layer.frame.midY, width: 0, height: 0)
+
+
+
+        var xposition: CGFloat = element.view.bounds.minX
+        var yposition: CGFloat = element.view.bounds.maxY
+        // if left cover is less than half of preferred popover width
+        if genLeft(for: element.view.layer, relativeTo: controller.view, with: self.backgroundColor).frame.width < width / 2 {
+            // center x
+            xposition = element.view.bounds.midX
+        }
+        // if bottom is less then hald of preferred popover height
+        if genBotHalf(for: element.view.layer, relativeTo: controller.view, with: self.backgroundColor).frame.height < height / 2 {
+            yposition = element.view.bounds.minY
+        }
+        // Set popover location
+        popover.sourceRect = CGRect(x: xposition, y: yposition, width: 0, height: 0)
+
         controller.present(self.popoverVC, animated: true, completion: {
             self.popoverVC.setup(header: element.header, desc: element.desc, hasPrev: !self.old.isEmpty, hasNext: hasNext, onBack: onBack, onNext: onNext, onSkip: onSkip)
         })
-
     }
 
     func removeCover() {
@@ -100,6 +115,7 @@ class Tour {
         if let top = controller.view.viewWithTag(topTag) {
             top.removeFromSuperview()
         }
+
         if let bottom = controller.view.viewWithTag(bottomTag) {
             bottom.removeFromSuperview()
         }
@@ -111,7 +127,6 @@ class Tour {
         if let right = controller.view.viewWithTag(rightTag) {
             right.removeFromSuperview()
         }
-
     }
 
     func cover(layer: CALayer, in controller: UIViewController, with color: UIColor) {

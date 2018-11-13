@@ -202,8 +202,17 @@ class HomeViewController: BaseViewController {
         var objects: [TourObject] = [TourObject]()
         let createBtn = TourObject(header: "Create Button", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: createButton)
         let lsLabel = TourObject(header: "LastSync", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: lastSyncLabel)
+        let smtnLabel = TourObject(header: "Light", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: connectivityLight)
         objects.append(lsLabel)
         objects.append(createBtn)
+        objects.append(smtnLabel)
+        if let visibles = self.tableView.indexPathsForVisibleRows{
+            let lastVisible = visibles[visibles.count - 2]
+            if let cellOne = self.tableView.cellForRow(at: lastVisible) {
+                let celltuorial = TourObject(header: "Down below", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: cellOne)
+                objects.append(celltuorial)
+            }
+        }
         if let cellOne = self.tableView.cellForRow(at: firstIndexPath) {
             let celltuorial = TourObject(header: "Range Use Plan", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: cellOne)
             objects.append(celltuorial)
