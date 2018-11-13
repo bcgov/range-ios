@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQF-Gb-fcd">
-                                <rect key="frame" x="312" y="19" width="190" height="42"/>
+                                <rect key="frame" x="305" y="19" width="190" height="42"/>
                                 <color key="backgroundColor" red="0.60784906149999995" green="0.6078355312" blue="0.60783821339999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <accessibility key="accessibilityConfiguration" identifier="AddPastureButton"/>
                                 <constraints>
@@ -62,9 +62,9 @@
                         <constraints>
                             <constraint firstItem="G0d-Oi-V93" firstAttribute="leading" secondItem="vw8-1r-Wzl" secondAttribute="leading" constant="15" id="8B0-9s-OO8"/>
                             <constraint firstItem="iui-gw-DeH" firstAttribute="leading" secondItem="vw8-1r-Wzl" secondAttribute="leading" constant="15" id="TkG-Xa-gkk"/>
-                            <constraint firstItem="2C3-QC-gYd" firstAttribute="trailing" secondItem="nQF-Gb-fcd" secondAttribute="trailing" constant="8" id="WdI-EU-qao"/>
                             <constraint firstAttribute="trailing" secondItem="iui-gw-DeH" secondAttribute="trailing" constant="15" id="jHd-Ec-NgU"/>
                             <constraint firstItem="G0d-Oi-V93" firstAttribute="centerY" secondItem="vw8-1r-Wzl" secondAttribute="centerY" id="jkE-0e-gtM"/>
+                            <constraint firstItem="nQF-Gb-fcd" firstAttribute="trailing" secondItem="iui-gw-DeH" secondAttribute="trailing" id="k9G-SU-RL5"/>
                             <constraint firstAttribute="bottom" secondItem="iui-gw-DeH" secondAttribute="bottom" id="ncu-pa-hAp"/>
                             <constraint firstItem="eze-PO-Oba" firstAttribute="leading" secondItem="G0d-Oi-V93" secondAttribute="trailing" constant="5" id="ote-Dx-F1u"/>
                             <constraint firstItem="eze-PO-Oba" firstAttribute="centerY" secondItem="G0d-Oi-V93" secondAttribute="centerY" id="pJ5-zF-obf"/>
@@ -73,17 +73,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2C3-QC-gYd"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This content is not part of the legal Range Use Plan and is available for information purposes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEj-mJ-QbF">
-                        <rect key="frame" x="8" y="88" width="494" height="55"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEj-mJ-QbF">
+                        <rect key="frame" x="15" y="88" width="487" height="75"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="55" id="n0C-lY-JRt"/>
+                            <constraint firstAttribute="height" constant="75" id="n0C-lY-JRt"/>
                         </constraints>
+                        <string key="text">This content is not part of the legal Range Use Plan and is available for information only. Inclusion of information in this section does not imply consent nor authorization to conduct any activities.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qSv-I6-4yH">
-                        <rect key="frame" x="28" y="151" width="454" height="163"/>
+                        <rect key="frame" x="28" y="171" width="454" height="143"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="750" id="XI4-m1-Cns"/>
@@ -97,10 +98,10 @@
                     <constraint firstItem="vw8-1r-Wzl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9se-Yc-Lmf"/>
                     <constraint firstItem="qSv-I6-4yH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="NLz-0V-r9J"/>
                     <constraint firstAttribute="trailing" secondItem="FEj-mJ-QbF" secondAttribute="trailing" constant="8" id="QvF-5J-my1"/>
-                    <constraint firstItem="FEj-mJ-QbF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="TF5-Kr-yJq"/>
                     <constraint firstItem="FEj-mJ-QbF" firstAttribute="top" secondItem="vw8-1r-Wzl" secondAttribute="bottom" constant="8" id="byT-Vy-fYb"/>
                     <constraint firstAttribute="trailing" secondItem="vw8-1r-Wzl" secondAttribute="trailing" id="e5p-7e-cvi"/>
                     <constraint firstAttribute="trailingMargin" secondItem="qSv-I6-4yH" secondAttribute="trailing" constant="8" id="hFw-9D-XVJ"/>
+                    <constraint firstItem="FEj-mJ-QbF" firstAttribute="leading" secondItem="iui-gw-DeH" secondAttribute="leading" id="pYp-zg-0pa"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -62,12 +62,12 @@ class PastureTableViewCell: BaseFormCell {
 
     @IBAction func allowableAUMTipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: "Allowable AUMs", desc: InfoTips.privateLandDeduction)
+        parent.showTooltip(on: sender, title: "Allowable AUMs", desc: InfoTips.allowableAUMs)
     }
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: "Plant Community", desc: tooltipPlantCommunitiesDescription)
+//        parent.showTooltip(on: sender, title: "Plant Community", desc: tooltipPlantCommunitiesDescription)
     }
 
     @IBAction func editNameAction(_ sender: UIButton) {
@@ -357,6 +357,9 @@ class PastureTableViewCell: BaseFormCell {
             styleInputField(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputField(field: pastureNotesTextField, header: pastureNotesHeader)
             styleFillButton(button: addPlantCommunityButton)
+            pastureNameButton.isEnabled = true
+            pastureNameEditButton.isEnabled = true
+            pastureNameEdit.isEnabled = true
 
             addPlantCommunityButton.alpha = 1
             if pastureNotesTextField.text == PlaceHolders.Pasture.notes {

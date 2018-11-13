@@ -11,7 +11,7 @@ import UIKit
 class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
-    static let cellHeight = 66
+    static let cellHeight = 70
     let freeTextOption = "Custom"
 
     // MARK: Variables
@@ -20,6 +20,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     var parentReference: PlantCommunityViewController?
     var indicatorPlant: IndicatorPlant?
     var parentCellReference: MonitoringAreaCustomDetailsTableViewCell?
+    var section: IndicatorPlantSection = IndicatorPlantSection.RangeReadiness
 
     // MARK: Outlets
     @IBOutlet weak var rightField: UITextField!
@@ -29,6 +30,9 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var leftFieldDropDown: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
+
+    @IBOutlet weak var leftFieldHeader: UILabel!
+    @IBOutlet weak var rightFieldHeader: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -102,8 +106,9 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         }
     }
     
-    func setup(mode: FormMode, indicatorPlant: IndicatorPlant, plantCommunity: PlantCommunity, parentReference: PlantCommunityViewController, parentCellReference: MonitoringAreaCustomDetailsTableViewCell) {
+    func setup(forSection section: IndicatorPlantSection, mode: FormMode, indicatorPlant: IndicatorPlant, plantCommunity: PlantCommunity, parentReference: PlantCommunityViewController, parentCellReference: MonitoringAreaCustomDetailsTableViewCell) {
         self.mode = mode
+        self.section = section
         self.plantCommunity = plantCommunity
         self.parentReference = parentReference
         self.indicatorPlant = indicatorPlant
@@ -138,6 +143,8 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     }
 
     func style() {
+        styleFieldHeader(label: leftFieldHeader)
+        styleFieldHeader(label: rightFieldHeader)
         rightFIeldButton.alpha = 0
         switch mode {
         case .View:
@@ -152,6 +159,15 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         case .Edit:
             styleInput(input: rightField, height: fieldHeight)
             styleInput(input: leftField, height: fieldHeight)
+        }
+
+        switch section {
+        case .RangeReadiness:
+            rightFieldHeader.text = "Criteria (Leaf Stage)"
+        case .StubbleHeight:
+            rightFieldHeader.text = "Height After Grazing (cm)"
+        case .ShrubUse:
+            rightFieldHeader.text = "% of Current Annual Growth"
         }
     }
     

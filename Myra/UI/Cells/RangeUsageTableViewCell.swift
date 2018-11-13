@@ -40,6 +40,12 @@ class RangeUsageTableViewCell: BaseFormCell {
     // MARK: Cell functions
 
     // MARK: Outlet actions
+
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Usage", desc: InfoTips.usage)
+
+    }
     @IBAction func addAction(_ sender: Any) {
         do {
             let realm = try Realm()

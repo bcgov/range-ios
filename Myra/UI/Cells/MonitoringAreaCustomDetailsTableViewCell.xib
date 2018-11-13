@@ -54,8 +54,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q8m-rG-H9S" userLabel="Action Stack">
                                         <rect key="frame" x="24" y="0.0" width="190" height="70"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readiness Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-ng-D2P">
-                                                <rect key="frame" x="0.0" y="0.0" width="119" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readiness Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-ng-D2P">
+                                                <rect key="frame" x="0.0" y="0.0" width="123.5" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="pZr-Ey-htz"/>
                                                 </constraints>
@@ -114,8 +114,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsi-vm-VTs" userLabel="Notes">
                                 <rect key="frame" x="8" y="184" width="796" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klt-11-1bj">
-                                        <rect key="frame" x="24" y="8" width="50.5" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klt-11-1bj">
+                                        <rect key="frame" x="24" y="8" width="48.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -126,15 +126,24 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TpV-rV-0dh">
+                                        <rect key="frame" x="77.5" y="6.5" width="24" height="24"/>
+                                        <state key="normal" image="icon_Question"/>
+                                        <connections>
+                                            <action selector="otherToolTipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tHn-kj-Wau"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ydj-5n-b5E" secondAttribute="trailing" constant="24" id="DWF-OY-1OA"/>
                                     <constraint firstItem="Klt-11-1bj" firstAttribute="leading" secondItem="nsi-vm-VTs" secondAttribute="leading" constant="24" id="bbC-Da-HFJ"/>
+                                    <constraint firstItem="TpV-rV-0dh" firstAttribute="centerY" secondItem="Klt-11-1bj" secondAttribute="centerY" id="jBN-lq-yoi"/>
                                     <constraint firstAttribute="height" constant="100" id="jMw-od-iIK"/>
                                     <constraint firstAttribute="bottom" secondItem="ydj-5n-b5E" secondAttribute="bottom" constant="8" id="mYi-kF-YiA"/>
                                     <constraint firstItem="ydj-5n-b5E" firstAttribute="top" secondItem="Klt-11-1bj" secondAttribute="bottom" constant="8" id="of5-xu-1UV"/>
                                     <constraint firstItem="Klt-11-1bj" firstAttribute="top" secondItem="nsi-vm-VTs" secondAttribute="top" constant="8" id="wDF-Et-w1Q"/>
+                                    <constraint firstItem="TpV-rV-0dh" firstAttribute="leading" secondItem="Klt-11-1bj" secondAttribute="trailing" constant="5" id="wtB-Q5-1Dv"/>
                                     <constraint firstItem="ydj-5n-b5E" firstAttribute="leading" secondItem="nsi-vm-VTs" secondAttribute="leading" constant="24" id="xst-SL-24A"/>
                                 </constraints>
                             </view>
@@ -248,5 +257,6 @@
     </objects>
     <resources>
         <image name="add" width="20" height="20"/>
+        <image name="icon_Question" width="24" height="24"/>
     </resources>
 </document>

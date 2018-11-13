@@ -35,14 +35,14 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pasture" translatesAutoresizingMaskIntoConstraints="NO" id="EjY-Uy-5TR">
-                                <rect key="frame" x="15" y="15" width="22" height="22"/>
+                                <rect key="frame" x="15" y="19.5" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="U9y-ba-sK5"/>
                                     <constraint firstAttribute="width" constant="22" id="hvg-WE-02t"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zuB-WJ-S4r">
-                                <rect key="frame" x="15" y="52" width="671" height="95"/>
+                                <rect key="frame" x="15" y="56.5" width="671" height="95"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOu-zn-fVu" userLabel="input box">
                                         <rect key="frame" x="0.0" y="0.0" width="217" height="95"/>
@@ -218,19 +218,19 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billy's Bluff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6P-6l-YOY">
-                                <rect key="frame" x="114.5" y="11" width="84.5" height="30"/>
+                                <rect key="frame" x="114.5" y="15.5" width="84.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasture Notes (non Legal content)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFx-h9-LGF">
-                                <rect key="frame" x="15" y="163" width="671" height="27.5"/>
+                                <rect key="frame" x="15" y="167.5" width="671" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.60784906149999995" green="0.6078355312" blue="0.60783821339999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasture: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lmo-yi-ffD">
-                                <rect key="frame" x="42" y="15.5" width="67.5" height="20.5"/>
+                                <rect key="frame" x="42" y="15.5" width="67.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -277,20 +277,20 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-28-cfD">
-                                <rect key="frame" x="114.5" y="11" width="84.5" height="30"/>
+                                <rect key="frame" x="114.5" y="15.5" width="84.5" height="30"/>
                                 <connections>
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gj8-vE-938"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5n-SP-CTY">
-                                <rect key="frame" x="207" y="15" width="12" height="22"/>
+                                <rect key="frame" x="207" y="19.5" width="12" height="22"/>
                                 <state key="normal" image="icon_edit"/>
                                 <connections>
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Eeu-Ro-Kx2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Al9-7x-BGA">
-                                <rect key="frame" x="114.5" y="11" width="104.5" height="30"/>
+                                <rect key="frame" x="114.5" y="15.5" width="104.5" height="30"/>
                                 <connections>
                                     <action selector="editNameAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r9O-vJ-LcH"/>
                                 </connections>
@@ -313,6 +313,7 @@
                             <constraint firstItem="QpF-28-cfD" firstAttribute="top" secondItem="E6P-6l-YOY" secondAttribute="top" id="FrH-uK-fwQ"/>
                             <constraint firstItem="w5n-SP-CTY" firstAttribute="centerY" secondItem="QpF-28-cfD" secondAttribute="centerY" id="Gki-xJ-k9E"/>
                             <constraint firstItem="Soa-UZ-bH2" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="Gvs-zO-bxe"/>
+                            <constraint firstItem="Al9-7x-BGA" firstAttribute="top" secondItem="d10-4y-3Jf" secondAttribute="top" constant="15.5" id="Ioo-5i-2r1"/>
                             <constraint firstItem="ncF-tG-42g" firstAttribute="top" secondItem="tAI-sm-UTn" secondAttribute="bottom" constant="8" id="J6f-Q9-QO3"/>
                             <constraint firstItem="EjY-Uy-5TR" firstAttribute="leading" secondItem="d10-4y-3Jf" secondAttribute="leading" constant="15" id="JZr-YM-Zpt"/>
                             <constraint firstItem="1yy-6Z-4n7" firstAttribute="top" secondItem="d10-4y-3Jf" secondAttribute="top" id="M1c-xP-y3A"/>

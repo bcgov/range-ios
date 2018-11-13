@@ -195,7 +195,20 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func tourAction(_ sender: UIButton) {
-        beginTourTip()
+//        beginTourTip()
+
+        let firstIndexPath = IndexPath(row: 0, section: 0)
+        let tour = Tour()
+        var objects: [TourObject] = [TourObject]()
+        let createBtn = TourObject(header: "Create Button", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: createButton)
+        let lsLabel = TourObject(header: "LastSync", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: lastSyncLabel)
+        objects.append(lsLabel)
+        objects.append(createBtn)
+        if let cellOne = self.tableView.cellForRow(at: firstIndexPath) {
+            let celltuorial = TourObject(header: "Range Use Plan", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: cellOne)
+            objects.append(celltuorial)
+        }
+        tour.initialize(with: objects, containerIn: self)
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
@@ -335,6 +348,9 @@ class HomeViewController: BaseViewController {
         setUpTable()
         filterByAll()
         beginChangeListener()
+
+
+
     }
 
     @objc func updateLastSyncLabel() {

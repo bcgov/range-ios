@@ -183,6 +183,8 @@ class CreateNewRUPViewController: BaseViewController {
 
     @IBOutlet weak var requiredFieldNeededLabel: UILabel!
 
+    @IBOutlet weak var menuModeButton: UIButton!
+
     // Body
     @IBOutlet weak var tableView: UITableView!
 
@@ -207,6 +209,15 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Outlet Actions
+    @IBAction func menuModeAction(_ sender: UIButton) {
+        if self.menuWidth.constant ==  self.portraitMenuWidth {
+            styleLandscapeMenu()
+        } else {
+            stylePortaitMenu()
+        }
+        animateIt()
+    }
+
     @IBAction func bannerTooltipAction(_ sender: UIButton) {
         showTooltip(on: sender, title: getBannerTitle(), desc: getBannerDescription())
     }

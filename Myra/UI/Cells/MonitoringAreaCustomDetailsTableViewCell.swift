@@ -55,6 +55,13 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Outlet Actions
+
+    @IBAction func otherToolTipAction(_ sender: UIButton) {
+        guard let parent = parentReference else {return}
+        parent.showTooltip(on: sender, title: "Other", desc: InfoTips.rangeReadinessOther)
+
+    }
+
     @IBAction func singleFieldAction(_ sender: UIButton) {
         guard let a = plantCommunity, let parent = parentReference else {return}
         let picker = DatePicker()
@@ -138,7 +145,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
 
     func setupSection() {
         guard let current = self.section else {return}
-        self.headerLeft.text = "Indicator Plant"
+        self.headerLeft.text = "Plant Growth:"
+        self.headerRight.text = ""
         switch current {
         case .RangeReadiness:
             self.sectionSubtitle.text = "If more than one readiness criteria is provided, all such criteria must be met before grazing may accur."
@@ -147,23 +155,26 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             self.singleFieldSectionHeight.constant = 70
             self.singleFieldHeader.alpha = 1
             self.sectionTitle.text = "Range Readiness:"
-            self.headerRight.text = "Criteria (Leaf Stage)"
+//            self.headerRight.text = "Criteria (Leaf Stage)"
         case .StubbleHeight:
             self.sectionSubtitle.text = "Livestock must be removed on the first to occur of the date in the plan (ex. schedule), stubble height criteria or average browse criteria."
+            self.notesSection.alpha = 0
             self.sectionTitleContainerHeight.constant = 80
             self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
             self.singleFieldHeader.alpha = 0
             self.sectionTitle.text = "Stubble Height:"
-            self.headerRight.text = "Height After Grazing (cm)"
+
+//            self.headerRight.text = "Height After Grazing (cm)"
         case .ShrubUse:
-            self.sectionSubtitle.text = "Livestock must be removed on the first to occur of the date in the plan (ex. schedule), stubble height criteria or average browse criteria."
+            self.sectionSubtitle.text = "Livestock must be removed from the pasture on the first to occur of the date in the plan (ex. schedule), stubble height criteria for any plant community in the pasture or average browse criteria."
+            self.notesSection.alpha = 0
             self.sectionTitleContainerHeight.constant = 80
             self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
             self.singleFieldHeader.alpha = 0
             self.sectionTitle.text = "Shrub Use:"
-            self.headerRight.text = "% of Current Annual Growth"
+//            self.headerRight.text = "% of Current Annual Growth"
         }
     }
 
@@ -253,7 +264,7 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITable
                 ip = plantCommunity.shrubUse[indexPath.row]
             }
             guard let indicatorPlant = ip else {return cell}
-            cell.setup(mode: self.mode, indicatorPlant: indicatorPlant, plantCommunity: plantCommunity, parentReference: parent, parentCellReference: self)
+            cell.setup(forSection: sec, mode: self.mode, indicatorPlant: indicatorPlant, plantCommunity: plantCommunity, parentReference: parent, parentCellReference: self)
         }
 
         return cell

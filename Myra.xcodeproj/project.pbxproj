@@ -11,6 +11,9 @@
 		2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C02141D61500AE72FC /* StatusHelper.swift */; };
 		2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C22141D8EC00AE72FC /* Reference.swift */; };
 		2901C4C52141DB4000AE72FC /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C42141DB4000AE72FC /* Options.swift */; };
+		2905432A2194D26600865823 /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290543292194D26600865823 /* Tour.swift */; };
+		2905432C2194DC5200865823 /* Tour.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2905432B2194DC5200865823 /* Tour.storyboard */; };
+		290543302194DC7400865823 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905432F2194DC7400865823 /* TourViewController.swift */; };
 		290551FA21345E3A00785B5E /* AmendmentFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 290551F921345E3A00785B5E /* AmendmentFlow.storyboard */; };
 		290551FC21345E5600785B5E /* AmendmentFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */; };
 		2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */; };
@@ -244,6 +247,9 @@
 		2901C4C02141D61500AE72FC /* StatusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusHelper.swift; sourceTree = "<group>"; };
 		2901C4C22141D8EC00AE72FC /* Reference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		2901C4C42141DB4000AE72FC /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
+		290543292194D26600865823 /* Tour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tour.swift; sourceTree = "<group>"; };
+		2905432B2194DC5200865823 /* Tour.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tour.storyboard; sourceTree = "<group>"; };
+		2905432F2194DC7400865823 /* TourViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
 		290551F921345E3A00785B5E /* AmendmentFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AmendmentFlow.storyboard; sourceTree = "<group>"; };
 		290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentFlowViewController.swift; sourceTree = "<group>"; };
 		290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentPageOneCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -498,6 +504,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		290543282194D23700865823 /* Tour */ = {
+			isa = PBXGroup;
+			children = (
+				290543292194D26600865823 /* Tour.swift */,
+				2905432F2194DC7400865823 /* TourViewController.swift */,
+				2905432B2194DC5200865823 /* Tour.storyboard */,
+			);
+			path = Tour;
+			sourceTree = "<group>";
+		};
 		2920F8202034B98D0090E7B4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +694,7 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
+				290543282194D23700865823 /* Tour */,
 				295FBF7A21641EEA00DD2C53 /* ML */,
 				29234B0B2138592400F547AC /* Lotte */,
 				56F3889F2080173C004CDFAE /* API */,
@@ -1014,6 +1031,7 @@
 				29055214213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
 				293D4184216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib in Resources */,
+				2905432C2194DC5200865823 /* Tour.storyboard in Resources */,
 				29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */,
 				295F8F1720F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */,
 				293D4188216D3109006214E1 /* AdditionalRequirementTableViewCell.xib in Resources */,
@@ -1174,6 +1192,7 @@
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
 				29227B6920EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift in Sources */,
 				294CADB5216E868A00DB184B /* NewElementAddedBanner.swift in Sources */,
+				2905432A2194D26600865823 /* Tour.swift in Sources */,
 				29103A9C2151B56900032076 /* TourTip.swift in Sources */,
 				291746872074279B005F70B4 /* LoginViewController.swift in Sources */,
 				29301FDF21385CB500E121E0 /* SyncBanner.swift in Sources */,
@@ -1225,6 +1244,7 @@
 				29EE75D7205053030061B18D /* ScheduleObjectTableViewCell.swift in Sources */,
 				29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */,
 				29742707204484FB0033BC47 /* AgreementHolderTableViewCell.swift in Sources */,
+				290543302194DC7400865823 /* TourViewController.swift in Sources */,
 				299D3EB6217E77900000781E /* PlantSpecies.swift in Sources */,
 				2933183A20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift in Sources */,
 				299BD278207BF488004B1D07 /* Constants.swift in Sources */,

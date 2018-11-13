@@ -77,7 +77,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
 
     @IBAction func approvedByMinisterInfo(_ sender: UIButton) {
         guard let p = parentReference else {return}
-        p.showTooltip(on: sender, title: tooltipPlantCommunityApprovedByMinisterTitle, desc: tooltipPlantCommunityApprovedByMinisterDescription)
+        p.showTooltip(on: sender, title: "Approved by Minister", desc: InfoTips.approvedByMinister)
     }
 
     @IBAction func approvedByMinisterAction(_ sender: UISwitch) {

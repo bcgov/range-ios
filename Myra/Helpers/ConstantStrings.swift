@@ -30,7 +30,7 @@ struct PlaceHolders {
         static let allowableAUMs: String = "Approved maximum AUM allocation for this pasture if applicable"
         static let pld: String = "Percentage of use in this pasture occuring on private land"
         static let graceDays: String = "Acceptable +/- days for livestock movement. Can be tailored by staff in schedule rows."
-        static let notes: String = "Pasture specific information (ie. not schedule, plant community or Minister's Issue specific). Examples may include relevant history or topographical considerations."
+        static let notes: String = "Pasture specific information (i.e. not schedule, plant community or Minister's Issue specific). Examples may include relevant history or topographical considerations."
     }
 
     struct Schedule {
@@ -72,11 +72,13 @@ struct PlaceHolders {
 }
 
 struct InfoTips {
+
+    static let usage = "Authorized usaged entered in FTA. If incorrect or incomplete, update FTA and wait for daily sync of myra with FTA"
     static let basicInformation = "Agreement specifics from FTA (including usage) and plan specifics entered by staff. If there is agreement information that is incorrect, update FTA and wait until next FTA sync (daily)."
 
     static let rangeName = "Each agreement needs to have a common name (descriptive or nickname) to easily distinguish between ranges when an agreement holder has more than one. If the agreement holder has only one agreement the range name might be simply “crown.”"
 
-    static let pastures = "FRPA section 33 indicates that an RUP for grazing must include both a map showing pastures and a schedule having livestock class, number and period of use for each pasture.\nWhere an agreement area is not subdivided into pastures there is a single pastures whose boundary matches that of the agreement.\nPastures may be one of two types\n1. Closed: those having the entire boundary accurately defined by physical barriers (ex.fence or NRB)\n2. Open: those not having the entire boundary accurately defined by physical barriers (i.e. at least a portion of the boundary reflects an approximate transition between one pasture and the next)\nYou might choose to select a ‘grace days’ value appropriate for the pasture type."
+    static let pastures = "FRPA section 33 indicates that an RUP for grazing must include both a map showing pastures and a schedule having livestock class, number and period of use for each pasture.\n\nWhere an agreement area is not subdivided into pastures there is a single pastures whose boundary matches that of the agreement.\n\nPastures may be one of two types\n1. Closed: those having the entire boundary accurately defined by physical barriers (ex.fence or NRB)\n2. Open: those not having the entire boundary accurately defined by physical barriers (i.e. at least a portion of the boundary reflects an approximate transition between one pasture and the next)\n\nYou might choose to select a ‘grace days’ value appropriate for the pasture type."
 
     static let privateLandDeduction = "Percentage of total forage grazed from this pasture attributed to private land."
 
@@ -84,7 +86,7 @@ struct InfoTips {
 
     static let plantCommunityActions = "RPPR section 13(1) allows the minister to specify actions to establish or maintain a described plant community. Actions are to be determined by staff and accepted by the decision maker before sending the RUP or amendment to the agreement holder. In some situations it may be appropriate to discuss the specifics of the plant community with the agreement holder before determining the actions and seeking acceptance from the decision maker."
 
-    static let criteria = "RPPR section 13 allows the minister to specify range readiness and stubble height criteria that are either described in the Schedule or consistent with objectives set by government. Readiness defaults by species are consistent with the schedule."
+    static let criteria = "RPPR section 13 allows the minister to specify range readiness and stubble height criteria that are either described in the Schedule or consistent with objectives set by government. Readiness defaults for species in this app are consistent with the schedule."
 
     static let browseUsage = "RPPR section 29 indicates that unless otherwise specified in the RUP acceptable average browse is 25% of current annual grown."
 
@@ -94,7 +96,7 @@ struct InfoTips {
 
     static let yearlySchedule = "FRPA section 33 states that every RUP must include a schedule that includes livestock class, number and period of use for each pasture.\nEvery schedule must have at least one row in the schedule grid. The schedule description/narrative is optional but when included is legal content.\nOn/off schedules (off being on private land) are addressed using PLD % at the pasture level.\nStraggler clause is recorded using “grace days.” A default is entered for the pasture but it can be overwritten in the individual entries in the schedule as needed.\nStaff may either require that a schedule be provided for all plan years at the time of RUP approval OR that a new schedule be provided every year.\nOptions to copy an entire schedule to another year or to copy a single schedule row are available by selecting the three dots at the right."
 
-    static let ministersIssuesandActions = "FRPA section 33 indicates that actions to to deal with issues identified by the minister must be specified in the RUP.\nIssues must be identified by the delegated decision maker (either on a site-specific basis or as a set of issues and conditions where they apply for a district) and documentation included on file before an RUP can be sent to an agreement holder for their input.\nRefer to the Minister’s Issue Policy for details on identifying issues for RUP content."
+    static let ministersIssuesandActions = "FRPA section 33 indicates that actions to to deal with issues identified by the minister must be specified in the RUP.\nIssues must be identified by the delegated decision maker (either on a site-specific basis or as a set of issues and conditions when they apply in a district) and documentation included on file before an RUP can be sent to an agreement holder for their input.\nRefer to the Minister’s Issue Policy for details on identifying issues for RUP content."
 
     static let identifiedbyMinistertoggle = "Do not move the toggle to “identified” until documentation regarding the identification by the delegated decision maker is on file."
 
@@ -103,9 +105,14 @@ struct InfoTips {
     static let additionalRequirements = "Other orders, agreements, plans etc. may have content that is relevant to range related activities. Inclusion of that content in the RUP is redundant and creates potential for inconsistency or error.\nThis section is included to inform the agreement holder and the decision maker of other agreements for consideration/review when preparing and making a decision on an RUP.\nWhen an agreement is available online include the URL for convenience."
 
     static let managementConsiderations = "Agreement holders may have information related to their operations that they want to have documented with their RUP. While not legal, this content can help explain the context for operations. This section is completely optional and fully within the domain of the agreement holder."
+
+    static let approvedByMinister = "Place documentation of descision makers approval to include this plant community information on file before updating & sending to agreement holders."
+
+    static let rangeReadinessOther = "Readiness may be expressed as a statement such as 'Soil sufficiently dry to prevent pugging'"
 }
 
 // Tooltip
+/*
 let tooltipPlanInformationTitle: String = "Tooltip Title"
 let tooltipPlanInformationDescription: String = "Create a list with all possible keywords that fit to your product, service or business field. The more the better. So you will get also a lot of keywords which you must pay for only the minimal commandment of 5 cents."
 
@@ -123,7 +130,7 @@ let tooltipPlantCommunitiesDescription: String = "Create a list with all possibl
 
 let tooltipPlantCommunityApprovedByMinisterTitle: String = "Approved By Minister"
 let  tooltipPlantCommunityApprovedByMinisterDescription: String = "Place documentation of descision makers approval on file before updating & sending to agreement holders."
-
+*/
 // TourTip
 let tourTourTitle: String = "Begin Tour"
 let tourTourDesc: String = "You can click here to begin this tour again."

@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cet-bE-ihv">
-                                <rect key="frame" x="367" y="19" width="190" height="42"/>
+                                <rect key="frame" x="360" y="19" width="190" height="42"/>
                                 <color key="backgroundColor" red="0.60784906149999995" green="0.6078355312" blue="0.60783821339999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <accessibility key="accessibilityConfiguration" identifier="AddPastureButton"/>
                                 <constraints>
@@ -61,8 +61,8 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="3ec-MG-CBW"/>
-                            <constraint firstItem="2KY-QJ-B2u" firstAttribute="trailing" secondItem="Cet-bE-ihv" secondAttribute="trailing" constant="8" id="9lg-rn-28X"/>
                             <constraint firstItem="4FI-jC-edz" firstAttribute="leading" secondItem="HtD-Si-7yN" secondAttribute="leading" constant="15" id="GHn-gp-g2W"/>
+                            <constraint firstItem="Cet-bE-ihv" firstAttribute="trailing" secondItem="4FI-jC-edz" secondAttribute="trailing" id="S7g-0c-Mrc"/>
                             <constraint firstItem="Cet-bE-ihv" firstAttribute="centerY" secondItem="HtD-Si-7yN" secondAttribute="centerY" id="axp-LE-6UL"/>
                             <constraint firstItem="g1w-tI-2gt" firstAttribute="leading" secondItem="Yrm-m0-uEy" secondAttribute="trailing" constant="5" id="cN5-3b-drO"/>
                             <constraint firstItem="Yrm-m0-uEy" firstAttribute="leading" secondItem="HtD-Si-7yN" secondAttribute="leading" constant="15" id="p6O-kH-a93"/>
@@ -74,7 +74,7 @@
                         <viewLayoutGuide key="safeArea" id="2KY-QJ-B2u"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other direction or agreements with which this Range Use Plan must be consistent " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0p-ba-Tbt">
-                        <rect key="frame" x="8" y="88" width="549" height="55"/>
+                        <rect key="frame" x="15" y="88" width="522" height="55"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="55" id="HIt-Q5-vWw"/>
                         </constraints>
@@ -95,10 +95,10 @@
                     <constraint firstItem="HtD-Si-7yN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="MvG-nu-rJA"/>
                     <constraint firstItem="HtD-Si-7yN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="YsS-oP-5LQ"/>
                     <constraint firstItem="BQB-fr-j6s" firstAttribute="top" secondItem="q0p-ba-Tbt" secondAttribute="bottom" constant="8" id="eKn-3f-EGP"/>
-                    <constraint firstItem="q0p-ba-Tbt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="iN7-Q9-3uD"/>
-                    <constraint firstAttribute="trailing" secondItem="q0p-ba-Tbt" secondAttribute="trailing" constant="8" id="oPc-nX-1A5"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="q0p-ba-Tbt" secondAttribute="trailing" constant="8" id="ilK-J7-aNp"/>
                     <constraint firstAttribute="trailingMargin" secondItem="BQB-fr-j6s" secondAttribute="trailing" constant="8" id="vSP-En-7ol"/>
                     <constraint firstItem="BQB-fr-j6s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="vrO-O3-vHD"/>
+                    <constraint firstItem="q0p-ba-Tbt" firstAttribute="leading" secondItem="4FI-jC-edz" secondAttribute="leading" id="wA2-ez-JTG"/>
                     <constraint firstItem="q0p-ba-Tbt" firstAttribute="top" secondItem="HtD-Si-7yN" secondAttribute="bottom" constant="8" id="wSD-Ca-p4q"/>
                     <constraint firstAttribute="bottomMargin" secondItem="BQB-fr-j6s" secondAttribute="bottom" constant="8" id="yna-U8-CKB"/>
                 </constraints>

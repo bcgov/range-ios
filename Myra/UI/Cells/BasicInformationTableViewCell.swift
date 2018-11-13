@@ -61,14 +61,13 @@ class BasicInformationTableViewCell: BaseFormCell {
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipPlanInformationTitle, desc: tooltipPlanInformationDescription)
+        parent.showTooltip(on: sender, title: "Basic Information", desc: InfoTips.basicInformation)
     }
 
     @IBAction func rangeNameTooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: "Range Name", desc: InfoTips.basicInformation)
+        parent.showTooltip(on: sender, title: "Range Name", desc: InfoTips.rangeName)
     }
-
 
     @IBAction func nameEdited(_ sender: Any) {
         do {

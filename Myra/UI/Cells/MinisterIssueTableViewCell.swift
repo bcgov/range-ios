@@ -186,7 +186,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
         pastures = pastures.replacingLastOccurrenceOfString(",", with: ", and")
         if pastures.count > 1 {
-            pastures = "\(pastures)."
+            pastures = "\(pastures)"
         }
 
         // if there are only 2 pasture, remove comma

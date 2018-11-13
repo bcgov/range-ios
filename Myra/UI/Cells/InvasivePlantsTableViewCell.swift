@@ -45,6 +45,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
 
     @IBOutlet weak var otherFieldHeight: NSLayoutConstraint!
 
+    // MARK: Outlet Actions
     @IBAction func optionOneAction(_ sender: UIButton) {
         guard let invasivePlants = rup.invasivePlants.first else {return}
         invasivePlants.setValue(equipmentAndVehiclesParking: !invasivePlants.equipmentAndVehiclesParking)
@@ -85,7 +86,6 @@ class InvasivePlantsTableViewCell: BaseFormCell {
         }
     }
 
-    // MARK: Outlet Actions
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: "Invasive Plants", desc: InfoTips.invasivePlants)
