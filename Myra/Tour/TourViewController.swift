@@ -80,7 +80,7 @@ class TourViewController: UIViewController, Theme {
         self.dismiss(animated: true)
     }
 
-    func setup(header: String, desc: String, hasPrev: Bool, hasNext: Bool, onBack: @escaping ()->Void, onNext: @escaping ()-> Void, onSkip: @escaping ()-> Void) {
+    func setup(header: String, desc: String, backgroundColor: UIColor, textColor: UIColor, hasPrev: Bool, hasNext: Bool, onBack: @escaping ()->Void, onNext: @escaping ()-> Void, onSkip: @escaping ()-> Void) {
         self.backCallback = onBack
         self.nextCallback = onNext
         self.skipCallback = onSkip
@@ -95,6 +95,10 @@ class TourViewController: UIViewController, Theme {
         if !hasNext {
             nextButton.setTitle("Done", for: .normal)
         }
+
+        self.descLabel.textColor = textColor
+        self.titleLabel.textColor = textColor
+
     }
 
     func style() {
@@ -107,11 +111,19 @@ class TourViewController: UIViewController, Theme {
         self.titleLabel.font = Fonts.getPrimaryMedium(size: 22)
         self.descLabel.font = Fonts.getPrimary(size: 17)
         if let descL = self.descLabel, let text = descL.text, let height = descLabelHeight {
-            height.constant = text.height(withConstrainedWidth: descL.frame.width, font: Fonts.getPrimary(size: 17)) + 45
+            height.constant = text.height(withConstrainedWidth: descL.frame.width, font: Fonts.getPrimary(size: 17)) + 5
         }
         backButton.isHidden = false
 
         self.view.layoutIfNeeded()
+    }
+
+    func styleButton(button: UIButton, bg: UIColor, borderColor: CGColor, titleColor: UIColor) {
+        button.layer.cornerRadius = 5
+        button.backgroundColor = bg
+        button.layer.borderWidth = 1
+        button.layer.borderColor = borderColor
+        button.setTitleColor(titleColor, for: .normal)
     }
 
 }

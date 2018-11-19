@@ -58,7 +58,7 @@ class API {
     /*************************************************************************************************************/
 
     // MARK: Put Post and Get requests
-    private static func put(endpoint: URL, params: [String:Any], completion: @escaping (_ response: DataResponse<Any>? ) -> Void) {
+    static func put(endpoint: URL, params: [String:Any], completion: @escaping (_ response: DataResponse<Any>? ) -> Void) {
         var request = URLRequest(url: endpoint)
         request.httpMethod = HTTPMethod.put.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
@@ -86,7 +86,7 @@ class API {
         }
     }
 
-    private static func post(endpoint: URL, params: [String:Any], completion: @escaping (_ response: [String:Any]?) -> Void) {
+    static func post(endpoint: URL, params: [String:Any], completion: @escaping (_ response: [String:Any]?) -> Void) {
         // Manual 20 second timeout for each call
         var completed = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
@@ -110,7 +110,7 @@ class API {
         }
     }
 
-    private static func get(endpoint: URL, completion: @escaping (_ response: JSON?) -> Void) {
+    static func get(endpoint: URL, completion: @escaping (_ response: JSON?) -> Void) {
         // Manual 20 second timeout for each call
         var completed = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 20) {

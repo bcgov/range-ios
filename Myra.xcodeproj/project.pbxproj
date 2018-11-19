@@ -129,6 +129,8 @@
 		294CADB1216E83DC00DB184B /* NewElementBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294CADB0216E83DC00DB184B /* NewElementBanner.xib */; };
 		294CADB3216E83F500DB184B /* NewElementBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CADB2216E83F500DB184B /* NewElementBanner.swift */; };
 		294CADB5216E868A00DB184B /* NewElementAddedBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CADB4216E868A00DB184B /* NewElementAddedBanner.swift */; };
+		294F6BBA219F3C92008EC6FA /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294F6BB9219F3C92008EC6FA /* FeedbackView.swift */; };
+		294F6BBC219F3CA0008EC6FA /* FeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294F6BBB219F3CA0008EC6FA /* FeedbackView.xib */; };
 		2958AC1C20C60381005C7900 /* MinisterIssueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958AC1B20C60381005C7900 /* MinisterIssueType.swift */; };
 		2958AC1E20C603B7005C7900 /* MinisterIssueActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958AC1D20C603B7005C7900 /* MinisterIssueActionType.swift */; };
 		295F8F1120F7F60E009D7717 /* MonitoringArea.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295F8F1020F7F60E009D7717 /* MonitoringArea.storyboard */; };
@@ -143,6 +145,8 @@
 		29616EA721063ADA003102F8 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29616EA521063ADA003102F8 /* EmptyTableViewCell.swift */; };
 		29616EA821063ADA003102F8 /* EmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29616EA621063ADA003102F8 /* EmptyTableViewCell.xib */; };
 		296232052047293A00F1CEBF /* FormMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296232042047293A00F1CEBF /* FormMode.swift */; };
+		296233B0219E464500E0BD2E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296233AF219E464500E0BD2E /* Feedback.swift */; };
+		296233B2219E466700E0BD2E /* FeedbackElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296233B1219E466700E0BD2E /* FeedbackElement.swift */; };
 		2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */; };
 		2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */; };
 		2962B0E7204F076800F71B9C /* ScheduleCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */; };
@@ -367,6 +371,8 @@
 		294CADB0216E83DC00DB184B /* NewElementBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewElementBanner.xib; sourceTree = "<group>"; };
 		294CADB2216E83F500DB184B /* NewElementBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewElementBanner.swift; sourceTree = "<group>"; };
 		294CADB4216E868A00DB184B /* NewElementAddedBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewElementAddedBanner.swift; sourceTree = "<group>"; };
+		294F6BB9219F3C92008EC6FA /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
+		294F6BBB219F3CA0008EC6FA /* FeedbackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackView.xib; sourceTree = "<group>"; };
 		2958AC1B20C60381005C7900 /* MinisterIssueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueType.swift; sourceTree = "<group>"; };
 		2958AC1D20C603B7005C7900 /* MinisterIssueActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueActionType.swift; sourceTree = "<group>"; };
 		295F8F1020F7F60E009D7717 /* MonitoringArea.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MonitoringArea.storyboard; sourceTree = "<group>"; };
@@ -381,6 +387,8 @@
 		29616EA521063ADA003102F8 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		29616EA621063ADA003102F8 /* EmptyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTableViewCell.xib; sourceTree = "<group>"; };
 		296232042047293A00F1CEBF /* FormMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormMode.swift; sourceTree = "<group>"; };
+		296233AF219E464500E0BD2E /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
+		296233B1219E466700E0BD2E /* FeedbackElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackElement.swift; sourceTree = "<group>"; };
 		2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTableViewCell.xib; sourceTree = "<group>"; };
 		2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -694,6 +702,7 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
+				296233AE219E461F00E0BD2E /* Feedback */,
 				290543282194D23700865823 /* Tour */,
 				295FBF7A21641EEA00DD2C53 /* ML */,
 				29234B0B2138592400F547AC /* Lotte */,
@@ -721,6 +730,17 @@
 				295FBF7B21641F0200DD2C53 /* LifeForm.mlmodel */,
 			);
 			path = ML;
+			sourceTree = "<group>";
+		};
+		296233AE219E461F00E0BD2E /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				296233AF219E464500E0BD2E /* Feedback.swift */,
+				296233B1219E466700E0BD2E /* FeedbackElement.swift */,
+				294F6BB9219F3C92008EC6FA /* FeedbackView.swift */,
+				294F6BBB219F3CA0008EC6FA /* FeedbackView.xib */,
+			);
+			path = Feedback;
 			sourceTree = "<group>";
 		};
 		29EADF7C206039A90087593F /* Reference data objects */ = {
@@ -976,6 +996,7 @@
 				29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */,
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				297E998D2165482000FB6F04 /* Pin.xib in Resources */,
+				294F6BBC219F3CA0008EC6FA /* FeedbackView.xib in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
@@ -1225,6 +1246,7 @@
 				292197D0209CD037004A5011 /* OptionsViewController.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
 				295FBF7C21641F0200DD2C53 /* LifeForm.mlmodel in Sources */,
+				296233B2219E466700E0BD2E /* FeedbackElement.swift in Sources */,
 				299491F320B628F6005FCF94 /* MinisterIssueTableViewCell.swift in Sources */,
 				299D3EBA217E79F00000781E /* PlantCommunityElevation.swift in Sources */,
 				2905521621346AAE00785B5E /* Amendment.swift in Sources */,
@@ -1269,6 +1291,7 @@
 				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
 				29230FF220BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift in Sources */,
 				2932BB51208567D900579A57 /* MyraObject.swift in Sources */,
+				294F6BBA219F3C92008EC6FA /* FeedbackView.swift in Sources */,
 				2932BB57208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift in Sources */,
 				29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
@@ -1285,6 +1308,7 @@
 				29227B5820EE95A50042B88E /* MonitoringArea.swift in Sources */,
 				295FBF7921641EA200DD2C53 /* TagImageMLextension.swift in Sources */,
 				29334F9A214C2F2100EE97F9 /* API.swift in Sources */,
+				296233B0219E464500E0BD2E /* Feedback.swift in Sources */,
 				2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -32,18 +32,19 @@ class Tour {
     let bottomTag = 66611
     let leftTag = 66612
     let rightTag = 66613
+    let frameTag = 66614
 
     let backgroundColor = Colors.active.blue
     var currentController: UIViewController?
 
     var old: [TourObject] = [TourObject]()
 
-    func initialize(with elements: [TourObject], containerIn controller: UIViewController) {
+    func initialize(with elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containerIn controller: UIViewController) {
         self.old.removeAll()
-        self.show(elements: elements, containedIn: controller)
+        self.show(elements: elements, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller)
     }
 
-    func show(elements: [TourObject], containedIn controller: UIViewController) {
+    func show(elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containedIn controller: UIViewController) {
         var tours = elements
         guard let current = tours.last else {
             self.removeCover()
@@ -52,17 +53,17 @@ class Tour {
             return
         }
 
-        show(element: current, containedIn: controller,hasNext: (tours.count > 1 ),onBack: {
+        show(element: current, containedIn: controller, hasNext: (tours.count > 1 ), backgroundColor: backgroundColor, textColor: textColor, onBack: {
             self.removeCover()
             if let prev = self.old.popLast() {
                 tours.append(prev)
-                self.show(elements: tours, containedIn: controller)
+                self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller)
             }
         }, onNext: {
             self.removeCover()
             self.old.append(current)
             tours.removeLast()
-            self.show(elements: tours, containedIn: controller)
+            self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller)
         }, onSkip: {
             self.removeCover()
             self.old.removeAll()
@@ -71,13 +72,17 @@ class Tour {
         })
     }
 
-    func show(element: TourObject, containedIn controller: UIViewController, hasNext: Bool, onBack: @escaping ()->Void, onNext: @escaping ()->Void, onSkip: @escaping ()->Void) {
+    func show(element: TourObject, containedIn controller: UIViewController, hasNext: Bool, backgroundColor: UIColor, textColor: UIColor, onBack: @escaping ()->Void, onNext: @escaping ()->Void, onSkip: @escaping ()->Void) {
         self.currentController = controller
         self.removeCover()
-        self.cover(layer: element.view.layer, in: controller, with: Colors.active.blue.withAlphaComponent(0.3))
+
+        let textColor = textColor
+        let bgColor = backgroundColor
+
+        self.cover(layer: element.view, in: controller, with: bgColor.withAlphaComponent(0.2))
 
         // Min Height = button height + title Height + icon height + buttom button height + padding between stackview elements + manual padding
-        let minHeight: CGFloat = 220
+        let minHeight: CGFloat = 190
         let width: CGFloat = controller.view.frame.width / 2.0
         let height: CGFloat = element.desc.height(withConstrainedWidth: width, font: Fonts.getPrimary(size: 17)) + element.header.height(withConstrainedWidth: width, font: Fonts.getPrimaryMedium(size: 17)) + minHeight
 
@@ -88,8 +93,6 @@ class Tour {
         popover.permittedArrowDirections = .any
         popover.backgroundColor = self.backgroundColor
         popover.sourceView = element.view
-
-
 
         var xposition: CGFloat = element.view.bounds.minX
         var yposition: CGFloat = element.view.bounds.maxY
@@ -106,7 +109,7 @@ class Tour {
         popover.sourceRect = CGRect(x: xposition, y: yposition, width: 0, height: 0)
 
         controller.present(self.popoverVC, animated: true, completion: {
-            self.popoverVC.setup(header: element.header, desc: element.desc, hasPrev: !self.old.isEmpty, hasNext: hasNext, onBack: onBack, onNext: onNext, onSkip: onSkip)
+            self.popoverVC.setup(header: element.header, desc: element.desc, backgroundColor: bgColor, textColor: textColor, hasPrev: !self.old.isEmpty, hasNext: hasNext, onBack: onBack, onNext: onNext, onSkip: onSkip)
         })
     }
 
@@ -127,13 +130,30 @@ class Tour {
         if let right = controller.view.viewWithTag(rightTag) {
             right.removeFromSuperview()
         }
+
+        if let frame = controller.view.viewWithTag(frameTag) {
+            frame.removeFromSuperview()
+        }
     }
 
-    func cover(layer: CALayer, in controller: UIViewController, with color: UIColor) {
-        controller.view.addSubview(self.genTopHalf(for: layer, relativeTo: controller.view, with: color))
-        controller.view.addSubview(self.genBotHalf(for: layer, relativeTo: controller.view, with: color))
-        controller.view.addSubview(self.genLeft(for: layer, relativeTo: controller.view, with: color))
-        controller.view.addSubview(self.genRight(for: layer, relativeTo: controller.view, with: color))
+    func frame(layer: CALayer, relativeTo view: UIView, with color: UIColor) -> UIView {
+        let absoluteFrame = layer.convert(layer.bounds, to: view.layer)
+        let padding: CGFloat = 10
+        let copyView = UIView(frame: CGRect(x: (absoluteFrame.minX - (padding / 2)) , y: (absoluteFrame.minY - (padding / 2)), width: (absoluteFrame.width + padding), height: (absoluteFrame.height + padding)))
+        copyView.layer.borderWidth = (padding / 2)
+        copyView.layer.cornerRadius = 2
+        copyView.layer.borderColor = color.cgColor
+        copyView.backgroundColor = .clear
+        copyView.tag = frameTag
+        return copyView
+    }
+
+    func cover(layer: UIView, in controller: UIViewController, with color: UIColor) {
+        controller.view.addSubview(self.genTopHalf(for: layer.layer, relativeTo: controller.view, with: color))
+        controller.view.addSubview(self.genBotHalf(for: layer.layer, relativeTo: controller.view, with: color))
+        controller.view.addSubview(self.genLeft(for: layer.layer, relativeTo: controller.view, with: color))
+        controller.view.addSubview(self.genRight(for: layer.layer, relativeTo: controller.view, with: color))
+        //        controller.view.addSubview(self.frame(layer: layer.layer, relativeTo: controller.view, with: color))
     }
 
     func genTopHalf(for layer: CALayer, relativeTo view: UIView, with color: UIColor) -> UIView {

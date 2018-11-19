@@ -135,16 +135,17 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func testCam(_ sender: UIButton) {
-        let cam = Cam()
-        cam.display(on: self) { (photo) in
-            if let photo = photo {
-                Loading.shared.begin()
-                let pic = RangePhoto()
-                pic.save(from: photo)
-                let preview: TagImage = TagImage.fromNib()
-                preview.show(with: pic, in: self, then: {})
-            }
-        }
+        Feedback.show(in: self)
+//        let cam = Cam()
+//        cam.display(on: self) { (photo) in
+//            if let photo = photo {
+//                Loading.shared.begin()
+//                let pic = RangePhoto()
+//                pic.save(from: photo)
+//                let preview: TagImage = TagImage.fromNib()
+//                preview.show(with: pic, in: self, then: {})
+//            }
+//        }
     }
 
 //    func slideShow(images: [RangePhoto]) {
@@ -201,11 +202,13 @@ class HomeViewController: BaseViewController {
         let tour = Tour()
         var objects: [TourObject] = [TourObject]()
         let createBtn = TourObject(header: "Create Button", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: createButton)
-        let lsLabel = TourObject(header: "LastSync", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: lastSyncLabel)
+        let lsLabel = TourObject(header: "LastSync", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: lastSyncLabel)
         let smtnLabel = TourObject(header: "Light", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: connectivityLight)
+
         objects.append(lsLabel)
         objects.append(createBtn)
         objects.append(smtnLabel)
+
         if let visibles = self.tableView.indexPathsForVisibleRows{
             let lastVisible = visibles[visibles.count - 2]
             if let cellOne = self.tableView.cellForRow(at: lastVisible) {
@@ -214,10 +217,11 @@ class HomeViewController: BaseViewController {
             }
         }
         if let cellOne = self.tableView.cellForRow(at: firstIndexPath) {
-            let celltuorial = TourObject(header: "Range Use Plan", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: cellOne)
+            let celltuorial = TourObject(header: "Range Use Plan", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.\nWhen you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: cellOne)
             objects.append(celltuorial)
         }
-        tour.initialize(with: objects, containerIn: self)
+
+        tour.initialize(with: objects, backgroundColor: Colors.active.blue, textColor: UIColor.white, containerIn: self)
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
