@@ -107,7 +107,8 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupReachabilityNotification()
-        endTour()
+        self.removeDummy()
+        self.getRUPs()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -655,8 +656,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         expandOrClose(at: indexPath)
     }
 
-    func expandOrClose(at indexPath: IndexPath) {
-        reloadRupsIfInvalid()
+    func expandOrClose(at indexPath: IndexPath, fromTour: Bool = false) {
+        if !fromTour {
+            reloadRupsIfInvalid()
+        }
         if expandIndexPath == nil {
             self.expandIndexPath = indexPath
             self.tableView.isScrollEnabled = false
@@ -809,23 +812,25 @@ extension HomeViewController: MaterialShowcaseDelegate {
 
     func endTour() {
         updateAccordingToNetworkStatus()
-        removeDummy()
-        getRUPs()
-        self.expandIndexPath = nil
-        Feedback.initializeButton()
-        AutoSync.shared.endListener()
-        AutoSync.shared.beginListener()
+        closeDummyPlanCell {
+            self.removeDummy()
+            self.getRUPs()
+            Feedback.initializeButton()
+            AutoSync.shared.endListener()
+            AutoSync.shared.beginListener()
 
-        endChangeListener()
-        beginChangeListener()
+            self.endChangeListener()
+            self.beginChangeListener()
+            self.tourTipButton.isUserInteractionEnabled = true
+        }
+
     }
 
     func beginTour() {
+        self.tourTipButton.isUserInteractionEnabled = false
         endChangeListener()
         AutoSync.shared.endListener()
         setDummyPlan()
-        let indexpath = IndexPath(row: 0, section: 0)
-        self.expandIndexPath = indexpath
         Feedback.removeButton()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -833,9 +838,6 @@ extension HomeViewController: MaterialShowcaseDelegate {
                 let indexpath = IndexPath(row: 1, section: 0)
                 guard let cell = self.getDummyPlanCell(), let innerCell = cell.tableView.cellForRow(at: indexpath), let planCell = innerCell as? AssignedRUPVersionTableViewCell else {return}
                 cell.layoutIfNeeded()
-                cell.tableView.layoutIfNeeded()
-                planCell.layoutIfNeeded()
-                self.view.layoutIfNeeded()
 
                 let tour = Tour()
                 var objects: [TourObject] = [TourObject]()
@@ -881,6 +883,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         RealmRequests.saveObject(object: agreement)
         self.rups.removeAll()
         self.rups.append(plan)
+        self.expandIndexPath = nil
         self.tableView.reloadData()
     }
 
@@ -903,18 +906,15 @@ extension HomeViewController: MaterialShowcaseDelegate {
 
     func expandDummyPlanCell(then: @escaping () -> Void) {
         let indexpath = IndexPath(row: 0, section: 0)
-        self.expandIndexPath = indexpath
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
+        expandOrClose(at: indexpath, fromTour: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             return then()
         }
     }
 
     func closeDummyPlanCell(then: @escaping () -> Void) {
-        self.expandIndexPath = nil
         let indexpath = IndexPath(row: 0, section: 0)
-        self.tableView.reloadData()
+        expandOrClose(at: indexpath, fromTour: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             return then()
         }

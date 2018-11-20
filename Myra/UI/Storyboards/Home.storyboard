@@ -137,7 +137,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwe-cK-vIF">
-                                                <rect key="frame" x="947" y="35.5" width="40" height="40"/>
+                                                <rect key="frame" x="959" y="35.5" width="40" height="40"/>
                                                 <state key="normal" image="sign">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -146,7 +146,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0x-Zc-yt8">
-                                                <rect key="frame" x="895" y="35.5" width="40" height="40"/>
+                                                <rect key="frame" x="907" y="35.5" width="40" height="40"/>
                                                 <state key="normal" image="photo-camera">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -155,7 +155,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nfi-nL-t4h">
-                                                <rect key="frame" x="843" y="35.5" width="40" height="40"/>
+                                                <rect key="frame" x="855" y="35.5" width="40" height="40"/>
                                                 <state key="normal" image="map-location">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -185,7 +185,7 @@
                                             <constraint firstItem="fEY-X1-Nv2" firstAttribute="leading" secondItem="HTL-Bd-dqg" secondAttribute="trailing" constant="10" id="cw0-BE-aE0"/>
                                             <constraint firstItem="GLn-Ss-fBW" firstAttribute="centerY" secondItem="wwf-Tf-o9i" secondAttribute="centerY" id="f34-s9-a4N"/>
                                             <constraint firstItem="wwf-Tf-o9i" firstAttribute="top" secondItem="HTL-Bd-dqg" secondAttribute="bottom" constant="10" id="gNt-RY-aoD"/>
-                                            <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="Cwe-cK-vIF" secondAttribute="trailing" constant="20" id="gch-Jv-rZh"/>
+                                            <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="Cwe-cK-vIF" secondAttribute="trailing" constant="8" id="gch-Jv-rZh"/>
                                             <constraint firstAttribute="trailing" secondItem="GLn-Ss-fBW" secondAttribute="trailing" constant="15" id="kxK-2c-0gY"/>
                                             <constraint firstItem="q0x-Zc-yt8" firstAttribute="centerY" secondItem="Cwe-cK-vIF" secondAttribute="centerY" id="opy-IL-zwB"/>
                                             <constraint firstItem="fEY-X1-Nv2" firstAttribute="height" secondItem="HTL-Bd-dqg" secondAttribute="height" id="ouP-tT-5Df"/>
@@ -535,6 +535,6 @@
         <image name="CirclePlus" width="20" height="20"/>
         <image name="map-location" width="102.40000152587891" height="102.40000152587891"/>
         <image name="photo-camera" width="102.40000152587891" height="102.40000152587891"/>
-        <image name="sign" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="sign" width="24" height="25"/>
     </resources>
 </document>

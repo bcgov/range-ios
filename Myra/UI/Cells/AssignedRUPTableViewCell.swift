@@ -81,6 +81,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     // MARK: Styles
     func style() {
+        self.cellSelected = false
         self.infoButton.setImage(#imageLiteral(resourceName: "icons_form_dropdownarrow"), for: .normal)
         self.statusLight.alpha = 1
         self.container.layer.shadowOpacity = 0
