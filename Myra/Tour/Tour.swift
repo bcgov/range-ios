@@ -44,8 +44,15 @@ class Tour {
     var old: [TourObject] = [TourObject]()
 
     func initialize(with elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containerIn controller: UIViewController, then: @escaping () -> Void) {
-        self.old.removeAll()
-        self.show(elements: elements, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
+        let welcomeScreen: TourStart = UIView.fromNib()
+        welcomeScreen.begin(in: controller) { (skip) in
+            if skip {
+                return then()
+            } else {
+                self.old.removeAll()
+                self.show(elements: elements, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
+            }
+        }
     }
 
     func show(elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containedIn controller: UIViewController, then: @escaping () -> Void) {
@@ -128,11 +135,12 @@ class Tour {
         self.popoverVC.preferredContentSize = CGSize(width: width, height: height)
         self.popoverVC.view.backgroundColor = self.backgroundColor
         guard let popover = self.popoverVC.popoverPresentationController else {return}
-        popover.permittedArrowDirections = .any
+        popover.permittedArrowDirections = .up
         popover.backgroundColor = self.backgroundColor
         popover.sourceView = element.view
 
-        var xposition: CGFloat = element.view.bounds.minX
+//        var xposition: CGFloat = element.view.bounds.minX
+        var xposition: CGFloat = element.view.bounds.midX
         var yposition: CGFloat = element.view.bounds.maxY
         // if left cover is less than half of preferred popover width
         if genLeft(for: element.view.layer, relativeTo: controller.view, with: self.backgroundColor).frame.width < width / 2 {
@@ -189,8 +197,8 @@ class Tour {
     func cover(layer: UIView, in controller: UIViewController, with color: UIColor) {
         controller.view.addSubview(self.genTopHalf(for: layer.layer, relativeTo: controller.view, with: color))
         controller.view.addSubview(self.genBotHalf(for: layer.layer, relativeTo: controller.view, with: color))
-        controller.view.addSubview(self.genLeft(for: layer.layer, relativeTo: controller.view, with: color))
-        controller.view.addSubview(self.genRight(for: layer.layer, relativeTo: controller.view, with: color))
+//        controller.view.addSubview(self.genLeft(for: layer.layer, relativeTo: controller.view, with: color))
+//        controller.view.addSubview(self.genRight(for: layer.layer, relativeTo: controller.view, with: color))
         //        controller.view.addSubview(self.frame(layer: layer.layer, relativeTo: controller.view, with: color))
     }
 

@@ -43,11 +43,11 @@ class HomeViewController: BaseViewController {
     var syncing: Bool = false
 
     // Tourtip vars
-    var tours: [TourTip] = [TourTip]()
+//    var tours: [TourTip] = [TourTip]()
 
-    var lastTourTip: TourTip?
-    var lastTourTarget: UIView?
-    var lastTourTargetAlpha: CGFloat = 1
+//    var lastTourTip: TourTip?
+//    var lastTourTarget: UIView?
+//    var lastTourTargetAlpha: CGFloat = 1
     var presentedAfterLogin: Bool = false
 
     var lastSyncLabelTimer = Timer()
@@ -107,6 +107,7 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupReachabilityNotification()
+        endTour()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -126,7 +127,7 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func endTour(_ sender: Any) {
-        endTourTip()
+        endTour()
     }
 
     @IBAction func picMap(_ sender: UIButton) {
@@ -651,6 +652,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        expandOrClose(at: indexPath)
+    }
+
+    func expandOrClose(at indexPath: IndexPath) {
         reloadRupsIfInvalid()
         if expandIndexPath == nil {
             self.expandIndexPath = indexPath
@@ -660,7 +665,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             }) { (done) in
                 self.tableView.reloadRows(at: [indexPath], with: .fade)
                 // if indexpath is the last visible, scroll to bottom of it
-                if let visible = tableView.indexPathsForVisibleRows, visible.last == indexPath {
+                if let visible = self.tableView.indexPathsForVisibleRows, visible.last == indexPath {
                     self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
                 }
             }
@@ -792,28 +797,37 @@ extension HomeViewController: MaterialShowcaseDelegate {
 //        runTourTip()
 //    }
 
-    func endTourTip() {
-        updateAccordingToNetworkStatus()
-        removeDummy()
-        getRUPs()
+//    func endTourTip() {
+//        updateAccordingToNetworkStatus()
+//        removeDummy()
+//        getRUPs()
 
         // should be already nil but just to make sure...
-        lastTourTip = nil
-        lastTourTarget = nil
-    }
+//        lastTourTip = nil
+//        lastTourTarget = nil
+//    }
 
     func endTour() {
         updateAccordingToNetworkStatus()
         removeDummy()
         getRUPs()
         self.expandIndexPath = nil
-        // should be already nil but just to make sure...
-        lastTourTip = nil
-        lastTourTarget = nil
+        Feedback.initializeButton()
+        AutoSync.shared.endListener()
+        AutoSync.shared.beginListener()
+
+        endChangeListener()
+        beginChangeListener()
     }
 
     func beginTour() {
+        endChangeListener()
+        AutoSync.shared.endListener()
         setDummyPlan()
+        let indexpath = IndexPath(row: 0, section: 0)
+        self.expandIndexPath = indexpath
+        Feedback.removeButton()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.expandDummyPlanCell {
                 let indexpath = IndexPath(row: 1, section: 0)
@@ -821,6 +835,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
                 cell.layoutIfNeeded()
                 cell.tableView.layoutIfNeeded()
                 planCell.layoutIfNeeded()
+                self.view.layoutIfNeeded()
 
                 let tour = Tour()
                 var objects: [TourObject] = [TourObject]()
@@ -842,6 +857,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
 
                 tour.initialize(with: objects, backgroundColor: Colors.active.blue, textColor: UIColor.white, containerIn: self, then: {
                     self.endTour()
+
                 })
             }
         }
@@ -888,16 +904,9 @@ extension HomeViewController: MaterialShowcaseDelegate {
     func expandDummyPlanCell(then: @escaping () -> Void) {
         let indexpath = IndexPath(row: 0, section: 0)
         self.expandIndexPath = indexpath
-        if #available(iOS 11.0, *) {
-            self.tableView.performBatchUpdates({
-                self.tableView.beginUpdates()
-                self.tableView.reloadRows(at: [indexpath], with: .automatic)
-                self.tableView.endUpdates()
-            }) { (done) in
-                return then()
-            }
-        } else {
-            self.tableView.reloadData()
+        self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             return then()
         }
     }
@@ -905,43 +914,35 @@ extension HomeViewController: MaterialShowcaseDelegate {
     func closeDummyPlanCell(then: @escaping () -> Void) {
         self.expandIndexPath = nil
         let indexpath = IndexPath(row: 0, section: 0)
-        if #available(iOS 11.0, *) {
-            self.tableView.performBatchUpdates({
-                self.tableView.beginUpdates()
-                self.tableView.reloadRows(at: [indexpath], with: .automatic)
-                self.tableView.endUpdates()
-            }) { (done) in
-                return then()
-            }
-        } else {
-            self.tableView.reloadData()
+        self.tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             return then()
         }
     }
 
-    func loadTourTipForExpandedDummyCell() {
-        var tTips = [TourTip]()
-        let indexpath = IndexPath(row: 1, section: 0)
-        guard let cell = getDummyPlanCell(), let innerCell = cell.tableView.cellForRow(at: indexpath), let planCell = innerCell as? AssignedRUPVersionTableViewCell else {return}
-
-        cell.layoutIfNeeded()
-        cell.tableView.layoutIfNeeded()
-        planCell.layoutIfNeeded()
-
-        if let cellViewButton = planCell.viewButton {
-            tTips.append(TourTip(title: tourPlanCellVersionViewTooltipTitle, desc: tourPlanCellVersionViewTooltipDesc, target: cellViewButton))
-        }
-
-        if let cellTooltipButton = planCell.toolTipButton {
-            tTips.append(TourTip(title: tourPlanCellVersionStatusTooltipTitle, desc: tourPlanCellVersionStatusTooltipDesc, target: cellTooltipButton, rippleBG: UIColor.white))
-        }
-
-        if let innerCellTable = cell.tableView {
-            tTips.append(TourTip(title: tourPlanCellVersionsTooltipTitle, desc: tourPlanCellVersionsTooltipDesc, target: innerCellTable, style: .full))
-        }
-
-        self.tours.append(contentsOf: tTips)
-    }
+//    func loadTourTipForExpandedDummyCell() {
+//        var tTips = [TourTip]()
+//        let indexpath = IndexPath(row: 1, section: 0)
+//        guard let cell = getDummyPlanCell(), let innerCell = cell.tableView.cellForRow(at: indexpath), let planCell = innerCell as? AssignedRUPVersionTableViewCell else {return}
+//
+//        cell.layoutIfNeeded()
+//        cell.tableView.layoutIfNeeded()
+//        planCell.layoutIfNeeded()
+//
+//        if let cellViewButton = planCell.viewButton {
+//            tTips.append(TourTip(title: tourPlanCellVersionViewTooltipTitle, desc: tourPlanCellVersionViewTooltipDesc, target: cellViewButton))
+//        }
+//
+//        if let cellTooltipButton = planCell.toolTipButton {
+//            tTips.append(TourTip(title: tourPlanCellVersionStatusTooltipTitle, desc: tourPlanCellVersionStatusTooltipDesc, target: cellTooltipButton, rippleBG: UIColor.white))
+//        }
+//
+//        if let innerCellTable = cell.tableView {
+//            tTips.append(TourTip(title: tourPlanCellVersionsTooltipTitle, desc: tourPlanCellVersionsTooltipDesc, target: innerCellTable, style: .full))
+//        }
+//
+//        self.tours.append(contentsOf: tTips)
+//    }
 
 //    func loadTourTipsForDummyCell() {
 //        var tTips = [TourTip]()

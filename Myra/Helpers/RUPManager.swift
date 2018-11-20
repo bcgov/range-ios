@@ -444,6 +444,19 @@
         return [RUP]()
     }
 
+    func getDraftRupsValidForUpload() -> [RUP] {
+        do {
+            let realm = try Realm()
+            let objs = realm.objects(RUP.self).filter("status == 'LocalDraft'").map{ $0 }
+            var valid = [RUP]()
+            for object in objs where object.planEndDate != nil && object.planStartDate != nil && object.rangeName != nil {
+                valid.append(object)
+            }
+            return valid
+        } catch _ {}
+        return [RUP]()
+    }
+
     func getStaffDraftRups() ->  [RUP] {
         do {
             let realm = try Realm()

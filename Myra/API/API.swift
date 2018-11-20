@@ -1022,7 +1022,7 @@ class API {
         }
 
         dispatchGroup.enter()
-        let draftPlans = RUPManager.shared.getDraftRups()
+        let draftPlans = RUPManager.shared.getDraftRupsValidForUpload()
         progress("Uploading local drafts")
         API.upload(plans: draftPlans) { (success) in
             if success {

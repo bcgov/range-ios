@@ -50,7 +50,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Functions
-    func setup(rup: RUP, color: UIColor, expand: Bool? = nil) {
+    func setup(rup: RUP, color: UIColor, expand: Bool? = false) {
         self.agreement = RUPManager.shared.getAgreement(with: rup.agreementId)
         self.rup = rup
         autofill(rup: rup)
@@ -58,7 +58,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         if let exp = expand {
             if exp {
                 print(" Selecting - \(rup.rangeName)")
-                styleSelected()
+                self.styleSelected()
             } else {
                 // Locked means it has decreased Alpham so the
                 // selected one stands out
@@ -110,6 +110,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     func styleSelected() {
         if cellSelected {return}
+        self.cellSelected = true
         style()
         self.infoButton.alpha = 0
         self.statusLight.alpha = 0
@@ -127,7 +128,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         }) { (done) in
             self.infoButton.alpha = 1
             self.infoButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
-            self.cellSelected = true
+
         }
     }
 

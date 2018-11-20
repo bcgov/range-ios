@@ -35,14 +35,20 @@ class Feedback: NSObject {
             }
             if let window = UIApplication.shared.keyWindow {
                 let padding: CGFloat = 5
-                let width: CGFloat = 43
-                let height: CGFloat = 43
+                let width: CGFloat = 100
+                let height: CGFloat = 100
                 let frame = CGRect(x: padding, y: ((window.frame.maxY - height) - padding), width: width, height: height)
                 let button = UIButton(frame: frame)
-                button.setImage(UIImage(named: "icon_Question"), for: .normal)
+                button.setImage(UIImage(named: "button_feedback"), for: .normal)
                 button.addTarget(self, action: #selector(Feedback.buttonAction), for: .touchUpInside)
                 button.tag = buttonTag
                 window.addSubview(button)
+                button.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    button.widthAnchor.constraint(equalToConstant: width),
+                    button.heightAnchor.constraint(equalToConstant: height),
+                    button.bottomAnchor.constraint(equalTo: window.bottomAnchor),
+                    ])
                 Feedback.displayedButton = button
             }
         }

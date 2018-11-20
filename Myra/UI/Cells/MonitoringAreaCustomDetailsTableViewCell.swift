@@ -155,6 +155,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             self.singleFieldSectionHeight.constant = 70
             self.singleFieldHeader.alpha = 1
             self.sectionTitle.text = "Range Readiness:"
+            self.readinessNotesTextView.alpha = 1
+            self.notesSection.alpha = 1
 //            self.headerRight.text = "Criteria (Leaf Stage)"
         case .StubbleHeight:
             self.sectionSubtitle.text = "Livestock must be removed on the first to occur of the date in the plan (ex. schedule), stubble height criteria or average browse criteria."

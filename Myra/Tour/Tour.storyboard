@@ -27,7 +27,7 @@
                                             <constraint firstAttribute="height" constant="24" id="Nrd-KE-fuJ"/>
                                             <constraint firstAttribute="width" constant="24" id="cR7-97-iVP"/>
                                         </constraints>
-                                        <state key="normal" image="icon_Question"/>
+                                        <state key="normal" image="icon_Question_White"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Mx-Wz-Dsr">
                                         <rect key="frame" x="0.0" y="144" width="359" height="30"/>
@@ -120,6 +120,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_Question" width="24" height="24"/>
+        <image name="icon_Question_White" width="24" height="24"/>
     </resources>
 </document>

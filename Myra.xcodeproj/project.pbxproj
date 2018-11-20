@@ -96,6 +96,8 @@
 		2935A7682148399500441539 /* Tooltip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2935A7672148399500441539 /* Tooltip.storyboard */; };
 		2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76921484A1900441539 /* TooltipViewController.swift */; };
 		2935A76C21485A2500441539 /* ConstantStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76B21485A2500441539 /* ConstantStrings.swift */; };
+		2938CF0B21A473EC00329DDA /* TourStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938CF0A21A473EC00329DDA /* TourStart.swift */; };
+		2938CF0D21A4765100329DDA /* TourStart.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2938CF0C21A4765100329DDA /* TourStart.xib */; };
 		293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
 		293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* HomeViewController.swift */; };
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
@@ -336,6 +338,8 @@
 		2935A7672148399500441539 /* Tooltip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tooltip.storyboard; sourceTree = "<group>"; };
 		2935A76921484A1900441539 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
 		2935A76B21485A2500441539 /* ConstantStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantStrings.swift; sourceTree = "<group>"; };
+		2938CF0A21A473EC00329DDA /* TourStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourStart.swift; sourceTree = "<group>"; };
+		2938CF0C21A4765100329DDA /* TourStart.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TourStart.xib; sourceTree = "<group>"; };
 		293C95C120335D4100BF1113 /* Myra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Myra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		293C95C420335D4100BF1113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		293C95C620335D4100BF1113 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -515,9 +519,11 @@
 		290543282194D23700865823 /* Tour */ = {
 			isa = PBXGroup;
 			children = (
+				2938CF0A21A473EC00329DDA /* TourStart.swift */,
 				290543292194D26600865823 /* Tour.swift */,
 				2905432F2194DC7400865823 /* TourViewController.swift */,
 				2905432B2194DC5200865823 /* Tour.storyboard */,
+				2938CF0C21A4765100329DDA /* TourStart.xib */,
 			);
 			path = Tour;
 			sourceTree = "<group>";
@@ -997,6 +1003,7 @@
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				297E998D2165482000FB6F04 /* Pin.xib in Resources */,
 				294F6BBC219F3CA0008EC6FA /* FeedbackView.xib in Resources */,
+				2938CF0D21A4765100329DDA /* TourStart.xib in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
@@ -1289,6 +1296,7 @@
 				29EADF7E206039BC0087593F /* AgreemntType.swift in Sources */,
 				294005862092726D00AA1BDC /* Theme.swift in Sources */,
 				29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */,
+				2938CF0B21A473EC00329DDA /* TourStart.swift in Sources */,
 				29230FF220BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift in Sources */,
 				2932BB51208567D900579A57 /* MyraObject.swift in Sources */,
 				294F6BBA219F3C92008EC6FA /* FeedbackView.swift in Sources */,
