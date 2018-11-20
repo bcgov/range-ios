@@ -123,7 +123,7 @@ class AutoSync {
 
             if self.shouldUploadDrafts() {
                 dispatchGroup.enter()
-                let draftPlans = RUPManager.shared.getDraftRups()
+                let draftPlans = RUPManager.shared.getDraftRupsValidForUpload()
                 API.upload(plans: draftPlans, completion: { (success) in
                     if success {
                         syncedItems.append(.Drafts)
