@@ -14,6 +14,50 @@ struct Messages {
     }
 }
 
+struct TourMessages {
+
+    struct Home {
+
+        struct createNewPlan {
+            static let title = "Create A New Range Use Plan"
+            static let body = "Tap here to view all RUP’s that have not yet moved to the new digital RUP and "
+        }
+
+        struct filterRups {
+            static let title = "Filter RUPs"
+            static let body = "Use this section to filter RUPs in your work queue and help you prioritize."
+        }
+
+        struct latestPlan {
+            static let title = "Latest Plan"
+            static let body = "Each row on the home screen represents a RUP. Tap the row to expand to view all versions of the plan and edit initial plans and amendments."
+        }
+
+        struct planStatus {
+            static let title = "Plan Status"
+            static let body = "This section shows the plan’s status. Tap the ( ? ) to see more information about the plan’s status."
+        }
+
+        struct editViewPlan {
+            static let title = "Edit and View RUPs"
+            static let body = "Tap this button to view or edit a RUP depending on its status."
+        }
+    }
+
+    struct Schedule {
+
+        struct createEntry{
+            static let title = "Create A New Range Use Plan"
+            static let body = "Create your first schedule row by tapping this button. Pastures you entered previously will already be populated so you can quickly build out your schedule. Rows you enter will automatically count against your total allowable AUMs."
+        }
+
+        struct overflowMenu {
+            static let title = "Create A New Range Use Plan"
+            static let body = "Use this overflow menu throughout the myrangebc app to delete and duplicate items and rows. This can help make schedule creation even faster."
+        }
+    }
+}
+
 struct PlaceHolders {
 
     struct Actions {

@@ -41,6 +41,7 @@ class FeedbackView: UIView, Theme {
             self.removeWhiteScreen()
             self.closingAnimation {
                 self.removeFromSuperview()
+                Feedback.initializeButton()
             }
         }
     }
@@ -49,11 +50,13 @@ class FeedbackView: UIView, Theme {
         self.removeWhiteScreen()
         closingAnimation {
             self.removeFromSuperview()
+            Feedback.initializeButton()
         }
     }
 
 
     func present(in vc: UIViewController) {
+        Feedback.removeButton()
         self.parent = vc
         style()
         self.alpha = invisibleAlpha

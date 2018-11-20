@@ -17,6 +17,14 @@ class FeedbackElement {
         self.feedback = feedback
         self.section = section
         self.anonymous = anonymous
+
+        if self.section.removeWhitespaces().isEmpty {
+            self.section = "*Not Provided"
+        }
+
+        if self.feedback.removeWhitespaces().isEmpty {
+            self.feedback = "*Not Provided"
+        }
     }
 
     func toDictionary() -> [String: Any]{

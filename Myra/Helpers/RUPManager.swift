@@ -220,6 +220,16 @@
         }
         return nil
     }
+
+    func getAgreements(with id: String) -> [Agreement] {
+        var found = [Agreement]()
+        if let storedAgreements = RealmRequests.getObject(Agreement.self) {
+            for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
+                found.append(storedAgreement)
+            }
+        }
+        return found
+    }
     
     func agreementExists(id: String) -> Bool {
         if let _ = getAgreement(with: id) {
@@ -242,6 +252,15 @@
             }
         }
         return nil
+    }
+
+    func getPlansWith(remoteId: Int) -> [RUP] {
+        var found = [RUP]()
+        guard let plans = RealmRequests.getObject(RUP.self) else {return found}
+        for plan in plans where plan.remoteId == remoteId {
+            found.append(plan)
+        }
+        return found
     }
     
     // Updates Range use years and zones

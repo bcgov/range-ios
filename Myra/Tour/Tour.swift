@@ -14,8 +14,12 @@ class TourObject {
     var header: String
     var desc: String
     var view: UIView
+    var beforePresentation: (()-> Void)?
+    var afterPresentation: (()-> Void)?
 
-    init(header: String, desc: String, on view: UIView) {
+    init(header: String, desc: String, on view: UIView, beforePresentation: (() -> Void)? = nil , afterPresentation: (() -> Void)? = nil) {
+        self.beforePresentation = beforePresentation
+        self.afterPresentation = afterPresentation
         self.header = header
         self.desc = desc
         self.view = view
@@ -39,40 +43,74 @@ class Tour {
 
     var old: [TourObject] = [TourObject]()
 
-    func initialize(with elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containerIn controller: UIViewController) {
+    func initialize(with elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containerIn controller: UIViewController, then: @escaping () -> Void) {
         self.old.removeAll()
-        self.show(elements: elements, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller)
+        self.show(elements: elements, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
     }
 
-    func show(elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containedIn controller: UIViewController) {
+    func show(elements: [TourObject], backgroundColor: UIColor, textColor: UIColor, containedIn controller: UIViewController, then: @escaping () -> Void) {
         var tours = elements
         guard let current = tours.last else {
             self.removeCover()
             self.popoverVC.dismiss(animated: true)
             self.old.removeAll()
-            return
+            return then()
         }
 
-        show(element: current, containedIn: controller, hasNext: (tours.count > 1 ), backgroundColor: backgroundColor, textColor: textColor, onBack: {
-            self.removeCover()
-            if let prev = self.old.popLast() {
-                tours.append(prev)
-                self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller)
+        if let beforeAction = current.beforePresentation {
+            beforeAction()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.show(element: current, containedIn: controller, hasNext: (tours.count > 1 ), backgroundColor: backgroundColor, textColor: textColor, onBack: {
+                    self.removeCover()
+                    if let prev = self.old.popLast() {
+                        tours.append(prev)
+                        self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
+                    }
+                }, onNext: {
+                    self.removeCover()
+                    self.old.append(current)
+                    tours.removeLast()
+                    if let afterAction = current.afterPresentation {
+                        afterAction()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
+                        })
+                    } else {
+                        self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
+                    }
+                }, onSkip: {
+                    self.removeCover()
+                    self.old.removeAll()
+                    tours.removeAll()
+                    return then()
+                })
             }
-        }, onNext: {
-            self.removeCover()
-            self.old.append(current)
-            tours.removeLast()
-            self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller)
-        }, onSkip: {
-            self.removeCover()
-            self.old.removeAll()
-            tours.removeAll()
-            return
-        })
+        } else {
+            show(element: current, containedIn: controller, hasNext: (tours.count > 1 ), backgroundColor: backgroundColor, textColor: textColor, onBack: {
+                self.removeCover()
+                if let prev = self.old.popLast() {
+                    tours.append(prev)
+                    self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
+                }
+            }, onNext: {
+                self.removeCover()
+                self.old.append(current)
+                tours.removeLast()
+                if let afterAction = current.afterPresentation {
+                    afterAction()
+                }
+                self.show(elements: tours, backgroundColor: backgroundColor, textColor: textColor, containedIn: controller, then: then)
+            }, onSkip: {
+                self.removeCover()
+                self.old.removeAll()
+                tours.removeAll()
+                return then()
+            })
+        }
     }
 
     func show(element: TourObject, containedIn controller: UIViewController, hasNext: Bool, backgroundColor: UIColor, textColor: UIColor, onBack: @escaping ()->Void, onNext: @escaping ()->Void, onSkip: @escaping ()->Void) {
+
         self.currentController = controller
         self.removeCover()
 

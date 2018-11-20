@@ -48,6 +48,11 @@ class BaseViewController: UIViewController, Theme {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Feedback.initializeButton()
+    }
+
     // MARK: Event handlers
     func onAuthenticationFail() {}
     func onAuthenticationSuccess() {}
@@ -138,7 +143,14 @@ class BaseViewController: UIViewController, Theme {
         let vm = ViewManager()
         let tooltip = vm.tooltip
         tooltip.setup(title: title, desc: desc)
-        showPopOver(on: on, vc: tooltip, height: 112, width: 500, arrowColor: Colors.active.blue)
+        let defaultWidth = 500
+        let spacing = 8
+        let iconWidth = 25 + (spacing * 2)
+        let padding: CGFloat = 50
+        let titleHeight: CGFloat = 25
+        let descHeight = desc.height(withConstrainedWidth: CGFloat(defaultWidth - iconWidth - spacing), font: toolTipDescriptionFont())
+        let contentHeight = Int(titleHeight + descHeight + padding)
+        showPopOver(on: on, vc: tooltip, height: contentHeight, width: defaultWidth, arrowColor: Colors.active.blue)
     }
 
     // dismisses the last popover added

@@ -420,3 +420,26 @@ extension Theme {
     }
 
 }
+
+extension Theme {
+    // Tooltip
+
+    func toolTipDescriptionFont() -> UIFont {
+        return Fonts.getPrimary(size: 14)
+    }
+    func styleToolTipDescription(textView: UITextView) {
+        textView.font = toolTipDescriptionFont()
+        textView.textColor = UIColor.white
+        textView.backgroundColor = Colors.active.blue
+    }
+
+    func toolTipTitleFont() -> UIFont {
+        return Fonts.getPrimaryBold(size: 17)
+    }
+
+    func styleToolTipTitle(label: UILabel) {
+        label.font = toolTipTitleFont()
+        label.textColor = UIColor.white
+    }
+}
+
