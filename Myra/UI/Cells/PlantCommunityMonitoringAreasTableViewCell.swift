@@ -62,7 +62,6 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
                 } catch _ {
                     fatalError()
                 }
-
                 self.updateTableHeight()
             }
         }
@@ -97,6 +96,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         parent.reload {
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()
+            self.layoutIfNeeded()
         }
     }
 
@@ -148,7 +148,6 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
         let cell = getMonitoringAreaBasicInfoTableViewCell(indexPath: indexPath)
         if let pc = self.plantCommunity, let parent = parentReference {
             cell.setup(mode: self.mode, monitoringArea:  pc.monitoringAreas[indexPath.row], parentReference: parent, parentCellReference: self)
-//            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode, parentCellReference: self, parentReference: parent)
         }
         return cell
     }

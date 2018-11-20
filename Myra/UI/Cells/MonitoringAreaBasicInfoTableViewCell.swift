@@ -347,6 +347,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         styleSubHeader(label: nameLabel)
         styleSubHeader(label: nameHeader)
         styleContainer(view: container)
+        self.layoutIfNeeded()
     }
 }
 
