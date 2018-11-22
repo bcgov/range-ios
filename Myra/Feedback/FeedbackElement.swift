@@ -12,6 +12,7 @@ class FeedbackElement {
     var feedback: String
     var section: String
     var anonymous: Bool
+    var email: String = ""
 
     init(feedback: String, section: String, anonymous: Bool) {
         self.feedback = feedback

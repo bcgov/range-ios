@@ -121,7 +121,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         if presentedAfterLogin {
             self.view.layoutIfNeeded()
-//            beginTourTip()
+            self.beginTour()
             self.presentedAfterLogin = false
         }
     }
@@ -130,6 +130,11 @@ class HomeViewController: BaseViewController {
     @IBAction func endTour(_ sender: Any) {
         endTour()
     }
+
+    @IBAction func abuttonAction(_ sender: UIButton) {
+        Feedback.showFeedbacks(in: self)
+    }
+
 
     @IBAction func picMap(_ sender: UIButton) {
         let vm = ViewManager()
@@ -752,7 +757,7 @@ extension HomeViewController {
     }
 
     @objc func reachabilityChanged(note: Notification) {
-        let reachability = note.object as! Reachability
+        guard let reachability = note.object as? Reachability else {return}
         switch reachability.connection {
         case .wifi:
             online = true

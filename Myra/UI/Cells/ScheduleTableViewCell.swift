@@ -32,10 +32,11 @@ class ScheduleTableViewCell: BaseFormCell {
 
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
-        guard let p = parentReference,
-            let start = rup.planStartDate,
-            let end = rup.planEndDate
-            else { return }
+        guard let p = parentReference else {return}
+        guard let start = rup.planStartDate, let end = rup.planEndDate else {
+            p.showAlert(with: "Missing prerequisites", message: "Please select plan start and end dates in the Plan Information section.")
+            return
+        }
         let vm = ViewManager()
         let picker = vm.datePicker
 

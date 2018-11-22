@@ -21,7 +21,7 @@ extension HomeViewController {
             if selected, let selection = obj {
                 lookup.dismiss(animated: true, completion: nil)
                 if selection.value == logoutOption.value, let p = self.parentReference {
-                    self.showAlert(title: "Are you sure?", description: "Logging out will delete all plans in draft mode", yesButtonTapped: {
+                    self.showAlert(title: "Are you sure?", description: "Logging out will delete all plans that have not been synced.", yesButtonTapped: {
                         AutoSync.shared.endListener()
                         self.logout()
                         p.removeCurrentVCAndReload()

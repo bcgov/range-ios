@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -51,21 +51,31 @@
                                                     <action selector="loginAction:" destination="WLz-lO-hN5" eventType="touchUpInside" id="IBB-UH-dPd"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qQ-o5-0z6">
+                                                <rect key="frame" x="16" y="287" width="458" height="41"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="440" id="Deu-RV-CYG"/>
                                             <constraint firstItem="AUD-RT-8ig" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="8" id="K5y-Wn-fPy"/>
+                                            <constraint firstItem="5qQ-o5-0z6" firstAttribute="firstBaseline" secondItem="AUD-RT-8ig" secondAttribute="baseline" constant="28" symbolType="layoutAnchor" id="KIL-XT-j9w"/>
                                             <constraint firstItem="AUD-RT-8ig" firstAttribute="top" secondItem="q0C-cZ-72U" secondAttribute="bottom" constant="50" id="PMe-0Z-anL"/>
                                             <constraint firstAttribute="bottom" secondItem="mGV-XT-Rta" secondAttribute="bottom" constant="50" id="SRF-sy-LhU"/>
+                                            <constraint firstAttribute="trailing" secondItem="5qQ-o5-0z6" secondAttribute="trailing" constant="16" id="SrG-B3-yCW"/>
                                             <constraint firstAttribute="width" constant="490" id="VZU-b7-9Wk"/>
                                             <constraint firstItem="q0C-cZ-72U" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="8" id="Xoy-TN-QfL"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="top" secondItem="AUD-RT-8ig" secondAttribute="bottom" constant="52" id="Yf7-xn-jNy"/>
                                             <constraint firstItem="q0C-cZ-72U" firstAttribute="top" secondItem="5cZ-WK-Aeg" secondAttribute="top" constant="45" id="gDB-Ge-bU8"/>
                                             <constraint firstAttribute="trailing" secondItem="AUD-RT-8ig" secondAttribute="trailing" constant="8" id="gEG-YX-z3k"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="105" id="idb-xw-SV5"/>
+                                            <constraint firstItem="5qQ-o5-0z6" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="16" id="jTg-py-gco"/>
                                             <constraint firstAttribute="trailing" secondItem="mGV-XT-Rta" secondAttribute="trailing" constant="105" id="m5O-yQ-OeY"/>
                                             <constraint firstAttribute="trailing" secondItem="q0C-cZ-72U" secondAttribute="trailing" constant="8" id="rQO-Ay-d7i"/>
+                                            <constraint firstItem="mGV-XT-Rta" firstAttribute="top" secondItem="5qQ-o5-0z6" secondAttribute="bottom" constant="8" id="zIJ-4I-u8M"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -89,15 +99,16 @@
                         <outlet property="bgImage" destination="w6N-HB-q6I" id="1MG-gO-RkF"/>
                         <outlet property="container" destination="5cZ-WK-Aeg" id="2G7-nS-Flp"/>
                         <outlet property="loginButton" destination="mGV-XT-Rta" id="cN8-cZ-UEW"/>
+                        <outlet property="loginMessage" destination="5qQ-o5-0z6" id="QjP-Dl-bCp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0x-6i-4CC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-60" y="-188"/>
+            <point key="canvasLocation" x="-60.431654676258994" y="-188.48920863309354"/>
         </scene>
     </scenes>
     <resources>
         <image name="Asset_BCLogo_Color" width="172" height="148"/>
-        <image name="Asset_LoginBG" width="2048" height="1536"/>
+        <image name="Asset_LoginBG" width="675.84002685546875" height="506.8800048828125"/>
     </resources>
 </document>

@@ -98,6 +98,10 @@
 		2935A76C21485A2500441539 /* ConstantStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76B21485A2500441539 /* ConstantStrings.swift */; };
 		2938CF0B21A473EC00329DDA /* TourStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938CF0A21A473EC00329DDA /* TourStart.swift */; };
 		2938CF0D21A4765100329DDA /* TourStart.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2938CF0C21A4765100329DDA /* TourStart.xib */; };
+		2938CF0F21A5C85700329DDA /* ViewFeedbacks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */; };
+		2938CF1121A5C87200329DDA /* ViewFeedbacksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */; };
+		2938CF1421A5D20500329DDA /* UserFeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */; };
+		2938CF1521A5D20500329DDA /* UserFeedbackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */; };
 		293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
 		293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* HomeViewController.swift */; };
 		293C95CA20335D4100BF1113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
@@ -340,6 +344,10 @@
 		2935A76B21485A2500441539 /* ConstantStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantStrings.swift; sourceTree = "<group>"; };
 		2938CF0A21A473EC00329DDA /* TourStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourStart.swift; sourceTree = "<group>"; };
 		2938CF0C21A4765100329DDA /* TourStart.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TourStart.xib; sourceTree = "<group>"; };
+		2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewFeedbacks.storyboard; sourceTree = "<group>"; };
+		2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFeedbacksViewController.swift; sourceTree = "<group>"; };
+		2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackTableViewCell.swift; sourceTree = "<group>"; };
+		2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserFeedbackTableViewCell.xib; sourceTree = "<group>"; };
 		293C95C120335D4100BF1113 /* Myra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Myra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		293C95C420335D4100BF1113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		293C95C620335D4100BF1113 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -550,6 +558,7 @@
 				293020072139A22000E121E0 /* Router.swift */,
 				2935A76921484A1900441539 /* TooltipViewController.swift */,
 				297E9988216545E700FB6F04 /* MapViewController.swift */,
+				2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -880,6 +889,8 @@
 				293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */,
 				299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */,
 				299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */,
+				2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */,
+				2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -902,6 +913,7 @@
 				290551F921345E3A00785B5E /* AmendmentFlow.storyboard */,
 				2935A7672148399500441539 /* Tooltip.storyboard */,
 				297E9986216545D100FB6F04 /* Map.storyboard */,
+				2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1026,10 +1038,12 @@
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
+				2938CF1521A5D20500329DDA /* UserFeedbackTableViewCell.xib in Resources */,
 				2962B0E8204F076800F71B9C /* ScheduleCellTableViewCell.xib in Resources */,
 				29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */,
 				292197DA209CD152004A5011 /* OptionsTableViewCell.xib in Resources */,
 				29301FDD21385BDD00E121E0 /* SyncBanner.xib in Resources */,
+				2938CF0F21A5C85700329DDA /* ViewFeedbacks.storyboard in Resources */,
 				2974270C20448F720033BC47 /* LiveStockIDTableViewCell.xib in Resources */,
 				29227B5C20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib in Resources */,
 				29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */,
@@ -1197,6 +1211,7 @@
 				2932BB4F2085209000579A57 /* Fonts.swift in Sources */,
 				295F8F1320F7F625009D7717 /* MonitoringAreaViewController.swift in Sources */,
 				2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */,
+				2938CF1121A5C87200329DDA /* ViewFeedbacksViewController.swift in Sources */,
 				297E998B2165479F00FB6F04 /* Pin.swift in Sources */,
 				29103A9A21519AD000032076 /* Loading.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,
@@ -1278,6 +1293,7 @@
 				2933183A20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift in Sources */,
 				299BD278207BF488004B1D07 /* Constants.swift in Sources */,
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
+				2938CF1421A5D20500329DDA /* UserFeedbackTableViewCell.swift in Sources */,
 				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,
 				293020082139A22000E121E0 /* Router.swift in Sources */,
 				29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */,

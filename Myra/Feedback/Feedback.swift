@@ -15,6 +15,9 @@ class Feedback: NSObject {
     static let buttonTag = 666881
     static var displayedButton: UIButton?
 
+//    static var viewFeedbacks: ViewFeedbacksViewController = {
+//    return UIStoryboard(name: "ViewFeedbacks", bundle: Bundle.main).instantiateViewController(withIdentifier: "ViewFeedbacks") as! ViewFeedbacksViewController
+//    }()
 
     static func initializeButton() {
         if let current = Feedback.displayedButton {
@@ -73,7 +76,11 @@ class Feedback: NSObject {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let vc = root.children.last {
                 if let presented = vc.presentedViewController {
                     if let deeper = presented.presentedViewController {
-                        return callback(deeper)
+                        if let evenDeeper = deeper.presentedViewController {
+                            return callback(evenDeeper)
+                        } else {
+                            return callback(deeper)
+                        }
                     } else {
                         return callback(presented)
                     }
@@ -88,7 +95,11 @@ class Feedback: NSObject {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let vc = root.children.last  {
                     if let presented = vc.presentedViewController {
                         if let deeper = presented.presentedViewController {
-                            return callback(deeper)
+                            if let evenDeeper = deeper.presentedViewController {
+                                return callback(evenDeeper)
+                            } else {
+                                return callback(deeper)
+                            }
                         } else {
                             return callback(presented)
                         }
@@ -115,5 +126,10 @@ class Feedback: NSObject {
         API.post(endpoint: endpoint, params: feedback.toDictionary()) { (response) in
             return completion(true)
         }
+    }
+
+    static func showFeedbacks(in vc: UIViewController) {
+        return
+//        vc.present(viewFeedbacks, animated: true)
     }
 }

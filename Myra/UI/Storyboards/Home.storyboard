@@ -163,10 +163,19 @@
                                                     <action selector="picMap:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="JpP-Wp-HuZ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU8-Lw-McR">
+                                                <rect key="frame" x="1062" y="1" width="30" height="33.5"/>
+                                                <state key="normal" title="A"/>
+                                                <connections>
+                                                    <action selector="abuttonAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="gQl-5g-YxY"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Cwe-cK-vIF" firstAttribute="height" secondItem="sSl-7p-lny" secondAttribute="height" id="4cF-Ao-yMA"/>
+                                            <constraint firstAttribute="trailing" secondItem="BU8-Lw-McR" secondAttribute="trailing" constant="20" id="941-qb-F8K"/>
+                                            <constraint firstItem="GLn-Ss-fBW" firstAttribute="top" secondItem="BU8-Lw-McR" secondAttribute="bottom" constant="1" id="BxI-ng-O9o"/>
                                             <constraint firstItem="Cwe-cK-vIF" firstAttribute="centerY" secondItem="sSl-7p-lny" secondAttribute="centerY" id="CZy-Zv-utr"/>
                                             <constraint firstItem="JzH-RI-Kcw" firstAttribute="leading" secondItem="0ZI-61-Maf" secondAttribute="trailing" constant="8" id="CsH-lQ-aFe"/>
                                             <constraint firstItem="HTL-Bd-dqg" firstAttribute="top" secondItem="Z9c-y2-y5e" secondAttribute="top" constant="10" id="DPV-yh-9Ff"/>
@@ -186,6 +195,7 @@
                                             <constraint firstItem="GLn-Ss-fBW" firstAttribute="centerY" secondItem="wwf-Tf-o9i" secondAttribute="centerY" id="f34-s9-a4N"/>
                                             <constraint firstItem="wwf-Tf-o9i" firstAttribute="top" secondItem="HTL-Bd-dqg" secondAttribute="bottom" constant="10" id="gNt-RY-aoD"/>
                                             <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="Cwe-cK-vIF" secondAttribute="trailing" constant="8" id="gch-Jv-rZh"/>
+                                            <constraint firstItem="BU8-Lw-McR" firstAttribute="top" secondItem="Z9c-y2-y5e" secondAttribute="top" constant="1" id="hPZ-tG-xPA"/>
                                             <constraint firstAttribute="trailing" secondItem="GLn-Ss-fBW" secondAttribute="trailing" constant="15" id="kxK-2c-0gY"/>
                                             <constraint firstItem="q0x-Zc-yt8" firstAttribute="centerY" secondItem="Cwe-cK-vIF" secondAttribute="centerY" id="opy-IL-zwB"/>
                                             <constraint firstItem="fEY-X1-Nv2" firstAttribute="height" secondItem="HTL-Bd-dqg" secondAttribute="height" id="ouP-tT-5Df"/>
