@@ -111,7 +111,7 @@ class HomeViewController: BaseViewController {
         self.getRUPs()
         print(TileMaster.shared.sizeOfStoredTiles())
         TileMaster.shared.deleteAllStoredTiles()
-//        TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
+        TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

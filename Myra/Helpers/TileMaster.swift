@@ -10,31 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 import Alamofire
-
-class ImageLoader {
-
-    private static let cache = NSCache<NSString, NSData>()
-
-    class func image(for url: URL, completionHandler: @escaping(_ image: UIImage?) -> ()) {
-
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
-
-            if let data = self.cache.object(forKey: url.absoluteString as NSString) {
-                DispatchQueue.main.async { completionHandler(UIImage(data: data as Data)) }
-                return
-            }
-
-            guard let data = NSData(contentsOf: url) else {
-                DispatchQueue.main.async { completionHandler(nil) }
-                return
-            }
-
-            self.cache.setObject(data, forKey: url.absoluteString as NSString)
-            DispatchQueue.main.async { completionHandler(UIImage(data: data as Data)) }
-        }
-    }
-
-}
+import Reachability
 
 extension BinaryInteger {
     var degreesToRadians: CGFloat { return CGFloat(Int(self)) * .pi / 180 }
@@ -66,25 +42,8 @@ class TileMaster {
     var tilesOfInterest = [MKTileOverlayPath]()
 
     private init() {
-        sizeOfStoredTiles()
+        print("Initialized TileMaster. Size of tiles: \(sizeOfStoredTiles())")
     }
-
-//    func saveTile(for path: MKTileOverlayPath) {
-//        let imageName = getFileName(for: path)
-//        let urlString = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
-//        let filePath = getPath(for: imageName)
-//        guard let url = URL(string: urlString) else {return}
-//        downloadImage(at: url) { (image) in
-//            guard let img = image, let data: Data = img.pngData() else {return}
-//            do {
-//                try data.write(to: filePath)
-//                print("Saved Tile")
-//                print("***")
-//            } catch {
-//                return
-//            }
-//        }
-//    }
 
     func openSteetMapURL(for path: MKTileOverlayPath) -> URL? {
         let stringURL = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
@@ -96,11 +55,7 @@ class TileMaster {
         let path = localPath(for: fileName(for: tilePath))
         let filePath = path.path
         let fileManager = FileManager.default
-        if fileManager.fileExists(atPath: filePath) {
-            return true
-        } else {
-            return false
-        }
+        return fileManager.fileExists(atPath: filePath)
     }
 
     func documentDirectory() -> URL {
@@ -117,12 +72,6 @@ class TileMaster {
         return "Tile-\(path.z)-\(path.x)-\(path.y).png"
     }
 
-//    func downloadImage(at url: URL, completion: @escaping (_ image: UIImage?) -> Void) {
-//        ImageLoader.image(for: url) { (response) in
-//            return completion(response)
-//        }
-//    }
-
     func sizeOfStoredTiles() -> Double {
         let fileURLs = storedFiles()
         var total: Double = 0
@@ -131,7 +80,6 @@ class TileMaster {
                 total += sizeOfFileAt(url: item)
             }
         }
-        print("\(fileURLs.count) Tiles stored: \(total)MB")
         return total
     }
 
@@ -161,8 +109,6 @@ class TileMaster {
         }
     }
 
-
-
     func deleteStoreTiles(at urls: [URL]) {
         let fileManager = FileManager.default
         for url in urls {
@@ -178,32 +124,6 @@ class TileMaster {
         let all = storedFiles()
         deleteStoreTiles(at: all)
     }
-//
-//    func getPathsForTilesAround(x: Int, y: Int, z: Int) -> [MKTileOverlayPath] {
-//        tiles = 0
-//        var paths: [MKTileOverlayPath] = [MKTileOverlayPath]()
-//        for i in 1...100 {
-//            for j in 1...100 {
-//                paths.append(MKTileOverlayPath(x: x + i, y: y + j, z: z, contentScaleFactor: 2.0))
-//                paths.append(MKTileOverlayPath(x: x - i, y: y - j, z: z, contentScaleFactor: 2.0))
-//            }
-//        }
-//        return paths
-//    }
-//
-//    func storeTilesAround(x: Int, y: Int, z: Int, then: @escaping ()->Void) {
-//        let paths = getPathsForTilesAround(x: x, y: y, z: z)
-//        let group = DispatchGroup()
-//        print("Downloading \(paths.count)")
-//        for element in paths {
-//            group.enter()
-//            self.saveTile(for: element)
-//        }
-//
-//        group.notify(queue: .main) {
-//            return then()
-//        }
-//    }
 
     func convert(lat: Double, lon: Double, zoom: Int) -> MKTileOverlayPath {
         // Scale factor used to create MKTileOverlayPath object.
@@ -222,6 +142,10 @@ class TileMaster {
     }
 
     func downloadTilePathsForCenterAt(lat: Double, lon: Double) {
+        if let r = Reachability(), r.connection == .none {
+            print("You're offline. cannot download tiles")
+            return
+        }
         // get the initial tile.
         let initialPath = convert(lat: lat, lon: lon, zoom: maxZoom)
         tilesOfInterest.removeAll()
@@ -233,108 +157,6 @@ class TileMaster {
 
         downloadTilesOfInterest()
     }
-
-    func download(tilePaths: [MKTileOverlayPath]) {
-        let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)
-        var count = tilePaths.count {
-            didSet {
-                print("\(count) tiles remain for download")
-                if count < 1 {
-                    self.downloadCompleted()
-                }
-            }
-        }
-
-        for i in 0...tilePaths.count - 1 {
-            let current = tilePaths[i]
-
-            if tileExistsLocally(for: current) {
-                count -= 1
-//                print("Tile Exists")
-            } else {
-                downloadTile(for: current) { (success) in
-                    count -= 1
-                    if !success {
-                        print("Failed to download a tile")
-                    }
-                }
-            }
-        }
-    }
-
-    func downloadTile(for path: MKTileOverlayPath, then: @escaping (_ success: Bool)-> Void) {
-        let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)
-        guard let url = openSteetMapURL(for: path) else {return then(false)}
-        Alamofire.request(url, method: .get).responseData(queue: queue) { (response) in
-            if let data = response.data {
-                do {
-                    try data.write(to: self.localPath(for: self.fileName(for: path)))
-                    return then(true)
-                } catch {
-                    return then(false)
-                }
-            }
-        }
-    }
-
-    func downloadTilesOfInterest() {
-        download(tilePaths: tilesOfInterest)
-//        tempCount = tilesOfInterest.count
-//
-//        for i in 0...tilesOfInterest.count - 1 where !tileExistsLocally(for: tilesOfInterest[i]){
-//            downloadTileAt(path: tilesOfInterest[i])
-//        }
-    }
-
-
-
-//    func downloadTileAt(path: MKTileOverlayPath) {
-//        let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)
-//        if let url = getURL(for: path) {
-//            Alamofire.request(url, method: .get).responseData(queue: queue) { (response) in
-//                if let data = response.data {
-//                    do {
-//                        try data.write(to: self.getPath(for: self.getFileName(for: path)))
-//                        self.tempCount -= 1
-//                        print("\(self.tempCount) tiles remain")
-//                        if self.tempCount < 1 {
-//                            self.downloadCompleted()
-//                        }
-//                    } catch {
-//                        return
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-    func downloadCompleted() {
-        print("WOOOOOOOOOOHOOOOO")
-        sizeOfStoredTiles()
-    }
-
-    /*
-    func downloadSubtilesFor(path: MKTileOverlayPath) {
-        if path.z + 1 > minZoom {return}
-        let first = MKTileOverlayPath(x: 2 * path.x, y: 2 * path.y, z: path.z + 1, contentScaleFactor: 2.0)
-
-        let second = MKTileOverlayPath(x: 2 * path.x + 1, y: 2 * path.y, z: path.z + 1, contentScaleFactor: 2.0)
-
-        let third = MKTileOverlayPath(x: 2 * path.x, y: 2 * path.y + 1, z: path.z + 1, contentScaleFactor: 2.0)
-
-        let forth = MKTileOverlayPath(x: 2 * path.x + 1, y: 2 * path.y + 1, z: path.z + 1, contentScaleFactor: 2.0)
-
-        saveTile(for: first)
-        saveTile(for: second)
-        saveTile(for: third)
-        saveTile(for: forth)
-
-        downloadSubtilesFor(path: first)
-        downloadSubtilesFor(path: second)
-        downloadSubtilesFor(path: third)
-        downloadSubtilesFor(path: forth)
-    }
-    */
 
     func findSubtiles(under path: MKTileOverlayPath) {
         if path.z + 1 > minZoom {return}
@@ -358,30 +180,69 @@ class TileMaster {
         findSubtiles(under: forth)
     }
 
-//    func findSubtilesFor(tilePath: TilePath) -> [TilePath] {
-////        if tilePath.root.z + 1 > minZoom {return }
-//        var subtiles: [TilePath] = [TilePath]()
-//
-//        let first = MKTileOverlayPath(x: 2 * tilePath.root.x, y: 2 * tilePath.root.y, z: tilePath.root.z + 1, contentScaleFactor: 2.0)
-//
-//        let second = MKTileOverlayPath(x: 2 * tilePath.root.x + 1, y: 2 * tilePath.root.y, z: tilePath.root.z + 1, contentScaleFactor: 2.0)
-//
-//        let third = MKTileOverlayPath(x: 2 * tilePath.root.x, y: 2 * tilePath.root.y + 1, z: tilePath.root.z + 1, contentScaleFactor: 2.0)
-//
-//        let forth = MKTileOverlayPath(x: 2 * tilePath.root.x + 1, y: 2 * tilePath.root.y + 1, z: tilePath.root.z + 1, contentScaleFactor: 2.0)
-//
-//        subtiles.append(TilePath(root: first))
-//        subtiles.append(TilePath(root: second))
-//        subtiles.append(TilePath(root: third))
-//        subtiles.append(TilePath(root: forth))
-//
-//        tempCount += 4
-//        for subtile in subtiles {
-//            subtile.subTiles = findSubtilesFor(tilePath: subtile)
-//        }
-//
-//        return subtiles
-//    }
+    func download(tilePaths: [MKTileOverlayPath]) {
+        if let r = Reachability(), r.connection == .none {
+            print("You're offline. cannot download tiles")
+            return
+        }
+        let queue = DispatchQueue(label: "tileQues", qos: .background, attributes: .concurrent)
+        var count = tilePaths.count {
+            didSet {
+                print("\(count) tiles remain for download")
+                if count < 1 {
+                    self.downloadCompleted()
+                }
+            }
+        }
 
+        Banner.shared.show(message: "Downloading \(tilePaths.count) tiles")
+
+        queue.async {
+            for i in 0...tilePaths.count - 1 {
+                Thread.sleep(until: Date(timeIntervalSinceNow: 0.0001))
+                let current = tilePaths[i]
+
+                if self.tileExistsLocally(for: current) {
+                    count -= 1
+                } else {
+                    self.downloadTile(for: current) { (success) in
+                        count -= 1
+                        if !success {
+                            print("Failed to download a tile")
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    func downloadTile(for path: MKTileOverlayPath, then: @escaping (_ success: Bool)-> Void) {
+        if let r = Reachability(), r.connection == .none {
+            print("You're offline. cannot download tile")
+            return then(false)
+        }
+        let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)
+        guard let url = openSteetMapURL(for: path) else {return then(false)}
+        Alamofire.request(url, method: .get).responseData(queue: queue) { (response) in
+            if let data = response.data {
+                do {
+                    try data.write(to: self.localPath(for: self.fileName(for: path)))
+                    return then(true)
+                } catch {
+                    return then(false)
+                }
+            }
+            return then(false)
+        }
+    }
+
+    func downloadTilesOfInterest() {
+        download(tilePaths: tilesOfInterest)
+    }
+
+    func downloadCompleted() {
+        Banner.shared.show(message: "Finished download map data. total size: \(sizeOfStoredTiles())")
+    }
 
 }
