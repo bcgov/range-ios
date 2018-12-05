@@ -120,6 +120,103 @@ extension MapTableViewCell: MKMapViewDelegate{
         DispatchQueue.main.async {
             self.locationManager.startUpdatingLocation()
         }
+
+
+        return
+
+        var tocache = [CLLocationCoordinate2D]()
+        var one = CLLocationCoordinate2D()
+        one.latitude = 48.424251
+        one.longitude = -123.365729
+
+        var two = CLLocationCoordinate2D()
+        two.latitude = 48.375354
+        two.longitude = -123.735889
+
+        var three = CLLocationCoordinate2D()
+        three.latitude = 49.149995
+        three.longitude = -125.904245
+
+        var four = CLLocationCoordinate2D()
+        four.latitude = 49.160894
+        four.longitude = -123.938473
+
+        tocache.append(one)
+        tocache.append(two)
+        tocache.append(three)
+        tocache.append(four)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.autoload(coordinates: tocache)
+        }
+    }
+
+    func autoload(coordinates: [CLLocationCoordinate2D]){
+        var regions: [MKCoordinateRegion] = [MKCoordinateRegion]()
+        for element in coordinates {
+            var x = 2000000
+            var y = 2000000
+            while x > 10 && y > 10 {
+                let viewRegion = MKCoordinateRegion.init(center: element, latitudinalMeters: CLLocationDistance(x), longitudinalMeters: CLLocationDistance(y))
+                regions.append(viewRegion)
+                if x > 10000 {
+                    if x > 50000 {
+                        if x > 1000000 {
+                            x -= 20000
+                            y -= 20000
+                        } else if x > 100000 {
+                            x -= 10000
+                            y -= 10000
+                        } else {
+                            x -= 1000
+                            y -= 1000
+                        }
+                    } else {
+                        x -= 500
+                        y -= 500
+                    }
+                } else {
+                    if x > 5000 {
+                        x -= 100
+                        y -= 100
+                    } else {
+                        if x > 1000 {
+                            x -= 50
+                            y -= 50
+                        } else {
+                            x -= 10
+                            y -= 10
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+        print(TileMaster.shared.sizeOfStoredTiles())
+
+        TileMaster.shared.deleteAllStoredTiles()
+
+//        TileMaster.shared.storeTilesAround(x: 41238, y: 90659, z: 18)
+
+
+        beginCaching(regions: regions) {
+            print("**** DONE ****")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+                print(TileMaster.shared.sizeOfStoredTiles())
+            })
+        }
+
+    }
+
+    func beginCaching(regions: [MKCoordinateRegion], completion: @escaping ()->Void) {
+        var all = regions
+        guard let current = all.popLast() else {return completion()}
+        mapView.setRegion(current, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.beginCaching(regions: all, completion: completion)
+        }
     }
 
     // Handle rendering of lines and polygons
@@ -281,10 +378,11 @@ extension MapTableViewCell: MKMapViewDelegate{
 }
 
 extension MapTableViewCell {
-    //    override func url(forTilePath path: MKTileOverlayPath) -> URL {
-    //        let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
-    //        return URL(string: tileUrl)!
-    //    }
+
+//        override func url(forTilePath path: MKTileOverlayPath) -> URL {
+//            let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
+//            return URL(string: tileUrl)!
+//        }
 
     func setupTileRenderer() {
         let overlay = OpenMapOverlay()

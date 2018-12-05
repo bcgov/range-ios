@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.enableAutoToolbar = false
         Fabric.with([Crashlytics.self])
-
         AutoSync.shared.beginListener()
 
         return true

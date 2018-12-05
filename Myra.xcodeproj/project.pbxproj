@@ -92,6 +92,9 @@
 		2933183B20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */; };
 		2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933183E20FE60390070A6A9 /* IndicatorPlant.swift */; };
 		2933184120FE63590070A6A9 /* IndicatorPlantSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */; };
+		29332D8E21B5A5BF00950478 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29332D8D21B5A5BF00950478 /* AlertView.swift */; };
+		29332D9021B5A5CE00950478 /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29332D8F21B5A5CE00950478 /* AlertView.xib */; };
+		29332DB121B6FBC100950478 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29332DB021B6FBC100950478 /* Alert.swift */; };
 		29334F9A214C2F2100EE97F9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29334F99214C2F2100EE97F9 /* API.swift */; };
 		2935A7682148399500441539 /* Tooltip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2935A7672148399500441539 /* Tooltip.storyboard */; };
 		2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76921484A1900441539 /* TooltipViewController.swift */; };
@@ -208,6 +211,7 @@
 		29DA8A9F20574FB300139AD1 /* SelectAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */; };
 		29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */; };
 		29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */; };
+		29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DEA5AB21AC833A002AA89B /* TileMaster.swift */; };
 		29DFA10C20450CB600B650CE /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFA10B20450CB600B650CE /* Notifications.swift */; };
 		29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D924203F449700193FA0 /* RangeUsageYear.swift */; };
 		29E0D92A203F551E00193FA0 /* PasturesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */; };
@@ -338,6 +342,9 @@
 		2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitoringAreaCustomDetailTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
 		2933183E20FE60390070A6A9 /* IndicatorPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPlant.swift; sourceTree = "<group>"; };
 		2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPlantSection.swift; sourceTree = "<group>"; };
+		29332D8D21B5A5BF00950478 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		29332D8F21B5A5CE00950478 /* AlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		29332DB021B6FBC100950478 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		29334F99214C2F2100EE97F9 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		2935A7672148399500441539 /* Tooltip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tooltip.storyboard; sourceTree = "<group>"; };
 		2935A76921484A1900441539 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
@@ -456,6 +463,7 @@
 		29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgreementViewController.swift; sourceTree = "<group>"; };
 		29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTableViewCell.swift; sourceTree = "<group>"; };
 		29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgreementTableViewCell.xib; sourceTree = "<group>"; };
+		29DEA5AB21AC833A002AA89B /* TileMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileMaster.swift; sourceTree = "<group>"; };
 		29DFA10B20450CB600B650CE /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		29E0D924203F449700193FA0 /* RangeUsageYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUsageYear.swift; sourceTree = "<group>"; };
 		29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasturesTableViewCell.swift; sourceTree = "<group>"; };
@@ -601,6 +609,7 @@
 				29103A9921519AD000032076 /* Loading.swift */,
 				29103A9B2151B56900032076 /* TourTip.swift */,
 				292AD86B215C470200F80738 /* Notification.swift */,
+				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -696,6 +705,16 @@
 			path = "Plan Components";
 			sourceTree = "<group>";
 		};
+		29332DAF21B6FB8900950478 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				29332D8D21B5A5BF00950478 /* AlertView.swift */,
+				29332D8F21B5A5CE00950478 /* AlertView.xib */,
+				29332DB021B6FBC100950478 /* Alert.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		293C95B820335D4100BF1113 = {
 			isa = PBXGroup;
 			children = (
@@ -717,6 +736,7 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
+				29332DAF21B6FB8900950478 /* Alert */,
 				296233AE219E461F00E0BD2E /* Feedback */,
 				290543282194D23700865823 /* Tour */,
 				295FBF7A21641EEA00DD2C53 /* ML */,
@@ -1037,6 +1057,7 @@
 				29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */,
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
+				29332D9021B5A5CE00950478 /* AlertView.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
 				2938CF1521A5D20500329DDA /* UserFeedbackTableViewCell.xib in Resources */,
 				2962B0E8204F076800F71B9C /* ScheduleCellTableViewCell.xib in Resources */,
@@ -1234,6 +1255,7 @@
 				2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */,
 				29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */,
 				29227B6920EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift in Sources */,
+				29332D8E21B5A5BF00950478 /* AlertView.swift in Sources */,
 				294CADB5216E868A00DB184B /* NewElementAddedBanner.swift in Sources */,
 				2905432A2194D26600865823 /* Tour.swift in Sources */,
 				29103A9C2151B56900032076 /* TourTip.swift in Sources */,
@@ -1304,6 +1326,7 @@
 				299D3EBE217E7A0A0000781E /* MonitoringAreaHealth.swift in Sources */,
 				2962B0E7204F076800F71B9C /* ScheduleCellTableViewCell.swift in Sources */,
 				292197DE209CD295004A5011 /* OptionType.swift in Sources */,
+				29332DB121B6FBC100950478 /* Alert.swift in Sources */,
 				29DFA10C20450CB600B650CE /* Notifications.swift in Sources */,
 				2932BB4D20851BD900579A57 /* Colors.swift in Sources */,
 				292197DC209CD19D004A5011 /* Option.swift in Sources */,
@@ -1320,6 +1343,7 @@
 				29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
+				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,
 				29227B6220EEAD540042B88E /* TextEntry.swift in Sources */,
 				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,

@@ -109,6 +109,9 @@ class HomeViewController: BaseViewController {
         setupReachabilityNotification()
         self.removeDummy()
         self.getRUPs()
+        print(TileMaster.shared.sizeOfStoredTiles())
+        TileMaster.shared.deleteAllStoredTiles()
+        TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -133,6 +136,10 @@ class HomeViewController: BaseViewController {
 
     @IBAction func abuttonAction(_ sender: UIButton) {
         Feedback.showFeedbacks(in: self)
+//        TileMaster.shared.deleteAllStoredTiles()
+//        TileMaster.shared.storeTilesAround(x: 41238, y: 90659, z: 18, then: {
+//            print("DONE!!!")
+//        })
     }
 
 

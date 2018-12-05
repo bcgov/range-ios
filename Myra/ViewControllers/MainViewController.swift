@@ -30,6 +30,8 @@ class MainViewController: BaseViewController {
 
 extension MainViewController {
     func chooseInitialView() {
+//        showHomePage()
+//        return
         if let _ = RealmManager.shared.getLastSyncDate() {
             // Go to home page
             showHomePage()

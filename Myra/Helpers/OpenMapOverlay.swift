@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import MapKit
 
 
@@ -15,7 +16,18 @@ class OpenMapOverlay: MKTileOverlay {
 
     // grabs the tile for the current x y z
     override func url(forTilePath path: MKTileOverlayPath) -> URL {
-        let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
-        return URL(string: tileUrl)!
+
+        if TileMaster.shared.tileExistsLocally(for: path) {
+            // return local URL
+            return TileMaster.shared.localPath(for: TileMaster.shared.fileName(for: path))
+        } else {
+            // Otherwise download and save
+            TileMaster.shared.downloadTile(for: path) { (success) in
+//                print("Donwloaded a new tile")
+            }
+            // If you're downloading and saving, then you could also just pass the url to renderer
+            let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
+            return URL(string: tileUrl)!
+        }
     }
 }
