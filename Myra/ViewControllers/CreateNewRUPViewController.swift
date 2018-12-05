@@ -356,7 +356,7 @@ class CreateNewRUPViewController: BaseViewController {
 
         let validity = RUPManager.shared.isValid(rup: plan)
         if !validity.0 {
-            showAlert(with: "Plan is invalid", message: validity.1)
+            alert(with: "Plan is invalid", message: validity.1)
             return
         }
         closingAnimations()

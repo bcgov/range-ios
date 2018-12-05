@@ -34,7 +34,7 @@ class ScheduleTableViewCell: BaseFormCell {
     @IBAction func addScheduleAction(_ sender: UIButton) {
         guard let p = parentReference else {return}
         guard let start = rup.planStartDate, let end = rup.planEndDate else {
-            p.showAlert(with: "Missing prerequisites", message: "Please select plan start and end dates in the Plan Information section.")
+            p.alert(with: "Missing prerequisites", message: "Please select plan start and end dates in the Plan Information section.")
             return
         }
         let vm = ViewManager()
@@ -63,7 +63,7 @@ class ScheduleTableViewCell: BaseFormCell {
                     self.tableView.reloadData()
                 })
             } else {
-                p.showAlert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
+                p.alert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
             }
         }
         p.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)

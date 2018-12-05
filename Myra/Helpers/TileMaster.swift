@@ -338,6 +338,7 @@ class TileMaster {
 
     func findSubtiles(under path: MKTileOverlayPath) {
         if path.z + 1 > minZoom {return}
+
         let first = MKTileOverlayPath(x: 2 * path.x, y: 2 * path.y, z: path.z + 1, contentScaleFactor: 2.0)
 
         let second = MKTileOverlayPath(x: 2 * path.x + 1, y: 2 * path.y, z: path.z + 1, contentScaleFactor: 2.0)

@@ -284,26 +284,15 @@ extension BaseViewController {
 extension BaseViewController {
     
     func alert(with title: String, message: String) {
-        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        ac.addAction(cancel)
-
-        present(ac, animated: true, completion: nil)
+        Alert.show(title: title, message: message)
     }
 
     func showAlert(title: String, description: String, yesButtonTapped:@escaping () -> (), noButtonTapped:@escaping () -> ()) {
-        let alert = UIAlertController(title: title, message: description, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-            DispatchQueue.main.async {
-                yesButtonTapped()
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action) in
-            DispatchQueue.main.async {
-                noButtonTapped()
-            }
-        }))
-        present(alert, animated: true, completion: nil)
+        Alert.show(title: title, message: description, yes: {
+            yesButtonTapped()
+        }) {
+            noButtonTapped()
+        }
     }
 }
 

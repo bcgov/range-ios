@@ -58,26 +58,11 @@ class Feedback: NSObject {
     }
 
     @objc static func buttonAction() {
-//        Alert.show(title: "hello", message: "World")
-        Alert.show(title: "Hello world, this one is kind of a long title that should resize the height", message: "but the message is short", yes: {
-            Alert.show(title: "Thank you for approving the message", message: "Now we have a slightly longer message being displayed although the title is still kinda long. i really really hope this is getting re-sized correctly with the really really longer message.", yes: {
-                Alert.show(title: "Short Title", message: "but still with a multi-line message. not too long though", yes: {
-                    Alert.show(title: "Last One", message: "this one only has the okay button. don't want your opinion")
-                }, no: {
-                    Alert.show(title: "You clicked No", message: "whyyyyy")
-                })
-            }, no: {
-                Alert.show(title: "You clicked No", message: "whyyyyy")
-            })
-        }) {
-            Alert.show(title: "You clicked No", message: "whyyyyy")
+        getPresented { (vc) in
+            if let current = vc {
+                Feedback.show(in: current)
+            }
         }
-        return
-//        getPresented { (vc) in
-//            if let current = vc {
-//                Feedback.show(in: current)
-//            }
-//        }
     }
 
     static func removeButton() {

@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iFw-fu-NXL">
-                    <rect key="frame" x="0.0" y="624" width="375" height="43"/>
+                    <rect key="frame" x="0.0" y="616" width="375" height="43"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Wwp-gC-6s2">
                             <rect key="frame" x="0.0" y="2" width="375" height="41"/>
@@ -58,7 +58,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eu1-tB-buS">
-                    <rect key="frame" x="5" y="53" width="365" height="566"/>
+                    <rect key="frame" x="5" y="53" width="365" height="558"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -73,7 +73,7 @@
                 <constraint firstItem="iFw-fu-NXL" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="W24-Oi-UoV"/>
                 <constraint firstItem="Eu1-tB-buS" firstAttribute="leading" secondItem="pVw-sW-KbV" secondAttribute="leading" id="ccU-k4-CZ2"/>
                 <constraint firstItem="Eu1-tB-buS" firstAttribute="trailing" secondItem="pVw-sW-KbV" secondAttribute="trailing" id="fQc-X1-3wW"/>
-                <constraint firstItem="iFw-fu-NXL" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="iW6-KG-irs"/>
+                <constraint firstItem="iFw-fu-NXL" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="iW6-KG-irs"/>
                 <constraint firstItem="iFw-fu-NXL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="vOP-Uh-tdZ"/>
                 <constraint firstItem="Eu1-tB-buS" firstAttribute="top" secondItem="pVw-sW-KbV" secondAttribute="bottom" constant="8" id="xhb-AZ-mqb"/>
             </constraints>

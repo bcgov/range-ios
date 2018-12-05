@@ -82,6 +82,7 @@ class Alert {
             view.frame = iconFrame
             view.center.y = window.center.y
             view.center.x = window.center.x
+            view.alpha = 0
             window.addSubview(view)
 
             // Add constraints
@@ -92,6 +93,9 @@ class Alert {
                 view.centerXAnchor.constraint(equalTo: window.centerXAnchor),
                 view.centerYAnchor.constraint(equalTo: window.centerYAnchor),
                 ])
+            UIView.animate(withDuration: 0.1) {
+                view.alpha = 1
+            }
         }
 
     }
