@@ -109,8 +109,6 @@ class HomeViewController: BaseViewController {
         setupReachabilityNotification()
         self.removeDummy()
         self.getRUPs()
-        print(TileMaster.shared.sizeOfStoredTiles())
-        TileMaster.shared.deleteAllStoredTiles()
         TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
     }
 

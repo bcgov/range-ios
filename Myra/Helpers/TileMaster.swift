@@ -217,17 +217,9 @@ class TileMaster {
         addStatusIndicator()
         var count = tilePaths.count {
             didSet {
-                let percentRemaining = getPercentage(of: count, in: tilePaths.count)
-                self.updateStatusValue(to: percentRemaining)
-                if percentRemaining < 1 {
-                    print("\(failedTiles.count) failed")
-                }
-                if count < 1 {
-                    self.downloadCompleted(failed: failedTiles)
-                }
+                self.updateStatusValue(to: getPercentage(of: count, in: tilePaths.count))
             }
         }
-
 
         let queue = DispatchQueue(label: "tileQues", qos: .background, attributes: .concurrent)
         queue.async {
@@ -295,6 +287,7 @@ class TileMaster {
 
     func downloadCompleted(failed: [MKTileOverlayPath]) {
 
+        tilesOfInterest.removeAll()
         removeStatusIndicator()
 
         self.isDownloading = false
@@ -302,41 +295,46 @@ class TileMaster {
             if lastFailedCount == 0 {
                 print("No tiles failed to download.")
                 Banner.shared.show(message: "Finished download map data. total size: \(sizeOfStoredTiles().roundToDecimal(2))MB")
+                return
             } else {
                 Banner.shared.show(message: "Will not try to download failed tiles in this session.")
                 lastFailedCount = 0
+                return
             }
         } else {
             Banner.shared.show(message: "\(failed.count) tiles failed to download")
             lastFailedCount = failed.count
-            self.download(tilePaths: failed)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.download(tilePaths: failed)
+            }
         }
 
-        tilesOfInterest.removeAll()
+
 
     }
 
     // MARK: Status
     func addStatusIndicator() {
-        guard let window = UIApplication.shared.keyWindow else {return}
-        let width: CGFloat = 100
-        let height: CGFloat = 100
-        let frame = CGRect(x: window.frame.maxX, y: window.frame.maxY, width: width, height: height)
-        let view = UIView(frame: frame)
-        let label = UILabel(frame: frame)
+        DispatchQueue.main.async {
+            guard let window = UIApplication.shared.keyWindow else {return}
+            let width: CGFloat = 100
+            let height: CGFloat = 100
+            let frame = CGRect(x: window.frame.maxX, y: window.frame.maxY, width: width, height: height)
+            let view = UIView(frame: frame)
+            let label = UILabel(frame: frame)
 
-        view.tag = self.indicatorTag
-        label.tag = self.indicatorLabelTag
+            view.tag = self.indicatorTag
+            label.tag = self.indicatorLabelTag
 
-        window.addSubview(view)
-        window.addSubview(label)
+            window.addSubview(view)
+            window.addSubview(label)
 
-        label.textAlignment = .center
+            label.textAlignment = .center
 
-        addAnchors(to: view, in: window, width: width, height: height)
-        addAnchors(to: label, in: window, width: width, height: height)
-
-
+            self.addAnchors(to: view, in: window, width: width, height: height)
+            self.addAnchors(to: label, in: window, width: width, height: height)
+        }
     }
 
     func addAnchors(to view: UIView, in window: UIWindow, width: CGFloat, height: CGFloat) {
@@ -373,7 +371,4 @@ class TileMaster {
             Feedback.initializeButton()
         }
     }
-
-    func
-
 }

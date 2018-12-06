@@ -163,7 +163,7 @@
                                                     <action selector="picMap:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="JpP-Wp-HuZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU8-Lw-McR">
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU8-Lw-McR">
                                                 <rect key="frame" x="1062" y="1" width="30" height="33.5"/>
                                                 <state key="normal" title="A"/>
                                                 <connections>
