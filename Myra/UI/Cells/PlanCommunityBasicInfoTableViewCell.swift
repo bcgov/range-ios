@@ -31,7 +31,12 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var inputFieldHeight: NSLayoutConstraint!
 
     @IBOutlet weak var elevationDropdown: UIButton!
+    @IBOutlet weak var elevationButton: UIButton!
     @IBOutlet weak var purposeDropdown: UIButton!
+    @IBOutlet weak var purposeButton: UIButton!
+    
+    @IBOutlet weak var approvedByMinisterHeader: UILabel!
+    @IBOutlet weak var approvedByMinisterSwitch: UISwitch!
     
     // MARK: Variables
     var mode: FormMode = .View
@@ -47,6 +52,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Outlet Actions
+    /*
     @IBAction func aspectAction(_ sender: UIButton) {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
@@ -67,6 +73,25 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             }
         }
     }
+    */
+
+    @IBAction func approvedByMinisterInfo(_ sender: UIButton) {
+        guard let p = parentReference else {return}
+        p.showTooltip(on: sender, title: "Approved by Minister", desc: InfoTips.approvedByMinister)
+    }
+
+    @IBAction func approvedByMinisterAction(_ sender: UISwitch) {
+        guard let plantCommunity = self.plantCommunity else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                 plantCommunity.approvedByMinister = sender.isOn
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+    
     @IBAction func aspectFieldChanged(_ sender: UITextField) {
         guard let pc = self.plantCommunity, let text = aspectField.text else {return}
         do {
@@ -168,6 +193,10 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
         plantCommunityField.text = pc.notes
         communityURLField.text = pc.communityURL
         purposeOfActionsField.text = pc.purposeOfAction
+        if pc.purposeOfAction.lowercased() == "clear" {
+            purposeOfActionsField.text = ""
+        }
+        approvedByMinisterSwitch.isOn = pc.approvedByMinister
         if self.plantCommunityField.text.isEmpty {
             switch mode {
             case .View:
@@ -180,6 +209,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
 
     // MARK: Style
     func style() {
+        styleFieldHeader(label: approvedByMinisterHeader)
         switch mode {
         case .View:
             styleInputFieldReadOnly(field: aspectField, header: aspectHeader, height: inputFieldHeight)
@@ -187,6 +217,13 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             styleInputFieldReadOnly(field: communityURLField, header: communityURLHeader, height: inputFieldHeight)
             styleInputFieldReadOnly(field: purposeOfActionsField, header: purposeOfActionHeader, height: inputFieldHeight)
             styleTextviewInputFieldReadOnly(field: plantCommunityField, header: plantCommunityNotesHeader)
+            elevationButton.isUserInteractionEnabled = false
+            elevationDropdown.isUserInteractionEnabled = false
+            purposeButton.isUserInteractionEnabled = false
+            purposeDropdown.isUserInteractionEnabled = false
+            purposeDropdown.alpha = 0
+            elevationDropdown.alpha = 0
+            approvedByMinisterSwitch.isUserInteractionEnabled = false
         case .Edit:
             styleInputField(field: aspectField, header: aspectHeader, height: inputFieldHeight)
             styleInputField(field: elevationField, header: elevationHeader, height: inputFieldHeight)

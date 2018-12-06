@@ -20,6 +20,8 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     var section: IndicatorPlantSection?
 
     // MARK: Outlets
+    @IBOutlet weak var container: UIView!
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     @IBOutlet weak var singleFieldHeight: NSLayoutConstraint!
@@ -30,7 +32,20 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var singleFieldSectionHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var readinessNotesHeader: UILabel!
+    @IBOutlet weak var sectionTitle: UILabel!
+
+    @IBOutlet weak var sectionSubtitle: UILabel!
+
+    @IBOutlet weak var readinessNotesTextView: UITextView!
+    @IBOutlet weak var readinessNotesSectionHeight: NSLayoutConstraint!
+    @IBOutlet weak var sectionTitleContainerHeight: NSLayoutConstraint!
+
     @IBOutlet weak var tableHeadersHeight: NSLayoutConstraint!
+
+    @IBOutlet weak var readinessSection: UIView!
+    @IBOutlet weak var notesSection: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -40,6 +55,13 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Outlet Actions
+
+    @IBAction func otherToolTipAction(_ sender: UIButton) {
+        guard let parent = parentReference else {return}
+        parent.showTooltip(on: sender, title: "Other", desc: InfoTips.rangeReadinessOther)
+
+    }
+
     @IBAction func singleFieldAction(_ sender: UIButton) {
         guard let a = plantCommunity, let parent = parentReference else {return}
         let picker = DatePicker()
@@ -78,6 +100,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
         setupSection()
         style()
         autofill()
+        readinessNotesTextView.delegate = self
         self.tableView.reloadData()
     }
 
@@ -86,6 +109,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
         if a.readinessDay != -1 && a.readinessMonth != -1 {
             self.singleFieldValue.text = "\(DatePickerHelper.shared.month(number: a.readinessMonth)) \(a.readinessDay)"
         }
+        self.readinessNotesTextView.text = a.readinessNotes
         styleTableHeaders()
     }
 
@@ -102,39 +126,57 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
 
     func style() {
-//        styleSubHeader(label: sectionName)
         styleFieldHeader(label: headerLeft)
         styleFieldHeader(label: headerRight)
-//        styleFieldHeader(label: banner)
+        styleSubHeader(label: sectionTitle)
+        sectionSubtitle.font = Fonts.getPrimary(size: 17)
+        styleContainer(view: container)
         switch self.mode {
         case .View:
             addButton.alpha = 0
             styleInputFieldReadOnly(field: singleFieldValue, header: singleFieldHeader, height: singleFieldHeight)
+            styleTextviewInputFieldReadOnly(field: readinessNotesTextView, header: readinessNotesHeader)
         case .Edit:
             styleHollowButton(button: addButton)
             styleInputField(field: singleFieldValue, header: singleFieldHeader, height: singleFieldHeight)
+            styleTextviewInputField(field: readinessNotesTextView, header: readinessNotesHeader)
         }
     }
 
     func setupSection() {
         guard let current = self.section else {return}
-        self.headerLeft.text = "Indicator Plant"
+        self.headerLeft.text = "Plant Growth:"
+        self.headerRight.text = ""
         switch current {
         case .RangeReadiness:
+            self.sectionSubtitle.text = "If more than one readiness criteria is provided, all such criteria must be met before grazing may accur."
+            self.sectionTitleContainerHeight.constant = 80
+            self.readinessNotesSectionHeight.constant = 100
             self.singleFieldSectionHeight.constant = 70
-//            self.sectionName.text = "Range Readiness"
-            self.headerRight.text = "Criteria (Leaf Stage)"
-//            self.banner.text = ""
+            self.singleFieldHeader.alpha = 1
+            self.sectionTitle.text = "Range Readiness:"
+            self.readinessNotesTextView.alpha = 1
+            self.notesSection.alpha = 1
+//            self.headerRight.text = "Criteria (Leaf Stage)"
         case .StubbleHeight:
+            self.sectionSubtitle.text = "Livestock must be removed on the first to occur of the date in the plan (ex. schedule), stubble height criteria or average browse criteria."
+            self.notesSection.alpha = 0
+            self.sectionTitleContainerHeight.constant = 80
+            self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
-//            self.sectionName.text = "Stubble Height"
-            self.headerRight.text = "Height After Grazing (cm)"
-//            self.banner.text = ""
+            self.singleFieldHeader.alpha = 0
+            self.sectionTitle.text = "Stubble Height:"
+
+//            self.headerRight.text = "Height After Grazing (cm)"
         case .ShrubUse:
+            self.sectionSubtitle.text = "Livestock must be removed from the pasture on the first to occur of the date in the plan (ex. schedule), stubble height criteria for any plant community in the pasture or average browse criteria."
+            self.notesSection.alpha = 0
+            self.sectionTitleContainerHeight.constant = 80
+            self.readinessNotesSectionHeight.constant = 0
             self.singleFieldSectionHeight.constant = 0
-//            self.sectionName.text = "Shrub Use"
-            self.headerRight.text = "% of Current Annual Growth"
-//            self.banner.text = "The default allowable browse level is 25% of current annual growth"
+            self.singleFieldHeader.alpha = 0
+            self.sectionTitle.text = "Shrub Use:"
+//            self.headerRight.text = "% of Current Annual Growth"
         }
     }
 
@@ -162,12 +204,6 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()
         })
-
-//        self.tableView.reloadData()
-//        self.tableView.layoutIfNeeded()
-//        self.tableHeight.constant = computeHeight()
-//        self.layoutIfNeeded()
-//        parent.reload()
     }
 
     func refreshMonitoringAreaObject() {
@@ -182,6 +218,21 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
     }
     
 }
+
+extension MonitoringAreaCustomDetailsTableViewCell: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let a = plantCommunity, let text = textView.text else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                a.readinessNotes = text
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+}
+
 
 extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
@@ -215,7 +266,7 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITable
                 ip = plantCommunity.shrubUse[indexPath.row]
             }
             guard let indicatorPlant = ip else {return cell}
-            cell.setup(mode: self.mode, indicatorPlant: indicatorPlant, plantCommunity: plantCommunity, parentReference: parent, parentCellReference: self)
+            cell.setup(forSection: sec, mode: self.mode, indicatorPlant: indicatorPlant, plantCommunity: plantCommunity, parentReference: parent, parentCellReference: self)
         }
 
         return cell

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -615,24 +615,36 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a85-B1-2GU">
-                                        <rect key="frame" x="5" y="572" width="255" height="100"/>
+                                        <rect key="frame" x="5" y="572" width="255" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="szO-qT-PXS"/>
+                                            <constraint firstAttribute="height" constant="50" id="szO-qT-PXS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.38431372549999998" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLh-6Y-WHz">
+                                        <rect key="frame" x="117.5" y="615" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="VLh-6Y-WHz" secondAttribute="height" multiplier="1:1" id="EPB-kI-7GG"/>
+                                            <constraint firstAttribute="height" constant="30" id="NwE-DQ-17a"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="menuModeAction:" destination="q34-99-p1g" eventType="touchUpInside" id="iSL-Rq-tPo"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="VLh-6Y-WHz" secondAttribute="bottom" constant="8" id="7fb-Jx-CCb"/>
                                     <constraint firstItem="a85-B1-2GU" firstAttribute="leading" secondItem="BNq-BJ-ffb" secondAttribute="leading" constant="5" id="7hQ-YO-ACE"/>
                                     <constraint firstAttribute="trailing" secondItem="wxx-3T-mac" secondAttribute="trailing" constant="5" id="ESm-HW-1hy"/>
                                     <constraint firstAttribute="trailing" secondItem="a85-B1-2GU" secondAttribute="trailing" constant="5" id="I9W-oS-L5B"/>
                                     <constraint firstItem="a85-B1-2GU" firstAttribute="top" secondItem="rec-4X-Frs" secondAttribute="bottom" constant="5" id="eCl-ee-hOa"/>
                                     <constraint firstItem="wxx-3T-mac" firstAttribute="leading" secondItem="BNq-BJ-ffb" secondAttribute="leading" id="iXD-Hp-ctN"/>
                                     <constraint firstItem="wxx-3T-mac" firstAttribute="top" secondItem="BNq-BJ-ffb" secondAttribute="top" constant="20" id="kXp-Au-JjX"/>
+                                    <constraint firstItem="VLh-6Y-WHz" firstAttribute="centerX" secondItem="BNq-BJ-ffb" secondAttribute="centerX" id="p7S-MD-e6k"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wxx-3T-mac" secondAttribute="bottom" constant="20" id="rSq-Jh-Qp0"/>
                                     <constraint firstAttribute="width" constant="265" id="sRQ-hC-noE"/>
                                 </constraints>
@@ -704,6 +716,7 @@
                         <outlet property="managementLowerBar" destination="qGD-WE-LTc" id="zJ3-np-zgI"/>
                         <outlet property="menuContainer" destination="BNq-BJ-ffb" id="vbz-ps-hB7"/>
                         <outlet property="menuLeading" destination="9fa-7f-Hru" id="tYH-Y5-xeN"/>
+                        <outlet property="menuModeButton" destination="VLh-6Y-WHz" id="7Nx-qT-ejL"/>
                         <outlet property="menuWidth" destination="sRQ-hC-noE" id="TyW-Rr-gsP"/>
                         <outlet property="ministersIssuesBox" destination="fPY-Q2-W6j" id="dFh-Ko-QpF"/>
                         <outlet property="ministersIssuesBoxImage" destination="D0w-VK-eED" id="xFL-yx-AgU"/>

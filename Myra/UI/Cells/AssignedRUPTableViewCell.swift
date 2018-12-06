@@ -50,18 +50,23 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Functions
-    func setup(rup: RUP, color: UIColor, expand: Bool? = nil) {
+    func setup(rup: RUP, color: UIColor, expand: Bool? = false) {
         self.agreement = RUPManager.shared.getAgreement(with: rup.agreementId)
         self.rup = rup
         autofill(rup: rup)
         self.bg = color
         if let exp = expand {
             if exp {
-                styleSelected()
+                print(" Selecting - \(rup.rangeName)")
+                self.styleSelected()
             } else {
+                // Locked means it has decreased Alpham so the
+                // selected one stands out
+                print(" Locking - \(rup.rangeName)")
                 setLocked()
             }
         } else {
+            print(" Basic Styling - \(rup.rangeName)")
             style()
         }
         setUpTable()
@@ -76,6 +81,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     // MARK: Styles
     func style() {
+        self.cellSelected = false
         self.infoButton.setImage(#imageLiteral(resourceName: "icons_form_dropdownarrow"), for: .normal)
         self.statusLight.alpha = 1
         self.container.layer.shadowOpacity = 0
@@ -105,6 +111,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     func styleSelected() {
         if cellSelected {return}
+        self.cellSelected = true
         style()
         self.infoButton.alpha = 0
         self.statusLight.alpha = 0
@@ -122,7 +129,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         }) { (done) in
             self.infoButton.alpha = 1
             self.infoButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
-            self.cellSelected = true
+
         }
     }
 

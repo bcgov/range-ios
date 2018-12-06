@@ -34,13 +34,23 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
 
     // MARK: Outlet Actions
     @IBAction func addMonitoringArea(_ sender: UIButton) {
+        addNewMonitoringArea()
+    }
+
+    func addNewMonitoringArea(copyFrom: MonitoringArea? = nil) {
         guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
         let vm = ViewManager()
         let textEntry = vm.textEntry
+
         textEntry.setup(on: parent, header: "Monitoring Area Name") { (accepted, value) in
             if accepted {
-                let newMonitoringArea = MonitoringArea()
+
+                var newMonitoringArea = MonitoringArea()
+                if let objectToCopyFrom = copyFrom {
+                    newMonitoringArea = objectToCopyFrom.copy()
+                }
                 newMonitoringArea.name = value
+
                 do {
                     let realm = try Realm()
                     let aCommunity = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
@@ -49,12 +59,10 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
                         realm.add(newMonitoringArea)
                     }
                     self.plantCommunity = aCommunity
-
                 } catch _ {
                     fatalError()
                 }
                 self.updateTableHeight()
-//                parent.showMonitoringAreaDetailsPage(monitoringArea: newMonitoringArea)
             }
         }
     }
@@ -88,6 +96,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
         parent.reload {
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()
+            self.layoutIfNeeded()
         }
     }
 
@@ -101,6 +110,12 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
     // MARK: Styles
     func style() {
         styleHollowButton(button: addButton)
+        switch mode {
+        case .View:
+            addButton.alpha = 0
+        case .Edit:
+            addButton.alpha = 1
+        }
     }
     
 }
@@ -132,8 +147,7 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
 //        let cell = getMonitoringAreaCell(indexPath: indexPath)
         let cell = getMonitoringAreaBasicInfoTableViewCell(indexPath: indexPath)
         if let pc = self.plantCommunity, let parent = parentReference {
-            cell.setup(mode: self.mode, monitoringArea:  pc.monitoringAreas[indexPath.row], parentReference: parent)
-//            cell.setup(monitoringArea: pc.monitoringAreas[indexPath.row], mode: self.mode, parentCellReference: self, parentReference: parent)
+            cell.setup(mode: self.mode, monitoringArea:  pc.monitoringAreas[indexPath.row], parentReference: parent, parentCellReference: self)
         }
         return cell
     }

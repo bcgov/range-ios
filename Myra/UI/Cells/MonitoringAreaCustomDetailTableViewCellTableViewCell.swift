@@ -11,7 +11,7 @@ import UIKit
 class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, Theme {
 
     // Mark: Constants
-    static let cellHeight = 66
+    static let cellHeight = 70
     let freeTextOption = "Custom"
 
     // MARK: Variables
@@ -20,6 +20,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     var parentReference: PlantCommunityViewController?
     var indicatorPlant: IndicatorPlant?
     var parentCellReference: MonitoringAreaCustomDetailsTableViewCell?
+    var section: IndicatorPlantSection = IndicatorPlantSection.RangeReadiness
 
     // MARK: Outlets
     @IBOutlet weak var rightField: UITextField!
@@ -28,6 +29,10 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     @IBOutlet weak var leftFieldButton: UIButton!
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var leftFieldDropDown: UIButton!
+    @IBOutlet weak var optionsButton: UIButton!
+
+    @IBOutlet weak var leftFieldHeader: UILabel!
+    @IBOutlet weak var rightFieldHeader: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,15 +40,22 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     }
 
     @IBAction func leftFieldAction(_ sender: UIButton) {
-        guard let plant = self.indicatorPlant, let parent = self.parentReference else {return}
+        guard let plant = self.indicatorPlant, let parent = self.parentReference, let parentCell = self.parentCellReference, let section = parentCell.section else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        var options = Options.shared.getIndicatorPlantLookup()
-        options.append(SelectionPopUpObject(display: freeTextOption))
+        let options = Options.shared.getIndicatorPlantLookup(forShrubUse: section == .ShrubUse)
         lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
-            if accepted, let option = selection {
+            if accepted, let option = selection, let species = Reference.shared.getIndicatorPlant(named: option.display) {
                 plant.setType(string: option.display)
+                switch section {
+                case .RangeReadiness:
+                    plant.setDetail(text: "\(species.leafStage)")
+                case .StubbleHeight:
+                    plant.setDetail(text: "\(species.stubbleHeight)")
+                case .ShrubUse:
+                    plant.setDetail(text: "\(species.annualGrowth)")
+                }
                 self.autofill()
             }
         }
@@ -94,8 +106,9 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         }
     }
     
-    func setup(mode: FormMode, indicatorPlant: IndicatorPlant, plantCommunity: PlantCommunity, parentReference: PlantCommunityViewController, parentCellReference: MonitoringAreaCustomDetailsTableViewCell) {
+    func setup(forSection section: IndicatorPlantSection, mode: FormMode, indicatorPlant: IndicatorPlant, plantCommunity: PlantCommunity, parentReference: PlantCommunityViewController, parentCellReference: MonitoringAreaCustomDetailsTableViewCell) {
         self.mode = mode
+        self.section = section
         self.plantCommunity = plantCommunity
         self.parentReference = parentReference
         self.indicatorPlant = indicatorPlant
@@ -130,16 +143,31 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
     }
 
     func style() {
+        styleFieldHeader(label: leftFieldHeader)
+        styleFieldHeader(label: rightFieldHeader)
         rightFIeldButton.alpha = 0
         switch mode {
         case .View:
             leftFieldButton.isUserInteractionEnabled = false
             rightFIeldButton.isUserInteractionEnabled = false
-            styleInputReadOnly(input: leftField, height: fieldHeight)
-            styleInputReadOnly(input: rightField, height: fieldHeight)
+            optionsButton.isUserInteractionEnabled = false
+            optionsButton.alpha = 0
+            leftFieldDropDown.isUserInteractionEnabled = false
+            leftFieldDropDown.alpha = 0
+            styleInputField(field:leftField, editable: false, height: fieldHeight)
+            styleInputField(field:rightField, editable: false, height: fieldHeight)
         case .Edit:
             styleInput(input: rightField, height: fieldHeight)
             styleInput(input: leftField, height: fieldHeight)
+        }
+
+        switch section {
+        case .RangeReadiness:
+            rightFieldHeader.text = "Criteria (Leaf Stage)"
+        case .StubbleHeight:
+            rightFieldHeader.text = "Height After Grazing (cm)"
+        case .ShrubUse:
+            rightFieldHeader.text = "% of Current Annual Growth"
         }
     }
     

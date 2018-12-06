@@ -12,6 +12,7 @@ import Realm
 import RealmSwift
 import Lottie
 import Extended
+import SingleSignOn
 
 enum SyncedItem {
     case Drafts
@@ -28,15 +29,25 @@ class AutoSync {
 
     // MARK: Constants
     let lockScreenTag = 204
+    let authServices: AuthServices = {
+        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
+                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+                            idpHint: Constants.SSO.idpHint)
+    }()
 
     private init() {}
 
     func beginListener() {
+
         print("Listening to db changes in AutoSync")
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
                 print("change observed in AutoSync")
+                if let r = Reachability(), r.connection == .none {
+                    print("But you're offline, so bye.")
+                    return
+                }
                 if !self.isSynchronizing {
                     self.autoSync()
                 } else {
@@ -75,11 +86,16 @@ class AutoSync {
             return
         }
 
-        // great, if we're here then there is something to sync!
+        if !authServices.isAuthenticated() {
+            print("But not authenticated.")
+            Banner.shared.show(message: Messages.AutoSync.manualSyncRequired)
+            return
+        }
+
+        // great, if we're here then there is something to sync! ( and we can sync)
         self.isSynchronizing = true
         DispatchQueue.global(qos: .background).async {
             self.lockScreenForSync()
-            var hadFails: Bool = false
             var syncedItems: [SyncedItem] = [SyncedItem]()
 
             let dispatchGroup = DispatchGroup()
@@ -112,7 +128,7 @@ class AutoSync {
 
             if self.shouldUploadDrafts() {
                 dispatchGroup.enter()
-                let draftPlans = RUPManager.shared.getDraftRups()
+                let draftPlans = RUPManager.shared.getDraftRupsValidForUpload()
                 API.upload(plans: draftPlans, completion: { (success) in
                     if success {
                         syncedItems.append(.Drafts)
@@ -125,6 +141,10 @@ class AutoSync {
 
             // End
             dispatchGroup.notify(queue: .main) {
+                // if home page is presented, reload it
+                if let home = self.getPresentedHome() {
+                    home.loadRUPs()
+                }
                 Banner.shared.show(message: self.generateSyncMessage(elements: syncedItems))
                 self.isSynchronizing = false
                 self.removeSyncLock()
@@ -223,7 +243,40 @@ class AutoSync {
             }
             return isIt
         }
+    }
 
+    func isHomePagePresented() -> Bool {
+        var isIt = false
+        if Thread.isMainThread {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
+                    isIt = true
+            }
+            return isIt
+        } else {
+            DispatchQueue.main.sync {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
+                    isIt = true
+                }
+            }
+            return isIt
+        }
+    }
+
+    func getPresentedHome() -> HomeViewController? {
+        var homeVC: HomeViewController? = nil
+        if Thread.isMainThread {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
+                homeVC = h
+            }
+            return homeVC
+        } else {
+            DispatchQueue.main.sync {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
+                    homeVC = h
+                }
+            }
+            return homeVC
+        }
     }
 
     func shouldUploadOutbox() -> Bool {

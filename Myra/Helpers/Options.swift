@@ -33,32 +33,20 @@ class Options {
 
     func getPlanCommunityTypeOptions() -> [SelectionPopUpObject] {
         var options: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        options.append(SelectionPopUpObject(display: "Pinegrass"))
-        options.append(SelectionPopUpObject(display: "Something"))
-        options.append(SelectionPopUpObject(display: "Something else"))
+        let query = Reference.shared.getPlantCommunityType()
+        for item in query {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
         return options
     }
 
-    func getPlantCommunityAspectLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-
-        for i in 0...3 {
-            returnArray.append(SelectionPopUpObject(display: "option \(i)"))
-        }
-
-        return returnArray
-    }
-
     func getPlantCommunityElevationLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "- <500"))
-        returnArray.append(SelectionPopUpObject(display: "500-699"))
-        returnArray.append(SelectionPopUpObject(display: "700-899"))
-        returnArray.append(SelectionPopUpObject(display: "900-1099"))
-        returnArray.append(SelectionPopUpObject(display: "1100-1299"))
-        returnArray.append(SelectionPopUpObject(display: "1300-1500"))
-        returnArray.append(SelectionPopUpObject(display: ">1500"))
-        return returnArray
+        var options = [SelectionPopUpObject]()
+        let query = Reference.shared.getPlantCommunityElevation()
+        for item in query {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
+        return options
     }
 
     func getPlantCommunityPurposeOfActionsLookup() -> [SelectionPopUpObject] {
@@ -70,40 +58,43 @@ class Options {
     }
 
     func getRangeLandHealthLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-         returnArray.append(SelectionPopUpObject(display: "Properly Functioning Condition"))
-        returnArray.append(SelectionPopUpObject(display: "Slightly at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Moderately at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Highly at risk"))
-        returnArray.append(SelectionPopUpObject(display: "Non-functional"))
-
-
-        return returnArray
+        var options = [SelectionPopUpObject]()
+        let query = Reference.shared.getMonitoringAreaHealth()
+        for item in query {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
+        return options
     }
 
     func getMonitoringAreaPurposeLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Key Area"))
-        returnArray.append(SelectionPopUpObject(display: "Criteria"))
-        returnArray.append(SelectionPopUpObject(display: "Other"))
-        return returnArray
+        var options = [SelectionPopUpObject]()
+        let query = Reference.shared.getMonitoringAreaPurposeType()
+        for item in query {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
+        return options
     }
 
     func getPastureActionLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Herding"))
-        returnArray.append(SelectionPopUpObject(display: "Livestock variables"))
-        returnArray.append(SelectionPopUpObject(display: "Salting"))
-        returnArray.append(SelectionPopUpObject(display: "Supplemental"))
-        returnArray.append(SelectionPopUpObject(display: "Timing"))
-        returnArray.append(SelectionPopUpObject(display: "Other"))
-        return returnArray
+        var options = [SelectionPopUpObject]()
+        let query = Reference.shared.getPlantCommunityActionType()
+        for item in query {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
+        return options
     }
-    func getIndicatorPlantLookup() -> [SelectionPopUpObject] {
-        var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Pinegrass"))
-        returnArray.append(SelectionPopUpObject(display: "Idaho Fescue"))
-        return returnArray
+
+    func getIndicatorPlantLookup(forShrubUse: Bool? = false) -> [SelectionPopUpObject] {
+        var shrubUse = false
+        if let su = forShrubUse, su {
+            shrubUse = su
+        }
+        var options = [SelectionPopUpObject]()
+        let query = Reference.shared.getPlantSpecies()
+        for item in query where item.isShrubUse == shrubUse {
+            options.append(SelectionPopUpObject(display: item.name))
+        }
+        return options
     }
 
     func getPasturesLookup(rup: RUP) -> [SelectionPopUpObject] {
@@ -143,21 +134,19 @@ class Options {
 
     func getManagementConsiderationLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Option-1"))
-        returnArray.append(SelectionPopUpObject(display: "Option-2"))
-        returnArray.append(SelectionPopUpObject(display: "Option-3"))
-        returnArray.append(SelectionPopUpObject(display: "Option-4"))
-        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        let objects = Reference.shared.getManagegementConsiderationType()
+        for object in objects {
+             returnArray.append(SelectionPopUpObject(display: object.name))
+        }
         return returnArray
     }
 
     func getAdditionalRequirementLookup() -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
-        returnArray.append(SelectionPopUpObject(display: "Option-1"))
-        returnArray.append(SelectionPopUpObject(display: "Option-2"))
-        returnArray.append(SelectionPopUpObject(display: "Option-3"))
-        returnArray.append(SelectionPopUpObject(display: "Option-4"))
-        returnArray.append(SelectionPopUpObject(display: "Option-5"))
+        let objects = Reference.shared.getAdditionalRequirementCategory()
+        for object in objects {
+            returnArray.append(SelectionPopUpObject(display: object.name))
+        }
         return returnArray
     }
 }

@@ -29,7 +29,6 @@ class Pasture: Object, MyraObject {
     @objc dynamic var privateLandDeduction: Double = 0.0
     @objc dynamic var graceDays: Int = 3
     @objc dynamic var notes: String = ""
-    @objc dynamic var ministerApprovalObrained: Bool = false
 
     var plantCommunities = List<PlantCommunity>()
 
@@ -90,17 +89,6 @@ class Pasture: Object, MyraObject {
         }
     }
 
-    func setMinisterApprovalObtained(to: Bool) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.ministerApprovalObrained = to
-            }
-        } catch {
-            fatalError()
-        }
-    }
-
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
@@ -125,6 +113,11 @@ class Pasture: Object, MyraObject {
 
         if let notes = json["notes"].string {
             self.notes = notes
+        }
+
+        let communities = json["plantCommunities"]
+        for element in communities {
+            self.plantCommunities.append(PlantCommunity(json: element.1))
         }
     }
 }

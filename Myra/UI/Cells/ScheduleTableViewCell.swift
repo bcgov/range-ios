@@ -27,15 +27,16 @@ class ScheduleTableViewCell: BaseFormCell {
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipScheduleTitle, desc: tooltipScheduleDescription)
+        parent.showTooltip(on: sender, title: "Yearly Schedule", desc: InfoTips.yearlySchedule)
     }
 
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
-        guard let p = parentReference,
-            let start = rup.planStartDate,
-            let end = rup.planEndDate
-            else { return }
+        guard let p = parentReference else {return}
+        guard let start = rup.planStartDate, let end = rup.planEndDate else {
+            p.alert(with: "Missing prerequisites", message: "Please select plan start and end dates in the Plan Information section.")
+            return
+        }
         let vm = ViewManager()
         let picker = vm.datePicker
 
@@ -62,7 +63,7 @@ class ScheduleTableViewCell: BaseFormCell {
                     self.tableView.reloadData()
                 })
             } else {
-                p.showAlert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
+                p.alert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
             }
         }
         p.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)

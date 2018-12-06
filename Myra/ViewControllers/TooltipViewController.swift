@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TooltipViewController: UIViewController {
+class TooltipViewController: UIViewController, Theme {
 
     var titleString: String = ""
     var descriptionString: String = ""
@@ -36,11 +36,9 @@ class TooltipViewController: UIViewController {
     }
 
     func style() {
-        titleLabel.font = Fonts.getPrimaryBold(size: 17)
-        titleLabel.textColor = UIColor.white
-        descriptionTextView.font = Fonts.getPrimary(size: 14)
-        descriptionTextView.textColor = UIColor.white
-        descriptionTextView.backgroundColor = Colors.active.blue
+        descriptionTextView.isEditable = false
+        styleToolTipTitle(label: titleLabel)
+        styleToolTipDescription(textView: descriptionTextView)
         self.view.backgroundColor = Colors.active.blue
     }
 

@@ -45,7 +45,7 @@ class AdditionalRequirementTableViewCell: UITableViewCell, Theme {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        lookup.setup(objects: Options.shared.getAdditionalRequirementLookup(), onVC: parent, onButton: sender) { (selected, selection) in
+        lookup.setup(objects: Options.shared.getAdditionalRequirementLookup(), onVC: parent, onButton: sender, otherEnabled: false) { (selected, selection) in
             lookup.dismiss(animated: true, completion: nil)
             if selected, let option = selection {
                 req.setValue(category: option.display)

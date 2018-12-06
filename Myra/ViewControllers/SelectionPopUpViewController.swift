@@ -27,6 +27,9 @@ class SelectionPopUpViewController: UIViewController, Theme {
 
     var headerTxt: String = ""
 
+    var otherText: String = ""
+    var otherEnabled: Bool = true
+
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectButton: UIButton!
@@ -62,7 +65,11 @@ class SelectionPopUpViewController: UIViewController, Theme {
     func sendBack() {
         var selected = [SelectionPopUpObject]()
         for i in selectedIndexes {
-            selected.append(objects[i])
+            if objects[i].display.lowercased() == "other", !otherText.isEmpty {
+                selected.append(SelectionPopUpObject(display: otherText))
+            } else {
+                 selected.append(objects[i])
+            }
         }
         if multiSelect, let callback = multiCompletion {
             return callback(true, selected)
@@ -80,13 +87,29 @@ class SelectionPopUpViewController: UIViewController, Theme {
         setupTable()
     }
 
-    func setup(header: String? = "", objects: [SelectionPopUpObject], onVC: BaseViewController, onButton: UIButton, completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
+    func setup(header: String? = "", objects: [SelectionPopUpObject], onVC: BaseViewController, onButton: UIButton? = nil, onLayer: CALayer? = nil, inView: UIView? = nil, otherEnabled: Bool? = true ,completion: @escaping (_ done: Bool,_ result: SelectionPopUpObject?) -> Void) {
         self.completion = completion
         self.objects = objects
         self.headerTxt = header ?? ""
         self.parentVC = onVC
         setupTable()
-        display(on: onButton)
+        if let button = onButton {
+            display(on: button)
+        } else if let layer = onLayer, let container = inView {
+            display(on: layer, in: container)
+        }
+
+        if let enabledOther = otherEnabled, !enabledOther {
+            self.otherEnabled = enabledOther
+        }
+
+    }
+
+    func display(on layer: CALayer, in view: UIView) {
+        guard let parent = self.parentVC else {
+            return
+        }
+        parent.showPopUp(vc: self, on: layer, inView: view)
     }
 
     func display(on: UIButton) {
@@ -112,7 +135,7 @@ class SelectionPopUpViewController: UIViewController, Theme {
         setupTable()
     }
 
-    func setupLive(header: String? = "", selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ result: [SelectionPopUpObject]?) -> Void) {
+    func setupLive(header: String? = "",onVC: BaseViewController, onButton: UIButton, selected: [SelectionPopUpObject],objects: [SelectionPopUpObject], completion: @escaping (_ result: [SelectionPopUpObject]?) -> Void) {
         self.liveMultiSelect = true
         self.liveMultiCompletion = completion
         self.objects = objects
@@ -125,6 +148,8 @@ class SelectionPopUpViewController: UIViewController, Theme {
         }
         self.headerTxt = header ?? ""
         setupTable()
+        self.parentVC = onVC
+        onVC.showPopUp(vc: self, on: onButton)
     }
 
     func getEstimatedHeight() -> Int {
@@ -228,7 +253,7 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
 
         if !multiSelect && !liveMultiSelect {
             guard let callback = completion else {return}
-            if let parent = self.parentVC, objects[indexPath.row].display.lowercased() == "other" {
+            if let parent = self.parentVC, objects[indexPath.row].display.lowercased() == "other", otherEnabled {
                 // Prompt input
                 let vm = ViewManager()
                 let textEntry = vm.textEntry
@@ -250,14 +275,44 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
                 guard let index = selectedIndexes.index(of: indexPath.row) else {return}
                 selectedIndexes.remove(at: index)
             } else {
-                // select
-                selectedIndexes.append(indexPath.row)
+
+                if objects[indexPath.row].display.lowercased() != "other", otherEnabled {
+                    // select
+                    selectedIndexes.append(indexPath.row)
+                } else {
+                    showOtherOption { (customText) in
+                        if !customText.isEmpty {
+                            self.otherText = customText
+                            self.selectedIndexes.append(indexPath.row)
+                            if self.liveMultiSelect {
+                                self.sendBack()
+                            }
+                        } else {
+                            self.otherText = ""
+                        }
+                    }
+                }
             }
             self.tableView.reloadData()
         }
 
         if liveMultiSelect {
             sendBack()
+        }
+    }
+
+    func showOtherOption(completion: @escaping(_ text: String) -> Void) {
+        guard let parent = self.parentVC else {return}
+        // Prompt input
+        let vm = ViewManager()
+        let textEntry = vm.textEntry
+        parent.dismissPopOver()
+        textEntry.setup(on: parent, header: "Other") { (accepted, value) in
+            if accepted {
+               return completion(value)
+            } else {
+                return completion("")
+            }
         }
     }
 

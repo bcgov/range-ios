@@ -82,6 +82,14 @@ extension Theme {
         return Colors.primary
     }
 
+    func defaultBodyTextColor() -> UIColor {
+        return Colors.technical.mainText
+    }
+
+    func defaultBodyFont() -> UIFont {
+        return Fonts.getPrimary(size: 15)
+    }
+
     func defaultSectionSubHeaderFont() -> UIFont {
         return Fonts.getPrimaryBold(size: 17)
     }
@@ -230,6 +238,12 @@ extension Theme {
     func styleSubHeader(label: UILabel) {
         label.textColor = defaultSectionSubHeaderColor()
         label.font = defaultSectionSubHeaderFont()
+        label.change(kernValue: -0.52)
+    }
+
+    func styleBody(label: UILabel) {
+        label.textColor = defaultBodyTextColor()
+        label.font = defaultBodyFont()
         label.change(kernValue: -0.52)
     }
 
@@ -406,3 +420,26 @@ extension Theme {
     }
 
 }
+
+extension Theme {
+    // Tooltip
+
+    func toolTipDescriptionFont() -> UIFont {
+        return Fonts.getPrimary(size: 14)
+    }
+    func styleToolTipDescription(textView: UITextView) {
+        textView.font = toolTipDescriptionFont()
+        textView.textColor = UIColor.white
+        textView.backgroundColor = Colors.active.blue
+    }
+
+    func toolTipTitleFont() -> UIFont {
+        return Fonts.getPrimaryBold(size: 17)
+    }
+
+    func styleToolTipTitle(label: UILabel) {
+        label.font = toolTipTitleFont()
+        label.textColor = UIColor.white
+    }
+}
+

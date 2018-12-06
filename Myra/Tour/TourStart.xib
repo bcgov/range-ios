@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TourStart" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tour Background" translatesAutoresizingMaskIntoConstraints="NO" id="8DF-DP-eE9">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                </imageView>
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCb-oy-IOr">
+                    <rect key="frame" x="0.0" y="333" width="375" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="CFB-Pc-WJ6"/>
+                    </constraints>
+                </view>
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZ7-FT-Lgw">
+                    <rect key="frame" x="0.0" y="20" width="375" height="313"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👋" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgM-sv-UAN">
+                    <rect key="frame" x="144.5" y="129" width="86" height="95.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to MyRange" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdA-hu-lrW">
+                    <rect key="frame" x="104" y="28" width="167" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-Od-l7q">
+                    <rect key="frame" x="53.5" y="323" width="268.5" height="41"/>
+                    <string key="text">It looks like it’s your first time here. 
+How about a quick tour?</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oW-f7-5Yt">
+                    <rect key="frame" x="32" y="600" width="311" height="30"/>
+                    <state key="normal" title="Skip Tour"/>
+                    <connections>
+                        <action selector="skipAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="on6-2e-wHN"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFi-8C-Q50">
+                    <rect key="frame" x="32" y="525" width="311" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="fd1-0R-BNK"/>
+                    </constraints>
+                    <state key="normal" title="Start Tour"/>
+                    <connections>
+                        <action selector="beginAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="erZ-Wb-QOR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qZ7-FT-Lgw" secondAttribute="trailing" id="1a4-BD-RbG"/>
+                <constraint firstItem="aFi-8C-Q50" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="3b9-rs-P9B"/>
+                <constraint firstItem="sgM-sv-UAN" firstAttribute="centerY" secondItem="qZ7-FT-Lgw" secondAttribute="centerY" id="5Ne-jY-kzT"/>
+                <constraint firstItem="qZ7-FT-Lgw" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6V4-VP-MkD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8DF-DP-eE9" secondAttribute="trailing" id="9kp-sC-JTx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="aFi-8C-Q50" secondAttribute="trailing" constant="32" id="9uO-iy-kXY"/>
+                <constraint firstItem="8DF-DP-eE9" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="CC3-lC-qDs"/>
+                <constraint firstItem="8DF-DP-eE9" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="CQn-Qq-Uno"/>
+                <constraint firstItem="jCb-oy-IOr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="F7y-9p-9nE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jCb-oy-IOr" secondAttribute="trailing" id="G0k-AR-2Qo"/>
+                <constraint firstItem="jCb-oy-IOr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Gp5-5v-0TC"/>
+                <constraint firstItem="qZ7-FT-Lgw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IRV-Xj-xvQ"/>
+                <constraint firstItem="5oW-f7-5Yt" firstAttribute="top" secondItem="aFi-8C-Q50" secondAttribute="bottom" constant="25" id="OuN-PL-kLE"/>
+                <constraint firstItem="jCb-oy-IOr" firstAttribute="top" secondItem="qZ7-FT-Lgw" secondAttribute="bottom" id="XBd-Vj-DOE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="5oW-f7-5Yt" secondAttribute="bottom" constant="37" id="XUg-DR-mEz"/>
+                <constraint firstItem="rvH-Od-l7q" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="bBF-3A-FC1"/>
+                <constraint firstItem="sdA-hu-lrW" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="cSj-A2-PrP"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8DF-DP-eE9" secondAttribute="bottom" id="cXN-iz-Vzz"/>
+                <constraint firstItem="sdA-hu-lrW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="hKg-C4-MW0"/>
+                <constraint firstItem="5oW-f7-5Yt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="nWk-xv-9yL"/>
+                <constraint firstItem="rvH-Od-l7q" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="nc3-l7-5bD"/>
+                <constraint firstItem="sgM-sv-UAN" firstAttribute="centerX" secondItem="qZ7-FT-Lgw" secondAttribute="centerX" id="rSz-fL-h7l"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5oW-f7-5Yt" secondAttribute="trailing" constant="32" id="td4-0Z-Ag4"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="beginButton" destination="aFi-8C-Q50" id="aJx-lX-b0r"/>
+                <outlet property="body" destination="rvH-Od-l7q" id="mk7-mf-gB4"/>
+                <outlet property="skipButton" destination="5oW-f7-5Yt" id="rBx-mO-XQC"/>
+                <outlet property="title" destination="sdA-hu-lrW" id="tr7-3J-bxs"/>
+            </connections>
+            <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Tour Background" width="400" height="400"/>
+    </resources>
+</document>

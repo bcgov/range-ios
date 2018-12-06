@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -207,6 +207,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pqQ-6r-cVf">
+                                <rect key="frame" x="255.5" y="190.5" width="24" height="24"/>
+                                <state key="normal" image="icon_Question"/>
+                                <connections>
+                                    <action selector="tooltipAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="4yX-zs-Md6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -232,6 +239,7 @@
                             <constraint firstAttribute="trailing" secondItem="3mn-yU-uEe" secondAttribute="trailing" constant="15" id="Haa-j8-MSh"/>
                             <constraint firstItem="jFB-ad-sZ5" firstAttribute="top" secondItem="0y6-8O-mEI" secondAttribute="bottom" constant="8" id="IDL-8g-Q80"/>
                             <constraint firstItem="KwM-Un-eNk" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="KTz-hG-rbT"/>
+                            <constraint firstItem="pqQ-6r-cVf" firstAttribute="leading" secondItem="lX5-Bk-9Z5" secondAttribute="trailing" constant="16" id="PEJ-D9-P37"/>
                             <constraint firstAttribute="trailing" secondItem="fqR-9i-Iqz" secondAttribute="trailing" constant="16" id="TGY-EZ-6Yn"/>
                             <constraint firstItem="NvB-BY-9lU" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="Taw-tf-33W"/>
                             <constraint firstItem="1I7-iq-koh" firstAttribute="top" secondItem="mJ9-Cn-TjI" secondAttribute="bottom" constant="8" id="ThX-6v-dU9"/>
@@ -264,6 +272,7 @@
                             <constraint firstItem="PAG-7C-Plo" firstAttribute="leading" secondItem="lZV-7r-TlB" secondAttribute="trailing" constant="5" id="tCB-qX-OUV"/>
                             <constraint firstItem="tvh-HD-2Fc" firstAttribute="centerY" secondItem="CVZ-eL-ShS" secondAttribute="centerY" id="uE8-TB-WZK"/>
                             <constraint firstItem="eNs-Pp-mIQ" firstAttribute="leading" secondItem="PAG-7C-Plo" secondAttribute="trailing" constant="5" id="udw-Wl-5sI"/>
+                            <constraint firstItem="pqQ-6r-cVf" firstAttribute="centerY" secondItem="lX5-Bk-9Z5" secondAttribute="centerY" id="vw5-wK-i4N"/>
                             <constraint firstItem="gTy-J0-Nzg" firstAttribute="leading" secondItem="EFu-vC-XIP" secondAttribute="leading" constant="15" id="wj3-v4-49u"/>
                         </constraints>
                     </view>
@@ -306,6 +315,7 @@
         <image name="add" width="20" height="20"/>
         <image name="add_light" width="20" height="20"/>
         <image name="expandicon" width="4" height="12"/>
+        <image name="icon_Question" width="24" height="24"/>
         <image name="icon_edit" width="12" height="12"/>
         <image name="icon_ministers" width="24" height="24"/>
     </resources>

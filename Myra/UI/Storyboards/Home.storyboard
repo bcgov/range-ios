@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -136,40 +136,46 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwe-cK-vIF">
-                                                <rect key="frame" x="947" y="35.5" width="40" height="40"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <state key="normal" title="T">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwe-cK-vIF">
+                                                <rect key="frame" x="959" y="35.5" width="40" height="40"/>
+                                                <state key="normal" image="sign">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="tourAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="a3a-ig-ZXb"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0x-Zc-yt8">
-                                                <rect key="frame" x="899" y="35.5" width="40" height="40"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <state key="normal" title="C">
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0x-Zc-yt8">
+                                                <rect key="frame" x="907" y="35.5" width="40" height="40"/>
+                                                <state key="normal" image="photo-camera">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="testCam:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="vCS-Io-fnH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nfi-nL-t4h">
-                                                <rect key="frame" x="851" y="35.5" width="40" height="40"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <state key="normal" title="M">
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nfi-nL-t4h">
+                                                <rect key="frame" x="855" y="35.5" width="40" height="40"/>
+                                                <state key="normal" image="map-location">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="picMap:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="JpP-Wp-HuZ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU8-Lw-McR">
+                                                <rect key="frame" x="1062" y="1" width="30" height="33.5"/>
+                                                <state key="normal" title="A"/>
+                                                <connections>
+                                                    <action selector="abuttonAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="gQl-5g-YxY"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Cwe-cK-vIF" firstAttribute="height" secondItem="sSl-7p-lny" secondAttribute="height" id="4cF-Ao-yMA"/>
+                                            <constraint firstAttribute="trailing" secondItem="BU8-Lw-McR" secondAttribute="trailing" constant="20" id="941-qb-F8K"/>
+                                            <constraint firstItem="GLn-Ss-fBW" firstAttribute="top" secondItem="BU8-Lw-McR" secondAttribute="bottom" constant="1" id="BxI-ng-O9o"/>
                                             <constraint firstItem="Cwe-cK-vIF" firstAttribute="centerY" secondItem="sSl-7p-lny" secondAttribute="centerY" id="CZy-Zv-utr"/>
                                             <constraint firstItem="JzH-RI-Kcw" firstAttribute="leading" secondItem="0ZI-61-Maf" secondAttribute="trailing" constant="8" id="CsH-lQ-aFe"/>
                                             <constraint firstItem="HTL-Bd-dqg" firstAttribute="top" secondItem="Z9c-y2-y5e" secondAttribute="top" constant="10" id="DPV-yh-9Ff"/>
@@ -188,15 +194,16 @@
                                             <constraint firstItem="fEY-X1-Nv2" firstAttribute="leading" secondItem="HTL-Bd-dqg" secondAttribute="trailing" constant="10" id="cw0-BE-aE0"/>
                                             <constraint firstItem="GLn-Ss-fBW" firstAttribute="centerY" secondItem="wwf-Tf-o9i" secondAttribute="centerY" id="f34-s9-a4N"/>
                                             <constraint firstItem="wwf-Tf-o9i" firstAttribute="top" secondItem="HTL-Bd-dqg" secondAttribute="bottom" constant="10" id="gNt-RY-aoD"/>
-                                            <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="Cwe-cK-vIF" secondAttribute="trailing" constant="20" id="gch-Jv-rZh"/>
+                                            <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="Cwe-cK-vIF" secondAttribute="trailing" constant="8" id="gch-Jv-rZh"/>
+                                            <constraint firstItem="BU8-Lw-McR" firstAttribute="top" secondItem="Z9c-y2-y5e" secondAttribute="top" constant="1" id="hPZ-tG-xPA"/>
                                             <constraint firstAttribute="trailing" secondItem="GLn-Ss-fBW" secondAttribute="trailing" constant="15" id="kxK-2c-0gY"/>
                                             <constraint firstItem="q0x-Zc-yt8" firstAttribute="centerY" secondItem="Cwe-cK-vIF" secondAttribute="centerY" id="opy-IL-zwB"/>
                                             <constraint firstItem="fEY-X1-Nv2" firstAttribute="height" secondItem="HTL-Bd-dqg" secondAttribute="height" id="ouP-tT-5Df"/>
                                             <constraint firstItem="Cwe-cK-vIF" firstAttribute="width" secondItem="sSl-7p-lny" secondAttribute="width" id="ozN-bq-mQx"/>
                                             <constraint firstItem="Nfi-nL-t4h" firstAttribute="width" secondItem="q0x-Zc-yt8" secondAttribute="width" id="pFd-l1-gBi"/>
-                                            <constraint firstItem="Cwe-cK-vIF" firstAttribute="leading" secondItem="q0x-Zc-yt8" secondAttribute="trailing" constant="8" id="pm1-wr-tEH"/>
+                                            <constraint firstItem="Cwe-cK-vIF" firstAttribute="leading" secondItem="q0x-Zc-yt8" secondAttribute="trailing" constant="12" id="pm1-wr-tEH"/>
                                             <constraint firstItem="HTL-Bd-dqg" firstAttribute="leading" secondItem="xVI-At-WLA" secondAttribute="trailing" constant="5" id="sNV-sb-tfd"/>
-                                            <constraint firstItem="q0x-Zc-yt8" firstAttribute="leading" secondItem="Nfi-nL-t4h" secondAttribute="trailing" constant="8" id="uZa-SG-7lS"/>
+                                            <constraint firstItem="q0x-Zc-yt8" firstAttribute="leading" secondItem="Nfi-nL-t4h" secondAttribute="trailing" constant="12" id="uZa-SG-7lS"/>
                                             <constraint firstItem="0ZI-61-Maf" firstAttribute="centerY" secondItem="HTL-Bd-dqg" secondAttribute="centerY" id="v0m-lK-Q1c"/>
                                             <constraint firstItem="Nfi-nL-t4h" firstAttribute="centerY" secondItem="q0x-Zc-yt8" secondAttribute="centerY" id="vQW-lj-5oJ"/>
                                             <constraint firstItem="tpW-FV-O6r" firstAttribute="centerY" secondItem="GLn-Ss-fBW" secondAttribute="centerY" id="vxO-DB-FqQ"/>
@@ -536,5 +543,8 @@
     </scenes>
     <resources>
         <image name="CirclePlus" width="20" height="20"/>
+        <image name="map-location" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="photo-camera" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="sign" width="24" height="25"/>
     </resources>
 </document>

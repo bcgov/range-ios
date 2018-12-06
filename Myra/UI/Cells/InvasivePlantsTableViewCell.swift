@@ -16,6 +16,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var subtitle: UILabel!
+    @IBOutlet weak var requirementLabel: UILabel!
 
     @IBOutlet weak var boxOne: UIView!
     @IBOutlet weak var boxTwo: UIView!
@@ -42,6 +43,9 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     @IBOutlet weak var optionFourButton: UIButton!
     @IBOutlet weak var optionFiveButton: UIButton!
 
+    @IBOutlet weak var otherFieldHeight: NSLayoutConstraint!
+
+    // MARK: Outlet Actions
     @IBAction func optionOneAction(_ sender: UIButton) {
         guard let invasivePlants = rup.invasivePlants.first else {return}
         invasivePlants.setValue(equipmentAndVehiclesParking: !invasivePlants.equipmentAndVehiclesParking)
@@ -67,13 +71,24 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     }
 
     @IBAction func optionFiveAction(_ sender: UIButton) {
-        guard let invasivePlants = rup.invasivePlants.first else {return}
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        // if button is off, image is nill
+        if boxFiveIcon.image == nil {
+            showOtherOption()
+        } else {
+            if textView.text.isEmpty {
+                hideOtherOption()
+                return
+            }
+            parent.showAlert(title: "Are you sure?", description: "This action removes the text description you've entered", yesButtonTapped: {
+                self.hideOtherOption()
+            }) {}
+        }
     }
 
-    // MARK: Outlet Actions
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipMinistersIssuesAndActionsTitle, desc: tooltipMinistersIssuesAndActionsDescription)
+        parent.showTooltip(on: sender, title: "Invasive Plants", desc: InfoTips.invasivePlants)
     }
 
     override func awakeFromNib() {
@@ -118,8 +133,28 @@ class InvasivePlantsTableViewCell: BaseFormCell {
         style(box: boxTwoIcon, on: invasivePlants.beginInUninfestedArea)
         style(box: boxThreeIcon, on: invasivePlants.undercarrigesInspected)
         style(box: boxFourIcon, on: invasivePlants.revegetate)
-        style(box: boxFiveIcon, on: !invasivePlants.other.isEmpty)
+//        style(box: boxFiveIcon, on: !invasivePlants.other.isEmpty)
+//        textView.text = invasivePlants.other
+        if invasivePlants.other.isEmpty {
+            hideOtherOption()
+        } else {
+            showOtherOption()
+        }
+    }
+
+    func showOtherOption() {
+         guard let invasivePlants = rup.invasivePlants.first else {return}
         textView.text = invasivePlants.other
+        otherFieldHeight.constant = 80
+        style(box: boxFiveIcon, on: true)
+    }
+
+    func hideOtherOption() {
+        guard let invasivePlants = rup.invasivePlants.first else {return}
+        invasivePlants.setValue(other: "")
+        textView.text = ""
+        otherFieldHeight.constant = 0
+        style(box: boxFiveIcon, on: false)
     }
 
     // MARK: Style
@@ -127,12 +162,13 @@ class InvasivePlantsTableViewCell: BaseFormCell {
         styleHeader(label: titleLabel, divider: divider)
         titleLabel.increaseFontSize(by: -4)
         styleSubHeader(label: subtitle)
+        styleSubHeader(label: requirementLabel)
         styleTextviewInputField(field: textView)
-        styleSubHeader(label: optionOne)
-        styleSubHeader(label: optionTwo)
-        styleSubHeader(label: optionThree)
-        styleSubHeader(label: optionFour)
-        styleSubHeader(label: optionFive)
+        styleBody(label: optionOne)
+        styleBody(label: optionTwo)
+        styleBody(label: optionThree)
+        styleBody(label: optionFour)
+        styleBody(label: optionFive)
         switchOff(box: boxOneIcon)
         switchOff(box: boxTwoIcon)
         switchOff(box: boxThreeIcon)
@@ -157,6 +193,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
             optionThreeButton.isEnabled = false
             optionFourButton.isEnabled = false
             optionFiveButton.isEnabled = false
+            textView.isEditable = false
         }
     }
 
@@ -186,6 +223,6 @@ extension InvasivePlantsTableViewCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
          guard let invasivePlants = rup.invasivePlants.first else {return}
         invasivePlants.setValue(other: textView.text)
-        style(box: boxFiveIcon, on: !textView.text.isEmpty)
+//        style(box: boxFiveIcon, on: !textView.text.isEmpty)
     }
 }

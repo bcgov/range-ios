@@ -29,7 +29,7 @@ class PasturesTableViewCell: BaseFormCell {
     // Mark: Outlet actions
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
-        parent.showTooltip(on: sender, title: tooltipPasturesTitle, desc: tooltipPasturesDescription)
+        parent.showTooltip(on: sender, title: "Pastures", desc: InfoTips.pastures)
     }
 
     @IBAction func addPastureAction(_ sender: Any) {

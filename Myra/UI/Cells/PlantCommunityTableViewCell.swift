@@ -14,6 +14,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var header: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var optionsButton: UIButton!
 
     // MARK: Constants
     static let cellHeight = 60
@@ -106,5 +107,11 @@ extension PlantCommunityTableViewCell {
         addShadow(to: container.layer, opacity:defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 5)
         styleSubHeader(label: header)
         styleSubHeader(label: nameLabel)
+        switch mode {
+        case .View:
+            optionsButton.alpha = 0
+        case .Edit:
+            optionsButton.alpha = 1
+        }
     }
 }

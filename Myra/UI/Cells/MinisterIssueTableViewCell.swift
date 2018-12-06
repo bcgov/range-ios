@@ -64,16 +64,9 @@ class MinisterIssueTableViewCell: BaseFormCell {
         autofill()
     }
 
-    @IBAction func identifiedByMinisterAction(_ sender: UIButton) {
-        guard let i = self.issue else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                i.identified = !i.identified
-            }
-        } catch _ {
-            fatalError()
-        }
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Identified by Minister", desc: InfoTips.identifiedbyMinistertoggle)
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
@@ -96,8 +89,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
     }
 
     @IBAction func pasturesAction(_ sender: UIButton) {
-        guard let i = issue else {return}
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
+        guard let i = issue, let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
         let pastureNames = Options.shared.getPasturesLookup(rup: rup)
@@ -106,7 +98,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             selected.append(SelectionPopUpObject(display: pasture.name, value: pasture.name))
         }
         
-        lookup.setupLive(header: "Select Pastures",selected: selected, objects: pastureNames) { (selections) in
+        lookup.setupLive(header: "Select Pastures", onVC: grandParent, onButton: sender, selected: selected, objects: pastureNames) { (selections) in
             if let selected = selections  {
                 i.clearPastures()
                 for selection in selected {
@@ -117,7 +109,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 self.autofill()
             }
         }
-        grandParent.showPopUp(vc: lookup, on: sender)
     }
 
     @IBAction func addActionAction(_ sender: UIButton) {
@@ -169,7 +160,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setupSimple(objects: Options.shared.getMinistersIssueTypesOptions()) { (selected, selection) in
+        lookup.setup(header: "", objects: Options.shared.getMinistersIssueTypesOptions(), onVC: grandParent, onLayer: issueTypeValue.layer, inView: containerView) { (selected, selection) in
             grandParent.dismissPopOver()
             if selected, let option = selection {
                 if let i = self.issue {
@@ -179,7 +170,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 self.updateTableHeight(scrollToBottom: false)
             }
         }
-        grandParent.showPopUp(vc: lookup, on: issueTypeValue.layer, inView: containerView)
     }
 
     func autofill() {
@@ -196,7 +186,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
         pastures = pastures.replacingLastOccurrenceOfString(",", with: ", and")
         if pastures.count > 1 {
-            pastures = "\(pastures)."
+            pastures = "\(pastures)"
         }
 
         // if there are only 2 pasture, remove comma

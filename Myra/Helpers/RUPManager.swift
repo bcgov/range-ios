@@ -96,8 +96,10 @@
 
         // check minister approval on pastures
         for pasture in rup.pastures {
-            if !pasture.ministerApprovalObrained {
-                return(false, "One or more plant communities is missing minister's approval")
+            for community in pasture.plantCommunities {
+                if !community.approvedByMinister {
+                    return(false, "One or more plant communities is missing minister's approval")
+                }
             }
         }
 
@@ -218,6 +220,16 @@
         }
         return nil
     }
+
+    func getAgreements(with id: String) -> [Agreement] {
+        var found = [Agreement]()
+        if let storedAgreements = RealmRequests.getObject(Agreement.self) {
+            for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
+                found.append(storedAgreement)
+            }
+        }
+        return found
+    }
     
     func agreementExists(id: String) -> Bool {
         if let _ = getAgreement(with: id) {
@@ -240,6 +252,15 @@
             }
         }
         return nil
+    }
+
+    func getPlansWith(remoteId: Int) -> [RUP] {
+        var found = [RUP]()
+        guard let plans = RealmRequests.getObject(RUP.self) else {return found}
+        for plan in plans where plan.remoteId == remoteId {
+            found.append(plan)
+        }
+        return found
     }
     
     // Updates Range use years and zones
@@ -419,6 +440,19 @@
             let realm = try Realm()
             let objs = realm.objects(RUP.self).filter("status == 'LocalDraft'").map{ $0 }
             return Array(objs)
+        } catch _ {}
+        return [RUP]()
+    }
+
+    func getDraftRupsValidForUpload() -> [RUP] {
+        do {
+            let realm = try Realm()
+            let objs = realm.objects(RUP.self).filter("status == 'LocalDraft'").map{ $0 }
+            var valid = [RUP]()
+            for object in objs where object.planEndDate != nil && object.planStartDate != nil && object.rangeName != nil {
+                valid.append(object)
+            }
+            return valid
         } catch _ {}
         return [RUP]()
     }

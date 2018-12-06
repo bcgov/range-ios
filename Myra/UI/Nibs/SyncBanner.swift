@@ -29,8 +29,9 @@ class SyncBanner: UIView, Theme {
     var originY: CGFloat?
     var originX: CGFloat?
 
-    // MARK: Constants
-    let width: CGFloat = 300
+    // MARK: size
+    // Note: Width is dynamic based on text size.
+    var width: CGFloat = 300
     let height: CGFloat = 60
 
     func show(message: String, x: CGFloat , y: CGFloat , duration: TimeInterval? = 3 ) {
@@ -41,6 +42,8 @@ class SyncBanner: UIView, Theme {
         self.label.text = message
         self.originY = y
         self.originX = x
+
+        self.width = message.width(withConstrainedHeight: height, font: Fonts.getPrimaryBold(size: 12)) + 70
 
         beginDisplayAnimation()
     }

@@ -94,6 +94,12 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
     func style() {
         styleHollowButton(button: addButton)
         styleSubHeader(label: headerText)
+        switch mode {
+        case .View:
+            addButton.alpha = 0
+        case .Edit:
+            addButton.alpha = 1
+        }
     }
 
 }

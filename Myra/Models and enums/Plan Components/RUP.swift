@@ -158,7 +158,21 @@ class RUP: Object, MyraObject {
         for element in grazingSchedules {
             self.schedules.append(Schedule(json: element.1, plan: self))
         }
+
+        let invasiveCheckList = json["invasivePlantChecklist"]
+        self.invasivePlants.append(InvasivePlants(json: invasiveCheckList))
         //        RealmRequests.saveObject(object: self)
+
+        let additionalRequirements = json["additionalRequirements"]
+        for element in additionalRequirements {
+            self.additionalRequirements.append(AdditionalRequirement(json: element.1))
+        }
+
+        let managementConsiderations = json["managementConsiderations"]
+        for element in managementConsiderations {
+            self.managementConsiderations.append(ManagementConsideration(json: element.1))
+        }
+
     }
 
     func setFrom(agreement: Agreement) {
@@ -371,9 +385,9 @@ class RUP: Object, MyraObject {
          Set status to staff draft if this plan is a local draft
          Set status to Created is plan needs to be uploaded
          */
-        var amendmentTypeIdTemp: Int? = amendmentTypeId
+        var amendmentTypeIdTemp: Int = amendmentTypeId
         if amendmentTypeIdTemp == -1 {
-            amendmentTypeIdTemp = nil
+            amendmentTypeIdTemp = 0
         }
         var currStatusId = 1
         if self.status == RUPStatus.LocalDraft.rawValue {

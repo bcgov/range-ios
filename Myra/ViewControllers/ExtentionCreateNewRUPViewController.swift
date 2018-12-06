@@ -97,6 +97,8 @@ extension CreateNewRUPViewController {
         setMenuLabelsAlpha(to: 1)
         setMenuIconLeadings(to: 10)
         self.submitButton.setTitle("Submit to client", for: .normal)
+        self.menuModeButton.setImage(#imageLiteral(resourceName: "minimizeMenu"), for: .normal)
+        self.menuModeButton.tintColor = UIColor.black
     }
 
     func stylePortaitMenu() {
@@ -106,6 +108,8 @@ extension CreateNewRUPViewController {
         let leftBar: CGFloat = 12
         setMenuIconLeadings(to: (portraitMenuWidth - imgWidth - leftBar)/2)
         self.submitButton.setTitle("", for: .normal)
+        self.menuModeButton.setImage(#imageLiteral(resourceName: "expandMenu"), for: .normal)
+        self.menuModeButton.tintColor = UIColor.black
     }
 
     func setMenuIconLeadings(to: CGFloat) {

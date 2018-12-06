@@ -34,6 +34,10 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
         updateTableHeight(scrollToBottom: true)
     }
 
+    @IBAction func tooltipAction(_ sender: UIButton) {
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+        parent.showTooltip(on: sender, title: "Management Considerations", desc: InfoTips.managementConsiderations)
+    }
     
 
     override func awakeFromNib() {

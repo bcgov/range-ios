@@ -29,6 +29,7 @@ enum FromSection: Int {
     case InvasivePlants
     case AdditionalRequirements
     case ManagementConsiderations
+    case Map
 }
 
 class CreateNewRUPViewController: BaseViewController {
@@ -36,7 +37,7 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Constants
     let landscapeMenuWidh: CGFloat = 265
     let portraitMenuWidth: CGFloat = 64
-    let numberOfSections = 10
+    let numberOfSections = 11
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
@@ -183,6 +184,8 @@ class CreateNewRUPViewController: BaseViewController {
 
     @IBOutlet weak var requiredFieldNeededLabel: UILabel!
 
+    @IBOutlet weak var menuModeButton: UIButton!
+
     // Body
     @IBOutlet weak var tableView: UITableView!
 
@@ -207,6 +210,15 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Outlet Actions
+    @IBAction func menuModeAction(_ sender: UIButton) {
+        if self.menuWidth.constant ==  self.portraitMenuWidth {
+            styleLandscapeMenu()
+        } else {
+            stylePortaitMenu()
+        }
+        animateIt()
+    }
+
     @IBAction func bannerTooltipAction(_ sender: UIButton) {
         showTooltip(on: sender, title: getBannerTitle(), desc: getBannerDescription())
     }
@@ -344,7 +356,7 @@ class CreateNewRUPViewController: BaseViewController {
 
         let validity = RUPManager.shared.isValid(rup: plan)
         if !validity.0 {
-            showAlert(with: "Plan is invalid", message: validity.1)
+            alert(with: "Plan is invalid", message: validity.1)
             return
         }
         closingAnimations()
@@ -747,6 +759,9 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 self.managementIndexPath = indexPath
                 let cell = getManagementConsiderationsCell(indexPath: indexPath)
                 cell.setup(mode: mode, rup: rup!)
+                return cell
+            case .Map:
+                let cell = getMapCell(indexPath: indexPath)
                 return cell
             }
 

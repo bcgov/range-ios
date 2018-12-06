@@ -1,4 +1,4 @@
-  //
+//
 //  LoginViewController.swift
 //  Myra
 //
@@ -7,21 +7,46 @@
 //
 
 import UIKit
+import Reachability
 
 class LoginViewController: BaseViewController {
 
     var parentRef: MainViewController?
+    let reachability = Reachability()!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var bgImage: UIImageView!
 
+    @IBOutlet weak var loginMessage: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupReachabilityNotification()
         style()
         if UIDevice.current.orientation.isLandscape{
             self.whenLandscape()
         } else {
             self.whenPortrait()
+        }
+
+        guard let r = Reachability() else {return}
+        if r.connection == .none {
+            loginMessage.text = "Your device is Offline"
+            loginButton.alpha = 0.5
+            loginButton.isEnabled = false
+        }
+    }
+
+    func setupLoginButton() {
+        if loginButton == nil {return}
+        guard let r = Reachability() else {return}
+        if r.connection == .none {
+            loginMessage.text = "Your device is Offline"
+            loginButton.alpha = 0.5
+            loginButton.isEnabled = false
+        } else {
+            loginMessage.text = ""
+            loginButton.alpha = 1
+            loginButton.isEnabled = true
         }
     }
 
@@ -30,11 +55,13 @@ class LoginViewController: BaseViewController {
     }
 
     override func onAuthenticationSuccess() {
+
         self.loginButton.isUserInteractionEnabled = false
         sync { (synced) in
             if synced, let parent = self.parentRef {
                 parent.removeCurrentVCAndReload()
             } else {
+                self.authServices.logout()
                 self.loginButton.isUserInteractionEnabled = true
             }
         }
@@ -56,6 +83,19 @@ class LoginViewController: BaseViewController {
         bgImage.contentMode = .center
     }
 
+    func setupReachabilityNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: .reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("could not start reachability notifier")
+        }
+    }
+
+    @objc func reachabilityChanged(note: Notification) {
+        setupLoginButton()
+    }
+
 }
 
 extension LoginViewController {
@@ -63,6 +103,8 @@ extension LoginViewController {
         setStatusBarAppearanceLight()
         styleContainer(layer: container)
         styleButton(button: loginButton)
+        loginMessage.font = Fonts.getPrimaryMedium(size: 17)
+        loginMessage.textColor = Colors.active.blue
     }
 
     func styleButton(button: UIButton) {

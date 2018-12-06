@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,7 +47,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinegrass" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yFt-pz-cmJ">
-                                <rect key="frame" x="161.5" y="16.5" width="67.5" height="18"/>
+                                <rect key="frame" x="161.5" y="16" width="67.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -106,12 +105,13 @@
                 <outlet property="container" destination="S17-Tb-AhF" id="6v8-JV-4Q6"/>
                 <outlet property="header" destination="FRJ-yD-bJr" id="tZW-GP-DJL"/>
                 <outlet property="nameLabel" destination="yFt-pz-cmJ" id="rdC-oX-CZC"/>
+                <outlet property="optionsButton" destination="zks-DM-5rK" id="NiK-Bu-3hn"/>
             </connections>
             <point key="canvasLocation" x="151.5" y="56.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="boxUnchecked" width="128" height="128"/>
-        <image name="expandicon" width="48" height="48"/>
+        <image name="boxUnchecked" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="expandicon" width="4" height="12"/>
     </resources>
 </document>

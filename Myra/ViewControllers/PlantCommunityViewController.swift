@@ -10,6 +10,19 @@ import UIKit
 import Realm
 import RealmSwift
 
+enum PlantCommunityFromSection: Int {
+    case BasicInfo = 0
+    case Actions
+    case MonitoringAreas
+    case Criteria
+}
+
+enum PlantCommunityCriteriaFromSection: Int {
+    case RangeReadiness = 0
+    case StubbleHeight
+    case ShrubUse
+}
+
 class PlantCommunityViewController: BaseViewController {
 
     // MARK: Variables
@@ -18,8 +31,9 @@ class PlantCommunityViewController: BaseViewController {
     var pasture: Pasture?
     var mode: FormMode = .View
     var plan: RUP?
-//    var popupContainerTag = 200
-//    var popover: UIPopoverPresentationController?
+
+    let numberOfSections = 4
+    let numberOfCriteriaSections = 3
 
     // MARK: Outlets
     @IBOutlet weak var pageTitle: UILabel!
@@ -56,17 +70,17 @@ class PlantCommunityViewController: BaseViewController {
         })
     }
 
-//    @IBAction func deleteAction(_ sender: Any) {
-//        guard let pc = self.plantCommunity else{ return }
-//        showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
-//            RealmManager.shared.deletePlantCommunity(object: pc)
-//            self.dismiss(animated: true, completion: {
-//                if let callback = self.completion {
-//                    return callback(true)
-//                }
-//            })
-//        }, noButtonTapped: {})
-//    }
+    //    @IBAction func deleteAction(_ sender: Any) {
+    //        guard let pc = self.plantCommunity else{ return }
+    //        showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
+    //            RealmManager.shared.deletePlantCommunity(object: pc)
+    //            self.dismiss(animated: true, completion: {
+    //                if let callback = self.completion {
+    //                    return callback(true)
+    //                }
+    //            })
+    //        }, noButtonTapped: {})
+    //    }
 
 
     // MARK: Setup
@@ -77,6 +91,10 @@ class PlantCommunityViewController: BaseViewController {
         self.completion = completion
         self.plan = plan
         setUpTable()
+        autofill()
+    }
+
+    func autofill() {
         setTitle()
         setSubtitle()
     }
@@ -90,7 +108,7 @@ class PlantCommunityViewController: BaseViewController {
     func setSubtitle() {
         if self.subtitle == nil { return }
         guard let p = self.pasture else {return}
-        self.subtitle.text = p.name
+        self.subtitle.text = "Pasture: \(p.name)"
     }
 
     func refreshPlantCommunityObject() {
@@ -184,7 +202,9 @@ class PlantCommunityViewController: BaseViewController {
 
     // MARK: Utilities
     func hasPurposeOfActions() -> Bool {
-        if let pc = self.plantCommunity, pc.purposeOfAction != "" {
+        guard let pc = self.plantCommunity else {return false}
+
+        if pc.purposeOfAction != "" && pc.purposeOfAction.lowercased() != "clear" {
             return true
         }
         return false
@@ -234,13 +254,14 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let community = self.plantCommunity, let pl = self.plan else {return getBasicInfoCell(indexPath: indexPath)}
-        switch indexPath.section {
-        case 0:
+        guard let community = self.plantCommunity, let pl = self.plan,  let sectionType = PlantCommunityFromSection(rawValue: Int(indexPath.section)) else {return getBasicInfoCell(indexPath: indexPath)}
+
+        switch sectionType {
+        case .BasicInfo:
             let cell = getBasicInfoCell(indexPath: indexPath)
             cell.setup(plantCommunity: community, mode: mode, parentReference: self)
             return cell
-        case 1:
+        case .Actions:
             if hasPurposeOfActions() {
                 let cell = getPastureActionsCell(indexPath: indexPath)
                 cell.setup(plantCommunity: community, mode: mode, parentReference: self)
@@ -250,52 +271,90 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
                 cell.setup(placeHolder: "", height: 1)
                 return cell
             }
-        case 2:
-            let cell = getPlantIndicatorsCell(indexPath: indexPath)
-            cell.setup(section: .RangeReadiness, mode: mode, plantCommunity: community, parentReference: self)
-            return cell
-        case 3:
-            let cell = getPlantIndicatorsCell(indexPath: indexPath)
-            cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
-            return cell
-        case 4:
-            let cell = getPlantIndicatorsCell(indexPath: indexPath)
-            cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
-            return cell
-        case 5:
+        case .MonitoringAreas:
             let cell = getMonitoringAreasCell(indexPath: indexPath)
             cell.setup(plantCommunity: community, mode: mode, rup: pl, parentReference: self)
             return cell
-        default:
-            return getBasicInfoCell(indexPath: indexPath)
+        case .Criteria:
+            guard let criteriaSectionType = PlantCommunityCriteriaFromSection(rawValue: Int(indexPath.row)) else {return getBasicInfoCell(indexPath: indexPath)}
+            switch criteriaSectionType {
+            case .RangeReadiness:
+                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+                cell.setup(section: .RangeReadiness, mode: mode, plantCommunity: community, parentReference: self)
+                return cell
+            case .StubbleHeight:
+                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+                cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
+                return cell
+            case .ShrubUse:
+                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+                cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
+                return cell
+            }
         }
+
+        /*
+         switch indexPath.section {
+         case 0:
+         let cell = getBasicInfoCell(indexPath: indexPath)
+         cell.setup(plantCommunity: community, mode: mode, parentReference: self)
+         return cell
+         case 1:
+         if hasPurposeOfActions() {
+         let cell = getPastureActionsCell(indexPath: indexPath)
+         cell.setup(plantCommunity: community, mode: mode, parentReference: self)
+         return cell
+         } else {
+         let cell = getEmptyCell(indexPath: indexPath)
+         cell.setup(placeHolder: "", height: 1)
+         return cell
+         }
+         case 2:
+         let cell = getPlantIndicatorsCell(indexPath: indexPath)
+         cell.setup(section: .RangeReadiness, mode: mode, plantCommunity: community, parentReference: self)
+         return cell
+         case 3:
+         let cell = getPlantIndicatorsCell(indexPath: indexPath)
+         cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
+         return cell
+         case 4:
+         let cell = getPlantIndicatorsCell(indexPath: indexPath)
+         cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
+         return cell
+         case 5:
+         let cell = getMonitoringAreasCell(indexPath: indexPath)
+         cell.setup(plantCommunity: community, mode: mode, rup: pl, parentReference: self)
+         return cell
+         default:
+         return getBasicInfoCell(indexPath: indexPath)
+         }
+         */
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
+        guard let imagePlaceHolder = UIImage(named: "icon_MinistersIssues"), let header = cell as? CustomSectionHeader else {return nil}
         var sectionTitle = ""
-        var icon: UIImage? = UIImage(named: "icon_MinistersIssues")!
-        switch section {
-        case 0:
+        var icon: UIImage? = imagePlaceHolder
+
+        guard let sectionType = PlantCommunityFromSection(rawValue: Int(section)) else {
+            return nil
+        }
+        var toolTipText: String?
+        switch sectionType {
+        case .BasicInfo:
             sectionTitle =  "Basic Plant Community Information"
-        case 1:
-           sectionTitle =  "Plant Community Actions"
-        case 2:
-            sectionTitle =  "Range Readiness"
-        case 3:
-            sectionTitle =  "Stubble Height"
-        case 4:
-            sectionTitle =  "Shrub Use"
-        case 5:
+        case .Actions:
+            sectionTitle =  "Plant Community Actions"
+        case .MonitoringAreas:
             sectionTitle =  "Monitoring Areas"
-        default:
-            sectionTitle =  ""
+            toolTipText = InfoTips.monitoringAreas
+        case .Criteria:
+            sectionTitle =  "Criteria"
+            toolTipText = InfoTips.criteria
         }
         
-        // Dequeue with the reuse identifier
-        let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
-        let header = cell as! CustomSectionHeader
-        header.setup(title: sectionTitle, iconImage: icon)
-
+        header.setup(title: sectionTitle, iconImage: icon, helpDescription: toolTipText)
         return cell
     }
 
@@ -304,11 +363,15 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return numberOfSections
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if PlantCommunityFromSection(rawValue: Int(section)) == PlantCommunityFromSection.Criteria {
+            return numberOfCriteriaSections
+        } else {
+            return 1
+        }
     }
 
 }
