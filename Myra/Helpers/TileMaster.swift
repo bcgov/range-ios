@@ -162,9 +162,11 @@ class TileMaster {
 
         findSubtiles(under: initialPath)
 
-        print("\(tilesOfInterest.count) tiles to download")
+        print("\(tilesOfInterest.count) Tiles of interest")
+        let newTiles = findTilesToStoreIn(array: tilesOfInterest)
+        print("\(newTiles.count) are new")
 
-        downloadTilesOfInterest()
+        download(tilePaths: newTiles)
     }
 
     func findSubtiles(under path: MKTileOverlayPath) {
@@ -281,10 +283,6 @@ class TileMaster {
         }
     }
 
-    func downloadTilesOfInterest() {
-        download(tilePaths: tilesOfInterest)
-    }
-
     func downloadCompleted(failed: [MKTileOverlayPath]) {
 
         tilesOfInterest.removeAll()
@@ -309,9 +307,14 @@ class TileMaster {
                 self.download(tilePaths: failed)
             }
         }
+    }
 
-
-
+    func findTilesToStoreIn(array: [MKTileOverlayPath]) -> [MKTileOverlayPath] {
+        var newTiles: [MKTileOverlayPath] = [MKTileOverlayPath]()
+        for element in newTiles where !tileExistsLocally(for: element) {
+            newTiles.append(element)
+        }
+        return newTiles
     }
 
     // MARK: Status
