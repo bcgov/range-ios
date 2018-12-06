@@ -38,11 +38,16 @@ class AutoSync {
     private init() {}
 
     func beginListener() {
+
         print("Listening to db changes in AutoSync")
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
                 print("change observed in AutoSync")
+                if let r = Reachability(), r.connection == .none {
+                    print("But you're offline, so bye.")
+                    return
+                }
                 if !self.isSynchronizing {
                     self.autoSync()
                 } else {

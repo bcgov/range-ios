@@ -33,10 +33,18 @@ class TileMaster {
 
     static let shared = TileMaster()
 
+    let indicatorTag = 7786
+    let indicatorLabelTag = 7787
+
     var minZoom = 18
     var maxZoom = 12
     var allPaths = [MKTileOverlayPath]()
     var tiles = 0
+
+    var isDownloading: Bool = false
+
+    // If it keeps failing to download X number of tiles again, don't try again
+    var lastFailedCount: Int = 0
 
     var tempCount = 0
     var tilesOfInterest = [MKTileOverlayPath]()
@@ -123,6 +131,7 @@ class TileMaster {
     func deleteAllStoredTiles() {
         let all = storedFiles()
         deleteStoreTiles(at: all)
+        Banner.shared.show(message: "Removed all stored Map tiles")
     }
 
     func convert(lat: Double, lon: Double, zoom: Int) -> MKTileOverlayPath {
@@ -180,41 +189,73 @@ class TileMaster {
         findSubtiles(under: forth)
     }
 
+    func getPercentage(of value: Int, in total: Int) -> Double {
+        return (Double((value * 100)) / Double(total)).roundToDecimal(1)
+    }
+
     func download(tilePaths: [MKTileOverlayPath]) {
         if let r = Reachability(), r.connection == .none {
             print("You're offline. cannot download tiles")
             return
         }
-        let queue = DispatchQueue(label: "tileQues", qos: .background, attributes: .concurrent)
+
+        if tilePaths.isEmpty {
+            print("Nothing to download")
+            return
+        }
+
+        if self.isDownloading {
+            print("You're already downlading")
+            return
+        }
+
+        self.isDownloading = true
+
+        var failedTiles = [MKTileOverlayPath]()
+
+        Banner.shared.show(message: "Downloading \(tilePaths.count) Map tiles")
+        addStatusIndicator()
         var count = tilePaths.count {
             didSet {
-                print("\(count) tiles remain for download")
+                let percentRemaining = getPercentage(of: count, in: tilePaths.count)
+                self.updateStatusValue(to: percentRemaining)
+                if percentRemaining < 1 {
+                    print("\(failedTiles.count) failed")
+                }
                 if count < 1 {
-                    self.downloadCompleted()
+                    self.downloadCompleted(failed: failedTiles)
                 }
             }
         }
 
-        Banner.shared.show(message: "Downloading \(tilePaths.count) tiles")
 
+        let queue = DispatchQueue(label: "tileQues", qos: .background, attributes: .concurrent)
         queue.async {
-            for i in 0...tilePaths.count - 1 {
-                Thread.sleep(until: Date(timeIntervalSinceNow: 0.0001))
-                let current = tilePaths[i]
+            let dispatchGroup = DispatchGroup()
 
+            for i in 0...tilePaths.count - 1 {
+
+                dispatchGroup.enter()
+                let current = tilePaths[i]
                 if self.tileExistsLocally(for: current) {
                     count -= 1
+                    dispatchGroup.leave()
                 } else {
+                    Thread.sleep(until: Date(timeIntervalSinceNow: 0.0001))
                     self.downloadTile(for: current) { (success) in
                         count -= 1
                         if !success {
-                            print("Failed to download a tile")
+                            failedTiles.append(current)
+                            print("Failed to download a tile. total Failuers: \(failedTiles.count)")
                         }
+                        dispatchGroup.leave()
                     }
                 }
             }
+            dispatchGroup.notify(queue: .main) {
+                self.downloadCompleted(failed: failedTiles)
+            }
         }
-
     }
 
     func downloadTile(for path: MKTileOverlayPath, then: @escaping (_ success: Bool)-> Void) {
@@ -223,17 +264,28 @@ class TileMaster {
             return then(false)
         }
         let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)
-        guard let url = openSteetMapURL(for: path) else {return then(false)}
-        Alamofire.request(url, method: .get).responseData(queue: queue) { (response) in
-            if let data = response.data {
-                do {
-                    try data.write(to: self.localPath(for: self.fileName(for: path)))
-                    return then(true)
-                } catch {
+        guard let url = openSteetMapURL(for: path) else {
+            return then(false)
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 3
+        Alamofire.request(request).responseData(queue: queue) { (response) in
+            switch response.result {
+            case .success(_):
+                if let data = response.data {
+                    do {
+                        try data.write(to: self.localPath(for: self.fileName(for: path)))
+                        return then(true)
+                    } catch {
+                        return then(false)
+                    }
+                } else {
                     return then(false)
                 }
+            case .failure(_):
+                return then(false)
             }
-            return then(false)
         }
     }
 
@@ -241,8 +293,87 @@ class TileMaster {
         download(tilePaths: tilesOfInterest)
     }
 
-    func downloadCompleted() {
-        Banner.shared.show(message: "Finished download map data. total size: \(sizeOfStoredTiles())")
+    func downloadCompleted(failed: [MKTileOverlayPath]) {
+
+        removeStatusIndicator()
+
+        self.isDownloading = false
+        if self.lastFailedCount == failed.count {
+            if lastFailedCount == 0 {
+                print("No tiles failed to download.")
+                Banner.shared.show(message: "Finished download map data. total size: \(sizeOfStoredTiles().roundToDecimal(2))MB")
+            } else {
+                Banner.shared.show(message: "Will not try to download failed tiles in this session.")
+                lastFailedCount = 0
+            }
+        } else {
+            Banner.shared.show(message: "\(failed.count) tiles failed to download")
+            lastFailedCount = failed.count
+            self.download(tilePaths: failed)
+        }
+
+        tilesOfInterest.removeAll()
+
     }
+
+    // MARK: Status
+    func addStatusIndicator() {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        let width: CGFloat = 100
+        let height: CGFloat = 100
+        let frame = CGRect(x: window.frame.maxX, y: window.frame.maxY, width: width, height: height)
+        let view = UIView(frame: frame)
+        let label = UILabel(frame: frame)
+
+        view.tag = self.indicatorTag
+        label.tag = self.indicatorLabelTag
+
+        window.addSubview(view)
+        window.addSubview(label)
+
+        label.textAlignment = .center
+
+        addAnchors(to: view, in: window, width: width, height: height)
+        addAnchors(to: label, in: window, width: width, height: height)
+
+
+    }
+
+    func addAnchors(to view: UIView, in window: UIWindow, width: CGFloat, height: CGFloat) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: width),
+            view.heightAnchor.constraint(equalToConstant: height),
+            view.bottomAnchor.constraint(equalTo: window.bottomAnchor),
+            view.leftAnchor.constraint(equalTo: window.leftAnchor)
+            ])
+    }
+
+    func updateStatusValue(to percent: Double) {
+        DispatchQueue.main.async {
+            Feedback.removeButton()
+            guard let window = UIApplication.shared.keyWindow else {return}
+            if let label = window.viewWithTag(self.indicatorLabelTag) as? UILabel {
+                let remaining = 100 - percent
+                label.text = "\(remaining.roundToDecimal(1))%"
+            }
+        }
+    }
+
+    func removeStatusIndicator() {
+        DispatchQueue.main.async {
+            guard let window = UIApplication.shared.keyWindow else {return}
+            if let label = window.viewWithTag(self.indicatorLabelTag) {
+                label.removeFromSuperview()
+            }
+
+            if let view = window.viewWithTag(self.indicatorTag) {
+                view.removeFromSuperview()
+            }
+            Feedback.initializeButton()
+        }
+    }
+
+    func
 
 }

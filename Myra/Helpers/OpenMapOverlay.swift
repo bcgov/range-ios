@@ -17,10 +17,6 @@ class OpenMapOverlay: MKTileOverlay {
 
     // grabs the tile for the current x y z
     override func url(forTilePath path: MKTileOverlayPath) -> URL {
-        if let r = Reachability(), r.connection == .none {
-            return super.url(forTilePath: path)
-        }
-
         if TileMaster.shared.tileExistsLocally(for: path) {
             // return local URL
             return TileMaster.shared.localPath(for: TileMaster.shared.fileName(for: path))
