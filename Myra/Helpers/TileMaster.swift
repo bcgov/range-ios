@@ -119,7 +119,7 @@ class TileMaster {
 
     func deleteStoreTiles(at urls: [URL]) {
         let fileManager = FileManager.default
-        for url in urls {
+        for url in urls where url.path.contains("Tile") {
             do {
                 try fileManager.removeItem(at: url)
             } catch {
@@ -311,8 +311,10 @@ class TileMaster {
 
     func findTilesToStoreIn(array: [MKTileOverlayPath]) -> [MKTileOverlayPath] {
         var newTiles: [MKTileOverlayPath] = [MKTileOverlayPath]()
-        for element in newTiles where !tileExistsLocally(for: element) {
-            newTiles.append(element)
+        for element in array {
+            if !tileExistsLocally(for: element) {
+                newTiles.append(element)
+            }
         }
         return newTiles
     }
@@ -337,6 +339,12 @@ class TileMaster {
 
             self.addAnchors(to: view, in: window, width: width, height: height)
             self.addAnchors(to: label, in: window, width: width, height: height)
+
+            label.font = Fonts.getPrimary(size: 15)
+            view.backgroundColor = Colors.primary
+            label.textColor = Colors.primary
+            view.layer.cornerRadius = height/2
+            view.alpha = 0.1
         }
     }
 

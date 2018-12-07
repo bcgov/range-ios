@@ -18,6 +18,7 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var bgImage: UIImageView!
 
     @IBOutlet weak var loginMessage: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupReachabilityNotification()
