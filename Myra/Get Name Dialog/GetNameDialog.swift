@@ -57,10 +57,10 @@ class GetNameDialog: UIView, Theme {
         submitButton.isUserInteractionEnabled = false
         API.updateUserInfo(firstName: first, lastName: last) { (done) in
             if done {
-                Alert.show(title: "Success", message: "Your information was successfully updated.")
+                Alert.show(title: Constants.Alerts.UserInfoUpdate.Success.title, message: Constants.Alerts.UserInfoUpdate.Success.message)
                 self.remove()
             } else {
-                Alert.show(title: "There was an error", message: "We couldn't update your name at this time. we will ask you again later.")
+                Alert.show(title: Constants.Alerts.UserInfoUpdate.Fail.title, message: Constants.Alerts.UserInfoUpdate.Fail.message)
                 self.remove()
             }
             if let callback = self.callBack {
@@ -131,11 +131,6 @@ class GetNameDialog: UIView, Theme {
         guard let window = UIApplication.shared.keyWindow else {return}
 
         self.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        //        self.center.x = window.center.x
-        //        self.center.y = window.center.y
-        //        self.centerXAnchor.constraint(equalTo: window.centerXAnchor)
-        //        self.centerYAnchor.constraint(equalTo: window.centerYAnchor)
-        //        self.translatesAutoresizingMaskIntoConstraints = false
         self.alpha = 0
         window.addSubview(self)
         addConstraints()

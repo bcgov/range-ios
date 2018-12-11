@@ -67,4 +67,18 @@ struct Constants {
         static let realmName = "range"
         static let idpHint = ""
     }
+
+    struct Alerts {
+        struct UserInfoUpdate {
+            struct Success {
+                static let title = "Done"
+                static let message = "Your information was successfully updated."
+            }
+
+            struct Fail {
+                static let title = "There was an error"
+                static let message = "We couldn't update your name at this time. we will ask you again later."
+            }
+        }
+    }
 }
