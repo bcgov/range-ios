@@ -70,7 +70,6 @@ class TourStart: UIView, Theme {
         styleFillButton(button: beginButton)
     }
 
-
     // MARK: Positioning/ displaying
     func position(then: @escaping ()-> Void) {
         guard let vc = self.parent else {return}
