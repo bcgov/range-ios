@@ -29,9 +29,13 @@ class MainViewController: BaseViewController {
 }
 
 extension MainViewController {
+    
     func chooseInitialView() {
-//        showHomePage()
-//        return
+        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
+            print("******")
+            print(last)
+            print("******")
+        }
         if let _ = RealmManager.shared.getLastSyncDate() {
             // Go to home page
             showHomePage()
