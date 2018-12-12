@@ -189,7 +189,7 @@ class TagImage: UIView, Theme {
             bg.alpha = self.visibleAlpha
         }) { (done) in
             self.openingAnimation {
-                Loading.shared.end()
+                Loading.shared.stop()
             }
         }
     }

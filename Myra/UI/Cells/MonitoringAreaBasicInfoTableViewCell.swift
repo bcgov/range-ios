@@ -77,7 +77,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
     // MARK: Outlet actions
     @IBAction func getMyCoordinatesAction(_ sender: UIButton) {
         if currentLocation == nil, CLLocationManager.locationServicesEnabled() {
-            Loading.shared.begin()
+            Loading.shared.start()
             initLocation()
             DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
                 if self.currentLocation == nil {
@@ -90,7 +90,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                     self.currentNumberOfAdjustments = 0
                 }
 
-                Loading.shared.end()
+                Loading.shared.stop()
             }
         } else {
             autofillLatLong()
@@ -306,14 +306,14 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
         self.longitudeField.text = monitoringArea.longitude
 
         if currentNumberOfAdjustments < minNumberOfAdjustments {
-            Loading.shared.end()
+            Loading.shared.stop()
         }
 
         // Do not confinue of max number of adjustments has been reached
         if currentNumberOfAdjustments > maxNumberOfAdjustments {
             self.locationManager.stopUpdatingLocation()
             self.currentNumberOfAdjustments = 0
-            Loading.shared.end()
+            Loading.shared.stop()
         }
     }
 

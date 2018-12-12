@@ -160,6 +160,39 @@ class API {
 
     // MARK: API Calls
 
+    // MARK: User Info
+    static func getUserInfo(completion: @escaping(_ userInfo: UserInfo?) -> Void) {
+        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL!) else {
+            return completion(nil)
+        }
+
+        API.get(endpoint: endpoint) { (jsonResponse) in
+            guard let infoJSON = jsonResponse else { return completion(nil) }
+            if let isNull = infoJSON.null {
+                return completion(nil)
+            } else {
+                return completion(UserInfo(from: infoJSON))
+            }
+        }
+    }
+
+    static func updateUserInfo(firstName: String, lastName: String, completion: @escaping (_ success: Bool) -> Void) {
+        // TODO: Change to appropriate Endpoint when available
+        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL!) else {
+            return completion(false)
+        }
+        var params: [String:Any]  = [String:Any]()
+        params["givenName"] = firstName
+        params["familyName"] = lastName
+        API.put(endpoint: endpoint, params: params) { (response) in
+            if let rsp = response, !rsp.result.isFailure {
+                return completion(true)
+            } else {
+                return completion(false)
+            }
+        }
+    }
+
     // MARK: Agreement
     static func getAgreements(completion: @escaping (_ success: Bool) -> Void) {
         guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
@@ -237,7 +270,7 @@ class API {
         var params: [String:Any]  = [String:Any]()
         params["statusId"] = plan.statusId
         API.put(endpoint: endpoint, params: params) { (response) in
-            if response != nil {
+            if let rsp = response, !rsp.result.isFailure  {
                 return completion(true)
             } else {
                 return completion(false)
@@ -294,7 +327,7 @@ class API {
         var params: [String:Any]  = [String:Any]()
         params["uploaded"] = true
         API.put(endpoint: endpoint, params: params) { (response) in
-            if response != nil {
+            if let rsp = response, !rsp.result.isFailure {
                 return completion(true)
             } else {
                 return completion(false)

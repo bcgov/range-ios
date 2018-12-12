@@ -29,7 +29,6 @@
 		290AD10F218A13DF00A261B6 /* ManagegementConsiderationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290AD10E218A13DF00A261B6 /* ManagegementConsiderationType.swift */; };
 		290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290E153B2048C9FE00A51884 /* BaseFormCell.swift */; };
 		290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290FF88520635F1F00C7DAC0 /* SyncDate.swift */; };
-		29103A9A21519AD000032076 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29103A9921519AD000032076 /* Loading.swift */; };
 		29103A9C2151B56900032076 /* TourTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29103A9B2151B56900032076 /* TourTip.swift */; };
 		29174683207426E2005F70B4 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29174682207426E2005F70B4 /* Home.storyboard */; };
 		2917468520742765005F70B4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2917468420742765005F70B4 /* Login.storyboard */; };
@@ -75,6 +74,10 @@
 		292A1D8221432E670086E1AD /* SyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A1D8121432E670086E1AD /* SyncView.swift */; };
 		292AD86C215C470200F80738 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292AD86B215C470200F80738 /* Notification.swift */; };
 		292AD86E215C4DE600F80738 /* TestML.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 292AD86D215C4DE500F80738 /* TestML.mlmodel */; };
+		292B650621C039C100F9A8A5 /* GetNameDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292B650521C039C100F9A8A5 /* GetNameDialog.xib */; };
+		292B650821C03A2300F9A8A5 /* GetNameDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B650721C03A2300F9A8A5 /* GetNameDialog.swift */; };
+		292B650A21C04E5900F9A8A5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B650921C04E5900F9A8A5 /* UserInfo.swift */; };
+		292B650D21C065C500F9A8A5 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B650C21C065C500F9A8A5 /* Loading.swift */; };
 		292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
 		292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
 		292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65222076AAF3003D4AF0 /* PlanStatus.swift */; };
@@ -279,7 +282,6 @@
 		290AD10E218A13DF00A261B6 /* ManagegementConsiderationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagegementConsiderationType.swift; sourceTree = "<group>"; };
 		290E153B2048C9FE00A51884 /* BaseFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFormCell.swift; sourceTree = "<group>"; };
 		290FF88520635F1F00C7DAC0 /* SyncDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDate.swift; sourceTree = "<group>"; };
-		29103A9921519AD000032076 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		29103A9B2151B56900032076 /* TourTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourTip.swift; sourceTree = "<group>"; };
 		29174682207426E2005F70B4 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		2917468420742765005F70B4 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -325,6 +327,10 @@
 		292A1D8121432E670086E1AD /* SyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncView.swift; sourceTree = "<group>"; };
 		292AD86B215C470200F80738 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		292AD86D215C4DE500F80738 /* TestML.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TestML.mlmodel; sourceTree = "<group>"; };
+		292B650521C039C100F9A8A5 /* GetNameDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetNameDialog.xib; sourceTree = "<group>"; };
+		292B650721C03A2300F9A8A5 /* GetNameDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNameDialog.swift; sourceTree = "<group>"; };
+		292B650921C04E5900F9A8A5 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		292B650C21C065C500F9A8A5 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestockIdentifierType.swift; sourceTree = "<group>"; };
 		292E65202076AAC6003D4AF0 /* ClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientType.swift; sourceTree = "<group>"; };
 		292E65222076AAF3003D4AF0 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
@@ -585,6 +591,7 @@
 				29227B6120EEAD540042B88E /* TextEntry.swift */,
 				2905521521346AAE00785B5E /* Amendment.swift */,
 				2943BDA2215E90C300EFC428 /* RangePhoto.swift */,
+				292B650921C04E5900F9A8A5 /* UserInfo.swift */,
 			);
 			path = "Models and enums";
 			sourceTree = "<group>";
@@ -606,7 +613,6 @@
 				2935A76B21485A2500441539 /* ConstantStrings.swift */,
 				294764E42149BBC7007E8576 /* Banner.swift */,
 				294CADB4216E868A00DB184B /* NewElementAddedBanner.swift */,
-				29103A9921519AD000032076 /* Loading.swift */,
 				29103A9B2151B56900032076 /* TourTip.swift */,
 				292AD86B215C470200F80738 /* Notification.swift */,
 				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
@@ -646,6 +652,23 @@
 				29EA02A020696A710076403B /* spinner_.json */,
 			);
 			path = Lotte;
+			sourceTree = "<group>";
+		};
+		292B650B21C0656200F9A8A5 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				292B650C21C065C500F9A8A5 /* Loading.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		292B650E21C066EA00F9A8A5 /* Get Name Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				292B650521C039C100F9A8A5 /* GetNameDialog.xib */,
+				292B650721C03A2300F9A8A5 /* GetNameDialog.swift */,
+			);
+			path = "Get Name Dialog";
 			sourceTree = "<group>";
 		};
 		29301FDB21385BC900E121E0 /* Nibs */ = {
@@ -736,6 +759,8 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
+				292B650B21C0656200F9A8A5 /* Loading */,
+				292B650E21C066EA00F9A8A5 /* Get Name Dialog */,
 				29332DAF21B6FB8900950478 /* Alert */,
 				296233AE219E461F00E0BD2E /* Feedback */,
 				290543282194D23700865823 /* Tour */,
@@ -1098,6 +1123,7 @@
 				29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */,
 				295F8F1720F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */,
 				293D4188216D3109006214E1 /* AdditionalRequirementTableViewCell.xib in Resources */,
+				292B650621C039C100F9A8A5 /* GetNameDialog.xib in Resources */,
 				2943BDA72162996900EFC428 /* TagImage.xib in Resources */,
 				299D3EB4217E66F60000781E /* EmptyPastureTableViewCell.xib in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
@@ -1207,6 +1233,7 @@
 				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
 				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,
 				2962B0EE204F2FBB00F71B9C /* LiveStockType.swift in Sources */,
+				292B650D21C065C500F9A8A5 /* Loading.swift in Sources */,
 				2958AC1C20C60381005C7900 /* MinisterIssueType.swift in Sources */,
 				296232052047293A00F1CEBF /* FormMode.swift in Sources */,
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
@@ -1234,7 +1261,6 @@
 				2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */,
 				2938CF1121A5C87200329DDA /* ViewFeedbacksViewController.swift in Sources */,
 				297E998B2165479F00FB6F04 /* Pin.swift in Sources */,
-				29103A9A21519AD000032076 /* Loading.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,
 				294CADB3216E83F500DB184B /* NewElementBanner.swift in Sources */,
 				2917468920742A7A005F70B4 /* MainViewController.swift in Sources */,
@@ -1280,6 +1306,7 @@
 				294764E32149B786007E8576 /* AutoSync.swift in Sources */,
 				2958AC1E20C603B7005C7900 /* MinisterIssueActionType.swift in Sources */,
 				2972381520ED3465006EBCBB /* PlantCommunityViewController.swift in Sources */,
+				292B650821C03A2300F9A8A5 /* GetNameDialog.swift in Sources */,
 				2933184120FE63590070A6A9 /* IndicatorPlantSection.swift in Sources */,
 				2940057F208FCD5700AA1BDC /* PlanInformationTableViewCell.swift in Sources */,
 				293D4190216D3184006214E1 /* AdditionalRequirement.swift in Sources */,
@@ -1315,6 +1342,7 @@
 				2933183A20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift in Sources */,
 				299BD278207BF488004B1D07 /* Constants.swift in Sources */,
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
+				292B650A21C04E5900F9A8A5 /* UserInfo.swift in Sources */,
 				2938CF1421A5D20500329DDA /* UserFeedbackTableViewCell.swift in Sources */,
 				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,
 				293020082139A22000E121E0 /* Router.swift in Sources */,
