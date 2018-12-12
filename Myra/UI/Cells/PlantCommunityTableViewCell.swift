@@ -62,7 +62,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
 
             case .Copy:
                 print("not yet implemented")
-//                self.duplicate()
+                //                self.duplicate()
             }
         }
     }
@@ -73,9 +73,8 @@ class PlantCommunityTableViewCell: BaseFormCell {
         self.plantCommunity = plantCommunity
         self.pasture = pasture
         self.parentCellReference = parentCellReference
-//        setupNotifications()
-//        notifyReload()
         autofill()
+        style()
     }
 
     func autofill() {
@@ -83,8 +82,9 @@ class PlantCommunityTableViewCell: BaseFormCell {
         self.nameLabel.text = pc.name
     }
 
+    // TODO: Remove Notification Center Usage for updating cells.
     func setupNotifications() {
-         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updatePastureCells, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updatePastureCells, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .reload, object: nil)
     }
     @objc func doThisWhenNotify() { return }
@@ -94,7 +94,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
     }
 
     func notifyReload() {
-         NotificationCenter.default.post(name: .reload, object: self, userInfo: ["reload": true])
+        NotificationCenter.default.post(name: .reload, object: self, userInfo: ["reload": true])
     }
 
 

@@ -63,14 +63,16 @@ class PlanInformationTableViewCell: BaseFormCell {
         let picker = DatePicker()
         guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
 
-        if rup.planStartDate != nil{
-            let startDate = DateManager.from(string: planStartValue.text!)
-            var maxEnd = DateManager.fiveYearsLater(date: startDate)
+        if let planStartDate = rup.planStartDate {
+//            let startDate = DateManager.from(string: planStartValue.text!)
+            guard let endOfFiveYearsLater = DatePickerHelper.shared.dateFrom(day: 31, month: 12, year: planStartDate.year() + 5) else {return}
+             var maxEnd = endOfFiveYearsLater
+//            var maxEnd = DateManager.fiveYearsLater(date: startDate)
             if maxEnd > max {
                 maxEnd = max
             }
 
-            picker.setup(beginWith: rup.planEndDate, min: startDate, max: maxEnd) { (selected, date) in
+            picker.setup(beginWith: rup.planEndDate, min: planStartDate, max: maxEnd) { (selected, date) in
                 if let date = date {
                     DispatchQueue.main.async {
                         self.handlePlanEndDate(date: date)

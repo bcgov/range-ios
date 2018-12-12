@@ -284,10 +284,6 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func copyEntry() {
-//        for i in 0...100 {
-//            guard let scheduleVC = self.scheduleViewReference, let entry = self.scheduleObject else {return}
-//            scheduleVC.createEntry(from: entry)
-//        }
         guard let scheduleVC = self.scheduleViewReference, let entry = self.scheduleObject else {return}
         scheduleVC.createEntry(from: entry)
     }
@@ -584,8 +580,8 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let calendar = NSCalendar.current
         let date1 = calendar.startOfDay(for: din)
         let date2 = calendar.startOfDay(for: dout)
-        self.days.text = "\(String(describing: DateManager.daysBetween(date1: date1, date2: date2)))"
-//        update()
+        let count = DateManager.daysBetween(date1: date1, date2: date2) + 1
+        self.days.text = "\(String(describing: count))"
     }
 
     func disableTextFields() {
