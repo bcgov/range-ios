@@ -337,6 +337,7 @@ class CreateNewRUPViewController: BaseViewController {
     @IBAction func managementAction(_ sender: UIButton) {
         tableView.scrollToRow(at: managementIndexPath, at: .top, animated: true)
     }
+
     /*
      @IBAction func mapAction(_ sender: UIButton) {
      tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)

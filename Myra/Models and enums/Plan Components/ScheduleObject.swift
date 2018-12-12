@@ -28,7 +28,7 @@ class ScheduleObject: Object, MyraObject {
         if dateIn == nil || dateOut == nil {
             return 0
         }
-        return DateManager.daysBetween(date1: dateIn!, date2: dateOut!)
+        return DateManager.daysBetween(date1: dateIn!, date2: dateOut!) + 1
     }
     
     var pastureName: String {

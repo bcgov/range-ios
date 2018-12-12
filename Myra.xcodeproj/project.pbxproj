@@ -599,7 +599,6 @@
 		2920F82E2034C0000090E7B4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				292AD86D215C4DE500F80738 /* TestML.mlmodel */,
 				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
 				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
@@ -784,6 +783,7 @@
 		295FBF7A21641EEA00DD2C53 /* ML */ = {
 			isa = PBXGroup;
 			children = (
+				292AD86D215C4DE500F80738 /* TestML.mlmodel */,
 				295FBF8121641F1B00DD2C53 /* Plant.mlmodel */,
 				295FBF7F21641F1400DD2C53 /* Animal.mlmodel */,
 				295FBF7D21641F0A00DD2C53 /* Gender.mlmodel */,

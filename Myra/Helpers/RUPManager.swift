@@ -75,10 +75,6 @@
     }
     
     func isValid(rup: RUP) -> (Bool, String) {
-        // check required fields
-//        if !rup.isValid {return (false, "Missing required fields")}
-        
-        // Changed: Checking required fields after validity check
 
         // check validity of schedules
         for element in rup.schedules {
@@ -104,8 +100,6 @@
         }
 
         return checkRequiredFields(in: rup)
-
-//        return (true, "")
     }
 
     func checkRequiredFields(in rup: RUP) -> (Bool, String) {

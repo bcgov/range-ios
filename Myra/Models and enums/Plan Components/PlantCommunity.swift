@@ -44,7 +44,7 @@ class PlantCommunity: Object, MyraObject {
     var pastureActions = List<PastureAction>()
 
     func requiredFieldsAreFilled() -> Bool {
-        if self.name.isEmpty || self.aspect.isEmpty || self.elevation.isEmpty || self.description.isEmpty {
+        if self.name.isEmpty || self.elevation.isEmpty || self.description.isEmpty {
             return false
         } else {
             return true
