@@ -51,7 +51,7 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
         } else {
             tooltipButton.isHidden = true
         }
-        titleWidth.constant = title.width(withConstrainedHeight: 60, font: defaultSectionHeaderFont())
+        titleWidth.constant = title.width(withConstrainedHeight: self.titleLabel.frame.height, font: defaultSectionHeaderFont())
         if let actionButtonTitle = actionButtonName {
             styleFillButton(button: actionButton)
             actionButton.alpha = 1
