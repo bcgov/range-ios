@@ -93,6 +93,10 @@ class PlantCommunity: Object, MyraObject {
         new.purposeOfAction = self.purposeOfAction
         new.approvedByMinister = self.approvedByMinister
 
+        new.readinessDay = self.readinessDay
+        new.readinessMonth = self.readinessMonth
+        new.readinessNotes = self.readinessNotes
+
         for object in self.monitoringAreas {
             new.monitoringAreas.append(object.copy())
         }
@@ -249,5 +253,56 @@ class PlantCommunity: Object, MyraObject {
         indicatorPlants.append(contentsOf: stubbleHeight)
         indicatorPlants.append(contentsOf: shrubUse)
         return indicatorPlants
+    }
+
+    func importRangeReadiness(from pc: PlantCommunity) {
+        for element in self.rangeReadiness {
+            RealmRequests.deleteObject(element)
+        }
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.readinessDay = pc.readinessDay
+                self.readinessMonth = pc.readinessMonth
+                self.readinessNotes = pc.readinessNotes
+                for indicatorPlant in pc.rangeReadiness {
+                    self.rangeReadiness.append(indicatorPlant)
+                }
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func importStubbleHeight(from pc: PlantCommunity) {
+        for element in self.stubbleHeight {
+            RealmRequests.deleteObject(element)
+        }
+        do {
+            let realm = try Realm()
+            try realm.write {
+                for indicatorPlant in pc.stubbleHeight {
+                    self.stubbleHeight.append(indicatorPlant)
+                }
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func importShrubUse(from pc: PlantCommunity) {
+        for element in self.shrubUse {
+            RealmRequests.deleteObject(element)
+        }
+        do {
+            let realm = try Realm()
+            try realm.write {
+                for indicatorPlant in pc.shrubUse {
+                    self.shrubUse.append(indicatorPlant)
+                }
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 }

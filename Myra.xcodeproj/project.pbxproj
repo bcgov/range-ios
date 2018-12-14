@@ -210,6 +210,12 @@
 		29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */; };
 		29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */; };
 		29BF802E203CF3F20067B32B /* RangeUsageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */; };
+		29C34BC021C2DCA1009B4031 /* ImportCriteria.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C34BBF21C2DCA1009B4031 /* ImportCriteria.xib */; };
+		29C34BC221C2DD52009B4031 /* ImportCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C34BC121C2DD52009B4031 /* ImportCriteria.swift */; };
+		29C34BC521C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C34BC321C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift */; };
+		29C34BC621C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C34BC421C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib */; };
+		29C34BD221C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C34BD021C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift */; };
+		29C34BD321C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C34BD121C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib */; };
 		29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */; };
 		29DA8A9F20574FB300139AD1 /* SelectAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */; };
 		29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */; };
@@ -465,6 +471,12 @@
 		29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRUPViewController.swift; sourceTree = "<group>"; };
 		29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeUsageTableViewCell.swift; sourceTree = "<group>"; };
 		29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUsageTableViewCell.xib; sourceTree = "<group>"; };
+		29C34BBF21C2DCA1009B4031 /* ImportCriteria.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportCriteria.xib; sourceTree = "<group>"; };
+		29C34BC121C2DD52009B4031 /* ImportCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCriteria.swift; sourceTree = "<group>"; };
+		29C34BC321C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePastureCollectionViewCell.swift; sourceTree = "<group>"; };
+		29C34BC421C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChoosePastureCollectionViewCell.xib; sourceTree = "<group>"; };
+		29C34BD021C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCriteriaOptionTableViewCell.swift; sourceTree = "<group>"; };
+		29C34BD121C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportCriteriaOptionTableViewCell.xib; sourceTree = "<group>"; };
 		29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectAgreement.storyboard; sourceTree = "<group>"; };
 		29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgreementViewController.swift; sourceTree = "<group>"; };
 		29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTableViewCell.swift; sourceTree = "<group>"; };
@@ -541,11 +553,11 @@
 		290543282194D23700865823 /* Tour */ = {
 			isa = PBXGroup;
 			children = (
-				2938CF0A21A473EC00329DDA /* TourStart.swift */,
 				290543292194D26600865823 /* Tour.swift */,
+				2938CF0A21A473EC00329DDA /* TourStart.swift */,
+				2938CF0C21A4765100329DDA /* TourStart.xib */,
 				2905432F2194DC7400865823 /* TourViewController.swift */,
 				2905432B2194DC5200865823 /* Tour.storyboard */,
-				2938CF0C21A4765100329DDA /* TourStart.xib */,
 			);
 			path = Tour;
 			sourceTree = "<group>";
@@ -758,6 +770,7 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
+				29C34BBE21C2DC3D009B4031 /* Import PC Criteria */,
 				292B650B21C0656200F9A8A5 /* Loading */,
 				292B650E21C066EA00F9A8A5 /* Get Name Dialog */,
 				29332DAF21B6FB8900950478 /* Alert */,
@@ -796,11 +809,32 @@
 			isa = PBXGroup;
 			children = (
 				296233AF219E464500E0BD2E /* Feedback.swift */,
-				296233B1219E466700E0BD2E /* FeedbackElement.swift */,
 				294F6BB9219F3C92008EC6FA /* FeedbackView.swift */,
 				294F6BBB219F3CA0008EC6FA /* FeedbackView.xib */,
+				296233B1219E466700E0BD2E /* FeedbackElement.swift */,
 			);
 			path = Feedback;
+			sourceTree = "<group>";
+		};
+		29C34BBE21C2DC3D009B4031 /* Import PC Criteria */ = {
+			isa = PBXGroup;
+			children = (
+				29C34BCF21C2DDE7009B4031 /* Cells */,
+				29C34BBF21C2DCA1009B4031 /* ImportCriteria.xib */,
+				29C34BC121C2DD52009B4031 /* ImportCriteria.swift */,
+			);
+			path = "Import PC Criteria";
+			sourceTree = "<group>";
+		};
+		29C34BCF21C2DDE7009B4031 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				29C34BC321C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift */,
+				29C34BC421C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib */,
+				29C34BD021C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift */,
+				29C34BD121C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		29EADF7C206039A90087593F /* Reference data objects */ = {
@@ -975,10 +1009,10 @@
 		56F3889F2080173C004CDFAE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				29334F99214C2F2100EE97F9 /* API.swift */,
 				294764E22149B786007E8576 /* AutoSync.swift */,
 				56F388A020801757004CDFAE /* AsyncBlockOperation.swift */,
 				56F388A220801763004CDFAE /* ConcurrentOperation.swift */,
-				29334F99214C2F2100EE97F9 /* API.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1066,6 +1100,7 @@
 				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
 				29055210213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib in Resources */,
 				2943BDA92162A84200EFC428 /* test.xib in Resources */,
+				29C34BC621C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
@@ -1103,6 +1138,7 @@
 				29227B6A20EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib in Resources */,
 				293D4180216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib in Resources */,
 				29227B7220F00EF00042B88E /* PlantCommunityActionTableViewCell.xib in Resources */,
+				29C34BC021C2DCA1009B4031 /* ImportCriteria.xib in Resources */,
 				294AC501204F57CC00F0FB04 /* Schedule.storyboard in Resources */,
 				297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */,
 				299491EE20B62588005FCF94 /* MinisterIssuesTableViewCell.xib in Resources */,
@@ -1110,6 +1146,7 @@
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				29B5F047208E958D003D996D /* sync_icon.json in Resources */,
 				29616EA821063ADA003102F8 /* EmptyTableViewCell.xib in Resources */,
+				29C34BD321C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib in Resources */,
 				2935A7682148399500441539 /* Tooltip.storyboard in Resources */,
 				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
 				2905520C2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib in Resources */,
@@ -1252,6 +1289,7 @@
 				2901C4C52141DB4000AE72FC /* Options.swift in Sources */,
 				2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
+				29C34BC521C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift in Sources */,
 				292197D9209CD152004A5011 /* OptionsTableViewCell.swift in Sources */,
 				290552192134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift in Sources */,
 				29227B7420F013F90042B88E /* PastureAction.swift in Sources */,
@@ -1271,11 +1309,13 @@
 				29227B5B20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */,
 				2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */,
 				2905520F213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift in Sources */,
+				29C34BC221C2DD52009B4031 /* ImportCriteria.swift in Sources */,
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
 				293D417C216D12E7006214E1 /* InvasivePlants.swift in Sources */,
 				294764E52149BBC7007E8576 /* Banner.swift in Sources */,
 				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,
 				29227B5520EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
+				29C34BD221C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift in Sources */,
 				293D418E216D3172006214E1 /* ManagementConsideration.swift in Sources */,
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */,

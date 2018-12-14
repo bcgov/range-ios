@@ -148,6 +148,9 @@ extension Theme {
 
     func styleFillButton(button: UIButton) {
         styleButton(button: button, bg: defaultFillButtonBackground(), borderColor: defaultFillButtonBorderColor(), titleColor: defaultFillButtonTitleColor())
+        if let label = button.titleLabel {
+            label.font = Fonts.getPrimary(size: 17)
+        }
     }
 
     func styleButton(button: UIButton, bg: UIColor, borderColor: CGColor, titleColor: UIColor) {
