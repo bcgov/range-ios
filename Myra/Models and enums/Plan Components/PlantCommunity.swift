@@ -266,7 +266,7 @@ class PlantCommunity: Object, MyraObject {
                 self.readinessMonth = pc.readinessMonth
                 self.readinessNotes = pc.readinessNotes
                 for indicatorPlant in pc.rangeReadiness {
-                    self.rangeReadiness.append(indicatorPlant)
+                    self.rangeReadiness.append(indicatorPlant.copy())
                 }
             }
         } catch _ {
@@ -282,7 +282,7 @@ class PlantCommunity: Object, MyraObject {
             let realm = try Realm()
             try realm.write {
                 for indicatorPlant in pc.stubbleHeight {
-                    self.stubbleHeight.append(indicatorPlant)
+                    self.stubbleHeight.append(indicatorPlant.copy())
                 }
             }
         } catch _ {
@@ -298,7 +298,7 @@ class PlantCommunity: Object, MyraObject {
             let realm = try Realm()
             try realm.write {
                 for indicatorPlant in pc.shrubUse {
-                    self.shrubUse.append(indicatorPlant)
+                    self.shrubUse.append(indicatorPlant.copy())
                 }
             }
         } catch _ {

@@ -210,18 +210,21 @@ class ImportCriteria: UIView, Theme {
     func showChoosePasture() {
         let indexPath: IndexPath = IndexPath(row: 0, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        self.collectionView.reloadItems(at: [indexPath])
         styleForPastureSection()
     }
 
     func showChoosePlantCommunity() {
         let indexPath: IndexPath = IndexPath(row: 1, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        self.collectionView.reloadItems(at: [indexPath])
         styleForPCSection()
     }
 
     func showChooseCriteria() {
         let indexPath: IndexPath = IndexPath(row: 2, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        self.collectionView.reloadItems(at: [indexPath])
         styleForCriteriaSection()
     }
 
