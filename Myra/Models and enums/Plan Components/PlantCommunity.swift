@@ -256,18 +256,33 @@ class PlantCommunity: Object, MyraObject {
     }
 
     func importRangeReadiness(from pc: PlantCommunity) {
-        for element in self.rangeReadiness {
-            RealmRequests.deleteObject(element)
-        }
         do {
             let realm = try Realm()
             try realm.write {
                 self.readinessDay = pc.readinessDay
                 self.readinessMonth = pc.readinessMonth
                 self.readinessNotes = pc.readinessNotes
+
+                /*
+                 This safely handles the case where
+                 user tries to import from the
+                 same plant community
+                 */
+
+                // Cache new content
+                let cache = List<IndicatorPlant>()
                 for indicatorPlant in pc.rangeReadiness {
-                    self.rangeReadiness.append(indicatorPlant.copy())
+                    cache.append(indicatorPlant.copy())
                 }
+
+                // Delete current content
+                for element in self.rangeReadiness {
+                    realm.delete(element)
+                }
+
+                // Save new elements.
+                self.rangeReadiness.append(objectsIn: cache)
+
             }
         } catch _ {
             fatalError()
@@ -275,15 +290,29 @@ class PlantCommunity: Object, MyraObject {
     }
 
     func importStubbleHeight(from pc: PlantCommunity) {
-        for element in self.stubbleHeight {
-            RealmRequests.deleteObject(element)
-        }
+
         do {
             let realm = try Realm()
             try realm.write {
+
+                /*
+                 This safely handles the case where
+                 user tries to import from the
+                 same plant community
+                 */
+
+                // Cache new content
+                let cache = List<IndicatorPlant>()
                 for indicatorPlant in pc.stubbleHeight {
-                    self.stubbleHeight.append(indicatorPlant.copy())
+                    cache.append(indicatorPlant.copy())
                 }
+                // Delete current content
+                for element in self.stubbleHeight {
+                    realm.delete(element)
+                }
+
+                // Save new elements.
+                self.stubbleHeight.append(objectsIn: cache)
             }
         } catch _ {
             fatalError()
@@ -291,15 +320,30 @@ class PlantCommunity: Object, MyraObject {
     }
 
     func importShrubUse(from pc: PlantCommunity) {
-        for element in self.shrubUse {
-            RealmRequests.deleteObject(element)
-        }
+
         do {
             let realm = try Realm()
             try realm.write {
+
+                /*
+                 This safely handles the case where
+                 user tries to import from the
+                 same plant community
+                 */
+
+                // Cache new content
+                let cache = List<IndicatorPlant>()
                 for indicatorPlant in pc.shrubUse {
-                    self.shrubUse.append(indicatorPlant.copy())
+                    cache.append(indicatorPlant.copy())
                 }
+
+                // Delete current content
+                for element in self.shrubUse {
+                    realm.delete(element)
+                }
+
+                // Save new elements.
+                self.shrubUse.append(objectsIn: cache)
             }
         } catch _ {
             fatalError()
