@@ -145,7 +145,7 @@
                                                     <action selector="tourAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="a3a-ig-ZXb"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0x-Zc-yt8">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0x-Zc-yt8">
                                                 <rect key="frame" x="907" y="35.5" width="40" height="40"/>
                                                 <state key="normal" image="photo-camera">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

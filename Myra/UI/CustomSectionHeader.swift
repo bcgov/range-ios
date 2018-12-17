@@ -18,6 +18,10 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
 
     var toolTipHelpText = ""
 
+    @IBOutlet weak var actionButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var actionButton: UIButton!
+    var callBack: (()-> Void)?
+
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -26,7 +30,8 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
     }
     */
 
-    func setup(title: String, iconImage: UIImage? = nil, helpDescription: String? = nil) {
+    func setup(title: String, iconImage: UIImage? = nil, helpDescription: String? = nil, actionButtonName: String? = nil, buttonCallback: @escaping()-> Void) {
+        self.callBack = buttonCallback
         self.titleLabel.text = title
 //        styleSubHeader(label: titleLabel)
         styleHeader(label: titleLabel, divider: divider)
@@ -46,7 +51,15 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
         } else {
             tooltipButton.isHidden = true
         }
-        titleWidth.constant = title.width(withConstrainedHeight: 60, font: defaultSectionHeaderFont())
+        titleWidth.constant = title.width(withConstrainedHeight: self.titleLabel.frame.height, font: defaultSectionHeaderFont())
+        if let actionButtonTitle = actionButtonName {
+            styleFillButton(button: actionButton)
+            actionButton.alpha = 1
+            actionButton.setTitle(actionButtonTitle, for: .normal)
+            actionButtonWidth.constant = actionButtonTitle.width(withConstrainedHeight: actionButton.frame.height, font: Fonts.getPrimary(size: 17)) + 20
+        } else {
+            actionButton.alpha = 0
+        }
     }
 
 
@@ -55,8 +68,9 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
         parent.showTooltip(on: sender, title: titleText, desc: toolTipHelpText)
     }
 
-
-
-    
+    @IBAction func actionButtonAction(_ sender: UIButton) {
+        guard let callback = self.callBack else {return}
+        return callback()
+    }
 
 }

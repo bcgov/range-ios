@@ -53,6 +53,10 @@ class BaseViewController: UIViewController, Theme {
         Feedback.initializeButton()
     }
 
+    public func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+
     // MARK: Event handlers
     func onAuthenticationFail() {}
     func onAuthenticationSuccess() {}

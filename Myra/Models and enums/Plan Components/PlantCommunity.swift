@@ -30,13 +30,13 @@ class PlantCommunity: Object, MyraObject {
     @objc dynamic var communityURL: String = ""
     @objc dynamic var purposeOfAction: String = "Clear"
 
+    // Criteria
     @objc dynamic var readinessDay: Int = -1
     @objc dynamic var readinessMonth: Int = -1
     @objc dynamic var readinessNotes: String = ""
-
     var rangeReadiness = List<IndicatorPlant>()
     var stubbleHeight = List<IndicatorPlant>()
-    var shrubUse = List<IndicatorPlant>()
+    @objc dynamic var shrubUse: Double = 0
 
     @objc dynamic var approvedByMinister: Bool = false
 
@@ -74,8 +74,6 @@ class PlantCommunity: Object, MyraObject {
                     rangeReadiness.append(IndicatorPlant(criteria: "\(type)"))
                 case .StubbleHeight:
                     stubbleHeight.append(IndicatorPlant(criteria: "\(type)"))
-                case .ShrubUse:
-                    shrubUse.append(IndicatorPlant(criteria: "\(type)"))
                 }
             }
         } catch _ {
@@ -93,6 +91,10 @@ class PlantCommunity: Object, MyraObject {
         new.purposeOfAction = self.purposeOfAction
         new.approvedByMinister = self.approvedByMinister
 
+        new.readinessDay = self.readinessDay
+        new.readinessMonth = self.readinessMonth
+        new.readinessNotes = self.readinessNotes
+
         for object in self.monitoringAreas {
             new.monitoringAreas.append(object.copy())
         }
@@ -109,9 +111,7 @@ class PlantCommunity: Object, MyraObject {
             new.stubbleHeight.append(object.copy())
         }
 
-        for object in self.shrubUse {
-            new.shrubUse.append(object.copy())
-        }
+        new.shrubUse = self.shrubUse
 
         return new
     }
@@ -121,6 +121,17 @@ class PlantCommunity: Object, MyraObject {
             let realm = try Realm()
             try realm.write {
                 remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setShrubUse(to value: Double) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.shrubUse = value
             }
         } catch _ {
             fatalError()
@@ -183,7 +194,9 @@ class PlantCommunity: Object, MyraObject {
                 } else if criteria.lowercased() == "stubbleheight" {
                     self.stubbleHeight.append(IndicatorPlant(json: indicatorPlant.1))
                 } else if criteria.lowercased() == "shrubuse" {
-                    self.shrubUse.append(IndicatorPlant(json: indicatorPlant.1))
+                    // TODO: Store Shrub Use
+
+//                    self.shrubUse.append(IndicatorPlant(json: indicatorPlant.1))
                 }
             }
         }
@@ -228,6 +241,8 @@ class PlantCommunity: Object, MyraObject {
             purpose = "maintain"
         }
 
+        // TODO: Send Shrub use
+
         return [
             "name": name,
             "communityTypeId": typeId,
@@ -247,7 +262,83 @@ class PlantCommunity: Object, MyraObject {
         var indicatorPlants: [IndicatorPlant] = [IndicatorPlant]()
         indicatorPlants.append(contentsOf: rangeReadiness)
         indicatorPlants.append(contentsOf: stubbleHeight)
-        indicatorPlants.append(contentsOf: shrubUse)
+//        indicatorPlants.append(contentsOf: shrubUse)
         return indicatorPlants
+    }
+
+    func importRangeReadiness(from pc: PlantCommunity) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.readinessDay = pc.readinessDay
+                self.readinessMonth = pc.readinessMonth
+                self.readinessNotes = pc.readinessNotes
+
+                /*
+                 This safely handles the case where
+                 user tries to import from the
+                 same plant community
+                 */
+
+                // Cache new content
+                let cache = List<IndicatorPlant>()
+                for indicatorPlant in pc.rangeReadiness {
+                    cache.append(indicatorPlant.copy())
+                }
+
+                // Delete current content
+                for element in self.rangeReadiness {
+                    realm.delete(element)
+                }
+
+                // Save new elements.
+                self.rangeReadiness.append(objectsIn: cache)
+
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func importStubbleHeight(from pc: PlantCommunity) {
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+
+                /*
+                 This safely handles the case where
+                 user tries to import from the
+                 same plant community
+                 */
+
+                // Cache new content
+                let cache = List<IndicatorPlant>()
+                for indicatorPlant in pc.stubbleHeight {
+                    cache.append(indicatorPlant.copy())
+                }
+                // Delete current content
+                for element in self.stubbleHeight {
+                    realm.delete(element)
+                }
+
+                // Save new elements.
+                self.stubbleHeight.append(objectsIn: cache)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func importShrubUse(from pc: PlantCommunity) {
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.shrubUse = pc.shrubUse
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 }

@@ -221,7 +221,7 @@ extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSou
         // Dequeue with the reuse identifier
         let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
         let header = cell as! CustomSectionHeader
-        header.setup(title: sectionTitle)
+        header.setup(title: sectionTitle, buttonCallback: {})
 
         return cell
     }

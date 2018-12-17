@@ -147,6 +147,26 @@ class PlantCommunityViewController: BaseViewController {
         }
     }
 
+    // MARK: Import Criteria
+    func importCriteria(from origin: PlantCommunity, sections: [PlantCommunityCriteriaFromSection]) {
+        guard let plantCommunity = self.plantCommunity else { return }
+        if sections.contains(.RangeReadiness) {
+            plantCommunity.importRangeReadiness(from: origin)
+        }
+
+        if sections.contains(.ShrubUse) {
+            plantCommunity.importShrubUse(from: origin)
+        }
+
+        if sections.contains(.StubbleHeight) {
+            plantCommunity.importStubbleHeight(from: origin)
+        }
+
+        self.tableView.reloadData()
+        self.autofill()
+        Alert.show(title: "Imported", message: "")
+    }
+
     // MARK: Styles
     func style() {
         styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
@@ -222,6 +242,7 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         registerCell(name: "PlantCommunityMonitoringAreasTableViewCell")
         registerCell(name: "PlantCommunityPastureActionsTableViewCell")
         registerCell(name: "MonitoringAreaCustomDetailsTableViewCell")
+        registerCell(name: "ShrubUseTableViewCell")
         registerCell(name: "EmptyTableViewCell")
 
         let nib = UINib(nibName: "CustomSectionHeader", bundle: nil)
@@ -247,6 +268,10 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
 
     func getPlantIndicatorsCell(indexPath: IndexPath) -> MonitoringAreaCustomDetailsTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "MonitoringAreaCustomDetailsTableViewCell", for: indexPath) as! MonitoringAreaCustomDetailsTableViewCell
+    }
+
+    func getShrubUseCell(indexPath: IndexPath) -> ShrubUseTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ShrubUseTableViewCell", for: indexPath) as! ShrubUseTableViewCell
     }
 
     func getEmptyCell(indexPath: IndexPath) -> EmptyTableViewCell {
@@ -287,8 +312,10 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
                 cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
                 return cell
             case .ShrubUse:
-                let cell = getPlantIndicatorsCell(indexPath: indexPath)
-                cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
+                let cell = getShrubUseCell(indexPath: indexPath)
+                cell.setup(with: community, mode: mode)
+//                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+//                cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
                 return cell
             }
         }
@@ -334,27 +361,30 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomSectionHeader")
         guard let imagePlaceHolder = UIImage(named: "icon_MinistersIssues"), let header = cell as? CustomSectionHeader else {return nil}
-        var sectionTitle = ""
-        var icon: UIImage? = imagePlaceHolder
+
+        let icon: UIImage? = imagePlaceHolder
 
         guard let sectionType = PlantCommunityFromSection(rawValue: Int(section)) else {
             return nil
         }
-        var toolTipText: String?
+        
         switch sectionType {
         case .BasicInfo:
-            sectionTitle =  "Basic Plant Community Information"
+            header.setup(title: "Basic Plant Community Information", iconImage: icon, helpDescription: nil, buttonCallback: {})
         case .Actions:
-            sectionTitle =  "Plant Community Actions"
+            header.setup(title: "Plant Community Actions", iconImage: icon, helpDescription: nil, buttonCallback: {})
         case .MonitoringAreas:
-            sectionTitle =  "Monitoring Areas"
-            toolTipText = InfoTips.monitoringAreas
+            header.setup(title: "Monitoring Areas", iconImage: icon, helpDescription: InfoTips.monitoringAreas, buttonCallback: {})
         case .Criteria:
-            sectionTitle =  "Criteria"
-            toolTipText = InfoTips.criteria
+            header.setup(title: "Criteria", iconImage: icon, helpDescription: InfoTips.criteria, actionButtonName: "Import",buttonCallback: {
+                guard let plan = self.plan else {return}
+                let importView: ImportCriteria = UIView.fromNib()
+                self.dismissKeyboard()
+                importView.showFlow(for: plan) { (pc, sections) in
+                    self.importCriteria(from: pc, sections: sections)
+                }
+            })
         }
-        
-        header.setup(title: sectionTitle, iconImage: icon, helpDescription: toolTipText)
         return cell
     }
 

@@ -11,5 +11,4 @@ import Foundation
 enum IndicatorPlantSection {
     case RangeReadiness
     case StubbleHeight
-    case ShrubUse
 }

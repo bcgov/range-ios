@@ -73,8 +73,10 @@ class API {
 
         // Manual 20 second timeout for each call
         var completed = false
+        var timedOut = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
             if !completed {
+                timedOut = true
                 Banner.shared.show(message: "Request Time Out")
                 return completion(nil)
             }
@@ -82,6 +84,7 @@ class API {
 
         Alamofire.request(request).responseJSON { response in
             completed = true
+            if timedOut {return}
             return completion(response)
         }
     }
@@ -89,15 +92,19 @@ class API {
     static func post(endpoint: URL, params: [String:Any], completion: @escaping (_ response: [String:Any]?) -> Void) {
         // Manual 20 second timeout for each call
         var completed = false
+        var timedOut = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
             if !completed {
+                timedOut = true
                 Banner.shared.show(message: "Request Time Out")
                 return completion(nil)
             }
         }
+        
         // Request
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers()).responseJSON { response in
             completed = true
+            if timedOut {return}
             API.process(response: response, completion: { (processedResponse, error) in
                 guard let processedResponse = processedResponse, error == nil else {
                     print("POST call rejected:")
@@ -113,14 +120,17 @@ class API {
     static func get(endpoint: URL, completion: @escaping (_ response: JSON?) -> Void) {
         // Manual 20 second timeout for each call
         var completed = false
+        var timedOut = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
             if !completed {
+                timedOut = true
                 Banner.shared.show(message: "Request Time Out")
                 return completion(nil)
             }
         }
         Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
             completed = true
+            if timedOut {return}
             if response.result.description == "SUCCESS", let value = response.result.value {
                 let json = JSON(value)
                 if let error = json["error"].string {
