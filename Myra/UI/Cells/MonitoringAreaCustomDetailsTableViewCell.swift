@@ -157,7 +157,6 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             self.sectionTitle.text = "Range Readiness:"
             self.readinessNotesTextView.alpha = 1
             self.notesSection.alpha = 1
-//            self.headerRight.text = "Criteria (Leaf Stage)"
         case .StubbleHeight:
             self.sectionSubtitle.text = "Livestock must be removed on the first to occur of the date in the plan (ex. schedule), stubble height criteria or average browse criteria."
             self.notesSection.alpha = 0
@@ -166,17 +165,6 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             self.singleFieldSectionHeight.constant = 0
             self.singleFieldHeader.alpha = 0
             self.sectionTitle.text = "Stubble Height:"
-
-//            self.headerRight.text = "Height After Grazing (cm)"
-        case .ShrubUse:
-            self.sectionSubtitle.text = "Livestock must be removed from the pasture on the first to occur of the date in the plan (ex. schedule), stubble height criteria for any plant community in the pasture or average browse criteria."
-            self.notesSection.alpha = 0
-            self.sectionTitleContainerHeight.constant = 80
-            self.readinessNotesSectionHeight.constant = 0
-            self.singleFieldSectionHeight.constant = 0
-            self.singleFieldHeader.alpha = 0
-            self.sectionTitle.text = "Shrub Use:"
-//            self.headerRight.text = "% of Current Annual Growth"
         }
     }
 
@@ -188,8 +176,6 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             count = a.rangeReadiness.count
         case .StubbleHeight:
             count = a.stubbleHeight.count
-        case .ShrubUse:
-            count = a.shrubUse.count
         }
         return CGFloat(count) * CGFloat(MonitoringAreaCustomDetailTableViewCellTableViewCell.cellHeight)
     }
@@ -262,8 +248,6 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITable
                 ip = plantCommunity.rangeReadiness[indexPath.row]
             case .StubbleHeight:
                 ip = plantCommunity.stubbleHeight[indexPath.row]
-            case .ShrubUse:
-                ip = plantCommunity.shrubUse[indexPath.row]
             }
             guard let indicatorPlant = ip else {return cell}
             cell.setup(forSection: sec, mode: self.mode, indicatorPlant: indicatorPlant, plantCommunity: plantCommunity, parentReference: parent, parentCellReference: self)
@@ -283,8 +267,6 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITable
                 return a.rangeReadiness.count
             case .StubbleHeight:
                 return a.stubbleHeight.count
-            case .ShrubUse:
-                return a.shrubUse.count
             }
 
         } else {

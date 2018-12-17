@@ -53,6 +53,7 @@ class Pasture: Object, MyraObject {
 
     func copy() -> Pasture {
         let pasture = Pasture()
+        // TODO: COPY REMOTE ID. CHECK ALL OTHER OBJECT AS WELL!
         pasture.name = self.name
         pasture.allowedAUMs = self.allowedAUMs
         pasture.privateLandDeduction = self.privateLandDeduction

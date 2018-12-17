@@ -43,7 +43,9 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         guard let plant = self.indicatorPlant, let parent = self.parentReference, let parentCell = self.parentCellReference, let section = parentCell.section else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        let options = Options.shared.getIndicatorPlantLookup(forShrubUse: section == .ShrubUse)
+//        let options = Options.shared.getIndicatorPlantLookup(forShrubUse: section == .ShrubUse)
+        let options = Options.shared.getIndicatorPlantLookup(forShrubUse: false)
+
         lookup.setup(objects: options, onVC: parent, onButton: leftFieldDropDown) { (accepted, selection) in
 //            lookup.dismiss(animated: true, completion: nil)
             if accepted, let option = selection, let species = Reference.shared.getIndicatorPlant(named: option.display) {
@@ -53,8 +55,8 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
                     plant.setDetail(text: "\(species.leafStage)")
                 case .StubbleHeight:
                     plant.setDetail(text: "\(species.stubbleHeight)")
-                case .ShrubUse:
-                    plant.setDetail(text: "\(species.annualGrowth)")
+//                case .ShrubUse:
+//                    plant.setDetail(text: "\(species.annualGrowth)")
                 }
                 self.autofill()
             }
@@ -121,20 +123,20 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
         guard let ip = self.indicatorPlant, let parentCell = self.parentCellReference, let section = parentCell.section else {return}
         self.leftField.text = ip.type
 
-        if section == .ShrubUse, ip.getDetail().isDouble, let doubleValue = Double(ip.getDetail()) {
-            let intValue = Int(doubleValue)
-            self.rightField.text = "\(intValue)"
-        } else {
-            self.rightField.text = ip.getDetail()
-        }
+//        if section == .ShrubUse, ip.getDetail().isDouble, let doubleValue = Double(ip.getDetail()) {
+//            let intValue = Int(doubleValue)
+//            self.rightField.text = "\(intValue)"
+//        } else {
+//            self.rightField.text = ip.getDetail()
+//        }
+        self.rightField.text = ip.getDetail()
+
         if ip.type == freeTextOption {
             switch section {
             case .RangeReadiness:
                 rightField.placeholder = "Enter a leaf stage criteria here..."
             case .StubbleHeight:
                 rightField.placeholder = "Enter a stubble height criteria (in cm) here..."
-            case .ShrubUse:
-                rightField.placeholder = "Enter % of current annual growth here..."
             }
         } else {
             rightField.placeholder = ""
@@ -166,8 +168,6 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
             rightFieldHeader.text = "Criteria (Leaf Stage)"
         case .StubbleHeight:
             rightFieldHeader.text = "Height After Grazing (cm)"
-        case .ShrubUse:
-            rightFieldHeader.text = "% of Current Annual Growth"
         }
     }
     

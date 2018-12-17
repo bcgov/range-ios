@@ -70,25 +70,6 @@ class PlantCommunityViewController: BaseViewController {
         })
     }
 
-    func importCriteria(from origin: PlantCommunity, sections: [PlantCommunityCriteriaFromSection]) {
-        guard let plantCommunity = self.plantCommunity else { return }
-        if sections.contains(.RangeReadiness) {
-            plantCommunity.importRangeReadiness(from: origin)
-        }
-
-        if sections.contains(.ShrubUse) {
-            plantCommunity.importShrubUse(from: origin)
-        }
-
-        if sections.contains(.StubbleHeight) {
-            plantCommunity.importStubbleHeight(from: origin)
-        }
-
-        self.tableView.reloadData()
-        self.autofill()
-        Alert.show(title: "Imported", message: "")
-    }
-
     //    @IBAction func deleteAction(_ sender: Any) {
     //        guard let pc = self.plantCommunity else{ return }
     //        showAlert(title: "Would you like to delete this Plant Community?", description: "All monioring areas and pasture actions will also be removed", yesButtonTapped: {
@@ -166,6 +147,26 @@ class PlantCommunityViewController: BaseViewController {
         }
     }
 
+    // MARK: Import Criteria
+    func importCriteria(from origin: PlantCommunity, sections: [PlantCommunityCriteriaFromSection]) {
+        guard let plantCommunity = self.plantCommunity else { return }
+        if sections.contains(.RangeReadiness) {
+            plantCommunity.importRangeReadiness(from: origin)
+        }
+
+        if sections.contains(.ShrubUse) {
+            plantCommunity.importShrubUse(from: origin)
+        }
+
+        if sections.contains(.StubbleHeight) {
+            plantCommunity.importStubbleHeight(from: origin)
+        }
+
+        self.tableView.reloadData()
+        self.autofill()
+        Alert.show(title: "Imported", message: "")
+    }
+
     // MARK: Styles
     func style() {
         styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
@@ -241,6 +242,7 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
         registerCell(name: "PlantCommunityMonitoringAreasTableViewCell")
         registerCell(name: "PlantCommunityPastureActionsTableViewCell")
         registerCell(name: "MonitoringAreaCustomDetailsTableViewCell")
+        registerCell(name: "ShrubUseTableViewCell")
         registerCell(name: "EmptyTableViewCell")
 
         let nib = UINib(nibName: "CustomSectionHeader", bundle: nil)
@@ -266,6 +268,10 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
 
     func getPlantIndicatorsCell(indexPath: IndexPath) -> MonitoringAreaCustomDetailsTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "MonitoringAreaCustomDetailsTableViewCell", for: indexPath) as! MonitoringAreaCustomDetailsTableViewCell
+    }
+
+    func getShrubUseCell(indexPath: IndexPath) -> ShrubUseTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ShrubUseTableViewCell", for: indexPath) as! ShrubUseTableViewCell
     }
 
     func getEmptyCell(indexPath: IndexPath) -> EmptyTableViewCell {
@@ -306,8 +312,10 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
                 cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
                 return cell
             case .ShrubUse:
-                let cell = getPlantIndicatorsCell(indexPath: indexPath)
-                cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
+                let cell = getShrubUseCell(indexPath: indexPath)
+                cell.setup(with: community, mode: mode)
+//                let cell = getPlantIndicatorsCell(indexPath: indexPath)
+//                cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
                 return cell
             }
         }
@@ -371,6 +379,7 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
             header.setup(title: "Criteria", iconImage: icon, helpDescription: InfoTips.criteria, actionButtonName: "Import",buttonCallback: {
                 guard let plan = self.plan else {return}
                 let importView: ImportCriteria = UIView.fromNib()
+                self.dismissKeyboard()
                 importView.showFlow(for: plan) { (pc, sections) in
                     self.importCriteria(from: pc, sections: sections)
                 }

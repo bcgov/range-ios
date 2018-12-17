@@ -100,6 +100,7 @@ class API {
                 return completion(nil)
             }
         }
+        
         // Request
         Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers()).responseJSON { response in
             completed = true

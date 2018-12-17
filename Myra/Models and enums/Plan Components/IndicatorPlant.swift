@@ -107,6 +107,7 @@ class IndicatorPlant: Object, MyraObject {
 
     func copy() -> IndicatorPlant {
         let new = IndicatorPlant()
+        new.remoteId = remoteId
         new.number = self.number
         new.criteria = self.criteria
         new.type = self.type

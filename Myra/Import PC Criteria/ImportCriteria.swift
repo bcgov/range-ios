@@ -90,7 +90,6 @@ class ImportCriteria: UIView, Theme {
             self.removeFromSuperview()
         }
     }
-
     
     // MARK: Entry Point
     func showFlow(for plan: RUP, then: @escaping(_ plantCommunity: PlantCommunity,_ sections: [PlantCommunityCriteriaFromSection]) -> Void) {
