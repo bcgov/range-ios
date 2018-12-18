@@ -173,6 +173,8 @@
 		2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270D2044949B0033BC47 /* LiveStockID.swift */; };
 		297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297427102044969A0033BC47 /* LiveStockTableViewCell.swift */; };
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
+		297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */; };
+		297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */; };
 		297E9987216545D100FB6F04 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297E9986216545D100FB6F04 /* Map.storyboard */; };
 		297E9989216545E700FB6F04 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E9988216545E700FB6F04 /* MapViewController.swift */; };
 		297E998B2165479F00FB6F04 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E998A2165479F00FB6F04 /* Pin.swift */; };
@@ -258,8 +260,6 @@
 		29FCB0342056EF47006CD247 /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0332056EF47006CD247 /* Zone.swift */; };
 		29FCB0362056EF95006CD247 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0352056EF95006CD247 /* District.swift */; };
 		29FCB038205702B3006CD247 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB037205702B3006CD247 /* DateManager.swift */; };
-		29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0392057299D006CD247 /* DatePickerController.swift */; };
-		29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */; };
 		29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */; };
 		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
 		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
@@ -433,6 +433,8 @@
 		2974270D2044949B0033BC47 /* LiveStockID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockID.swift; sourceTree = "<group>"; };
 		297427102044969A0033BC47 /* LiveStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockTableViewCell.swift; sourceTree = "<group>"; };
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
+		297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
 		297E9986216545D100FB6F04 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		297E9988216545E700FB6F04 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		297E998A2165479F00FB6F04 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
@@ -518,8 +520,6 @@
 		29FCB0332056EF47006CD247 /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
 		29FCB0352056EF95006CD247 /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
 		29FCB037205702B3006CD247 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
-		29FCB0392057299D006CD247 /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
-		29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePickerController.storyboard; sourceTree = "<group>"; };
 		29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewExtention.swift; sourceTree = "<group>"; };
 		56F388A020801757004CDFAE /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
 		56F388A220801763004CDFAE /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
@@ -591,10 +591,8 @@
 			children = (
 				29234B0B2138592400F547AC /* Lottie */,
 				295FBF7A21641EEA00DD2C53 /* ML */,
-				29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */,
 				291C4D9A2037631400390523 /* Polygon.swift */,
 				29FB97BC204DB87D005297B9 /* RealmRequest.swift */,
-				29FCB0392057299D006CD247 /* DatePickerController.swift */,
 				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
 				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
@@ -782,6 +780,7 @@
 				292B650E21C066EA00F9A8A5 /* Get Name Dialog */,
 				29C34BBE21C2DC3D009B4031 /* Import Plant Community Criteria */,
 				297D8FDE21C976CE00D9A8B8 /* New Element Added Banner */,
+				297D8FEB21C9925C00D9A8B8 /* DatePicker - Used as year picker */,
 				297D8FDF21C9777100D9A8B8 /* Tag Image */,
 			);
 			path = "Custom Elements";
@@ -1139,6 +1138,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		297D8FEB21C9925C00D9A8B8 /* DatePicker - Used as year picker */ = {
+			isa = PBXGroup;
+			children = (
+				297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */,
+				297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */,
+			);
+			path = "DatePicker - Used as year picker";
+			sourceTree = "<group>";
+		};
 		29C34BBE21C2DC3D009B4031 /* Import Plant Community Criteria */ = {
 			isa = PBXGroup;
 			children = (
@@ -1312,6 +1320,7 @@
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
+				297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */,
 				29055210213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib in Resources */,
 				29C34BC621C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
@@ -1360,7 +1369,6 @@
 				29616EA821063ADA003102F8 /* EmptyTableViewCell.xib in Resources */,
 				29C34BD321C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib in Resources */,
 				2935A7682148399500441539 /* Tooltip.storyboard in Resources */,
-				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
 				2905520C2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib in Resources */,
 				29EA02A120696A720076403B /* spinner_.json in Resources */,
 				292A1D8021432E570086E1AD /* SyncView.xib in Resources */,
@@ -1544,7 +1552,6 @@
 				292AD86E215C4DE600F80738 /* TestML.mlmodel in Sources */,
 				295FBF8021641F1400DD2C53 /* Animal.mlmodel in Sources */,
 				2972381820ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift in Sources */,
-				29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */,
 				299D3EBC217E79FD0000781E /* PlantCommunityActionType.swift in Sources */,
 				293D4183216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
@@ -1623,6 +1630,7 @@
 				29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
+				297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */,
 				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,
 				29227B6220EEAD540042B88E /* TextEntry.swift in Sources */,
 				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
