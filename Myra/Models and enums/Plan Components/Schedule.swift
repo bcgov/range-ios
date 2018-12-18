@@ -99,4 +99,10 @@ class Schedule: Object, MyraObject {
         }
         return total
     }
+
+    func deleteSubEntries() {
+        for element in self.scheduleObjects {
+            RealmRequests.deleteObject(element)
+        }
+    }
 }

@@ -119,7 +119,7 @@ class RealmManager {
                 RealmRequests.deleteObject(zone)
             }
 
-            for rup in element.rups {
+            for rup in element.plans {
                 // DO NOT remove local drafts: may have been not valid for upload
                 if rup.getStatus() != .LocalDraft {
                     RealmRequests.deleteObject(rup)

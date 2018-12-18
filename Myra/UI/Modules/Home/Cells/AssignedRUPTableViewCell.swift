@@ -163,7 +163,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     func updateTableHeight() {
         if let a = self.agreement {
-            self.versionsHeight.constant = CGFloat(AssignedRUPVersionTableViewCell.cellHeight * (a.rups.count + 1))
+            self.versionsHeight.constant = CGFloat(AssignedRUPVersionTableViewCell.cellHeight * (a.plans.count + 1))
             self.tableView.reloadData()
         } else {
             self.versionsHeight.constant = 0
@@ -203,14 +203,14 @@ extension AssignedRUPTableViewCell: UITableViewDelegate, UITableViewDataSource {
         var color = Colors.oddCell
         if indexPath.row % 2 == 0 {color = Colors.evenCell}
         if let agreement = self.agreement {
-            cell.setup(plan: agreement.rups[indexPath.row - 1], color: color)
+            cell.setup(plan: agreement.plans[indexPath.row - 1], color: color)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let a = self.agreement {
-            return a.rups.count + 1
+            return a.plans.count + 1
         }
         return 0
     }

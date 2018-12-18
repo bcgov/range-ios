@@ -400,7 +400,7 @@ class HomeViewController: BaseViewController {
         let rups = RUPManager.shared.getRUPs()
         print("Loading \(rups.count) plans")
         let agreements = RUPManager.shared.getAgreements()
-        for agreement in agreements where agreement.rups.count > 0 {
+        for agreement in agreements where agreement.plans.count > 0 {
             if let p = agreement.getLatestPlan() {
                 self.rups.append(p)
             }
@@ -888,7 +888,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         client.name = "Roop Jawl"
         client.clientTypeCode = "A"
         plan.clients.append(client)
-        agreement.rups.append(plan)
+        agreement.plans.append(plan)
         RealmRequests.saveObject(object: plan)
         RealmRequests.saveObject(object: agreement)
         self.rups.removeAll()

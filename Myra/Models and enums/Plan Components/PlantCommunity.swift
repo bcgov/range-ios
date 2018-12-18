@@ -341,4 +341,21 @@ class PlantCommunity: Object, MyraObject {
             fatalError()
         }
     }
+    
+    func deleteSubEntries() {
+        for element in self.rangeReadiness {
+            RealmRequests.deleteObject(element)
+        }
+        for element in self.stubbleHeight {
+             RealmRequests.deleteObject(element)
+        }
+
+        for element in self.monitoringAreas {
+            RealmRequests.deleteObject(element)
+        }
+
+        for element in pastureActions {
+            RealmRequests.deleteObject(element)
+        }
+    }
 }

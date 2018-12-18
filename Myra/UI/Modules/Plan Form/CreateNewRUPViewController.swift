@@ -270,7 +270,7 @@ class CreateNewRUPViewController: BaseViewController {
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        agreement?.rups.append(new)
+                        agreement?.plans.append(new)
                     }
                 } catch _ {
                     fatalError()

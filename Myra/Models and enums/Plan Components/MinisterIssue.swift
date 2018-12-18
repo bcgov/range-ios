@@ -32,7 +32,6 @@ class MinisterIssue: Object, MyraObject {
     var actions = List<MinisterIssueAction>()
     var pastures = List<Pasture>()
 
-
     func requiredFieldsAreFilled() -> Bool {
         if self.issueTypeID == -1 || self.details.isEmpty || self.objective.isEmpty || !self.identified {
             return false
@@ -210,5 +209,11 @@ class MinisterIssue: Object, MyraObject {
             new.pastures.append(object.copy())
         }
         return new
+    }
+
+    func deleteSubObjects() {
+        for element in self.actions {
+            RealmRequests.deleteObject(element)
+        }
     }
 }

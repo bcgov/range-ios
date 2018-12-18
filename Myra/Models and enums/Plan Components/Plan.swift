@@ -324,10 +324,31 @@ class Plan: Object, MyraObject {
          when deleting, we need to remove all pastures and schedule objects manually.
          */
         for object in self.pastures {
+            for element in object.plantCommunities {
+                element.deleteSubEntries()
+                RealmRequests.deleteObject(element)
+            }
             RealmRequests.deleteObject(object)
         }
 
         for object in self.schedules {
+            object.deleteSubEntries()
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.ministerIssues {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.invasivePlants {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.additionalRequirements {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.managementConsiderations {
             RealmRequests.deleteObject(object)
         }
     }

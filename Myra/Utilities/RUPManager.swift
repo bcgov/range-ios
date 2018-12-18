@@ -36,7 +36,7 @@
         let agreements = getAgreements()
         // get agreement numbers with no plans
         var agreementsWithNoPlans: [String] = [String]()
-        for agreement in agreements where agreement.rups.count == 0 {
+        for agreement in agreements where agreement.plans.count == 0 {
             agreementsWithNoPlans.append(agreement.agreementId)
         }
 
@@ -46,7 +46,7 @@
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        temp.rups.append(plan)
+                        temp.plans.append(plan)
                         for element in temp.rangeUsageYears {
                             plan.rangeUsageYears.append(element)
                         }
@@ -274,12 +274,12 @@
             }
         }
         
-        if !newAgreement.rups.isEmpty {
-            for plan in newAgreement.rups  {
+        if !newAgreement.plans.isEmpty {
+            for plan in newAgreement.plans  {
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        stored.rups.append(plan)
+                        stored.plans.append(plan)
                     }
                 } catch _ {
                     fatalError()
@@ -295,8 +295,8 @@
             print("newAgreement is invalidated")
         }
         
-        if !newAgreement.rups.isEmpty {
-            let newPlans = newAgreement.rups
+        if !newAgreement.plans.isEmpty {
+            let newPlans = newAgreement.plans
             for newPlan in newPlans {
                 if newPlan.isInvalidated {
                     print("newPlan is invalidated")
@@ -304,7 +304,7 @@
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        stored.rups.append(newPlan)
+                        stored.plans.append(newPlan)
                     }
                 } catch _ {
                     fatalError()
@@ -319,7 +319,7 @@
     }
     
     func updateRUPsFor(agreement: Agreement) {
-        for plan in agreement.rups {
+        for plan in agreement.plans {
             if agreement.zones.count > 0 {
                 do {
                     let realm = try Realm()
@@ -391,7 +391,7 @@
         let agreements = getAgreements()
         var filtered = [Agreement]()
         for agreement in agreements {
-            if agreement.rups.count < 1 {
+            if agreement.plans.count < 1 {
                 filtered.append(agreement)
             }
         }
@@ -499,7 +499,7 @@
         do {
             let realm = try Realm()
             try realm.write {
-                forAgreement.rups.append(rup)
+                forAgreement.plans.append(rup)
                 rup.isNew = true
             }
         } catch _ {
