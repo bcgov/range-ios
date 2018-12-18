@@ -12,7 +12,7 @@ import RealmSwift
 import SwiftyJSON
 import Extended
 
-class RUP: Object, MyraObject {
+class Plan: Object, MyraObject {
 
     @objc dynamic var localId: String = {
         return UUID().uuidString
@@ -24,19 +24,6 @@ class RUP: Object, MyraObject {
 
     // if remoteId == -1, it has not been "synced"
     @objc dynamic var remoteId: Int = -1
-
-    var statusEnum: RUPStatus {
-        get {
-            if let s = RUPStatus(rawValue: status) {
-                return s
-            } else {
-                return .Unknown
-            }
-        }
-        set {
-            status = newValue.rawValue
-        }
-    }
 
     @objc dynamic var info: String = ""
     @objc dynamic var primaryAgreementHolderFirstName: String = ""
@@ -58,7 +45,6 @@ class RUP: Object, MyraObject {
     @objc dynamic var updatedAt: Date?
     @objc dynamic var typeId: Int = 0
     @objc dynamic var ranNumber: Int = 0
-
     @objc dynamic var effectiveDate: Date?
     @objc dynamic var submitted: Date?
     @objc dynamic var amendmentTypeId: Int = -1
@@ -87,6 +73,19 @@ class RUP: Object, MyraObject {
     var invasivePlants = List<InvasivePlants>()
     var additionalRequirements = List<AdditionalRequirement>()
     var managementConsiderations = List<ManagementConsideration>()
+
+    var statusEnum: RUPStatus {
+        get {
+            if let s = RUPStatus(rawValue: status) {
+                return s
+            } else {
+                return .Unknown
+            }
+        }
+        set {
+            status = newValue.rawValue
+        }
+    }
 
     func populateFrom(json: JSON) {
         if let id = json["id"].int {
@@ -256,8 +255,8 @@ class RUP: Object, MyraObject {
         }
     }
 
-    func clone() -> RUP {
-        let plan = RUP()
+    func clone() -> Plan {
+        let plan = Plan()
 
         // Copy values
         plan.remoteId = self.remoteId

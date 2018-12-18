@@ -17,7 +17,7 @@ class MonitoringAreaViewController: BaseViewController {
     var monitoringArea: MonitoringArea?
     var plantCommunity: PlantCommunity?
     var mode: FormMode = .View
-    var plan: RUP?
+    var plan: Plan?
 
     // MARK: Outlets
     @IBOutlet weak var pageTitle: UILabel!
@@ -66,7 +66,7 @@ class MonitoringAreaViewController: BaseViewController {
 //    }
 
     // MARK: Setup
-    func setup(mode: FormMode, plan: RUP, plantCommunity: PlantCommunity, monitoringArea: MonitoringArea, completion: @escaping (_ done: Bool) -> Void) {
+    func setup(mode: FormMode, plan: Plan, plantCommunity: PlantCommunity, monitoringArea: MonitoringArea, completion: @escaping (_ done: Bool) -> Void) {
         self.monitoringArea = monitoringArea
         self.mode = mode
         self.plantCommunity = plantCommunity

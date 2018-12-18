@@ -77,7 +77,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
             RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
             do {
                 let realm = try Realm()
-                let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
                 try realm.write {
                     aRup.schedules.append(copy)
                     realm.add(copy)
@@ -92,7 +92,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
     
     // MARK: Setup
-    func setup(mode: FormMode, rup: RUP, schedule: Schedule, parentReference: ScheduleTableViewCell) {
+    func setup(mode: FormMode, rup: Plan, schedule: Schedule, parentReference: ScheduleTableViewCell) {
         self.schedule = schedule
         if nameLabel != nil { nameLabel.text = schedule.name }
         self.parentReference = parentReference

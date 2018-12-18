@@ -28,7 +28,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     var mode: FormMode = .View
     var schedule: Schedule?
     var objects: [ScheduleObject] = [ScheduleObject]()
-    var rup: RUP?
+    var rup: Plan?
     var parentReference: ScheduleViewController?
     var currentSort: ScheduleSort = .None {
         didSet {
@@ -133,7 +133,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Setup
-    func setup(mode: FormMode,schedule: Schedule, rup: RUP, parentReference: ScheduleViewController) {
+    func setup(mode: FormMode,schedule: Schedule, rup: Plan, parentReference: ScheduleViewController) {
         self.parentReference = parentReference
         self.rup = rup
         self.mode = mode

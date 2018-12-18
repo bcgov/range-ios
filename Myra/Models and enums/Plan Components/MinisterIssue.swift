@@ -150,7 +150,7 @@ class MinisterIssue: Object, MyraObject {
         return pastureIds
     }
 
-    convenience init(json: JSON, plan: RUP) {
+    convenience init(json: JSON, plan: Plan) {
         self.init()
         if let id = json["id"].int {
             self.remoteId = id

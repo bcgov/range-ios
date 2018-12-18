@@ -33,7 +33,7 @@ class Agreement: Object, MyraObject {
     var clients = List<Client>()
     var rangeUsageYears = List<RangeUsageYear>()
     var zones = List<Zone>()
-    var rups = List<RUP>()
+    var rups = List<Plan>()
 
     func primaryAgreementHolder() -> String {
         for client in self.clients {
@@ -105,7 +105,7 @@ class Agreement: Object, MyraObject {
                 if let p = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
                     RealmRequests.deleteObject(p)
                 }
-                let plan = RUP()
+                let plan = Plan()
                 plan.setFrom(agreement: self)
                 plan.populateFrom(json: planJSON.1)
                 RealmRequests.saveObject(object: plan)
@@ -141,11 +141,11 @@ class Agreement: Object, MyraObject {
          RealmRequests.saveObject(object: self)
     }
 
-    func getLatestPlan() -> RUP? {
+    func getLatestPlan() -> Plan? {
         if rups.count == 1 {
             return rups.first!
         }
-        var latest: RUP?
+        var latest: Plan?
         var tempid = -2
         for plan in rups {
             if plan.getStatus() == .LocalDraft {
@@ -159,7 +159,7 @@ class Agreement: Object, MyraObject {
         return latest
     }
 
-    func add(plan: RUP) {
+    func add(plan: Plan) {
         do {
             let realm = try Realm()
             try realm.write {

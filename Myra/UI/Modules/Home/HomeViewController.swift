@@ -29,7 +29,7 @@ class HomeViewController: BaseViewController {
     // MARK: Variables
     var realmNotificationToken: NotificationToken?
     var parentReference: MainViewController?
-    var rups: [RUP] = [RUP]()
+    var rups: [Plan] = [Plan]()
     var expandIndexPath: IndexPath?
 
     var unstableConnection: Bool = false
@@ -390,7 +390,7 @@ class HomeViewController: BaseViewController {
     func loadRUPs() {
         if syncing {return}
         RUPManager.shared.fixUnlinkedPlans()
-        self.rups = [RUP]()
+        self.rups = [Plan]()
         self.tableView.reloadData()
         /*
          Clean up the local DB by removing plans that were created
@@ -589,7 +589,7 @@ class HomeViewController: BaseViewController {
     }
 
     func synchronize() {
-        self.rups = [RUP]()
+        self.rups = [Plan]()
         self.tableView.reloadData()
         self.endChangeListener()
         self.syncing = true
@@ -721,7 +721,7 @@ extension HomeViewController {
 // MARK: Functions to handle displaying views
 extension HomeViewController {
 
-    func editRUP(rup: RUP) {
+    func editRUP(rup: Plan) {
         let vc = getCreateNewVC()
         vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
             self.expandIndexPath = nil
@@ -730,7 +730,7 @@ extension HomeViewController {
         self.present(vc, animated: true, completion: nil)
     }
 
-    func viewRUP(rup: RUP) {
+    func viewRUP(rup: Plan) {
         let vc = getCreateNewVC()
         vc.setup(rup: rup, mode: .View) { closed, cancel in
             self.expandIndexPath = nil
@@ -878,7 +878,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
     func setDummyPlan() {
         let agreement = Agreement()
         agreement.agreementId = "RAN000000"
-        let plan = RUP()
+        let plan = Plan()
         plan.ranNumber = 000000
         plan.rangeName = "Tour Range"
         plan.remoteId = -99

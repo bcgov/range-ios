@@ -48,7 +48,7 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
         super.setSelected(selected, animated: animated)
     }
 
-    override func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
         self.rup = rup
         style()

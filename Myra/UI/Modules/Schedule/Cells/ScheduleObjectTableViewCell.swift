@@ -416,7 +416,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     // MARK: Setup
-    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
+    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
         self.rup = rup
         self.mode = mode
         self.scheduleObject = scheduleObject
@@ -449,7 +449,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         }
     }
 
-    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController) {
+    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController) {
         self.rup = rup
         self.mode = mode
         self.scheduleObject = scheduleObject

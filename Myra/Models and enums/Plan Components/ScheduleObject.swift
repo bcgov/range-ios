@@ -77,7 +77,7 @@ class ScheduleObject: Object, MyraObject {
         }
     }
 
-    func copy(in plan: RUP) -> ScheduleObject {
+    func copy(in plan: Plan) -> ScheduleObject {
         let entry = ScheduleObject()
 
         /*
@@ -137,7 +137,7 @@ class ScheduleObject: Object, MyraObject {
         return schedule
     }
 
-    convenience init(json: JSON, plan: RUP) {
+    convenience init(json: JSON, plan: Plan) {
         self.init()
         
         if let id = json["id"].int {

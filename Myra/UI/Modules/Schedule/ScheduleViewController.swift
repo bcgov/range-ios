@@ -17,7 +17,7 @@ class ScheduleViewController: BaseViewController {
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var entries: [ScheduleObject] = [ScheduleObject]()
-    var rup: RUP?
+    var rup: Plan?
     var mode: FormMode = .View
     var popupContainerTag = 200
     var popover: UIPopoverPresentationController?
@@ -206,7 +206,7 @@ class ScheduleViewController: BaseViewController {
 
 
     // MARK: Setup
-    func setup(mode: FormMode, rup: RUP, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
+    func setup(mode: FormMode, rup: Plan, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
         self.rup = rup
         self.mode = mode
         self.schedule = schedule

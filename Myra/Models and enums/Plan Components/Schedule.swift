@@ -31,7 +31,7 @@ class Schedule: Object, MyraObject {
     
     var scheduleObjects = List<ScheduleObject>()
 
-    func copy(in plan: RUP) -> Schedule {
+    func copy(in plan: Plan) -> Schedule {
         let schedule = Schedule()
         schedule.year = self.year
         schedule.notes = self.notes
@@ -72,7 +72,7 @@ class Schedule: Object, MyraObject {
         return r
     }
 
-    convenience init(json: JSON, plan: RUP) {
+    convenience init(json: JSON, plan: Plan) {
         self.init()
         if let id = json["id"].int {
             self.remoteId = id

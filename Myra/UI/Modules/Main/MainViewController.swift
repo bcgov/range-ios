@@ -73,7 +73,7 @@ extension MainViewController {
         add(asChildViewController: selectAgreement)
     }
 
-    func showPlanForm(for plan: RUP, mode: FormMode) {
+    func showPlanForm(for plan: Plan, mode: FormMode) {
         let vm = ViewManager()
         let createPage = vm.createRUP
         createPage.setup(rup: plan, mode: mode) { (close, cancel) in

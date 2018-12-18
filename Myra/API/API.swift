@@ -237,7 +237,7 @@ class API {
     }
 
     // MARK: Plan
-    static func getPlan(withRemoteId id: Int, completion: @escaping (_ plan: RUP?) -> Void) {
+    static func getPlan(withRemoteId id: Int, completion: @escaping (_ plan: Plan?) -> Void) {
         let planPath = "\(Constants.API.planPath)\(id)"
         guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
             return completion(nil)
@@ -245,13 +245,13 @@ class API {
 
         API.get(endpoint: endpoint) { (planJSON) in
             guard let planJSON = planJSON else {return completion(nil)}
-            let plan = RUP()
+            let plan = Plan()
             plan.populateFrom(json: planJSON)
             return completion(plan)
         }
     }
 
-    static func refetch(plan: RUP, completion: @escaping (_ success: Bool) -> Void) {
+    static func refetch(plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         API.getPlan(withRemoteId: plan.remoteId) { (plan) in
             guard let new = plan, let old = RealmManager.shared.plan(withRemoteId: new.remoteId), let agreement = RealmManager.shared.agreement(withAgreementId: old.agreementId) else {
                 Banner.shared.show(message: "ERROR while re-fetching a plan")
@@ -269,7 +269,7 @@ class API {
         }
     }
 
-    static func setStatus(for plan: RUP, completion: @escaping (_ success: Bool) -> Void) {
+    static func setStatus(for plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         let id = plan.remoteId
         let planPath = "\(Constants.API.planPath)\(id)/status"
 
@@ -288,7 +288,7 @@ class API {
         }
     }
 
-    static func getStatus(for plan: RUP, completion: @escaping (_ success: Bool) -> Void) {
+    static func getStatus(for plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         API.getPlan(withRemoteId: plan.remoteId) { (downloadedPlan) in
             guard let downloadedPlan = downloadedPlan else {
                 Banner.shared.show(message: "ERROR while updating a plan status")
@@ -299,7 +299,7 @@ class API {
         }
     }
 
-    static func upload(statusesFor plans: [RUP], completion: @escaping (_ success: Bool) -> Void) {
+    static func upload(statusesFor plans: [Plan], completion: @escaping (_ success: Bool) -> Void) {
         let group = DispatchGroup()
         var hadFails = false
         for plan in plans {
@@ -328,7 +328,7 @@ class API {
         }
     }
 
-    static func completeUpload(for plan: RUP, completion: @escaping (_ success: Bool) -> Void) {
+    static func completeUpload(for plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         guard let myPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let path = "\(Constants.API.planPath)\(myPlan.remoteId)"
         guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
@@ -345,7 +345,7 @@ class API {
         }
     }
 
-    static func upload(plans: [RUP], completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(plans: [Plan], completion: @escaping (_ success: Bool) -> ()) {
         let group = DispatchGroup()
         var hadFails: Bool = false
         for plan in plans {
@@ -371,7 +371,7 @@ class API {
         }
     }
 
-    static func upload(plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
 
         guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL!), let currentPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {
             return completion(false)
@@ -399,7 +399,7 @@ class API {
         }
     }
 
-    static func uploadComponents(forPlan plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func uploadComponents(forPlan plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchPlan = RealmManager.shared.plan(withLocalId: plan.localId) else { return completion(false) }
         API.upload(pasturesIn: refetchPlan) { (uploadedPastures) in
             if uploadedPastures {
@@ -467,7 +467,7 @@ class API {
         }
     }
 
-    static func upload(invasivePlantsIn plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(invasivePlantsIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         if let invasivePlantsObject = refetchedPlan.invasivePlants.first {
             upload(invasivePlants: invasivePlantsObject, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
@@ -499,7 +499,7 @@ class API {
         }
     }
 
-    static func upload(managementConsiderations plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(managementConsiderations plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let group = DispatchGroup()
         var hadFails = false
@@ -543,7 +543,7 @@ class API {
         }
     }
 
-    static func upload(additionalRequirements plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(additionalRequirements plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let group = DispatchGroup()
         var hadFails = false
@@ -591,7 +591,7 @@ class API {
         }
     }
 
-    static func upload(pasturesIn plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(pasturesIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let group = DispatchGroup()
         var hadFails = false
@@ -852,7 +852,7 @@ class API {
         }
     }
 
-    static func upload(schedulesIn plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(schedulesIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         if refetchedPlan.schedules.count == 0 {return completion(true)}
         let group = DispatchGroup()
@@ -905,7 +905,7 @@ class API {
         }
     }
 
-    static func upload(ministersIssuesIn plan: RUP, completion: @escaping (_ success: Bool) -> ()) {
+    static func upload(ministersIssuesIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         if refetchedPlan.ministerIssues.count == 0 {return completion(true)}
         let group = DispatchGroup()

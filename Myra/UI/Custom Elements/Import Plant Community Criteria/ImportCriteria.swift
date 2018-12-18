@@ -11,7 +11,7 @@ import UIKit
 class ImportCriteria: UIView, Theme {
 
     // MARK: Variables
-    private var plan: RUP?
+    private var plan: Plan?
     var object: ImportCriteriaObject?
 
     private let padding: CGFloat = 25
@@ -92,7 +92,7 @@ class ImportCriteria: UIView, Theme {
     }
     
     // MARK: Entry Point
-    func showFlow(for plan: RUP, then: @escaping(_ plantCommunity: PlantCommunity,_ sections: [PlantCommunityCriteriaFromSection]) -> Void) {
+    func showFlow(for plan: Plan, then: @escaping(_ plantCommunity: PlantCommunity,_ sections: [PlantCommunityCriteriaFromSection]) -> Void) {
         initCollectionView()
         style()
         self.plan = plan

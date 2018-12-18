@@ -16,7 +16,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
     var mode: FormMode = .View
     var plantCommunity: PlantCommunity?
     var parentReference: PlantCommunityViewController?
-    var rup: RUP?
+    var rup: Plan?
 
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -68,7 +68,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Setup
-    func setup(plantCommunity: PlantCommunity, mode: FormMode, rup: RUP, parentReference: PlantCommunityViewController) {
+    func setup(plantCommunity: PlantCommunity, mode: FormMode, rup: Plan, parentReference: PlantCommunityViewController) {
         self.plantCommunity = plantCommunity
         self.mode = mode
         self.parentReference = parentReference

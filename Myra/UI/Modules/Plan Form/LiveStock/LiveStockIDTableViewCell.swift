@@ -35,7 +35,7 @@ class LiveStockIDTableViewCell: BaseFormCell {
     }
 
     // Mark: Functions
-    override func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
         self.rup = rup
         setUpTable()

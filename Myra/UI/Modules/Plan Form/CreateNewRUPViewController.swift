@@ -58,11 +58,11 @@ class CreateNewRUPViewController: BaseViewController {
     var managementIndexPath: IndexPath = [0,0]
     var mapIndexPath: IndexPath = [0,0]
 
-    var rup: RUP?
+    var rup: Plan?
 
     var updateAmendmentEnabled = false
 
-    var copy: RUP?
+    var copy: Plan?
 
     var reloading: Bool = false
 
@@ -257,7 +257,7 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     @IBAction func cancelAction(_ sender: UIButton) {
-        if let new: RUP = self.copy, let old: RUP = self.rup {
+        if let new: Plan = self.copy, let old: Plan = self.rup {
 
             // If is not new (not just created from agreement)
             // Store the copy created before changes.
@@ -388,7 +388,7 @@ class CreateNewRUPViewController: BaseViewController {
         guard let plan = self.rup else {return}
         do {
             let realm = try Realm()
-            let aRup = realm.objects(RUP.self).filter("localId = %@", plan.localId).first!
+            let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first!
             self.rup = aRup
         } catch _ {
             fatalError()
@@ -396,7 +396,7 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Setup
-    func setup(rup: RUP, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
+    func setup(rup: Plan, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup
         self.mode = mode
@@ -527,7 +527,7 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
 
-    func getPlanActions(for plan: RUP) -> [PlanAction] {
+    func getPlanActions(for plan: Plan) -> [PlanAction] {
         var returnValue: [PlanAction] = [PlanAction]()
         let current = plan.getStatus()
 

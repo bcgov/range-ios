@@ -282,7 +282,7 @@ class PastureTableViewCell: BaseFormCell {
                 RUPManager.shared.copyPasture(from: past, to: newPasture)
                 do {
                     let realm = try Realm()
-                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                    let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
                     try realm.write {
                         aRup.pastures.append(newPasture)
                         realm.add(newPasture)

@@ -45,7 +45,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
                     newIssue.issueTypeID = type.id
                     do {
                         let realm = try Realm()
-                        let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                        let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
                         try realm.write {
                             aRup.ministerIssues.append(newIssue)
                             realm.add(newIssue)
@@ -63,7 +63,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
 
 
     // MARK: Setup
-    override func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
         self.rup = rup
         for element in rup.ministerIssues {
