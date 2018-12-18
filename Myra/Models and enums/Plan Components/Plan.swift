@@ -74,19 +74,7 @@ class Plan: Object, MyraObject {
     var additionalRequirements = List<AdditionalRequirement>()
     var managementConsiderations = List<ManagementConsideration>()
 
-    var statusEnum: RUPStatus {
-        get {
-            if let s = RUPStatus(rawValue: status) {
-                return s
-            } else {
-                return .Unknown
-            }
-        }
-        set {
-            status = newValue.rawValue
-        }
-    }
-
+    // MARK: Initializations
     func populateFrom(json: JSON) {
         if let id = json["id"].int {
             self.remoteId = id
@@ -193,68 +181,80 @@ class Plan: Object, MyraObject {
         self.ranNumber = Int(splitRan[1]) ?? 0
     }
 
-    func getStatus() -> RUPStatus {
-        // if it's a local draft
-        if self.statusEnum == .LocalDraft {
-            return self.statusEnum
-        }
+    // MARK: Deletion
+    func deleteEntries() {
 
-        // if it's an outbox
-        if self.statusEnum == .Outbox {
-            return self.statusEnum
-        }
-
-        // if there is a remote status, use it
-        if let temp = Reference.shared.getStatus(forId: statusId) {
-            var statusName = temp.name.trimmingCharacters(in: .whitespaces)
-            statusName = statusName.replacingOccurrences(of: "-", with: "")
-            // Remote Draft status means its a client's draft
-            if statusName == "Draft" { statusName = "ClientDraft" }
-            guard let result = RUPStatus(rawValue: statusName.removeWhitespaces()) else {
-                return .Unknown
+        for object in self.pastures {
+            for element in object.plantCommunities {
+                element.deleteSubEntries()
+                RealmRequests.deleteObject(element)
             }
-            return result
-            // otherwise use local status
-        } else {
-            return self.statusEnum
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.schedules {
+            object.deleteSubEntries()
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.ministerIssues {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.invasivePlants {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.additionalRequirements {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.managementConsiderations {
+            RealmRequests.deleteObject(object)
         }
     }
 
+    // MARk: Edit Entries
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setShouldUpdateRemoteStatus(should: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                shouldUpdateRemoteStatus = should
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    // MARK: Validations
     func canBeUploadedAsDraft() -> Bool {
         return (self.getStatus() == .LocalDraft && self.rangeName.count > 0 && self.planStartDate != nil && self.planEndDate != nil)
     }
 
-    func updateStatusId(newID: Int) {
-        let statusObject = Reference.shared.getStatus(forId: newID)
-        guard let obj = statusObject else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                statusId = newID
-                statusIdValue = obj.name
-            }
-        } catch _ {
-            fatalError()
+    // Checks required fields
+    var isValid: Bool {
+        if planEndDate == nil ||
+            planEndDate == nil ||
+            rangeName == ""
+        {
+            return false
+        } else {
+            return true
         }
     }
 
-    func updateStatus(with newStatus: RUPStatus) {
-        let tempId = Reference.shared.convertToPlanStatus(status: newStatus).id
-        let statusObject = Reference.shared.getStatus(forId: tempId)
-        guard let obj = statusObject else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                statusEnum = newStatus
-                shouldUpdateRemoteStatus = true
-                statusId = tempId
-                statusIdValue = obj.name
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
+    // MARK: Export
     func clone() -> Plan {
         let plan = Plan()
 
@@ -313,88 +313,10 @@ class Plan: Object, MyraObject {
         plan.clients = self.clients
         plan.zones = self.zones
         plan.rangeUsageYears = self.rangeUsageYears
-        
+
         return plan
     }
 
-    func deleteEntries() {
-
-        // TODO: Delete innder objects
-        /*
-         when deleting, we need to remove all pastures and schedule objects manually.
-         */
-        for object in self.pastures {
-            for element in object.plantCommunities {
-                element.deleteSubEntries()
-                RealmRequests.deleteObject(element)
-            }
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.schedules {
-            object.deleteSubEntries()
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.ministerIssues {
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.invasivePlants {
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.additionalRequirements {
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.managementConsiderations {
-            RealmRequests.deleteObject(object)
-        }
-    }
-
-    // Checks required fields
-    var isValid: Bool {
-        if planEndDate == nil ||
-            planEndDate == nil ||
-            rangeName == ""
-        {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    func pastureWith(remoteId: Int) -> Pasture? {
-        for pasture in pastures {
-            if pasture.remoteId == remoteId {
-                return pasture
-            }
-        }
-        return nil
-    }
-
-    func setRemoteId(id: Int) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                remoteId = id
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
-    func setShouldUpdateRemoteStatus(should: Bool) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                shouldUpdateRemoteStatus = should
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
 
     func toDictionary() -> [String:Any] {
         // if invalid, return empty dictionary
@@ -425,4 +347,87 @@ class Plan: Object, MyraObject {
             "statusId": currStatusId
         ]
     }
+
+    // MARK: Plan Status
+    var statusEnum: RUPStatus {
+        get {
+            if let s = RUPStatus(rawValue: status) {
+                return s
+            } else {
+                return .Unknown
+            }
+        }
+        set {
+            status = newValue.rawValue
+        }
+    }
+
+    func getStatus() -> RUPStatus {
+        // if it's a local draft
+        if self.statusEnum == .LocalDraft {
+            return self.statusEnum
+        }
+
+        // if it's an outbox
+        if self.statusEnum == .Outbox {
+            return self.statusEnum
+        }
+
+        // if there is a remote status, use it
+        if let temp = Reference.shared.getStatus(forId: statusId) {
+            var statusName = temp.name.trimmingCharacters(in: .whitespaces)
+            statusName = statusName.replacingOccurrences(of: "-", with: "")
+            // Remote Draft status means its a client's draft
+            if statusName == "Draft" { statusName = "ClientDraft" }
+            guard let result = RUPStatus(rawValue: statusName.removeWhitespaces()) else {
+                return .Unknown
+            }
+            return result
+            // otherwise use local status
+        } else {
+            return self.statusEnum
+        }
+    }
+
+    func updateStatusId(newID: Int) {
+        let statusObject = Reference.shared.getStatus(forId: newID)
+        guard let obj = statusObject else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                statusId = newID
+                statusIdValue = obj.name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func updateStatus(with newStatus: RUPStatus) {
+        let tempId = Reference.shared.convertToPlanStatus(status: newStatus).id
+        let statusObject = Reference.shared.getStatus(forId: tempId)
+        guard let obj = statusObject else {return}
+        do {
+            let realm = try Realm()
+            try realm.write {
+                statusEnum = newStatus
+                shouldUpdateRemoteStatus = true
+                statusId = tempId
+                statusIdValue = obj.name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    // MARK: Helpers
+    func pastureWith(remoteId: Int) -> Pasture? {
+        for pasture in pastures {
+            if pasture.remoteId == remoteId {
+                return pasture
+            }
+        }
+        return nil
+    }
+
 }
