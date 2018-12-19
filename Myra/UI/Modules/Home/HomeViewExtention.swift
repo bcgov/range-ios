@@ -24,7 +24,10 @@ extension HomeViewController {
                     self.showAlert(title: "Are you sure?", description: "Logging out will delete all plans that have not been synced.", yesButtonTapped: {
                         AutoSync.shared.endListener()
                         self.logout()
-                        p.removeCurrentVCAndReload()
+                        // TODO: test functionality
+                        // CLEAN-FLAG
+//                        p.removeCurrentVCAndReload()
+                        p.chooseInitialView()
                     }, noButtonTapped: {})
                 }
             } else {

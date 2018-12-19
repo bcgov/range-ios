@@ -245,12 +245,14 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
-        let vm = ViewManager()
-        let vc = vm.selectAgreement
-        vc.setup(callBack: { closed in
-            self.loadHome()
-        })
-        self.present(vc, animated: true, completion: nil)
+        guard let parent = self.parentReference else {return}
+        parent.showBeginNewPlan()
+//        let vm = ViewManager()
+//        let vc = vm.selectAgreement
+//        vc.setup(callBack: { closed in
+//            self.loadHome()
+//        })
+//        self.present(vc, animated: true, completion: nil)
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
