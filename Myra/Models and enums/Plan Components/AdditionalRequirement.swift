@@ -77,11 +77,7 @@ class AdditionalRequirement: Object {
 
     // MARK: Validations
     func requiredFieldsAreFilled() -> Bool {
-        if category.isEmpty || detail.isEmpty {
-            return false
-        } else {
-            return true
-        }
+        return !(category.isEmpty || detail.isEmpty)
     }
 
     // MARK: Export
