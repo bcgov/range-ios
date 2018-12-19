@@ -85,11 +85,7 @@ class Pasture: Object, MyraObject {
 
     // MARK: Validations
     func requiredFieldsAreFilled() -> Bool {
-        if self.name.isEmpty {
-            return false
-        } else {
-            return true
-        }
+        return !(self.name.isEmpty)
     }
 
     // MARK: Export
