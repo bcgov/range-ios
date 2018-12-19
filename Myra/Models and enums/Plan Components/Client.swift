@@ -26,14 +26,7 @@ class Client: Object {
     @objc dynamic var startDate: Date?
     @objc dynamic var clientTypeCode: String = ""
 
-    func set(id: String, name: String, locationCode: String, startDate: Date, clientTypeCode: String) {
-        self.id = id
-        self.name = name
-        self.locationCode = locationCode
-        self.startDate = startDate
-        self.clientTypeCode = clientTypeCode
-    }
-
+    // MARK: Initializations
     convenience init(json: JSON) {
         self.init()
 
@@ -56,5 +49,14 @@ class Client: Object {
         if let cclientTypeCode = json["clientTypeCode"].string {
             self.clientTypeCode = cclientTypeCode
         }
+    }
+
+    // MARK: Setters
+    func set(id: String, name: String, locationCode: String, startDate: Date, clientTypeCode: String) {
+        self.id = id
+        self.name = name
+        self.locationCode = locationCode
+        self.startDate = startDate
+        self.clientTypeCode = clientTypeCode
     }
 }

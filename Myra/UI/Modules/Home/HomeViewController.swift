@@ -148,16 +148,17 @@ class HomeViewController: BaseViewController {
 
     @IBAction func testCam(_ sender: UIButton) {
 //        Feedback.show(in: self)
-        let cam = Cam()
-        cam.display(on: self) { (photo) in
-            if let photo = photo {
-                Loading.shared.start()
-                let pic = RangePhoto()
-                pic.save(from: photo)
-                let preview: TagImage = TagImage.fromNib()
-                preview.show(with: pic, in: self, then: {})
-            }
-        }
+
+//        let cam = Cam()
+//        cam.display(on: self) { (photo) in
+//            if let photo = photo {
+//                Loading.shared.start()
+//                let pic = RangePhoto()
+//                pic.save(from: photo)
+//                let preview: TagImage = TagImage.fromNib()
+//                preview.show(with: pic, in: self, then: {})
+//            }
+//        }
     }
 
 //    func slideShow(images: [RangePhoto]) {
@@ -208,7 +209,11 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func tourAction(_ sender: UIButton) {
-        beginTour()
+        let dialog: GetNameDialog = UIView.fromNib()
+        dialog.initialize {
+            self.beginTour()
+        }
+
 //        beginTourTip()
 
         /*

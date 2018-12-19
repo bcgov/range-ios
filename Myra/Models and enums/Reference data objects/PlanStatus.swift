@@ -11,12 +11,13 @@ import Realm
 import RealmSwift
 
 class PlanStatus: Object {
+    
     @objc dynamic var realmID: String = {
         return UUID().uuidString
     }()
 
     override class func primaryKey() -> String? {
-    return "realmID"
+        return "realmID"
     }
 
     @objc dynamic var id: Int = -1

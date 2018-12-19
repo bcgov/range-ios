@@ -129,7 +129,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
 //        } else {
 //            self.rightField.text = ip.getDetail()
 //        }
-        self.rightField.text = ip.getDetail()
+        self.rightField.text = "\(ip.number)"
 
         if ip.type == freeTextOption {
             switch section {

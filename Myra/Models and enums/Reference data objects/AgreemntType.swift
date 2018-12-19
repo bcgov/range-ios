@@ -12,6 +12,7 @@ import RealmSwift
 import SwiftyJSON
 
 class AgreementType: Object {
+    
     @objc dynamic var realmID: String = {
          return UUID().uuidString
     }()
