@@ -37,12 +37,15 @@ class BaseViewController: UIViewController, Theme {
 
     // MARK: Variables
     var loading: UIImageView?
+    // TODO: Remove
     var loadingImages = [UIImage]()
-
     var currentPopOver: UIViewController?
+    var presenterVC: UIViewController?
 
+    // NARK: VC Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        // TODO: Remove
         if loadingImages.count != 4 {
             setupLoadingIndicatorImages()
         }
@@ -51,10 +54,6 @@ class BaseViewController: UIViewController, Theme {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Feedback.initializeButton()
-    }
-
-    public func dismissKeyboard() {
-        self.view.endEditing(true)
     }
 
     // MARK: Event handlers
@@ -66,6 +65,21 @@ class BaseViewController: UIViewController, Theme {
     func syncEnd() {}
     func orientationChanged() {
         dismissPopOver()
+    }
+
+    // MARK:
+    func setPresenter(viewController: UIViewController) {
+        self.presenterVC = viewController
+    }
+
+    func getPresenter() -> MainViewController? {
+        guard let presenter = self.presenterVC, let mainVC = presenter as? MainViewController else {return nil}
+        return mainVC
+    }
+
+    // MARK: Utilities
+    public func dismissKeyboard() {
+        self.view.endEditing(true)
     }
 
     func notifyOrientationChange() {
@@ -230,6 +244,7 @@ extension BaseViewController {
 
 // MARK: Loading Spinner
 extension BaseViewController {
+    // TODO: Remove
     func setupLoadingIndicatorImages() {
         var images = [UIImage]()
 

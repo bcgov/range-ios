@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlantCommunityMonitoringAreaTableViewCell: UITableViewCell, Theme {
+class PlantCommunityMonitoringAreaTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 72.0

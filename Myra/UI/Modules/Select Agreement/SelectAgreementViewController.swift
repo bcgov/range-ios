@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectAgreementViewController: UIViewController, Theme {
+class SelectAgreementViewController: BaseViewController {
 
     // MARK: Variables
     var parentCallBack: ((_ close: Bool) -> Void )?

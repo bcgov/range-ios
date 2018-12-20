@@ -19,7 +19,7 @@ enum ScheduleSort {
     case Number
 }
 
-class ScheduleFormTableViewCell: UITableViewCell, Theme {
+class ScheduleFormTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 55.0

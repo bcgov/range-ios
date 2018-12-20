@@ -246,7 +246,7 @@ class HomeViewController: BaseViewController {
 
     @IBAction func createRUPAction(_ sender: UIButton) {
         guard let parent = self.parentReference else {return}
-        parent.showBeginNewPlan()
+        parent.showCreateNew()
 //        let vm = ViewManager()
 //        let vc = vm.selectAgreement
 //        vc.setup(callBack: { closed in

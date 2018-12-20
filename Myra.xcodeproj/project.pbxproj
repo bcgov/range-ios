@@ -175,6 +175,7 @@
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
 		297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */; };
 		297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */; };
+		297D8FED21CC3E9100D9A8B8 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297D8FEC21CC3E9000D9A8B8 /* BaseTableViewCell.swift */; };
 		297E9987216545D100FB6F04 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297E9986216545D100FB6F04 /* Map.storyboard */; };
 		297E9989216545E700FB6F04 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E9988216545E700FB6F04 /* MapViewController.swift */; };
 		297E998B2165479F00FB6F04 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E998A2165479F00FB6F04 /* Pin.swift */; };
@@ -435,6 +436,7 @@
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
 		297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
+		297D8FEC21CC3E9000D9A8B8 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		297E9986216545D100FB6F04 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		297E9988216545E700FB6F04 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		297E998A2165479F00FB6F04 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 				2920F8402034F3880090E7B4 /* BaseViewController.swift */,
 				290E153B2048C9FE00A51884 /* BaseFormCell.swift */,
 				29EAA4EC2135CD62003B6CE5 /* BaseCollectionViewCell.swift */,
+				297D8FEC21CC3E9000D9A8B8 /* BaseTableViewCell.swift */,
 				294005852092726D00AA1BDC /* Theme.swift */,
 				293020072139A22000E121E0 /* Router.swift */,
 				29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */,
@@ -1196,8 +1199,8 @@
 		29EB8442203DEE7A00D73F6B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				2920F83F2034F37A0090E7B4 /* Base */,
 				297D8FC921C9647F00D9A8B8 /* Custom Elements */,
+				2920F83F2034F37A0090E7B4 /* Base */,
 				29EB8443203DEE8600D73F6B /* Modules */,
 			);
 			path = UI;
@@ -1483,6 +1486,7 @@
 				29EAA4ED2135CD62003B6CE5 /* BaseCollectionViewCell.swift in Sources */,
 				2962B0EA204F167C00F71B9C /* Schedule.swift in Sources */,
 				29616EA721063ADA003102F8 /* EmptyTableViewCell.swift in Sources */,
+				297D8FED21CC3E9100D9A8B8 /* BaseTableViewCell.swift in Sources */,
 				292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */,
 				29227B7120F00EF00042B88E /* PlantCommunityActionTableViewCell.swift in Sources */,
 				299D3EB3217E66F60000781E /* EmptyPastureTableViewCell.swift in Sources */,

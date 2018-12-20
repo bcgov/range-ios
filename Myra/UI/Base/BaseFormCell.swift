@@ -9,7 +9,7 @@
 import UIKit
 import Extended
 
-class BaseFormCell: UITableViewCell, Theme {
+class BaseFormCell: BaseTableViewCell {
 
     // MARK: Variables
     var rup: Plan = Plan()

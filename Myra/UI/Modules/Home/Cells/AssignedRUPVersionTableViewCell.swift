@@ -9,7 +9,7 @@
 import UIKit
 import Extended
 
-class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
+class AssignedRUPVersionTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     static let cellHeight = 40

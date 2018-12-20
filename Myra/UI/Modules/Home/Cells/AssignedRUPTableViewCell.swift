@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AssignedRUPTableViewCell: UITableViewCell, Theme {
+class AssignedRUPTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var rup: Plan?

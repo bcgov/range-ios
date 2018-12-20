@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShrubUseTableViewCell: UITableViewCell, Theme {
+class ShrubUseTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var mode: FormMode = .View

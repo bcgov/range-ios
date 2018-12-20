@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AgreementTableViewCell: UITableViewCell, Theme {
+class AgreementTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var agreement: Agreement?

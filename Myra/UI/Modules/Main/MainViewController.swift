@@ -59,96 +59,75 @@ extension MainViewController {
     func chooseInitialView() {
         if let _ = RealmManager.shared.getLastSyncDate() {
             // Go to home page
-            showHomePage()
+            showHome()
         } else {
             // last sync doesn't exist.
             // Go to login page
-            showLoginPage()
+            showLogin()
         }
     }
     
-    func showLoginPage() {
+    func showLogin() {
+        transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
         let vm = ViewManager()
-        let loginVC = vm.login
-        loginVC.setup(parentReference: self)
+        let vc = vm.login
+        vc.setup(parentReference: self)
         self.loginDisplayed = true
-        show(viewController: loginVC)
-//        add(asChildViewController: vm.login)
+        vc.setPresenter(viewController: self)
+        show(viewController: vc, addToStack: false)
     }
 
-    func showHomePage() {
+    func showHome() {
+        transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
         let vm = ViewManager()
-        let home = vm.home
-        home.parentReference = self
-        home.presentedAfterLogin = loginDisplayed
-        show(viewController: home)
-//        add(asChildViewController: vm.home)
+        let vc = vm.home
+        vc.parentReference = self
+        vc.presentedAfterLogin = loginDisplayed
+        vc.setPresenter(viewController: self)
+        show(viewController: vc)
     }
 
-    func showBeginNewPlan() {
+    func showCreateNew() {
+        transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
         let vm = ViewManager()
-        show(viewController: vm.selectAgreement)
+        let vc = vm.selectAgreement
+        vc.setPresenter(viewController: self)
+        show(viewController: vc)
     }
 
+    func showForm(for plan: Plan, mode: FormMode) {
+        transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
+        let vm = ViewManager()
+        let vc = vm.createRUP
+        vc.setPresenter(viewController: self)
+        vc.setup(rup: plan, mode: mode) { (closed, cancel) in
+            self.showHome()
+        }
+        show(viewController: vc)
+    }
 
-    //// Unused
-//    func showSelectAgreementPage() {
-//        let vm = ViewManager()
-//        let selectAgreement = vm.selectAgreement
-//        selectAgreement.setup(callBack: { closed in
-//            self.showHomePage()
-//        })
-//        add(asChildViewController: selectAgreement)
-//    }
-//
-//    func showPlanForm(for plan: Plan, mode: FormMode) {
-//        let vm = ViewManager()
-//        let createPage = vm.createRUP
-//        createPage.setup(rup: plan, mode: mode) { (close, cancel) in
-//            self.showHomePage()
-//        }
-//        add(asChildViewController: createPage)
-//    }
-    ////
+    func showScheduleDetails(for schedule: Schedule, in plan: Plan, mode: FormMode) {
+        let vm = ViewManager()
+        let vc = vm.schedule
+        AutoSync.shared.endListener()
+        vc.setup(mode: mode, rup: plan, schedule: schedule, completion: { done in
+            AutoSync.shared.beginListener()
+            self.goBack()
+        })
+        show(viewController: vc)
+    }
 
+    func showPlanCommunityDetails(for plantCommunity: PlantCommunity, of pasture: Pasture, in plan: Plan, mode: FormMode) {
+        let vm = ViewManager()
+        let vc = vm.plantCommunity
+        AutoSync.shared.endListener()
+        vc.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: { done in
+            AutoSync.shared.beginListener()
+            self.goBack()
+        })
+        show(viewController: vc)
+    }
 }
-
-// MARK: Handle Presentation
-//extension MainViewController {
-//    func add(asChildViewController viewController: UIViewController) {
-//        self.currentChildVC = viewController
-//        addChild(viewController)
-//        self.body.addSubview(viewController.view)
-//        viewController.view.frame = self.body.bounds
-//        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        viewController.didMove(toParent: self)
-//    }
-//
-//    func removeSubviews() {
-//        let subviews = body.subviews
-//        for sub in subviews {
-//            sub.removeFromSuperview()
-//        }
-//        self.chooseInitialView()
-//    }
-//
-//    func removeCurrentVC() {
-//        guard let currentChildVC = self.currentChildVC else {return}
-//        remove(asChildViewController: currentChildVC)
-//    }
-//
-//    func removeCurrentVCAndReload() {
-//        guard let currentChildVC = self.currentChildVC else {return}
-//        remove(asChildViewController: currentChildVC)
-//        self.chooseInitialView()
-//    }
-//
-//    func remove(asChildViewController viewController: UIViewController) {
-//        viewController.willMove(toParent: nil)
-//        viewController.view.removeFromSuperview()
-//        viewController.removeFromParent()
-//    }
-//}
 
 extension MainViewController {
     // MARK: Nav Bar
@@ -198,7 +177,7 @@ extension MainViewController {
         if let current = previousViewControllers.popLast() {
             previousViewControllers.removeAll()
             remove(asChildViewController: current)
-            showHomePage()
+            showHome()
         }
     }
 

@@ -396,6 +396,7 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Setup
+    // TODO: Remove callback options. empty callback is good enough
     func setup(rup: Plan, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
         self.parentCallBack = callBack
         self.rup = rup

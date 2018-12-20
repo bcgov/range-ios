@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class ScheduleFooterTableViewCell: UITableViewCell, Theme {
+class ScheduleFooterTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var schedule: Schedule?

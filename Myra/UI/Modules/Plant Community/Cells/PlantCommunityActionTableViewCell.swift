@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 import DatePicker
 
-class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
+class PlantCommunityActionTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 255.0
