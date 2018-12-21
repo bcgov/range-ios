@@ -12,6 +12,7 @@ import RealmSwift
 import SwiftyJSON
 
 class Agreement: Object, MyraObject {
+
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
@@ -106,38 +107,12 @@ class Agreement: Object, MyraObject {
                     RealmRequests.deleteObject(p)
                 }
                 let plan = Plan()
-                plan.setFrom(agreement: self)
+                plan.importAgreementData(from: self)
                 plan.populateFrom(json: planJSON.1)
                 RealmRequests.saveObject(object: plan)
                 self.plans.append(plan)
             }
         }
-
-        /*
-        if let planJSON = plansJSON.first, let planRemoteId = planJSON.1["id"].int {
-            // if a plan with the same remore id exists, delete it and store the new one
-            if let p = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
-                RealmRequests.deleteObject(p)
-            }
-            let plan = RUP()
-            plan.setFrom(agreement: self)
-            plan.populateFrom(json: planJSON.1)
-            RealmRequests.saveObject(object: plan)
-            self.rups.append(plan)
-        }
-        */
-
-        // DIFF agreement if already exists
-        // else store agreement
-//        if self.agreementId == "RAN077965" {
-//            print("****")
-//        }
-
-//        if RUPManager.shared.agreementExists(id: self.agreementId) {
-//            RUPManager.shared.updateAgreement(with: self)
-//        } else {
-//            RealmRequests.saveObject(object: self)
-//        }
          RealmRequests.saveObject(object: self)
     }
 

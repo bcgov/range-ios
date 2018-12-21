@@ -260,7 +260,7 @@ class API {
             // delete existing plan.
             RealmRequests.deleteObject(old)
             // set client and range usage years from agreement
-            new.setFrom(agreement: agreement)
+            new.importAgreementData(from: agreement)
             // add plan to agreement
             agreement.add(plan: new)
             // save plan object

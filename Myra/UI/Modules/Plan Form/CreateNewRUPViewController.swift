@@ -276,7 +276,7 @@ class CreateNewRUPViewController: BaseViewController {
                     fatalError()
                 }
                 // remove modified RUP object
-                old.deleteEntries()
+                old.deleteSubEntries()
                 RealmRequests.deleteObject(old)
             }
             // ELSE it you came here from agreement selection, and changed your mind.
@@ -557,7 +557,7 @@ class CreateNewRUPViewController: BaseViewController {
             do {
                 let realm = try Realm()
                 try realm.write {
-                    new.setFrom(agreement: agreement)
+                    new.importAgreementData(from: agreement)
                     new.amendmentTypeId = inital.id
                     new.isNew = false
                     new.remoteId = -1

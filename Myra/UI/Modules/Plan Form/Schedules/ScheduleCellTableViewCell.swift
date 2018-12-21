@@ -94,7 +94,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
     // MARK: Setup
     func setup(mode: FormMode, rup: Plan, schedule: Schedule, parentReference: ScheduleTableViewCell) {
         self.schedule = schedule
-        if nameLabel != nil { nameLabel.text = schedule.name }
+        if nameLabel != nil { nameLabel.text = schedule.yearString }
         self.parentReference = parentReference
         self.rup = rup
         self.mode = mode

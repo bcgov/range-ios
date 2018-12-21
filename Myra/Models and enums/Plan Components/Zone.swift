@@ -11,20 +11,19 @@ import Realm
 import RealmSwift
 import SwiftyJSON
 
-class Zone: Object, MyraObject {
+class Zone: Object {
 
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
 
-    // if remoteId == -1, it has not been "synced"
-    @objc dynamic var remoteId: Int = -1
-
     override class func primaryKey() -> String? {
         return "localId"
     }
 
-    var districts = List<District>()
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
+
     @objc dynamic var id: Int = -1
     @objc dynamic var code: String = ""
     @objc dynamic var districtId: Int = -1
@@ -32,7 +31,9 @@ class Zone: Object, MyraObject {
     @objc dynamic var contactName: String = "Not Provided"
     @objc dynamic var contactPhoneNumber: String = "Not Provided"
     @objc dynamic var contactEmail: String = "Not Provided"
+    var districts = List<District>()
 
+    // MARK: Initializations
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
@@ -72,9 +73,5 @@ class Zone: Object, MyraObject {
         }
         
         self.districts.append(District(json: json["district"]))
-    }
-
-    func toDictionary() -> [String : Any] {
-        return [String:Any]()
     }
 }

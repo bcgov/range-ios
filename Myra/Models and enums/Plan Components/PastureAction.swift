@@ -33,25 +33,7 @@ class PastureAction: Object, MyraObject {
     @objc dynamic var noGrazeOutDay: Int = 1
     @objc dynamic var noGrazeOutMonth: Int = 12
 
-    func requiredFieldsAreFilled() -> Bool {
-        if self.details.isEmpty || self.action.isEmpty {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    func setRemoteId(id: Int) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                remoteId = id
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
+    // MARK: Initializations
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
@@ -63,7 +45,7 @@ class PastureAction: Object, MyraObject {
 
         if let noGrazeStartDay = json["noGrazeStartDay"].int, let noGrazeStartMonth = json["noGrazeStartMonth"].int {
             self.noGrazeInDay = noGrazeStartDay
-             self.noGrazeInMonth = noGrazeStartMonth
+            self.noGrazeInMonth = noGrazeStartMonth
             self.noGrazeInSelected = true
         }
 
@@ -79,19 +61,28 @@ class PastureAction: Object, MyraObject {
         }
     }
 
-    func copy() -> PastureAction {
-        let new = PastureAction()
-        new.details = self.details
-        new.action = self.action
-        new.noGrazeOutSelected = self.noGrazeOutSelected
-        new.noGrazeInDay = self.noGrazeInDay
-        new.noGrazeInMonth = self.noGrazeInMonth
-        new.noGrazeInSelected = self.noGrazeInSelected
-        new.noGrazeOutDay = self.noGrazeOutDay
-        new.noGrazeOutMonth = self.noGrazeOutMonth
-        return new
+    // MARK: Setters
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        if self.details.isEmpty || self.action.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    // MARK: Export
     func toDictionary() -> [String : Any] {
         var actionTypeId = 0
         if let actionTypeObj = Reference.shared.getPlantCommunityActionType(named: action) {
@@ -122,5 +113,19 @@ class PastureAction: Object, MyraObject {
             "noGrazeEndDay": noEndDay,
             "noGrazeEndMonth": noEndMonth
         ]
-    } 
+    }
+
+    func copy() -> PastureAction {
+        let new = PastureAction()
+        new.remoteId = self.remoteId
+        new.details = self.details
+        new.action = self.action
+        new.noGrazeOutSelected = self.noGrazeOutSelected
+        new.noGrazeInDay = self.noGrazeInDay
+        new.noGrazeInMonth = self.noGrazeInMonth
+        new.noGrazeInSelected = self.noGrazeInSelected
+        new.noGrazeOutDay = self.noGrazeOutDay
+        new.noGrazeOutMonth = self.noGrazeOutMonth
+        return new
+    }
 }
