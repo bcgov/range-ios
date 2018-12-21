@@ -109,6 +109,7 @@ extension MainViewController {
     func showScheduleDetails(for schedule: Schedule, in plan: Plan, mode: FormMode) {
         let vm = ViewManager()
         let vc = vm.schedule
+        vc.setPresenter(viewController: self)
         AutoSync.shared.endListener()
         vc.setup(mode: mode, rup: plan, schedule: schedule, completion: { done in
             AutoSync.shared.beginListener()
@@ -120,6 +121,7 @@ extension MainViewController {
     func showPlanCommunityDetails(for plantCommunity: PlantCommunity, of pasture: Pasture, in plan: Plan, mode: FormMode) {
         let vm = ViewManager()
         let vc = vm.plantCommunity
+        vc.setPresenter(viewController: self)
         AutoSync.shared.endListener()
         vc.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: { done in
             AutoSync.shared.beginListener()

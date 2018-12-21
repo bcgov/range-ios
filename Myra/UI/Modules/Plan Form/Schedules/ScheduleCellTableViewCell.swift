@@ -29,12 +29,15 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
 
     @IBAction func detailAction(_ sender: Any) {
-        guard let sched = self.schedule else {return}
-        // refenrece to create page.
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
-        grandParent.showSchedule(object: sched, completion: { done in
-            self.styleBasedOnValidity()
-        })
+        if let schedule = self.schedule, let presenter = getPresenter() {
+            presenter.showScheduleDetails(for: schedule, in: rup, mode: mode)
+        }
+//        guard let sched = self.schedule else {return}
+//        // refenrece to create page.
+//        let grandParent = self.parentViewController as! CreateNewRUPViewController
+//        grandParent.showSchedule(object: sched, completion: { done in
+//            self.styleBasedOnValidity()
+//        })
     }
 
     // MARK: Options

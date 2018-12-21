@@ -36,6 +36,8 @@ class BaseViewController: UIViewController, Theme {
     }()
 
     // MARK: Variables
+    var navigationTitle: String?
+    // TODO: Remove
     var loading: UIImageView?
     // TODO: Remove
     var loadingImages = [UIImage]()
@@ -54,6 +56,8 @@ class BaseViewController: UIViewController, Theme {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Feedback.initializeButton()
+        guard let presenter = self.getPresenter() else {return}
+        presenter.setNav(title: navigationTitle ?? "")
     }
 
     // MARK: Event handlers

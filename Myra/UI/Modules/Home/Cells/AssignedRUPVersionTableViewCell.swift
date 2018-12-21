@@ -33,11 +33,11 @@ class AssignedRUPVersionTableViewCell: BaseTableViewCell {
 
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: UIButton) {
-        guard let plan = rup, let parent = self.parentViewController as? HomeViewController else {return}
+        guard let plan = rup, let presenter = getPresenter() else {return}
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
-            parent.editRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .Edit)
         } else {
-            parent.viewRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .View)
         }
     }
     
