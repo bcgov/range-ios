@@ -17,79 +17,21 @@ class Pasture: Object, MyraObject {
         return UUID().uuidString
     }()
 
-    // if remoteId == -1, it has not been "synced"
-    @objc dynamic var remoteId: Int = -1
-
     override class func primaryKey() -> String? {
         return "localId"
     }
+
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
     
     @objc dynamic var name: String = ""
     @objc dynamic var allowedAUMs: Int = -1
     @objc dynamic var privateLandDeduction: Double = 0.0
     @objc dynamic var graceDays: Int = 3
     @objc dynamic var notes: String = ""
-
     var plantCommunities = List<PlantCommunity>()
 
-    func requiredFieldsAreFilled() -> Bool {
-        if self.name.isEmpty {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    convenience init(data: [String: Any]) {
-        self.init()
-
-        name = data["name"] as! String
-        allowedAUMs = data["allowableAum"] as! Int
-        privateLandDeduction = data["privateLandDeduction"] as! Double
-        graceDays = data["graceDays"] as! Int
-        notes = data["notes"] as! String
-        remoteId = data["dbID"] as! Int
-    }
-
-    func copy() -> Pasture {
-        let pasture = Pasture()
-        // TODO: COPY REMOTE ID. CHECK ALL OTHER OBJECT AS WELL!
-        pasture.name = self.name
-        pasture.allowedAUMs = self.allowedAUMs
-        pasture.privateLandDeduction = self.privateLandDeduction
-        pasture.graceDays = self.graceDays
-        pasture.notes = self.notes
-        for object in self.plantCommunities {
-            pasture.plantCommunities.append(object.copy())
-        }
-        return pasture
-    }
-
-    func toDictionary() -> [String:Any] {
-        var allowedAUM: Int? = allowedAUMs
-        if allowedAUM == -1 {
-            allowedAUM = nil
-        }
-        return [
-            "name": name,
-            "allowableAum": allowedAUM,
-            "graceDays": graceDays,
-            "pldPercent": (privateLandDeduction/100),
-            "notes": notes
-        ]
-    }
-
-    func setRemoteId(id: Int) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.remoteId = id
-            }
-        } catch {
-            fatalError()
-        }
-    }
-
+    // MARK: Initializations
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
@@ -120,5 +62,58 @@ class Pasture: Object, MyraObject {
         for element in communities {
             self.plantCommunities.append(PlantCommunity(json: element.1))
         }
+    }
+
+    // MARK: Deletion
+    func deleteSubEntries() {
+        for element in self.plantCommunities {
+            RealmRequests.deleteObject(element)
+        }
+    }
+
+    // MARK: Setters
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.remoteId = id
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        return !(self.name.isEmpty)
+    }
+
+    // MARK: Export
+    func copy() -> Pasture {
+        let pasture = Pasture()
+        pasture.remoteId = self.remoteId
+        pasture.name = self.name
+        pasture.allowedAUMs = self.allowedAUMs
+        pasture.privateLandDeduction = self.privateLandDeduction
+        pasture.graceDays = self.graceDays
+        pasture.notes = self.notes
+        for object in self.plantCommunities {
+            pasture.plantCommunities.append(object.copy())
+        }
+        return pasture
+    }
+
+    func toDictionary() -> [String:Any] {
+        var allowedAUM: Int? = allowedAUMs
+        if allowedAUM == -1 {
+            allowedAUM = nil
+        }
+        return [
+            "name": name,
+            "allowableAum": allowedAUM,
+            "graceDays": graceDays,
+            "pldPercent": (privateLandDeduction/100),
+            "notes": notes
+        ]
     }
 }

@@ -17,16 +17,16 @@ class MinisterIssueAction: Object, MyraObject {
         return UUID().uuidString
     }()
 
-    @objc dynamic var remoteId: Int = -1
-
     override class func primaryKey() -> String? {
         return "localId"
     }
 
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
+
     @objc dynamic var actionTypeID: Int = -1
     @objc dynamic var actionType: String = ""
     @objc dynamic var desc: String = ""
-
     @objc dynamic var noGrazeOutSelected: Bool = false
     @objc dynamic var noGrazeInDay: Int = 1
     @objc dynamic var noGrazeInMonth: Int = 1
@@ -34,18 +34,27 @@ class MinisterIssueAction: Object, MyraObject {
     @objc dynamic var noGrazeOutDay: Int = 1
     @objc dynamic var noGrazeOutMonth: Int = 12
 
-
-    func requiredFieldsAreFilled() -> Bool {
-        if self.actionType.lowercased() == "timing" && (!noGrazeInSelected || !noGrazeInSelected) {
-            return false
+    // MARK: Initializations
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
         }
-        if self.actionTypeID == -1 || self.desc.isEmpty {
-            return false
-        } else {
-            return true
+
+        if let detail = json["detail"].string {
+            self.desc = detail
+        }
+
+        if let typeName = json["ministerIssueActionType"]["name"].string {
+            self.actionType = typeName
+        }
+
+        if let actionTypeId = json["actionTypeId"].int {
+            self.actionTypeID = actionTypeId
         }
     }
 
+    // MARK: Setters
     func set(desc: String) {
         do {
             let realm = try Realm()
@@ -68,32 +77,17 @@ class MinisterIssueAction: Object, MyraObject {
         }
     }
 
-    func toDictionary() -> [String:Any] {
-        return [
-            "detail": self.desc,
-            "actionTypeId": self.actionTypeID,
-        ]
+
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        if self.actionType.lowercased() == "timing" && (!noGrazeInSelected || !noGrazeInSelected) {
+            return false
+        }
+
+        return !(self.actionTypeID == -1 || self.desc.isEmpty)
     }
 
-    convenience init(json: JSON) {
-        self.init()
-        if let id = json["id"].int {
-            self.remoteId = id
-        }
-
-        if let detail = json["detail"].string {
-            self.desc = detail
-        }
-
-        if let typeName = json["ministerIssueActionType"]["name"].string {
-            self.actionType = typeName
-        }
-
-        if let actionTypeId = json["actionTypeId"].int {
-            self.actionTypeID = actionTypeId
-        }
-    }
-
+    // MARK: Export
     func copy() -> MinisterIssueAction {
         let new = MinisterIssueAction()
         new.remoteId = self.remoteId
@@ -107,5 +101,12 @@ class MinisterIssueAction: Object, MyraObject {
         new.noGrazeOutDay = self.noGrazeOutDay
         new.noGrazeOutMonth = self.noGrazeOutMonth
         return new
+    }
+
+    func toDictionary() -> [String:Any] {
+        return [
+            "detail": self.desc,
+            "actionTypeId": self.actionTypeID,
+        ]
     }
 }

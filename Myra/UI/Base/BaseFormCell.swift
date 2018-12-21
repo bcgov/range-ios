@@ -12,7 +12,7 @@ import Extended
 class BaseFormCell: UITableViewCell, Theme {
 
     // MARK: Variables
-    var rup: RUP = RUP()
+    var rup: Plan = Plan()
     var mode: FormMode = .View
 
     // MARK: Cell functions
@@ -26,7 +26,7 @@ class BaseFormCell: UITableViewCell, Theme {
     }
 
     // MARK: Cell Setup
-    func setup(mode: FormMode, rup: RUP) {
+    func setup(mode: FormMode, rup: Plan) {
         self.rup = rup
         self.mode = mode
     }

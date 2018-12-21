@@ -28,13 +28,44 @@ class InvasivePlants: Object {
     @objc dynamic var undercarrigesInspected: Bool = false
     @objc dynamic var revegetate: Bool = false
 
-    func requiredFieldsAreFilled() -> Bool {
-        return (equipmentAndVehiclesParking || beginInUninfestedArea || undercarrigesInspected || revegetate || !other.isEmpty)
-//        if equipmentAndVehiclesParking || beginInUninfestedArea || undercarrigesInspected || revegetate || !other.isEmpty {
-//            return true
-//        } else {
-//            return false
-//        }
+    // MARK: Initializations
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+
+        if let equipmentAndVehiclesParkingg = json["equipmentAndVehiclesParking"].bool {
+            self.equipmentAndVehiclesParking = equipmentAndVehiclesParkingg
+        }
+
+        if let beginInUninfestedAreaa = json["beginInUninfestedArea"].bool {
+            self.beginInUninfestedArea = beginInUninfestedAreaa
+        }
+
+        if let undercarrigesInspectedd = json["undercarrigesInspected"].bool {
+            self.undercarrigesInspected = undercarrigesInspectedd
+        }
+
+        if let revegetatee = json["revegetate"].bool {
+            self.revegetate = revegetatee
+        }
+
+        if let otherr = json["other"].string {
+            self.other = otherr
+        }
+    }
+
+    // MARK: Setters
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
     func setOtherText(to text: String) {
@@ -73,54 +104,12 @@ class InvasivePlants: Object {
         }
     }
 
-    func clone() -> InvasivePlants {
-        let invasivePlants = InvasivePlants()
-        invasivePlants.other = self.other
-        invasivePlants.equipmentAndVehiclesParking = self.equipmentAndVehiclesParking
-        invasivePlants.beginInUninfestedArea = self.beginInUninfestedArea
-        invasivePlants.undercarrigesInspected = self.undercarrigesInspected
-        invasivePlants.revegetate = self.revegetate
-        return invasivePlants
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        return (equipmentAndVehiclesParking || beginInUninfestedArea || undercarrigesInspected || revegetate || !other.isEmpty)
     }
 
-    func setRemoteId(id: Int) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                remoteId = id
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
-    convenience init(json: JSON) {
-        self.init()
-        if let id = json["id"].int {
-            self.remoteId = id
-        }
-
-        if let equipmentAndVehiclesParkingg = json["equipmentAndVehiclesParking"].bool {
-            self.equipmentAndVehiclesParking = equipmentAndVehiclesParkingg
-        }
-
-        if let beginInUninfestedAreaa = json["beginInUninfestedArea"].bool {
-            self.beginInUninfestedArea = beginInUninfestedAreaa
-        }
-
-        if let undercarrigesInspectedd = json["undercarrigesInspected"].bool {
-            self.undercarrigesInspected = undercarrigesInspectedd
-        }
-
-        if let revegetatee = json["revegetate"].bool {
-            self.revegetate = revegetatee
-        }
-
-        if let otherr = json["other"].string {
-            self.other = otherr
-        }
-    }
-
+    // MARK: Export
     func toDictionary() -> [String : Any] {
         return [
             "equipmentAndVehiclesParking": equipmentAndVehiclesParking,
@@ -129,6 +118,17 @@ class InvasivePlants: Object {
             "revegetate": revegetate,
             "other": other
         ]
+    }
+
+    func clone() -> InvasivePlants {
+        let invasivePlants = InvasivePlants()
+        invasivePlants.remoteId = self.remoteId
+        invasivePlants.other = self.other
+        invasivePlants.equipmentAndVehiclesParking = self.equipmentAndVehiclesParking
+        invasivePlants.beginInUninfestedArea = self.beginInUninfestedArea
+        invasivePlants.undercarrigesInspected = self.undercarrigesInspected
+        invasivePlants.revegetate = self.revegetate
+        return invasivePlants
     }
     
 }

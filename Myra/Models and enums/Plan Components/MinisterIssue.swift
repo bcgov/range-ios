@@ -12,6 +12,7 @@ import RealmSwift
 import SwiftyJSON
 
 class MinisterIssue: Object, MyraObject {
+    
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
@@ -20,6 +21,7 @@ class MinisterIssue: Object, MyraObject {
         return "localId"
     }
 
+     // if remoteId == -1, it has not been "synced"
     @objc dynamic var remoteId: Int = -1
 
     @objc dynamic var issueType: String = ""
@@ -28,19 +30,69 @@ class MinisterIssue: Object, MyraObject {
     @objc dynamic var objective: String = ""
     @objc dynamic var desc: String = ""
     @objc dynamic var identified: Bool = false
-
     var actions = List<MinisterIssueAction>()
     var pastures = List<Pasture>()
 
+    // MARK: Initializations
+    convenience init(json: JSON, plan: Plan) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
 
-    func requiredFieldsAreFilled() -> Bool {
-        if self.issueTypeID == -1 || self.details.isEmpty || self.objective.isEmpty || !self.identified {
-            return false
-        } else {
-            return true
+        if let typeName = json["ministerIssueType"]["name"].string {
+            self.issueType = typeName
+        }
+
+        if let issueTypeId = json["issueTypeId"].int {
+            self.issueTypeID = issueTypeId
+        }
+
+        if let objective = json["objective"].string {
+            self.objective = objective
+        }
+
+        if let detail = json["detail"].string {
+            self.details = detail
+        }
+
+        if let identified = json["identified"].bool {
+            self.identified = identified
+        }
+
+        let pastureIds = json["pastures"]
+        for (_, id) in pastureIds {
+            if let pastureId = id.int {
+                for pasture in plan.pastures where  pasture.remoteId == pastureId {
+                    self.pastures.append(pasture)
+                }
+            }
+        }
+
+        let actions = json["ministerIssueActions"]
+
+        for action in actions {
+            self.actions.append(MinisterIssueAction(json: action.1))
         }
     }
 
+    // MARK: Deletion
+    func deleteSubObjects() {
+        for element in self.actions {
+            RealmRequests.deleteObject(element)
+        }
+    }
+
+    // MARK: Getters
+    func getPastureIds() -> [Int] {
+        var pastureIds: [Int] = [Int]()
+        for pasture in pastures {
+            pastureIds.append(pasture.remoteId)
+        }
+        return pastureIds
+    }
+
+    // MARK: Setters
     func set(details: String) {
         do {
             let realm = try Realm()
@@ -96,7 +148,7 @@ class MinisterIssue: Object, MyraObject {
         }
     }
 
-    func clearPastures() {
+    func removePastures() {
         do {
             let realm = try Realm()
             try realm.write {
@@ -121,16 +173,6 @@ class MinisterIssue: Object, MyraObject {
         }
     }
 
-    func toDictionary() -> [String:Any] {
-        return [
-            "detail": self.details,
-            "objective": self.objective,
-            "identified": true,
-            "pastures" : getPastureIds(),
-            "issueTypeId": self.issueTypeID,
-        ]
-    }
-    
     func setRemoteId(id: Int) {
         do {
             let realm = try Realm()
@@ -142,54 +184,20 @@ class MinisterIssue: Object, MyraObject {
         }
     }
 
-    func getPastureIds() -> [Int] {
-        var pastureIds: [Int] = [Int]()
-        for pasture in pastures {
-             pastureIds.append(pasture.remoteId)
-        }
-        return pastureIds
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        return !(self.issueTypeID == -1 || self.details.isEmpty || self.objective.isEmpty || !self.identified)
     }
 
-    convenience init(json: JSON, plan: RUP) {
-        self.init()
-        if let id = json["id"].int {
-            self.remoteId = id
-        }
-
-        if let typeName = json["ministerIssueType"]["name"].string {
-            self.issueType = typeName
-        }
-
-        if let issueTypeId = json["issueTypeId"].int {
-            self.issueTypeID = issueTypeId
-        }
-
-        if let objective = json["objective"].string {
-            self.objective = objective
-        }
-
-        if let detail = json["detail"].string {
-            self.details = detail
-        }
-
-        if let identified = json["identified"].bool {
-            self.identified = identified
-        }
-
-        let pastureIds = json["pastures"]
-        for (_, id) in pastureIds {
-            if let pastureId = id.int {
-                for pasture in plan.pastures where  pasture.remoteId == pastureId {
-                    self.pastures.append(pasture)
-                }
-            }
-        }
-
-        let actions = json["ministerIssueActions"]
-
-        for action in actions {
-            self.actions.append(MinisterIssueAction(json: action.1))
-        }
+    // MARK: Export
+    func toDictionary() -> [String:Any] {
+        return [
+            "detail": self.details,
+            "objective": self.objective,
+            "identified": true,
+            "pastures" : getPastureIds(),
+            "issueTypeId": self.issueTypeID,
+        ]
     }
 
     func copy() -> MinisterIssue {

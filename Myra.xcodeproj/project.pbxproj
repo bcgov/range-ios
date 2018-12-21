@@ -36,13 +36,11 @@
 		2917468920742A7A005F70B4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917468820742A7A005F70B4 /* MainViewController.swift */; };
 		291C4D9B2037631400390523 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9A2037631400390523 /* Polygon.swift */; };
 		291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9C20378A3900390523 /* OpenMapOverlay.swift */; };
-		291CF8322098EAF300B0BCDD /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291CF8312098EAF300B0BCDD /* DatePicker.storyboard */; };
-		291CF8342098EBED00B0BCDD /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CF8332098EBED00B0BCDD /* DatePickerViewController.swift */; };
 		291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */; };
 		291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */; };
 		2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */; };
 		2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */; };
-		2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82C2034BFCA0090E7B4 /* RUP.swift */; };
+		2920F82D2034BFCA0090E7B4 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82C2034BFCA0090E7B4 /* Plan.swift */; };
 		2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83B2034CF850090E7B4 /* ViewManager.swift */; };
 		2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83D2034D6D60090E7B4 /* RUPStatus.swift */; };
 		2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8402034F3880090E7B4 /* BaseViewController.swift */; };
@@ -132,7 +130,6 @@
 		2943BDA3215E90C300EFC428 /* RangePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2943BDA2215E90C300EFC428 /* RangePhoto.swift */; };
 		2943BDA52162995100EFC428 /* TagImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2943BDA42162995100EFC428 /* TagImage.swift */; };
 		2943BDA72162996900EFC428 /* TagImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2943BDA62162996900EFC428 /* TagImage.xib */; };
-		2943BDA92162A84200EFC428 /* test.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2943BDA82162A84200EFC428 /* test.xib */; };
 		294764E32149B786007E8576 /* AutoSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E22149B786007E8576 /* AutoSync.swift */; };
 		294764E52149BBC7007E8576 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E42149BBC7007E8576 /* Banner.swift */; };
 		294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC4FE204F3C5500F0FB04 /* RUPManager.swift */; };
@@ -176,6 +173,8 @@
 		2974270E2044949B0033BC47 /* LiveStockID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270D2044949B0033BC47 /* LiveStockID.swift */; };
 		297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297427102044969A0033BC47 /* LiveStockTableViewCell.swift */; };
 		297427132044969A0033BC47 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
+		297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */; };
+		297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */; };
 		297E9987216545D100FB6F04 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297E9986216545D100FB6F04 /* Map.storyboard */; };
 		297E9989216545E700FB6F04 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E9988216545E700FB6F04 /* MapViewController.swift */; };
 		297E998B2165479F00FB6F04 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E998A2165479F00FB6F04 /* Pin.swift */; };
@@ -261,8 +260,6 @@
 		29FCB0342056EF47006CD247 /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0332056EF47006CD247 /* Zone.swift */; };
 		29FCB0362056EF95006CD247 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0352056EF95006CD247 /* District.swift */; };
 		29FCB038205702B3006CD247 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB037205702B3006CD247 /* DateManager.swift */; };
-		29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0392057299D006CD247 /* DatePickerController.swift */; };
-		29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */; };
 		29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */; };
 		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
 		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
@@ -297,13 +294,11 @@
 		2917468820742A7A005F70B4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		291C4D9A2037631400390523 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		291C4D9C20378A3900390523 /* OpenMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMapOverlay.swift; sourceTree = "<group>"; };
-		291CF8312098EAF300B0BCDD /* DatePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
-		291CF8332098EBED00B0BCDD /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPVersionsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPVersionsHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPTableViewCell.swift; sourceTree = "<group>"; };
 		2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPTableViewCell.xib; sourceTree = "<group>"; };
-		2920F82C2034BFCA0090E7B4 /* RUP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUP.swift; sourceTree = "<group>"; };
+		2920F82C2034BFCA0090E7B4 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		2920F83B2034CF850090E7B4 /* ViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
 		2920F83D2034D6D60090E7B4 /* RUPStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPStatus.swift; sourceTree = "<group>"; };
 		2920F8402034F3880090E7B4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -395,7 +390,6 @@
 		2943BDA2215E90C300EFC428 /* RangePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangePhoto.swift; sourceTree = "<group>"; };
 		2943BDA42162995100EFC428 /* TagImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagImage.swift; sourceTree = "<group>"; };
 		2943BDA62162996900EFC428 /* TagImage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagImage.xib; sourceTree = "<group>"; };
-		2943BDA82162A84200EFC428 /* test.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = test.xib; sourceTree = "<group>"; };
 		294764E22149B786007E8576 /* AutoSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSync.swift; sourceTree = "<group>"; };
 		294764E42149BBC7007E8576 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		294AC4FE204F3C5500F0FB04 /* RUPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPManager.swift; sourceTree = "<group>"; };
@@ -439,6 +433,8 @@
 		2974270D2044949B0033BC47 /* LiveStockID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockID.swift; sourceTree = "<group>"; };
 		297427102044969A0033BC47 /* LiveStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStockTableViewCell.swift; sourceTree = "<group>"; };
 		297427112044969A0033BC47 /* LiveStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveStockTableViewCell.xib; sourceTree = "<group>"; };
+		297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
 		297E9986216545D100FB6F04 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		297E9988216545E700FB6F04 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		297E998A2165479F00FB6F04 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
@@ -524,8 +520,6 @@
 		29FCB0332056EF47006CD247 /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
 		29FCB0352056EF95006CD247 /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
 		29FCB037205702B3006CD247 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
-		29FCB0392057299D006CD247 /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
-		29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePickerController.storyboard; sourceTree = "<group>"; };
 		29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewExtention.swift; sourceTree = "<group>"; };
 		56F388A020801757004CDFAE /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
 		56F388A220801763004CDFAE /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
@@ -566,55 +560,39 @@
 			path = Tour;
 			sourceTree = "<group>";
 		};
-		2920F8202034B98D0090E7B4 /* ViewControllers */ = {
+		2920F8202034B98D0090E7B4 /* Currently Not Used */ = {
 			isa = PBXGroup;
 			children = (
-				2920F83B2034CF850090E7B4 /* ViewManager.swift */,
-				2917468820742A7A005F70B4 /* MainViewController.swift */,
-				291746862074279B005F70B4 /* LoginViewController.swift */,
-				293C95C620335D4100BF1113 /* HomeViewController.swift */,
-				29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */,
-				29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */,
-				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
-				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
-				294AC502204F57E800F0FB04 /* ScheduleViewController.swift */,
-				2972381420ED3465006EBCBB /* PlantCommunityViewController.swift */,
 				295F8F1220F7F625009D7717 /* MonitoringAreaViewController.swift */,
-				29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */,
-				291CF8332098EBED00B0BCDD /* DatePickerViewController.swift */,
-				292197CF209CD037004A5011 /* OptionsViewController.swift */,
-				29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */,
-				290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */,
-				293020072139A22000E121E0 /* Router.swift */,
-				2935A76921484A1900441539 /* TooltipViewController.swift */,
+				295F8F1020F7F60E009D7717 /* MonitoringArea.storyboard */,
 				297E9988216545E700FB6F04 /* MapViewController.swift */,
-				2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */,
+				297E9986216545D100FB6F04 /* Map.storyboard */,
 			);
-			path = ViewControllers;
+			path = "Currently Not Used";
 			sourceTree = "<group>";
 		};
 		2920F82B2034BF9A0090E7B4 /* Models and enums */ = {
 			isa = PBXGroup;
 			children = (
 				2932BB50208567D900579A57 /* MyraObject.swift */,
+				290FF88520635F1F00C7DAC0 /* SyncDate.swift */,
+				292B650921C04E5900F9A8A5 /* UserInfo.swift */,
+				2943BDA2215E90C300EFC428 /* RangePhoto.swift */,
+				2974270D2044949B0033BC47 /* LiveStockID.swift */,
 				2932BB52208669C300579A57 /* enums */,
 				2932BB5320866C5D00579A57 /* Plan Components */,
 				29EADF7C206039A90087593F /* Reference data objects */,
-				29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */,
-				2974270D2044949B0033BC47 /* LiveStockID.swift */,
-				290FF88520635F1F00C7DAC0 /* SyncDate.swift */,
-				292197DB209CD19D004A5011 /* Option.swift */,
-				29227B6120EEAD540042B88E /* TextEntry.swift */,
-				2905521521346AAE00785B5E /* Amendment.swift */,
-				2943BDA2215E90C300EFC428 /* RangePhoto.swift */,
-				292B650921C04E5900F9A8A5 /* UserInfo.swift */,
 			);
 			path = "Models and enums";
 			sourceTree = "<group>";
 		};
-		2920F82E2034C0000090E7B4 /* Helpers */ = {
+		2920F8312034C7870090E7B4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				29234B0B2138592400F547AC /* Lottie */,
+				295FBF7A21641EEA00DD2C53 /* ML */,
+				291C4D9A2037631400390523 /* Polygon.swift */,
+				29FB97BC204DB87D005297B9 /* RealmRequest.swift */,
 				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
 				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
@@ -623,25 +601,11 @@
 				2932BB4E2085209000579A57 /* Fonts.swift */,
 				2901C4C02141D61500AE72FC /* StatusHelper.swift */,
 				2901C4C22141D8EC00AE72FC /* Reference.swift */,
-				2901C4C42141DB4000AE72FC /* Options.swift */,
 				29FCB037205702B3006CD247 /* DateManager.swift */,
 				2935A76B21485A2500441539 /* ConstantStrings.swift */,
-				294764E42149BBC7007E8576 /* Banner.swift */,
-				294CADB4216E868A00DB184B /* NewElementAddedBanner.swift */,
 				29103A9B2151B56900032076 /* TourTip.swift */,
 				292AD86B215C470200F80738 /* Notification.swift */,
 				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		2920F8312034C7870090E7B4 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				29FCB03D20572B8B006CD247 /* DatePickerController.storyboard */,
-				291C4D9A2037631400390523 /* Polygon.swift */,
-				29FB97BC204DB87D005297B9 /* RealmRequest.swift */,
-				29FCB0392057299D006CD247 /* DatePickerController.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -649,15 +613,19 @@
 		2920F83F2034F37A0090E7B4 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				2920F83B2034CF850090E7B4 /* ViewManager.swift */,
 				2920F8402034F3880090E7B4 /* BaseViewController.swift */,
 				290E153B2048C9FE00A51884 /* BaseFormCell.swift */,
-				294005852092726D00AA1BDC /* Theme.swift */,
 				29EAA4EC2135CD62003B6CE5 /* BaseCollectionViewCell.swift */,
+				294005852092726D00AA1BDC /* Theme.swift */,
+				293020072139A22000E121E0 /* Router.swift */,
+				29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */,
+				29227B6D20F0057C0042B88E /* CustomSectionHeader.xib */,
 			);
 			path = Base;
 			sourceTree = "<group>";
 		};
-		29234B0B2138592400F547AC /* Lotte */ = {
+		29234B0B2138592400F547AC /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
 				29EA029E2069664B0076403B /* x_pop.json */,
@@ -666,7 +634,7 @@
 				29A97A7C20CEF0B5002F2D9A /* spinner2_.json */,
 				29EA02A020696A710076403B /* spinner_.json */,
 			);
-			path = Lotte;
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		292B650B21C0656200F9A8A5 /* Loading */ = {
@@ -686,25 +654,6 @@
 			path = "Get Name Dialog";
 			sourceTree = "<group>";
 		};
-		29301FDB21385BC900E121E0 /* Nibs */ = {
-			isa = PBXGroup;
-			children = (
-				29301FDE21385CB500E121E0 /* SyncBanner.swift */,
-				29301FDC21385BDD00E121E0 /* SyncBanner.xib */,
-				292A1D8121432E670086E1AD /* SyncView.swift */,
-				292A1D7F21432E570086E1AD /* SyncView.xib */,
-				2943BDA42162995100EFC428 /* TagImage.swift */,
-				2943BDA62162996900EFC428 /* TagImage.xib */,
-				295FBF7821641EA200DD2C53 /* TagImageMLextension.swift */,
-				2943BDA82162A84200EFC428 /* test.xib */,
-				297E998A2165479F00FB6F04 /* Pin.swift */,
-				297E998C2165482000FB6F04 /* Pin.xib */,
-				294CADB2216E83F500DB184B /* NewElementBanner.swift */,
-				294CADB0216E83DC00DB184B /* NewElementBanner.xib */,
-			);
-			path = Nibs;
-			sourceTree = "<group>";
-		};
 		2932BB52208669C300579A57 /* enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,7 +671,7 @@
 			isa = PBXGroup;
 			children = (
 				29EA02A220697E6F0076403B /* Agreement.swift */,
-				2920F82C2034BFCA0090E7B4 /* RUP.swift */,
+				2920F82C2034BFCA0090E7B4 /* Plan.swift */,
 				29E0D924203F449700193FA0 /* RangeUsageYear.swift */,
 				29E0D92C203F5F6F00193FA0 /* Pasture.swift */,
 				299491EF20B62763005FCF94 /* MinisterIssue.swift */,
@@ -774,20 +723,10 @@
 		293C95C320335D4100BF1113 /* Myra */ = {
 			isa = PBXGroup;
 			children = (
-				29C34BBE21C2DC3D009B4031 /* Import PC Criteria */,
-				292B650B21C0656200F9A8A5 /* Loading */,
-				292B650E21C066EA00F9A8A5 /* Get Name Dialog */,
-				29332DAF21B6FB8900950478 /* Alert */,
-				296233AE219E461F00E0BD2E /* Feedback */,
-				290543282194D23700865823 /* Tour */,
-				295FBF7A21641EEA00DD2C53 /* ML */,
-				29234B0B2138592400F547AC /* Lotte */,
 				56F3889F2080173C004CDFAE /* API */,
 				2920F8312034C7870090E7B4 /* Utilities */,
-				2920F82E2034C0000090E7B4 /* Helpers */,
 				2920F82B2034BF9A0090E7B4 /* Models and enums */,
 				29EB8442203DEE7A00D73F6B /* UI */,
-				2920F8202034B98D0090E7B4 /* ViewControllers */,
 				293C95C420335D4100BF1113 /* AppDelegate.swift */,
 				299BD277207BF488004B1D07 /* Constants.swift */,
 				293C95CB20335D4100BF1113 /* Assets.xcassets */,
@@ -816,18 +755,406 @@
 				294F6BB9219F3C92008EC6FA /* FeedbackView.swift */,
 				294F6BBB219F3CA0008EC6FA /* FeedbackView.xib */,
 				296233B1219E466700E0BD2E /* FeedbackElement.swift */,
+				2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */,
+				2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */,
+				2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */,
+				2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
 		};
-		29C34BBE21C2DC3D009B4031 /* Import PC Criteria */ = {
+		297D8FC921C9647F00D9A8B8 /* Custom Elements */ = {
+			isa = PBXGroup;
+			children = (
+				290543282194D23700865823 /* Tour */,
+				297D8FDB21C9754700D9A8B8 /* Sync */,
+				29332DAF21B6FB8900950478 /* Alert */,
+				292B650B21C0656200F9A8A5 /* Loading */,
+				297D8FDC21C9758D00D9A8B8 /* Banner */,
+				297D8FD821C973EC00D9A8B8 /* Options */,
+				297D8FD721C9738800D9A8B8 /* Selection Popup */,
+				297D8FE021C977D000D9A8B8 /* Text Entry */,
+				297D8FDA21C9750500D9A8B8 /* Amendment */,
+				296233AE219E461F00E0BD2E /* Feedback */,
+				297D8FDD21C9767000D9A8B8 /* ToolTip */,
+				292B650E21C066EA00F9A8A5 /* Get Name Dialog */,
+				29C34BBE21C2DC3D009B4031 /* Import Plant Community Criteria */,
+				297D8FDE21C976CE00D9A8B8 /* New Element Added Banner */,
+				297D8FEB21C9925C00D9A8B8 /* DatePicker - Used as year picker */,
+				297D8FDF21C9777100D9A8B8 /* Tag Image */,
+			);
+			path = "Custom Elements";
+			sourceTree = "<group>";
+		};
+		297D8FCA21C9651000D9A8B8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				293C95C620335D4100BF1113 /* HomeViewController.swift */,
+				29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */,
+				29174682207426E2005F70B4 /* Home.storyboard */,
+				297D8FE521C9794F00D9A8B8 /* Cells */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		297D8FCB21C9652800D9A8B8 /* Select Agreement */ = {
+			isa = PBXGroup;
+			children = (
+				29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */,
+				29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */,
+				297D8FE621C979B900D9A8B8 /* Cells */,
+			);
+			path = "Select Agreement";
+			sourceTree = "<group>";
+		};
+		297D8FCC21C9653500D9A8B8 /* Plan Form */ = {
+			isa = PBXGroup;
+			children = (
+				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
+				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
+				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
+				297D8FD621C9731B00D9A8B8 /* Map */,
+				297D8FCD21C9698F00D9A8B8 /* Basic Information */,
+				297D8FCE21C96BED00D9A8B8 /* LiveStock */,
+				297D8FCF21C96C0700D9A8B8 /* Pastures */,
+				297D8FD021C96C2200D9A8B8 /* Schedules */,
+				297D8FD121C96C2A00D9A8B8 /* Ministers Issues and Actions */,
+				297D8FD221C96C6A00D9A8B8 /* Invasive Plants */,
+				297D8FD321C96C7C00D9A8B8 /* Additional Requirements */,
+				297D8FD421C96C8800D9A8B8 /* Management Considerations */,
+			);
+			path = "Plan Form";
+			sourceTree = "<group>";
+		};
+		297D8FCD21C9698F00D9A8B8 /* Basic Information */ = {
+			isa = PBXGroup;
+			children = (
+				29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */,
+				29B5F049208F9F12003D996D /* BasicInformationTableViewCell.xib */,
+				2940057D208FCD5700AA1BDC /* PlanInformationTableViewCell.swift */,
+				2940057E208FCD5700AA1BDC /* PlanInformationTableViewCell.xib */,
+				29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */,
+				29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */,
+				29742705204484FB0033BC47 /* AgreementHolderTableViewCell.swift */,
+				29742706204484FB0033BC47 /* AgreementHolderTableViewCell.xib */,
+				29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */,
+				29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */,
+				29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */,
+				29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */,
+			);
+			path = "Basic Information";
+			sourceTree = "<group>";
+		};
+		297D8FCE21C96BED00D9A8B8 /* LiveStock */ = {
+			isa = PBXGroup;
+			children = (
+				2974270920448F720033BC47 /* LiveStockIDTableViewCell.swift */,
+				2974270A20448F720033BC47 /* LiveStockIDTableViewCell.xib */,
+				297427102044969A0033BC47 /* LiveStockTableViewCell.swift */,
+				297427112044969A0033BC47 /* LiveStockTableViewCell.xib */,
+			);
+			path = LiveStock;
+			sourceTree = "<group>";
+		};
+		297D8FCF21C96C0700D9A8B8 /* Pastures */ = {
+			isa = PBXGroup;
+			children = (
+				29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */,
+				29E0D929203F551E00193FA0 /* PasturesTableViewCell.xib */,
+				29E0D92E203F652F00193FA0 /* PastureTableViewCell.swift */,
+				29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */,
+				29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */,
+				29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */,
+				299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */,
+				299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */,
+			);
+			path = Pastures;
+			sourceTree = "<group>";
+		};
+		297D8FD021C96C2200D9A8B8 /* Schedules */ = {
+			isa = PBXGroup;
+			children = (
+				2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */,
+				2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */,
+				2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */,
+				2962B0E6204F076800F71B9C /* ScheduleCellTableViewCell.xib */,
+			);
+			path = Schedules;
+			sourceTree = "<group>";
+		};
+		297D8FD121C96C2A00D9A8B8 /* Ministers Issues and Actions */ = {
+			isa = PBXGroup;
+			children = (
+				299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */,
+				299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */,
+				299491F120B628F6005FCF94 /* MinisterIssueTableViewCell.swift */,
+				299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */,
+				29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */,
+				29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */,
+			);
+			path = "Ministers Issues and Actions";
+			sourceTree = "<group>";
+		};
+		297D8FD221C96C6A00D9A8B8 /* Invasive Plants */ = {
+			isa = PBXGroup;
+			children = (
+				297E99952166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift */,
+				297E99962166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib */,
+			);
+			path = "Invasive Plants";
+			sourceTree = "<group>";
+		};
+		297D8FD321C96C7C00D9A8B8 /* Additional Requirements */ = {
+			isa = PBXGroup;
+			children = (
+				293D417D216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift */,
+				293D417E216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib */,
+				293D4185216D3109006214E1 /* AdditionalRequirementTableViewCell.swift */,
+				293D4186216D3109006214E1 /* AdditionalRequirementTableViewCell.xib */,
+			);
+			path = "Additional Requirements";
+			sourceTree = "<group>";
+		};
+		297D8FD421C96C8800D9A8B8 /* Management Considerations */ = {
+			isa = PBXGroup;
+			children = (
+				293D4181216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift */,
+				293D4182216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib */,
+				293D4189216D313D006214E1 /* ManagementConsiderationTableViewCell.swift */,
+				293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */,
+			);
+			path = "Management Considerations";
+			sourceTree = "<group>";
+		};
+		297D8FD521C9708B00D9A8B8 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				294AC502204F57E800F0FB04 /* ScheduleViewController.swift */,
+				294AC500204F57CC00F0FB04 /* Schedule.storyboard */,
+				297D8FE221C978BF00D9A8B8 /* Cells */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		297D8FD621C9731B00D9A8B8 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				29EB8449203E15D600D73F6B /* MapTableViewCell.swift */,
+				29EB844A203E15D600D73F6B /* MapTableViewCell.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		297D8FD721C9738800D9A8B8 /* Selection Popup */ = {
+			isa = PBXGroup;
+			children = (
+				29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */,
+				29A52744205B301400C871F7 /* SelectionPopup.storyboard */,
+				29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */,
+				29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */,
+				29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */,
+			);
+			path = "Selection Popup";
+			sourceTree = "<group>";
+		};
+		297D8FD821C973EC00D9A8B8 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				292197DB209CD19D004A5011 /* Option.swift */,
+				2901C4C42141DB4000AE72FC /* Options.swift */,
+				292197CF209CD037004A5011 /* OptionsViewController.swift */,
+				292197CD209CCF65004A5011 /* Options.storyboard */,
+				292197D7209CD152004A5011 /* OptionsTableViewCell.swift */,
+				292197D8209CD152004A5011 /* OptionsTableViewCell.xib */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		297D8FD921C9745F00D9A8B8 /* Plant Community */ = {
+			isa = PBXGroup;
+			children = (
+				2972381420ED3465006EBCBB /* PlantCommunityViewController.swift */,
+				29F1DE3F20EC406100C6ECB8 /* PlantCommunity.storyboard */,
+				297D8FE121C9786F00D9A8B8 /* Cells */,
+			);
+			path = "Plant Community";
+			sourceTree = "<group>";
+		};
+		297D8FDA21C9750500D9A8B8 /* Amendment */ = {
+			isa = PBXGroup;
+			children = (
+				2905521521346AAE00785B5E /* Amendment.swift */,
+				290551FB21345E5600785B5E /* AmendmentFlowViewController.swift */,
+				290551F921345E3A00785B5E /* AmendmentFlow.storyboard */,
+				290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */,
+				2905520A2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib */,
+				2905520D213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift */,
+				2905520E213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib */,
+				29055211213465B500785B5E /* AmendmentPageThreeCollectionViewCell.swift */,
+				29055212213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib */,
+				290552172134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift */,
+				290552182134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib */,
+			);
+			path = Amendment;
+			sourceTree = "<group>";
+		};
+		297D8FDB21C9754700D9A8B8 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				292A1D8121432E670086E1AD /* SyncView.swift */,
+				292A1D7F21432E570086E1AD /* SyncView.xib */,
+			);
+			path = Sync;
+			sourceTree = "<group>";
+		};
+		297D8FDC21C9758D00D9A8B8 /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				294764E42149BBC7007E8576 /* Banner.swift */,
+				29301FDE21385CB500E121E0 /* SyncBanner.swift */,
+				29301FDC21385BDD00E121E0 /* SyncBanner.xib */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
+		297D8FDD21C9767000D9A8B8 /* ToolTip */ = {
+			isa = PBXGroup;
+			children = (
+				2935A76921484A1900441539 /* TooltipViewController.swift */,
+				2935A7672148399500441539 /* Tooltip.storyboard */,
+			);
+			path = ToolTip;
+			sourceTree = "<group>";
+		};
+		297D8FDE21C976CE00D9A8B8 /* New Element Added Banner */ = {
+			isa = PBXGroup;
+			children = (
+				294CADB4216E868A00DB184B /* NewElementAddedBanner.swift */,
+				294CADB2216E83F500DB184B /* NewElementBanner.swift */,
+				294CADB0216E83DC00DB184B /* NewElementBanner.xib */,
+			);
+			path = "New Element Added Banner";
+			sourceTree = "<group>";
+		};
+		297D8FDF21C9777100D9A8B8 /* Tag Image */ = {
+			isa = PBXGroup;
+			children = (
+				295FBF7821641EA200DD2C53 /* TagImageMLextension.swift */,
+				2943BDA42162995100EFC428 /* TagImage.swift */,
+				2943BDA62162996900EFC428 /* TagImage.xib */,
+				297E998C2165482000FB6F04 /* Pin.xib */,
+				297E998A2165479F00FB6F04 /* Pin.swift */,
+			);
+			path = "Tag Image";
+			sourceTree = "<group>";
+		};
+		297D8FE021C977D000D9A8B8 /* Text Entry */ = {
+			isa = PBXGroup;
+			children = (
+				29227B6120EEAD540042B88E /* TextEntry.swift */,
+				29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */,
+				29227B5D20EEAA850042B88E /* TextEntry.storyboard */,
+			);
+			path = "Text Entry";
+			sourceTree = "<group>";
+		};
+		297D8FE121C9786F00D9A8B8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2972381620ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift */,
+				2972381720ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib */,
+				29227B5320EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift */,
+				29227B5420EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib */,
+				29227B5920EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift */,
+				29227B5A20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib */,
+				29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */,
+				29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */,
+				29227B6F20F00EF00042B88E /* PlantCommunityActionTableViewCell.swift */,
+				29227B7020F00EF00042B88E /* PlantCommunityActionTableViewCell.xib */,
+				295F8F1420F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift */,
+				295F8F1520F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib */,
+				2933183420FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.swift */,
+				2933183520FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.xib */,
+				2933183820FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift */,
+				2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */,
+				29C7C1FB21C815F4005EB5D4 /* ShrubUseTableViewCell.swift */,
+				29C7C1FC21C815F4005EB5D4 /* ShrubUseTableViewCell.xib */,
+				29616EA521063ADA003102F8 /* EmptyTableViewCell.swift */,
+				29616EA621063ADA003102F8 /* EmptyTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		297D8FE221C978BF00D9A8B8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */,
+				29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */,
+				29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */,
+				29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */,
+				29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */,
+				29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		297D8FE321C9790C00D9A8B8 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				293C95C820335D4100BF1113 /* Main.storyboard */,
+				2917468820742A7A005F70B4 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		297D8FE421C9791600D9A8B8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				291746862074279B005F70B4 /* LoginViewController.swift */,
+				2917468420742765005F70B4 /* Login.storyboard */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		297D8FE521C9794F00D9A8B8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
+				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
+				29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */,
+				29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */,
+				291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */,
+				291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		297D8FE621C979B900D9A8B8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */,
+				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		297D8FEB21C9925C00D9A8B8 /* DatePicker - Used as year picker */ = {
+			isa = PBXGroup;
+			children = (
+				297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */,
+				297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */,
+			);
+			path = "DatePicker - Used as year picker";
+			sourceTree = "<group>";
+		};
+		29C34BBE21C2DC3D009B4031 /* Import Plant Community Criteria */ = {
 			isa = PBXGroup;
 			children = (
 				29C34BCF21C2DDE7009B4031 /* Cells */,
 				29C34BBF21C2DCA1009B4031 /* ImportCriteria.xib */,
 				29C34BC121C2DD52009B4031 /* ImportCriteria.swift */,
 			);
-			path = "Import PC Criteria";
+			path = "Import Plant Community Criteria";
 			sourceTree = "<group>";
 		};
 		29C34BCF21C2DDE7009B4031 /* Cells */ = {
@@ -869,138 +1196,26 @@
 		29EB8442203DEE7A00D73F6B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				29EB8443203DEE8600D73F6B /* Cells */,
-				29301FDB21385BC900E121E0 /* Nibs */,
 				2920F83F2034F37A0090E7B4 /* Base */,
-				29EB8444203DEEAE00D73F6B /* Storyboards */,
-				29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */,
-				29227B6D20F0057C0042B88E /* CustomSectionHeader.xib */,
+				297D8FC921C9647F00D9A8B8 /* Custom Elements */,
+				29EB8443203DEE8600D73F6B /* Modules */,
 			);
 			path = UI;
 			sourceTree = "<group>";
 		};
-		29EB8443203DEE8600D73F6B /* Cells */ = {
+		29EB8443203DEE8600D73F6B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */,
-				29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */,
-				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
-				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
-				29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */,
-				29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */,
-				291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */,
-				291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */,
-				29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */,
-				29B5F049208F9F12003D996D /* BasicInformationTableViewCell.xib */,
-				2940057D208FCD5700AA1BDC /* PlanInformationTableViewCell.swift */,
-				2940057E208FCD5700AA1BDC /* PlanInformationTableViewCell.xib */,
-				29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */,
-				29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */,
-				29742705204484FB0033BC47 /* AgreementHolderTableViewCell.swift */,
-				29742706204484FB0033BC47 /* AgreementHolderTableViewCell.xib */,
-				29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */,
-				29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */,
-				29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */,
-				29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */,
-				2974270920448F720033BC47 /* LiveStockIDTableViewCell.swift */,
-				2974270A20448F720033BC47 /* LiveStockIDTableViewCell.xib */,
-				297427102044969A0033BC47 /* LiveStockTableViewCell.swift */,
-				297427112044969A0033BC47 /* LiveStockTableViewCell.xib */,
-				29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */,
-				29E0D929203F551E00193FA0 /* PasturesTableViewCell.xib */,
-				29E0D92E203F652F00193FA0 /* PastureTableViewCell.swift */,
-				29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */,
-				29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */,
-				29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */,
-				2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */,
-				2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */,
-				2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */,
-				2962B0E6204F076800F71B9C /* ScheduleCellTableViewCell.xib */,
-				29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */,
-				29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */,
-				29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */,
-				29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */,
-				29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */,
-				29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */,
-				29EB8449203E15D600D73F6B /* MapTableViewCell.swift */,
-				29EB844A203E15D600D73F6B /* MapTableViewCell.xib */,
-				29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */,
-				29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */,
-				292197D7209CD152004A5011 /* OptionsTableViewCell.swift */,
-				292197D8209CD152004A5011 /* OptionsTableViewCell.xib */,
-				299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */,
-				299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */,
-				299491F120B628F6005FCF94 /* MinisterIssueTableViewCell.swift */,
-				299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */,
-				29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */,
-				29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */,
-				2972381620ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift */,
-				2972381720ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib */,
-				29227B5320EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift */,
-				29227B5420EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib */,
-				29227B5920EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift */,
-				29227B5A20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib */,
-				29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */,
-				29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */,
-				29227B6F20F00EF00042B88E /* PlantCommunityActionTableViewCell.swift */,
-				29227B7020F00EF00042B88E /* PlantCommunityActionTableViewCell.xib */,
-				295F8F1420F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift */,
-				295F8F1520F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib */,
-				2933183420FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.swift */,
-				2933183520FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.xib */,
-				2933183820FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift */,
-				2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */,
-				29C7C1FB21C815F4005EB5D4 /* ShrubUseTableViewCell.swift */,
-				29C7C1FC21C815F4005EB5D4 /* ShrubUseTableViewCell.xib */,
-				29616EA521063ADA003102F8 /* EmptyTableViewCell.swift */,
-				29616EA621063ADA003102F8 /* EmptyTableViewCell.xib */,
-				290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */,
-				2905520A2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib */,
-				2905520D213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift */,
-				2905520E213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib */,
-				29055211213465B500785B5E /* AmendmentPageThreeCollectionViewCell.swift */,
-				29055212213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib */,
-				290552172134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift */,
-				290552182134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib */,
-				297E99952166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift */,
-				297E99962166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib */,
-				293D417D216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift */,
-				293D417E216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib */,
-				293D4181216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift */,
-				293D4182216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib */,
-				293D4185216D3109006214E1 /* AdditionalRequirementTableViewCell.swift */,
-				293D4186216D3109006214E1 /* AdditionalRequirementTableViewCell.xib */,
-				293D4189216D313D006214E1 /* ManagementConsiderationTableViewCell.swift */,
-				293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */,
-				299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */,
-				299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */,
-				2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */,
-				2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */,
+				297D8FE321C9790C00D9A8B8 /* Main */,
+				297D8FE421C9791600D9A8B8 /* Login */,
+				297D8FCA21C9651000D9A8B8 /* Home */,
+				297D8FCB21C9652800D9A8B8 /* Select Agreement */,
+				297D8FCC21C9653500D9A8B8 /* Plan Form */,
+				297D8FD921C9745F00D9A8B8 /* Plant Community */,
+				297D8FD521C9708B00D9A8B8 /* Schedule */,
+				2920F8202034B98D0090E7B4 /* Currently Not Used */,
 			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		29EB8444203DEEAE00D73F6B /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				293C95C820335D4100BF1113 /* Main.storyboard */,
-				2917468420742765005F70B4 /* Login.storyboard */,
-				29174682207426E2005F70B4 /* Home.storyboard */,
-				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
-				294AC500204F57CC00F0FB04 /* Schedule.storyboard */,
-				29F1DE3F20EC406100C6ECB8 /* PlantCommunity.storyboard */,
-				295F8F1020F7F60E009D7717 /* MonitoringArea.storyboard */,
-				29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */,
-				29A52744205B301400C871F7 /* SelectionPopup.storyboard */,
-				291CF8312098EAF300B0BCDD /* DatePicker.storyboard */,
-				292197CD209CCF65004A5011 /* Options.storyboard */,
-				29227B5D20EEAA850042B88E /* TextEntry.storyboard */,
-				290551F921345E3A00785B5E /* AmendmentFlow.storyboard */,
-				2935A7672148399500441539 /* Tooltip.storyboard */,
-				297E9986216545D100FB6F04 /* Map.storyboard */,
-				2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */,
-			);
-			path = Storyboards;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		2B403992E92ACF9C74893352 /* Pods */ = {
@@ -1059,7 +1274,7 @@
 					293C95C020335D4100BF1113 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1000;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1105,8 +1320,8 @@
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
+				297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */,
 				29055210213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib in Resources */,
-				2943BDA92162A84200EFC428 /* test.xib in Resources */,
 				29C34BC621C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
@@ -1118,7 +1333,6 @@
 				294CADB1216E83DC00DB184B /* NewElementBanner.xib in Resources */,
 				29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */,
 				29227B5620EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib in Resources */,
-				291CF8322098EAF300B0BCDD /* DatePicker.storyboard in Resources */,
 				292197CE209CCF65004A5011 /* Options.storyboard in Resources */,
 				29A97A7D20CEF0B6002F2D9A /* spinner2_.json in Resources */,
 				29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */,
@@ -1155,7 +1369,6 @@
 				29616EA821063ADA003102F8 /* EmptyTableViewCell.xib in Resources */,
 				29C34BD321C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib in Resources */,
 				2935A7682148399500441539 /* Tooltip.storyboard in Resources */,
-				29FCB03E20572B8C006CD247 /* DatePickerController.storyboard in Resources */,
 				2905520C2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib in Resources */,
 				29EA02A120696A720076403B /* spinner_.json in Resources */,
 				292A1D8021432E570086E1AD /* SyncView.xib in Resources */,
@@ -1339,14 +1552,13 @@
 				292AD86E215C4DE600F80738 /* TestML.mlmodel in Sources */,
 				295FBF8021641F1400DD2C53 /* Animal.mlmodel in Sources */,
 				2972381820ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift in Sources */,
-				29FCB03A2057299D006CD247 /* DatePickerController.swift in Sources */,
 				299D3EBC217E79FD0000781E /* PlantCommunityActionType.swift in Sources */,
 				293D4183216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift in Sources */,
 				293C95C720335D4100BF1113 /* HomeViewController.swift in Sources */,
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
 				29C7C1FD21C815F4005EB5D4 /* ShrubUseTableViewCell.swift in Sources */,
 				293D417F216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift in Sources */,
-				2920F82D2034BFCA0090E7B4 /* RUP.swift in Sources */,
+				2920F82D2034BFCA0090E7B4 /* Plan.swift in Sources */,
 				295F8F1620F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift in Sources */,
 				294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */,
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,
@@ -1361,7 +1573,6 @@
 				56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */,
 				29400583208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift in Sources */,
 				29EADF80206039D60087593F /* AgreementStatus.swift in Sources */,
-				291CF8342098EBED00B0BCDD /* DatePickerViewController.swift in Sources */,
 				292197D0209CD037004A5011 /* OptionsViewController.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
 				295FBF7C21641F0200DD2C53 /* LifeForm.mlmodel in Sources */,
@@ -1419,6 +1630,7 @@
 				29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
+				297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */,
 				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,
 				29227B6220EEAD540042B88E /* TextEntry.swift in Sources */,
 				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
@@ -1577,7 +1789,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1585,7 +1797,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1598,7 +1810,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1606,7 +1818,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

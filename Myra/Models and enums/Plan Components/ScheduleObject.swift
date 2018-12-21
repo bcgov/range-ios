@@ -17,39 +17,12 @@ class ScheduleObject: Object, MyraObject {
         return UUID().uuidString
     }()
 
-    // if remoteId == -1, it has not been "synced"
-    @objc dynamic var remoteId: Int = -1
-
     override class func primaryKey() -> String? {
         return "localId"
     }
 
-    var totalDays: Int {
-        if dateIn == nil || dateOut == nil {
-            return 0
-        }
-        return DateManager.daysBetween(date1: dateIn!, date2: dateOut!) + 1
-    }
-    
-    var pastureName: String {
-        if pasture == nil {
-            return ""
-        } else {
-            return (pasture?.name)!
-        }
-    }
-
-    var pastureGraceDays: Int {
-        if pasture == nil {
-            return 0
-        } else {
-            return (pasture?.graceDays)!
-        }
-    }
-
-    var crownAUMs: Double {
-        return totalAUMs - pldAUMs
-    }
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
     
     @objc dynamic var pasture: Pasture?
     @objc dynamic var liveStockTypeId: Int = -1
@@ -62,89 +35,18 @@ class ScheduleObject: Object, MyraObject {
     @objc dynamic var pldAUMs: Double = 0
     @objc dynamic var scheduleDescription: String = ""
     @objc dynamic var graceDays: Int = 0
-
-    // Used for highlighting cell
+    // isNew is used for highlighting cells
     @objc dynamic var isNew: Bool = false
 
-    func setIsNew(to: Bool) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.isNew = to
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
-    func copy(in plan: RUP) -> ScheduleObject {
-        let entry = ScheduleObject()
-
-        /*
-         When copying a plan, schedule objects lose their reference to pastures
-         because copied pastures have new ids/addresses.
-         so we need to find the new pasture from the rup that has passed
-         */
-        for object in plan.pastures where object.name == self.pastureName {
-            entry.pasture = object
-        }
-        entry.liveStockTypeId = self.liveStockTypeId
-        entry.liveStockTypeName = self.liveStockTypeName
-        entry.numberOfAnimals = self.numberOfAnimals
-        entry.dateIn = self.dateIn
-        entry.dateOut = self.dateOut
-        entry.totalAUMs = self.totalAUMs
-        entry.pldAUMs = self.pldAUMs
-        entry.scheduleDescription = self.scheduleDescription
-        entry.isNew = self.isNew
-        entry.graceDays = self.graceDays
-
-        return entry
-    }
-
-    func requiredFieldsAreFilled() -> Bool {
-        if self.pasture == nil || self.liveStockTypeId == -1 || self.dateIn == nil || self.dateOut == nil {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    func toDictionary() -> [String : Any] {
-        guard let pasture = pasture else {
-            print("No pasture connected to this schedule entry\n Returning empty dictionary")
-            return [String:Any]()
-        }
-
-        guard let inDate = dateIn, let outDate = dateOut else {
-            print("Missing in or out cate for this schedule entry\n Returning empty dictionary")
-            return [String:Any]()
-        }
-
-        if liveStockTypeId == -1 {
-            print("Missing livestock ID for this schedule entry.\n Returning empty dictionary")
-            return [String:Any]()
-        }
-
-        let schedule: [String: Any] = [
-            "dateIn": DateManager.toUTC(date: inDate),
-            "dateOut": DateManager.toUTC(date: outDate),
-            "graceDays": graceDays,
-            "livestockCount": numberOfAnimals,
-            "livestockTypeId": liveStockTypeId,
-            "pastureId": pasture.remoteId
-        ]
-        return schedule
-    }
-
-    convenience init(json: JSON, plan: RUP) {
+    // MARK: Initializations
+    convenience init(json: JSON, plan: Plan) {
         self.init()
-        
+
         if let id = json["id"].int {
             self.remoteId = id
         }
 
-        if let pastureId = json["pastureId"].int, let pasture = plan.pastureWith(remoteId: pastureId) {
+        if let pastureId = json["pastureId"].int, let pasture = plan.getPastureWith(remoteId: pastureId) {
             self.pasture = pasture
         }
 
@@ -174,11 +76,44 @@ class ScheduleObject: Object, MyraObject {
 
     }
 
+    // MARK: Getters
+    func getTotalDays() -> Int {
+        guard let dateIn = self.dateIn, let dateOut = self.dateOut else {return 0}
+        return DateManager.daysBetween(date1: dateIn, date2: dateOut) + 1
+    }
+
+    func getPastureName() -> String {
+        guard let pasture = self.pasture else {return ""}
+        return pasture.name
+    }
+
+    func getPastureGraceDays() -> Int {
+        guard let pasture = self.pasture else {return 0}
+        return pasture.graceDays
+    }
+
+    func getCrownAUMs() -> Double {
+        return totalAUMs - pldAUMs
+    }
+
+    // MARK: Setters
+    func setIsNew(to: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.isNew = to
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func calculateAUMsAndPLD() {
         calculateTotalAUMs()
         calculatePLD()
     }
 
+    // MARK: Calculations
     func calculateTotalAUMs() {
         var auFactor = 0.0
         // if animal type hasn't been selected, return 0
@@ -200,7 +135,7 @@ class ScheduleObject: Object, MyraObject {
 
         // otherwise continue...
         let numberOfAnimals = Double(self.numberOfAnimals)
-        let totalDays = Double(self.totalDays)
+        let totalDays = Double(self.getTotalDays())
 
         // Total AUMs = (# of Animals *Days*Animal Class Proportion)/ 30.44
         do {
@@ -240,6 +175,69 @@ class ScheduleObject: Object, MyraObject {
         } catch _ {
             fatalError()
         }
+    }
+
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        if self.pasture == nil || self.liveStockTypeId == -1 || self.dateIn == nil || self.dateOut == nil {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    // MARK: Export
+    func toDictionary() -> [String : Any] {
+        guard let pasture = pasture else {
+            print("No pasture connected to this schedule entry\n Returning empty dictionary")
+            return [String:Any]()
+        }
+
+        guard let inDate = dateIn, let outDate = dateOut else {
+            print("Missing in or out cate for this schedule entry\n Returning empty dictionary")
+            return [String:Any]()
+        }
+
+        if liveStockTypeId == -1 {
+            print("Missing livestock ID for this schedule entry.\n Returning empty dictionary")
+            return [String:Any]()
+        }
+
+        let schedule: [String: Any] = [
+            "dateIn": DateManager.toUTC(date: inDate),
+            "dateOut": DateManager.toUTC(date: outDate),
+            "graceDays": graceDays,
+            "livestockCount": numberOfAnimals,
+            "livestockTypeId": liveStockTypeId,
+            "pastureId": pasture.remoteId
+        ]
+        return schedule
+    }
+
+    func copy(in plan: Plan) -> ScheduleObject {
+        let entry = ScheduleObject()
+
+        /*
+         When copying a plan, schedule objects lose their reference to pastures
+         because copied pastures have new ids/addresses.
+         so we need to find the new pasture from the rup that has passed
+         */
+        for pasture in plan.pastures where pasture.name == self.getPastureName() {
+            entry.pasture = pasture
+        }
+        entry.remoteId = self.remoteId
+        entry.liveStockTypeId = self.liveStockTypeId
+        entry.liveStockTypeName = self.liveStockTypeName
+        entry.numberOfAnimals = self.numberOfAnimals
+        entry.dateIn = self.dateIn
+        entry.dateOut = self.dateOut
+        entry.totalAUMs = self.totalAUMs
+        entry.pldAUMs = self.pldAUMs
+        entry.scheduleDescription = self.scheduleDescription
+        entry.isNew = self.isNew
+        entry.graceDays = self.graceDays
+
+        return entry
     }
 }
 

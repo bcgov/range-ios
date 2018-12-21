@@ -12,6 +12,7 @@ import RealmSwift
 import SwiftyJSON
 
 class Agreement: Object, MyraObject {
+
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
@@ -33,7 +34,7 @@ class Agreement: Object, MyraObject {
     var clients = List<Client>()
     var rangeUsageYears = List<RangeUsageYear>()
     var zones = List<Zone>()
-    var rups = List<RUP>()
+    var plans = List<Plan>()
 
     func primaryAgreementHolder() -> String {
         for client in self.clients {
@@ -105,49 +106,23 @@ class Agreement: Object, MyraObject {
                 if let p = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
                     RealmRequests.deleteObject(p)
                 }
-                let plan = RUP()
-                plan.setFrom(agreement: self)
+                let plan = Plan()
+                plan.importAgreementData(from: self)
                 plan.populateFrom(json: planJSON.1)
                 RealmRequests.saveObject(object: plan)
-                self.rups.append(plan)
+                self.plans.append(plan)
             }
         }
-
-        /*
-        if let planJSON = plansJSON.first, let planRemoteId = planJSON.1["id"].int {
-            // if a plan with the same remore id exists, delete it and store the new one
-            if let p = RUPManager.shared.getPlanWith(remoteId: planRemoteId) {
-                RealmRequests.deleteObject(p)
-            }
-            let plan = RUP()
-            plan.setFrom(agreement: self)
-            plan.populateFrom(json: planJSON.1)
-            RealmRequests.saveObject(object: plan)
-            self.rups.append(plan)
-        }
-        */
-
-        // DIFF agreement if already exists
-        // else store agreement
-//        if self.agreementId == "RAN077965" {
-//            print("****")
-//        }
-
-//        if RUPManager.shared.agreementExists(id: self.agreementId) {
-//            RUPManager.shared.updateAgreement(with: self)
-//        } else {
-//            RealmRequests.saveObject(object: self)
-//        }
          RealmRequests.saveObject(object: self)
     }
 
-    func getLatestPlan() -> RUP? {
-        if rups.count == 1 {
-            return rups.first!
+    func getLatestPlan() -> Plan? {
+        if plans.count == 1 {
+            return plans.first!
         }
-        var latest: RUP?
+        var latest: Plan?
         var tempid = -2
-        for plan in rups {
+        for plan in plans {
             if plan.getStatus() == .LocalDraft {
                 return plan
             }
@@ -159,11 +134,11 @@ class Agreement: Object, MyraObject {
         return latest
     }
 
-    func add(plan: RUP) {
+    func add(plan: Plan) {
         do {
             let realm = try Realm()
             try realm.write {
-                self.rups.append(plan)
+                self.plans.append(plan)
             }
         } catch _ {
             fatalError()
