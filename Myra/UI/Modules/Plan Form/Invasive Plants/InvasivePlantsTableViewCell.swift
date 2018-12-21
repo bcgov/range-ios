@@ -104,7 +104,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
         // Configure the view for the selected state
     }
 
-    override func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: Plan) {
         createObjectIfDoesntExist()
         self.mode = mode
         self.rup = rup

@@ -24,7 +24,7 @@ class AgreementHoldersTableViewCell: BaseFormCell {
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
     // MARK: Setup
-    override func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
         self.rup = rup
         heightConstraint.constant = computeCellHeight()

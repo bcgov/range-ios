@@ -26,15 +26,25 @@ class AdditionalRequirement: Object {
     @objc dynamic var detail: String = ""
     @objc dynamic var url: String = ""
 
-    func requiredFieldsAreFilled() -> Bool {
-        if category.isEmpty || detail.isEmpty {
-            return false
-        } else {
-            return true
+
+    convenience init(json: JSON) {
+        self.init()
+        if let id = json["id"].int {
+            self.remoteId = id
+        }
+        if let categoryJSON = json["category"].dictionaryObject, let categoryName = categoryJSON["name"] as? String {
+            self.category = categoryName
+        }
+        if let detailValue = json["detail"].string {
+            self.detail = detailValue
+        }
+
+        if let urlValue = json["url"].string {
+            self.url = urlValue
         }
     }
 
-
+    // MARK: Setters
     func setValue(category: String? = nil, detail: String? = nil, url: String? = nil) {
         do {
             let realm = try Realm()
@@ -54,14 +64,6 @@ class AdditionalRequirement: Object {
         }
     }
 
-    func clone() -> AdditionalRequirement {
-        let new = AdditionalRequirement()
-        new.category = self.category
-        new.url = self.url
-        new.detail = self.detail
-        return new
-    }
-
     func setRemoteId(id: Int) {
         do {
             let realm = try Realm()
@@ -73,23 +75,12 @@ class AdditionalRequirement: Object {
         }
     }
 
-    convenience init(json: JSON) {
-        self.init()
-        if let id = json["id"].int {
-            self.remoteId = id
-        }
-        if let categoryJSON = json["category"].dictionaryObject, let categoryName = categoryJSON["name"] as? String {
-            self.category = categoryName
-        }
-        if let detailValue = json["detail"].string {
-            self.detail = detailValue
-        }
-
-        if let urlValue = json["url"].string {
-            self.url = urlValue
-        }
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        return !(category.isEmpty || detail.isEmpty)
     }
-    
+
+    // MARK: Export
     func toDictionary() -> [String : Any] {
         var typeId = 0
         if let considerationType = Reference.shared.getAdditionalRequirementCategory(named: category) {
@@ -100,5 +91,14 @@ class AdditionalRequirement: Object {
             "url": self.url,
             "detail": self.detail
         ]
+    }
+
+    func clone() -> AdditionalRequirement {
+        let new = AdditionalRequirement()
+        new.remoteId = self.remoteId
+        new.category = self.category
+        new.url = self.url
+        new.detail = self.detail
+        return new
     }
 }

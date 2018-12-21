@@ -100,7 +100,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         
         lookup.setupLive(header: "Select Pastures", onVC: grandParent, onButton: sender, selected: selected, objects: pastureNames) { (selections) in
             if let selected = selections  {
-                i.clearPastures()
+                i.removePastures()
                 for selection in selected {
                     if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
                         i.addPasture(pasture: pasture)
@@ -133,7 +133,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
 
     // MARK: Functions
     // MARK: Setup
-    func setup(issue: MinisterIssue, mode: FormMode, rup: RUP, parent: MinisterIssuesTableViewCell) {
+    func setup(issue: MinisterIssue, mode: FormMode, rup: Plan, parent: MinisterIssuesTableViewCell) {
         self.rup = rup
         self.mode = mode
         self.issue = issue

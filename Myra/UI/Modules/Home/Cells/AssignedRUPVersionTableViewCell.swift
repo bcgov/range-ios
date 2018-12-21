@@ -13,7 +13,7 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
 
     // MARK: Variables
     static let cellHeight = 40
-    var rup: RUP?
+    var rup: Plan?
 
     // MARK: Outlets
     @IBOutlet weak var effectiveDate: UILabel!
@@ -49,7 +49,7 @@ class AssignedRUPVersionTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Setup
-    func setup(plan: RUP, color: UIColor) {
+    func setup(plan: Plan, color: UIColor) {
         self.rup = plan
         style()
         autofill()

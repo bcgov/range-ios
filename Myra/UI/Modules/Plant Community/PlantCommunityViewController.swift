@@ -30,7 +30,7 @@ class PlantCommunityViewController: BaseViewController {
     var plantCommunity: PlantCommunity?
     var pasture: Pasture?
     var mode: FormMode = .View
-    var plan: RUP?
+    var plan: Plan?
 
     let numberOfSections = 4
     let numberOfCriteriaSections = 3
@@ -84,7 +84,7 @@ class PlantCommunityViewController: BaseViewController {
 
 
     // MARK: Setup
-    func setup(mode: FormMode, plan: RUP ,pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+    func setup(mode: FormMode, plan: Plan ,pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
         self.pasture = pasture
         self.mode = mode
         self.plantCommunity = plantCommunity

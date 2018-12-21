@@ -41,7 +41,7 @@ class PasturesTableViewCell: BaseFormCell {
                 newPasture.name = value
                 do {
                     let realm = try Realm()
-                    let aRup = realm.objects(RUP.self).filter("localId = %@", self.rup.localId).first!
+                    let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
                     try realm.write {
                         aRup.pastures.append(newPasture)
                         realm.add(newPasture)
@@ -57,7 +57,7 @@ class PasturesTableViewCell: BaseFormCell {
     }
 
     // Mark: Setup
-    override func setup(mode: FormMode, rup: RUP) {
+    override func setup(mode: FormMode, rup: Plan) {
         self.rup = rup
         self.mode = mode
         switch mode {

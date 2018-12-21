@@ -416,7 +416,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     // MARK: Setup
-    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
+    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
         self.rup = rup
         self.mode = mode
         self.scheduleObject = scheduleObject
@@ -449,7 +449,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         }
     }
 
-    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: RUP, scheduleViewReference: ScheduleViewController) {
+    func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController) {
         self.rup = rup
         self.mode = mode
         self.scheduleObject = scheduleObject
@@ -572,7 +572,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
         self.graceDays.text = "\(entry.graceDays)"
         self.pldAUM.text = "\(entry.pldAUMs.rounded())"
-        self.crownAUM.text = "\(entry.crownAUMs.rounded())"
+        self.crownAUM.text = "\(entry.getCrownAUMs().rounded())"
     }
 
     func calculateDays() {

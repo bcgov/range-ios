@@ -132,7 +132,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
 
     // MARK: Functions
     // MARK: Setup
-    func setup(action: MinisterIssueAction, parentCell: MinisterIssueTableViewCell, mode: FormMode, rup: RUP) {
+    func setup(action: MinisterIssueAction, parentCell: MinisterIssueTableViewCell, mode: FormMode, rup: Plan) {
         self.mode = mode
         self.rup = rup
         self.action = action

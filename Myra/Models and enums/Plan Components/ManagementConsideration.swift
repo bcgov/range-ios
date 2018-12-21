@@ -26,44 +26,6 @@ class ManagementConsideration: Object {
     @objc dynamic var detail: String = ""
     @objc dynamic var url: String = ""
 
-    func setValue(consideration: String? = nil, detail: String? = nil, url: String? = nil) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                if let cansider = consideration {
-                    self.consideration = cansider
-                }
-                if let det = detail {
-                    self.detail = det
-                }
-                if let link = url {
-                    self.url = link
-                }
-            }
-        } catch {
-            fatalError()
-        }
-    }
-
-    func clone() -> ManagementConsideration {
-        let new = ManagementConsideration()
-        new.consideration = self.consideration
-        new.url = self.url
-        new.detail = self.detail
-        return new
-    }
-
-    func setRemoteId(id: Int) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                remoteId = id
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
@@ -83,6 +45,38 @@ class ManagementConsideration: Object {
         }
     }
 
+    // MARK: Setters
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setValue(consideration: String? = nil, detail: String? = nil, url: String? = nil) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if let cansider = consideration {
+                    self.consideration = cansider
+                }
+                if let det = detail {
+                    self.detail = det
+                }
+                if let link = url {
+                    self.url = link
+                }
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
+    // MARK: Export
     func toDictionary() -> [String : Any] {
         var typeId = 0
         if let considerationType = Reference.shared.getManagementConsideration(named: consideration) {
@@ -93,6 +87,15 @@ class ManagementConsideration: Object {
             "url": self.url,
             "detail": self.detail
         ]
+    }
+
+    func clone() -> ManagementConsideration {
+        let new = ManagementConsideration()
+        new.remoteId = self.remoteId
+        new.consideration = self.consideration
+        new.url = self.url
+        new.detail = self.detail
+        return new
     }
 
 }

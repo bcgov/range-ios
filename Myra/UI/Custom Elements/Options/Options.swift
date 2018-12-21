@@ -97,7 +97,7 @@ class Options {
         return options
     }
 
-    func getPasturesLookup(rup: RUP) -> [SelectionPopUpObject] {
+    func getPasturesLookup(rup: Plan) -> [SelectionPopUpObject] {
         var returnArray = [SelectionPopUpObject]()
         let names = getPastureNames(rup: rup)
         for name in names {
@@ -106,7 +106,7 @@ class Options {
         return returnArray
     }
 
-    func getPastureNames(rup: RUP) -> [String] {
+    func getPastureNames(rup: Plan) -> [String] {
         var names = [String]()
         for pasture in rup.pastures {
             names.append(pasture.name)
@@ -114,7 +114,7 @@ class Options {
         return names
     }
 
-    func getPastureNamed(name: String, rup: RUP) -> Pasture? {
+    func getPastureNamed(name: String, rup: Plan) -> Pasture? {
         for pasture in rup.pastures {
             if pasture.name == name {
                 return pasture

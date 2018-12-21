@@ -11,7 +11,7 @@ import UIKit
 class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     // MARK: Variables
-    var rup: RUP?
+    var rup: Plan?
     var agreement: Agreement?
     var bg: UIColor = UIColor.white
     var cellSelected: Bool = false
@@ -50,7 +50,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Setup
-    func setup(rup: RUP, color: UIColor, expand: Bool? = false) {
+    func setup(rup: Plan, color: UIColor, expand: Bool? = false) {
         self.agreement = RUPManager.shared.getAgreement(with: rup.agreementId)
         self.rup = rup
         autofill(rup: rup)
@@ -69,7 +69,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         setUpTable()
     }
 
-    func autofill(rup: RUP) {
+    func autofill(rup: Plan) {
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
@@ -163,7 +163,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     func updateTableHeight() {
         if let a = self.agreement {
-            self.versionsHeight.constant = CGFloat(AssignedRUPVersionTableViewCell.cellHeight * (a.rups.count + 1))
+            self.versionsHeight.constant = CGFloat(AssignedRUPVersionTableViewCell.cellHeight * (a.plans.count + 1))
             self.tableView.reloadData()
         } else {
             self.versionsHeight.constant = 0
@@ -203,14 +203,14 @@ extension AssignedRUPTableViewCell: UITableViewDelegate, UITableViewDataSource {
         var color = Colors.oddCell
         if indexPath.row % 2 == 0 {color = Colors.evenCell}
         if let agreement = self.agreement {
-            cell.setup(plan: agreement.rups[indexPath.row - 1], color: color)
+            cell.setup(plan: agreement.plans[indexPath.row - 1], color: color)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let a = self.agreement {
-            return a.rups.count + 1
+            return a.plans.count + 1
         }
         return 0
     }

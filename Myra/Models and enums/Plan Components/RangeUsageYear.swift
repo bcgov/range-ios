@@ -12,16 +12,16 @@ import RealmSwift
 import SwiftyJSON
 
 class RangeUsageYear: Object, MyraObject {
-
+    
     @objc dynamic var localId: String = {
         return UUID().uuidString
     }()
 
-    @objc dynamic var remoteId: Int = -1
-
     override class func primaryKey() -> String? {
         return "localId"
     }
+
+    @objc dynamic var remoteId: Int = -1
 
     @objc dynamic var id: Int = 0
     @objc dynamic var auth_AUMs: Int = 0
@@ -31,6 +31,7 @@ class RangeUsageYear: Object, MyraObject {
     @objc dynamic var agreementId: String = ""
     @objc dynamic var year: Int = 0
 
+    // MARK: Initialization
     convenience init(json: JSON, agreementId: String) {
         self.init()
         self.agreementId = agreementId
@@ -59,6 +60,7 @@ class RangeUsageYear: Object, MyraObject {
         }
     }
 
+    // we don't upload this object
     func toDictionary() -> [String : Any] {
         return [String:Any]()
     }

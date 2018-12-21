@@ -29,7 +29,7 @@ class HomeViewController: BaseViewController {
     // MARK: Variables
     var realmNotificationToken: NotificationToken?
     var parentReference: MainViewController?
-    var rups: [RUP] = [RUP]()
+    var rups: [Plan] = [Plan]()
     var expandIndexPath: IndexPath?
 
     var unstableConnection: Bool = false
@@ -148,16 +148,17 @@ class HomeViewController: BaseViewController {
 
     @IBAction func testCam(_ sender: UIButton) {
 //        Feedback.show(in: self)
-        let cam = Cam()
-        cam.display(on: self) { (photo) in
-            if let photo = photo {
-                Loading.shared.start()
-                let pic = RangePhoto()
-                pic.save(from: photo)
-                let preview: TagImage = TagImage.fromNib()
-                preview.show(with: pic, in: self, then: {})
-            }
-        }
+
+//        let cam = Cam()
+//        cam.display(on: self) { (photo) in
+//            if let photo = photo {
+//                Loading.shared.start()
+//                let pic = RangePhoto()
+//                pic.save(from: photo)
+//                let preview: TagImage = TagImage.fromNib()
+//                preview.show(with: pic, in: self, then: {})
+//            }
+//        }
     }
 
 //    func slideShow(images: [RangePhoto]) {
@@ -208,7 +209,11 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func tourAction(_ sender: UIButton) {
-        beginTour()
+        let dialog: GetNameDialog = UIView.fromNib()
+        dialog.initialize {
+            self.beginTour()
+        }
+
 //        beginTourTip()
 
         /*
@@ -390,7 +395,7 @@ class HomeViewController: BaseViewController {
     func loadRUPs() {
         if syncing {return}
         RUPManager.shared.fixUnlinkedPlans()
-        self.rups = [RUP]()
+        self.rups = [Plan]()
         self.tableView.reloadData()
         /*
          Clean up the local DB by removing plans that were created
@@ -400,7 +405,7 @@ class HomeViewController: BaseViewController {
         let rups = RUPManager.shared.getRUPs()
         print("Loading \(rups.count) plans")
         let agreements = RUPManager.shared.getAgreements()
-        for agreement in agreements where agreement.rups.count > 0 {
+        for agreement in agreements where agreement.plans.count > 0 {
             if let p = agreement.getLatestPlan() {
                 self.rups.append(p)
             }
@@ -589,7 +594,7 @@ class HomeViewController: BaseViewController {
     }
 
     func synchronize() {
-        self.rups = [RUP]()
+        self.rups = [Plan]()
         self.tableView.reloadData()
         self.endChangeListener()
         self.syncing = true
@@ -721,7 +726,7 @@ extension HomeViewController {
 // MARK: Functions to handle displaying views
 extension HomeViewController {
 
-    func editRUP(rup: RUP) {
+    func editRUP(rup: Plan) {
         let vc = getCreateNewVC()
         vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
             self.expandIndexPath = nil
@@ -730,7 +735,7 @@ extension HomeViewController {
         self.present(vc, animated: true, completion: nil)
     }
 
-    func viewRUP(rup: RUP) {
+    func viewRUP(rup: Plan) {
         let vc = getCreateNewVC()
         vc.setup(rup: rup, mode: .View) { closed, cancel in
             self.expandIndexPath = nil
@@ -878,7 +883,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
     func setDummyPlan() {
         let agreement = Agreement()
         agreement.agreementId = "RAN000000"
-        let plan = RUP()
+        let plan = Plan()
         plan.ranNumber = 000000
         plan.rangeName = "Tour Range"
         plan.remoteId = -99
@@ -888,7 +893,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         client.name = "Roop Jawl"
         client.clientTypeCode = "A"
         plan.clients.append(client)
-        agreement.rups.append(plan)
+        agreement.plans.append(plan)
         RealmRequests.saveObject(object: plan)
         RealmRequests.saveObject(object: agreement)
         self.rups.removeAll()

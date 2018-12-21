@@ -36,7 +36,7 @@
         let agreements = getAgreements()
         // get agreement numbers with no plans
         var agreementsWithNoPlans: [String] = [String]()
-        for agreement in agreements where agreement.rups.count == 0 {
+        for agreement in agreements where agreement.plans.count == 0 {
             agreementsWithNoPlans.append(agreement.agreementId)
         }
 
@@ -46,7 +46,7 @@
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        temp.rups.append(plan)
+                        temp.plans.append(plan)
                         for element in temp.rangeUsageYears {
                             plan.rangeUsageYears.append(element)
                         }
@@ -74,7 +74,7 @@
         }
     }
     
-    func isValid(rup: RUP) -> (Bool, String) {
+    func isValid(rup: Plan) -> (Bool, String) {
 
         // check validity of schedules
         for element in rup.schedules {
@@ -102,7 +102,7 @@
         return checkRequiredFields(in: rup)
     }
 
-    func checkRequiredFields(in rup: RUP) -> (Bool, String) {
+    func checkRequiredFields(in rup: Plan) -> (Bool, String) {
 
         if rup.planStartDate == nil {
             return (false, "Plan start date is missing")
@@ -161,9 +161,9 @@
         return (true, "")
     }
     
-    func getRUP(withId id: Int) -> RUP? {
+    func getRUP(withId id: Int) -> Plan? {
         if rupExists(id: id) {
-            let storedRups = RealmRequests.getObject(RUP.self)
+            let storedRups = RealmRequests.getObject(Plan.self)
             for stored in storedRups! {
                 if stored.remoteId == id {
                     return stored
@@ -174,7 +174,7 @@
     }
     
     func rupExists(id: Int) -> Bool {
-        let storedRups = RealmRequests.getObject(RUP.self)
+        let storedRups = RealmRequests.getObject(Plan.self)
         if storedRups != nil {
             for storedRUP in storedRups! {
                 if storedRUP.remoteId == id {
@@ -188,7 +188,7 @@
     // will fetch the stored rup with the same id,
     // so only pass in the newly downloaded agreement
     // TODO: Refactor - schema change
-    func updateRUP(with newRUP: RUP) {
+    func updateRUP(with newRUP: Plan) {
         let storedRUP = getRUP(withId: newRUP.remoteId)
         if storedRUP == nil {return}
         
@@ -238,8 +238,8 @@
         return false
     }
     
-    func getPlanWith(remoteId: Int) -> RUP? {
-        guard let plans = RealmRequests.getObject(RUP.self) else {return nil}
+    func getPlanWith(remoteId: Int) -> Plan? {
+        guard let plans = RealmRequests.getObject(Plan.self) else {return nil}
         for plan in plans {
             if plan.remoteId == remoteId {
                 return plan
@@ -248,9 +248,9 @@
         return nil
     }
 
-    func getPlansWith(remoteId: Int) -> [RUP] {
-        var found = [RUP]()
-        guard let plans = RealmRequests.getObject(RUP.self) else {return found}
+    func getPlansWith(remoteId: Int) -> [Plan] {
+        var found = [Plan]()
+        guard let plans = RealmRequests.getObject(Plan.self) else {return found}
         for plan in plans where plan.remoteId == remoteId {
             found.append(plan)
         }
@@ -274,12 +274,12 @@
             }
         }
         
-        if !newAgreement.rups.isEmpty {
-            for plan in newAgreement.rups  {
+        if !newAgreement.plans.isEmpty {
+            for plan in newAgreement.plans  {
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        stored.rups.append(plan)
+                        stored.plans.append(plan)
                     }
                 } catch _ {
                     fatalError()
@@ -295,8 +295,8 @@
             print("newAgreement is invalidated")
         }
         
-        if !newAgreement.rups.isEmpty {
-            let newPlans = newAgreement.rups
+        if !newAgreement.plans.isEmpty {
+            let newPlans = newAgreement.plans
             for newPlan in newPlans {
                 if newPlan.isInvalidated {
                     print("newPlan is invalidated")
@@ -304,7 +304,7 @@
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        stored.rups.append(newPlan)
+                        stored.plans.append(newPlan)
                     }
                 } catch _ {
                     fatalError()
@@ -319,7 +319,7 @@
     }
     
     func updateRUPsFor(agreement: Agreement) {
-        for plan in agreement.rups {
+        for plan in agreement.plans {
             if agreement.zones.count > 0 {
                 do {
                     let realm = try Realm()
@@ -391,16 +391,16 @@
         let agreements = getAgreements()
         var filtered = [Agreement]()
         for agreement in agreements {
-            if agreement.rups.count < 1 {
+            if agreement.plans.count < 1 {
                 filtered.append(agreement)
             }
         }
         return filtered
     }
     
-    func getRUPsForAgreement(agreementId: String) -> [RUP] {
-        let rups = RealmRequests.getObject(RUP.self)
-        var found = [RUP]()
+    func getRUPsForAgreement(agreementId: String) -> [Plan] {
+        let rups = RealmRequests.getObject(Plan.self)
+        var found = [Plan]()
         if let all = rups {
             for rup in all {
                 if rup.agreementId == agreementId {
@@ -411,17 +411,17 @@
         return found
     }
     
-    func getRUPs() -> [RUP] {
-        let rups = RealmRequests.getObject(RUP.self)
+    func getRUPs() -> [Plan] {
+        let rups = RealmRequests.getObject(Plan.self)
         if let all = rups {
             return all
         } else {
-            return [RUP]()
+            return [Plan]()
         }
     }
 
-    func getRUPsWithUpdatedLocalStatus() -> [RUP] {
-        var found = [RUP]()
+    func getRUPsWithUpdatedLocalStatus() -> [Plan] {
+        var found = [Plan]()
         let all = getRUPs()
         for element in all where element.shouldUpdateRemoteStatus {
             found.append(element)
@@ -429,77 +429,77 @@
         return found
     }
     
-    func getDraftRups() -> [RUP] {
+    func getDraftRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(RUP.self).filter("status == 'LocalDraft'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'LocalDraft'").map{ $0 }
             return Array(objs)
         } catch _ {}
-        return [RUP]()
+        return [Plan]()
     }
 
-    func getDraftRupsValidForUpload() -> [RUP] {
+    func getDraftRupsValidForUpload() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(RUP.self).filter("status == 'LocalDraft'").map{ $0 }
-            var valid = [RUP]()
+            let objs = realm.objects(Plan.self).filter("status == 'LocalDraft'").map{ $0 }
+            var valid = [Plan]()
             for object in objs where object.planEndDate != nil && object.planStartDate != nil && object.rangeName != nil {
                 valid.append(object)
             }
             return valid
         } catch _ {}
-        return [RUP]()
+        return [Plan]()
     }
 
-    func getStaffDraftRups() ->  [RUP] {
+    func getStaffDraftRups() ->  [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(RUP.self).filter("status == 'StaffDraft'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'StaffDraft'").map{ $0 }
             return Array(objs)
         } catch _ {}
-        return [RUP]()
+        return [Plan]()
     }
     
-    func getPendingRups() -> [RUP] {
+    func getPendingRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(RUP.self).filter("status == 'Pending'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'Pending'").map{ $0 }
             return Array(objs)
         } catch _ {}
-        return [RUP]()
+        return [Plan]()
     }
     
-    func getCompletedRups() -> [RUP] {
+    func getCompletedRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(RUP.self).filter("status == 'Completed'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'Completed'").map{ $0 }
             return Array(objs)
         } catch _ {}
-        return [RUP]()
+        return [Plan]()
     }
     
-    func getOutboxRups() -> [RUP] {
+    func getOutboxRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(RUP.self).filter("status == 'Outbox'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'Outbox'").map{ $0 }
             return Array(objs)
         } catch _ {}
-        return [RUP]()
+        return [Plan]()
     }
     
-    func getSubmittedPlans() -> [RUP] {
+    func getSubmittedPlans() -> [Plan] {
         var plans = getCompletedRups()
         plans.append(contentsOf: getPendingRups())
         return plans
     }
     
-    func genRUP(forAgreement: Agreement) -> RUP {
-        let rup = RUP()
-        rup.setFrom(agreement: forAgreement)
+    func genRUP(forAgreement: Agreement) -> Plan {
+        let rup = Plan()
+        rup.importAgreementData(from: forAgreement)
         do {
             let realm = try Realm()
             try realm.write {
-                forAgreement.rups.append(rup)
+                forAgreement.plans.append(rup)
                 rup.isNew = true
             }
         } catch _ {
@@ -509,7 +509,7 @@
         return rup
     }
     
-    func getPrimaryAgreementHolderObjectFor(rup: RUP) -> Client {
+    func getPrimaryAgreementHolderObjectFor(rup: Plan) -> Client {
         for client in rup.clients {
             if client.clientTypeCode == "A" {
                 return client
@@ -518,7 +518,7 @@
         return Client()
     }
     
-    func getPrimaryAgreementHolderFor(rup: RUP) -> String {
+    func getPrimaryAgreementHolderFor(rup: Plan) -> String {
         for client in rup.clients {
             if client.clientTypeCode == "A" {
                 return client.name
@@ -574,7 +574,7 @@
  
  // MARK: Pasture
  extension RUPManager {
-    func getPasturesArray(rup: RUP) -> [Pasture] {
+    func getPasturesArray(rup: Plan) -> [Pasture] {
         let ps = rup.pastures
         var returnVal = [Pasture]()
         for p in ps {
@@ -612,7 +612,7 @@
      the calculations in the other functions in this extention
      rely on schedule objects being able to reference their assigned pastures.
      */
-    func setPastureOn(scheduleObject: ScheduleObject, pastureName: String, rup: RUP) {
+    func setPastureOn(scheduleObject: ScheduleObject, pastureName: String, rup: Plan) {
         guard let pasture = getPastureNamed(name: pastureName, rup: rup) else {return}
         do {
             let realm = try Realm()
@@ -626,7 +626,7 @@
         scheduleObject.calculateAUMsAndPLD()
     }
     
-    func getPastureNamed(name: String, rup: RUP) -> Pasture? {
+    func getPastureNamed(name: String, rup: Plan) -> Pasture? {
         for pasture in rup.pastures {
             if pasture.name == name {
                 return pasture
@@ -639,7 +639,7 @@
  
  // MARK: Schedule
  extension RUPManager {
-    func getScheduleYears(rup: RUP) -> [String] {
+    func getScheduleYears(rup: Plan) -> [String] {
         let schedules = rup.schedules
         var years = [String]()
         for schedule in schedules {
@@ -648,7 +648,7 @@
         return years
     }
     
-    func rupHasScheduleForYear(rup: RUP, year: Int) -> Bool {
+    func rupHasScheduleForYear(rup: Plan, year: Int) -> Bool {
         let schedules = rup.schedules
         for schedule in schedules {
             if schedule.year == year {
@@ -789,7 +789,7 @@
         }
     }
     
-    func getSchedulesArray(rup: RUP) -> [Schedule] {
+    func getSchedulesArray(rup: Plan) -> [Schedule] {
         let ss = rup.schedules
         var returnVal = [Schedule]()
         for s in ss {
@@ -798,7 +798,7 @@
         return returnVal
     }
     
-    func isNewScheduleYearValidFor(rup: RUP, newYear: Int) -> Bool {
+    func isNewScheduleYearValidFor(rup: Plan, newYear: Int) -> Bool {
         
         guard let start = rup.planStartDate?.year(), let end = rup.planEndDate?.year() else {
             return false
@@ -819,7 +819,7 @@
         return true
     }
     
-    func getNextScheduleYearFor(from: Int, rup: RUP) -> Int? {
+    func getNextScheduleYearFor(from: Int, rup: Plan) -> Int? {
         // String array of years current schedule objects
         let years = rup.schedules.map({ (schedule) in
             return schedule.year
@@ -852,7 +852,7 @@
         return new
     }
     
-    func updateSchedulesForPasture(pasture: Pasture, in rup: RUP) {
+    func updateSchedulesForPasture(pasture: Pasture, in rup: Plan) {
         let query = RealmRequests.getObject(ScheduleObject.self)
         if let scheduleObjects = query {
             for object in scheduleObjects {

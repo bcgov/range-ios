@@ -15,14 +15,14 @@ enum ImportCriteriaOptionsType {
 }
 
 class ImportCriteriaObject {
-    var plan: RUP
+    var plan: Plan
     var pasture: Pasture?
     var plantCommunity: PlantCommunity?
     var RangeReadiness: Bool = true
     var StubbleHeight: Bool = true
     var ShrubUse: Bool = true
 
-    init(for plan: RUP) {
+    init(for plan: Plan) {
         self.plan = plan
     }
 
@@ -70,7 +70,7 @@ class ChoosePastureCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func loadOptions(plan: RUP? = nil, pasture: Pasture? = nil) {
+    func loadOptions(plan: Plan? = nil, pasture: Pasture? = nil) {
         options.removeAll()
         if let plan = plan {
             let pastures = plan.pastures

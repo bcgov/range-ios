@@ -17,12 +17,12 @@ class MonitoringArea: Object, MyraObject {
         return UUID().uuidString
     }()
 
-    // if remoteId == -1, it has not been "synced"
-    @objc dynamic var remoteId: Int = -1
-
     override class func primaryKey() -> String? {
         return "localId"
     }
+
+    // if remoteId == -1, it has not been "synced"
+    @objc dynamic var remoteId: Int = -1
 
     @objc dynamic var name: String = ""
 
@@ -34,26 +34,7 @@ class MonitoringArea: Object, MyraObject {
     @objc dynamic var rangelandHealth: String = ""
     @objc dynamic var purpose: String = ""
 
-    func requiredFieldsAreFilled() -> Bool {
-        if self.rangelandHealth.isEmpty || self.name.isEmpty || self.location.isEmpty || self.purpose.isEmpty {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    func copy() -> MonitoringArea {
-        let new = MonitoringArea()
-        new.location = self.location
-        new.latitude = self.latitude
-        new.longitude = self.longitude
-        new.transectAzimuth = self.transectAzimuth
-        new.rangelandHealth = self.rangelandHealth
-        new.purpose = self.purpose
-        new.name = self.name
-        return new
-    }
-
+    // MARK: Initializations
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
@@ -99,6 +80,7 @@ class MonitoringArea: Object, MyraObject {
         }
     }
 
+    // MARK: Setters
     func setRemoteId(id: Int) {
         do {
             let realm = try Realm()
@@ -110,6 +92,16 @@ class MonitoringArea: Object, MyraObject {
         }
     }
 
+    // MARK: Validations
+    func requiredFieldsAreFilled() -> Bool {
+        if self.rangelandHealth.isEmpty || self.name.isEmpty || self.location.isEmpty || self.purpose.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    // MARK: Export
     func toDictionary() -> [String : Any] {
         let la = Double(latitude) ?? 0.0
         let lo = Double(longitude) ?? 0.0
@@ -140,6 +132,19 @@ class MonitoringArea: Object, MyraObject {
             "purposeTypeIds": ids,
             "otherPurpose": otherPurpose
         ]
+    }
+
+    func copy() -> MonitoringArea {
+        let new = MonitoringArea()
+        new.remoteId = self.remoteId
+        new.location = self.location
+        new.latitude = self.latitude
+        new.longitude = self.longitude
+        new.transectAzimuth = self.transectAzimuth
+        new.rangelandHealth = self.rangelandHealth
+        new.purpose = self.purpose
+        new.name = self.name
+        return new
     }
 
 }
