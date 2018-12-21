@@ -495,7 +495,7 @@
     
     func genRUP(forAgreement: Agreement) -> Plan {
         let rup = Plan()
-        rup.setFrom(agreement: forAgreement)
+        rup.importAgreementData(from: forAgreement)
         do {
             let realm = try Realm()
             try realm.write {

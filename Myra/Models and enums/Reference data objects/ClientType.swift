@@ -11,6 +11,7 @@ import Realm
 import RealmSwift
 
 class ClientType: Object {
+    
     @objc dynamic var realmID: String = {
         return UUID().uuidString
     }()

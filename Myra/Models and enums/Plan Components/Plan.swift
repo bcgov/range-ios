@@ -87,6 +87,7 @@ class Plan: Object, MyraObject {
         }
     }
 
+    // MARK: Initializations
     func populateFrom(json: JSON) {
         if let id = json["id"].int {
             self.remoteId = id
@@ -174,7 +175,7 @@ class Plan: Object, MyraObject {
 
     }
 
-    func setFrom(agreement: Agreement) {
+    func importAgreementData(from agreement: Agreement) {
         self.agreementId = agreement.agreementId
         self.agreementStartDate = agreement.agreementStartDate
         self.agreementEndDate = agreement.agreementEndDate
@@ -191,6 +192,46 @@ class Plan: Object, MyraObject {
 
         let splitRan = agreementId.split(separator: "N")
         self.ranNumber = Int(splitRan[1]) ?? 0
+    }
+
+    // MARK: Deletion
+    func deleteSubEntries() {
+
+        for object in self.pastures {
+            object.deleteSubEntries()
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.schedules {
+            object.deleteSubEntries()
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.ministerIssues {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.invasivePlants {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.additionalRequirements {
+            RealmRequests.deleteObject(object)
+        }
+
+        for object in self.managementConsiderations {
+            RealmRequests.deleteObject(object)
+        }
+    }
+
+    // MARK: Getters
+    func getPastureWith(remoteId: Int) -> Pasture? {
+        for pasture in pastures {
+            if pasture.remoteId == remoteId {
+                return pasture
+            }
+        }
+        return nil
     }
 
     func getStatus() -> RUPStatus {
@@ -220,8 +261,27 @@ class Plan: Object, MyraObject {
         }
     }
 
-    func canBeUploadedAsDraft() -> Bool {
-        return (self.getStatus() == .LocalDraft && self.rangeName.count > 0 && self.planStartDate != nil && self.planEndDate != nil)
+    // MARk: Setters
+    func setRemoteId(id: Int) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteId = id
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setShouldUpdateRemoteStatus(should: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                shouldUpdateRemoteStatus = should
+            }
+        } catch _ {
+            fatalError()
+        }
     }
 
     func updateStatusId(newID: Int) {
@@ -255,6 +315,24 @@ class Plan: Object, MyraObject {
         }
     }
 
+    // MARK: Validations
+    func canBeUploadedAsDraft() -> Bool {
+        return (self.getStatus() == .LocalDraft && self.rangeName.count > 0 && self.planStartDate != nil && self.planEndDate != nil)
+    }
+
+    // Checks required fields
+    var isValid: Bool {
+        if planEndDate == nil ||
+            planEndDate == nil ||
+            rangeName == ""
+        {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    // MARK: Export
     func clone() -> Plan {
         let plan = Plan()
 
@@ -313,88 +391,10 @@ class Plan: Object, MyraObject {
         plan.clients = self.clients
         plan.zones = self.zones
         plan.rangeUsageYears = self.rangeUsageYears
-        
+
         return plan
     }
 
-    func deleteEntries() {
-
-        // TODO: Delete innder objects
-        /*
-         when deleting, we need to remove all pastures and schedule objects manually.
-         */
-        for object in self.pastures {
-            for element in object.plantCommunities {
-                element.deleteSubEntries()
-                RealmRequests.deleteObject(element)
-            }
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.schedules {
-            object.deleteSubEntries()
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.ministerIssues {
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.invasivePlants {
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.additionalRequirements {
-            RealmRequests.deleteObject(object)
-        }
-
-        for object in self.managementConsiderations {
-            RealmRequests.deleteObject(object)
-        }
-    }
-
-    // Checks required fields
-    var isValid: Bool {
-        if planEndDate == nil ||
-            planEndDate == nil ||
-            rangeName == ""
-        {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    func pastureWith(remoteId: Int) -> Pasture? {
-        for pasture in pastures {
-            if pasture.remoteId == remoteId {
-                return pasture
-            }
-        }
-        return nil
-    }
-
-    func setRemoteId(id: Int) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                remoteId = id
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
-
-    func setShouldUpdateRemoteStatus(should: Bool) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                shouldUpdateRemoteStatus = should
-            }
-        } catch _ {
-            fatalError()
-        }
-    }
 
     func toDictionary() -> [String:Any] {
         // if invalid, return empty dictionary

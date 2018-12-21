@@ -572,7 +572,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
         self.graceDays.text = "\(entry.graceDays)"
         self.pldAUM.text = "\(entry.pldAUMs.rounded())"
-        self.crownAUM.text = "\(entry.crownAUMs.rounded())"
+        self.crownAUM.text = "\(entry.getCrownAUMs().rounded())"
     }
 
     func calculateDays() {
