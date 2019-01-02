@@ -12,7 +12,7 @@ import RealmSwift
 import SwiftyJSON
 import Extended
 
-class plan: Object, MyraObject {
+class Plan: Object, MyraObject {
 
     @objc dynamic var localId: String = {
         return UUID().uuidString
@@ -273,11 +273,55 @@ class plan: Object, MyraObject {
         }
     }
 
+    func setRangeName(name: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                rangeName = name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setBusinesssName(name: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                alternativeName = name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func setShouldUpdateRemoteStatus(should: Bool) {
         do {
             let realm = try Realm()
             try realm.write {
                 shouldUpdateRemoteStatus = should
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setPlanStartDate(to date: Date) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                planStartDate = date
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setPlanEndDate(to date: Date) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                planEndDate = date
             }
         } catch _ {
             fatalError()
@@ -315,6 +359,62 @@ class plan: Object, MyraObject {
         }
     }
 
+    func addLiveStock() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                liveStockIDs.append(LiveStockID())
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func addManagementConsideration(cloneFrom object: ManagementConsideration?) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if let origin = object {
+                    managementConsiderations.append(origin.clone())
+                } else {
+                    managementConsiderations.append(ManagementConsideration())
+                }
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
+    func addMinisterIssue(object: MinisterIssue) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                ministerIssues.append(object)
+                // todo: Check if this is necessary. i dont think it is
+                //                realm.add(object)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func addPasture(cloneFrom object: Pasture?) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if let origin = object {
+                    pastures.append(origin)
+                } else {
+                    pastures.append(Pasture())
+                }
+                // todo: Check if this is necessary. i dont think it is
+                //                realm.add(newPasture)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     // MARK: Validations
     func canBeUploadedAsDraft() -> Bool {
         return (self.getStatus() == .LocalDraft && self.rangeName.count > 0 && self.planStartDate != nil && self.planEndDate != nil)
@@ -333,8 +433,8 @@ class plan: Object, MyraObject {
     }
 
     // MARK: Export
-    func clone() -> plan {
-        let plan = plan()
+    func clone() -> Plan {
+        let plan = Plan()
 
         // Copy values
         plan.remoteId = self.remoteId
