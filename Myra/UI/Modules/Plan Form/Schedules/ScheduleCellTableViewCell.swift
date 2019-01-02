@@ -29,15 +29,8 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
 
     @IBAction func detailAction(_ sender: Any) {
-        if let schedule = self.schedule, let presenter = getPresenter() {
-            presenter.showScheduleDetails(for: schedule, in: rup, mode: mode)
-        }
-//        guard let sched = self.schedule else {return}
-//        // refenrece to create page.
-//        let grandParent = self.parentViewController as! CreateNewRUPViewController
-//        grandParent.showSchedule(object: sched, completion: { done in
-//            self.styleBasedOnValidity()
-//        })
+        guard let schedule = self.schedule, let plan = self.plan, let presenter = getPresenter() else {return}
+        presenter.showScheduleDetails(for: schedule, in: plan, mode: mode)
     }
 
     // MARK: Options
@@ -67,11 +60,11 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
 
     func duplicate() {
-        guard let sched = schedule, let parent = parentReference else {return}
+        guard let sched = schedule, let plan  = self.plan, let parent = parentReference else {return}
         let vm = ViewManager()
         let picker = vm.datePicker
-        let taken = RUPManager.shared.getScheduleYears(rup: rup)
-        guard let start = rup.planStartDate, let end = rup.planEndDate else { return }
+        let taken = RUPManager.shared.getScheduleYears(rup: plan)
+        guard let start = plan.planStartDate, let end = plan.planEndDate else { return }
         picker.setup(for: start, max: end, taken: taken) { (selection) in
             guard let year = Int(selection) else {return}
             let copy = Schedule()
@@ -80,12 +73,12 @@ class ScheduleCellTableViewCell: BaseFormCell {
             RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
             do {
                 let realm = try Realm()
-                let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
+                let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first!
                 try realm.write {
                     aRup.schedules.append(copy)
                     realm.add(copy)
                 }
-                self.rup = aRup
+                self.plan = aRup
             } catch _ {
                 fatalError()
             }
@@ -95,11 +88,11 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
     
     // MARK: Setup
-    func setup(mode: FormMode, rup: Plan, schedule: Schedule, parentReference: ScheduleTableViewCell) {
+    func setup(mode: FormMode, plan: Plan, schedule: Schedule, parentReference: ScheduleTableViewCell) {
         self.schedule = schedule
         if nameLabel != nil { nameLabel.text = schedule.yearString }
         self.parentReference = parentReference
-        self.rup = rup
+        self.plan = plan
         self.mode = mode
         switch mode {
         case .View:
@@ -132,8 +125,8 @@ class ScheduleCellTableViewCell: BaseFormCell {
 
     func styleBasedOnValidity() {
         refreshScheduleObject()
-        guard let current = self.schedule else {return}
-        let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: rup.agreementId)
+        guard let current = self.schedule, let plan = self.plan else {return}
+        let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: plan.agreementId)
         UIView.animate(withDuration: 0.2, animations: {
             if !valid.0 {
                 self.styleInvalid()

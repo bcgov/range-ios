@@ -70,25 +70,13 @@ class BasicInformationTableViewCell: BaseFormCell {
     }
 
     @IBAction func nameEdited(_ sender: Any) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup.rangeName = self.rangeNameValue.text ?? ""
-            }
-        } catch _ {
-            fatalError()
-        }
+        guard let plan = self.plan else {return}
+        plan.setRangeName(name: self.rangeNameValue.text ?? "")
     }
 
     @IBAction func businessNameEdited(_ sender: Any) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup.alternativeName = altBusinessNameValue.text ?? ""
-            }
-        } catch _ {
-            fatalError()
-        }
+        guard let plan = self.plan else {return}
+        plan.setBusinesssName(name: altBusinessNameValue.text ?? "")
     }
 
     // Pre select text in textfield when editing begins
@@ -103,7 +91,7 @@ class BasicInformationTableViewCell: BaseFormCell {
     // MARK: Setup
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         style()
         autofill()
         self.rangeNameValue.delegate = self
@@ -111,13 +99,14 @@ class BasicInformationTableViewCell: BaseFormCell {
     }
 
     func autofill() {
-        rangeNumberValue.text = rup.agreementId
-        rangeNameValue.text = rup.rangeName
-        altBusinessNameValue.text = rup.alternativeName
-        agreementTypeValue.text = RUPManager.shared.getType(id: rup.typeId)
+        guard let plan = self.plan else{return}
+        rangeNumberValue.text = plan.agreementId
+        rangeNameValue.text = plan.rangeName
+        altBusinessNameValue.text = plan.alternativeName
+        agreementTypeValue.text = RUPManager.shared.getType(id: plan.typeId)
 
         // Zone and District
-        if let zone = rup.zones.last {
+        if let zone = plan.zones.last {
             self.zoneValue.text = zone.desc
             if let district = zone.districts.last {
                 if district.desc == "" {
@@ -137,7 +126,7 @@ class BasicInformationTableViewCell: BaseFormCell {
         }
 
         // Agreement date
-        if let start = rup.agreementStartDate,  let end = rup.agreementEndDate {
+        if let start = plan.agreementStartDate,  let end = plan.agreementEndDate {
             self.agreementDateValue.text = "\(start.string()) to \(end.string())"
         }
     }

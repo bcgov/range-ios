@@ -33,29 +33,19 @@ class MinisterIssuesTableViewCell: BaseFormCell {
 
     // misleading name. this adds an issue. its the action of adding an issue.
     @IBAction func addAction(_ sender: UIButton) {
-        let parent = self.parentViewController as! CreateNewRUPViewController
+        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
         lookup.setup(objects: Options.shared.getMinistersIssueTypesOptions(), onVC: parent, onButton: sender) { (selected, selection) in
             parent.dismissPopOver()
             if selected, let option = selection {
                 let newIssue = MinisterIssue()
-                if let type = Reference.shared.getIssueType(named: option.display) {
-                    newIssue.issueType = option.display
-                    newIssue.issueTypeID = type.id
-                    do {
-                        let realm = try Realm()
-                        let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
-                        try realm.write {
-                            aRup.ministerIssues.append(newIssue)
-                            realm.add(newIssue)
-                            NewElementAddedBanner.shared.show()
-                        }
-                        self.rup = aRup
-                    } catch _ {
-                        fatalError()
-                    }
-                }
+                guard let type = Reference.shared.getIssueType(named: option.display), let refetchedPlan = self.refetchPlan() else {return}
+                newIssue.issueType = option.display
+                newIssue.issueTypeID = type.id
+                refetchedPlan.addMinisterIssue(object: newIssue)
+                NewElementAddedBanner.shared.show()
+                self.plan = refetchedPlan
                 self.updateTableHeight(scrollToBottom: true, then: {})
             }
         }
@@ -65,7 +55,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     // MARK: Setup
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         for element in rup.ministerIssues {
             objects.append(element)
         }
@@ -94,13 +84,14 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     }
 
     func computeHeight() -> CGFloat {
+        guard let plan = self.plan else {return 0}
         /*
          Height of Minister's Issues cell
          this module has Minster's issue cells, which have action cells
          */
         let padding: CGFloat = 7
         var h: CGFloat = 0.0
-        for issue in (rup.ministerIssues) {
+        for issue in (plan.ministerIssues) {
             h = h + computeMinisterIssueHeight(issue: issue) + padding
         }
         return h
@@ -109,7 +100,7 @@ class MinisterIssuesTableViewCell: BaseFormCell {
     func computeMinisterIssueHeight(issue: MinisterIssue) -> CGFloat {
         /*
          This module has Action cells
-        */
+         */
         
         return (MinisterIssueTableViewCell.cellHeight + (MinistersIssueActionTableViewCell.cellHeight * CGFloat(issue.actions.count)))
     }
@@ -149,12 +140,15 @@ extension MinisterIssuesTableViewCell: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getIssueCell(indexPath: indexPath)
-        cell.setup(issue: rup.ministerIssues[indexPath.row],mode: mode, rup: rup, parent: self)
+        if let plan = self.plan {
+            cell.setup(issue: plan.ministerIssues[indexPath.row],mode: mode, rup: plan, parent: self)
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rup.ministerIssues.count
+        guard let plan = self.plan else {return 0}
+        return plan.ministerIssues.count
     }
 
 }

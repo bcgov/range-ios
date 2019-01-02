@@ -40,12 +40,11 @@ class AssignedRUPTableViewCell: BaseTableViewCell {
 
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
-        guard let plan = rup else {return}
-        let parent = self.parentViewController as! HomeViewController
+        guard let plan = rup, let presenter = self.getPresenter() else {return}
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
-            parent.editRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .Edit)
         } else {
-            parent.viewRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .View)
         }
     }
 

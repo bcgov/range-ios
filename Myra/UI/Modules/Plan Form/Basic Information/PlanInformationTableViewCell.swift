@@ -42,10 +42,9 @@ class PlanInformationTableViewCell: BaseFormCell {
 
     // MARK: Outlet actions
     @IBAction func planStartAction(_ sender: Any) {
-        let parent = self.parentViewController as! CreateNewRUPViewController
-        guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
+        guard let plan = self.plan, let parent = self.parentViewController as? CreateNewRUPViewController, let min = plan.agreementStartDate, let max = plan.agreementEndDate else {return}
         let picker = DatePicker()
-        picker.setup(beginWith: rup.planStartDate, min: min, max: max) { (selected, date) in
+        picker.setup(beginWith: plan.planStartDate, min: min, max: max) { (selected, date) in
             if let d = date {
                 DispatchQueue.main.async {
                     self.handlePlanStartDate(date: d)
@@ -61,16 +60,16 @@ class PlanInformationTableViewCell: BaseFormCell {
     @IBAction func planEndAction(_ sender: Any) {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let picker = DatePicker()
-        guard let min = rup.agreementStartDate, let max = rup.agreementEndDate else {return}
+        guard let plan = self.plan, let min = plan.agreementStartDate, let max = plan.agreementEndDate else {return}
 
-        if let planStartDate = rup.planStartDate {
+        if let planStartDate = plan.planStartDate {
             guard let endOfFiveYearsLater = DatePickerHelper.shared.dateFrom(day: 31, month: 12, year: planStartDate.year() + 4) else {return}
              var maxEnd = endOfFiveYearsLater
             if maxEnd > max {
                 maxEnd = max
             }
 
-            picker.setup(beginWith: rup.planEndDate, min: planStartDate, max: maxEnd) { (selected, date) in
+            picker.setup(beginWith: plan.planEndDate, min: planStartDate, max: maxEnd) { (selected, date) in
                 if let date = date {
                     DispatchQueue.main.async {
                         self.handlePlanEndDate(date: date)
@@ -79,7 +78,7 @@ class PlanInformationTableViewCell: BaseFormCell {
             }
             
         } else {
-            picker.setup(beginWith: rup.planEndDate, min: min, max: max) { (selected, date) in
+            picker.setup(beginWith: plan.planEndDate, min: min, max: max) { (selected, date) in
                 if let date = date {
                     DispatchQueue.main.async {
                         self.handlePlanEndDate(date: date)
@@ -95,68 +94,46 @@ class PlanInformationTableViewCell: BaseFormCell {
 
     // MARK: Date handlers
     func handlePlanStartDate(date: Date) {
+        guard let plan = self.plan else {return}
         // Store
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup.planStartDate = date
-            }
-        } catch _ {
-            fatalError()
-        }
+        plan.setPlanStartDate(to: date)
 
         // Check end date
-        if let endDate = self.rup.planEndDate {
+        if let endDate = plan.planEndDate {
             let endYear = endDate.year()
             let startYear = date.year()
             if endDate < date || (endYear - startYear) > 5 {
-                self.planEndValue.text = DateManager.toString(date: (self.rup.planStartDate)!)
+                self.planEndValue.text = DateManager.toString(date: (plan.planStartDate)!)
                 do {
                     let realm = try Realm()
                     try realm.write {
-                        self.rup.planEndDate = self.rup.planStartDate
+                        plan.planEndDate = plan.planStartDate
                     }
                 } catch _ {
                     fatalError()
                 }
             }
         }
-
-        // fill date fields
-        if let start = self.rup.planStartDate {
-            self.planStartValue.text = start.string()
-        }
-
-        if let end = self.rup.planEndDate {
-            self.planEndValue.text = end.string()
-        }
+        
+        autoFill()
 
         reloadParentIfDatesAreSet()
     }
 
     func handlePlanEndDate(date: Date) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup.planEndDate = date
-            }
-        } catch _ {
-            fatalError()
-        }
-
-        if let end = self.rup.planEndDate {
-            self.planEndValue.text = end.string()
-        }
+        guard let plan = self.plan else {return}
+        plan.setPlanEndDate(to: date)
+        self.planEndValue.text = date.string()
         reloadParentIfDatesAreSet()
     }
 
     // this will load usage years
     func reloadParentIfDatesAreSet() {
+        guard let plan = self.plan, let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         if !reloadingUsage {
             self.reloadingUsage = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let parent = self.parentViewController as! CreateNewRUPViewController
-                if let _ = self.rup.planStartDate, let _ = self.rup.planEndDate {
+                if plan.planStartDate != nil && plan.planEndDate != nil {
                     DispatchQueue.main.async {
                         parent.reload(at: parent.rangeUsageIndexPath)
                     }
@@ -169,7 +146,7 @@ class PlanInformationTableViewCell: BaseFormCell {
     // MARK: Setup
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         switch mode {
         case .View:
             startDateButton.isEnabled = false
@@ -183,11 +160,12 @@ class PlanInformationTableViewCell: BaseFormCell {
     }
 
     func autoFill() {
-        if let start = rup.planStartDate {
+        guard let plan = self.plan else {return}
+        if let start = plan.planStartDate {
             planStartValue.text = start.string()
         }
 
-        if let end = rup.planEndDate {
+        if let end = plan.planEndDate {
             planEndValue.text = end.string()
         }
     }

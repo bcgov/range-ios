@@ -40,7 +40,7 @@
 		291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */; };
 		2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */; };
 		2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */; };
-		2920F82D2034BFCA0090E7B4 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82C2034BFCA0090E7B4 /* Plan.swift */; };
+		2920F82D2034BFCA0090E7B4 /* plan.temp_caseinsensitive_rename.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82C2034BFCA0090E7B4 /* plan.temp_caseinsensitive_rename.swift */; };
 		2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83B2034CF850090E7B4 /* ViewManager.swift */; };
 		2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83D2034D6D60090E7B4 /* RUPStatus.swift */; };
 		2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8402034F3880090E7B4 /* BaseViewController.swift */; };
@@ -299,7 +299,7 @@
 		291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPVersionsHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPTableViewCell.swift; sourceTree = "<group>"; };
 		2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPTableViewCell.xib; sourceTree = "<group>"; };
-		2920F82C2034BFCA0090E7B4 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		2920F82C2034BFCA0090E7B4 /* plan.temp_caseinsensitive_rename.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plan.temp_caseinsensitive_rename.swift; sourceTree = "<group>"; };
 		2920F83B2034CF850090E7B4 /* ViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
 		2920F83D2034D6D60090E7B4 /* RUPStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPStatus.swift; sourceTree = "<group>"; };
 		2920F8402034F3880090E7B4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -674,7 +674,7 @@
 			isa = PBXGroup;
 			children = (
 				29EA02A220697E6F0076403B /* Agreement.swift */,
-				2920F82C2034BFCA0090E7B4 /* Plan.swift */,
+				2920F82C2034BFCA0090E7B4 /* plan.temp_caseinsensitive_rename.swift */,
 				29E0D924203F449700193FA0 /* RangeUsageYear.swift */,
 				29E0D92C203F5F6F00193FA0 /* Pasture.swift */,
 				299491EF20B62763005FCF94 /* MinisterIssue.swift */,
@@ -1562,7 +1562,7 @@
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
 				29C7C1FD21C815F4005EB5D4 /* ShrubUseTableViewCell.swift in Sources */,
 				293D417F216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift in Sources */,
-				2920F82D2034BFCA0090E7B4 /* Plan.swift in Sources */,
+				2920F82D2034BFCA0090E7B4 /* plan.temp_caseinsensitive_rename.swift in Sources */,
 				295F8F1620F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift in Sources */,
 				294AC4FF204F3C5500F0FB04 /* RUPManager.swift in Sources */,
 				297427122044969A0033BC47 /* LiveStockTableViewCell.swift in Sources */,

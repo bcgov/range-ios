@@ -141,23 +141,9 @@ class SelectAgreementViewController: BaseViewController {
 
     // MARK: Selection
     func createPlanFor(agreement: Agreement) {
-        let rup = RUPManager.shared.genRUP(forAgreement: agreement)
-        let vm = ViewManager()
-        let createVC = vm.createRUP
-        createVC.setup(rup: rup, mode: .Edit, callBack: {closed, cancel  in
-            if cancel {
-//                for plan in agreement.rups {
-//                    plan.deleteEntries()
-//                    RealmRequests.deleteObject(plan)
-//                }
-            }
-            self.dismiss(animated: true, completion: {
-                if self.parentCallBack != nil {
-                    return self.parentCallBack!(true)
-                }
-            })
-        })
-        self.present(createVC, animated: true, completion: nil)
+        guard let presenter = self.getPresenter() else {return}
+        let plan = RUPManager.shared.genRUP(forAgreement: agreement)
+        presenter.showForm(for: plan, mode: .Edit)
     }
 }
 

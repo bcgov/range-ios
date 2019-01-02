@@ -39,10 +39,11 @@ class RangeUsageTableViewCell: BaseFormCell {
     }
 
     @IBAction func addAction(_ sender: Any) {
+        guard let plan = self.plan else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                self.rup.rangeUsageYears.append(RangeUsageYear())
+                plan.rangeUsageYears.append(RangeUsageYear())
             }
         } catch _ {
             fatalError()
@@ -53,7 +54,7 @@ class RangeUsageTableViewCell: BaseFormCell {
     // MARK: Setup
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         setUpTable()
         self.usageYears = [RangeUsageYear]()
         if let plansStart = rup.planStartDate, let planEnd = rup.planEndDate {
