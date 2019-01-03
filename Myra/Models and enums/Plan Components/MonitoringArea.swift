@@ -29,8 +29,6 @@ class MonitoringArea: Object, MyraObject {
     @objc dynamic var location: String = ""
     @objc dynamic var latitude: String = ""
     @objc dynamic var longitude: String = ""
-    // TODO: Remove this
-    @objc dynamic var transectAzimuth: String = ""
     @objc dynamic var rangelandHealth: String = ""
     @objc dynamic var purpose: String = ""
 
@@ -140,7 +138,6 @@ class MonitoringArea: Object, MyraObject {
         new.location = self.location
         new.latitude = self.latitude
         new.longitude = self.longitude
-        new.transectAzimuth = self.transectAzimuth
         new.rangelandHealth = self.rangelandHealth
         new.purpose = self.purpose
         new.name = self.name

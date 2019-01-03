@@ -27,6 +27,8 @@ class AutoSync {
     var realmNotificationToken: NotificationToken?
     var isSynchronizing: Bool = false
 
+    var manualSyncRequiredShown = false
+
     // MARK: Constants
     let lockScreenTag = 204
     let authServices: AuthServices = {
@@ -88,7 +90,10 @@ class AutoSync {
 
         if !authServices.isAuthenticated() {
             print("But not authenticated.")
-            Banner.shared.show(message: Messages.AutoSync.manualSyncRequired)
+            if !manualSyncRequiredShown {
+                manualSyncRequiredShown = true
+                Banner.shared.show(message: Messages.AutoSync.manualSyncRequired)
+            }
             return
         }
 

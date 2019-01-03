@@ -37,22 +37,10 @@ class BaseViewController: UIViewController, Theme {
 
     // MARK: Variables
     var navigationTitle: String?
-    // TODO: Remove
-    var loading: UIImageView?
-    // TODO: Remove
-    var loadingImages = [UIImage]()
     var currentPopOver: UIViewController?
     var presenterVC: UIViewController?
 
-    // NARK: VC Functions
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // TODO: Remove
-        if loadingImages.count != 4 {
-            setupLoadingIndicatorImages()
-        }
-    }
-
+    // MARK: VC Functions
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Feedback.initializeButton()
@@ -246,43 +234,9 @@ extension BaseViewController {
     }
 }
 
-// MARK: Loading Spinner
+// MARK:
 extension BaseViewController {
-    // TODO: Remove
-    func setupLoadingIndicatorImages() {
-        var images = [UIImage]()
-
-        for i in 0...3 {
-            images.append(UIImage(named: "cow\(i)")!)
-        }
-        loadingImages = images
-    }
-
-    func getIoadingView() -> UIImageView {
-        let view = UIImageView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 100, height: 100))
-        view.animationImages = loadingImages
-        view.animationDuration = 0.3
-        view.center.y = self.view.center.y
-        view.center.x = self.view.center.x
-        view.alpha = 1
-        view.tag = loadingAnimationTag
-        return view
-    }
-
-    func beginLoading() {
-        loading = getIoadingView()
-        self.view.addSubview(loading!)
-        loading?.startAnimating()
-    }
-
-    func endLoading() {
-        if let imageView = self.view.viewWithTag(loadingAnimationTag) {
-            imageView.removeFromSuperview()
-        }
-    }
-
     // MARK: Screen Rotation
-    // TODO: reposition loading spinner.
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
@@ -292,13 +246,6 @@ extension BaseViewController {
             } else {
                 self.whenPortrait()
             }
-//            if UIDevice.current.orientation.isLandscape{
-//                self.whenLandscape()
-//            } else if UIDevice.current.orientation.isPortrait {
-//                self.whenPortrait()
-//            } else {
-//                self.whenLandscape()
-//            }
         }
     }
 }

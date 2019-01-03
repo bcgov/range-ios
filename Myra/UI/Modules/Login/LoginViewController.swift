@@ -60,9 +60,6 @@ class LoginViewController: BaseViewController {
         self.loginButton.isUserInteractionEnabled = false
         sync { (synced) in
             if synced, let parent = self.parentRef {
-                // TODO: test functionality
-                // CLEAN-FLAG
-//                parent.removeCurrentVCAndReload()
                 parent.chooseInitialView()
             } else {
                 self.authServices.logout()

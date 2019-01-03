@@ -29,7 +29,6 @@
 		290AD10F218A13DF00A261B6 /* ManagegementConsiderationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290AD10E218A13DF00A261B6 /* ManagegementConsiderationType.swift */; };
 		290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290E153B2048C9FE00A51884 /* BaseFormCell.swift */; };
 		290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290FF88520635F1F00C7DAC0 /* SyncDate.swift */; };
-		29103A9C2151B56900032076 /* TourTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29103A9B2151B56900032076 /* TourTip.swift */; };
 		29174683207426E2005F70B4 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29174682207426E2005F70B4 /* Home.storyboard */; };
 		2917468520742765005F70B4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2917468420742765005F70B4 /* Login.storyboard */; };
 		291746872074279B005F70B4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291746862074279B005F70B4 /* LoginViewController.swift */; };
@@ -288,7 +287,6 @@
 		290AD10E218A13DF00A261B6 /* ManagegementConsiderationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagegementConsiderationType.swift; sourceTree = "<group>"; };
 		290E153B2048C9FE00A51884 /* BaseFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFormCell.swift; sourceTree = "<group>"; };
 		290FF88520635F1F00C7DAC0 /* SyncDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDate.swift; sourceTree = "<group>"; };
-		29103A9B2151B56900032076 /* TourTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourTip.swift; sourceTree = "<group>"; };
 		29174682207426E2005F70B4 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		2917468420742765005F70B4 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		291746862074279B005F70B4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -605,7 +603,6 @@
 				2901C4C22141D8EC00AE72FC /* Reference.swift */,
 				29FCB037205702B3006CD247 /* DateManager.swift */,
 				2935A76B21485A2500441539 /* ConstantStrings.swift */,
-				29103A9B2151B56900032076 /* TourTip.swift */,
 				292AD86B215C470200F80738 /* Notification.swift */,
 				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
 			);
@@ -1548,7 +1545,6 @@
 				29332D8E21B5A5BF00950478 /* AlertView.swift in Sources */,
 				294CADB5216E868A00DB184B /* NewElementAddedBanner.swift in Sources */,
 				2905432A2194D26600865823 /* Tour.swift in Sources */,
-				29103A9C2151B56900032076 /* TourTip.swift in Sources */,
 				291746872074279B005F70B4 /* LoginViewController.swift in Sources */,
 				29301FDF21385CB500E121E0 /* SyncBanner.swift in Sources */,
 				29EB8447203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift in Sources */,

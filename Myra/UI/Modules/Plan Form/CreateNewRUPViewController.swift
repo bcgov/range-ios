@@ -40,7 +40,7 @@ class CreateNewRUPViewController: BaseViewController {
     let numberOfSections = 11
 
     // MARK: Variables
-    var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
+    var parentCallBack: (() -> Void )?
 
     /* need to hold the inxedpath of sections to be able to scroll back to them.
      at this point, the indexpaths of the sections may not be known, and change
@@ -285,12 +285,6 @@ class CreateNewRUPViewController: BaseViewController {
             if let presenter = getPresenter() {
                 presenter.goHome()
             }
-            // Dismiss view controller
-//            self.dismiss(animated: true) {
-//                if self.parentCallBack != nil {
-//                    return self.parentCallBack!(true, true)
-//                }
-//            }
         }
     }
     
@@ -311,12 +305,6 @@ class CreateNewRUPViewController: BaseViewController {
         if let presenter = getPresenter() {
             presenter.goHome()
         }
-
-//        self.dismiss(animated: true) {
-//            if self.parentCallBack != nil {
-//                return self.parentCallBack!(true, false)
-//            }
-//        }
     }
 
     @IBAction func basicInfoAction(_ sender: UIButton) {
@@ -379,13 +367,12 @@ class CreateNewRUPViewController: BaseViewController {
             // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
-                    return self.parentCallBack!(true, false)
+                    return self.parentCallBack!()
                 }
             }
         }) {
             // No tapped
             self.openingAnimations(callBack: {
-                // TODO: Open banner if needed
             })
         }
     }
@@ -404,7 +391,7 @@ class CreateNewRUPViewController: BaseViewController {
 
     // MARK: Setup
     // TODO: Remove callback options. empty callback is good enough
-    func setup(rup: Plan, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
+    func setup(rup: Plan, mode: FormMode, callBack: @escaping () -> Void) {
         self.parentCallBack = callBack
         self.rup = rup
         self.mode = mode

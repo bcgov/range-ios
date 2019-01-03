@@ -58,10 +58,12 @@ extension MainViewController {
         AutoSync.shared.endListener()
         vc.setPresenter(viewController: self)
 
-        vc.setup(rup: plan, mode: mode) { (closed, cancel) in
-            self.showHome()
-        }
         show(viewController: vc)
+
+        vc.setup(rup: plan, mode: mode) { () in
+            print("Hola")
+        }
+
     }
 
     func showScheduleDetails(for schedule: Schedule, in plan: Plan, mode: FormMode) {

@@ -390,8 +390,6 @@ class Plan: Object, MyraObject {
             let realm = try Realm()
             try realm.write {
                 ministerIssues.append(object)
-                // todo: Check if this is necessary. i dont think it is
-                //                realm.add(object)
             }
         } catch _ {
             fatalError()
@@ -407,8 +405,6 @@ class Plan: Object, MyraObject {
                 } else {
                     pastures.append(Pasture())
                 }
-                // todo: Check if this is necessary. i dont think it is
-                //                realm.add(newPasture)
             }
         } catch _ {
             fatalError()

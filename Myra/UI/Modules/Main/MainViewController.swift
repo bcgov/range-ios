@@ -109,6 +109,12 @@ extension MainViewController {
     // MARK: Adding and removing viewControllers mechanic
     func show(viewController: UIViewController, addToStack: Bool? = true) {
         if let current = self.currentViewController {
+
+            /* Handle VCs that require special care before dismissal*/
+            if let home = current as? HomeViewController {
+                home.endChangeListener()
+            }
+
             self.view.layoutIfNeeded()
             self.addChild(viewController)
             viewController.view.frame = self.body.bounds
