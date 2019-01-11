@@ -29,7 +29,7 @@ class BaseViewController: UIViewController, Theme {
     let loadingAnimationTag = 110
 
     // MARK: Auth constants
-    let authServices: AuthServices = {
+    var authServices: AuthServices = {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                             clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
                             idpHint: Constants.SSO.idpHint)

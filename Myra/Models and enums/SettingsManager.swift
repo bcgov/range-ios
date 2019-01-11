@@ -22,7 +22,17 @@ class SettingsModel: Object {
     
     @objc dynamic var autoSyncEndbaled: Bool = true
     @objc dynamic var cacheMapEndbaled: Bool = true
+    @objc dynamic var devEnvironmentEnabled: Bool = true
     
+    func clone() -> SettingsModel {
+        let new = SettingsModel()
+        new.autoSyncEndbaled = self.autoSyncEndbaled
+        new.cacheMapEndbaled = self.cacheMapEndbaled
+        new.devEnvironmentEnabled = self.devEnvironmentEnabled
+        return new
+    }
+    
+    // MARK: Setters
     func setAutoSync(enabled: Bool) {
         do {
             let realm = try Realm()
@@ -44,6 +54,22 @@ class SettingsModel: Object {
             fatalError()
         }
     }
+    
+    func setDevEnvironment(enabled: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                devEnvironmentEnabled = enabled
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+}
+
+enum EndpointEnvironment {
+    case Dev
+    case Prod
 }
 
 
@@ -106,5 +132,29 @@ class SettingsManager {
         AutoSync.shared.beginListener()
     }
     
+    // MARK: Enviorments
+    func getCurrentEnvironment() -> EndpointEnvironment {
+        guard let model = getModel() else {return .Dev}
+        if model.devEnvironmentEnabled {
+            return .Dev
+        } else {
+            return .Prod
+        }
+    }
     
+    func setCurrentEnvironment(to mode: EndpointEnvironment, presenterReference: MainViewController) {
+        guard let model = getModel() else {return}
+        Alert.show(title: "Changing Environment", message: "Local data will be removed and you will be signed out.\nWould you like to continue?", yes: {
+            AutoSync.shared.endListener()
+            model.setDevEnvironment(enabled: mode == .Dev)
+            let settingsModelClone = model.clone()
+            API.authServices().logout()
+            RealmManager.shared.clearLastSyncDate()
+            RealmManager.shared.clearAllData()
+            RealmRequests.saveObject(object: settingsModelClone)
+            presenterReference.chooseInitialView()
+        }) {
+            return
+        }
+    }
 }

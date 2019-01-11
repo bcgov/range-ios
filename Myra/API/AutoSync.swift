@@ -77,7 +77,7 @@ class AutoSync {
         guard let r = Reachability() else {return}
         
         if !SettingsManager.shared.isAutoSyncEnabled() {
-            print("Autosync is not blocked (active: \(SettingsManager.shared.isAutoSyncEnabled())). so bye")
+            print("Autosync is not blocked (isActive:\(SettingsManager.shared.isAutoSyncEnabled())). so bye")
             return
         }
 

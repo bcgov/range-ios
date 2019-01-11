@@ -12,6 +12,7 @@ import UIKit
 extension MainViewController {
 
     func chooseInitialView() {
+        previousViewControllers.removeAll()
         if let _ = RealmManager.shared.getLastSyncDate() {
             // Go to home page
             showHome()

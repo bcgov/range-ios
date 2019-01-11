@@ -171,16 +171,17 @@ class HomeViewController: BaseViewController {
 
         return pixelBuffer
     }
+    
+    @IBAction func SettingsAction(_ sender: UIButton) {
+        let settings: Settings = UIView.fromNib()
+        settings.initialize(fromVC: self) {}
+    }
 
     @IBAction func tourAction(_ sender: UIButton) {
-        let settings: Settings = UIView.fromNib()
-        settings.initialize {
-            
+        let dialog: GetNameDialog = UIView.fromNib()
+        dialog.initialize {
+            self.beginTour()
         }
-//        let dialog: GetNameDialog = UIView.fromNib()
-//        dialog.initialize {
-//            self.beginTour()
-//        }
 
 //        beginTourTip()
 
@@ -223,7 +224,7 @@ class HomeViewController: BaseViewController {
 //        syncButtonLabel.alpha = 1
         blockSync = true
         showSyncMessage(text: "Connecting...", after: 0)
-        if authServices.isAuthenticated() {
+        if API.authServices().isAuthenticated() {
             playSyncButtonAnimation()
             animateIt()
             showSyncMessage(text: "Connection taking longer than expected...", after: 5)

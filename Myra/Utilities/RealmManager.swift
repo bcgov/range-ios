@@ -16,7 +16,6 @@ class RealmManager {
     private init() {}
 
     func clearAllData() {
-
         do {
             let realm = try! Realm()
             try realm.write {

@@ -120,7 +120,7 @@ class Feedback: NSObject {
     }
 
     static func send(feedback: FeedbackElement, completion: @escaping (_ success: Bool)->Void) {
-        guard let endpoint = URL(string: Constants.API.feedbackPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.feedbackPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         API.post(endpoint: endpoint, params: feedback.toDictionary()) { (response) in
