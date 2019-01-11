@@ -77,14 +77,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     @IBAction func lookupPastures(_ sender: Any) {
-        guard let scheduleVC = self.scheduleViewReference else {return}
+        guard let plan = self.plan, let scheduleVC = self.scheduleViewReference else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: Options.shared.getPasturesLookup(rup: rup), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
+        lookup.setup(objects: Options.shared.getPasturesLookup(rup: plan), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
             if selected, let object = obj {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
-                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: object.value, rup: self.rup)
+                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: object.value, rup: plan)
 
                 self.update()
                 // Clear sort headers
@@ -417,7 +417,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
 
     // MARK: Setup
     func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
@@ -450,7 +450,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference

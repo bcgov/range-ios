@@ -40,7 +40,7 @@ class CreateNewRUPViewController: BaseViewController {
     let numberOfSections = 11
 
     // MARK: Variables
-    var parentCallBack: ((_ close: Bool, _ cancel: Bool) -> Void )?
+    var parentCallBack: (() -> Void )?
 
     /* need to hold the inxedpath of sections to be able to scroll back to them.
      at this point, the indexpaths of the sections may not be known, and change
@@ -282,11 +282,8 @@ class CreateNewRUPViewController: BaseViewController {
             // ELSE it you came here from agreement selection, and changed your mind.
             // dont store any rup
 
-            // Dismiss view controller
-            self.dismiss(animated: true) {
-                if self.parentCallBack != nil {
-                    return self.parentCallBack!(true, true)
-                }
+            if let presenter = getPresenter() {
+                presenter.goHome()
             }
         }
     }
@@ -305,10 +302,8 @@ class CreateNewRUPViewController: BaseViewController {
 
         RealmRequests.updateObject(plan)
 
-        self.dismiss(animated: true) {
-            if self.parentCallBack != nil {
-                return self.parentCallBack!(true, false)
-            }
+        if let presenter = getPresenter() {
+            presenter.goHome()
         }
     }
 
@@ -372,13 +367,12 @@ class CreateNewRUPViewController: BaseViewController {
             // Dismiss view controller
             self.dismiss(animated: true) {
                 if self.parentCallBack != nil {
-                    return self.parentCallBack!(true, false)
+                    return self.parentCallBack!()
                 }
             }
         }) {
             // No tapped
             self.openingAnimations(callBack: {
-                // TODO: Open banner if needed
             })
         }
     }
@@ -396,7 +390,8 @@ class CreateNewRUPViewController: BaseViewController {
     }
 
     // MARK: Setup
-    func setup(rup: Plan, mode: FormMode, callBack: @escaping ((_ close: Bool, _ cancel: Bool) -> Void )) {
+    // TODO: Remove callback options. empty callback is good enough
+    func setup(rup: Plan, mode: FormMode, callBack: @escaping () -> Void) {
         self.parentCallBack = callBack
         self.rup = rup
         self.mode = mode
@@ -921,27 +916,13 @@ extension CreateNewRUPViewController {
 
 // MARK: Details pages
 extension CreateNewRUPViewController {
-    func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
-        guard let plan = self.rup else {return}
-        AutoSync.shared.endListener()
-        let vm = ViewManager()
-        let schedule = vm.schedule
-        schedule.setup(mode: mode, rup: plan, schedule: object, completion: { done in
-            AutoSync.shared.beginListener()
-            completion(done)
-        })
-        self.present(schedule, animated: true, completion: nil)
-    }
-
-    func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
-        guard let plan = self.rup else {return}
-        AutoSync.shared.endListener()
-        let vm = ViewManager()
-        let plantCommunityDetails = vm.plantCommunity
-        plantCommunityDetails.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: { done in
-            AutoSync.shared.beginListener()
-            completion(done)
-        })
-        self.present(plantCommunityDetails, animated: true, completion: nil)
-    }
+//    func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
+//        guard let plan = self.rup, let presenter = self.getPresenter() else {return}
+//        presenter.showScheduleDetails(for: object, in: plan, mode: self.mode)
+//    }
+//
+//    func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+//        guard let plan = self.rup, let presenter = self.getPresenter() else {return}
+//        presenter.showPlanCommunityDetails(for: plantCommunity, of: pasture, in: plan, mode: self.mode)
+//    }
 }

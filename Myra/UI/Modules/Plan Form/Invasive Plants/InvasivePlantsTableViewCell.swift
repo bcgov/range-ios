@@ -47,25 +47,25 @@ class InvasivePlantsTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
     @IBAction func optionOneAction(_ sender: UIButton) {
-        guard let invasivePlants = rup.invasivePlants.first else {return}
+        guard let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         invasivePlants.setValue(equipmentAndVehiclesParking: !invasivePlants.equipmentAndVehiclesParking)
         autoFill()
     }
 
     @IBAction func optionTwoAction(_ sender: UIButton) {
-        guard let invasivePlants = rup.invasivePlants.first else {return}
+        guard  let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         invasivePlants.setValue(beginInUninfestedArea: !invasivePlants.beginInUninfestedArea)
         autoFill()
     }
 
     @IBAction func optionThreeAction(_ sender: UIButton) {
-        guard let invasivePlants = rup.invasivePlants.first else {return}
+        guard let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         invasivePlants.setValue(undercarrigesInspected: !invasivePlants.undercarrigesInspected)
         autoFill()
     }
 
     @IBAction func optionFourAction(_ sender: UIButton) {
-        guard let invasivePlants = rup.invasivePlants.first else {return}
+        guard  let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         invasivePlants.setValue(revegetate: !invasivePlants.revegetate)
         autoFill()
     }
@@ -107,18 +107,19 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     override func setup(mode: FormMode, rup: Plan) {
         createObjectIfDoesntExist()
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         style()
         autoFill()
     }
 
     func createObjectIfDoesntExist() {
-        if rup.invasivePlants.isEmpty {
+        guard let plan = self.plan else {return}
+        if plan.invasivePlants.isEmpty {
             let new = InvasivePlants()
             do {
                 let realm = try Realm()
                 try realm.write {
-                    rup.invasivePlants.append(new)
+                    plan.invasivePlants.append(new)
                 }
             } catch {
                 fatalError()
@@ -128,7 +129,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     }
 
     func autoFill() {
-        guard let invasivePlants = rup.invasivePlants.first else {return}
+        guard  let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         style(box: boxOneIcon, on: invasivePlants.equipmentAndVehiclesParking)
         style(box: boxTwoIcon, on: invasivePlants.beginInUninfestedArea)
         style(box: boxThreeIcon, on: invasivePlants.undercarrigesInspected)
@@ -143,14 +144,14 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     }
 
     func showOtherOption() {
-         guard let invasivePlants = rup.invasivePlants.first else {return}
+         guard  let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         textView.text = invasivePlants.other
         otherFieldHeight.constant = 80
         style(box: boxFiveIcon, on: true)
     }
 
     func hideOtherOption() {
-        guard let invasivePlants = rup.invasivePlants.first else {return}
+        guard  let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         invasivePlants.setValue(other: "")
         textView.text = ""
         otherFieldHeight.constant = 0
@@ -221,7 +222,7 @@ extension InvasivePlantsTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
 
     func textViewDidEndEditing(_ textView: UITextView) {
-         guard let invasivePlants = rup.invasivePlants.first else {return}
+         guard  let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
         invasivePlants.setValue(other: textView.text)
 //        style(box: boxFiveIcon, on: !textView.text.isEmpty)
     }

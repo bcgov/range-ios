@@ -29,32 +29,23 @@ class BaseViewController: UIViewController, Theme {
     let loadingAnimationTag = 110
 
     // MARK: Auth constants
-    let authServices: AuthServices = {
+    var authServices: AuthServices = {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                             clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
                             idpHint: Constants.SSO.idpHint)
     }()
 
     // MARK: Variables
-    var loading: UIImageView?
-    var loadingImages = [UIImage]()
-
+    var navigationTitle: String?
     var currentPopOver: UIViewController?
+    var presenterVC: UIViewController?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if loadingImages.count != 4 {
-            setupLoadingIndicatorImages()
-        }
-    }
-
+    // MARK: VC Functions
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Feedback.initializeButton()
-    }
-
-    public func dismissKeyboard() {
-        self.view.endEditing(true)
+        guard let presenter = self.getPresenter() else {return}
+        presenter.setNav(title: navigationTitle ?? "")
     }
 
     // MARK: Event handlers
@@ -66,6 +57,21 @@ class BaseViewController: UIViewController, Theme {
     func syncEnd() {}
     func orientationChanged() {
         dismissPopOver()
+    }
+
+    // MARK:
+    func setPresenter(viewController: UIViewController) {
+        self.presenterVC = viewController
+    }
+
+    func getPresenter() -> MainViewController? {
+        guard let presenter = self.presenterVC, let mainVC = presenter as? MainViewController else {return nil}
+        return mainVC
+    }
+
+    // MARK: Utilities
+    public func dismissKeyboard() {
+        self.view.endEditing(true)
     }
 
     func notifyOrientationChange() {
@@ -228,42 +234,9 @@ extension BaseViewController {
     }
 }
 
-// MARK: Loading Spinner
+// MARK:
 extension BaseViewController {
-    func setupLoadingIndicatorImages() {
-        var images = [UIImage]()
-
-        for i in 0...3 {
-            images.append(UIImage(named: "cow\(i)")!)
-        }
-        loadingImages = images
-    }
-
-    func getIoadingView() -> UIImageView {
-        let view = UIImageView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 100, height: 100))
-        view.animationImages = loadingImages
-        view.animationDuration = 0.3
-        view.center.y = self.view.center.y
-        view.center.x = self.view.center.x
-        view.alpha = 1
-        view.tag = loadingAnimationTag
-        return view
-    }
-
-    func beginLoading() {
-        loading = getIoadingView()
-        self.view.addSubview(loading!)
-        loading?.startAnimating()
-    }
-
-    func endLoading() {
-        if let imageView = self.view.viewWithTag(loadingAnimationTag) {
-            imageView.removeFromSuperview()
-        }
-    }
-
     // MARK: Screen Rotation
-    // TODO: reposition loading spinner.
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
@@ -273,13 +246,6 @@ extension BaseViewController {
             } else {
                 self.whenPortrait()
             }
-//            if UIDevice.current.orientation.isLandscape{
-//                self.whenLandscape()
-//            } else if UIDevice.current.orientation.isPortrait {
-//                self.whenPortrait()
-//            } else {
-//                self.whenLandscape()
-//            }
         }
     }
 }

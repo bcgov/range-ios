@@ -8,11 +8,13 @@
 
 import UIKit
 import Extended
+import Realm
+import RealmSwift
 
-class BaseFormCell: UITableViewCell, Theme {
+class BaseFormCell: BaseTableViewCell {
 
     // MARK: Variables
-    var rup: Plan = Plan()
+    var plan: Plan?
     var mode: FormMode = .View
 
     // MARK: Cell functions
@@ -27,8 +29,19 @@ class BaseFormCell: UITableViewCell, Theme {
 
     // MARK: Cell Setup
     func setup(mode: FormMode, rup: Plan) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
+    }
+
+    func refetchPlan() -> Plan? {
+        guard let current = self.plan else {return nil}
+        do {
+            let realm = try Realm()
+            guard let aPlan = realm.objects(Plan.self).filter("localId = %@", current.localId).first else {return nil}
+            return aPlan
+        } catch _ {
+            fatalError()
+        }
     }
 
     func setDefaultValueIfEmpty(field: UITextView) {

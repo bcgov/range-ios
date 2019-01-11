@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, Theme {
+class MonitoringAreaCustomDetailTableViewCellTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 70

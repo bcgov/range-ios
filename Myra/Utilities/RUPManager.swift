@@ -187,25 +187,7 @@
     
     // will fetch the stored rup with the same id,
     // so only pass in the newly downloaded agreement
-    // TODO: Refactor - schema change
-    func updateRUP(with newRUP: Plan) {
-        let storedRUP = getRUP(withId: newRUP.remoteId)
-        if storedRUP == nil {return}
-        
-        do {
-            let realm = try Realm()
-            try realm.write {
-                if newRUP.zones.count > 0 {
-                    storedRUP?.zones = newRUP.zones
-                }
-            }
-            
-        } catch _ {
-            fatalError()
-        }
-        RealmRequests.updateObject(storedRUP!)
-    }
-    
+
     func getAgreement(with id: String) -> Agreement? {
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
             for storedAgreement in storedAgreements where storedAgreement.agreementId == id {

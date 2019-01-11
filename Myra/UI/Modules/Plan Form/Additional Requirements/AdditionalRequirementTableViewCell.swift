@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class AdditionalRequirementTableViewCell: UITableViewCell, Theme {
+class AdditionalRequirementTableViewCell: BaseFormCell {
 
     static let cellHeight:CGFloat = 271
 
@@ -27,7 +27,6 @@ class AdditionalRequirementTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
 
     var additionalRequirement: AdditionalRequirement?
-    var mode: FormMode = .View
 
     var additionalRequirementsParent: AdditionalRequirementsTableViewCell?
 
@@ -80,11 +79,11 @@ class AdditionalRequirementTableViewCell: UITableViewCell, Theme {
     }
 
     func duplicate() {
-        guard let req = self.additionalRequirement, let parentCell = self.additionalRequirementsParent else {return}
+        guard let req = self.additionalRequirement, let plan = self.plan, let parentCell = self.additionalRequirementsParent else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                parentCell.rup.additionalRequirements.append(req.clone())
+                plan.additionalRequirements.append(req.clone())
                 NewElementAddedBanner.shared.show()
             }
         } catch {
@@ -93,7 +92,7 @@ class AdditionalRequirementTableViewCell: UITableViewCell, Theme {
         parentCell.updateTableHeight(scrollToBottom: true)
     }
 
-    func setup(mode: FormMode, object: AdditionalRequirement, parentCell: AdditionalRequirementsTableViewCell) {
+    func setup(mode: FormMode, object: AdditionalRequirement, plan: Plan, parentCell: AdditionalRequirementsTableViewCell) {
         self.additionalRequirementsParent = parentCell
         self.mode = mode
         self.additionalRequirement = object

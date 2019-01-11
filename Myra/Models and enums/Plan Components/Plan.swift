@@ -273,11 +273,55 @@ class Plan: Object, MyraObject {
         }
     }
 
+    func setRangeName(name: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                rangeName = name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setBusinesssName(name: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                alternativeName = name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
     func setShouldUpdateRemoteStatus(should: Bool) {
         do {
             let realm = try Realm()
             try realm.write {
                 shouldUpdateRemoteStatus = should
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setPlanStartDate(to date: Date) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                planStartDate = date
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func setPlanEndDate(to date: Date) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                planEndDate = date
             }
         } catch _ {
             fatalError()
@@ -309,6 +353,58 @@ class Plan: Object, MyraObject {
                 shouldUpdateRemoteStatus = true
                 statusId = tempId
                 statusIdValue = obj.name
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func addLiveStock() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                liveStockIDs.append(LiveStockID())
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func addManagementConsideration(cloneFrom object: ManagementConsideration?) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if let origin = object {
+                    managementConsiderations.append(origin.clone())
+                } else {
+                    managementConsiderations.append(ManagementConsideration())
+                }
+            }
+        } catch {
+            fatalError()
+        }
+    }
+
+    func addMinisterIssue(object: MinisterIssue) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                ministerIssues.append(object)
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+
+    func addPasture(cloneFrom object: Pasture?) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if let origin = object {
+                    pastures.append(origin)
+                } else {
+                    pastures.append(Pasture())
+                }
             }
         } catch _ {
             fatalError()

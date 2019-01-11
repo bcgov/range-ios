@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
+class PlantCommunityPastureActionsTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var mode: FormMode = .View

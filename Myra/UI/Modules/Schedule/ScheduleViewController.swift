@@ -231,7 +231,7 @@ class ScheduleViewController: BaseViewController {
 
     func setTitle() {
         guard let schedule = self.schedule, self.scheduleTitle != nil else {return}
-        self.scheduleTitle.text = "\(schedule.yearString) Grazing Schedule"
+        navigationTitle = "\(schedule.yearString) Grazing Schedule"
     }
 
     func setSubtitle(ranNumber: String, agreementHolder: String, rangeName: String) {

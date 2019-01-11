@@ -11,7 +11,7 @@ import CoreLocation
 import Realm
 import RealmSwift
 
-class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
+class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
 
     static let cellHeight: CGFloat = (320 + 16 + 8)
 

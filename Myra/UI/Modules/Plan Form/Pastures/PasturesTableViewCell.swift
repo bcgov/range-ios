@@ -31,23 +31,23 @@ class PasturesTableViewCell: BaseFormCell {
     }
 
     @IBAction func addPastureAction(_ sender: Any) {
-        let parent = self.parentViewController as! CreateNewRUPViewController
+        guard let parent = self.parentViewController as? CreateNewRUPViewController, let plan = self.plan else {return}
         let vm = ViewManager()
         let textEntry = vm.textEntry
-        textEntry.taken = Options.shared.getPastureNames(rup: rup)
+        textEntry.taken = Options.shared.getPastureNames(rup: plan)
         textEntry.setup(on: parent, header: PlaceHolders.Pasture.name) { (accepted, value) in
             if accepted {
                 let newPasture = Pasture()
                 newPasture.name = value
                 do {
                     let realm = try Realm()
-                    let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
+                    let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first!
                     try realm.write {
                         aRup.pastures.append(newPasture)
                         realm.add(newPasture)
                         NewElementAddedBanner.shared.show()
                     }
-                    self.rup = aRup
+                    self.plan = aRup
                 } catch _ {
                     fatalError()
                 }
@@ -58,7 +58,7 @@ class PasturesTableViewCell: BaseFormCell {
 
     // Mark: Setup
     override func setup(mode: FormMode, rup: Plan) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
         switch mode {
         case .View:
@@ -90,12 +90,13 @@ class PasturesTableViewCell: BaseFormCell {
     }
 
     func computeHeight() -> CGFloat {
+        guard let plan = self.plan else {return 0}
         /*
          Height of Pastures cell =
          */
         let padding: CGFloat = 5
         var h: CGFloat = 0.0
-        for pasture in (rup.pastures) {
+        for pasture in (plan.pastures) {
             h = h + computePastureHeight(pasture: pasture) + padding
         }
         if h == 0.0 {
@@ -138,18 +139,22 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let count = rup.pastures.count
+
+        let cell = getPastureCell(indexPath: indexPath)
+
+        guard let plan = self.plan else {return cell}
+        let count = plan.pastures.count
         if count < 1 {
             return getEmptyPastureCell(indexPath: indexPath)
         }
-        let cell = getPastureCell(indexPath: indexPath)
-        if (rup.pastures.count) <= indexPath.row {return cell}
-        cell.setup(mode: mode, pasture: (rup.pastures[indexPath.row]), pastures: self)
+        if (plan.pastures.count) <= indexPath.row {return cell}
+        cell.setup(mode: mode, pasture: (plan.pastures[indexPath.row]), plan: plan, pastures: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = rup.pastures.count
+        guard let plan = self.plan else {return 0}
+        let count = plan.pastures.count
         if count < 1 {
             return 1
         } else {

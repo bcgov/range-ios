@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 import DatePicker
 
-class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
+class MonitoringAreaCustomDetailsTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var mode: FormMode = .View

@@ -128,7 +128,7 @@ class PastureTableViewCell: BaseFormCell {
             fatalError()
         }
 
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
 
     @IBAction func landDeductionChanged(_ sender: UITextField) {
@@ -148,7 +148,7 @@ class PastureTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
 
     @IBAction func graceDaysChanged(_ sender: UITextField) {
@@ -166,7 +166,7 @@ class PastureTableViewCell: BaseFormCell {
         } catch _ {
             fatalError()
         }
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
@@ -200,12 +200,13 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Setup
-    func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
+    func setup(mode: FormMode, pasture: Pasture, plan: Plan, pastures: PasturesTableViewCell) {
         style()
         self.parentCell = pastures
         self.mode = mode
         self.pasture = pasture
-        self.rup = pastures.rup
+        self.plan = plan
+        self.plan = pastures.plan
         autofill()
         setupTable()
         style()
@@ -271,27 +272,19 @@ class PastureTableViewCell: BaseFormCell {
 
     func duplicate() {
         guard let past = self.pasture, let parent = parentCell else {return}
-        let grandParent = parent.parentViewController as! CreateNewRUPViewController
+        guard let grandParent = parent.parentViewController as? CreateNewRUPViewController, let plan = self.plan else {return}
         let vm = ViewManager()
         let inputPrompt = vm.textEntry
-        inputPrompt.taken = Options.shared.getPastureNames(rup: rup)
+        inputPrompt.taken = Options.shared.getPastureNames(rup: plan)
         inputPrompt.setup(on: grandParent, header: "Pasture Name") { (done, name) in
             if done {
                 let newPasture = Pasture()
                 newPasture.name = name
                 RUPManager.shared.copyPasture(from: past, to: newPasture)
-                do {
-                    let realm = try Realm()
-                    let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
-                    try realm.write {
-                        aRup.pastures.append(newPasture)
-                        realm.add(newPasture)
-                    }
-                    self.rup = aRup
-                    parent.updateTableHeight()
-                } catch _ {
-                    fatalError()
-                }
+                guard let refetchedPlan = self.refetchPlan() else {return}
+                refetchedPlan.addPasture(cloneFrom: newPasture)
+                self.plan = refetchedPlan
+                parent.updateTableHeight()
             }
         }
     }
@@ -385,8 +378,8 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
-        guard let p = self.pasture else {return cell}
-        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p, parentCellReference: self)
+        guard let pasture = self.pasture, let plan = self.plan else {return cell}
+        cell.setup(mode: self.mode, plantCommunity:pasture.plantCommunities[indexPath.row], pasture: pasture, plan: plan, parentCellReference: self)
         return cell
     }
 

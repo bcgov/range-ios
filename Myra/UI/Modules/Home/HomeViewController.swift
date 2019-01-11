@@ -132,20 +132,6 @@ class HomeViewController: BaseViewController {
         endTour()
     }
 
-    @IBAction func abuttonAction(_ sender: UIButton) {
-        Feedback.showFeedbacks(in: self)
-//        TileMaster.shared.deleteAllStoredTiles()
-//        TileMaster.shared.storeTilesAround(x: 41238, y: 90659, z: 18, then: {
-//            print("DONE!!!")
-//        })
-    }
-
-
-    @IBAction func picMap(_ sender: UIButton) {
-        let vm = ViewManager()
-        present(vm.mapViewController, animated: true, completion: nil)
-    }
-
     @IBAction func testCam(_ sender: UIButton) {
 //        Feedback.show(in: self)
 
@@ -160,28 +146,6 @@ class HomeViewController: BaseViewController {
 //            }
 //        }
     }
-
-//    func slideShow(images: [RangePhoto]) {
-//        let imageView = UIImageView(frame: self.view.frame)
-//
-//        //            imageView.image = image.getImage()
-//        self.view.addSubview(imageView)
-//
-//
-//    }
-//
-//    func loopSlideShow(images: [RangePhoto], in imageView: UIImageView, done: @escaping () -> Void) {
-//        var all: [RangePhoto] = images
-//        if let last = all.popLast() {
-//            imageView.image = last.getImage()
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                self.loopSlideShow(images: all, in: imageView, done: done)
-//            }
-//        } else {
-//            imageView.removeFromSuperview()
-//            return done()
-//        }
-//    }
 
     func buffer(from image: UIImage) -> CVPixelBuffer? {
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
@@ -206,6 +170,11 @@ class HomeViewController: BaseViewController {
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
 
         return pixelBuffer
+    }
+    
+    @IBAction func SettingsAction(_ sender: UIButton) {
+        let settings: Settings = UIView.fromNib()
+        settings.initialize(fromVC: self) {}
     }
 
     @IBAction func tourAction(_ sender: UIButton) {
@@ -245,12 +214,8 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
-        let vm = ViewManager()
-        let vc = vm.selectAgreement
-        vc.setup(callBack: { closed in
-            self.loadHome()
-        })
-        self.present(vc, animated: true, completion: nil)
+        guard let parent = self.parentReference else {return}
+        parent.showCreateNew()
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
@@ -259,7 +224,7 @@ class HomeViewController: BaseViewController {
 //        syncButtonLabel.alpha = 1
         blockSync = true
         showSyncMessage(text: "Connecting...", after: 0)
-        if authServices.isAuthenticated() {
+        if API.authServices().isAuthenticated() {
             playSyncButtonAnimation()
             animateIt()
             showSyncMessage(text: "Connection taking longer than expected...", after: 5)
@@ -723,38 +688,6 @@ extension HomeViewController {
     }
 }
 
-// MARK: Functions to handle displaying views
-extension HomeViewController {
-
-    func editRUP(rup: Plan) {
-        let vc = getCreateNewVC()
-        vc.setup(rup: rup, mode: .Edit) { closed, cancel  in
-            self.expandIndexPath = nil
-            self.getRUPs()
-        }
-        self.present(vc, animated: true, completion: nil)
-    }
-
-    func viewRUP(rup: Plan) {
-        let vc = getCreateNewVC()
-        vc.setup(rup: rup, mode: .View) { closed, cancel in
-            self.expandIndexPath = nil
-            self.getRUPs()
-        }
-        self.present(vc, animated: true, completion: nil)
-    }
-
-    func getCreateNewVC() -> CreateNewRUPViewController {
-        let vm = ViewManager()
-        return vm.createRUP
-    }
-
-    func showCreate() {
-        let vc = getCreateNewVC()
-        self.present(vc, animated: true, completion: nil)
-    }
-}
-
 // MARK: Connectivity
 extension HomeViewController {
     func setupReachabilityNotification() {
@@ -798,32 +731,6 @@ extension HomeViewController {
 
 // MARK: TourTip
 extension HomeViewController: MaterialShowcaseDelegate {
-
-    // This begins displaying elements in tours array
-//    func runTourTip() {
-//        if let first = tours.popLast() {
-//            show(tourTip: first)
-//        }
-//    }
-
-    // Creates a dummy agreement and plan,
-    // Loads tour elements for plan cell
-    // Begins displaying elelemnts
-//    func beginTourTip() {
-//        setDummyPlan()
-//        loadTourTipsForDummyCell()
-//        runTourTip()
-//    }
-
-//    func endTourTip() {
-//        updateAccordingToNetworkStatus()
-//        removeDummy()
-//        getRUPs()
-
-        // should be already nil but just to make sure...
-//        lastTourTip = nil
-//        lastTourTarget = nil
-//    }
 
     func endTour() {
         updateAccordingToNetworkStatus()
@@ -934,132 +841,6 @@ extension HomeViewController: MaterialShowcaseDelegate {
             return then()
         }
     }
-
-//    func loadTourTipForExpandedDummyCell() {
-//        var tTips = [TourTip]()
-//        let indexpath = IndexPath(row: 1, section: 0)
-//        guard let cell = getDummyPlanCell(), let innerCell = cell.tableView.cellForRow(at: indexpath), let planCell = innerCell as? AssignedRUPVersionTableViewCell else {return}
-//
-//        cell.layoutIfNeeded()
-//        cell.tableView.layoutIfNeeded()
-//        planCell.layoutIfNeeded()
-//
-//        if let cellViewButton = planCell.viewButton {
-//            tTips.append(TourTip(title: tourPlanCellVersionViewTooltipTitle, desc: tourPlanCellVersionViewTooltipDesc, target: cellViewButton))
-//        }
-//
-//        if let cellTooltipButton = planCell.toolTipButton {
-//            tTips.append(TourTip(title: tourPlanCellVersionStatusTooltipTitle, desc: tourPlanCellVersionStatusTooltipDesc, target: cellTooltipButton, rippleBG: UIColor.white))
-//        }
-//
-//        if let innerCellTable = cell.tableView {
-//            tTips.append(TourTip(title: tourPlanCellVersionsTooltipTitle, desc: tourPlanCellVersionsTooltipDesc, target: innerCellTable, style: .full))
-//        }
-//
-//        self.tours.append(contentsOf: tTips)
-//    }
-
-//    func loadTourTipsForDummyCell() {
-//        var tTips = [TourTip]()
-//        guard let cell = getDummyPlanCell() else {return}
-//        if let statusText = cell.statusText {
-//            tTips.append(TourTip(title: tourPlanCellLatestStatusTitle, desc: tourPlanCellLatestStatusDesc, target: statusText, rippleBG: UIColor.white))
-//        }
-//        if let cellContainer = cell.container {
-//            tTips.append(TourTip(title: tourPlanCellLatestTitle, desc: tourPlanCellLatestDesc, target: cellContainer, style: .full))
-//        }
-//
-//        self.tours.append(contentsOf: tTips)
-//    }
-
-//    func loadPageTourTips() {
-//        self.tours.append(TourTip(title: tourTourTitle, desc: tourTourDesc, target: tourTipButton))
-//        self.tours.append(TourTip(title: tourLogoutTitle, desc: tourLogoutDesc, target: userBoxView))
-//        self.tours.append(TourTip(title: tourlastSyncTitle, desc: tourlastSyncDesc, target: lastSyncLabel))
-//        self.tours.append(TourTip(title: tourSyncTitle, desc: tourSyncDesc, target: syncContainer, rippleBG: UIColor.white))
-//        self.tours.append(TourTip(title: tourFiltersTitle, desc: tourFiltersDesc, target: allFilter, rippleBG: UIColor.white))
-//        self.tours.append(TourTip(title: tourCreateNewRupTitle, desc: tourCreateNewRupDesc, target: createButton))
-//    }
-
-//    // Present a tourTip object
-//    func show(tourTip: TourTip) {
-//        // Display element if it's hidden, but store info to reset state after
-//        lastTourTarget = tourTip.target
-//        lastTourTip = tourTip
-//        lastTourTargetAlpha = tourTip.target.alpha
-//        UIView.animate(withDuration: 0.2) {
-//            tourTip.target.alpha = 1
-//            self.view.layoutIfNeeded()
-//        }
-//
-//        let showcase = MaterialShowcase()
-//        showcase.setTargetView(view: tourTip.target)
-//        showcase.primaryText = tourTip.title
-//        showcase.secondaryText = tourTip.desc
-//        // Background
-//        showcase.backgroundPromptColor = Colors.active.blue
-//        showcase.backgroundPromptColorAlpha = 0.9
-//        if let style = tourTip.style {
-//            showcase.backgroundViewType = style
-//        }
-//        if let rippleBG = tourTip.rippleBG {
-//            showcase.targetHolderColor = rippleBG
-//        }
-//        // Text
-//        showcase.primaryTextColor = UIColor.white
-//        showcase.secondaryTextColor = UIColor.white
-//        showcase.primaryTextFont = Fonts.getPrimaryMedium(size: 23)
-//        showcase.secondaryTextFont = Fonts.getPrimary(size: 17)
-//        showcase.delegate = self
-//
-//        showcase.show(completion: {})
-////        self.view.addSubview(endTourView)
-//    }
-
-
-//    func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
-//        // add expanded cell if first tourtip element from getTourTipsForDummyCell() has been shown.
-//        if let lastTtip = lastTourTip {
-//            // compare to the title of the FIRST ELEMENT appended in loadTourTipsForDummyCell()
-//            if lastTtip.title == tourPlanCellLatestStatusTitle {
-//                expandDummyPlanCell(then: {
-//                    self.loadTourTipForExpandedDummyCell()
-//                    self.runTourTip()
-//                })
-//            // compare to the title of the FIRST ELEMENT appended in loadTourTipForExpandedDummyCell()
-//            } else if lastTtip.title == tourPlanCellVersionViewTooltipTitle {
-//                closeDummyPlanCell(then: {
-//                    self.loadPageTourTips()
-//                    self.runTourTip()
-//                })
-//            }
-//        }
-//
-//        // return target visibility to what it was before tourtip began
-//        if let target = lastTourTarget {
-//            target.alpha = lastTourTargetAlpha
-//            lastTourTarget = nil
-//        }
-//    }
-
-    // When an elelemnt was dismissed, show the next element in array
-    // if array is empty and the last element displayed was the desired last element,
-    // run endTourTip() to remove dummy data and reset home page.
-    // Note: We dont just check if it's empty, because of the case where we need to wait
-    // for a cell to expand and set up its tableview before continuing tour (in showCaseWillDismiss())
-//    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
-//        if let next = self.tours.popLast() {
-//            lastTourTip = nil
-//            show(tourTip: next)
-//        } else if let lastTtip = lastTourTip, lastTtip.title ==  tourTourTitle {
-//            lastTourTip = nil
-//            endTourTip()
-//            /* End tour tip if last element you want shows was dismissed.
-//             right now, the last element, is the first element addded in loadPageTourTips())
-//             you can compare lastTourTip.title to figure out what the last tooltip wass
-//            */
-//        }
-//    }
 }
 
 

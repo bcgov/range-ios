@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AssignedRUPTableViewCell: UITableViewCell, Theme {
+class AssignedRUPTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var rup: Plan?
@@ -40,12 +40,11 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
-        guard let plan = rup else {return}
-        let parent = self.parentViewController as! HomeViewController
+        guard let plan = rup, let presenter = self.getPresenter() else {return}
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
-            parent.editRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .Edit)
         } else {
-            parent.viewRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .View)
         }
     }
 

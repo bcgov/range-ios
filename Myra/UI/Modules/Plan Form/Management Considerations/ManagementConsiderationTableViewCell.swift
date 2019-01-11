@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
+class ManagementConsiderationTableViewCell: BaseFormCell {
 
     static let cellHeight:CGFloat = 271
 
@@ -27,7 +27,6 @@ class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var optionsButton: UIButton!
 
     var managementConsideration: ManagementConsideration?
-    var mode: FormMode = .View
 
     var managementConsiderationsParent: ManagementConsiderationsTableViewCell?
 
@@ -87,23 +86,17 @@ class ManagementConsiderationTableViewCell: UITableViewCell, Theme {
     }
 
     func duplicate() {
-        guard let obj = self.managementConsideration, let parentCell = self.managementConsiderationsParent else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                parentCell.rup.managementConsiderations.append(obj.clone())
-                NewElementAddedBanner.shared.show()
-            }
-        } catch {
-            fatalError()
-        }
+        guard let currentObject = self.managementConsideration, let parentCell = self.managementConsiderationsParent , let plan = self.plan else {return}
+        plan.addManagementConsideration(cloneFrom: currentObject)
+        NewElementAddedBanner.shared.show()
         parentCell.updateTableHeight(scrollToBottom: true)
     }
 
-    func setup(mode: FormMode, object: ManagementConsideration, parentCell: ManagementConsiderationsTableViewCell) {
+    func setup(mode: FormMode, object: ManagementConsideration, plan: Plan, parentCell: ManagementConsiderationsTableViewCell) {
         self.managementConsiderationsParent = parentCell
         self.mode = mode
         self.managementConsideration = object
+        self.plan = plan
         style()
         autoFill()
     }

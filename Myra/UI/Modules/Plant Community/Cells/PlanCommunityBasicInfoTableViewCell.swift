@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
+class PlanCommunityBasicInfoTableViewCell: BaseTableViewCell {
 
     // MARK: Outlets
     @IBOutlet weak var aspectHeader: UILabel!
