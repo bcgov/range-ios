@@ -10,31 +10,6 @@ import Foundation
 import Realm
 import RealmSwift
 
-public extension Bundle {
-    
-    public var shortVersion: String {
-        if let result = infoDictionary?["CFBundleShortVersionString"] as? String {
-            return result
-        } else {
-            assert(false)
-            return ""
-        }
-    }
-    
-    public var buildVersion: String {
-        if let result = infoDictionary?["CFBundleVersion"] as? String {
-            return result
-        } else {
-            assert(false)
-            return ""
-        }
-    }
-    
-    public var fullVersion: String {
-        return "\(shortVersion)(\(buildVersion))"
-    }
-}
-
 class SettingsModel: Object {
     
     @objc dynamic var realmID: String = {
