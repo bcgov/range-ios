@@ -49,6 +49,7 @@ class SettingsModel: Object {
 
 class SettingsManager {
     
+    
     static let shared = SettingsManager()
 
     private init() {
