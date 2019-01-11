@@ -39,9 +39,6 @@ struct Constants {
                 return Constants.API.Prod.baseURL
             }
         }
-
-//        static let baseURL = URL(string: "https://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")
-//        static let baseURL = URL(string: "https://api-range-myra-prod.pathfinder.gov.bc.ca/api/v1/")
         static let userInfoPath = "user/me"
         static let referencePath = "reference/"
         static let planPath = "plan/"
@@ -79,8 +76,6 @@ struct Constants {
                 return Constants.SSO.Prod.baseUrl
             }
         }
-        //= URL(string: "https://sso-dev.pathfinder.gov.bc.ca")!
-//        static let baseUrl = URL(string: "https://sso.pathfinder.gov.bc.ca")!
         static let redirectUri = "myra-ios://client"
         static let clientId = "myrangebc"
         static let realmName = "range"

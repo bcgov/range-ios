@@ -148,7 +148,7 @@ class SettingsManager {
             AutoSync.shared.endListener()
             model.setDevEnvironment(enabled: mode == .Dev)
             let settingsModelClone = model.clone()
-            API.authServices.logout()
+            API.authServices().logout()
             RealmManager.shared.clearLastSyncDate()
             RealmManager.shared.clearAllData()
             RealmRequests.saveObject(object: settingsModelClone)

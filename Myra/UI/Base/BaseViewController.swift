@@ -303,8 +303,8 @@ extension BaseViewController {
 // MARK: Authentication
 extension BaseViewController {
     func authenticateIfRequred(sender: UIButton? = nil) {
-        if !API.authServices.isAuthenticated() {
-            let vc = API.authServices.viewController() { (credentials, error) in
+        if !API.authServices().isAuthenticated() {
+            let vc = API.authServices().viewController() { (credentials, error) in
 
                 guard let _ = credentials, error == nil else {
                     let title = "Authentication"
@@ -324,9 +324,9 @@ extension BaseViewController {
             }
             present(vc, animated: true, completion: nil)
         } else {
-            API.authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
+            API.authServices().refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
                 if let error = error as? AuthenticationError, case .expired = error {
-                    let vc = API.authServices.viewController() { (credentials, error) in
+                    let vc = API.authServices().viewController() { (credentials, error) in
 
                         guard let _ = credentials, error == nil else {
                             let title = "Authentication"
@@ -351,7 +351,7 @@ extension BaseViewController {
     }
 
     func logout() {
-        API.authServices.logout()
+        API.authServices().logout()
         RealmManager.shared.clearLastSyncDate()
         RealmManager.shared.clearAllData()
     }

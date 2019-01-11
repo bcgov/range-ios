@@ -224,7 +224,7 @@ class HomeViewController: BaseViewController {
 //        syncButtonLabel.alpha = 1
         blockSync = true
         showSyncMessage(text: "Connecting...", after: 0)
-        if API.authServices.isAuthenticated() {
+        if API.authServices().isAuthenticated() {
             playSyncButtonAnimation()
             animateIt()
             showSyncMessage(text: "Connection taking longer than expected...", after: 5)
