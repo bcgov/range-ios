@@ -39,7 +39,7 @@ public enum APIError: LocalizedDescriptionError {
 class API {
     
     typealias APIRequestCompleted = (_ records: [String:Any]?, _ error: APIError?) -> ()
-    
+
     static func authServices() -> AuthServices {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                             clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,

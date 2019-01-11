@@ -72,7 +72,7 @@ class LoginViewController: BaseViewController {
             if synced, let parent = self.parentRef {
                 parent.chooseInitialView()
             } else {
-                API.authServices().logout()
+                self.authServices.logout()
                 self.loginButton.isUserInteractionEnabled = true
             }
         }
