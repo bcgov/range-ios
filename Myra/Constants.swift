@@ -16,20 +16,31 @@ struct Constants {
 
     struct API {
         struct Dev {
-            static let baseURL = URL(string: "https://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")
+            static let baseURL = URL(string: "https://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")!
 
         }
         struct Test {
-            static let baseURL = URL(string: "https://api-range-myra-test.pathfinder.gov.bc.ca/api/v1/")
+            static let baseURL = URL(string: "https://api-range-myra-test.pathfinder.gov.bc.ca/api/v1/")!
 
         }
 
         struct Prod {
-            static let baseURL = URL(string: "https://api-range-myra-prod.pathfinder.gov.bc.ca/api/v1/")
+            static let baseURL = URL(string: "https://api-range-myra-prod.pathfinder.gov.bc.ca/api/v1/")!
 
         }
+        
         static let maxConcurentEndpointRequests = 3
-        static let baseURL = URL(string: "https://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")
+        
+        static var baseURL: URL {
+            switch SettingsManager.shared.getCurrentEnvironment() {
+            case .Dev:
+                return Constants.API.Dev.baseURL
+            case .Prod:
+                return Constants.API.Prod.baseURL
+            }
+        }
+
+//        static let baseURL = URL(string: "https://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")
 //        static let baseURL = URL(string: "https://api-range-myra-prod.pathfinder.gov.bc.ca/api/v1/")
         static let userInfoPath = "user/me"
         static let referencePath = "reference/"
@@ -60,7 +71,15 @@ struct Constants {
              static let baseUrl = URL(string: "https://sso.pathfinder.gov.bc.ca")!
         }
 
-        static let baseUrl = URL(string: "https://sso-dev.pathfinder.gov.bc.ca")!
+        static var baseUrl: URL {
+            switch SettingsManager.shared.getCurrentEnvironment() {
+            case .Dev:
+                return Constants.SSO.Dev.baseUrl
+            case .Prod:
+                return Constants.SSO.Prod.baseUrl
+            }
+        }
+        //= URL(string: "https://sso-dev.pathfinder.gov.bc.ca")!
 //        static let baseUrl = URL(string: "https://sso.pathfinder.gov.bc.ca")!
         static let redirectUri = "myra-ios://client"
         static let clientId = "myrangebc"

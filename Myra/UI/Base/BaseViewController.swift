@@ -29,11 +29,11 @@ class BaseViewController: UIViewController, Theme {
     let loadingAnimationTag = 110
 
     // MARK: Auth constants
-    let authServices: AuthServices = {
-        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                            idpHint: Constants.SSO.idpHint)
-    }()
+//    let authServices: AuthServices = {
+//        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
+//                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+//                            idpHint: Constants.SSO.idpHint)
+//    }()
 
     // MARK: Variables
     var navigationTitle: String?
@@ -303,8 +303,8 @@ extension BaseViewController {
 // MARK: Authentication
 extension BaseViewController {
     func authenticateIfRequred(sender: UIButton? = nil) {
-        if !authServices.isAuthenticated() {
-            let vc = authServices.viewController() { (credentials, error) in
+        if !API.authServices.isAuthenticated() {
+            let vc = API.authServices.viewController() { (credentials, error) in
 
                 guard let _ = credentials, error == nil else {
                     let title = "Authentication"
@@ -324,9 +324,9 @@ extension BaseViewController {
             }
             present(vc, animated: true, completion: nil)
         } else {
-            authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
+            API.authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
                 if let error = error as? AuthenticationError, case .expired = error {
-                    let vc = self.authServices.viewController() { (credentials, error) in
+                    let vc = API.authServices.viewController() { (credentials, error) in
 
                         guard let _ = credentials, error == nil else {
                             let title = "Authentication"
@@ -351,7 +351,7 @@ extension BaseViewController {
     }
 
     func logout() {
-        authServices.logout()
+        API.authServices.logout()
         RealmManager.shared.clearLastSyncDate()
         RealmManager.shared.clearAllData()
     }

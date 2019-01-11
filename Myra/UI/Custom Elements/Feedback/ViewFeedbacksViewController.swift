@@ -82,7 +82,7 @@ class ViewFeedbacksViewController: UIViewController {
     }
 
     func getFeedbacks(completion: @escaping (_ feedbacks: [FeedbackElement])->Void) {
-        guard let endpoint = URL(string: Constants.API.feedbackPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.feedbackPath, relativeTo: Constants.API.baseURL) else {
             return completion([FeedbackElement]())
         }
 

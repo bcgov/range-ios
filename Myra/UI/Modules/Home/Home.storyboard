@@ -58,27 +58,32 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpW-FV-O6r">
-                                                <rect key="frame" x="1007" y="35.5" width="40" height="40"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="121" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSl-7p-lny">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                        <accessibility key="accessibilityConfiguration" identifier="SyncButton"/>
-                                                        <connections>
-                                                            <action selector="syncAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="RkZ-iz-cze"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.065023168919999999" green="0.63579481839999996" blue="0.78519469500000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwf-Tf-o9i">
+                                                <rect key="frame" x="10" y="38" width="170.5" height="35"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="MyRangeBC">
+                                                        <attributes>
+                                                            <font key="NSFont" size="30" name=".SFNSDisplay"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVI-At-WLA">
+                                                <rect key="frame" x="5" y="14" width="10" height="10"/>
+                                                <color key="backgroundColor" red="1" green="0.62303365460000004" blue="0.54890557480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="sSl-7p-lny" secondAttribute="trailing" id="13Q-US-03N"/>
-                                                    <constraint firstAttribute="bottom" secondItem="sSl-7p-lny" secondAttribute="bottom" id="Hc9-Jd-6Bi"/>
-                                                    <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="tpW-FV-O6r" secondAttribute="leading" id="QBr-bk-ywN"/>
-                                                    <constraint firstItem="sSl-7p-lny" firstAttribute="top" secondItem="tpW-FV-O6r" secondAttribute="top" id="SNs-F2-qrT"/>
-                                                    <constraint firstAttribute="height" constant="40" id="ZLo-xG-n12"/>
-                                                    <constraint firstAttribute="width" constant="40" id="p2D-0q-KE1"/>
+                                                    <constraint firstAttribute="width" constant="10" id="1PT-Pd-6w3"/>
+                                                    <constraint firstAttribute="height" constant="10" id="bBr-vM-xWd"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6l-f6-lzW">
+                                                <rect key="frame" x="896.5" y="45.5" width="102.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLn-Ss-fBW">
                                                 <rect key="frame" x="1057" y="35.5" width="40" height="40"/>
                                                 <subviews>
@@ -110,32 +115,27 @@
                                                     <constraint firstItem="HEt-wZ-uEw" firstAttribute="centerX" secondItem="GLn-Ss-fBW" secondAttribute="centerX" id="ymr-UO-1dU"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwf-Tf-o9i">
-                                                <rect key="frame" x="10" y="38" width="170.5" height="35"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="MyRangeBC">
-                                                        <attributes>
-                                                            <font key="NSFont" size="30" name=".SFNSDisplay"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVI-At-WLA">
-                                                <rect key="frame" x="5" y="14" width="10" height="10"/>
-                                                <color key="backgroundColor" red="1" green="0.62303365460000004" blue="0.54890557480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpW-FV-O6r">
+                                                <rect key="frame" x="1007" y="35.5" width="40" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="121" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSl-7p-lny">
+                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="SyncButton"/>
+                                                        <connections>
+                                                            <action selector="syncAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="RkZ-iz-cze"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.065023168919999999" green="0.63579481839999996" blue="0.78519469500000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="10" id="1PT-Pd-6w3"/>
-                                                    <constraint firstAttribute="height" constant="10" id="bBr-vM-xWd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sSl-7p-lny" secondAttribute="trailing" id="13Q-US-03N"/>
+                                                    <constraint firstAttribute="bottom" secondItem="sSl-7p-lny" secondAttribute="bottom" id="Hc9-Jd-6Bi"/>
+                                                    <constraint firstItem="sSl-7p-lny" firstAttribute="leading" secondItem="tpW-FV-O6r" secondAttribute="leading" id="QBr-bk-ywN"/>
+                                                    <constraint firstItem="sSl-7p-lny" firstAttribute="top" secondItem="tpW-FV-O6r" secondAttribute="top" id="SNs-F2-qrT"/>
+                                                    <constraint firstAttribute="height" constant="40" id="ZLo-xG-n12"/>
+                                                    <constraint firstAttribute="width" constant="40" id="p2D-0q-KE1"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6l-f6-lzW">
-                                                <rect key="frame" x="896.5" y="45.5" width="102.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwe-cK-vIF">
                                                 <rect key="frame" x="959" y="35.5" width="40" height="40"/>
                                                 <state key="normal" image="sign">
@@ -154,13 +154,13 @@
                                                     <action selector="testCam:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="vCS-Io-fnH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nfi-nL-t4h">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nfi-nL-t4h">
                                                 <rect key="frame" x="855" y="35.5" width="40" height="40"/>
-                                                <state key="normal" image="map-location">
+                                                <state key="normal" image="settingsWhite">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="picMap:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="JpP-Wp-HuZ"/>
+                                                    <action selector="SettingsAction:" destination="XDM-Vy-6VD" eventType="touchUpInside" id="whz-v8-qV5"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU8-Lw-McR">
@@ -543,8 +543,8 @@
     </scenes>
     <resources>
         <image name="CirclePlus" width="20" height="20"/>
-        <image name="map-location" width="102.40000152587891" height="102.40000152587891"/>
         <image name="photo-camera" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="settingsWhite" width="96" height="96"/>
         <image name="sign" width="24" height="25"/>
     </resources>
 </document>

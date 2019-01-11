@@ -35,6 +35,8 @@ class LoginViewController: BaseViewController {
             loginButton.alpha = 0.5
             loginButton.isEnabled = false
         }
+        
+        print(SettingsManager.shared.getCurrentEnvironment())
     }
 
     func setupLoginButton() {
@@ -54,6 +56,14 @@ class LoginViewController: BaseViewController {
     @IBAction func loginAction(_ sender: Any) {
         authenticateIfRequred()
     }
+    
+    @IBAction func settingsAction(_ sender: Any) {
+        let settings: Settings = UIView.fromNib()
+        settings.initialize(fromVC: self) {
+            
+        }
+    }
+    
 
     override func onAuthenticationSuccess() {
 
@@ -62,7 +72,7 @@ class LoginViewController: BaseViewController {
             if synced, let parent = self.parentRef {
                 parent.chooseInitialView()
             } else {
-                self.authServices.logout()
+                API.authServices.logout()
                 self.loginButton.isUserInteractionEnabled = true
             }
         }

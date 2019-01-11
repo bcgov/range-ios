@@ -172,7 +172,7 @@ class API {
 
     // MARK: User Info
     static func getUserInfo(completion: @escaping(_ userInfo: UserInfo?) -> Void) {
-        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL) else {
             return completion(nil)
         }
 
@@ -188,7 +188,7 @@ class API {
 
     static func updateUserInfo(firstName: String, lastName: String, completion: @escaping (_ success: Bool) -> Void) {
         // TODO: Change to appropriate Endpoint when available
-        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         var params: [String:Any]  = [String:Any]()
@@ -205,7 +205,7 @@ class API {
 
     // MARK: Agreement
     static func getAgreements(completion: @escaping (_ success: Bool) -> Void) {
-        guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
 
@@ -226,7 +226,7 @@ class API {
 
     // MARK: Reference
     static func getReferenceData(completion: @escaping (_ referenceObjects: [Object]?) -> Void) {
-        guard let endpoint = URL(string: Constants.API.referencePath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.referencePath, relativeTo: Constants.API.baseURL) else {
             return completion(nil)
         }
 
@@ -239,7 +239,7 @@ class API {
     // MARK: Plan
     static func getPlan(withRemoteId id: Int, completion: @escaping (_ plan: Plan?) -> Void) {
         let planPath = "\(Constants.API.planPath)\(id)"
-        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL) else {
             return completion(nil)
         }
 
@@ -273,7 +273,7 @@ class API {
         let id = plan.remoteId
         let planPath = "\(Constants.API.planPath)\(id)/status"
 
-        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
 
@@ -331,7 +331,7 @@ class API {
     static func completeUpload(for plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         guard let myPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let path = "\(Constants.API.planPath)\(myPlan.remoteId)"
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         var params: [String:Any]  = [String:Any]()
@@ -373,7 +373,7 @@ class API {
 
     static func upload(plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
 
-        guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL!), let currentPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {
+        guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL), let currentPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {
             return completion(false)
         }
 
@@ -452,7 +452,7 @@ class API {
     static func upload(invasivePlants: InvasivePlants, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":planId"
         let path = Constants.API.invasivePlantsPath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = invasivePlants.toDictionary()
@@ -485,7 +485,7 @@ class API {
     static func upload(managementConsideration: ManagementConsideration, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":planId"
         let path = Constants.API.managementConsideration.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = managementConsideration.toDictionary()
@@ -529,7 +529,7 @@ class API {
     static func upload(additionalRequirement: AdditionalRequirement, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":planId"
         let path = Constants.API.additionalRequirement.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = additionalRequirement.toDictionary()
@@ -573,7 +573,7 @@ class API {
     static func upload(pasture: Pasture, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":id"
         let path = Constants.API.pasturePath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = pasture.toDictionary()
@@ -624,7 +624,7 @@ class API {
         let pastureIdKey = ":pastureId"
         let path1 = Constants.API.plantCommunityPath.replacingOccurrences(of: planIdKey, with: "\(planRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let params = plantCommunity.toDictionary()
@@ -689,7 +689,7 @@ class API {
         let path2 = Constants.API.monitoringAreaPath.replacingOccurrences(of: planIdKey, with: "\(planRemoteId)", options: .literal, range: nil)
         let path1 = path2.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: plantCommunityIdKey, with: "\(plantCommunityRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let params = monitoringArea.toDictionary()
@@ -739,7 +739,7 @@ class API {
         let path2 = Constants.API.indicatorPlantPath.replacingOccurrences(of: planIdKey, with: "\(planRemoteId)", options: .literal, range: nil)
         let path1 = path2.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: plantCommunityIdKey, with: "\(plantCommunityRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let params = indicatorPlant.toDictionary()
@@ -790,7 +790,7 @@ class API {
         let path1 = path2.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: plantCommunityIdKey, with: "\(plantCommunityRemoteId)", options: .literal, range: nil)
 
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
 
@@ -837,7 +837,7 @@ class API {
     static func upload(schedule: Schedule, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":id"
         let path = Constants.API.schedulePath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         var params = schedule.toDictionary()
@@ -886,7 +886,7 @@ class API {
         let pathKey = ":id"
         let path = Constants.API.issuePath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
 
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
 
@@ -940,7 +940,7 @@ class API {
         let path1 = Constants.API.actionPath.replacingOccurrences(of: issuePathKey, with: "\(issueRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: planPathKey, with: "\(planRemoteId)", options: .literal, range: nil)
 
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let localId = ministerIssueAction.localId

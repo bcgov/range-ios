@@ -57,6 +57,17 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hc0-3q-KgL">
+                                                <rect key="frame" x="457" y="407" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="qGK-ta-fIt"/>
+                                                    <constraint firstAttribute="width" secondItem="hc0-3q-KgL" secondAttribute="height" multiplier="1:1" id="tb2-7h-CRd"/>
+                                                </constraints>
+                                                <state key="normal" image="settings"/>
+                                                <connections>
+                                                    <action selector="settingsAction:" destination="WLz-lO-hN5" eventType="touchUpInside" id="Z7g-E2-5nc"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -69,12 +80,14 @@
                                             <constraint firstAttribute="width" constant="490" id="VZU-b7-9Wk"/>
                                             <constraint firstItem="q0C-cZ-72U" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="8" id="Xoy-TN-QfL"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="top" secondItem="AUD-RT-8ig" secondAttribute="bottom" constant="52" id="Yf7-xn-jNy"/>
+                                            <constraint firstAttribute="bottom" secondItem="hc0-3q-KgL" secondAttribute="bottom" constant="8" id="Ygt-9p-LGq"/>
                                             <constraint firstItem="q0C-cZ-72U" firstAttribute="top" secondItem="5cZ-WK-Aeg" secondAttribute="top" constant="45" id="gDB-Ge-bU8"/>
                                             <constraint firstAttribute="trailing" secondItem="AUD-RT-8ig" secondAttribute="trailing" constant="8" id="gEG-YX-z3k"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="105" id="idb-xw-SV5"/>
                                             <constraint firstItem="5qQ-o5-0z6" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="16" id="jTg-py-gco"/>
                                             <constraint firstAttribute="trailing" secondItem="mGV-XT-Rta" secondAttribute="trailing" constant="105" id="m5O-yQ-OeY"/>
                                             <constraint firstAttribute="trailing" secondItem="q0C-cZ-72U" secondAttribute="trailing" constant="8" id="rQO-Ay-d7i"/>
+                                            <constraint firstAttribute="trailing" secondItem="hc0-3q-KgL" secondAttribute="trailing" constant="8" id="vEc-hi-82f"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="top" secondItem="5qQ-o5-0z6" secondAttribute="bottom" constant="8" id="zIJ-4I-u8M"/>
                                         </constraints>
                                     </view>
@@ -110,5 +123,6 @@
     <resources>
         <image name="Asset_BCLogo_Color" width="172" height="148"/>
         <image name="Asset_LoginBG" width="675.84002685546875" height="506.8800048828125"/>
+        <image name="settings" width="96" height="96"/>
     </resources>
 </document>

@@ -11,6 +11,7 @@ import UIKit
 enum SettingsSections: Int, CaseIterable {
     case Sync = 0
     case Map
+    case Environment
 }
 
 enum SettingsSyncSection: Int, CaseIterable {
@@ -23,10 +24,15 @@ enum SettingsMapSection: Int, CaseIterable {
     case ClearCache
 }
 
+enum SettingsEnvironmentSection: Int, CaseIterable {
+    case Development
+}
+
 class Settings: CustomModal {
     
     // MARK: Variables
     var callBack: (()-> Void)?
+    var parent: BaseViewController?
     
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -43,8 +49,9 @@ class Settings: CustomModal {
     }
     
     // MARK: Entry Point
-    func initialize(callBack: @escaping ()-> Void) {
+    func initialize(fromVC: BaseViewController, callBack: @escaping ()-> Void) {
         setUpTable()
+        self.parent = fromVC
         self.callBack = callBack
         setSmartSizingWith(horizontalPadding: 200, verticalPadding: 100)
         style()
@@ -132,6 +139,24 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             default:
                 fatalError()
             }
+        case SettingsSections.Environment.rawValue:
+            switch indexPath.row {
+            case SettingsEnvironmentSection.Development.rawValue:
+                let cell = getSettingToggleTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Development", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
+                    if let parent = self.parent, let presenter = parent.getPresenter() {
+                        var env: EndpointEnvironment = .Dev
+                        if !isOn {
+                            env = .Prod
+                        }
+                        SettingsManager.shared.setCurrentEnvironment(to: env, presenterReference: presenter)
+                        self.remove()
+                    }
+                }
+                return cell
+            default:
+                fatalError()
+            }
         default:
             fatalError()
         }
@@ -143,6 +168,8 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return SettingsSyncSection.allCases.count
         case SettingsSections.Map.rawValue:
             return SettingsMapSection.allCases.count
+        case SettingsSections.Environment.rawValue:
+            return SettingsEnvironmentSection.allCases.count
         default:
             return 0
         }
@@ -154,6 +181,8 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return "SYNCING"
         case SettingsSections.Map.rawValue:
             return "MAPPING"
+        case SettingsSections.Environment.rawValue:
+            return "Environment"
         default:
             return ""
         }

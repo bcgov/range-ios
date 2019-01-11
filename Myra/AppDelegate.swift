@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         Fabric.with([Crashlytics.self])
         AutoSync.shared.beginListener()
+        
+        print("Current Environment is \(SettingsManager.shared.getCurrentEnvironment())")
 
         return true
     }
