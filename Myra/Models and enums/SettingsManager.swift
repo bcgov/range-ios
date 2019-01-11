@@ -48,8 +48,6 @@ class SettingsModel: Object {
 
 
 class SettingsManager {
-    
-    
     static let shared = SettingsManager()
 
     private init() {
@@ -61,8 +59,6 @@ class SettingsManager {
     
     func getModel()-> SettingsModel? {
         if let query = RealmRequests.getObject(SettingsModel.self), let model = query.last {
-            // TODO: Delete print statement
-            print("\(query.count) setting models exist.")
             return model
         } else {
             return nil

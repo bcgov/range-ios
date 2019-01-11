@@ -9,11 +9,6 @@
 import Foundation
 import UIKit
 
-enum CustomModalSizeMode {
-    case fixed
-    case padded
-}
-
 class CustomModal: UIView, Theme {
     // MARK: Variables
     private var width: CGFloat = 390
@@ -26,8 +21,6 @@ class CustomModal: UIView, Theme {
     private let invisibleAlpha: CGFloat = 0
     private let fieldErrorAnimationDuration = 2.0
     
-    private var sizeMode: CustomModalSizeMode = .fixed
-    
     // White screen
     private let whiteScreenTag: Int = 9532
     private let whiteScreenAlpha: CGFloat = 0.9
@@ -37,12 +30,10 @@ class CustomModal: UIView, Theme {
     func setFixed(width: CGFloat, height: CGFloat) {
         self.height = width
         self.width = height
-        self.sizeMode = .fixed
     }
     
     func setSmartSizingWith(horizontalPadding: CGFloat, verticalPadding: CGFloat) {
         guard let window = UIApplication.shared.keyWindow else {return}
-        self.sizeMode = .padded
         self.horizontalPadding = horizontalPadding
         self.verticalPadding = verticalPadding
         
@@ -59,11 +50,27 @@ class CustomModal: UIView, Theme {
     }
     
     // MARK: Style
-    func styleModalBox(with titleLabel: UILabel?) {
+    func styleModalBox(with titleLabel: UILabel? = nil, barButton: UIButton? = nil, closeButton: UIButton? = nil) {
         addShadow(layer: self.layer)
+        styleContainer(view: self)
         if let titleLabel = titleLabel {
-            titleLabel.font = Fonts.getPrimaryBold(size: 27)
-            titleLabel.textColor = defaultFieldHeaderColor()
+            titleLabel.font = Fonts.getPrimaryBold(size: 22)
+            titleLabel.textColor = Colors.active.blue
+        }
+        
+        if let barButton = barButton {
+            barButton.setTitleColor(Colors.active.blue, for: .normal)
+        }
+        
+        if let closeButton = closeButton {
+            guard let image = UIImage(named: "Close") else {return}
+            closeButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+            closeButton.setTitle("", for: .normal)
+closeButton.translatesAutoresizingMaskIntoConstraints = false
+ NSLayoutConstraint.activate([
+   closeButton.widthAnchor.constraint(equalToConstant: 25),
+               closeButton.heightAnchor.constraint(equalToConstant: 25),
+                ])
         }
     }
     
@@ -101,29 +108,11 @@ class CustomModal: UIView, Theme {
     func addConstraints() {
         guard let window = UIApplication.shared.keyWindow else {return}
         self.translatesAutoresizingMaskIntoConstraints = false
-        
-        switch self.sizeMode {
-        case .fixed:
-            NSLayoutConstraint.activate([
-                self.widthAnchor.constraint(equalToConstant: width),
-                self.heightAnchor.constraint(equalToConstant: height),
-                self.centerXAnchor.constraint(equalTo: window.centerXAnchor),
-                self.centerYAnchor.constraint(equalTo: window.centerYAnchor),
-                ])
-        case .padded:
-            NSLayoutConstraint.activate([
-                self.topAnchor.constraint(greaterThanOrEqualTo:  window.topAnchor, constant: verticalPadding),
-                self.bottomAnchor.constraint(greaterThanOrEqualTo:  window.bottomAnchor, constant: verticalPadding),
-                self.trailingAnchor.constraint(greaterThanOrEqualTo: window.trailingAnchor, constant: horizontalPadding),
-                self.leadingAnchor.constraint(greaterThanOrEqualTo: window.leadingAnchor, constant: horizontalPadding),
-                self.widthAnchor.constraint(lessThanOrEqualToConstant: width),
-                self.heightAnchor.constraint(lessThanOrEqualToConstant: height),
-                //                self.widthAnchor.constraint(equalToConstant: width),
-                //                self.heightAnchor.constraint(equalToConstant: height),
-                self.centerXAnchor.constraint(equalTo: window.centerXAnchor),
-                self.centerYAnchor.constraint(equalTo: window.centerYAnchor),
-                ])
-        }
+        let widthContraint =  self.widthAnchor.constraint(equalToConstant: width)
+        let heightContraint = self.heightAnchor.constraint(equalToConstant: height)
+        let centerXContraint = self.centerXAnchor.constraint(equalTo: window.centerXAnchor)
+        let centerYContraint = self.centerYAnchor.constraint(equalTo: window.centerYAnchor)
+        NSLayoutConstraint.activate([ widthContraint, heightContraint, centerXContraint, centerYContraint, ])
     }
     
     // MARK: Displaying animations

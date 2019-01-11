@@ -56,8 +56,7 @@ class Settings: CustomModal {
     }
     
     func style() {
-        
-        styleModalBox(with: viewTitle)
+        styleModalBox(with: viewTitle, closeButton: doneButton)
     }
   
 }
