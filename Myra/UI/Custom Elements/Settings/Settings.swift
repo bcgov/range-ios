@@ -69,6 +69,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
         registerCell(name: "SettingTableViewCell")
         registerCell(name: "SettingInfoTableViewCell")
         registerCell(name: "SettingButtonTableViewCell")
+        tableView.tableFooterView = UIView()
     }
     
     func registerCell(name: String) {
@@ -90,7 +91,6 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return SettingsSections.allCases.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -122,6 +122,8 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                 let cell = getSettingButtonTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Clear Cached Data") {
                     SettingsManager.shared.clearMapData()
+                    let sizeInfoIndexPath: IndexPath = IndexPath(row: SettingsMapSection.StoredSize.rawValue, section: SettingsSections.Map.rawValue)
+                    self.tableView.reloadRows(at: [sizeInfoIndexPath], with: .automatic)
                 }
                 return cell
             default:
@@ -140,6 +142,17 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return SettingsMapSection.allCases.count
         default:
             return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case SettingsSections.Sync.rawValue:
+            return "SYNCING"
+        case SettingsSections.Map.rawValue:
+            return "MAPPING"
+        default:
+            return ""
         }
     }
 }

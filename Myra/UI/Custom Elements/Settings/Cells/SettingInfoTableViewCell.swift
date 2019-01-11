@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingInfoTableViewCell: UITableViewCell {
+class SettingInfoTableViewCell: UITableViewCell, Theme {
 
     // MARK: Outlets
     @IBOutlet weak var titleLabel: UILabel!
@@ -18,6 +18,13 @@ class SettingInfoTableViewCell: UITableViewCell {
     func setup(titleText: String, infoText: String) {
         self.titleLabel.text = titleText
         self.infoLabel.text = infoText
+        style()
     }
     
+    // MARK: Style
+    func style() {
+        styleSubHeader(label: titleLabel)
+        styleSubHeader(label: infoLabel)
+        infoLabel.textColor = Colors.technical.bodyText
+    }
 }

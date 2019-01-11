@@ -23,7 +23,7 @@
                         <rect key="frame" x="20" y="11" width="909" height="50"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjb-Sb-h6Q">
-                                <rect key="frame" x="16" y="10" width="46" height="30"/>
+                                <rect key="frame" x="0.0" y="10" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="buttonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HWc-DV-bye"/>
@@ -34,7 +34,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="R8J-Kj-YA3"/>
                             <constraint firstItem="hjb-Sb-h6Q" firstAttribute="centerY" secondItem="jw1-Hz-sOR" secondAttribute="centerY" id="aWL-kc-VwN"/>
-                            <constraint firstItem="hjb-Sb-h6Q" firstAttribute="leading" secondItem="jw1-Hz-sOR" secondAttribute="leading" constant="16" id="jfU-yk-hcj"/>
+                            <constraint firstItem="hjb-Sb-h6Q" firstAttribute="leading" secondItem="jw1-Hz-sOR" secondAttribute="leading" id="jfU-yk-hcj"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingButtonTableViewCell: UITableViewCell {
+class SettingButtonTableViewCell: UITableViewCell, Theme {
     
     // MARK: Variables
     var callBack: (()-> Void)?
@@ -27,6 +27,14 @@ class SettingButtonTableViewCell: UITableViewCell {
     func setup(titleText: String, callBack: @escaping () -> Void) {
         self.callBack = callBack
         self.button.setTitle(titleText, for: .normal)
+        style()
+    }
+    
+    // MARK: Style
+    func style() {
+        if let buttonLabel = button.titleLabel {
+            styleSubHeader(label: buttonLabel)
+        }
     }
     
 }

@@ -84,7 +84,7 @@ class SettingsManager {
     }
     
     func getMapDataSize()-> String {
-        return "\(TileMaster.shared.sizeOfStoredTiles())MB"
+        return "\(TileMaster.shared.sizeOfStoredTiles().roundToDecimal(2))MB"
     }
     
     func isMapCacheEnabled()-> Bool {

@@ -23,7 +23,7 @@
                         <rect key="frame" x="20" y="11" width="806" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rs9-L4-vfG">
-                                <rect key="frame" x="16" y="14.5" width="42" height="21"/>
+                                <rect key="frame" x="0.0" y="14.5" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="rs9-L4-vfG" firstAttribute="leading" secondItem="59p-2i-VhZ" secondAttribute="leading" constant="16" id="OkU-Pm-Fdz"/>
+                            <constraint firstItem="rs9-L4-vfG" firstAttribute="leading" secondItem="59p-2i-VhZ" secondAttribute="leading" id="OkU-Pm-Fdz"/>
                             <constraint firstItem="NoQ-Gc-LrC" firstAttribute="centerY" secondItem="59p-2i-VhZ" secondAttribute="centerY" id="RL5-Dq-qAT"/>
                             <constraint firstAttribute="height" constant="50" id="SpH-li-6aF"/>
                             <constraint firstItem="rs9-L4-vfG" firstAttribute="centerY" secondItem="59p-2i-VhZ" secondAttribute="centerY" id="Yxc-o5-GJF"/>
