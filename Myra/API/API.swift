@@ -40,12 +40,6 @@ class API {
     
     typealias APIRequestCompleted = (_ records: [String:Any]?, _ error: APIError?) -> ()
     
-    //    static let authServices: AuthServices = {
-    //        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-    //                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-    //                            idpHint: Constants.SSO.idpHint)
-    //    }()
-    //
     static func authServices() -> AuthServices {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                             clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
