@@ -173,10 +173,14 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func tourAction(_ sender: UIButton) {
-        let dialog: GetNameDialog = UIView.fromNib()
-        dialog.initialize {
-            self.beginTour()
+        let settings: Settings = UIView.fromNib()
+        settings.initialize {
+            
         }
+//        let dialog: GetNameDialog = UIView.fromNib()
+//        dialog.initialize {
+//            self.beginTour()
+//        }
 
 //        beginTourTip()
 

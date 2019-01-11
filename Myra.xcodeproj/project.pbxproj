@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
+		1EE97DFC21E7CBC9008B1086 /* SettingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */; };
+		1EE97DFD21E7CBC9008B1086 /* SettingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */; };
+		1EE97E0021E7CBE2008B1086 /* SettingButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */; };
+		1EE97E0121E7CBE2008B1086 /* SettingButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97DFF21E7CBE2008B1086 /* SettingButtonTableViewCell.xib */; };
+		1EE97E0321E7CD23008B1086 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0221E7CD23008B1086 /* SettingsManager.swift */; };
+		1EE97E0621E80A16008B1086 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0521E80A16008B1086 /* Settings.swift */; };
+		1EE97E0821E80A21008B1086 /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97E0721E80A21008B1086 /* Settings.xib */; };
+		1EE97E0A21E80D4B008B1086 /* CustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0921E80D4B008B1086 /* CustomModal.swift */; };
 		2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C02141D61500AE72FC /* StatusHelper.swift */; };
 		2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C22141D8EC00AE72FC /* Reference.swift */; };
 		2901C4C52141DB4000AE72FC /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C42141DB4000AE72FC /* Options.swift */; };
@@ -217,6 +225,8 @@
 		29C34BD321C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C34BD121C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib */; };
 		29C7C1FD21C815F4005EB5D4 /* ShrubUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C7C1FB21C815F4005EB5D4 /* ShrubUseTableViewCell.swift */; };
 		29C7C1FE21C815F4005EB5D4 /* ShrubUseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C7C1FC21C815F4005EB5D4 /* ShrubUseTableViewCell.xib */; };
+		29D8E1A321E527BB00733A87 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D8E1A121E527BB00733A87 /* SettingTableViewCell.swift */; };
+		29D8E1A421E527BB00733A87 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29D8E1A221E527BB00733A87 /* SettingTableViewCell.xib */; };
 		29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */; };
 		29DA8A9F20574FB300139AD1 /* SelectAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */; };
 		29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */; };
@@ -266,6 +276,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingInfoTableViewCell.xib; sourceTree = "<group>"; };
+		1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButtonTableViewCell.swift; sourceTree = "<group>"; };
+		1EE97DFF21E7CBE2008B1086 /* SettingButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingButtonTableViewCell.xib; sourceTree = "<group>"; };
+		1EE97E0221E7CD23008B1086 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		1EE97E0521E80A16008B1086 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		1EE97E0721E80A21008B1086 /* Settings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
+		1EE97E0921E80D4B008B1086 /* CustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModal.swift; sourceTree = "<group>"; };
 		2901C4C02141D61500AE72FC /* StatusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusHelper.swift; sourceTree = "<group>"; };
 		2901C4C22141D8EC00AE72FC /* Reference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		2901C4C42141DB4000AE72FC /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
@@ -477,6 +495,8 @@
 		29C34BD121C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportCriteriaOptionTableViewCell.xib; sourceTree = "<group>"; };
 		29C7C1FB21C815F4005EB5D4 /* ShrubUseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShrubUseTableViewCell.swift; sourceTree = "<group>"; };
 		29C7C1FC21C815F4005EB5D4 /* ShrubUseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShrubUseTableViewCell.xib; sourceTree = "<group>"; };
+		29D8E1A121E527BB00733A87 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		29D8E1A221E527BB00733A87 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectAgreement.storyboard; sourceTree = "<group>"; };
 		29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgreementViewController.swift; sourceTree = "<group>"; };
 		29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTableViewCell.swift; sourceTree = "<group>"; };
@@ -548,6 +568,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1EE97E0421E809D1008B1086 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				29D8E1A021E5279C00733A87 /* Cells */,
+				1EE97E0721E80A21008B1086 /* Settings.xib */,
+				1EE97E0521E80A16008B1086 /* Settings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		290543282194D23700865823 /* Tour */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +604,7 @@
 		2920F82B2034BF9A0090E7B4 /* Models and enums */ = {
 			isa = PBXGroup;
 			children = (
+				1EE97E0221E7CD23008B1086 /* SettingsManager.swift */,
 				2932BB50208567D900579A57 /* MyraObject.swift */,
 				290FF88520635F1F00C7DAC0 /* SyncDate.swift */,
 				292B650921C04E5900F9A8A5 /* UserInfo.swift */,
@@ -766,6 +797,8 @@
 		297D8FC921C9647F00D9A8B8 /* Custom Elements */ = {
 			isa = PBXGroup;
 			children = (
+				1EE97E0921E80D4B008B1086 /* CustomModal.swift */,
+				1EE97E0421E809D1008B1086 /* Settings */,
 				290543282194D23700865823 /* Tour */,
 				297D8FDB21C9754700D9A8B8 /* Sync */,
 				29332DAF21B6FB8900950478 /* Alert */,
@@ -1168,6 +1201,19 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		29D8E1A021E5279C00733A87 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				29D8E1A121E527BB00733A87 /* SettingTableViewCell.swift */,
+				29D8E1A221E527BB00733A87 /* SettingTableViewCell.xib */,
+				1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */,
+				1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */,
+				1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */,
+				1EE97DFF21E7CBE2008B1086 /* SettingButtonTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		29EADF7C206039A90087593F /* Reference data objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -1304,6 +1350,7 @@
 				29E0D931203F652F00193FA0 /* PastureTableViewCell.xib in Resources */,
 				29B5F04B208F9F12003D996D /* BasicInformationTableViewCell.xib in Resources */,
 				2933183B20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib in Resources */,
+				1EE97DFD21E7CBC9008B1086 /* SettingInfoTableViewCell.xib in Resources */,
 				29EE75DC205053C40061B18D /* ScheduleFormTableViewCell.xib in Resources */,
 				29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */,
 				29EA02992069565C0076403B /* checked_done_.json in Resources */,
@@ -1312,6 +1359,7 @@
 				29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */,
 				299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */,
 				29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */,
+				1EE97E0121E7CBE2008B1086 /* SettingButtonTableViewCell.xib in Resources */,
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				297E998D2165482000FB6F04 /* Pin.xib in Resources */,
 				294F6BBC219F3CA0008EC6FA /* FeedbackView.xib in Resources */,
@@ -1329,6 +1377,7 @@
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
 				29F13BE421236C0600A25424 /* AssignedRUPVersionTableViewCell.xib in Resources */,
 				29227B5E20EEAA850042B88E /* TextEntry.storyboard in Resources */,
+				29D8E1A421E527BB00733A87 /* SettingTableViewCell.xib in Resources */,
 				290551FA21345E3A00785B5E /* AmendmentFlow.storyboard in Resources */,
 				294CADB1216E83DC00DB184B /* NewElementBanner.xib in Resources */,
 				29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */,
@@ -1340,6 +1389,7 @@
 				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
 				29332D9021B5A5CE00950478 /* AlertView.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
+				1EE97E0821E80A21008B1086 /* Settings.xib in Resources */,
 				2938CF1521A5D20500329DDA /* UserFeedbackTableViewCell.xib in Resources */,
 				2962B0E8204F076800F71B9C /* ScheduleCellTableViewCell.xib in Resources */,
 				29BF8021203C8CE90067B32B /* CreateNewRup.storyboard in Resources */,
@@ -1505,6 +1555,7 @@
 				290AD10F218A13DF00A261B6 /* ManagegementConsiderationType.swift in Sources */,
 				299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */,
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
+				1EE97E0621E80A16008B1086 /* Settings.swift in Sources */,
 				293D4187216D3109006214E1 /* AdditionalRequirementTableViewCell.swift in Sources */,
 				29055213213465B500785B5E /* AmendmentPageThreeCollectionViewCell.swift in Sources */,
 				2901C4C52141DB4000AE72FC /* Options.swift in Sources */,
@@ -1517,6 +1568,7 @@
 				295FBF7E21641F0A00DD2C53 /* Gender.mlmodel in Sources */,
 				2932BB4F2085209000579A57 /* Fonts.swift in Sources */,
 				295F8F1320F7F625009D7717 /* MonitoringAreaViewController.swift in Sources */,
+				1EE97E0321E7CD23008B1086 /* SettingsManager.swift in Sources */,
 				2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */,
 				2938CF1121A5C87200329DDA /* ViewFeedbacksViewController.swift in Sources */,
 				297E998B2165479F00FB6F04 /* Pin.swift in Sources */,
@@ -1524,6 +1576,7 @@
 				294CADB3216E83F500DB184B /* NewElementBanner.swift in Sources */,
 				2917468920742A7A005F70B4 /* MainViewController.swift in Sources */,
 				290AD10D218A13BC00A261B6 /* AdditionalRequirementCategory.swift in Sources */,
+				29D8E1A321E527BB00733A87 /* SettingTableViewCell.swift in Sources */,
 				291C4D9B2037631400390523 /* Polygon.swift in Sources */,
 				292AD86C215C470200F80738 /* Notification.swift in Sources */,
 				29FCB038205702B3006CD247 /* DateManager.swift in Sources */,
@@ -1537,6 +1590,7 @@
 				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,
 				29227B5520EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
 				29C34BD221C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift in Sources */,
+				1EE97E0A21E80D4B008B1086 /* CustomModal.swift in Sources */,
 				293D418E216D3172006214E1 /* ManagementConsideration.swift in Sources */,
 				29FB97C3204DCCB2005297B9 /* LiveStockIDType.swift in Sources */,
 				2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */,
@@ -1601,6 +1655,8 @@
 				2933183A20FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift in Sources */,
 				299BD278207BF488004B1D07 /* Constants.swift in Sources */,
 				2926D96E20754E52006250D3 /* Client.swift in Sources */,
+				1EE97DFC21E7CBC9008B1086 /* SettingInfoTableViewCell.swift in Sources */,
+				1EE97E0021E7CBE2008B1086 /* SettingButtonTableViewCell.swift in Sources */,
 				292B650A21C04E5900F9A8A5 /* UserInfo.swift in Sources */,
 				2938CF1421A5D20500329DDA /* UserFeedbackTableViewCell.swift in Sources */,
 				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,

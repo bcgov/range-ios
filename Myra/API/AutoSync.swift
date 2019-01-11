@@ -25,6 +25,7 @@ class AutoSync {
     internal static let shared = AutoSync()
     
     var realmNotificationToken: NotificationToken?
+//    var active: Bool = false
     var isSynchronizing: Bool = false
 
     var manualSyncRequiredShown = false
@@ -46,6 +47,10 @@ class AutoSync {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
                 print("change observed in AutoSync")
+                if !SettingsManager.shared.isAutoSyncEnabled() {
+                    print("Autosync is not blocked (active: \(SettingsManager.shared.isAutoSyncEnabled())). so bye")
+                    return
+                }
                 if let r = Reachability(), r.connection == .none {
                     print("But you're offline, so bye.")
                     return
@@ -70,6 +75,11 @@ class AutoSync {
 
     func autoSync() {
         guard let r = Reachability() else {return}
+        
+        if !SettingsManager.shared.isAutoSyncEnabled() {
+            print("Autosync is not blocked (active: \(SettingsManager.shared.isAutoSyncEnabled())). so bye")
+            return
+        }
 
         if r.connection == .none {
             print("But you're offline so bye")
