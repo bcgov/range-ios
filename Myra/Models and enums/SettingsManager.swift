@@ -10,6 +10,31 @@ import Foundation
 import Realm
 import RealmSwift
 
+public extension Bundle {
+    
+    public var shortVersion: String {
+        if let result = infoDictionary?["CFBundleShortVersionString"] as? String {
+            return result
+        } else {
+            assert(false)
+            return ""
+        }
+    }
+    
+    public var buildVersion: String {
+        if let result = infoDictionary?["CFBundleVersion"] as? String {
+            return result
+        } else {
+            assert(false)
+            return ""
+        }
+    }
+    
+    public var fullVersion: String {
+        return "\(shortVersion)(\(buildVersion))"
+    }
+}
+
 class SettingsModel: Object {
     
     @objc dynamic var realmID: String = {
@@ -57,12 +82,19 @@ class SettingsManager {
         }
     }
     
-    func getModel()-> SettingsModel? {
+    // MARK: Internal Functions
+    private func getModel()-> SettingsModel? {
         if let query = RealmRequests.getObject(SettingsModel.self), let model = query.last {
             return model
         } else {
             return nil
         }
+    }
+    
+    // MARK: App Version
+    func getCurrentAppVersion() -> String {
+        guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {return ""}
+        return ("Version \(version) (\(build))")
     }
     
     // MARK: Sync
@@ -98,5 +130,6 @@ class SettingsManager {
         model.setCacheMap(enabled: enabled)
         AutoSync.shared.beginListener()
     }
+    
     
 }

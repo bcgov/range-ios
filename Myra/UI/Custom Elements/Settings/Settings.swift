@@ -32,6 +32,7 @@ class Settings: CustomModal {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var viewTitle: UILabel!
+    @IBOutlet weak var versionLabel: UILabel!
     
     // MARK: Outlet Actions
     @IBAction func doneAction(_ sender: UIButton) {
@@ -52,10 +53,12 @@ class Settings: CustomModal {
     }
     
     func autoFill() {
-       
+       versionLabel.text = SettingsManager.shared.getCurrentAppVersion()
     }
     
     func style() {
+        versionLabel.textColor = Colors.technical.bodyText
+        versionLabel.font = Fonts.getPrimary(size: 17)
         styleModalBox(with: viewTitle, closeButton: doneButton)
     }
   

@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lXe-PX-uDF">
-                    <rect key="frame" x="0.0" y="114" width="375" height="528"/>
+                    <rect key="frame" x="0.0" y="114" width="375" height="521"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ao7-X5-e8w">
@@ -46,13 +46,21 @@
                         <constraint firstItem="KNK-XF-2HG" firstAttribute="centerX" secondItem="ao7-X5-e8w" secondAttribute="centerX" id="y88-2j-c4L"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2I-SR-Er3">
+                    <rect key="frame" x="16" y="651" width="0.0" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ao7-X5-e8w" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4aM-Ja-5TK"/>
                 <constraint firstItem="ao7-X5-e8w" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="25" id="5i5-Kk-Soo"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lXe-PX-uDF" secondAttribute="bottom" constant="25" id="8K4-Az-UCc"/>
+                <constraint firstItem="Y2I-SR-Er3" firstAttribute="top" secondItem="lXe-PX-uDF" secondAttribute="bottom" constant="16" id="BOv-OR-zma"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lXe-PX-uDF" secondAttribute="trailing" id="N8y-LQ-hKi"/>
+                <constraint firstItem="Y2I-SR-Er3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="R0Y-Og-YDZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Y2I-SR-Er3" secondAttribute="bottom" constant="16" id="fe2-mv-daU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ao7-X5-e8w" secondAttribute="trailing" id="gV8-Ak-eLX"/>
                 <constraint firstItem="lXe-PX-uDF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gqd-m1-yPz"/>
                 <constraint firstItem="lXe-PX-uDF" firstAttribute="top" secondItem="ao7-X5-e8w" secondAttribute="bottom" constant="25" id="jFO-MK-K4o"/>
@@ -61,6 +69,7 @@
             <connections>
                 <outlet property="doneButton" destination="MOB-e7-4kY" id="827-UP-EWh"/>
                 <outlet property="tableView" destination="lXe-PX-uDF" id="dUj-Cb-EUs"/>
+                <outlet property="versionLabel" destination="Y2I-SR-Er3" id="9r2-GX-jLG"/>
                 <outlet property="viewTitle" destination="KNK-XF-2HG" id="Tpe-wa-kVD"/>
             </connections>
             <point key="canvasLocation" x="53.600000000000001" y="97.601199400299862"/>
