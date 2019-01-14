@@ -15,8 +15,6 @@ class ImportCriteria: CustomModal {
     var object: ImportCriteriaObject?
 
     private let padding: CGFloat = 25
-    private let width: CGFloat = 390
-    private let height: CGFloat = 400
     private let animationDuration = 0.5
     private let visibleAlpha: CGFloat = 1
     private let invisibleAlpha: CGFloat = 0
