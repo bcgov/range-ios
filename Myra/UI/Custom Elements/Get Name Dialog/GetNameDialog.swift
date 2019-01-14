@@ -12,8 +12,6 @@ import Reachability
 class GetNameDialog: CustomModal {
 
     // MARK: Variables
-    private let width: CGFloat = 390
-    private let height: CGFloat = 400
     private let animationDuration = 0.5
     private let visibleAlpha: CGFloat = 1
     private let invisibleAlpha: CGFloat = 0
@@ -84,6 +82,7 @@ class GetNameDialog: CustomModal {
     // MARK: Entry Point
     func initialize(callBack: @escaping ()-> Void) {
         self.callBack = callBack
+        setFixed(width: 390, height: 400)
         style()
         present()
         autoFill()
