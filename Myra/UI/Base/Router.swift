@@ -39,8 +39,10 @@ extension MainViewController {
         let vc = vm.home
         vc.parentReference = self
         vc.presentedAfterLogin = loginDisplayed
-        vc.setPresenter(viewController: self)
+        
         AutoSync.shared.beginListener()
+        vc.setPresenter(viewController: self)
+        
         show(viewController: vc)
     }
 
@@ -48,7 +50,11 @@ extension MainViewController {
         transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
         let vm = ViewManager()
         let vc = vm.selectAgreement
+        vc.navigationTitle = "Create new RUP"
+        
+        AutoSync.shared.endListener()
         vc.setPresenter(viewController: self)
+        
         show(viewController: vc)
     }
 
@@ -56,39 +62,35 @@ extension MainViewController {
         transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
         let vm = ViewManager()
         let vc = vm.createRUP
+        
         AutoSync.shared.endListener()
         vc.setPresenter(viewController: self)
 
+        vc.setup(rup: plan, mode: mode)
+
         show(viewController: vc)
-
-        vc.setup(rup: plan, mode: mode) { () in
-            print("Hola")
-        }
-
     }
 
     func showScheduleDetails(for schedule: Schedule, in plan: Plan, mode: FormMode) {
         let vm = ViewManager()
         let vc = vm.schedule
-        vc.setPresenter(viewController: self)
+        
         AutoSync.shared.endListener()
-        vc.setup(mode: mode, rup: plan, schedule: schedule, completion: { done in
-//            AutoSync.shared.beginListener()
-            self.goBack()
-        })
+        vc.setPresenter(viewController: self)
+        
+        vc.setup(mode: mode, rup: plan, schedule: schedule)
         show(viewController: vc)
     }
 
     func showPlanCommunityDetails(for plantCommunity: PlantCommunity, of pasture: Pasture, in plan: Plan, mode: FormMode) {
         let vm = ViewManager()
         let vc = vm.plantCommunity
-        vc.setPresenter(viewController: self)
+        vc.navigationTitle = "Plant Community Details"
+        
         AutoSync.shared.endListener()
-        vc.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity, completion: { done in
-//            AutoSync.shared.beginListener()
-            self.goBack()
-        })
+        vc.setPresenter(viewController: self)
+        
+        vc.setup(mode: mode, plan: plan, pasture: pasture, plantCommunity: plantCommunity)
         show(viewController: vc)
     }
 }
-

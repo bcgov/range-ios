@@ -18,7 +18,7 @@ enum AcceptedPopupInput {
     case Year
 }
 
-enum FromSection: Int {
+enum FromSection: Int, CaseIterable {
     case BasicInfo = 0
     case PlanInfo
     case AgreementHolders
@@ -29,7 +29,7 @@ enum FromSection: Int {
     case InvasivePlants
     case AdditionalRequirements
     case ManagementConsiderations
-    case Map
+//    case Map
 }
 
 class CreateNewRUPViewController: BaseViewController {
@@ -40,8 +40,7 @@ class CreateNewRUPViewController: BaseViewController {
     let numberOfSections = 11
     
     // MARK: Variables
-    var parentCallBack: (() -> Void )?
-    
+  
     /* need to hold the inxedpath of sections to be able to scroll back to them.
      at this point, the indexpaths of the sections may not be known, and change
      at runtime.
@@ -340,7 +339,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
-        guard let plan = self.rup else {return}
+        guard let plan = self.rup, let presenter = self.getPresenter() else {return}
         do {
             let realm = try Realm()
             try realm.write {
@@ -364,12 +363,7 @@ class CreateNewRUPViewController: BaseViewController {
                     plan.statusEnum = .Outbox
                 }
             } catch _ {}
-            // Dismiss view controller
-            self.dismiss(animated: true) {
-                if self.parentCallBack != nil {
-                    return self.parentCallBack!()
-                }
-            }
+            presenter.goHome()
         }) {
             // No tapped
             self.openingAnimations(callBack: {
@@ -391,8 +385,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     // MARK: Setup
     // TODO: Remove callback options. empty callback is good enough
-    func setup(rup: Plan, mode: FormMode, callBack: @escaping () -> Void) {
-        self.parentCallBack = callBack
+    func setup(rup: Plan, mode: FormMode) {
         self.rup = rup
         self.mode = mode
         self.copy = nil
@@ -547,7 +540,7 @@ class CreateNewRUPViewController: BaseViewController {
     func createMandatoryAmendment() {
         guard let plan = self.rup else {return}
         AutoSync.shared.endListener()
-        if let agreement = RUPManager.shared.getAgreement(with: plan.agreementId), let inital = Reference.shared.getAmendmentType(named: "Mandatory Amendment"), let callback = self.parentCallBack {
+        if let agreement = RUPManager.shared.getAgreement(with: plan.agreementId), let inital = Reference.shared.getAmendmentType(named: "Mandatory Amendment") {
             let new = plan.clone()
             do {
                 let realm = try Realm()
@@ -565,7 +558,7 @@ class CreateNewRUPViewController: BaseViewController {
             agreement.add(plan: new)
             RealmRequests.saveObject(object: new)
             new.updateStatus(with: .StaffDraft)
-            self.setup(rup: new, mode: .Edit, callBack: callback)
+            self.setup(rup: new, mode: .Edit)
             self.tableView.reloadData()
             self.autofill()
             AutoSync.shared.beginListener()
@@ -752,9 +745,9 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 let cell = getManagementConsiderationsCell(indexPath: indexPath)
                 cell.setup(mode: mode, rup: rup!)
                 return cell
-            case .Map:
-                let cell = getMapCell(indexPath: indexPath)
-                return cell
+//            case .Map:
+//                let cell = getMapCell(indexPath: indexPath)
+//                return cell
             }
             
         } else {
@@ -763,7 +756,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfSections
+        return FromSection.allCases.count
     }
     
     // RELOAD WITH COMPLETION

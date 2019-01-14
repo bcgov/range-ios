@@ -48,7 +48,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="S92-EB-bfe" firstAttribute="trailing" secondItem="DWM-OR-lWf" secondAttribute="trailing" id="1KU-9A-fnq"/>
                                             <constraint firstItem="S92-EB-bfe" firstAttribute="top" secondItem="DWM-OR-lWf" secondAttribute="top" id="CHf-6v-WJV"/>
@@ -86,6 +86,7 @@
                     <connections>
                         <outlet property="backIcon" destination="DWM-OR-lWf" id="9FK-AJ-cq4"/>
                         <outlet property="body" destination="coe-IO-Rv8" id="Xnt-yS-9oV"/>
+                        <outlet property="innerNavBar" destination="AtB-O2-y0f" id="i05-uM-Q87"/>
                         <outlet property="navBar" destination="2jf-TF-ee4" id="v6z-6I-C9L"/>
                         <outlet property="navBarBackButton" destination="S92-EB-bfe" id="0d3-oj-GY4"/>
                         <outlet property="navBarHeight" destination="8o3-1A-U1A" id="6fa-M8-BnY"/>
