@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImportCriteria: UIView, Theme {
+class ImportCriteria: CustomModal {
 
     // MARK: Variables
     private var plan: Plan?
@@ -36,7 +36,7 @@ class ImportCriteria: UIView, Theme {
     @IBOutlet weak var mainButtonBottom: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
 
-
+    // MARK: Outlet Actions
     @IBAction func backAction(_ sender: Any) {
         let visible = collectionView.indexPathsForVisibleItems
         guard let current = visible.first, current.row > 0 else {return}
@@ -84,123 +84,18 @@ class ImportCriteria: UIView, Theme {
     }
 
     @IBAction func cancelAction(_ sender: Any) {
-//         guard let callback = self.callBack else {return}
-        closingAnimation {
-            self.removeWhiteScreen()
-            self.removeFromSuperview()
-        }
+        remove()
     }
     
-    // MARK: Entry Point
-    func showFlow(for plan: Plan, then: @escaping(_ plantCommunity: PlantCommunity,_ sections: [PlantCommunityCriteriaFromSection]) -> Void) {
-        initCollectionView()
-        style()
+    //  MARK: Entry Point
+    func initialize(for plan: Plan, then: @escaping(_ plantCommunity: PlantCommunity,_ sections: [PlantCommunityCriteriaFromSection]) -> Void) {
+        self.callBack = then
         self.plan = plan
         object = ImportCriteriaObject(for: plan)
-        self.callBack = then
-        self.position {
-            self.collectionView.reloadData()
-        }
-
-    }
-
-    // MARK: Positioning/ displaying / Removing
-    func remove() {
-        self.closingAnimation {
-            self.removeWhiteScreen()
-            self.removeFromSuperview()
-        }
-    }
-
-    func position(then: @escaping ()-> Void) {
-        guard let window = UIApplication.shared.keyWindow else {return}
-
-        self.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.alpha = 0
-        window.addSubview(self)
-        addConstraints()
-
-        showWhiteBG(then: {
-            self.openingAnimation {
-                return then()
-            }
-        })
-    }
-
-    func addConstraints() {
-        guard let window = UIApplication.shared.keyWindow else {return}
-        self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: width),
-            self.heightAnchor.constraint(equalToConstant: height),
-            self.centerXAnchor.constraint(equalTo: window.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: window.centerYAnchor),
-            ])
-    }
-
-    // MARK: Displaying animations
-    func openingAnimation(then: @escaping ()-> Void) {
-        self.alpha = invisibleAlpha
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.alpha = self.visibleAlpha
-        }) { (done) in
-            then()
-        }
-    }
-
-    func closingAnimation(then: @escaping ()-> Void) {
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.alpha = self.invisibleAlpha
-        }) { (done) in
-            then()
-        }
-    }
-
-    // MARK: White Screen
-    func showWhiteBG(then: @escaping()-> Void) {
-        guard let window = UIApplication.shared.keyWindow, let bg = whiteScreen() else {return}
-
-        bg.alpha = invisibleAlpha
-        window.insertSubview(bg, belowSubview: self)
-        bg.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bg.centerXAnchor.constraint(equalTo:  window.centerXAnchor),
-            bg.centerYAnchor.constraint(equalTo:  window.centerYAnchor),
-            bg.leadingAnchor.constraint(equalTo: window.leadingAnchor),
-            bg.trailingAnchor.constraint(equalTo: window.trailingAnchor),
-            bg.topAnchor.constraint(equalTo: window.topAnchor),
-            bg.bottomAnchor.constraint(equalTo: window.bottomAnchor)
-            ])
-
-        UIView.animate(withDuration: animationDuration, animations: {
-            bg.alpha = self.visibleAlpha
-        }) { (done) in
-            return then()
-        }
-
-    }
-
-    func whiteScreen() -> UIView? {
-        guard let window = UIApplication.shared.keyWindow else {return nil}
-
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: window.frame.width, height: window.frame.height))
-        view.center.y = window.center.y
-        view.center.x = window.center.x
-        view.backgroundColor = Colors.active.blue.withAlphaComponent(0.2)
-        view.alpha = visibleAlpha
-        view.tag = whiteScreenTag
-        return view
-    }
-
-    func removeWhiteScreen() {
-        guard let window = UIApplication.shared.keyWindow else {return}
-        if let viewWithTag = window.viewWithTag(whiteScreenTag) {
-            UIView.animate(withDuration: animationDuration, animations: {
-                viewWithTag.alpha = self.invisibleAlpha
-            }) { (done) in
-                viewWithTag.removeFromSuperview()
-            }
-        }
+        setFixed(width: 390, height: 400)
+        initCollectionView()
+        style()
+        present()
     }
 
     // MARK: Showing pages

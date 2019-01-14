@@ -380,9 +380,9 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
                 guard let plan = self.plan else {return}
                 let importView: ImportCriteria = UIView.fromNib()
                 self.dismissKeyboard()
-                importView.showFlow(for: plan) { (pc, sections) in
+                importView.initialize(for: plan, then: { (pc, sections) in
                     self.importCriteria(from: pc, sections: sections)
-                }
+                })
             })
         }
         return cell
