@@ -250,39 +250,22 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Options
     func editName(){
-        guard let past = pasture else {return}
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
-        let vm = ViewManager()
-        let textEntry = vm.textEntry
-        textEntry.setup(on: grandParent, header: "Pasture Name") { (accepted, name) in
-            if accepted {
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        past.name = name
-                    }
-                    self.autofill()
-                } catch _ {
-                    fatalError()
-                }
+        guard let pasture = self.pasture, let plan = self.plan else {return}
+        let inputModal: InputModal = UIView.fromNib()
+        inputModal.initialize(header: "Pasture Name", taken: Options.shared.getPastureNames(rup: plan)) { (name) in
+            if name != "" {
+                pasture.setName(string: name)
+                self.autofill()
             }
         }
-
     }
 
     func duplicate() {
-        guard let past = self.pasture, let parent = parentCell else {return}
-        guard let grandParent = parent.parentViewController as? CreateNewRUPViewController, let plan = self.plan else {return}
-        let vm = ViewManager()
-        let inputPrompt = vm.textEntry
-        inputPrompt.taken = Options.shared.getPastureNames(rup: plan)
-        inputPrompt.setup(on: grandParent, header: "Pasture Name") { (done, name) in
-            if done {
-                let newPasture = Pasture()
-                newPasture.name = name
-                RUPManager.shared.copyPasture(from: past, to: newPasture)
-                guard let refetchedPlan = self.refetchPlan() else {return}
-                refetchedPlan.addPasture(cloneFrom: newPasture)
+        guard let pasture = self.pasture, let parent = parentCell, let plan = self.plan else {return}
+        let inputModal: InputModal = UIView.fromNib()
+        inputModal.initialize(header: "Pasture Name", taken: Options.shared.getPastureNames(rup: plan)) { (name) in
+            if name != "", let refetchedPlan = self.refetchPlan() {
+                refetchedPlan.addPasture(cloneFrom: pasture, withName: name)
                 self.plan = refetchedPlan
                 parent.updateTableHeight()
             }

@@ -215,7 +215,7 @@ class MinisterIssue: Object, MyraObject {
         }
 
         for object in self.pastures {
-            new.pastures.append(object.copy())
+            new.pastures.append(object.clone())
         }
         return new
     }

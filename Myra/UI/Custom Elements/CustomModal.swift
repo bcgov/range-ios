@@ -28,8 +28,8 @@ class CustomModal: UIView, Theme {
     
     // MARK: Size
     func setFixed(width: CGFloat, height: CGFloat) {
-        self.height = width
-        self.width = height
+        self.height = height
+        self.width = width
     }
     
     func setSmartSizingWith(horizontalPadding: CGFloat, verticalPadding: CGFloat) {
@@ -66,10 +66,10 @@ class CustomModal: UIView, Theme {
             guard let image = UIImage(named: "Close") else {return}
             closeButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
             closeButton.setTitle("", for: .normal)
-closeButton.translatesAutoresizingMaskIntoConstraints = false
- NSLayoutConstraint.activate([
-   closeButton.widthAnchor.constraint(equalToConstant: 25),
-               closeButton.heightAnchor.constraint(equalToConstant: 25),
+            closeButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                closeButton.widthAnchor.constraint(equalToConstant: 25),
+                closeButton.heightAnchor.constraint(equalToConstant: 25),
                 ])
         }
     }

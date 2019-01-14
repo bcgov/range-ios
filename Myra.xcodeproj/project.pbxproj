@@ -16,6 +16,8 @@
 		1EE97E0621E80A16008B1086 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0521E80A16008B1086 /* Settings.swift */; };
 		1EE97E0821E80A21008B1086 /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97E0721E80A21008B1086 /* Settings.xib */; };
 		1EE97E0A21E80D4B008B1086 /* CustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0921E80D4B008B1086 /* CustomModal.swift */; };
+		1EEC8AB721ECF6A4009C1885 /* InputModal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC8AB621ECF6A4009C1885 /* InputModal.xib */; };
+		1EEC8AB921ECF6B1009C1885 /* InputModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC8AB821ECF6B1009C1885 /* InputModal.swift */; };
 		2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C02141D61500AE72FC /* StatusHelper.swift */; };
 		2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C22141D8EC00AE72FC /* Reference.swift */; };
 		2901C4C52141DB4000AE72FC /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C42141DB4000AE72FC /* Options.swift */; };
@@ -62,9 +64,6 @@
 		29227B5820EE95A50042B88E /* MonitoringArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B5720EE95A50042B88E /* MonitoringArea.swift */; };
 		29227B5B20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B5920EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift */; };
 		29227B5C20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B5A20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib */; };
-		29227B5E20EEAA850042B88E /* TextEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29227B5D20EEAA850042B88E /* TextEntry.storyboard */; };
-		29227B6020EEAAC00042B88E /* TextEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */; };
-		29227B6220EEAD540042B88E /* TextEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6120EEAD540042B88E /* TextEntry.swift */; };
 		29227B6920EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */; };
 		29227B6A20EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */; };
 		29227B6C20EFF15C0042B88E /* CustomSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */; };
@@ -284,6 +283,8 @@
 		1EE97E0521E80A16008B1086 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		1EE97E0721E80A21008B1086 /* Settings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
 		1EE97E0921E80D4B008B1086 /* CustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModal.swift; sourceTree = "<group>"; };
+		1EEC8AB621ECF6A4009C1885 /* InputModal.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputModal.xib; sourceTree = "<group>"; };
+		1EEC8AB821ECF6B1009C1885 /* InputModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputModal.swift; sourceTree = "<group>"; };
 		2901C4C02141D61500AE72FC /* StatusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusHelper.swift; sourceTree = "<group>"; };
 		2901C4C22141D8EC00AE72FC /* Reference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		2901C4C42141DB4000AE72FC /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
@@ -330,9 +331,6 @@
 		29227B5720EE95A50042B88E /* MonitoringArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringArea.swift; sourceTree = "<group>"; };
 		29227B5920EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityMonitoringAreaTableViewCell.swift; sourceTree = "<group>"; };
 		29227B5A20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityMonitoringAreaTableViewCell.xib; sourceTree = "<group>"; };
-		29227B5D20EEAA850042B88E /* TextEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TextEntry.storyboard; sourceTree = "<group>"; };
-		29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntryViewController.swift; sourceTree = "<group>"; };
-		29227B6120EEAD540042B88E /* TextEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntry.swift; sourceTree = "<group>"; };
 		29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityPastureActionsTableViewCell.swift; sourceTree = "<group>"; };
 		29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantCommunityPastureActionsTableViewCell.xib; sourceTree = "<group>"; };
 		29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionHeader.swift; sourceTree = "<group>"; };
@@ -806,7 +804,7 @@
 				297D8FDC21C9758D00D9A8B8 /* Banner */,
 				297D8FD821C973EC00D9A8B8 /* Options */,
 				297D8FD721C9738800D9A8B8 /* Selection Popup */,
-				297D8FE021C977D000D9A8B8 /* Text Entry */,
+				297D8FE021C977D000D9A8B8 /* Input Modal */,
 				297D8FDA21C9750500D9A8B8 /* Amendment */,
 				296233AE219E461F00E0BD2E /* Feedback */,
 				297D8FDD21C9767000D9A8B8 /* ToolTip */,
@@ -1081,14 +1079,13 @@
 			path = "Tag Image";
 			sourceTree = "<group>";
 		};
-		297D8FE021C977D000D9A8B8 /* Text Entry */ = {
+		297D8FE021C977D000D9A8B8 /* Input Modal */ = {
 			isa = PBXGroup;
 			children = (
-				29227B6120EEAD540042B88E /* TextEntry.swift */,
-				29227B5F20EEAAC00042B88E /* TextEntryViewController.swift */,
-				29227B5D20EEAA850042B88E /* TextEntry.storyboard */,
+				1EEC8AB621ECF6A4009C1885 /* InputModal.xib */,
+				1EEC8AB821ECF6B1009C1885 /* InputModal.swift */,
 			);
-			path = "Text Entry";
+			path = "Input Modal";
 			sourceTree = "<group>";
 		};
 		297D8FE121C9786F00D9A8B8 /* Cells */ = {
@@ -1359,6 +1356,7 @@
 				29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */,
 				299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */,
 				29DA8AA3205750E200139AD1 /* AgreementTableViewCell.xib in Resources */,
+				1EEC8AB721ECF6A4009C1885 /* InputModal.xib in Resources */,
 				1EE97E0121E7CBE2008B1086 /* SettingButtonTableViewCell.xib in Resources */,
 				2917468520742765005F70B4 /* Login.storyboard in Resources */,
 				297E998D2165482000FB6F04 /* Pin.xib in Resources */,
@@ -1376,7 +1374,6 @@
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
 				29F13BE421236C0600A25424 /* AssignedRUPVersionTableViewCell.xib in Resources */,
-				29227B5E20EEAA850042B88E /* TextEntry.storyboard in Resources */,
 				29D8E1A421E527BB00733A87 /* SettingTableViewCell.xib in Resources */,
 				290551FA21345E3A00785B5E /* AmendmentFlow.storyboard in Resources */,
 				294CADB1216E83DC00DB184B /* NewElementBanner.xib in Resources */,
@@ -1559,6 +1556,7 @@
 				293D4187216D3109006214E1 /* AdditionalRequirementTableViewCell.swift in Sources */,
 				29055213213465B500785B5E /* AmendmentPageThreeCollectionViewCell.swift in Sources */,
 				2901C4C52141DB4000AE72FC /* Options.swift in Sources */,
+				1EEC8AB921ECF6B1009C1885 /* InputModal.swift in Sources */,
 				2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				29C34BC521C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift in Sources */,
@@ -1643,7 +1641,6 @@
 				295FBF8221641F1B00DD2C53 /* Plant.mlmodel in Sources */,
 				299D3EC0217E7A170000781E /* MonitoringAreaPurposeType.swift in Sources */,
 				29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */,
-				29227B6020EEAAC00042B88E /* TextEntryViewController.swift in Sources */,
 				290551FC21345E5600785B5E /* AmendmentFlowViewController.swift in Sources */,
 				29227B6C20EFF15C0042B88E /* CustomSectionHeader.swift in Sources */,
 				29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */,
@@ -1688,7 +1685,6 @@
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
 				297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */,
 				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,
-				29227B6220EEAD540042B88E /* TextEntry.swift in Sources */,
 				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,
 				2935A76C21485A2500441539 /* ConstantStrings.swift in Sources */,

@@ -16,46 +16,32 @@ import RealmSwift
  of the content of a pasture's conent which will be unpredictable.
  */
 class PasturesTableViewCell: BaseFormCell {
-
+    
     // Mark: Outlets
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var sectionTitle: UILabel!
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
-
+    
     // Mark: Outlet actions
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: "Pastures", desc: InfoTips.pastures)
     }
-
+    
     @IBAction func addPastureAction(_ sender: Any) {
-        guard let parent = self.parentViewController as? CreateNewRUPViewController, let plan = self.plan else {return}
-        let vm = ViewManager()
-        let textEntry = vm.textEntry
-        textEntry.taken = Options.shared.getPastureNames(rup: plan)
-        textEntry.setup(on: parent, header: PlaceHolders.Pasture.name) { (accepted, value) in
-            if accepted {
-                let newPasture = Pasture()
-                newPasture.name = value
-                do {
-                    let realm = try Realm()
-                    let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first!
-                    try realm.write {
-                        aRup.pastures.append(newPasture)
-                        realm.add(newPasture)
-                        NewElementAddedBanner.shared.show()
-                    }
-                    self.plan = aRup
-                } catch _ {
-                    fatalError()
-                }
+        guard let plan = self.plan else {return}
+        let inputModal: InputModal = UIView.fromNib()
+        inputModal.initialize(header: "Pasture Name", taken: Options.shared.getPastureNames(rup: plan)) { (name) in
+            if name != "" {
+                plan.addPasture(withName: name)
+                NewElementAddedBanner.shared.show()
                 self.updateTableHeight(newAdded: true)
             }
         }
     }
-
+    
     // Mark: Setup
     override func setup(mode: FormMode, rup: Plan) {
         self.plan = rup
@@ -72,13 +58,13 @@ class PasturesTableViewCell: BaseFormCell {
         setUpTable()
         style()
     }
-
+    
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
         styleHollowButton(button: addButton)
     }
-
+    
     // MARK: Dynamic Cell Height
     func updateTableHeight(newAdded: Bool? = false) {
         let parent = self.parentViewController as! CreateNewRUPViewController
@@ -88,7 +74,7 @@ class PasturesTableViewCell: BaseFormCell {
             self.tableView.layoutIfNeeded()
         }
     }
-
+    
     func computeHeight() -> CGFloat {
         guard let plan = self.plan else {return 0}
         /*
@@ -105,7 +91,7 @@ class PasturesTableViewCell: BaseFormCell {
             return h
         }
     }
-
+    
     func computePastureHeight(pasture: Pasture) -> CGFloat {
         let staticHeight: CGFloat = 442
         let plantCommunityHeight: CGFloat = CGFloat(PlantCommunityTableViewCell.cellHeight)
@@ -116,7 +102,7 @@ class PasturesTableViewCell: BaseFormCell {
 
 // TableView
 extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
-
+    
     func setUpTable() {
         tableView.isScrollEnabled = false
         tableView.delegate = self
@@ -124,24 +110,24 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         registerCell(name: "PastureTableViewCell")
         registerCell(name: "EmptyPastureTableViewCell")
     }
-
+    
     func registerCell(name: String) {
         let nib = UINib(nibName: name, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: name)
     }
-
+    
     func getPastureCell(indexPath: IndexPath) -> PastureTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "PastureTableViewCell", for: indexPath) as! PastureTableViewCell
     }
-
+    
     func getEmptyPastureCell(indexPath: IndexPath) -> EmptyPastureTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "EmptyPastureTableViewCell", for: indexPath) as! EmptyPastureTableViewCell
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = getPastureCell(indexPath: indexPath)
-
+        
         guard let plan = self.plan else {return cell}
         let count = plan.pastures.count
         if count < 1 {
@@ -151,7 +137,7 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         cell.setup(mode: mode, pasture: (plan.pastures[indexPath.row]), plan: plan, pastures: self)
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let plan = self.plan else {return 0}
         let count = plan.pastures.count
@@ -170,11 +156,11 @@ extension PasturesTableViewCell {
     func setupNotifications() {
         NotificationCenter.default.addObserver(forName: .updatePasturesCell, object: nil, queue: nil, using: catchAction)
     }
-
+    
     func catchAction(notification:Notification) {
         self.updateTableHeight()
     }
-
+    
     func catchUpdateAction(notification:Notification) {
         self.updateTableHeight()
     }
