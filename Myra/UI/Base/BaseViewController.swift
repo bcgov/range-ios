@@ -294,7 +294,7 @@ extension BaseViewController {
 extension BaseViewController {
     func sync(completion: @escaping (_ synced: Bool) -> Void) {
         let syncView: SyncView = UIView.fromNib()
-        syncView.begin(in: self) { success in
+        syncView.initialize { (success) in
             return completion(success)
         }
     }

@@ -9,7 +9,7 @@
 import UIKit
 import Lottie
 
-class SyncView: UIView, Theme {
+class SyncView: CustomModal {
 
     // MARK: Constants
     let syncIconTag = 200
@@ -22,7 +22,6 @@ class SyncView: UIView, Theme {
 
     // MARK: Variables
     var callBack: ((_ success: Bool) -> Void )?
-    var parent: UIViewController?
     var succcess: Bool = false
 
     // MARK: Outlets
@@ -45,26 +44,45 @@ class SyncView: UIView, Theme {
     }
 
     // MARK: Setup
-    func begin(in vc: UIViewController, completion: @escaping (_ success: Bool) -> Void) {
+    func initialize(completion: @escaping (_ success: Bool) -> Void) {
         AutoSync.shared.endListener()
-        self.parent = vc
         self.callBack = completion
+        setFixed(width: 390, height: 400)
         style()
-        self.alpha = invisibleAlpha
-        position(then: {
-            self.styleSyncInProgress()
-            API.sync(completion: { (successful) in
-                self.succcess = successful
-                if successful {
-                    self.styleSyncSuccess()
-                } else {
-                    self.styleSyncFail(error: "An error has occurred")
-                }
-            }, progress: { (progress) in
-                self.updateSyncDescription(text: progress)
-            })
+        present()
+        self.styleSyncInProgress()
+        API.sync(completion: { (successful) in
+            self.succcess = successful
+            if successful {
+                self.styleSyncSuccess()
+            } else {
+                self.styleSyncFail(error: "An error has occurred")
+            }
+        }, progress: { (progress) in
+            self.updateSyncDescription(text: progress)
         })
     }
+    
+//    func begin(in vc: UIViewController, completion: @escaping (_ success: Bool) -> Void) {
+//        AutoSync.shared.endListener()
+//        self.parent = vc
+//        self.callBack = completion
+//        style()
+//        self.alpha = invisibleAlpha
+//        position(then: {
+//            self.styleSyncInProgress()
+//            API.sync(completion: { (successful) in
+//                self.succcess = successful
+//                if successful {
+//                    self.styleSyncSuccess()
+//                } else {
+//                    self.styleSyncFail(error: "An error has occurred")
+//                }
+//            }, progress: { (progress) in
+//                self.updateSyncDescription(text: progress)
+//            })
+//        })
+//    }
 
     // MARK: Label text updates
     func updateSyncDescription(text: String) {
@@ -123,60 +141,60 @@ class SyncView: UIView, Theme {
         showSyncFailedAnimation()
     }
 
-    // MARK: Positioning/ displaying
-    func position(then: @escaping ()-> Void) {
-        guard let vc = self.parent else {return}
-        self.frame = CGRect(x: 0, y: 0, width: 390, height: 400)
-        self.center.x = vc.view.center.x
-        self.center.y = vc.view.center.y
-        self.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor)
-        self.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        vc.view.addSubview(self)
-        
-        // Add constraints
-        self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 390),
-            self.heightAnchor.constraint(equalToConstant: 400),
-            self.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
-            ])
-        // White screen
-        let bg = whiteScreen(for: vc)
-        bg.alpha = invisibleAlpha
-        vc.view.insertSubview(bg, belowSubview: self)
-        NSLayoutConstraint.activate([
-            bg.widthAnchor.constraint(equalTo: vc.view.widthAnchor),
-            bg.heightAnchor.constraint(equalTo:  vc.view.heightAnchor),
-            bg.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
-            bg.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
-            ])
-        UIView.animate(withDuration: animationDuration, animations: {
-            bg.alpha = self.visibleAlpha
-            self.openingAnimation {
-                return then()
-            }
-        })
-    }
-
-    // MARK: Displaying animations
-    func openingAnimation(then: @escaping ()-> Void) {
-        self.alpha = invisibleAlpha
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.alpha = self.visibleAlpha
-        }) { (done) in
-            then()
-        }
-    }
-
-    func closingAnimation(then: @escaping ()-> Void) {
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.alpha = self.invisibleAlpha
-        }) { (done) in
-            then()
-        }
-    }
+//    // MARK: Positioning/ displaying
+//    func position(then: @escaping ()-> Void) {
+//        guard let vc = self.parent else {return}
+//        self.frame = CGRect(x: 0, y: 0, width: 390, height: 400)
+//        self.center.x = vc.view.center.x
+//        self.center.y = vc.view.center.y
+//        self.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor)
+//        self.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
+//        self.translatesAutoresizingMaskIntoConstraints = false
+//        vc.view.addSubview(self)
+//
+//        // Add constraints
+//        self.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            self.widthAnchor.constraint(equalToConstant: 390),
+//            self.heightAnchor.constraint(equalToConstant: 400),
+//            self.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+//            self.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
+//            ])
+//        // White screen
+//        let bg = whiteScreen(for: vc)
+//        bg.alpha = invisibleAlpha
+//        vc.view.insertSubview(bg, belowSubview: self)
+//        NSLayoutConstraint.activate([
+//            bg.widthAnchor.constraint(equalTo: vc.view.widthAnchor),
+//            bg.heightAnchor.constraint(equalTo:  vc.view.heightAnchor),
+//            bg.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+//            bg.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
+//            ])
+//        UIView.animate(withDuration: animationDuration, animations: {
+//            bg.alpha = self.visibleAlpha
+//            self.openingAnimation {
+//                return then()
+//            }
+//        })
+//    }
+//
+//    // MARK: Displaying animations
+//    func openingAnimation(then: @escaping ()-> Void) {
+//        self.alpha = invisibleAlpha
+//        UIView.animate(withDuration: animationDuration, animations: {
+//            self.alpha = self.visibleAlpha
+//        }) { (done) in
+//            then()
+//        }
+//    }
+//
+//    func closingAnimation(then: @escaping ()-> Void) {
+//        UIView.animate(withDuration: animationDuration, animations: {
+//            self.alpha = self.invisibleAlpha
+//        }) { (done) in
+//            then()
+//        }
+//    }
 
     // MARK: Lottie
     func animateSyncIcon() {
@@ -288,25 +306,25 @@ class SyncView: UIView, Theme {
         animationView.play()
     }
 
-    // MARK: White Screen
-    func whiteScreen(for vc: UIViewController) -> UIView {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: vc.view.frame.width, height: vc.view.frame.height))
-        view.center.y = vc.view.center.y
-        view.center.x = vc.view.center.x
-        view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha: whiteScreenAlpha)
-        view.alpha = visibleAlpha
-        view.tag = whiteScreenTag
-        return view
-    }
-
-    func removeWhiteScreen() {
-        guard let parent = parent else {return}
-        if let viewWithTag = parent.view.viewWithTag(whiteScreenTag) {
-            UIView.animate(withDuration: animationDuration, animations: {
-                viewWithTag.alpha = self.invisibleAlpha
-            }) { (done) in
-                viewWithTag.removeFromSuperview()
-            }
-        }
-    }
+//    // MARK: White Screen
+//    func whiteScreen(for vc: UIViewController) -> UIView {
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: vc.view.frame.width, height: vc.view.frame.height))
+//        view.center.y = vc.view.center.y
+//        view.center.x = vc.view.center.x
+//        view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha: whiteScreenAlpha)
+//        view.alpha = visibleAlpha
+//        view.tag = whiteScreenTag
+//        return view
+//    }
+//
+//    func removeWhiteScreen() {
+//        guard let parent = parent else {return}
+//        if let viewWithTag = parent.view.viewWithTag(whiteScreenTag) {
+//            UIView.animate(withDuration: animationDuration, animations: {
+//                viewWithTag.alpha = self.invisibleAlpha
+//            }) { (done) in
+//                viewWithTag.removeFromSuperview()
+//            }
+//        }
+//    }
 }
