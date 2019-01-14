@@ -26,7 +26,6 @@ enum PlantCommunityCriteriaFromSection: Int {
 class PlantCommunityViewController: BaseViewController {
 
     // MARK: Variables
-    var completion: ((_ done: Bool) -> Void)?
     var plantCommunity: PlantCommunity?
     var pasture: Pasture?
     var mode: FormMode = .View
@@ -41,10 +40,6 @@ class PlantCommunityViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var divider: UIView!
-    @IBOutlet weak var navbar: UIView!
-    @IBOutlet weak var statusbar: UIView!
-    @IBOutlet weak var backbutton: UIButton!
-    @IBOutlet weak var navbarTitle: UILabel!
 
     @IBOutlet weak var bannerLabel: UILabel!
     @IBOutlet weak var bannerHeight: NSLayoutConstraint!
@@ -62,13 +57,6 @@ class PlantCommunityViewController: BaseViewController {
     }
 
     // MARK: Outlet Actions
-    @IBAction func backAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: {
-            if let callback = self.completion {
-                return callback(true)
-            }
-        })
-    }
 
     //    @IBAction func deleteAction(_ sender: Any) {
     //        guard let pc = self.plantCommunity else{ return }
@@ -84,11 +72,10 @@ class PlantCommunityViewController: BaseViewController {
 
 
     // MARK: Setup
-    func setup(mode: FormMode, plan: Plan ,pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
+    func setup(mode: FormMode, plan: Plan ,pasture: Pasture, plantCommunity: PlantCommunity) {
         self.pasture = pasture
         self.mode = mode
         self.plantCommunity = plantCommunity
-        self.completion = completion
         self.plan = plan
         setUpTable()
         autofill()
@@ -169,7 +156,6 @@ class PlantCommunityViewController: BaseViewController {
 
     // MARK: Styles
     func style() {
-        styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
         styleHeader(label: pageTitle)
         styleFooter(label: subtitle)
         styleDivider(divider: divider)
@@ -314,48 +300,9 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
             case .ShrubUse:
                 let cell = getShrubUseCell(indexPath: indexPath)
                 cell.setup(with: community, mode: mode)
-//                let cell = getPlantIndicatorsCell(indexPath: indexPath)
-//                cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
                 return cell
             }
         }
-
-        /*
-         switch indexPath.section {
-         case 0:
-         let cell = getBasicInfoCell(indexPath: indexPath)
-         cell.setup(plantCommunity: community, mode: mode, parentReference: self)
-         return cell
-         case 1:
-         if hasPurposeOfActions() {
-         let cell = getPastureActionsCell(indexPath: indexPath)
-         cell.setup(plantCommunity: community, mode: mode, parentReference: self)
-         return cell
-         } else {
-         let cell = getEmptyCell(indexPath: indexPath)
-         cell.setup(placeHolder: "", height: 1)
-         return cell
-         }
-         case 2:
-         let cell = getPlantIndicatorsCell(indexPath: indexPath)
-         cell.setup(section: .RangeReadiness, mode: mode, plantCommunity: community, parentReference: self)
-         return cell
-         case 3:
-         let cell = getPlantIndicatorsCell(indexPath: indexPath)
-         cell.setup(section: .StubbleHeight, mode: mode, plantCommunity: community, parentReference: self)
-         return cell
-         case 4:
-         let cell = getPlantIndicatorsCell(indexPath: indexPath)
-         cell.setup(section: .ShrubUse, mode: mode, plantCommunity: community, parentReference: self)
-         return cell
-         case 5:
-         let cell = getMonitoringAreasCell(indexPath: indexPath)
-         cell.setup(plantCommunity: community, mode: mode, rup: pl, parentReference: self)
-         return cell
-         default:
-         return getBasicInfoCell(indexPath: indexPath)
-         }
-         */
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

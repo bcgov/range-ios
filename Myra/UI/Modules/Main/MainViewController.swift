@@ -31,6 +31,7 @@ class MainViewController: BaseViewController {
 
     // MARK Outlets
     @IBOutlet weak var body: UIView!
+    @IBOutlet weak var innerNavBar: UIView!
     @IBOutlet weak var navBar: UIView!
     @IBOutlet weak var pageTitle: UILabel!
     @IBOutlet weak var navBarBackButton: UIButton!
@@ -45,12 +46,22 @@ class MainViewController: BaseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        styleNavBar()
     }
 
     @IBAction func navBackAction(_ sender: UIButton) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.goBack()
         }
+    }
+    
+    func styleNavBar() {
+        self.navBar.backgroundColor = Colors.primary
+        self.innerNavBar.backgroundColor = Colors.primary
+        self.pageTitle.font = defaultNavBarTitleFont()
+        self.pageTitle.textColor = UIColor.white
+        self.backIcon.image = UIImage(named: "back")
+        addShadow(to: navBar.layer, opacity: 0.8, height: 2)
     }
 }
 
@@ -62,7 +73,7 @@ extension MainViewController {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: presentationDuration) {
             self.pageTitle.alpha = 0
-            self.navBarHeight.constant = 0
+            self.navBarHeight.constant = 5
             self.view.layoutIfNeeded()
         }
     }

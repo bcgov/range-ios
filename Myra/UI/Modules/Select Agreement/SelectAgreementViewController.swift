@@ -17,10 +17,6 @@ class SelectAgreementViewController: BaseViewController {
 
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var statusBar: UIView!
-    @IBOutlet weak var navBar: UIView!
-    @IBOutlet weak var pageTitle: UILabel!
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var createNewRupHeader: UILabel!
     @IBOutlet weak var createNewRupFooter: UILabel!
     @IBOutlet weak var rangeNumberHeader: UILabel!
@@ -42,19 +38,11 @@ class SelectAgreementViewController: BaseViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
 
     // MARK: Outlet actions
-    @IBAction func cancelAction(_ sender: Any) {
-        self.dismiss(animated: true, completion: {
-            if self.parentCallBack != nil {
-                return self.parentCallBack!(true)
-            }
-        })
-    }
-
     @IBAction func clearSearch(_ sender: UIButton) {
         clearButton.alpha = 0
         self.searchField.text = ""
@@ -124,13 +112,11 @@ class SelectAgreementViewController: BaseViewController {
 
     // MARK: Style
     func style() {
-        styleNavBar(title: pageTitle, navBar: navBar, statusBar: statusBar, primaryButton: cancelButton, secondaryButton: nil, textLabel: nil)
         styleHeader(label: createNewRupHeader)
         styleFooter(label: createNewRupFooter)
-//        styleFieldHeader(label: rangeNumberHeader)
-//        styleFieldHeader(label: agreementHolderHeader)
         styleDivider(divider: divider)
-        // custom styling of search. move to theme is search is used elsewhere
+        
+        // custom styling of search. move to theme if search is used elsewhere
         searchField.textColor = defaultInputFieldTextColor()
         searchField.font = defaultInputFieldFont()
         searchField.backgroundColor = defaultInputFieldBackground()
