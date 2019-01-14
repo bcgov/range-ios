@@ -116,7 +116,7 @@ class Feedback: NSObject {
     static func show(in vc: UIViewController) {
         let view: FeedbackView = UIView.fromNib()
         removeButton()
-        view.present(in: vc)
+        view.initialize()
     }
 
     static func send(feedback: FeedbackElement, completion: @escaping (_ success: Bool)->Void) {

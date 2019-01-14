@@ -566,6 +566,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1EE8985921ED51DB00A74F4F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */,
+				2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1EE8985A21ED51E900A74F4F /* View Results */ = {
+			isa = PBXGroup;
+			children = (
+				1EE8985921ED51DB00A74F4F /* Cells */,
+				2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */,
+				2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */,
+			);
+			path = "View Results";
+			sourceTree = "<group>";
+		};
 		1EE97E0421E809D1008B1086 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,14 +814,11 @@
 		296233AE219E461F00E0BD2E /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
+				1EE8985A21ED51E900A74F4F /* View Results */,
 				296233AF219E464500E0BD2E /* Feedback.swift */,
 				294F6BB9219F3C92008EC6FA /* FeedbackView.swift */,
 				294F6BBB219F3CA0008EC6FA /* FeedbackView.xib */,
 				296233B1219E466700E0BD2E /* FeedbackElement.swift */,
-				2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */,
-				2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */,
-				2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */,
-				2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -817,6 +833,7 @@
 				292B650E21C066EA00F9A8A5 /* Get Name Dialog */,
 				29C34BBE21C2DC3D009B4031 /* Import Plant Community Criteria */,
 				297D8FDA21C9750500D9A8B8 /* Amendment */,
+				29332DAF21B6FB8900950478 /* Alert */,
 				290543282194D23700865823 /* Tour */,
 				292B650B21C0656200F9A8A5 /* Loading */,
 				297D8FDC21C9758D00D9A8B8 /* Banner */,
@@ -827,7 +844,6 @@
 				297D8FDE21C976CE00D9A8B8 /* New Element Added Banner */,
 				297D8FEB21C9925C00D9A8B8 /* DatePicker - Used as year picker */,
 				297D8FDF21C9777100D9A8B8 /* Tag Image */,
-				29332DAF21B6FB8900950478 /* Alert */,
 			);
 			path = "Custom Elements";
 			sourceTree = "<group>";
