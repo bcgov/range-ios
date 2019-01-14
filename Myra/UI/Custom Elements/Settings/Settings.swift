@@ -182,7 +182,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
         case SettingsSections.Map.rawValue:
             return "MAPPING"
         case SettingsSections.Environment.rawValue:
-            return "Environment"
+            return "ENVIRONMENT"
         default:
             return ""
         }

@@ -132,7 +132,7 @@ class MonitoringArea: Object, MyraObject {
         ]
     }
 
-    func copy() -> MonitoringArea {
+    func clone() -> MonitoringArea {
         let new = MonitoringArea()
         new.remoteId = self.remoteId
         new.location = self.location

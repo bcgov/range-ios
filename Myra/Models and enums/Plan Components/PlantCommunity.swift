@@ -266,6 +266,25 @@ class PlantCommunity: Object, MyraObject {
             fatalError()
         }
     }
+    
+    func addMonitoringArea(cloneFrom object: MonitoringArea? = nil, withName monitoringAreaName: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if let origin = object {
+                    let newMA = origin.clone()
+                    newMA.name = monitoringAreaName
+                    monitoringAreas.append(newMA)
+                } else {
+                    let newMA = MonitoringArea()
+                    newMA.name = monitoringAreaName
+                    monitoringAreas.append(newMA)
+                }
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
 
     // MARK: Validations
     func requiredFieldsAreFilled() -> Bool {
@@ -293,7 +312,7 @@ class PlantCommunity: Object, MyraObject {
         new.readinessNotes = self.readinessNotes
 
         for object in self.monitoringAreas {
-            new.monitoringAreas.append(object.copy())
+            new.monitoringAreas.append(object.clone())
         }
 
         for object in self.pastureActions {

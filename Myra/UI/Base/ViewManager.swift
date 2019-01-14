@@ -51,10 +51,6 @@ class ViewManager {
         return UIStoryboard(name: "Options", bundle: Bundle.main).instantiateViewController(withIdentifier: "Options") as! OptionsViewController
     }()
 
-    lazy var textEntry: TextEntryViewController = {
-        return UIStoryboard(name: "TextEntry", bundle: Bundle.main).instantiateViewController(withIdentifier: "TextEntry") as! TextEntryViewController
-    }()
-
     lazy var amendmentFlow: AmendmentFlowViewController = {
         return UIStoryboard(name: "AmendmentFlow", bundle: Bundle.main).instantiateViewController(withIdentifier: "AmendmentFlow") as! AmendmentFlowViewController
     }()

@@ -82,6 +82,17 @@ class Pasture: Object, MyraObject {
             fatalError()
         }
     }
+    
+    func setName(string: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.name = string
+            }
+        } catch {
+            fatalError()
+        }
+    }
 
     // MARK: Validations
     func requiredFieldsAreFilled() -> Bool {
@@ -89,7 +100,7 @@ class Pasture: Object, MyraObject {
     }
 
     // MARK: Export
-    func copy() -> Pasture {
+    func clone() -> Pasture {
         let pasture = Pasture()
         pasture.remoteId = self.remoteId
         pasture.name = self.name
