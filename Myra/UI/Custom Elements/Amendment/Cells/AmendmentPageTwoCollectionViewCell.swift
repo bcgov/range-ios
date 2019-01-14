@@ -15,7 +15,7 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
 
     // MARK: Variables
     var amendment: Amendment?
-    var parent: AmendmentFlowViewController?
+    var parent: AmendmentFlow?
     var mode: AmendmentFlowMode = .Minor
 
     // MARK: Outlets
@@ -39,7 +39,7 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
     
     @IBAction func closeAction(_ sender: UIButton) {
         guard let parent = self.parent else {return}
-        parent.remove(cancelled: true)
+        parent.remove()
     }
 
     @IBAction func cancelAction(_ sender: UIButton) {
@@ -108,7 +108,7 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
         styleSelection()
     }
 
-    func setup(amendment: Amendment, mode: AmendmentFlowMode, parent: AmendmentFlowViewController) {
+    func setup(amendment: Amendment, mode: AmendmentFlowMode, parent: AmendmentFlow) {
         self.mode = mode
         self.parent = parent
         self.amendment = amendment
