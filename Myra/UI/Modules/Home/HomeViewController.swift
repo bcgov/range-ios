@@ -378,7 +378,8 @@ class HomeViewController: BaseViewController {
         self.expandIndexPath = nil
         self.tableView.reloadData()
         self.tableView.isScrollEnabled = true
-        AutoSync.shared.autoSync()
+        
+//        AutoSync.shared.autoSync()
     }
 
     /*
