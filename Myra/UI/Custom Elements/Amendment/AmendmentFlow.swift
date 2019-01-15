@@ -39,6 +39,7 @@ class AmendmentFlow: CustomModal {
         self.callBack = response
         self.amendment = Amendment()
         self.initCollectionView()
+        style()
         present()
     }
     
@@ -51,6 +52,10 @@ class AmendmentFlow: CustomModal {
             }
             remove()
         }
+    }
+    
+    func style() {
+        styleModalBox()
     }
 }
 
@@ -78,8 +83,8 @@ extension AmendmentFlow: UICollectionViewDelegate, UICollectionViewDataSource, U
     }
     
     func cellSize() -> CGSize {
-        let w = self.frame.width
-        let h = self.frame.height
+        let w = (self.frame.width)
+        let h = (self.frame.height)
         return CGSize(width: w, height: h)
     }
     
