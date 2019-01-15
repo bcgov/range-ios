@@ -109,6 +109,9 @@ class SettingsManager {
         AutoSync.shared.endListener()
         model.setAutoSync(enabled: enabled)
         AutoSync.shared.beginListener()
+        if enabled {
+            AutoSync.shared.autoSync()
+        }
     }
     
     // MARK: Map

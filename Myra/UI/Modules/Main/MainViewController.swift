@@ -22,8 +22,8 @@ class MainViewController: BaseViewController {
     var currentViewController: UIViewController?
     var previousViewControllers: [UIViewController] = [UIViewController]()
 
-    var leftTransitionAnimation: UIView.AnimationOptions = .transitionFlipFromLeft
-    var rightTransitionAnimation: UIView.AnimationOptions = .transitionFlipFromRight
+    var leftTransitionAnimation: UIView.AnimationOptions = .curveEaseOut
+    var rightTransitionAnimation: UIView.AnimationOptions = .curveEaseOut
 
     var transitionOptions: UIView.AnimationOptions = [.showHideTransitionViews, .transitionFlipFromLeft]
 
