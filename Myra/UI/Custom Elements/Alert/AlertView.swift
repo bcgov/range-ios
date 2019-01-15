@@ -106,10 +106,6 @@ class AlertView: CustomModal {
         rightPadding.constant = horizontalContentPadding / 2
     }
 
-    func get(percent: CGFloat, of: CGFloat)-> CGFloat {
-        return ((of * percent) / 100)
-    }
-
     // MARK: Style
     func style() {
         guard let mode = self.mode else {return}

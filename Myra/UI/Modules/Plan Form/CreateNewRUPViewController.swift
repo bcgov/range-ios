@@ -87,7 +87,7 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: Outlets
     
     // TOP
-    @IBOutlet weak var statusBar: UIView!
+    @IBOutlet weak var statusbar: UIView!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var ranLabel: UILabel!

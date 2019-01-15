@@ -112,6 +112,12 @@ class SettingsManager {
         if enabled {
             AutoSync.shared.autoSync()
         }
+        
+        if enabled {
+            Banner.shared.show(message: "AutoSync is on")
+        } else {
+            Banner.shared.show(message: "AutoSync is off")
+        }
     }
     
     // MARK: Map
@@ -151,7 +157,7 @@ class SettingsManager {
             AutoSync.shared.endListener()
             model.setDevEnvironment(enabled: mode == .Dev)
             let settingsModelClone = model.clone()
-            API.authServices().logout()
+            Auth.logout()
             RealmManager.shared.clearLastSyncDate()
             RealmManager.shared.clearAllData()
             RealmRequests.saveObject(object: settingsModelClone)

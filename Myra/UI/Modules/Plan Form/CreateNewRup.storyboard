@@ -652,26 +652,25 @@
                                     <outletCollection property="gestureRecognizers" destination="KRy-ot-b2Q" appends="YES" id="J7B-lV-CcJ"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5M-rC-R1G" userLabel="TopBar">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lzw-Xd-k6W">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="20"/>
-                                <color key="backgroundColor" red="0.90580290555953979" green="0.9059332013130188" blue="0.90577441453933716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="PrL-T2-goN"/>
-                                </constraints>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HRZ-Na-sN4" firstAttribute="top" secondItem="LiW-fN-wXA" secondAttribute="bottom" constant="3" id="19M-J5-TYP"/>
                             <constraint firstItem="HRZ-Na-sN4" firstAttribute="bottom" secondItem="QE0-nW-aem" secondAttribute="bottom" id="2p3-sk-UKV"/>
-                            <constraint firstAttribute="trailing" secondItem="Y5M-rC-R1G" secondAttribute="trailing" id="3rZ-Of-Efp"/>
+                            <constraint firstItem="Lzw-Xd-k6W" firstAttribute="top" secondItem="QE0-nW-aem" secondAttribute="top" id="5Ls-i9-kHm"/>
                             <constraint firstItem="BNq-BJ-ffb" firstAttribute="leading" secondItem="Bro-Wt-kuB" secondAttribute="leading" constant="10" id="9fa-7f-Hru"/>
+                            <constraint firstItem="Lzw-Xd-k6W" firstAttribute="leading" secondItem="QE0-nW-aem" secondAttribute="leading" id="GsT-40-9pL"/>
                             <constraint firstItem="BNq-BJ-ffb" firstAttribute="top" secondItem="LiW-fN-wXA" secondAttribute="bottom" constant="10" id="Uvt-Fs-3bM"/>
                             <constraint firstItem="HRZ-Na-sN4" firstAttribute="leading" secondItem="BNq-BJ-ffb" secondAttribute="trailing" id="Wxm-bS-895"/>
+                            <constraint firstItem="LiW-fN-wXA" firstAttribute="top" secondItem="Bro-Wt-kuB" secondAttribute="top" id="ZRN-g6-73Z"/>
                             <constraint firstItem="Bro-Wt-kuB" firstAttribute="trailing" secondItem="LiW-fN-wXA" secondAttribute="trailing" id="ZvK-GU-NHb"/>
-                            <constraint firstItem="Y5M-rC-R1G" firstAttribute="leading" secondItem="QE0-nW-aem" secondAttribute="leading" id="cFB-53-nKw"/>
                             <constraint firstItem="Bro-Wt-kuB" firstAttribute="bottom" secondItem="BNq-BJ-ffb" secondAttribute="bottom" constant="10" id="kPp-zg-yk9"/>
-                            <constraint firstItem="Y5M-rC-R1G" firstAttribute="top" secondItem="QE0-nW-aem" secondAttribute="top" id="tac-UF-dhc"/>
+                            <constraint firstAttribute="trailing" secondItem="Lzw-Xd-k6W" secondAttribute="trailing" id="nFB-CB-FcS"/>
+                            <constraint firstItem="LiW-fN-wXA" firstAttribute="top" secondItem="Lzw-Xd-k6W" secondAttribute="bottom" id="vVe-yA-Ak9"/>
                             <constraint firstItem="HRZ-Na-sN4" firstAttribute="trailing" secondItem="Bro-Wt-kuB" secondAttribute="trailing" id="xLk-Ig-4SI"/>
                             <constraint firstItem="LiW-fN-wXA" firstAttribute="top" secondItem="QE0-nW-aem" secondAttribute="topMargin" id="xwx-oO-Z7h"/>
                             <constraint firstItem="LiW-fN-wXA" firstAttribute="leading" secondItem="Bro-Wt-kuB" secondAttribute="leading" id="zT9-Y2-i8s"/>
@@ -746,8 +745,8 @@
                         <outlet property="scheduleLabel" destination="gNV-aY-TOR" id="xUY-HF-MRL"/>
                         <outlet property="scheduleLowerBar" destination="qZY-Kh-81h" id="hii-a1-2V2"/>
                         <outlet property="statusAndagreementHolderLabel" destination="Nzd-Uv-eO9" id="wHL-h5-1ZT"/>
-                        <outlet property="statusBar" destination="Y5M-rC-R1G" id="xTU-uT-vv5"/>
                         <outlet property="statusLight" destination="RbP-fQ-Vhx" id="uWV-v5-kWE"/>
+                        <outlet property="statusbar" destination="Lzw-Xd-k6W" id="Ifu-QL-TJg"/>
                         <outlet property="submitButton" destination="o6w-yp-OeT" id="skn-mW-GNk"/>
                         <outlet property="submitButtonContainer" destination="rec-4X-Frs" id="n1x-lx-bDI"/>
                         <outlet property="tableView" destination="eHi-0H-7J4" id="8ub-WB-oSY"/>

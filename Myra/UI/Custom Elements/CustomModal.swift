@@ -49,6 +49,28 @@ class CustomModal: UIView, Theme {
         }
     }
     
+    func setSmartSizingWith(percentHorizontalPadding: CGFloat, percentVerticalPadding: CGFloat) {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        self.horizontalPadding = self.get(percent: percentHorizontalPadding, of: window.frame.width)
+        self.verticalPadding = self.get(percent: percentVerticalPadding, of: window.frame.height)
+        
+        // Choose a witdh or height that stay the same regardless of orientation.
+        if window.frame.width > window.frame.height {
+            // Horizontal
+            self.height = window.frame.height - (verticalPadding)
+            self.width = window.frame.height - (horizontalPadding)
+        } else {
+            // vertical
+            self.height = window.frame.width - (verticalPadding)
+            self.width = window.frame.width - (horizontalPadding)
+        }
+        
+    }
+    
+    func get(percent: CGFloat, of: CGFloat)-> CGFloat {
+        return ((of * percent) / 100)
+    }
+    
     // MARK: Style
     func styleModalBox(with titleLabel: UILabel? = nil, barButton: UIButton? = nil, closeButton: UIButton? = nil) {
         addShadow(layer: self.layer)
@@ -75,6 +97,28 @@ class CustomModal: UIView, Theme {
     }
     
     // MARK: Positioning/ displaying
+    
+    func hide() {
+        remove()
+//        guard let window = UIApplication.shared.keyWindow else {return}
+//        if let viewWithTag = window.viewWithTag(whiteScreenTag) {
+//            viewWithTag.removeFromSuperview()
+//            self.alpha = self.invisibleAlpha
+//        }
+    }
+    
+    func show() {
+        present()
+//        guard let window = UIApplication.shared.keyWindow else {return}
+//        if let viewWithTag = window.viewWithTag(whiteScreenTag) {
+//            UIView.animate(withDuration: animationDuration, animations: {
+//                viewWithTag.alpha = self.visibleAlpha
+//            }) { (done) in
+//                self.alpha = self.visibleAlpha
+//            }
+//        }
+    }
+    
     func remove() {
         self.closingAnimation {
             self.removeWhiteScreen()
@@ -178,6 +222,17 @@ class CustomModal: UIView, Theme {
                 viewWithTag.removeFromSuperview()
             }
         }
+    }
+    
+    func recursivelyRemoveWhiteScreens(attempt: Bool) {
+        if !attempt { return }
+        var found = false
+        if let window = UIApplication.shared.keyWindow, let viewWithTag = window.viewWithTag(whiteScreenTag) {
+            found = true
+            viewWithTag.removeFromSuperview()
+        }
+        recursivelyRemoveWhiteScreens(attempt: found)
+    
     }
     
 }

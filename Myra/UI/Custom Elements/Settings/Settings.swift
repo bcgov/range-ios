@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SingleSignOn
 
 enum SettingsSections: Int, CaseIterable {
     case Sync = 0
@@ -53,14 +54,15 @@ class Settings: CustomModal {
         setUpTable()
         self.parent = fromVC
         self.callBack = callBack
-        setSmartSizingWith(horizontalPadding: 200, verticalPadding: 100)
+        setSmartSizingWith(percentHorizontalPadding: 20, percentVerticalPadding: 20)
+        self.recursivelyRemoveWhiteScreens(attempt: true)
         style()
         present()
         autoFill()
     }
     
     func autoFill() {
-       versionLabel.text = SettingsManager.shared.getCurrentAppVersion()
+        versionLabel.text = SettingsManager.shared.getCurrentAppVersion()
     }
     
     func style() {
@@ -68,7 +70,34 @@ class Settings: CustomModal {
         versionLabel.font = Fonts.getPrimary(size: 17)
         styleModalBox(with: viewTitle, closeButton: doneButton)
     }
-  
+    
+    // MARK: AutoSync Option
+    func enableAutoSync() {
+        if !Auth.isAuthenticated() {
+            self.hide()
+            Auth.authenticate { (success) in
+                self.show()
+                if success {
+                    SettingsManager.shared.setAutoSync(enabled: true)
+                    self.reloadAutoSyncCell()
+                }
+            }
+        } else {
+            SettingsManager.shared.setAutoSync(enabled: true)
+            self.reloadAutoSyncCell()
+        }
+    }
+    
+    func reloadAutoSyncCell() {
+        let sizeInfoIndexPath: IndexPath = IndexPath(row: SettingsSyncSection.Autosync.rawValue, section: SettingsSections.Sync.rawValue)
+        self.tableView.reloadRows(at: [sizeInfoIndexPath], with: .automatic)
+    }
+    
+    func reloadMapSizeCell() {
+        let sizeInfoIndexPath: IndexPath = IndexPath(row: SettingsMapSection.StoredSize.rawValue, section: SettingsSections.Map.rawValue)
+        self.tableView.reloadRows(at: [sizeInfoIndexPath], with: .automatic)
+    }
+    
 }
 
 extension Settings:  UITableViewDelegate, UITableViewDataSource {
@@ -110,7 +139,12 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             case SettingsSyncSection.Autosync.rawValue:
                 let cell = getSettingToggleTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "AutoSync", isOn: SettingsManager.shared.isAutoSyncEnabled()) { (isOn) in
-                    SettingsManager.shared.setAutoSync(enabled: isOn)
+                    if isOn {
+                        self.enableAutoSync()
+                    } else {
+                        SettingsManager.shared.setAutoSync(enabled: isOn)
+                    }
+                    
                 }
                 return cell
             default:
@@ -132,8 +166,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                 let cell = getSettingButtonTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Clear Cached Data") {
                     SettingsManager.shared.clearMapData()
-                    let sizeInfoIndexPath: IndexPath = IndexPath(row: SettingsMapSection.StoredSize.rawValue, section: SettingsSections.Map.rawValue)
-                    self.tableView.reloadRows(at: [sizeInfoIndexPath], with: .automatic)
+                    self.reloadMapSizeCell()
                 }
                 return cell
             default:

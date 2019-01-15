@@ -39,16 +39,9 @@ public enum APIError: LocalizedDescriptionError {
 class API {
     
     typealias APIRequestCompleted = (_ records: [String:Any]?, _ error: APIError?) -> ()
-
-    static func authServices() -> AuthServices {
-        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                            idpHint: Constants.SSO.idpHint)
-    }
     
     static func headers() -> HTTPHeaders {
-        if let creds = authServices().credentials {
-            let token = creds.accessToken
+        if let token = Auth.getAccessToken() {
             return ["Authorization": "Bearer \(token)"]
         } else {
             return ["Content-Type" : "application/json"]
@@ -62,9 +55,8 @@ class API {
         var request = URLRequest(url: endpoint)
         request.httpMethod = HTTPMethod.put.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        if let creds = API.authServices().credentials {
-            let token = creds.accessToken
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if let token = Auth.getAccessToken() {
+             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
         let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)

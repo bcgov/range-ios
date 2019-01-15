@@ -11,11 +11,11 @@ import UIKit
 
 extension MainViewController {
 
-    func chooseInitialView() {
+    func chooseInitialView(initialLogin: Bool? = false) {
         previousViewControllers.removeAll()
         if let _ = RealmManager.shared.getLastSyncDate() {
             // Go to home page
-            showHome()
+            showHome(initialLogin: initialLogin)
         } else {
             // last sync doesn't exist.
             // Go to login page
@@ -27,18 +27,21 @@ extension MainViewController {
         transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
         let vm = ViewManager()
         let vc = vm.login
-        vc.setup(parentReference: self)
-        self.loginDisplayed = true
+
+        AutoSync.shared.endListener()
         vc.setPresenter(viewController: self)
+        
         show(viewController: vc, addToStack: false)
     }
 
-    func showHome() {
+    func showHome(initialLogin: Bool? = false) {
         transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
         let vm = ViewManager()
         let vc = vm.home
-        vc.parentReference = self
-        vc.presentedAfterLogin = loginDisplayed
+        
+        if let isInitialLogin = initialLogin, isInitialLogin {
+            vc.showTour = true
+        }
         
         AutoSync.shared.beginListener()
         vc.setPresenter(viewController: self)

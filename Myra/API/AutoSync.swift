@@ -32,11 +32,6 @@ class AutoSync {
 
     // MARK: Constants
     let lockScreenTag = 204
-    let authServices: AuthServices = {
-        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                            idpHint: Constants.SSO.idpHint)
-    }()
 
     private init() {}
 
@@ -98,10 +93,11 @@ class AutoSync {
             return
         }
 
-        if !authServices.isAuthenticated() {
+        if !Auth.isAuthenticated() {
             print("But not authenticated.")
             if !manualSyncRequiredShown {
                 manualSyncRequiredShown = true
+                SettingsManager.shared.setAutoSync(enabled: false)
                 Banner.shared.show(message: Messages.AutoSync.manualSyncRequired)
             }
             return

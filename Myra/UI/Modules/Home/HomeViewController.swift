@@ -48,7 +48,7 @@ class HomeViewController: BaseViewController {
 //    var lastTourTip: TourTip?
 //    var lastTourTarget: UIView?
 //    var lastTourTargetAlpha: CGFloat = 1
-    var presentedAfterLogin: Bool = false
+    var showTour: Bool = false
 
     var lastSyncLabelTimer = Timer()
     var lastSyncTimerActive = false
@@ -120,10 +120,10 @@ class HomeViewController: BaseViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if presentedAfterLogin {
+        if showTour {
             self.view.layoutIfNeeded()
             self.beginTour()
-            self.presentedAfterLogin = false
+            self.showTour = false
         }
     }
 
@@ -214,17 +214,16 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
-        guard let parent = self.parentReference else {return}
-        parent.showCreateNew()
+        guard let presenter = self.getPresenter() else {return}
+        presenter.showCreateNew()
     }
 
     @IBAction func syncAction(_ sender: UIButton) {
         sender.isUserInteractionEnabled = false
-
-//        syncButtonLabel.alpha = 1
+        
         blockSync = true
         showSyncMessage(text: "Connecting...", after: 0)
-        if API.authServices().isAuthenticated() {
+        if Auth.isAuthenticated() {
             playSyncButtonAnimation()
             animateIt()
             showSyncMessage(text: "Connection taking longer than expected...", after: 5)
@@ -341,6 +340,7 @@ class HomeViewController: BaseViewController {
                 lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
             }
         } else {
+            
             authenticateIfRequred()
         }
         setUpTable()

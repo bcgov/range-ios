@@ -13,11 +13,13 @@ class MainViewController: BaseViewController {
     // MARK: Variables
     var currentChildVC: UIViewController?
     var nextChildVC: UIViewController?
-    var loginDisplayed: Bool = false
 
     // new variables. the above vars should not be necessary after new presentation stategy has been implemented.
     let presentationDuration = 0.3
     let flipDuration: Double = 0.4
+    
+    let invisibleAlpha: CGFloat = 0
+    let visibleAlpha: CGFloat = 1
 
     var currentViewController: UIViewController?
     var previousViewControllers: [UIViewController] = [UIViewController]()
@@ -68,37 +70,37 @@ class MainViewController: BaseViewController {
 extension MainViewController {
     // MARK: Nav Bar
     func hideNav() {
-        self.navBarBackButton.alpha = 0
-        self.backIcon.alpha = 0
+        self.navBarBackButton.alpha = self.invisibleAlpha
+        self.backIcon.alpha = self.invisibleAlpha
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: presentationDuration) {
-            self.pageTitle.alpha = 0
-            self.navBarHeight.constant = 5
+            self.pageTitle.alpha = self.invisibleAlpha
+            self.navBarHeight.constant = 0
             self.view.layoutIfNeeded()
         }
     }
 
     func showNav() {
         UIView.animate(withDuration: presentationDuration, animations: {
-            self.pageTitle.alpha = 1
+            self.pageTitle.alpha = self.visibleAlpha
             self.navBarHeight.constant = 73
             self.view.layoutIfNeeded()
         }) { (done) in
-            self.navBarBackButton.alpha = 1
-            self.backIcon.alpha = 1
+            self.navBarBackButton.alpha = self.visibleAlpha
+            self.backIcon.alpha = self.visibleAlpha
             self.view.layoutIfNeeded()
         }
     }
 
     func setNav(title: String) {
         UIView.animate(withDuration: presentationDuration, animations: {
-            self.pageTitle.alpha = 0
+            self.pageTitle.alpha = self.invisibleAlpha
             self.view.layoutIfNeeded()
         }) { (done) in
             self.pageTitle.text = title
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: self.presentationDuration, animations: {
-                self.pageTitle.alpha = 1
+                self.pageTitle.alpha = self.visibleAlpha
                 self.view.layoutIfNeeded()
             })
         }

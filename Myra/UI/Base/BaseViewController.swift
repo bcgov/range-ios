@@ -28,13 +28,6 @@ class BaseViewController: UIViewController, Theme {
     let syncFailAnimationTag = 107
     let loadingAnimationTag = 110
 
-    // MARK: Auth constants
-    var authServices: AuthServices = {
-        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                            idpHint: Constants.SSO.idpHint)
-    }()
-
     // MARK: Variables
     var navigationTitle: String?
     var currentPopOver: UIViewController?
@@ -303,55 +296,17 @@ extension BaseViewController {
 // MARK: Authentication
 extension BaseViewController {
     func authenticateIfRequred(sender: UIButton? = nil) {
-        if !authServices.isAuthenticated() {
-            let vc = authServices.viewController() { (credentials, error) in
-
-                guard let _ = credentials, error == nil else {
-                    let title = "Authentication"
-                    let message = "Authentication didn't work. Please try again."
-
-                    self.alert(with: title, message: message)
-                    if let senderButton = sender {
-                        senderButton.isUserInteractionEnabled = true
-                    }
-                    self.onAuthenticationFail()
-                    return
-                }
-                self.onAuthenticationSuccess()
-                //                self.syncing = true
-                //                self.beginSync()
-                //                                self.confirmNetworkAvailabilityBeforUpload(handler: self.uploadHandler())
+        Auth.authenticate { (success) in
+            if success {
+                 self.onAuthenticationSuccess()
+            } else {
+                 self.onAuthenticationFail()
             }
-            present(vc, animated: true, completion: nil)
-        } else {
-            authServices.refreshCredientials(completion: { (credentials: Credentials?, error: Error?) in
-                if let error = error as? AuthenticationError, case .expired = error {
-                    let vc = self.authServices.viewController() { (credentials, error) in
-
-                        guard let _ = credentials, error == nil else {
-                            let title = "Authentication"
-                            let message = "Authentication didn't work. Please try again."
-
-                            self.alert(with: title, message: message)
-                            if let senderButton = sender {
-                                senderButton.isUserInteractionEnabled = true
-                            }
-                            self.onAuthenticationFail()
-                            return
-                        }
-                        self.onAuthenticationSuccess()
-                    }
-
-                    self.present(vc, animated: true, completion: nil)
-                    return
-                }
-                self.onAuthenticationSuccess()
-            })
         }
     }
 
     func logout() {
-        authServices.logout()
+        Auth.logout()
         RealmManager.shared.clearLastSyncDate()
         RealmManager.shared.clearAllData()
     }

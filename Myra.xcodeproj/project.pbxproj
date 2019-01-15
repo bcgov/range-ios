@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
+		1EE8985C21EE926600A74F4F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
 		1EE97DFC21E7CBC9008B1086 /* SettingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */; };
 		1EE97DFD21E7CBC9008B1086 /* SettingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */; };
 		1EE97E0021E7CBE2008B1086 /* SettingButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */; };
@@ -275,6 +276,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1EE8985B21EE926600A74F4F /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 				2935A76B21485A2500441539 /* ConstantStrings.swift */,
 				292AD86B215C470200F80738 /* Notification.swift */,
 				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
+				1EE8985B21EE926600A74F4F /* Auth.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1341,7 +1344,7 @@
 					293C95C020335D4100BF1113 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1000;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1491,7 +1494,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4dc0080275145d547109096fa1840eabb6bd5104 20af85ecd6079c2309421c51ae828909c136e6790e0029cb3f1dc726f25a3cb2";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4dc0080275145d547109096fa1840eabb6bd5104 20af85ecd6079c2309421c51ae828909c136e6790e0029cb3f1dc726f25a3cb2\n";
 		};
 		F7EC8CAC0FC2E436DDC3CD70 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1499,7 +1502,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Myra/Pods-Myra-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Myra/Pods-Myra-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Cam/Cam.framework",
 				"${BUILT_PRODUCTS_DIR}/DatePicker/DatePicker.framework",
@@ -1536,7 +1539,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Myra/Pods-Myra-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Myra/Pods-Myra-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1662,6 +1665,7 @@
 				292A1D8221432E670086E1AD /* SyncView.swift in Sources */,
 				2933183620FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.swift in Sources */,
 				29EA02A320697E6F0076403B /* Agreement.swift in Sources */,
+				1EE8985C21EE926600A74F4F /* Auth.swift in Sources */,
 				29A5274B205B30CE00C871F7 /* SelectionPopUpObject.swift in Sources */,
 				295FBF8221641F1B00DD2C53 /* Plant.mlmodel in Sources */,
 				299D3EC0217E7A170000781E /* MonitoringAreaPurposeType.swift in Sources */,
@@ -1865,7 +1869,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1873,7 +1877,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1886,7 +1890,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KH9MTRSDAZ;
 				INFOPLIST_FILE = Myra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1894,7 +1898,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ca.bc.gov.pathfinder.mobile.MyRA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "MyRA Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

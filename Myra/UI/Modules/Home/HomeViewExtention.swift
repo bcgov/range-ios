@@ -20,11 +20,11 @@ extension HomeViewController {
         lookup.setupSimple(objects: objects) { (selected, obj) in
             if selected, let selection = obj {
                 lookup.dismiss(animated: true, completion: nil)
-                if selection.value == logoutOption.value, let p = self.parentReference {
+                if selection.value == logoutOption.value, let presenter = self.getPresenter() {
                     self.showAlert(title: "Are you sure?", description: "Logging out will delete all plans that have not been synced.", yesButtonTapped: {
                         AutoSync.shared.endListener()
                         self.logout()
-                        p.chooseInitialView()
+                        presenter.chooseInitialView()
                     }, noButtonTapped: {})
                 }
             } else {

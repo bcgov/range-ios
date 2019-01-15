@@ -13,14 +13,14 @@ class Loading {
     static let shared = Loading()
     private init() {}
 
-    let loadingIconName: String = "spinner2_"
-    let tag: Int = 96
-    let width: CGFloat = 70
-    let height: CGFloat = 70
+    private let loadingIconName: String = "spinner2_"
+    private let tag: Int = 96
+    private let width: CGFloat = 70
+    private let height: CGFloat = 70
 
     // White screen
-    let whiteScreenTag: Int = 95
-    let whiteScreenAlpha: CGFloat = 0.8
+    private let whiteScreenTag: Int = 95
+    private let whiteScreenAlpha: CGFloat = 0.8
 
     private func background(work: @escaping () -> ()) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -74,13 +74,13 @@ class Loading {
     }
 
     // MARK: White Screen
-    func addWhiteScreen() {
+    private func addWhiteScreen() {
         if let window = UIApplication.shared.keyWindow {
             let view = UIView(frame: window.frame)
             view.tag = self.whiteScreenTag
             view.center.x = window.center.x
             view.center.y = window.center.y
-            view.backgroundColor = UIColor.white
+            view.backgroundColor = Colors.active.blue.withAlphaComponent(0.2)
             view.alpha = whiteScreenAlpha
 
             window.addSubview(view)
@@ -95,7 +95,7 @@ class Loading {
         }
     }
 
-    func removeWhiteScreen() {
+    private func removeWhiteScreen() {
         if let window = UIApplication.shared.keyWindow, let view = window.viewWithTag(self.whiteScreenTag) {
             view.removeFromSuperview()
         }
