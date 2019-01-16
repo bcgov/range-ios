@@ -61,7 +61,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     var updateAmendmentEnabled = false
     
-    var copy: Plan?
+    var planCopy: Plan?
     
     var reloading: Bool = false
     
@@ -256,33 +256,31 @@ class CreateNewRUPViewController: BaseViewController {
     }
     
     @IBAction func cancelAction(_ sender: UIButton) {
-        if let new: Plan = self.copy, let old: Plan = self.rup {
-            
-            // If is not new (not just created from agreement)
-            // Store the copy created before changes.
-            if !old.isNew {
-                // save copy
-                RealmRequests.saveObject(object: new)
-                
-                //  add plan to appropriate agreement
-                let agreement = RUPManager.shared.getAgreement(with: new.agreementId)
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        agreement?.plans.append(new)
-                    }
-                } catch _ {
-                    fatalError()
-                }
-                // remove modified RUP object
-                old.deleteSubEntries()
-                RealmRequests.deleteObject(old)
-            }
-            // ELSE it you came here from agreement selection, and changed your mind.
-            // dont store any rup
-            
-            self.goHome()
+        dismissKeyboard()
+        guard let new: Plan = self.planCopy, let old: Plan = self.rup, let agreement = RUPManager.shared.getAgreement(with: new.agreementId) else {
+            Alert.show(title: "Critical Error", message: "A critical error prevents the recovery of the old version of this plan. The current version is saved.")
+            return
         }
+        
+        // If is not new (not just created from agreement)
+        // Store the copy created before changes.
+        if !old.isNew {
+            // save copy
+            RealmRequests.saveObject(object: new)
+            
+            // add plan to appropriate agreement
+            agreement.add(plan: new)
+            
+            // remove modified RUP object
+            old.deleteSubEntries()
+            RealmRequests.deleteObject(old)
+        }
+        
+        // ELSE it you came here from agreement selection, and changed your mind.
+        // dont store any rup
+        
+        self.goHome()
+        
     }
     
     @IBAction func saveToDraftAction(_ sender: UIButton) {
@@ -381,8 +379,10 @@ class CreateNewRUPViewController: BaseViewController {
     
     func goHome() {
         if let presenter = getPresenter() {
+            dismissKeyboard()
             endChangeListener()
-            self.rup = nil 
+            self.rup = nil
+            self.planCopy = nil
             presenter.goHome()
         }
     }
@@ -392,7 +392,7 @@ class CreateNewRUPViewController: BaseViewController {
     func setup(rup: Plan, mode: FormMode) {
         self.rup = rup
         self.mode = mode
-        self.copy = nil
+        self.planCopy = nil
         
         switch mode {
         case .View:
@@ -403,7 +403,7 @@ class CreateNewRUPViewController: BaseViewController {
              If cancel is pressed, store copy and delete rup
              Otherwise don't save the Plan copy object.
              */
-            self.copy = rup.clone()
+            self.planCopy = rup.clone()
             do {
                 let realm = try Realm()
                 try realm.write {

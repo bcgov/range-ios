@@ -204,6 +204,12 @@ class ScheduleViewController: BaseViewController {
         setTitle()
         setSubtitle(ranNumber: rup.agreementId, agreementHolder: "", rangeName: rup.rangeName)
 
+       beginChangeListener()
+    }
+    
+    func beginChangeListener() {
+        guard let schedule = self.schedule else {return}
+        print("Listening to schedule changes")
         self.realmNotificationToken = schedule.observe { (change) in
             switch change {
             case .error(_):
@@ -213,6 +219,13 @@ class ScheduleViewController: BaseViewController {
             case .deleted:
                 print("RUP deleted")
             }
+        }
+    }
+    
+    func endChangeListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            print("Stopped Listening to schedule changes :(")
         }
     }
 
