@@ -25,7 +25,7 @@ class AutoSync {
     internal static let shared = AutoSync()
     
     var realmNotificationToken: NotificationToken?
-//    var active: Bool = false
+    
     var isSynchronizing: Bool = false
 
     var manualSyncRequiredShown = false
@@ -97,13 +97,22 @@ class AutoSync {
             print("But not authenticated.")
             if !manualSyncRequiredShown {
                 manualSyncRequiredShown = true
-                SettingsManager.shared.setAutoSync(enabled: false)
-                Banner.shared.show(message: Messages.AutoSync.manualSyncRequired)
+                Alert.show(title: "Authentication Required", message: "You have plans that need to be synced.\n Would you like to authenticate now and synchronize?\n\nIf you select no, Autosync will be turned off.\nAutosync can be turned on and off in the settings page.", yes: {
+                    Auth.authenticate(completion: { (success) in
+                        if success {
+                             self.autoSync()
+                        }
+                    })
+                }) {
+                    SettingsManager.shared.setAutoSync(enabled: false)
+                    Banner.shared.show(message: Messages.AutoSync.manualSyncRequired)
+                }
             }
             return
         }
 
         // great, if we're here then there is something to sync! ( and we can sync)
+        self.manualSyncRequiredShown = false
         self.isSynchronizing = true
         DispatchQueue.global(qos: .background).async {
             self.lockScreenForSync()
@@ -319,8 +328,7 @@ class AutoSync {
                     view.rightAnchor.constraint(equalTo: window.rightAnchor)
                     ])
                 // add white background
-                view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha: 0.9)
-
+                view.backgroundColor = Colors.active.blue.withAlphaComponent(0.2)
 
                 // add sync icon
                 let animationView = LOTAnimationView(name: "sync_icon")

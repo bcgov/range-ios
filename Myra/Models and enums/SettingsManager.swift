@@ -72,7 +72,6 @@ enum EndpointEnvironment {
     case Prod
 }
 
-
 class SettingsManager {
     static let shared = SettingsManager()
 
