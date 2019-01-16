@@ -74,7 +74,7 @@ extension MainViewController {
         self.backIcon.alpha = self.invisibleAlpha
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: presentationDuration) {
-            self.pageTitle.alpha = self.invisibleAlpha
+            self.pageTitle.isHidden = true
             self.navBarHeight.constant = 0
             self.view.layoutIfNeeded()
         }
@@ -82,8 +82,8 @@ extension MainViewController {
 
     func showNav() {
         UIView.animate(withDuration: presentationDuration, animations: {
-            self.pageTitle.alpha = self.visibleAlpha
-            self.navBarHeight.constant = 73
+            self.pageTitle.isHidden = false
+            self.navBarHeight.constant = 80
             self.view.layoutIfNeeded()
         }) { (done) in
             self.navBarBackButton.alpha = self.visibleAlpha
@@ -93,14 +93,14 @@ extension MainViewController {
     }
 
     func setNav(title: String) {
-        UIView.animate(withDuration: presentationDuration, animations: {
-            self.pageTitle.alpha = self.invisibleAlpha
+        UIView.animate(withDuration: (presentationDuration/2), animations: {
+            self.pageTitle.isHidden = true
             self.view.layoutIfNeeded()
         }) { (done) in
             self.pageTitle.text = title
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: self.presentationDuration, animations: {
-                self.pageTitle.alpha = self.visibleAlpha
+                self.pageTitle.isHidden = false
                 self.view.layoutIfNeeded()
             })
         }

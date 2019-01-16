@@ -304,11 +304,4 @@ extension BaseViewController {
             }
         }
     }
-
-    func logout() {
-        Auth.logout()
-        RealmManager.shared.clearLastSyncDate()
-        RealmManager.shared.clearAllData()
-    }
-
 }

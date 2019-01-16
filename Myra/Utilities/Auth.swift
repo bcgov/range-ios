@@ -11,11 +11,17 @@ import SingleSignOn
 
 class Auth {
     
-    private static let authServices: AuthServices = {
+    private static var authServices: AuthServices = {
         return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                             clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
                             idpHint: Constants.SSO.idpHint)
     }()
+    
+    public static func refreshEnviormentConstants() {
+        self.authServices = AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
+                                         clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+                                         idpHint: Constants.SSO.idpHint)
+    }
     
     public static func authenticate(completion: @escaping(_ success: Bool) -> Void) {
         if isAuthenticated() {

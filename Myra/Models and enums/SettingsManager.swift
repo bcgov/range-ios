@@ -155,14 +155,20 @@ class SettingsManager {
         Alert.show(title: "Changing Environment", message: "Local data will be removed and you will be signed out.\nWould you like to continue?", yes: {
             AutoSync.shared.endListener()
             model.setDevEnvironment(enabled: mode == .Dev)
-            let settingsModelClone = model.clone()
-            Auth.logout()
-            RealmManager.shared.clearLastSyncDate()
-            RealmManager.shared.clearAllData()
-            RealmRequests.saveObject(object: settingsModelClone)
-            presenterReference.chooseInitialView()
+            self.signout(presenterReference: presenterReference)
         }) {
             return
         }
+    }
+    
+    func signout(presenterReference: MainViewController) {
+        guard let model = getModel() else {return}
+        let settingsModelClone = model.clone()
+        Auth.logout()
+        RealmManager.shared.clearLastSyncDate()
+        RealmManager.shared.clearAllData()
+        RealmRequests.saveObject(object: settingsModelClone)
+        Auth.refreshEnviormentConstants()
+        presenterReference.chooseInitialView()
     }
 }

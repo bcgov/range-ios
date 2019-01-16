@@ -281,9 +281,7 @@ class CreateNewRUPViewController: BaseViewController {
             // ELSE it you came here from agreement selection, and changed your mind.
             // dont store any rup
             
-            if let presenter = getPresenter() {
-                presenter.goHome()
-            }
+            self.goHome()
         }
     }
     
@@ -301,9 +299,7 @@ class CreateNewRUPViewController: BaseViewController {
         
         RealmRequests.updateObject(plan)
         
-        if let presenter = getPresenter() {
-            presenter.goHome()
-        }
+         self.goHome()
     }
     
     @IBAction func basicInfoAction(_ sender: UIButton) {
@@ -339,7 +335,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     
     @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
-        guard let plan = self.rup, let presenter = self.getPresenter() else {return}
+        guard let plan = self.rup else {return}
         do {
             let realm = try Realm()
             try realm.write {
@@ -363,7 +359,7 @@ class CreateNewRUPViewController: BaseViewController {
                     plan.statusEnum = .Outbox
                 }
             } catch _ {}
-            presenter.goHome()
+            self.goHome()
         }) {
             // No tapped
             self.openingAnimations(callBack: {
@@ -380,6 +376,14 @@ class CreateNewRUPViewController: BaseViewController {
             self.rup = aRup
         } catch _ {
             fatalError()
+        }
+    }
+    
+    func goHome() {
+        if let presenter = getPresenter() {
+            endChangeListener()
+            self.rup = nil 
+            presenter.goHome()
         }
     }
     
@@ -426,6 +430,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     func beginChangeListener() {
         guard let r = self.rup else { return}
+        print("Listening to Changes in plan \(r.ranNumber)")
         self.realmNotificationToken = r.observe { (change) in
             switch change {
             case .error(_):
@@ -435,6 +440,13 @@ class CreateNewRUPViewController: BaseViewController {
             case .deleted:
                 print("RUP deleted")
             }
+        }
+    }
+    
+    func endChangeListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            print("Stopped Listening to Changes in plan :(")
         }
     }
     
