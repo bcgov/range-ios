@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
 		1EE8985C21EE926600A74F4F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
+		1EE8985E21F0EE6200A74F4F /* MyriadWebPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */; };
 		1EE97DFC21E7CBC9008B1086 /* SettingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */; };
 		1EE97DFD21E7CBC9008B1086 /* SettingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */; };
 		1EE97E0021E7CBE2008B1086 /* SettingButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */; };
@@ -277,6 +278,7 @@
 
 /* Begin PBXFileReference section */
 		1EE8985B21EE926600A74F4F /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MyriadWebPro.ttf; sourceTree = "<group>"; };
 		1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 				293C95CB20335D4100BF1113 /* Assets.xcassets */,
 				293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */,
 				293C95D020335D4100BF1113 /* Info.plist */,
+				1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */,
 			);
 			path = Myra;
 			sourceTree = "<group>";
@@ -1446,6 +1449,7 @@
 				2905520C2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib in Resources */,
 				29EA02A120696A720076403B /* spinner_.json in Resources */,
 				292A1D8021432E570086E1AD /* SyncView.xib in Resources */,
+				1EE8985E21F0EE6200A74F4F /* MyriadWebPro.ttf in Resources */,
 				295F8F1120F7F60E009D7717 /* MonitoringArea.storyboard in Resources */,
 				29055214213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib in Resources */,
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,

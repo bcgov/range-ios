@@ -17,9 +17,6 @@ class MainViewController: BaseViewController {
     // new variables. the above vars should not be necessary after new presentation stategy has been implemented.
     let presentationDuration = 0.3
     let flipDuration: Double = 0.4
-    
-    let invisibleAlpha: CGFloat = 0
-    let visibleAlpha: CGFloat = 1
 
     var currentViewController: UIViewController?
     var previousViewControllers: [UIViewController] = [UIViewController]()
@@ -44,6 +41,7 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         chooseInitialView()
+        setStatusBarAppearanceLight()
     }
 
     override func viewDidAppear(_ animated: Bool) {

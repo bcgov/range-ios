@@ -241,6 +241,17 @@ class HomeViewController: BaseViewController {
         }
         authenticateIfRequred()
     }
+    
+    // MARK: Authentication
+    func authenticateIfRequred(sender: UIButton? = nil) {
+        Auth.authenticate { (success) in
+            if success {
+                self.onAuthenticationSuccess()
+            } else {
+                self.onAuthenticationFail()
+            }
+        }
+    }
 
     @IBAction func filterAction(_ sender: UIButton) {
         switch sender {
@@ -411,7 +422,6 @@ class HomeViewController: BaseViewController {
 
     // MARK: Styles
     func style() {
-        setStatusBarAppearanceLight()
         styleNavBar()
         styleFillButton(button: createButton)
         styleFilterContainer()
@@ -539,7 +549,7 @@ class HomeViewController: BaseViewController {
         })
     }
 
-    override func onAuthenticationSuccess() {
+  func onAuthenticationSuccess() {
         if unstableConnection {
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
                 self.blockSync = false
@@ -554,7 +564,7 @@ class HomeViewController: BaseViewController {
         }
     }
 
-    override func onAuthenticationFail() {
+    func onAuthenticationFail() {
         blockSync = false
         self.syncButton.isUserInteractionEnabled = true
     }

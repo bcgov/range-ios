@@ -76,7 +76,6 @@ class LoginViewController: BaseViewController {
     
     // MARK: Style
     func style() {
-        setStatusBarAppearanceLight()
         styleContainer(layer: container)
         styleButton(button: loginButton)
         loginMessage.font = Fonts.getPrimaryMedium(size: 17)
