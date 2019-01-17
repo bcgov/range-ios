@@ -18,9 +18,13 @@ class Auth {
     }()
     
     public static func refreshEnviormentConstants() {
+        var idpHint = ""
+        if SettingsManager.shared.getCurrentEnvironment() == .Prod {
+            idpHint = "idir"
+        }
         self.authServices = AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                                          clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                                         idpHint: Constants.SSO.idpHint)
+                                         idpHint: idpHint)
     }
     
     public static func authenticate(completion: @escaping(_ success: Bool) -> Void) {

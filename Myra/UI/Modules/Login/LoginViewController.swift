@@ -32,7 +32,7 @@ class LoginViewController: BaseViewController {
     
     // MARK: Outlet Actions
     @IBAction func loginAction(_ sender: Any) {
-        self.loginButton.isUserInteractionEnabled = false
+//        self.loginButton.isUserInteractionEnabled = false
         Auth.signIn { (success) in
             if success {
                 self.performInitialSync()
