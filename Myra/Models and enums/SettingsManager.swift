@@ -127,16 +127,19 @@ enum EndpointEnvironment {
 class SettingsManager {
     
     // MARK: Variables
-    let defaultShortAnimationDuration: Double = 0.3
-    let defaultAnimationDuration: Double = 0.5
+    private var quitAfterFatalError: Bool = true
+    private let defaultShortAnimationDuration: Double = 0.3
+    private let defaultAnimationDuration: Double = 0.5
     
     static let shared = SettingsManager()
 
     private init() {
-        if getModel() == nil {
+        guard let currentModel = getModel() else {
             let newModel = SettingsModel()
             RealmRequests.saveObject(object: newModel)
+            return
         }
+        self.quitAfterFatalError = currentModel.quitAfterFatalError
     }
     
     // MARK: Internal Functions
@@ -231,12 +234,12 @@ class SettingsManager {
     
     // MARK: Error handeling
     func shouldQuitAfterFatalError() -> Bool {
-        guard let model = getModel() else {return true}
-        return model.quitAfterFatalError
+        return quitAfterFatalError
     }
     
     func setQuitAfterFatalError(enabled: Bool) {
         guard let model = getModel() else {return}
+        self.quitAfterFatalError = enabled
         model.setQuitAfterFatalError(enabled: enabled)
     }
     
