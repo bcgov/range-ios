@@ -592,7 +592,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         tableView.delegate = self
         tableView.dataSource = self
-        registerCell(name: "AssignedRUPTableViewCell")
+        registerCell(name: "PlanTableViewCell")
     }
 
     func registerCell(name: String) {
@@ -600,8 +600,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getAssignedRupCell(indexPath: IndexPath) -> AssignedRUPTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "AssignedRUPTableViewCell", for: indexPath) as! AssignedRUPTableViewCell
+    func getAssignedRupCell(indexPath: IndexPath) -> PlanTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PlanTableViewCell", for: indexPath) as! PlanTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -665,7 +665,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             self.tableView.performBatchUpdates({
                 if let i = expandIndexPath {
-                    let cell = self.tableView.cellForRow(at: i) as! AssignedRUPTableViewCell
+                    let cell = self.tableView.cellForRow(at: i) as! PlanTableViewCell
                     cell.styleDefault()
                     self.expandIndexPath = nil
                     self.reloadAllCellsExcept(at: [indexPath])
@@ -768,7 +768,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.expandDummyPlanCell {
                 let indexpath = IndexPath(row: 1, section: 0)
-                guard let cell = self.getDummyPlanCell(), let innerCell = cell.tableView.cellForRow(at: indexpath), let planCell = innerCell as? AssignedRUPVersionTableViewCell else {return}
+                guard let cell = self.getDummyPlanCell(), let innerCell = cell.tableView.cellForRow(at: indexpath), let planCell = innerCell as? PlanVersionTableViewCell else {return}
                 cell.layoutIfNeeded()
 
                 let tour = Tour()
@@ -829,9 +829,9 @@ extension HomeViewController: MaterialShowcaseDelegate {
         }
     }
 
-    func getDummyPlanCell() -> AssignedRUPTableViewCell? {
+    func getDummyPlanCell() -> PlanTableViewCell? {
         let indexpath = IndexPath(row: 0, section: 0)
-        guard let cell = self.tableView.cellForRow(at: indexpath), let assignedRupCell = cell as? AssignedRUPTableViewCell else {return nil}
+        guard let cell = self.tableView.cellForRow(at: indexpath), let assignedRupCell = cell as? PlanTableViewCell else {return nil}
         return assignedRupCell
     }
 

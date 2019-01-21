@@ -81,7 +81,6 @@ class GetNameDialog: CustomModal {
     func initialize(callBack: @escaping ()-> Void) {
         self.callBack = callBack
         setSmartSizingWith(percentHorizontalPadding: 30, percentVerticalPadding: 35)
-//        setFixed(width: 390, height: 400)
         style()
         present()
         autoFill()

@@ -50,10 +50,10 @@
 		2917468920742A7A005F70B4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917468820742A7A005F70B4 /* MainViewController.swift */; };
 		291C4D9B2037631400390523 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9A2037631400390523 /* Polygon.swift */; };
 		291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9C20378A3900390523 /* OpenMapOverlay.swift */; };
-		291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */; };
-		291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */; };
-		2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */; };
-		2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */; };
+		291F4E432125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F4E412125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.swift */; };
+		291F4E442125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291F4E422125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib */; };
+		2920F8292034BA0F0090E7B4 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8272034BA0F0090E7B4 /* PlanTableViewCell.swift */; };
+		2920F82A2034BA0F0090E7B4 /* PlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2920F8282034BA0F0090E7B4 /* PlanTableViewCell.xib */; };
 		2920F82D2034BFCA0090E7B4 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82C2034BFCA0090E7B4 /* Plan.swift */; };
 		2920F83C2034CF850090E7B4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83B2034CF850090E7B4 /* ViewManager.swift */; };
 		2920F83E2034D6D60090E7B4 /* RUPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83D2034D6D60090E7B4 /* RUPStatus.swift */; };
@@ -265,8 +265,8 @@
 		29EE75DC205053C40061B18D /* ScheduleFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */; };
 		29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */; };
 		29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */; };
-		29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */; };
-		29F13BE421236C0600A25424 /* AssignedRUPVersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */; };
+		29F13BE321236C0600A25424 /* PlanVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F13BE121236C0600A25424 /* PlanVersionTableViewCell.swift */; };
+		29F13BE421236C0600A25424 /* PlanVersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29F13BE221236C0600A25424 /* PlanVersionTableViewCell.xib */; };
 		29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29F1DE3F20EC406100C6ECB8 /* PlantCommunity.storyboard */; };
 		29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97BC204DB87D005297B9 /* RealmRequest.swift */; };
 		29FB97C1204DCB5B005297B9 /* AgeementHolderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */; };
@@ -321,10 +321,10 @@
 		2917468820742A7A005F70B4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		291C4D9A2037631400390523 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		291C4D9C20378A3900390523 /* OpenMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMapOverlay.swift; sourceTree = "<group>"; };
-		291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPVersionsHeaderTableViewCell.swift; sourceTree = "<group>"; };
-		291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPVersionsHeaderTableViewCell.xib; sourceTree = "<group>"; };
-		2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPTableViewCell.swift; sourceTree = "<group>"; };
-		2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPTableViewCell.xib; sourceTree = "<group>"; };
+		291F4E412125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVersionsHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		291F4E422125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanVersionsHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		2920F8272034BA0F0090E7B4 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableViewCell.swift; sourceTree = "<group>"; };
+		2920F8282034BA0F0090E7B4 /* PlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanTableViewCell.xib; sourceTree = "<group>"; };
 		2920F82C2034BFCA0090E7B4 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		2920F83B2034CF850090E7B4 /* ViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
 		2920F83D2034D6D60090E7B4 /* RUPStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RUPStatus.swift; sourceTree = "<group>"; };
@@ -538,8 +538,8 @@
 		29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleFormTableViewCell.xib; sourceTree = "<group>"; };
 		29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFooterTableViewCell.swift; sourceTree = "<group>"; };
 		29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleFooterTableViewCell.xib; sourceTree = "<group>"; };
-		29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedRUPVersionTableViewCell.swift; sourceTree = "<group>"; };
-		29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignedRUPVersionTableViewCell.xib; sourceTree = "<group>"; };
+		29F13BE121236C0600A25424 /* PlanVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVersionTableViewCell.swift; sourceTree = "<group>"; };
+		29F13BE221236C0600A25424 /* PlanVersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanVersionTableViewCell.xib; sourceTree = "<group>"; };
 		29F1DE3F20EC406100C6ECB8 /* PlantCommunity.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlantCommunity.storyboard; sourceTree = "<group>"; };
 		29FB97BC204DB87D005297B9 /* RealmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRequest.swift; sourceTree = "<group>"; };
 		29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeementHolderType.swift; sourceTree = "<group>"; };
@@ -1193,12 +1193,12 @@
 		297D8FE521C9794F00D9A8B8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2920F8272034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift */,
-				2920F8282034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib */,
-				29F13BE121236C0600A25424 /* AssignedRUPVersionTableViewCell.swift */,
-				29F13BE221236C0600A25424 /* AssignedRUPVersionTableViewCell.xib */,
-				291F4E412125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift */,
-				291F4E422125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib */,
+				2920F8272034BA0F0090E7B4 /* PlanTableViewCell.swift */,
+				2920F8282034BA0F0090E7B4 /* PlanTableViewCell.xib */,
+				29F13BE121236C0600A25424 /* PlanVersionTableViewCell.swift */,
+				29F13BE221236C0600A25424 /* PlanVersionTableViewCell.xib */,
+				291F4E412125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.swift */,
+				291F4E422125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1410,7 +1410,7 @@
 				2938CF0D21A4765100329DDA /* TourStart.xib in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
-				291F4E442125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.xib in Resources */,
+				291F4E442125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib in Resources */,
 				297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */,
 				29055210213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib in Resources */,
 				29C34BC621C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib in Resources */,
@@ -1418,7 +1418,7 @@
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
-				29F13BE421236C0600A25424 /* AssignedRUPVersionTableViewCell.xib in Resources */,
+				29F13BE421236C0600A25424 /* PlanVersionTableViewCell.xib in Resources */,
 				29D8E1A421E527BB00733A87 /* SettingTableViewCell.xib in Resources */,
 				294CADB1216E83DC00DB184B /* NewElementBanner.xib in Resources */,
 				29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */,
@@ -1427,7 +1427,7 @@
 				29A97A7D20CEF0B6002F2D9A /* spinner2_.json in Resources */,
 				29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */,
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
-				2920F82A2034BA0F0090E7B4 /* AssignedRUPTableViewCell.xib in Resources */,
+				2920F82A2034BA0F0090E7B4 /* PlanTableViewCell.xib in Resources */,
 				29332D9021B5A5CE00950478 /* AlertView.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
 				1EE97E0821E80A21008B1086 /* Settings.xib in Resources */,
@@ -1590,7 +1590,7 @@
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
 				29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */,
 				2962B0EC204F2BB400F71B9C /* ScheduleObject.swift in Sources */,
-				2920F8292034BA0F0090E7B4 /* AssignedRUPTableViewCell.swift in Sources */,
+				2920F8292034BA0F0090E7B4 /* PlanTableViewCell.swift in Sources */,
 				299D3EB8217E79DF0000781E /* PlantCommunityType.swift in Sources */,
 				292E65252076AB12003D4AF0 /* AgreementExemptionStatus.swift in Sources */,
 				293D418B216D313D006214E1 /* ManagementConsiderationTableViewCell.swift in Sources */,
@@ -1631,7 +1631,7 @@
 				29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */,
 				293D417C216D12E7006214E1 /* InvasivePlants.swift in Sources */,
 				294764E52149BBC7007E8576 /* Banner.swift in Sources */,
-				291F4E432125EAF700BD6D22 /* AssignedRUPVersionsHeaderTableViewCell.swift in Sources */,
+				291F4E432125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.swift in Sources */,
 				29227B5520EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
 				29C34BD221C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift in Sources */,
 				1EE97E0A21E80D4B008B1086 /* CustomModal.swift in Sources */,
@@ -1706,7 +1706,7 @@
 				292B650A21C04E5900F9A8A5 /* UserInfo.swift in Sources */,
 				2938CF1421A5D20500329DDA /* UserFeedbackTableViewCell.swift in Sources */,
 				293020082139A22000E121E0 /* Router.swift in Sources */,
-				29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */,
+				29F13BE321236C0600A25424 /* PlanVersionTableViewCell.swift in Sources */,
 				297E9989216545E700FB6F04 /* MapViewController.swift in Sources */,
 				2943BDA3215E90C300EFC428 /* RangePhoto.swift in Sources */,
 				29BF802D203CF3F20067B32B /* RangeUsageTableViewCell.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AssignedRUPVersionsHeaderTableViewCell: BaseTableViewCell {
+class PlanVersionsHeaderTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     static let cellHeight = 40

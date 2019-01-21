@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AssignedRUPTableViewCell: BaseTableViewCell {
+class PlanTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var rup: Plan?
@@ -162,7 +162,7 @@ class AssignedRUPTableViewCell: BaseTableViewCell {
 
     func updateTableHeight() {
         if let a = self.agreement {
-            self.versionsHeight.constant = CGFloat(AssignedRUPVersionTableViewCell.cellHeight * (a.plans.count + 1))
+            self.versionsHeight.constant = CGFloat(PlanVersionTableViewCell.cellHeight * (a.plans.count + 1))
             self.tableView.reloadData()
         } else {
             self.versionsHeight.constant = 0
@@ -172,12 +172,12 @@ class AssignedRUPTableViewCell: BaseTableViewCell {
 
 // MARK: TableView
 
-extension AssignedRUPTableViewCell: UITableViewDelegate, UITableViewDataSource {
+extension PlanTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         tableView.delegate = self
         tableView.dataSource = self
-        registerCell(name: "AssignedRUPVersionTableViewCell")
-        registerCell(name: "AssignedRUPVersionsHeaderTableViewCell")
+        registerCell(name: "PlanVersionTableViewCell")
+        registerCell(name: "PlanVersionsHeaderTableViewCell")
     }
 
     func registerCell(name: String) {
@@ -185,12 +185,12 @@ extension AssignedRUPTableViewCell: UITableViewDelegate, UITableViewDataSource {
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getCell(indexPath: IndexPath) -> AssignedRUPVersionTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "AssignedRUPVersionTableViewCell", for: indexPath) as! AssignedRUPVersionTableViewCell
+    func getCell(indexPath: IndexPath) -> PlanVersionTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PlanVersionTableViewCell", for: indexPath) as! PlanVersionTableViewCell
     }
 
-    func getHeaderCell(indexPath: IndexPath) -> AssignedRUPVersionsHeaderTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "AssignedRUPVersionsHeaderTableViewCell", for: indexPath) as! AssignedRUPVersionsHeaderTableViewCell
+    func getHeaderCell(indexPath: IndexPath) -> PlanVersionsHeaderTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PlanVersionsHeaderTableViewCell", for: indexPath) as! PlanVersionsHeaderTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
