@@ -29,8 +29,6 @@ class MonitoringArea: Object, MyraObject {
     @objc dynamic var location: String = ""
     @objc dynamic var latitude: String = ""
     @objc dynamic var longitude: String = ""
-    // TODO: Remove this
-    @objc dynamic var transectAzimuth: String = ""
     @objc dynamic var rangelandHealth: String = ""
     @objc dynamic var purpose: String = ""
 
@@ -88,7 +86,7 @@ class MonitoringArea: Object, MyraObject {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -134,13 +132,12 @@ class MonitoringArea: Object, MyraObject {
         ]
     }
 
-    func copy() -> MonitoringArea {
+    func clone() -> MonitoringArea {
         let new = MonitoringArea()
         new.remoteId = self.remoteId
         new.location = self.location
         new.latitude = self.latitude
         new.longitude = self.longitude
-        new.transectAzimuth = self.transectAzimuth
         new.rangelandHealth = self.rangelandHealth
         new.purpose = self.purpose
         new.name = self.name

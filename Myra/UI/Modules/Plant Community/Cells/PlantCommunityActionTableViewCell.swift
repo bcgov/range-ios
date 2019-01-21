@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 import DatePicker
 
-class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
+class PlantCommunityActionTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 255.0
@@ -63,7 +63,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
                     parentCell.updateTableHeight()
                 }, noButtonTapped: {})
             case .Copy:
-                print("copy not implemented")
+                Logger.log(message: "Not Yet Implemeneted")
             }
         }
     }
@@ -83,7 +83,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
                     }
                     self.autoFill()
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -134,7 +134,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
                 act.noGrazeInSelected = true
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         if act.noGrazeOutSelected {
@@ -145,7 +145,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
                         act.noGrazeOutSelected = false
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -162,52 +162,11 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
                 act.noGrazeOutSelected = true
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         autoFill()
     }
-
-//    func handleDateIn(date: Date) {
-//        guard let act = self.action else {return}
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                act.noGrazeDateIn = date
-//            }
-//        } catch _ {
-//            fatalError()
-//        }
-//
-//        if let dateOut = act.noGrazeDateOut {
-//            if dateOut < date {
-//                do {
-//                    let realm = try Realm()
-//                    try realm.write {
-//                        act.noGrazeDateOut = date
-//                    }
-//                } catch _ {
-//                    fatalError()
-//                }
-//            }
-//        }
-//
-//        autoFill()
-//    }
-//
-//    func handleDateOut(date: Date) {
-//        guard let act = self.action else {return}
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                act.noGrazeDateOut = date
-//            }
-//        } catch _ {
-//            fatalError()
-//        }
-//
-//        autoFill()
-//    }
-
+    
     func deletePastureActions() {
         
     }
@@ -264,7 +223,7 @@ class PlantCommunityActionTableViewCell: UITableViewCell, Theme {
     }
 
     func animateIt() {
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
             self.layoutIfNeeded()
         })
     }
@@ -314,7 +273,7 @@ extension PlantCommunityActionTableViewCell: UITextViewDelegate {
                     act.details = text
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
 

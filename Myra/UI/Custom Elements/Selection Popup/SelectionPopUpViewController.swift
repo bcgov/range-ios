@@ -253,15 +253,13 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
 
         if !multiSelect && !liveMultiSelect {
             guard let callback = completion else {return}
-            if let parent = self.parentVC, objects[indexPath.row].display.lowercased() == "other", otherEnabled {
+            if objects[indexPath.row].display.lowercased() == "other", otherEnabled {
                 // Prompt input
-                let vm = ViewManager()
-                let textEntry = vm.textEntry
-                parent.dismissPopOver()
-                textEntry.setup(on: parent, header: "Other") { (accepted, value) in
-                    if accepted {
-                        return callback(true, SelectionPopUpObject(display: value))
-                    } 
+                let inputModal: InputModal = UIView.fromNib()
+                inputModal.initialize(header: "Other") { (name) in
+                    if name != "" {
+                        return callback(true, SelectionPopUpObject(display: name))
+                    }
                 }
             } else {
                 self.dismiss(animated: true) {
@@ -302,17 +300,10 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func showOtherOption(completion: @escaping(_ text: String) -> Void) {
-        guard let parent = self.parentVC else {return}
         // Prompt input
-        let vm = ViewManager()
-        let textEntry = vm.textEntry
-        parent.dismissPopOver()
-        textEntry.setup(on: parent, header: "Other") { (accepted, value) in
-            if accepted {
-               return completion(value)
-            } else {
-                return completion("")
-            }
+        let inputModal: InputModal = UIView.fromNib()
+        inputModal.initialize(header: "Other") { (name) in
+            return completion(name)
         }
     }
 

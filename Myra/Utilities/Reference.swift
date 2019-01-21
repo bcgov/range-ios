@@ -401,7 +401,7 @@ class Reference {
                 return obj
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
         return nil
     }
@@ -415,7 +415,7 @@ class Reference {
                 return obj
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
         return nil
     }

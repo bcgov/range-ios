@@ -59,7 +59,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 i.identified = !i.identified
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         autofill()
     }
@@ -89,10 +89,10 @@ class MinisterIssueTableViewCell: BaseFormCell {
     }
 
     @IBAction func pasturesAction(_ sender: UIButton) {
-        guard let i = issue, let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
+        guard let plan = self.plan, let i = issue, let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        let pastureNames = Options.shared.getPasturesLookup(rup: rup)
+        let pastureNames = Options.shared.getPasturesLookup(rup: plan)
         var selected = [SelectionPopUpObject]()
         for pasture in i.pastures {
             selected.append(SelectionPopUpObject(display: pasture.name, value: pasture.name))
@@ -102,7 +102,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             if let selected = selections  {
                 i.removePastures()
                 for selection in selected {
-                    if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: self.rup) {
+                    if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: plan) {
                         i.addPasture(pasture: pasture)
                     }
                 }
@@ -134,7 +134,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
     // MARK: Functions
     // MARK: Setup
     func setup(issue: MinisterIssue, mode: FormMode, rup: Plan, parent: MinisterIssuesTableViewCell) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
         self.issue = issue
         self.parentCell = parent
@@ -287,7 +287,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             let anIssue = realm.objects(MinisterIssue.self).filter("localId = %@", i.localId).first!
             self.issue = anIssue
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
         updateTableHeight(scrollToBottom: false)
     }
@@ -378,7 +378,11 @@ extension MinisterIssueTableViewCell: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let i = issue else { return UITableViewCell()}
         let cell = getIssueCell(indexPath: indexPath)
-        cell.setup(action: i.actions[indexPath.row], parentCell: self, mode: mode, rup: rup)
+        
+        if let plan = self.plan {
+            cell.setup(action: i.actions[indexPath.row], parentCell: self, mode: mode, rup: plan)
+        }
+
         return cell
     }
 

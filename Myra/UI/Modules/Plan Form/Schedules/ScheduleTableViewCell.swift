@@ -32,47 +32,46 @@ class ScheduleTableViewCell: BaseFormCell {
 
     // MARK: Outlet Action
     @IBAction func addScheduleAction(_ sender: UIButton) {
-        guard let p = parentReference else {return}
-        guard let start = rup.planStartDate, let end = rup.planEndDate else {
+        guard let p = parentReference, let presenter = self.getPresenter(), let plan = self.plan else {return}
+        guard let start = plan.planStartDate, let end = plan.planEndDate else {
             p.alert(with: "Missing prerequisites", message: "Please select plan start and end dates in the Plan Information section.")
             return
         }
         let vm = ViewManager()
         let picker = vm.datePicker
 
-        let taken = RUPManager.shared.getScheduleYears(rup: rup)
+        let taken = RUPManager.shared.getScheduleYears(rup: plan)
 
         picker.setup(for: start, max: end, taken: taken) { (selection) in
-            if RUPManager.shared.isNewScheduleYearValidFor(rup: self.rup, newYear: Int(selection)!) {
+            if RUPManager.shared.isNewScheduleYearValidFor(rup: plan, newYear: Int(selection)!) {
                 let schedule = Schedule()
                 schedule.year = Int(selection)!
 
                 do {
                     let realm = try Realm()
-                    let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
+                    let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first!
                     try realm.write {
                         aRup.schedules.append(schedule)
                         realm.add(schedule)
                     }
-                    self.rup = aRup
+                    self.plan = aRup
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.updateTableHeight()
-                p.showSchedule(object: schedule, completion: { (done) in
-                    self.tableView.reloadData()
-                })
+                presenter.showScheduleDetails(for: schedule, in: plan, mode: self.mode)
             } else {
                 p.alert(with: "Invalid year", message: "Please select a year within range of plan start and end dates")
             }
         }
+
         p.showPopOver(on: sender, vc: picker, height: picker.suggestedHeight, width: picker.suggestedWidth, arrowColor: Colors.primary)
     }
 
     // MARK: Setup
     func setup(mode: FormMode, rup: Plan, parentReference: CreateNewRUPViewController) {
         self.parentReference = parentReference
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
         
         switch mode {
@@ -105,8 +104,9 @@ class ScheduleTableViewCell: BaseFormCell {
 
     // MARK: Dynamic Cell height
     func computeCellHeight() -> CGFloat {
+        guard let plan = self.plan else {return 0}
         let padding: CGFloat = 5.0
-        return CGFloat( CGFloat(rup.schedules.count) * CGFloat(ScheduleCellTableViewCell.cellHeight) + padding)
+        return CGFloat( CGFloat(plan.schedules.count) * CGFloat(ScheduleCellTableViewCell.cellHeight) + padding)
     }
 
     func updateTableHeight() {
@@ -139,12 +139,15 @@ extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (rup.schedules.count)
+        guard let plan = self.plan else {return 0}
+        return plan.schedules.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getScheduleCell(indexPath: indexPath)
-        cell.setup(mode: mode, rup: rup, schedule: (rup.schedules.sorted(by: { $0.year < $1.year })[indexPath.row]), parentReference: self)
+        if let plan = self.plan {
+            cell.setup(mode: mode, plan: plan, schedule: (plan.schedules.sorted(by: { $0.year < $1.year })[indexPath.row]), parentReference: self)
+        }
         return cell
     }
 

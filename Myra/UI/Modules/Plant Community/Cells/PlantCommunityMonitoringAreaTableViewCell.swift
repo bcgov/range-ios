@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlantCommunityMonitoringAreaTableViewCell: UITableViewCell, Theme {
+class PlantCommunityMonitoringAreaTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 72.0
@@ -55,8 +55,7 @@ class PlantCommunityMonitoringAreaTableViewCell: UITableViewCell, Theme {
                 }, noButtonTapped: {})
 
             case .Copy:
-                print("not yet implemented")
-                //                self.duplicate()
+                Logger.log(message: "Not Yet Implemeneted")
             }
         }
     }

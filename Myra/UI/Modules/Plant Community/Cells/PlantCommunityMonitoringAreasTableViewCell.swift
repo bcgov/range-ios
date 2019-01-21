@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
+class PlantCommunityMonitoringAreasTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var mode: FormMode = .View
@@ -38,32 +38,31 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
     }
 
     func addNewMonitoringArea(copyFrom: MonitoringArea? = nil) {
-        guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
-        let vm = ViewManager()
-        let textEntry = vm.textEntry
-
-        textEntry.setup(on: parent, header: "Monitoring Area Name") { (accepted, value) in
-            if accepted {
-
-                var newMonitoringArea = MonitoringArea()
+        let inputModal: InputModal = UIView.fromNib()
+        inputModal.initialize(header: "Monitoring Area Name") { (name) in
+            if name != "", let refetchedPlantCommunity = self.refetchPlantCommunity() {
                 if let objectToCopyFrom = copyFrom {
-                    newMonitoringArea = objectToCopyFrom.copy()
+                    refetchedPlantCommunity.addMonitoringArea(cloneFrom: objectToCopyFrom, withName: name)
+                } else {
+                    refetchedPlantCommunity.addMonitoringArea(withName: name)
                 }
-                newMonitoringArea.name = value
-
-                do {
-                    let realm = try Realm()
-                    let aCommunity = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
-                    try realm.write {
-                        aCommunity.monitoringAreas.append(newMonitoringArea)
-                        realm.add(newMonitoringArea)
-                    }
-                    self.plantCommunity = aCommunity
-                } catch _ {
-                    fatalError()
-                }
+                self.plantCommunity = refetchedPlantCommunity
                 self.updateTableHeight()
             }
+        }
+    }
+    
+    func refetchPlantCommunity() -> PlantCommunity? {
+        guard let plantCommunity = self.plantCommunity else {return nil}
+        do {
+            let realm = try Realm()
+            if let aCommunity = realm.objects(PlantCommunity.self).filter("localId = %@", plantCommunity.localId).first {
+                return aCommunity
+            } else {
+                return nil
+            }
+        } catch _ {
+            return nil
         }
     }
 
@@ -85,7 +84,7 @@ class PlantCommunityMonitoringAreasTableViewCell: UITableViewCell, Theme {
             let temp = realm.objects(PlantCommunity.self).filter("localId = %@", p.localId).first!
             self.plantCommunity = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 

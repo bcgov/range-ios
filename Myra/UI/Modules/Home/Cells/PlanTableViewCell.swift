@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AssignedRUPTableViewCell: UITableViewCell, Theme {
+class PlanTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var rup: Plan?
@@ -40,12 +40,11 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: Any) {
-        guard let plan = rup else {return}
-        let parent = self.parentViewController as! HomeViewController
+        guard let plan = rup, let presenter = self.getPresenter() else {return}
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
-            parent.editRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .Edit)
         } else {
-            parent.viewRUP(rup: plan)
+            presenter.showForm(for: plan, mode: .View)
         }
     }
 
@@ -113,7 +112,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
         self.infoButton.alpha = 0
         self.statusLight.alpha = 0
         self.statusText.alpha = 0
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.container.backgroundColor = UIColor.white
             self.backgroundColor = UIColor.white
             self.addShadow(to: self.container.layer, opacity: 0.5, height: 2)
@@ -131,7 +130,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     }
 
     func styleDefault() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.style()
             self.cellSelected = false
         })
@@ -139,7 +138,7 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
     func setLocked() {
         style()
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.container.backgroundColor = UIColor.white
             self.backgroundColor = UIColor.white
             self.versionsHeight.constant = 0
@@ -156,14 +155,14 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
     }
 
     func animateIt() {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.layoutIfNeeded()
         })
     }
 
     func updateTableHeight() {
         if let a = self.agreement {
-            self.versionsHeight.constant = CGFloat(AssignedRUPVersionTableViewCell.cellHeight * (a.plans.count + 1))
+            self.versionsHeight.constant = CGFloat(PlanVersionTableViewCell.cellHeight * (a.plans.count + 1))
             self.tableView.reloadData()
         } else {
             self.versionsHeight.constant = 0
@@ -173,12 +172,12 @@ class AssignedRUPTableViewCell: UITableViewCell, Theme {
 
 // MARK: TableView
 
-extension AssignedRUPTableViewCell: UITableViewDelegate, UITableViewDataSource {
+extension PlanTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         tableView.delegate = self
         tableView.dataSource = self
-        registerCell(name: "AssignedRUPVersionTableViewCell")
-        registerCell(name: "AssignedRUPVersionsHeaderTableViewCell")
+        registerCell(name: "PlanVersionTableViewCell")
+        registerCell(name: "PlanVersionsHeaderTableViewCell")
     }
 
     func registerCell(name: String) {
@@ -186,12 +185,12 @@ extension AssignedRUPTableViewCell: UITableViewDelegate, UITableViewDataSource {
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getCell(indexPath: IndexPath) -> AssignedRUPVersionTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "AssignedRUPVersionTableViewCell", for: indexPath) as! AssignedRUPVersionTableViewCell
+    func getCell(indexPath: IndexPath) -> PlanVersionTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PlanVersionTableViewCell", for: indexPath) as! PlanVersionTableViewCell
     }
 
-    func getHeaderCell(indexPath: IndexPath) -> AssignedRUPVersionsHeaderTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "AssignedRUPVersionsHeaderTableViewCell", for: indexPath) as! AssignedRUPVersionsHeaderTableViewCell
+    func getHeaderCell(indexPath: IndexPath) -> PlanVersionsHeaderTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "PlanVersionsHeaderTableViewCell", for: indexPath) as! PlanVersionsHeaderTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

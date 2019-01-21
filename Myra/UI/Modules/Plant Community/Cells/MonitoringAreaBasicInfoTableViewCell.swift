@@ -11,7 +11,7 @@ import CoreLocation
 import Realm
 import RealmSwift
 
-class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
+class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
 
     static let cellHeight: CGFloat = (320 + 16 + 8)
 
@@ -110,7 +110,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                 ma.location = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -122,7 +122,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                 ma.latitude = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -134,7 +134,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                 ma.longitude = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -174,28 +174,10 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                     }
                     self.autoFill()
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
-
-//        lookup.parentVC = parent
-//
-//        parent.showPopUp(vc: lookup, on: sender)
-//        lookup.setup(objects: Options.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
-//            lookup.dismiss(animated: true, completion: nil)
-//            if selected, let option = selection {
-//                do {
-//                    let realm = try Realm()
-//                    try realm.write {
-//                        ma.purpose = option.display
-//                    }
-//                    self.autoFill()
-//                } catch _ {
-//                    fatalError()
-//                }
-//            }
-//        }
     }
 
     @IBAction func rangelandHealthAction(_ sender: UIButton) {
@@ -213,7 +195,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                     }
                     self.autoFill()
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -299,7 +281,7 @@ class MonitoringAreaBasicInfoTableViewCell: UITableViewCell, Theme {
                 monitoringArea.longitude = long
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         self.latitudeField.text = monitoringArea.latitude

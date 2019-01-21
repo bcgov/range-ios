@@ -13,7 +13,6 @@ import RealmSwift
 class ScheduleViewController: BaseViewController {
 
     // MARK: Variables
-    var completion: ((_ done: Bool) -> Void)?
     var footerReference: ScheduleFooterTableViewCell?
     var schedule: Schedule?
     var entries: [ScheduleObject] = [ScheduleObject]()
@@ -39,10 +38,6 @@ class ScheduleViewController: BaseViewController {
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var divider: UIView!
-    @IBOutlet weak var navbar: UIView!
-    @IBOutlet weak var statusbar: UIView!
-    @IBOutlet weak var backbutton: UIButton!
-    @IBOutlet weak var navbarTitle: UILabel!
 
     // Headers
     @IBOutlet weak var pasture: UIButton!
@@ -68,7 +63,6 @@ class ScheduleViewController: BaseViewController {
     @IBOutlet weak var totalAUMs: UILabel!
     @IBOutlet weak var bottomDivider: UIView!
 
-
     // MARK: ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +78,16 @@ class ScheduleViewController: BaseViewController {
         super.viewDidAppear(animated)
         validate()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        calculateEntries()
+        validate()
+        
+        if let r = self.rup {
+            RealmRequests.updateObject(r)
+        }
+    }
 
     // MARK: Outlet Actions
     @IBAction func scrollToTop(_ sender: UIButton) {
@@ -93,21 +97,6 @@ class ScheduleViewController: BaseViewController {
     @IBAction func scrollToButtom(_ sender: UIButton) {
         let indexPath = IndexPath(row: entries.count - 1, section: 0)
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-    }
-
-    @IBAction func backAction(_ sender: UIButton) {
-        calculateEntries()
-        validate()
-
-        if let r = self.rup {
-            RealmRequests.updateObject(r)
-        }
-
-        self.dismiss(animated: true, completion: {
-            if let callback = self.completion {
-                return callback(true)
-            }
-        })
     }
 
     @IBAction func addAction(_ sender: Any) {
@@ -149,7 +138,7 @@ class ScheduleViewController: BaseViewController {
             self.schedule = aSchedule
             self.entries = Array(aSchedule.scheduleObjects)
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         clearSort()
@@ -204,34 +193,46 @@ class ScheduleViewController: BaseViewController {
         self.sort()
     }
 
-
     // MARK: Setup
-    func setup(mode: FormMode, rup: Plan, schedule: Schedule, completion: @escaping (_ done: Bool) -> Void) {
+    func setup(mode: FormMode, rup: Plan, schedule: Schedule) {
         self.rup = rup
         self.mode = mode
         self.schedule = schedule
-        self.completion = completion
         self.entries = Array(schedule.scheduleObjects)
         calculateEntries()
         setUpTable()
         setTitle()
         setSubtitle(ranNumber: rup.agreementId, agreementHolder: "", rangeName: rup.rangeName)
 
+       beginChangeListener()
+    }
+    
+    func beginChangeListener() {
+        guard let schedule = self.schedule else {return}
+        Logger.log(message: "Listening to schedule changes")
         self.realmNotificationToken = schedule.observe { (change) in
             switch change {
             case .error(_):
-                print("Error in rup change")
+                Logger.log(message: "Error in schedule change")
             case .change(_):
+                Logger.log(message: "Schedule Changed")
                 self.validate()
             case .deleted:
-                print("RUP deleted")
+                Logger.log(message: "Schedule Deleted")
             }
+        }
+    }
+    
+    func endChangeListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            Logger.log(message: "Stopped Listening to schedule changes :(")
         }
     }
 
     func setTitle() {
         guard let schedule = self.schedule, self.scheduleTitle != nil else {return}
-        self.scheduleTitle.text = "\(schedule.yearString) Grazing Schedule"
+        navigationTitle = "\(schedule.yearString) Grazing Schedule"
     }
 
     func setSubtitle(ranNumber: String, agreementHolder: String, rangeName: String) {
@@ -250,7 +251,6 @@ class ScheduleViewController: BaseViewController {
     // MARK: Table Reload
     func reload(then: @escaping()-> Void) {
         refreshScheduleObject()
-//        self.tableView.reloadData()
         if #available(iOS 11.0, *) {
             self.tableView.performBatchUpdates({
                 self.tableView.beginUpdates()
@@ -275,14 +275,13 @@ class ScheduleViewController: BaseViewController {
             let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
             self.schedule = aSchedule
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
         self.entries = Array(sched.scheduleObjects)
     }
 
     // MARK: Styles
     func style() {
-        styleNavBar(title: navbarTitle, navBar: navbar, statusBar: statusbar, primaryButton: backbutton, secondaryButton: nil, textLabel: nil)
         styleHeader(label: scheduleTitle)
         styleFooter(label: subtitle)
         styleDivider(divider: divider)
@@ -359,7 +358,7 @@ class ScheduleViewController: BaseViewController {
 
     // MARK: Banner
     func openBanner(message: String) {
-        UIView.animate(withDuration: shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.bannerLabel.textColor = Colors.primary
             self.banner.backgroundColor = Colors.secondaryBg.withAlphaComponent(1)
             self.bannerHeight.constant = 50
@@ -367,7 +366,7 @@ class ScheduleViewController: BaseViewController {
             self.view.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: self.mediumAnimationDuration, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
                     self.bannerLabel.textColor = Colors.primaryConstrast
                     self.view.layoutIfNeeded()
                 })
@@ -376,12 +375,12 @@ class ScheduleViewController: BaseViewController {
     }
 
     func highlightBanner() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.bannerLabel.textColor = Colors.primary.withAlphaComponent(0.5)
             self.view.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: 0.5, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
                     self.bannerLabel.textColor = Colors.primary.withAlphaComponent(1)
                     self.view.layoutIfNeeded()
                 })
@@ -467,7 +466,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "ScheduleFormTableViewCell")
-        registerCell(name: "ScheduleObjectTableViewCell")
+        registerCell(name: "ScheduleElementTableViewCell")
         registerCell(name: "ScheduleFooterTableViewCell")
     }
 
@@ -480,8 +479,8 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: "ScheduleFormTableViewCell", for: indexPath) as! ScheduleFormTableViewCell
     }
 
-    func getScheduleObjectCell(indexPath: IndexPath) -> ScheduleObjectTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "ScheduleObjectTableViewCell", for: indexPath) as! ScheduleObjectTableViewCell
+    func getScheduleElementCell(indexPath: IndexPath) -> ScheduleElementTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ScheduleElementTableViewCell", for: indexPath) as! ScheduleElementTableViewCell
     }
 
     func getScheduleFooterCell(indexPath: IndexPath) -> ScheduleFooterTableViewCell {
@@ -497,24 +496,10 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
             self.footerReference = cell
             return cell
         }
-//        let index = indexPath.row
-//        switch index {
-//        case 0:
-//            let cell = getScheduleCell(indexPath: indexPath)
-//            cell.setup(mode: mode, schedule: schedule!, rup: rup!, parentReference: self)
-//            return cell
-//        case 1:
-//            let cell = getScheduleFooterCell(indexPath: indexPath)
-//            cell.setup(mode: mode, schedule: schedule!, agreementID: (rup?.agreementId)!)
-//            self.footerReference = cell
-//            return cell
-//        default:
-//            return getScheduleCell(indexPath: indexPath)
-//        }
     }
 
-    func getScheduleEntryCell(for indexPath: IndexPath) ->  ScheduleObjectTableViewCell {
-        let cell = getScheduleObjectCell(indexPath: indexPath)
+    func getScheduleEntryCell(for indexPath: IndexPath) ->  ScheduleElementTableViewCell {
+        let cell = getScheduleElementCell(indexPath: indexPath)
         if let plan = self.rup, self.entries.count > indexPath.row {
             cell.setup(mode: mode, scheduleObject: self.entries[indexPath.row], rup: plan, scheduleViewReference: self)
         }

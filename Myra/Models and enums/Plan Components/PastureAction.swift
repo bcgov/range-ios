@@ -69,7 +69,7 @@ class PastureAction: Object, MyraObject {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

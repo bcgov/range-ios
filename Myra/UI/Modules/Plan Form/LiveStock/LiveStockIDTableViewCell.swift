@@ -23,27 +23,22 @@ class LiveStockIDTableViewCell: BaseFormCell {
     
     // Mark: Outlet Actions
     @IBAction func addLiveStockAction(_ sender: Any) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                self.rup.liveStockIDs.append(LiveStockID())
-            }
-        } catch _ {
-            fatalError()
-        }
+        guard let plan = self.plan else {return}
+        plan.addLiveStock()
         updateTableHeight()
     }
 
     // Mark: Functions
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         setUpTable()
     }
 
     func computeHeight() -> CGFloat {
+        guard let plan = self.plan else {return 0}
         let padding: CGFloat = 5.0
-        return CGFloat(CGFloat((self.rup.liveStockIDs.count)) * CGFloat(LiveStockTableViewCell.cellHeight) + padding)
+        return CGFloat(CGFloat((plan.liveStockIDs.count)) * CGFloat(LiveStockTableViewCell.cellHeight) + padding)
     }
 
     func updateTableHeight() {
@@ -80,7 +75,8 @@ extension LiveStockIDTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rup.liveStockIDs.count
+        guard let plan = self.plan else {return 0}
+        return plan.liveStockIDs.count
     }
 
 }

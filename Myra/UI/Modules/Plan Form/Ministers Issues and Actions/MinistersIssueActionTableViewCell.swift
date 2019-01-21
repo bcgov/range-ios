@@ -97,7 +97,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
                 act.noGrazeInSelected = true
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         if act.noGrazeOutSelected {
@@ -108,7 +108,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
                         act.noGrazeOutSelected = false
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -125,7 +125,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
                 act.noGrazeOutSelected = true
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         autofill()
     }
@@ -134,7 +134,7 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
     // MARK: Setup
     func setup(action: MinisterIssueAction, parentCell: MinisterIssueTableViewCell, mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         self.action = action
         self.parentCell = parentCell
         desc.delegate = self

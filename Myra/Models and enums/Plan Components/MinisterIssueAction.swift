@@ -62,7 +62,7 @@ class MinisterIssueAction: Object, MyraObject {
                 self.desc = desc
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -73,7 +73,7 @@ class MinisterIssueAction: Object, MyraObject {
                 self.remoteId = id
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

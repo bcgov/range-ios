@@ -59,8 +59,6 @@ class DatePickerViewController: UIViewController, Theme {
     }
 
     // MARK: Outlet Functions
-
-    // TODO: Handle case where there is only 1 item and user wont scroll
     @IBAction func selectAction(_ sender: UIButton) {
         if isListMode, let listCallBack = listCompletion, let listSelection = selectedListItem {
             self.dismiss(animated: true, completion: {

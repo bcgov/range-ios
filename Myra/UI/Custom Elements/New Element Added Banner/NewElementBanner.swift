@@ -14,7 +14,6 @@ class NewElementBanner: UIView, Theme {
 
     // MARK: Variables
     var displayDuration: TimeInterval = 3
-    var animationDuration: TimeInterval = 0.2
 
     // MARK: Optionals
     var originY: CGFloat?
@@ -37,7 +36,7 @@ class NewElementBanner: UIView, Theme {
 
     func beginDisplayAnimation() {
         positionPreAnimation()
-        UIView.animate(withDuration: animationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.positionDispayed()
         }) { (done) in
             self.beginDismissAnimation()
@@ -57,7 +56,7 @@ class NewElementBanner: UIView, Theme {
     }
 
     func beginDismissAnimation() {
-        UIView.animate(withDuration: animationDuration, delay: (displayDuration + animationDuration), animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), delay: (displayDuration + SettingsManager.shared.getShortAnimationDuration()), animations: {
             self.positionPreAnimation()
         }) { (done) in
             self.removeFromSuperview()

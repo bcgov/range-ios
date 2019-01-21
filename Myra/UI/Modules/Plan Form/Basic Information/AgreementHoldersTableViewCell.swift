@@ -26,7 +26,7 @@ class AgreementHoldersTableViewCell: BaseFormCell {
     // MARK: Setup
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         heightConstraint.constant = computeCellHeight()
         style()
         setUpTable()
@@ -42,8 +42,9 @@ class AgreementHoldersTableViewCell: BaseFormCell {
 
     // MARK: Dynamic cell height
     func computeCellHeight() -> CGFloat {
+        guard let plan = self.plan else {return 0}
         let padding = 5
-        return CGFloat((rup.clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
+        return CGFloat((plan.clients.count) * AgreementHoldersTableViewCell.cellHeight + padding)
     }
 
     func updateTableHeight() {
@@ -76,12 +77,14 @@ extension AgreementHoldersTableViewCell: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getHolderCell(indexPath: indexPath)
-        cell.setup(client: rup.clients[indexPath.row])
+        guard let plan = self.plan else {return cell}
+        cell.setup(client: plan.clients[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rup.clients.count
+        guard let plan = self.plan else {return 0}
+        return plan.clients.count
     }
 
 }

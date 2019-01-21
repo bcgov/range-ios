@@ -9,15 +9,11 @@
 import UIKit
 import Reachability
 
-class GetNameDialog: UIView, Theme {
+class GetNameDialog: CustomModal {
 
     // MARK: Variables
-    private let width: CGFloat = 390
-    private let height: CGFloat = 400
-    private let animationDuration = 0.5
     private let visibleAlpha: CGFloat = 1
     private let invisibleAlpha: CGFloat = 0
-    private let fieldErrorAnimationDuration = 2.0
 
     var callBack: (()-> Void)?
 
@@ -83,13 +79,10 @@ class GetNameDialog: UIView, Theme {
 
     // MARK: Entry Point
     func initialize(callBack: @escaping ()-> Void) {
-        guard let window = UIApplication.shared.keyWindow else {return}
         self.callBack = callBack
+        setSmartSizingWith(percentHorizontalPadding: 30, percentVerticalPadding: 35)
         style()
-        window.isUserInteractionEnabled = false
-        position {
-            window.isUserInteractionEnabled = true
-        }
+        present()
         autoFill()
     }
 
@@ -108,6 +101,7 @@ class GetNameDialog: UIView, Theme {
 
     // MARK: Styles
     func style() {
+        styleModalBox()
         addShadow(layer: self.layer)
         viewTitle.font = Fonts.getPrimaryBold(size: 27)
         viewTitle.textColor = defaultFieldHeaderColor()
@@ -117,104 +111,5 @@ class GetNameDialog: UIView, Theme {
         styleFillButton(button: submitButton)
         styleInputField(field: firstNameField, header: firstNameHeader, height: inputFieldHeight)
         styleInputField(field: lastNameField, header: lastNameHeader, height: inputFieldHeight)
-    }
-
-    // MARK: Positioning/ displaying
-    func remove() {
-        self.closingAnimation {
-            self.removeWhiteScreen()
-            self.removeFromSuperview()
-        }
-    }
-
-    func position(then: @escaping ()-> Void) {
-        guard let window = UIApplication.shared.keyWindow else {return}
-
-        self.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.alpha = 0
-        window.addSubview(self)
-        addConstraints()
-
-        showWhiteBG(then: {
-            self.openingAnimation {
-                return then()
-            }
-        })
-    }
-
-    func addConstraints() {
-        guard let window = UIApplication.shared.keyWindow else {return}
-        self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: width),
-            self.heightAnchor.constraint(equalToConstant: height),
-            self.centerXAnchor.constraint(equalTo: window.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: window.centerYAnchor),
-            ])
-    }
-
-    // MARK: Displaying animations
-    func openingAnimation(then: @escaping ()-> Void) {
-        self.alpha = invisibleAlpha
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.alpha = self.visibleAlpha
-        }) { (done) in
-            then()
-        }
-    }
-
-    func closingAnimation(then: @escaping ()-> Void) {
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.alpha = self.invisibleAlpha
-        }) { (done) in
-            then()
-        }
-    }
-
-    // MARK: White Screen
-    func showWhiteBG(then: @escaping()-> Void) {
-        guard let window = UIApplication.shared.keyWindow, let bg = whiteScreen() else {return}
-
-        bg.alpha = invisibleAlpha
-        window.insertSubview(bg, belowSubview: self)
-        bg.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bg.centerXAnchor.constraint(equalTo:  window.centerXAnchor),
-            bg.centerYAnchor.constraint(equalTo:  window.centerYAnchor),
-            bg.leadingAnchor.constraint(equalTo: window.leadingAnchor),
-            bg.trailingAnchor.constraint(equalTo: window.trailingAnchor),
-            bg.topAnchor.constraint(equalTo: window.topAnchor),
-            bg.bottomAnchor.constraint(equalTo: window.bottomAnchor)
-            ])
-
-        UIView.animate(withDuration: animationDuration, animations: {
-            bg.alpha = self.visibleAlpha
-        }) { (done) in
-            return then()
-        }
-
-    }
-
-    func whiteScreen() -> UIView? {
-        guard let window = UIApplication.shared.keyWindow else {return nil}
-
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: window.frame.width, height: window.frame.height))
-        view.center.y = window.center.y
-        view.center.x = window.center.x
-        view.backgroundColor = Colors.active.blue.withAlphaComponent(0.2)
-        view.alpha = visibleAlpha
-        view.tag = whiteScreenTag
-        return view
-    }
-
-    func removeWhiteScreen() {
-        guard let window = UIApplication.shared.keyWindow else {return}
-        if let viewWithTag = window.viewWithTag(whiteScreenTag) {
-            UIView.animate(withDuration: animationDuration, animations: {
-                viewWithTag.alpha = self.invisibleAlpha
-            }) { (done) in
-                viewWithTag.removeFromSuperview()
-            }
-        }
     }
 }

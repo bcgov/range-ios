@@ -100,7 +100,7 @@ class MinisterIssue: Object, MyraObject {
                 self.details = details
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -111,7 +111,7 @@ class MinisterIssue: Object, MyraObject {
                 self.objective = objective
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -122,7 +122,7 @@ class MinisterIssue: Object, MyraObject {
                 self.desc = desc
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -133,7 +133,7 @@ class MinisterIssue: Object, MyraObject {
                 self.issueType = issueType
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -144,7 +144,7 @@ class MinisterIssue: Object, MyraObject {
                 self.pastures.append(pasture)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -155,7 +155,7 @@ class MinisterIssue: Object, MyraObject {
                 self.pastures.removeAll()
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -169,7 +169,7 @@ class MinisterIssue: Object, MyraObject {
                 self.actions.append(new)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -180,7 +180,7 @@ class MinisterIssue: Object, MyraObject {
                 self.remoteId = id
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -215,7 +215,7 @@ class MinisterIssue: Object, MyraObject {
         }
 
         for object in self.pastures {
-            new.pastures.append(object.copy())
+            new.pastures.append(object.clone())
         }
         return new
     }

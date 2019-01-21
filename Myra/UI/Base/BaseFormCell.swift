@@ -8,11 +8,13 @@
 
 import UIKit
 import Extended
+import Realm
+import RealmSwift
 
-class BaseFormCell: UITableViewCell, Theme {
+class BaseFormCell: BaseTableViewCell {
 
     // MARK: Variables
-    var rup: Plan = Plan()
+    var plan: Plan?
     var mode: FormMode = .View
 
     // MARK: Cell functions
@@ -27,8 +29,20 @@ class BaseFormCell: UITableViewCell, Theme {
 
     // MARK: Cell Setup
     func setup(mode: FormMode, rup: Plan) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
+    }
+
+    func refetchPlan() -> Plan? {
+        guard let current = self.plan else {return nil}
+        do {
+            let realm = try Realm()
+            guard let aPlan = realm.objects(Plan.self).filter("localId = %@", current.localId).first else {return nil}
+            return aPlan
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
+            return nil
+        }
     }
 
     func setDefaultValueIfEmpty(field: UITextView) {
@@ -47,20 +61,20 @@ class BaseFormCell: UITableViewCell, Theme {
         let originalText: String = label.text ?? ""
         let originalTextColor: UIColor = label.textColor
         // fade out current text
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             label.alpha = 0
             self.layoutIfNeeded()
         }) { (done) in
             // change text
             label.text = text
             // fade in warning text
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                 label.textColor = Colors.accent.red
                 label.alpha = 1
                 self.layoutIfNeeded()
             }, completion: { (done) in
                 // revert after 3 seconds
-                UIView.animate(withDuration: 0.2, delay: 3, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), delay: 3, animations: {
                     // fade out text
                     label.alpha = 0
                     self.layoutIfNeeded()
@@ -68,7 +82,7 @@ class BaseFormCell: UITableViewCell, Theme {
                     // change text
                     label.text = originalText
                     // fade in text
-                    UIView.animate(withDuration: 0.2, animations: {
+                    UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                         label.textColor = originalTextColor
                         label.alpha = 1
                         self.layoutIfNeeded()

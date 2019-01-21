@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmptyTableViewCell: UITableViewCell, Theme {
+class EmptyTableViewCell: BaseTableViewCell {
 
     @IBOutlet weak var height: NSLayoutConstraint!
     @IBOutlet weak var label: UILabel!

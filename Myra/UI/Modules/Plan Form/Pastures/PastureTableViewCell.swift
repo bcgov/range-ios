@@ -105,7 +105,7 @@ class PastureTableViewCell: BaseFormCell {
                         self.pasture?.plantCommunities.append(pc)
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.updateTableHeight()
             }
@@ -125,10 +125,10 @@ class PastureTableViewCell: BaseFormCell {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
 
     @IBAction func landDeductionChanged(_ sender: UITextField) {
@@ -146,9 +146,9 @@ class PastureTableViewCell: BaseFormCell {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
 
     @IBAction func graceDaysChanged(_ sender: UITextField) {
@@ -164,9 +164,9 @@ class PastureTableViewCell: BaseFormCell {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
-        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.rup)!)
+        RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
@@ -200,12 +200,13 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Setup
-    func setup(mode: FormMode, pasture: Pasture, pastures: PasturesTableViewCell) {
+    func setup(mode: FormMode, pasture: Pasture, plan: Plan, pastures: PasturesTableViewCell) {
         style()
         self.parentCell = pastures
         self.mode = mode
         self.pasture = pasture
-        self.rup = pastures.rup
+        self.plan = plan
+        self.plan = pastures.plan
         autofill()
         setupTable()
         style()
@@ -249,49 +250,24 @@ class PastureTableViewCell: BaseFormCell {
 
     // MARK: Options
     func editName(){
-        guard let past = pasture else {return}
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
-        let vm = ViewManager()
-        let textEntry = vm.textEntry
-        textEntry.setup(on: grandParent, header: "Pasture Name") { (accepted, name) in
-            if accepted {
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        past.name = name
-                    }
-                    self.autofill()
-                } catch _ {
-                    fatalError()
-                }
+        guard let pasture = self.pasture, let plan = self.plan else {return}
+        let inputModal: InputModal = UIView.fromNib()
+        inputModal.initialize(header: "Pasture Name", taken: Options.shared.getPastureNames(rup: plan)) { (name) in
+            if name != "" {
+                pasture.setName(string: name)
+                self.autofill()
             }
         }
-
     }
 
     func duplicate() {
-        guard let past = self.pasture, let parent = parentCell else {return}
-        let grandParent = parent.parentViewController as! CreateNewRUPViewController
-        let vm = ViewManager()
-        let inputPrompt = vm.textEntry
-        inputPrompt.taken = Options.shared.getPastureNames(rup: rup)
-        inputPrompt.setup(on: grandParent, header: "Pasture Name") { (done, name) in
-            if done {
-                let newPasture = Pasture()
-                newPasture.name = name
-                RUPManager.shared.copyPasture(from: past, to: newPasture)
-                do {
-                    let realm = try Realm()
-                    let aRup = realm.objects(Plan.self).filter("localId = %@", self.rup.localId).first!
-                    try realm.write {
-                        aRup.pastures.append(newPasture)
-                        realm.add(newPasture)
-                    }
-                    self.rup = aRup
-                    parent.updateTableHeight()
-                } catch _ {
-                    fatalError()
-                }
+        guard let pasture = self.pasture, let parent = parentCell, let plan = self.plan else {return}
+        let inputModal: InputModal = UIView.fromNib()
+        inputModal.initialize(header: "Pasture Name", taken: Options.shared.getPastureNames(rup: plan)) { (name) in
+            if name != "", let refetchedPlan = self.refetchPlan() {
+                refetchedPlan.addPasture(cloneFrom: pasture, withName: name)
+                self.plan = refetchedPlan
+                parent.updateTableHeight()
             }
         }
     }
@@ -343,7 +319,7 @@ class PastureTableViewCell: BaseFormCell {
                 self.pasture = refetch
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -385,8 +361,8 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
-        guard let p = self.pasture else {return cell}
-        cell.setup(mode: mode, plantCommunity: (p.plantCommunities[indexPath.row]), pasture: p, parentCellReference: self)
+        guard let pasture = self.pasture, let plan = self.plan else {return cell}
+        cell.setup(mode: self.mode, plantCommunity:pasture.plantCommunities[indexPath.row], pasture: pasture, plan: plan, parentCellReference: self)
         return cell
     }
 
@@ -414,7 +390,7 @@ extension PastureTableViewCell: UITextViewDelegate {
                     pasture.notes = textView.text
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
 

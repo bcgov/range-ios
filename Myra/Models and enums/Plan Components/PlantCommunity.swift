@@ -146,7 +146,7 @@ class PlantCommunity: Object, MyraObject {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -157,7 +157,7 @@ class PlantCommunity: Object, MyraObject {
                 self.shrubUse = value
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -168,7 +168,7 @@ class PlantCommunity: Object, MyraObject {
                 self.purposeOfAction = "Clear"
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         for action in self.pastureActions {
             RealmRequests.deleteObject(action)
@@ -187,7 +187,7 @@ class PlantCommunity: Object, MyraObject {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -221,7 +221,7 @@ class PlantCommunity: Object, MyraObject {
 
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -251,7 +251,7 @@ class PlantCommunity: Object, MyraObject {
                 self.stubbleHeight.append(objectsIn: cache)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -263,7 +263,26 @@ class PlantCommunity: Object, MyraObject {
                 self.shrubUse = pc.shrubUse
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func addMonitoringArea(cloneFrom object: MonitoringArea? = nil, withName monitoringAreaName: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                if let origin = object {
+                    let newMA = origin.clone()
+                    newMA.name = monitoringAreaName
+                    monitoringAreas.append(newMA)
+                } else {
+                    let newMA = MonitoringArea()
+                    newMA.name = monitoringAreaName
+                    monitoringAreas.append(newMA)
+                }
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -293,7 +312,7 @@ class PlantCommunity: Object, MyraObject {
         new.readinessNotes = self.readinessNotes
 
         for object in self.monitoringAreas {
-            new.monitoringAreas.append(object.copy())
+            new.monitoringAreas.append(object.clone())
         }
 
         for object in self.pastureActions {

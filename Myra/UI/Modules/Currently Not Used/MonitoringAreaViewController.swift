@@ -101,7 +101,7 @@ class MonitoringAreaViewController: BaseViewController {
 
     // MARK: Banner
     func openBanner(message: String) {
-        UIView.animate(withDuration: shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.bannerLabel.textColor = Colors.primary
             self.banner.backgroundColor = Colors.secondaryBg.withAlphaComponent(1)
             self.bannerHeight.constant = 50
@@ -109,7 +109,7 @@ class MonitoringAreaViewController: BaseViewController {
             self.view.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: self.mediumAnimationDuration, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
                     self.bannerLabel.textColor = Colors.primaryConstrast
                     self.view.layoutIfNeeded()
                 })
@@ -129,7 +129,7 @@ class MonitoringAreaViewController: BaseViewController {
             let temp = realm.objects(MonitoringArea.self).filter("localId = %@", a.localId).first!
             self.monitoringArea = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 
@@ -150,7 +150,6 @@ class MonitoringAreaViewController: BaseViewController {
             self.view.layoutIfNeeded()
             return then()
         }
-        
     }
 }
 

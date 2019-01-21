@@ -64,7 +64,7 @@ class InvasivePlants: Object {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -75,7 +75,7 @@ class InvasivePlants: Object {
                 self.other = text
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -100,7 +100,7 @@ class InvasivePlants: Object {
                 }
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

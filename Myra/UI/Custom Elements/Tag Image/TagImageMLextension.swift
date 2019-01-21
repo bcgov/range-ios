@@ -67,7 +67,7 @@ extension TagImage {
     func getLifeForm(image: CVPixelBuffer) -> LifeForms {
         let lifeForm = LifeForm()
         guard let output = try? lifeForm.prediction(image: image) else {
-            print("ML Failed")
+            Logger.log(message: "ML Failed")
             return .Unknown
         }
         switch output.classLabel {
@@ -85,7 +85,7 @@ extension TagImage {
     func getPlantType(image: CVPixelBuffer) -> PlantTypes {
         let plants = Plant()
         guard let output = try? plants.prediction(image: image) else {
-            print("ML Failed")
+            Logger.log(message: "ML Failed")
             return .Unknown
         }
         switch output.classLabel {
@@ -105,7 +105,7 @@ extension TagImage {
     func getGender(image: CVPixelBuffer) -> Genders {
         let genders = Gender()
         guard let output = try? genders.prediction(image: image) else {
-            print("ML Failed")
+            Logger.log(message: "ML Failed")
             return .Unknown
         }
         switch output.classLabel {
@@ -121,7 +121,7 @@ extension TagImage {
     func getAnimalType(image: CVPixelBuffer) -> AnimalTypes {
         let animals = Animal()
         guard let output = try? animals.prediction(image: image) else {
-            print("ML Failed")
+            Logger.log(message: "ML Failed")
             return .Unknown
         }
         switch output.classLabel {

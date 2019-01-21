@@ -19,7 +19,7 @@ enum ScheduleSort {
     case Number
 }
 
-class ScheduleFormTableViewCell: UITableViewCell, Theme {
+class ScheduleFormTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 55.0
@@ -103,7 +103,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
             }
             self.schedule = aSchedule
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         handleElementAddedOrRemoved()
     }
@@ -152,7 +152,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
             let temp = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
             self.schedule = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 
@@ -160,7 +160,7 @@ class ScheduleFormTableViewCell: UITableViewCell, Theme {
     func computeHeight() -> CGFloat {
         let padding: CGFloat = 5.0
         guard let sched = self.schedule else {return padding}
-        return CGFloat( CGFloat(sched.scheduleObjects.count) * CGFloat(ScheduleObjectTableViewCell.cellHeight) + padding)
+        return CGFloat( CGFloat(sched.scheduleObjects.count) * CGFloat(ScheduleElementTableViewCell.cellHeight) + padding)
     }
 
     func updateTableHeight() {
@@ -262,7 +262,7 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
         self.tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
-        registerCell(name: "ScheduleObjectTableViewCell")
+        registerCell(name: "ScheduleElementTableViewCell")
     }
     @objc func doThisWhenNotify() { return }
 
@@ -271,12 +271,12 @@ extension ScheduleFormTableViewCell: UITableViewDelegate, UITableViewDataSource 
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getScheduleObjectCell(indexPath: IndexPath) -> ScheduleObjectTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "ScheduleObjectTableViewCell", for: indexPath) as! ScheduleObjectTableViewCell
+    func getScheduleElementCell(indexPath: IndexPath) -> ScheduleElementTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ScheduleElementTableViewCell", for: indexPath) as! ScheduleElementTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = getScheduleObjectCell(indexPath: indexPath)
+        let cell = getScheduleElementCell(indexPath: indexPath)
         if let sched = self.schedule, let r = self.rup, let schedRef = parentReference, sched.scheduleObjects.count > indexPath.row {
             cell.setup(mode: mode, scheduleObject: objects[indexPath.row], rup: r, scheduleViewReference: schedRef, parentCell: self)
         }

@@ -60,7 +60,7 @@ class AdditionalRequirement: Object {
                 }
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -71,7 +71,7 @@ class AdditionalRequirement: Object {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

@@ -22,14 +22,15 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
     @IBAction func addAction(_ sender: UIButton) {
+        guard let plan = self.plan else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                rup.additionalRequirements.append(AdditionalRequirement())
+                plan.additionalRequirements.append(AdditionalRequirement())
                 NewElementAddedBanner.shared.show()
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         updateTableHeight(scrollToBottom: true)
     }
@@ -50,7 +51,7 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
 
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         style()
         autoFill()
         tableHeight.constant = computeHeight()
@@ -91,8 +92,9 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
     }
 
     func computeHeight() -> CGFloat {
+        guard let plan = self.plan else {return 0}
         var h: CGFloat = 0.0
-        for _ in rup.additionalRequirements {
+        for _ in plan.additionalRequirements {
             h = h + AdditionalRequirementTableViewCell.cellHeight
         }
         return h
@@ -120,12 +122,14 @@ extension AdditionalRequirementsTableViewCell:  UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getAdditionalRequirementCell(indexPath: indexPath)
-        cell.setup(mode: mode, object: self.rup.additionalRequirements[indexPath.row], parentCell: self)
+        guard let plan = self.plan else {return cell}
+        cell.setup(mode: mode, object: plan.additionalRequirements[indexPath.row], plan: plan, parentCell: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rup.additionalRequirements.count
+        guard let plan = self.plan else {return 0}
+        return plan.additionalRequirements.count
     }
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, Theme {
+class MonitoringAreaCustomDetailTableViewCellTableViewCell: BaseTableViewCell {
 
     // Mark: Constants
     static let cellHeight = 70
@@ -93,8 +93,7 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: UITableViewCell, The
                     
                 })
             case .Copy:
-                print("not yet implemented")
-                //                self.duplicate()
+                Logger.log(message: "Not Yet Implemeneted")
             }
         }
     }

@@ -67,7 +67,7 @@ class RangePhoto: Object, MyraObject {
                 self.ran = ran
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class ScheduleFooterTableViewCell: UITableViewCell, Theme {
+class ScheduleFooterTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var schedule: Schedule?
@@ -88,7 +88,7 @@ extension ScheduleFooterTableViewCell: UITextViewDelegate {
                     schedule.notes = textView.text
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
         if textView.text == "" {

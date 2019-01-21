@@ -28,7 +28,7 @@ extension CreateNewRUPViewController {
 
     // MARK: Styles
     func style() {
-        styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusBar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
+        styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusbar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
         StyleNavBarButton(button: cancelButton)
         styleMenu()
 
@@ -58,7 +58,7 @@ extension CreateNewRUPViewController {
         updateAmendmentEnabled = (!getPlanActions(for: rup).isEmpty)
 
         if updateAmendmentEnabled {
-            UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
+            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), delay: SettingsManager.shared.getShortAnimationDuration(), animations: {
                 self.planActions.alpha = 1
                 self.view.layoutIfNeeded()
             })
@@ -307,16 +307,16 @@ extension CreateNewRUPViewController {
         let defaultHeaderHeight: CGFloat = 60
         let showHeaderContentDelay = 0.2
 
-        UIView.animate(withDuration: shortAnimationDuration, delay: showHeaderContentDelay, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), delay: showHeaderContentDelay, animations: {
             self.showHeaderContent()
             self.view.layoutIfNeeded()
         })
 
-        UIView.animate(withDuration: shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.headerHeight.constant = defaultHeaderHeight
             self.view.layoutIfNeeded()
         }) { (done) in
-            UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
 
                 if UIDevice.current.orientation.isLandscape{
                     self.menuWidth.constant = self.landscapeMenuWidh
@@ -327,7 +327,7 @@ extension CreateNewRUPViewController {
                 }
                 self.view.layoutIfNeeded()
             }, completion: { (done) in
-                UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                     self.menuContainer.alpha = 1
                     self.view.layoutIfNeeded()
                 }, completion: { (done) in
@@ -342,13 +342,13 @@ extension CreateNewRUPViewController {
     }
 
     func closingAnimations() {
-        UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.menuWidth.constant = 0
             self.menuContainer.alpha = 0
             self.view.layoutIfNeeded()
         })
 
-        UIView.animate(withDuration: shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.hideHeaderContent()
             self.headerHeight.constant = 0
             self.view.layoutIfNeeded()

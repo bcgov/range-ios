@@ -16,14 +16,13 @@ class RealmManager {
     private init() {}
 
     func clearAllData() {
-
         do {
             let realm = try! Realm()
             try realm.write {
                 realm.deleteAll()
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 
@@ -78,7 +77,7 @@ class RealmManager {
                 RealmRequests.deleteObject(temp)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 
@@ -89,7 +88,7 @@ class RealmManager {
                 RealmRequests.deleteObject(temp)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 
@@ -108,7 +107,7 @@ class RealmManager {
                 RealmRequests.deleteObject(temp)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 

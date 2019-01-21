@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 import DatePicker
 
-class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
+class MonitoringAreaCustomDetailsTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var mode: FormMode = .View
@@ -75,7 +75,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
                         a.readinessMonth = month
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.autofill()
             }
@@ -199,7 +199,7 @@ class MonitoringAreaCustomDetailsTableViewCell: UITableViewCell, Theme {
             let temp = realm.objects(PlantCommunity.self).filter("localId = %@", a.localId).first!
             self.plantCommunity = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
     
@@ -214,7 +214,7 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITextViewDelegate {
                 a.readinessNotes = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 }

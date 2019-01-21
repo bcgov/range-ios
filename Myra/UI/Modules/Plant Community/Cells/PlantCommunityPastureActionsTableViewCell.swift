@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
+class PlantCommunityPastureActionsTableViewCell: BaseTableViewCell {
 
     // MARK: Variables
     var mode: FormMode = .View
@@ -42,7 +42,7 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
             }
             self.plantCommunity = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         updateTableHeight()
     }
@@ -71,7 +71,7 @@ class PlantCommunityPastureActionsTableViewCell: UITableViewCell, Theme {
             let temp = realm.objects(PlantCommunity.self).filter("localId = %@", p.localId).first!
             self.plantCommunity = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 

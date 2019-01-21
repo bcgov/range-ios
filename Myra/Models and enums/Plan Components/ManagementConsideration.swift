@@ -53,7 +53,7 @@ class ManagementConsideration: Object {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -72,7 +72,7 @@ class ManagementConsideration: Object {
                 }
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

@@ -116,11 +116,11 @@ class Feedback: NSObject {
     static func show(in vc: UIViewController) {
         let view: FeedbackView = UIView.fromNib()
         removeButton()
-        view.present(in: vc)
+        view.initialize()
     }
 
     static func send(feedback: FeedbackElement, completion: @escaping (_ success: Bool)->Void) {
-        guard let endpoint = URL(string: Constants.API.feedbackPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.feedbackPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         API.post(endpoint: endpoint, params: feedback.toDictionary()) { (response) in

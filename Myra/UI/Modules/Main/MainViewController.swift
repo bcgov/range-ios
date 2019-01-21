@@ -10,108 +10,160 @@ import UIKit
 
 class MainViewController: BaseViewController {
 
-    @IBOutlet weak var container: UIView!
-
+    // MARK: Variables
     var currentChildVC: UIViewController?
-
     var nextChildVC: UIViewController?
 
-    var loginDisplayed: Bool = false
-    
+    // new variables. the above vars should not be necessary after new presentation stategy has been implemented.
+    let presentationDuration = 0.3
+    let flipDuration: Double = 0.4
+
+    var currentViewController: UIViewController?
+    var previousViewControllers: [UIViewController] = [UIViewController]()
+
+    var leftTransitionAnimation: UIView.AnimationOptions = .curveEaseOut
+    var rightTransitionAnimation: UIView.AnimationOptions = .curveEaseOut
+
+    var transitionOptions: UIView.AnimationOptions = [.showHideTransitionViews, .transitionFlipFromLeft]
+
+    var initialTransitionOptions: UIView.AnimationOptions = [.curveEaseIn]
+
+    // MARK Outlets
+    @IBOutlet weak var body: UIView!
+    @IBOutlet weak var innerNavBar: UIView!
+    @IBOutlet weak var navBar: UIView!
+    @IBOutlet weak var pageTitle: UILabel!
+    @IBOutlet weak var navBarBackButton: UIButton!
+    @IBOutlet weak var backIcon: UIImageView!
+    @IBOutlet weak var navBarHeight: NSLayoutConstraint!
+
+    // MARL: VC Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         chooseInitialView()
+        setStatusBarAppearanceLight()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        styleNavBar()
+    }
+
+    @IBAction func navBackAction(_ sender: UIButton) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.goBack()
+        }
+    }
+    
+    func styleNavBar() {
+        self.navBar.backgroundColor = Colors.primary
+        self.innerNavBar.backgroundColor = Colors.primary
+        self.pageTitle.font = defaultNavBarTitleFont()
+        self.pageTitle.textColor = UIColor.white
+        self.backIcon.image = UIImage(named: "back")
+        addShadow(to: navBar.layer, opacity: 0.8, height: 2)
     }
 }
 
 extension MainViewController {
-    
-    func chooseInitialView() {
-        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
-            print("******")
-            print(last)
-            print("******")
+    // MARK: Nav Bar
+    func hideNav() {
+        self.navBarBackButton.alpha = self.invisibleAlpha
+        self.backIcon.alpha = self.invisibleAlpha
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: presentationDuration) {
+            self.pageTitle.isHidden = true
+            self.navBarHeight.constant = 0
+            self.view.layoutIfNeeded()
         }
-        if let _ = RealmManager.shared.getLastSyncDate() {
-            // Go to home page
-            showHomePage()
+    }
+
+    func showNav() {
+        UIView.animate(withDuration: presentationDuration, animations: {
+            self.pageTitle.isHidden = false
+            self.navBarHeight.constant = 80
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            self.navBarBackButton.alpha = self.visibleAlpha
+            self.backIcon.alpha = self.visibleAlpha
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    func setNav(title: String) {
+        UIView.animate(withDuration: (presentationDuration/2), animations: {
+            self.pageTitle.isHidden = true
+            self.view.layoutIfNeeded()
+        }) { (done) in
+            self.pageTitle.text = title
+            self.view.layoutIfNeeded()
+            UIView.animate(withDuration: self.presentationDuration, animations: {
+                self.pageTitle.isHidden = false
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+
+    func goBack() {
+        transitionOptions = [.showHideTransitionViews, rightTransitionAnimation]
+        removeCurrentVC()
+    }
+
+    func goHome() {
+        if let current = previousViewControllers.popLast() {
+            previousViewControllers.removeAll()
+            remove(asChildViewController: current)
+            showHome()
+        }
+    }
+
+    // MARK: Adding and removing viewControllers mechanic
+    func show(viewController: UIViewController, addToStack: Bool? = true) {
+        if let current = self.currentViewController {
+
+            /* Handle VCs that require special care before dismissal*/
+            if let home = current as? HomeViewController {
+                home.endChangeListener()
+            }
+
+            self.view.layoutIfNeeded()
+            self.addChild(viewController)
+            viewController.view.frame = self.body.bounds
+            viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.body.addSubview(viewController.view)
+            viewController.didMove(toParent: self)
+
+            UIView.transition(from: current.view, to: viewController.view, duration: flipDuration, options: transitionOptions) { (done) in
+                self.remove(asChildViewController: current)
+            }
+
         } else {
-            // last sync doesn't exist.
-            // Go to login page
-            showLoginPage()
+            self.addChild(viewController)
+            viewController.view.frame = self.body.bounds
+            viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.body.addSubview(viewController.view)
+            viewController.didMove(toParent: self)
         }
-    }
-    
-    func showLoginPage() {
-        let vm = ViewManager()
-        let loginVC = vm.login
-        loginVC.setup(parentReference: self)
-        self.loginDisplayed = true
-        add(asChildViewController: vm.login)
-    }
 
-    func showHomePage() {
-        let vm = ViewManager()
-        let home = vm.home
-        home.parentReference = self
-        home.presentedAfterLogin = loginDisplayed
-        add(asChildViewController: vm.home)
-    }
+        self.currentViewController = viewController
+        self.previousViewControllers.append(viewController)
 
-
-    //// Unused
-    func showSelectAgreementPage() {
-        let vm = ViewManager()
-        let selectAgreement = vm.selectAgreement
-        selectAgreement.setup(callBack: { closed in
-            self.showHomePage()
-        })
-        add(asChildViewController: selectAgreement)
-    }
-
-    func showPlanForm(for plan: Plan, mode: FormMode) {
-        let vm = ViewManager()
-        let createPage = vm.createRUP
-        createPage.setup(rup: plan, mode: mode) { (close, cancel) in
-            self.showHomePage()
+        /* Choose when to show / hide navigation */
+        if viewController is LoginViewController || viewController is HomeViewController || viewController is CreateNewRUPViewController {
+            self.hideNav()
+        } else {
+            self.showNav()
         }
-        add(asChildViewController: createPage)
-    }
-    ////
 
-}
-
-extension MainViewController {
-    func add(asChildViewController viewController: UIViewController) {
-        self.currentChildVC = viewController
-        addChild(viewController)
-        self.container.addSubview(viewController.view)
-        viewController.view.frame = self.container.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParent: self)
-    }
-
-    func removeSubviews() {
-        let subviews = container.subviews
-        for sub in subviews {
-            sub.removeFromSuperview()
-        }
-        self.chooseInitialView()
     }
 
     func removeCurrentVC() {
-        guard let currentChildVC = self.currentChildVC else {return}
-        remove(asChildViewController: currentChildVC)
-    }
-
-    func removeCurrentVCAndReload() {
-        guard let currentChildVC = self.currentChildVC else {return}
-        remove(asChildViewController: currentChildVC)
-        self.chooseInitialView()
+        if let current = self.previousViewControllers.popLast() {
+            remove(asChildViewController: current)
+            if let previous = self.previousViewControllers.popLast() {
+                show(viewController: previous)
+            }
+        }
     }
 
     func remove(asChildViewController viewController: UIViewController) {

@@ -141,7 +141,7 @@ class Agreement: Object, MyraObject {
                 self.plans.append(plan)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

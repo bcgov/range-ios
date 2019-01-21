@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
+class PlanCommunityBasicInfoTableViewCell: BaseTableViewCell {
 
     // MARK: Outlets
     @IBOutlet weak var aspectHeader: UILabel!
@@ -52,29 +52,6 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
     }
 
     // MARK: Outlet Actions
-    /*
-    @IBAction func aspectAction(_ sender: UIButton) {
-        guard let pc = self.plantCommunity, let parent = self.parentReference else {return}
-        let vm = ViewManager()
-        let textEntry = vm.textEntry
-        textEntry.setup(on: parent, header: "Aspect") { (accepted, value) in
-            if accepted {
-                do {
-                    let realm = try Realm()
-                    let aCommunity = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
-                    try realm.write {
-                        aCommunity.aspect = value
-                    }
-                    self.plantCommunity = aCommunity
-                } catch _ {
-                    fatalError()
-                }
-                self.autofill()
-            }
-        }
-    }
-    */
-
     @IBAction func approvedByMinisterInfo(_ sender: UIButton) {
         guard let p = parentReference else {return}
         p.showTooltip(on: sender, title: "Approved by Minister", desc: InfoTips.approvedByMinister)
@@ -88,7 +65,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                  plantCommunity.approvedByMinister = sender.isOn
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -102,7 +79,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
             }
             self.plantCommunity = aCommunity
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         self.autofill()
     }
@@ -122,7 +99,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                         pc.elevation = selection.display
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.autofill()
             }
@@ -154,7 +131,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                             pc.purposeOfAction = selection.display
                         }
                     } catch _ {
-                        fatalError()
+                        Logger.fatalError(message: LogMessages.databaseWriteFailure)
                     }
                     self.autofill()
                     self.reloadPlantCommunityActions() 
@@ -172,7 +149,7 @@ class PlanCommunityBasicInfoTableViewCell: UITableViewCell, Theme {
                 pc.communityURL = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -266,7 +243,7 @@ extension PlanCommunityBasicInfoTableViewCell: UITextViewDelegate {
                     pc.notes = text
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
 

@@ -23,7 +23,7 @@ public enum APIError: LocalizedDescriptionError {
     case noNetworkConnectivity
     case somethingHappened(message: String)
     case requestFailed(error: Error)
-
+    
     var localizedDescription: String {
         switch self {
         case .somethingHappened(message: let message):
@@ -37,40 +37,32 @@ public enum APIError: LocalizedDescriptionError {
 }
 
 class API {
-
+    
     typealias APIRequestCompleted = (_ records: [String:Any]?, _ error: APIError?) -> ()
-
-    static let authServices: AuthServices = {
-        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                            idpHint: Constants.SSO.idpHint)
-    }()
-
+    
     static func headers() -> HTTPHeaders {
-        if let creds = authServices.credentials {
-            let token = creds.accessToken
+        if let token = Auth.getAccessToken() {
             return ["Authorization": "Bearer \(token)"]
         } else {
             return ["Content-Type" : "application/json"]
         }
     }
-
+    
     /*************************************************************************************************************/
-
+    
     // MARK: Put Post and Get requests
     static func put(endpoint: URL, params: [String:Any], completion: @escaping (_ response: DataResponse<Any>? ) -> Void) {
         var request = URLRequest(url: endpoint)
         request.httpMethod = HTTPMethod.put.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        if let creds = API.authServices.credentials {
-            let token = creds.accessToken
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if let token = Auth.getAccessToken() {
+             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-
+        
         let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
         request.httpBody = data
-
-
+        
+        
         // Manual 20 second timeout for each call
         var completed = false
         var timedOut = false
@@ -81,14 +73,14 @@ class API {
                 return completion(nil)
             }
         }
-
+        
         Alamofire.request(request).responseJSON { response in
             completed = true
             if timedOut {return}
             return completion(response)
         }
     }
-
+    
     static func post(endpoint: URL, params: [String:Any], completion: @escaping (_ response: [String:Any]?) -> Void) {
         // Manual 20 second timeout for each call
         var completed = false
@@ -107,16 +99,16 @@ class API {
             if timedOut {return}
             API.process(response: response, completion: { (processedResponse, error) in
                 guard let processedResponse = processedResponse, error == nil else {
-                    print("POST call rejected:")
-                    print("Endpoint: \(endpoint)")
-                    print("Error: \(error?.localizedDescription ?? "Unknown")")
+                    Logger.log(message: "POST call rejected:")
+                    Logger.log(message: "Endpoint: \(endpoint)")
+                    Logger.log(message: "Error: \(error?.localizedDescription ?? "Unknown")")
                     return completion(nil)
                 }
                 return completion(processedResponse)
             })
         }
     }
-
+    
     static func get(endpoint: URL, completion: @escaping (_ response: JSON?) -> Void) {
         // Manual 20 second timeout for each call
         var completed = false
@@ -134,48 +126,47 @@ class API {
             if response.result.description == "SUCCESS", let value = response.result.value {
                 let json = JSON(value)
                 if let error = json["error"].string {
-                    print("GET call rejected:")
-                    print("Endpoint: \(endpoint)")
-                    print("Error: \(error)")
+                    Logger.log(message: "GET call rejected:")
+                    Logger.log(message: "Endpoint: \(endpoint)")
+                    Logger.log(message: "Error: \(error)")
                     return completion(nil)
                 } else {
                     // Success
                     return completion(json)
                 }
             } else {
-                print("GET call failed:")
-                print("Endpoint: \(endpoint)")
+                Logger.log(message: "GET call failed:")
+                Logger.log(message: "Endpoint: \(endpoint)")
                 return completion(nil)
             }
         }
     }
-
+    
     private static func process(response: Alamofire.DataResponse<Any>, completion: APIRequestCompleted) {
         switch response.result {
         case .success(let value):
             if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
                 let err = APIError.somethingHappened(message: "Failed while processing server response")
-                // let err = APIError.somethingHappened(message: "\(String(describing: json["error"] as? String))")
-                print("Request Failed, error = \(err.localizedDescription)")
-                print(response.value)
+                Logger.log(message: "Request Failed, error = \(err.localizedDescription)")
+                Logger.log(message: "\(response.value ?? "")")
                 return completion(nil, err)
             }
-
+            
             return completion(value as? [String: Any], nil)
         case .failure(let error):
             return completion(nil, APIError.requestFailed(error: error))
         }
     }
     /*************************************************************************************************************/
-
+    
     // MARK: API Calls
-
+    
     // MARK: User Info
     static func getUserInfo(completion: @escaping(_ userInfo: UserInfo?) -> Void) {
-        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL) else {
             return completion(nil)
         }
-
+        
         API.get(endpoint: endpoint) { (jsonResponse) in
             guard let infoJSON = jsonResponse else { return completion(nil) }
             if let isNull = infoJSON.null {
@@ -185,10 +176,10 @@ class API {
             }
         }
     }
-
+    
     static func updateUserInfo(firstName: String, lastName: String, completion: @escaping (_ success: Bool) -> Void) {
         // TODO: Change to appropriate Endpoint when available
-        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.userInfoPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         var params: [String:Any]  = [String:Any]()
@@ -202,13 +193,13 @@ class API {
             }
         }
     }
-
+    
     // MARK: Agreement
     static func getAgreements(completion: @escaping (_ success: Bool) -> Void) {
-        guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.agreementPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
-
+        
         API.get(endpoint: endpoint) { (agreementsJSON) in
             guard let agreementsJSON = agreementsJSON else {return completion(false)}
             var agreements: [Agreement] = [Agreement]()
@@ -223,26 +214,26 @@ class API {
             }
         }
     }
-
+    
     // MARK: Reference
     static func getReferenceData(completion: @escaping (_ referenceObjects: [Object]?) -> Void) {
-        guard let endpoint = URL(string: Constants.API.referencePath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: Constants.API.referencePath, relativeTo: Constants.API.baseURL) else {
             return completion(nil)
         }
-
+        
         API.get(endpoint: endpoint) { (referenceJSON) in
             guard let referenceJSON = referenceJSON else {return completion(nil)}
             return completion(Reference.shared.handleReference(json: referenceJSON))
         }
     }
-
+    
     // MARK: Plan
     static func getPlan(withRemoteId id: Int, completion: @escaping (_ plan: Plan?) -> Void) {
         let planPath = "\(Constants.API.planPath)\(id)"
-        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL) else {
             return completion(nil)
         }
-
+        
         API.get(endpoint: endpoint) { (planJSON) in
             guard let planJSON = planJSON else {return completion(nil)}
             let plan = Plan()
@@ -250,7 +241,7 @@ class API {
             return completion(plan)
         }
     }
-
+    
     static func refetch(plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         API.getPlan(withRemoteId: plan.remoteId) { (plan) in
             guard let new = plan, let old = RealmManager.shared.plan(withRemoteId: new.remoteId), let agreement = RealmManager.shared.agreement(withAgreementId: old.agreementId) else {
@@ -268,15 +259,15 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func setStatus(for plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         let id = plan.remoteId
         let planPath = "\(Constants.API.planPath)\(id)/status"
-
-        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL!) else {
+        
+        guard let endpoint = URL(string: planPath, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
-
+        
         var params: [String:Any]  = [String:Any]()
         params["statusId"] = plan.statusId
         API.put(endpoint: endpoint, params: params) { (response) in
@@ -287,7 +278,7 @@ class API {
             }
         }
     }
-
+    
     static func getStatus(for plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         API.getPlan(withRemoteId: plan.remoteId) { (downloadedPlan) in
             guard let downloadedPlan = downloadedPlan else {
@@ -298,20 +289,20 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(statusesFor plans: [Plan], completion: @escaping (_ success: Bool) -> Void) {
         let group = DispatchGroup()
         var hadFails = false
         for plan in plans {
             let localId = plan.localId
             group.enter()
-
+            
             guard let myPlan = RealmManager.shared.plan(withLocalId: localId) else {
                 hadFails = true
                 group.leave()
                 return
             }
-
+            
             API.setStatus(for: myPlan) { (success) in
                 if success, let refetchPlan = RealmManager.shared.plan(withLocalId: localId) {
                     refetchPlan.setShouldUpdateRemoteStatus(should: false)
@@ -322,16 +313,16 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             completion(!hadFails)
         }
     }
-
+    
     static func completeUpload(for plan: Plan, completion: @escaping (_ success: Bool) -> Void) {
         guard let myPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let path = "\(Constants.API.planPath)\(myPlan.remoteId)"
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         var params: [String:Any]  = [String:Any]()
@@ -344,7 +335,7 @@ class API {
             }
         }
     }
-
+    
     static func upload(plans: [Plan], completion: @escaping (_ success: Bool) -> ()) {
         let group = DispatchGroup()
         var hadFails: Bool = false
@@ -356,7 +347,7 @@ class API {
                 group.leave()
                 return
             }
-
+            
             API.upload(plan: myPlan) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading a plan")
@@ -365,27 +356,27 @@ class API {
                 group.leave() 
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     static func upload(plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
-
-        guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL!), let currentPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {
+        
+        guard let endpoint = URL(string: Constants.API.planPath, relativeTo: Constants.API.baseURL), let currentPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {
             return completion(false)
         }
-
+        
         var params = currentPlan.toDictionary()
         let localId = plan.localId
         params["agreementId"] = currentPlan.agreementId
-
+        
         API.post(endpoint: endpoint, params: params) { (response) in
             guard let response = response, let remoteId = response["id"] as? Int else {
                 return completion(false)
             }
-
+            
             guard let refetchedPlan = RealmManager.shared.plan(withLocalId: localId) else {
                 return completion(false)
             }
@@ -398,7 +389,7 @@ class API {
             })
         }
     }
-
+    
     static func uploadComponents(forPlan plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchPlan = RealmManager.shared.plan(withLocalId: plan.localId) else { return completion(false) }
         API.upload(pasturesIn: refetchPlan) { (uploadedPastures) in
@@ -423,11 +414,11 @@ class API {
                                                             }
                                                         })
                                                     } else {
-                                                         return completion(false)
+                                                        return completion(false)
                                                     }
                                                 })
                                             } else {
-                                                 return completion(false)
+                                                return completion(false)
                                             }
                                         })
                                     } else {
@@ -447,12 +438,12 @@ class API {
             }
         }
     }
-
+    
     // MARK: Invasive Plants
     static func upload(invasivePlants: InvasivePlants, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":planId"
         let path = Constants.API.invasivePlantsPath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = invasivePlants.toDictionary()
@@ -466,7 +457,7 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(invasivePlantsIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         if let invasivePlantsObject = refetchedPlan.invasivePlants.first {
@@ -485,7 +476,7 @@ class API {
     static func upload(managementConsideration: ManagementConsideration, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":planId"
         let path = Constants.API.managementConsideration.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = managementConsideration.toDictionary()
@@ -498,7 +489,7 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(managementConsiderations plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let group = DispatchGroup()
@@ -511,7 +502,7 @@ class API {
                 group.leave()
                 return
             }
-
+            
             upload(managementConsideration: myManagementConsideration, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading a Management Consideration")
@@ -520,7 +511,7 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
@@ -529,7 +520,7 @@ class API {
     static func upload(additionalRequirement: AdditionalRequirement, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":planId"
         let path = Constants.API.additionalRequirement.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = additionalRequirement.toDictionary()
@@ -542,7 +533,7 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(additionalRequirements plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let group = DispatchGroup()
@@ -555,7 +546,7 @@ class API {
                 group.leave()
                 return
             }
-
+            
             upload(additionalRequirement: myAdditionalRequirement, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading an Additional Consideration")
@@ -564,7 +555,7 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
@@ -573,7 +564,7 @@ class API {
     static func upload(pasture: Pasture, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":id"
         let path = Constants.API.pasturePath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         var params = pasture.toDictionary()
@@ -583,14 +574,14 @@ class API {
             guard let response = response, let remoteId = response["id"] as? Int, let refetchedPasture = RealmManager.shared.pasture(withLocalId: localId) else {
                 return completion(false)
             }
-
+            
             refetchedPasture.setRemoteId(id: remoteId)
             upload(plantCommunitiesIn: refetchedPasture, forPlanRemoteId: planRemoteId, completion: { (success) in
-                 return completion(success)
+                return completion(success)
             })
         }
     }
-
+    
     static func upload(pasturesIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         let group = DispatchGroup()
@@ -603,7 +594,7 @@ class API {
                 group.leave()
                 return
             }
-
+            
             upload(pasture: myPasture, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading a pasture")
@@ -612,19 +603,19 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Plant Community
     static func upload(plantCommunity: PlantCommunity, forPastureRemoteId pastureRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let planIdKey = ":planId"
         let pastureIdKey = ":pastureId"
         let path1 = Constants.API.plantCommunityPath.replacingOccurrences(of: planIdKey, with: "\(planRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let params = plantCommunity.toDictionary()
@@ -649,10 +640,10 @@ class API {
                     return completion(false)
                 }
             })
-
+            
         }
     }
-
+    
     static func upload(plantCommunitiesIn pasture: Pasture, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedObject = RealmManager.shared.pasture(withLocalId: pasture.localId) else {return completion(false)}
         let group = DispatchGroup()
@@ -660,27 +651,27 @@ class API {
         for plantCommunity in refetchedObject.plantCommunities {
             let localId = plantCommunity.localId
             group.enter()
-
+            
             guard let myPlantCommunity = RealmManager.shared.plantCommunity(withLocalId: localId) else {
                 hadFails = true
                 group.leave()
                 return
             }
-
+            
             upload(plantCommunity: myPlantCommunity, forPastureRemoteId: refetchedObject.remoteId, forPlanRemoteId: planRemoteId) { (success) in
-                    if !success {
-                        Banner.shared.show(message: "ERROR while uploading a plant community")
-                        hadFails = true
-                    }
-                    group.leave()
+                if !success {
+                    Banner.shared.show(message: "ERROR while uploading a plant community")
+                    hadFails = true
+                }
+                group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Monitoring Areas
     static func upload(monitoringArea: MonitoringArea, forPlantCommunityRemoteId plantCommunityRemoteId: Int, forPastureRemoteId pastureRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let planIdKey = ":planId"
@@ -689,7 +680,7 @@ class API {
         let path2 = Constants.API.monitoringAreaPath.replacingOccurrences(of: planIdKey, with: "\(planRemoteId)", options: .literal, range: nil)
         let path1 = path2.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: plantCommunityIdKey, with: "\(plantCommunityRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let params = monitoringArea.toDictionary()
@@ -702,7 +693,7 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(monitoringAreasIn plantCommunity: PlantCommunity, forPastureRemoteId pastureRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedObject = RealmManager.shared.plantCommunity(withLocalId: plantCommunity.localId) else {return completion(false)}
         let group = DispatchGroup()
@@ -710,13 +701,13 @@ class API {
         for monitoringArea in refetchedObject.monitoringAreas {
             let localId = monitoringArea.localId
             group.enter()
-
+            
             guard let myMonitoringArea = RealmManager.shared.monitoringArea(withLocalId: localId) else {
                 hadFails = true
                 group.leave()
                 return
             }
-
+            
             upload(monitoringArea: myMonitoringArea, forPlantCommunityRemoteId: refetchedObject.remoteId, forPastureRemoteId: pastureRemoteId, forPlanRemoteId: planRemoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading a monitoring area")
@@ -725,12 +716,12 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Indicator Plants
     static func upload(indicatorPlant: IndicatorPlant, forPlantCommunityRemoteId plantCommunityRemoteId: Int, forPastureRemoteId pastureRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let planIdKey = ":planId"
@@ -739,7 +730,7 @@ class API {
         let path2 = Constants.API.indicatorPlantPath.replacingOccurrences(of: planIdKey, with: "\(planRemoteId)", options: .literal, range: nil)
         let path1 = path2.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: plantCommunityIdKey, with: "\(plantCommunityRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let params = indicatorPlant.toDictionary()
@@ -752,7 +743,7 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(indicatorPlantsIn plantCommunity: PlantCommunity, forPastureRemoteId pastureRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedObject = RealmManager.shared.plantCommunity(withLocalId: plantCommunity.localId) else {return completion(false)}
         let group = DispatchGroup()
@@ -760,13 +751,13 @@ class API {
         for indicatorPlant in refetchedObject.getIndicatorPlants() {
             let localId = indicatorPlant.localId
             group.enter()
-
+            
             guard let myIndicatorPlant = RealmManager.shared.indicatorPlant(withLocalId: localId) else {
                 hadFails = true
                 group.leave()
                 return
             }
-
+            
             upload(indicatorPlant: myIndicatorPlant, forPlantCommunityRemoteId: refetchedObject.remoteId, forPastureRemoteId: pastureRemoteId, forPlanRemoteId: planRemoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading an Indicator Plant")
@@ -775,12 +766,12 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Pasture Actions
     static func upload(plantCommunityAction: PastureAction, forPlantCommunityRemoteId plantCommunityRemoteId: Int, forPastureRemoteId pastureRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let planIdKey = ":planId"
@@ -789,11 +780,11 @@ class API {
         let path2 = Constants.API.plantCommunityActionPath.replacingOccurrences(of: planIdKey, with: "\(planRemoteId)", options: .literal, range: nil)
         let path1 = path2.replacingOccurrences(of: pastureIdKey, with: "\(pastureRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: plantCommunityIdKey, with: "\(plantCommunityRemoteId)", options: .literal, range: nil)
-
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
-
+        
         let params = plantCommunityAction.toDictionary()
         let localId = plantCommunityAction.localId
         API.post(endpoint: endpoint, params: params) { (response) in
@@ -804,7 +795,7 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(plantCommunityActionsIn plantCommunity: PlantCommunity, forPastureRemoteId pastureRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedObject = RealmManager.shared.plantCommunity(withLocalId: plantCommunity.localId) else {return completion(false)}
         let group = DispatchGroup()
@@ -812,13 +803,13 @@ class API {
         for action in refetchedObject.pastureActions {
             let localId = action.localId
             group.enter()
-
+            
             guard let myAction = RealmManager.shared.pastureAction(withLocalId: localId) else {
                 hadFails = true
                 group.leave()
                 return
             }
-
+            
             upload(plantCommunityAction: myAction, forPlantCommunityRemoteId: refetchedObject.remoteId, forPastureRemoteId: pastureRemoteId, forPlanRemoteId: planRemoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading an Plant Community Action")
@@ -827,17 +818,17 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Schedule
     static func upload(schedule: Schedule, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":id"
         let path = Constants.API.schedulePath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
         var params = schedule.toDictionary()
@@ -851,7 +842,7 @@ class API {
             return completion(true)
         }
     }
-
+    
     static func upload(schedulesIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         if refetchedPlan.schedules.count == 0 {return completion(true)}
@@ -859,14 +850,14 @@ class API {
         var hadFails = false
         for schedule in refetchedPlan.schedules {
             let localId = schedule.localId
-             group.enter()
+            group.enter()
             
             guard let mySchedule = RealmManager.shared.schedule(withLocalId: localId) else {
                 hadFails = true
                 group.leave()
                 return
             }
-
+            
             upload(schedule: mySchedule, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading a schedule")
@@ -875,21 +866,21 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Ministers issues
     static func upload(ministersIssue: MinisterIssue, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let pathKey = ":id"
         let path = Constants.API.issuePath.replacingOccurrences(of: pathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return completion(false)
         }
-
+        
         var params = ministersIssue.toDictionary()
         let localId = ministersIssue.localId
         params["plan_id"] = planRemoteId
@@ -904,7 +895,7 @@ class API {
             })
         }
     }
-
+    
     static func upload(ministersIssuesIn plan: Plan, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId) else {return completion(false)}
         if refetchedPlan.ministerIssues.count == 0 {return completion(true)}
@@ -918,7 +909,7 @@ class API {
                 group.leave()
                 return
             }
-
+            
             upload(ministersIssue: myIssue, forPlanRemoteId: refetchedPlan.remoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading a ministers issue")
@@ -927,20 +918,20 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Ministers issue action
     static func upload(ministerIssueAction: MinisterIssueAction, forIssueRemoteId issueRemoteId: Int, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         let issuePathKey = ":issueId?"
         let planPathKey = ":planId?"
         let path1 = Constants.API.actionPath.replacingOccurrences(of: issuePathKey, with: "\(issueRemoteId)", options: .literal, range: nil)
         let path = path1.replacingOccurrences(of: planPathKey, with: "\(planRemoteId)", options: .literal, range: nil)
-
-        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL!) else {
+        
+        guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
         let localId = ministerIssueAction.localId
@@ -951,9 +942,9 @@ class API {
             refetchedAction.setRemoteId(id: remoteId)
             return completion(true)
         }
-
+        
     }
-
+    
     static func upload(actionsIn ministerIssue: MinisterIssue, forPlanRemoteId planRemoteId: Int, completion: @escaping (_ success: Bool) -> ()) {
         guard let refetchIssue = RealmManager.shared.ministersIssue(withLocalId: ministerIssue.localId) else {return completion(false)}
         if refetchIssue.actions.count == 0 {return completion(true)}
@@ -967,7 +958,7 @@ class API {
                 group.leave()
                 return
             }
-
+            
             upload(ministerIssueAction: myAction, forIssueRemoteId: refetchIssue.remoteId, forPlanRemoteId: planRemoteId) { (success) in
                 if !success {
                     Banner.shared.show(message: "ERROR while uploading a ministers issue action")
@@ -976,21 +967,21 @@ class API {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             return completion(!hadFails)
         }
     }
-
+    
     // MARK: Sync
     static func sync(completion: @escaping (_ success: Bool) -> Void, progress: @escaping (_ text: String) -> Void) {
         guard let r = Reachability(), r.connection != .none else {
             progress("Failed while verifying connection")
             return completion(false)
         }
-
+        
         AutoSync.shared.endListener()
-
+        
         API.uploadContent(completion: { (uploaded) in
             if uploaded {
                 progress("Downloading Reference Data")
@@ -1028,10 +1019,10 @@ class API {
             }
         }, progress: progress)
     }
-
+    
     static func uploadContent(completion: @escaping (_ success: Bool) -> Void, progress: @escaping (_ text: String) -> Void) {
         let dispatchGroup = DispatchGroup()
-
+        
         // Update remote statuses
         dispatchGroup.enter()
         let plansWithUpdatesStatuses = RUPManager.shared.getRUPsWithUpdatedLocalStatus()
@@ -1047,7 +1038,7 @@ class API {
                 }
             }
         }
-
+        
         // Upload outbox plans
         dispatchGroup.enter()
         let outboxPlans = RUPManager.shared.getOutboxRups()
@@ -1063,7 +1054,7 @@ class API {
                 }
             }
         }
-
+        
         dispatchGroup.enter()
         let draftPlans = RUPManager.shared.getDraftRupsValidForUpload()
         progress("Uploading local drafts")
@@ -1078,7 +1069,7 @@ class API {
                 }
             }
         }
-
+        
         dispatchGroup.notify(queue: .main) {
             return completion(true)
         }

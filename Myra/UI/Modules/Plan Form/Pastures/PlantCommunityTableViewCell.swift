@@ -30,12 +30,8 @@ class PlantCommunityTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
     @IBAction func detailsAction(_ sender: UIButton) {
-        guard let community = self.plantCommunity, let p = self.pasture, let parentCell = self.parentCellReference else {return}
-        let grandParent = self.parentViewController as! CreateNewRUPViewController
-        grandParent.showPlantCommunity(pasture: p, plantCommunity: community) { (done) in
-            print("validate here")
-            parentCell.updateTableHeight()
-        }
+        guard let plantCommunity = self.plantCommunity, let pasture = self.pasture, let plan = self.plan, let presenter = self.getPresenter() else {return}
+        presenter.showPlanCommunityDetails(for: plantCommunity, of: pasture, in: plan, mode: self.mode)
     }
 
     @IBAction func optionsAction(_ sender: UIButton) {
@@ -58,17 +54,17 @@ class PlantCommunityTableViewCell: BaseFormCell {
                 }, noButtonTapped: {})
 
             case .Copy:
-                print("not yet implemented")
-                //                self.duplicate()
+                Logger.log(message: "Not Yet Implemeneted")
             }
         }
     }
 
     // MARK: Setup
-    func setup(mode: FormMode, plantCommunity: PlantCommunity, pasture: Pasture, parentCellReference: PastureTableViewCell) {
+    func setup(mode: FormMode, plantCommunity: PlantCommunity, pasture: Pasture, plan: Plan, parentCellReference: PastureTableViewCell) {
         self.mode = mode
         self.plantCommunity = plantCommunity
         self.pasture = pasture
+        self.plan = plan
         self.parentCellReference = parentCellReference
         autofill()
         style()

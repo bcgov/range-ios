@@ -22,14 +22,15 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
     @IBOutlet weak var tableView: UITableView!
 
     @IBAction func addAction(_ sender: UIButton) {
+        guard let plan = self.plan else {return}
         do {
             let realm = try Realm()
             try realm.write {
-                rup.managementConsiderations.append(ManagementConsideration())
+                plan.managementConsiderations.append(ManagementConsideration())
                 NewElementAddedBanner.shared.show()
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         updateTableHeight(scrollToBottom: true)
     }
@@ -51,7 +52,7 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
 
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
-        self.rup = rup
+        self.plan = rup
         style()
         autoFill()
         tableHeight.constant = computeHeight()
@@ -92,8 +93,9 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
     }
 
     func computeHeight() -> CGFloat {
+        guard let plan = self.plan else {return 0}
         var h: CGFloat = 0.0
-        for _ in rup.managementConsiderations {
+        for _ in plan.managementConsiderations {
             h = h + ManagementConsiderationTableViewCell.cellHeight
         }
         return h
@@ -120,12 +122,14 @@ extension ManagementConsiderationsTableViewCell:  UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getManagementConsiderationCell(indexPath: indexPath)
-        cell.setup(mode: mode, object: self.rup.managementConsiderations[indexPath.row], parentCell: self)
+        guard let plan = self.plan else {return cell}
+        cell.setup(mode: mode, object: plan.managementConsiderations[indexPath.row], plan: plan, parentCell: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rup.managementConsiderations.count
+        guard let plan = self.plan else {return 0}
+        return plan.managementConsiderations.count
     }
 }
 

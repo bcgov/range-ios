@@ -79,7 +79,18 @@ class Pasture: Object, MyraObject {
                 self.remoteId = id
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setName(string: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                self.name = string
+            }
+        } catch {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -89,7 +100,7 @@ class Pasture: Object, MyraObject {
     }
 
     // MARK: Export
-    func copy() -> Pasture {
+    func clone() -> Pasture {
         let pasture = Pasture()
         pasture.remoteId = self.remoteId
         pasture.name = self.name

@@ -11,18 +11,18 @@ import Realm
 import RealmSwift
 import DatePicker
 
-class ScheduleObjectTableViewCell: BaseFormCell {
-
+class ScheduleElementTableViewCell: BaseFormCell {
+    
     // Mark: Constants
     static let cellHeight = 57.0
     // MARK: Variables
     var scheduleObject: ScheduleObject?
     var scheduleViewReference: ScheduleViewController?
-
+    
     var inputFields: [UITextField] = [UITextField]()
     var computedFields: [UITextField] = [UITextField]()
     var fields: [UITextField] = [UITextField]()
-
+    
     // MARK: Outlets
     @IBOutlet weak var fieldHeight: NSLayoutConstraint!
     @IBOutlet weak var pasture: UITextField!
@@ -34,17 +34,17 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     @IBOutlet weak var graceDays: UITextField!
     @IBOutlet weak var crownAUM: UITextField!
     @IBOutlet weak var pldAUM: UITextField!
-
+    
     @IBOutlet weak var options: UIButton!
     @IBOutlet weak var pastureButton: UIButton!
     @IBOutlet weak var liveStockButton: UIButton!
     @IBOutlet weak var dateInButton: UIButton!
     @IBOutlet weak var dateOutButton: UIButton!
-
+    
     // Dropdowns
     @IBOutlet weak var pastureDropDown: UIButton!
     @IBOutlet weak var liveStockDropDown: UIButton!
-
+    
     // MARK: Outlet Acions
     @IBAction func editGraceDays(_ sender: UITextField) {
         guard let entry = scheduleObject, let text = sender.text else {return}
@@ -57,7 +57,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     entry.graceDays = Int(text)!
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
             self.update()
         } else {
@@ -69,23 +69,23 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                         entry.graceDays = p.graceDays
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.update()
             }
         }
     }
-
+    
     @IBAction func lookupPastures(_ sender: Any) {
-        guard let scheduleVC = self.scheduleViewReference else {return}
+        guard let plan = self.plan, let scheduleVC = self.scheduleViewReference else {return}
         let vm = ViewManager()
         let lookup = vm.lookup
-        lookup.setup(objects: Options.shared.getPasturesLookup(rup: rup), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
+        lookup.setup(objects: Options.shared.getPasturesLookup(rup: plan), onVC: scheduleVC, onButton: pastureDropDown) { (selected, obj) in
             if selected, let object = obj {
                 // set This object's pasture object.
                 // this function also update calculations for pld and crown fields
-                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: object.value, rup: self.rup)
-
+                RUPManager.shared.setPastureOn(scheduleObject: self.scheduleObject!, pastureName: object.value, rup: plan)
+                
                 self.update()
                 // Clear sort headers
                 scheduleVC.clearSort()
@@ -97,7 +97,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                  // this will hightlight cell
                  self.scheduleObject?.setIsNew(to: true)
                  }
-                */
+                 */
                 scheduleVC.hidepopup(vc: lookup)
                 scheduleVC.dismissPopOver()
             } else {
@@ -105,7 +105,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             }
         }
     }
-
+    
     @IBAction func lookupLiveStockType(_ sender: Any) {
         guard let scheduleVC = self.scheduleViewReference, let object = self.scheduleObject else {return}
         let vm = ViewManager()
@@ -122,10 +122,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                             object.liveStockTypeName = selectedType.display
                         }
                     } catch _ {
-                        fatalError()
+                        Logger.fatalError(message: LogMessages.databaseWriteFailure)
                     }
                 } else {
-                    print("FOUND ERROR IN lookupLiveStockType()")
+                    Logger.log(message: "Error in Schedule cell's lookupLiveStockType()")
                 }
                 RealmRequests.updateObject(object)
                 self.update()
@@ -138,7 +138,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             }
         }
     }
-
+    
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
         guard let scheduleVC = self.scheduleViewReference, let object = self.scheduleObject else {return}
         guard let curr = numberOfAniamls.text else {return}
@@ -150,7 +150,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     object.numberOfAnimals = Int(curr)!
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         } else {
             numberOfAniamls.textColor = UIColor.red
@@ -165,17 +165,17 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                     object.setIsNew(to: true)
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
     }
-
+    
     @IBAction func numberOfAnimalsSelected(_ sender: UITextField) {
         guard let scheduleVC = self.scheduleViewReference else {return}
         scheduleVC.clearSort()
         update()
     }
-
+    
     @IBAction func dateInAction(_ sender: Any) {
         dismissKeyboard()
         guard let scheduleVC = self.scheduleViewReference else {return}
@@ -183,7 +183,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         guard let sched = scheduleVC.schedule,
             let minDate = DatePickerHelper.shared.dateFrom(day: 1, month: 1, year: sched.year),
             let maxDate = DatePickerHelper.shared.dateFrom(day: 31, month: 12, year: sched.year) else {return}
-
+        
         if let entry = self.scheduleObject, let dateIn = entry.dateIn {
             picker.setup(beginWith: dateIn, min: minDate, max: maxDate) { (selected, date) in
                 if let date = date {
@@ -201,11 +201,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 }
             }
         }
-
+        
         picker.displayPopOver(on: sender as! UIButton, in: scheduleVC, completion: {})
-
+        
     }
-
+    
     @IBAction func dateOutAction(_ sender: Any) {
         dismissKeyboard()
         guard let scheduleVC = self.scheduleViewReference else {return}
@@ -225,7 +225,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             if let s = scheduleObject, let startDate = s.dateIn {
                 minDate = startDate
             }
-
+            
             picker.setup(min: minDate, max: maxDate) { (selected, date) in
                 if let date = date {
                     DispatchQueue.main.async {
@@ -234,10 +234,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 }
             }
         }
-
+        
         picker.displayPopOver(on: sender as! UIButton, in: scheduleVC, completion: {})
     }
-
+    
     @IBAction func optionsAction(_ sender: UIButton) {
         guard let scheduleVC = scheduleViewReference else {return}
         let vm = ViewManager()
@@ -252,25 +252,25 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             }
         }
     }
-
+    
     // MARK: UITextField Fix
-
+    
     // for grace days
     @IBAction func highlightGraceDays(_ sender: UITextField) {
         perform(#selector(selectRange), with: sender, afterDelay: 0.01)
     }
-
+    
     // for number of animals field
     @IBAction func highlightField(_ sender: UITextField) {
         perform(#selector(selectRange), with: sender, afterDelay: 0.01)
     }
-
+    
     @objc private func selectRange(sender: UITextField) {
         sender.selectedTextRange = sender.textRange(from: sender.beginningOfDocument, to: sender.endOfDocument)
     }
     /////////////////////
-
-
+    
+    
     // MARK: Functions
     func deleteEntry() {
         self.highlightOn()
@@ -282,7 +282,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             self.hightlightOff()
         }
     }
-
+    
     func copyEntry() {
         guard let scheduleVC = self.scheduleViewReference, let entry = self.scheduleObject else {return}
         scheduleVC.createEntry(from: entry)
@@ -296,11 +296,11 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             try realm.write {
                 so.dateIn = date
             }
-
+            
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
-
+        
         if let endDate = so.dateOut {
             if endDate < date {
                 self.dateOut.text =  DateManager.toStringNoYear(date: (self.scheduleObject?.dateIn)!)
@@ -310,7 +310,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                         so.dateOut = so.dateIn
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.calculateDays()
                 self.update()
@@ -320,7 +320,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             self.update()
         }
     }
-
+    
     func handleDateOut(date: Date) {
         guard let so = scheduleObject else {return}
         self.dateOut.text = DateManager.toStringNoYear(date: date)
@@ -330,17 +330,17 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                 so.dateOut = date
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         DispatchQueue.main.async {
             self.calculateDays()
             self.update()
         }
     }
-
+    
     // MARK: Style
     func style() {
-
+        
         // Group fields, to call style functions iteratively.
         // note: numberOfAniamls is different from the rest: accepts input
         if inputFields.isEmpty {
@@ -354,81 +354,81 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             fields.append(contentsOf: computedFields)
             fields.append(numberOfAniamls)
         }
-
+        
         let fontSize: CGFloat = 12
-
+        
         // First style using theme styles
         switch mode {
         case .View:
             for field in inputFields {
                 styleInputReadOnly(input: field, height: fieldHeight)
             }
-
+            
             // note: numberOfAniamls is different from the rest: accepts input
             styleInputField(field: numberOfAniamls, editable: false, height: fieldHeight)
-
+            
         case .Edit:
             for field in inputFields {
                 styleInput(input: field, height: fieldHeight)
             }
-
+            
             // note: numberOfAniamls is different from the rest: accepts input
             styleInputField(field: numberOfAniamls, editable: true, height: fieldHeight)
         }
-
+        
         // Computed fields look the same regardless of mode
         for field in computedFields {
             styleInputField(field: field, editable: false, height: fieldHeight)
         }
-
+        
         // This cell needs smaller fonts, so change all fonts:
         for field in fields {
             field.font = Fonts.getPrimary(size: fontSize)
         }
     }
-
+    
     func highlight() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.backgroundColor = Colors.secondary.withAlphaComponent(0.75)
             self.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                     self.backgroundColor = UIColor.white
                     self.layoutIfNeeded()
                 })
             })
         }
     }
-
+    
     func highlightOn() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.backgroundColor = Colors.secondary.withAlphaComponent(0.5)
             self.layoutIfNeeded()
         })
     }
-
+    
     func hightlightOff() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.backgroundColor = UIColor.white
             self.layoutIfNeeded()
         })
     }
-
+    
     // MARK: Setup
     func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController, parentCell: ScheduleFormTableViewCell) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
-//        self.parentCell = parentCell
+        //        self.parentCell = parentCell
         autofill()
         style()
         if scheduleObject.isNew {
             highlight()
             scheduleObject.setIsNew(to: false)
         }
-
+        
         switch mode {
         case .View:
             options.isEnabled = false
@@ -448,9 +448,9 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             numberOfAniamls.isUserInteractionEnabled = true
         }
     }
-
+    
     func setup(mode: FormMode, scheduleObject: ScheduleObject, rup: Plan, scheduleViewReference: ScheduleViewController) {
-        self.rup = rup
+        self.plan = rup
         self.mode = mode
         self.scheduleObject = scheduleObject
         self.scheduleViewReference = scheduleViewReference
@@ -460,7 +460,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             highlight()
             scheduleObject.setIsNew(to: false)
         }
-
+        
         switch mode {
         case .View:
             options.isEnabled = false
@@ -480,20 +480,20 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             numberOfAniamls.isUserInteractionEnabled = true
         }
     }
-
+    
     func validate() {
         if let scheduleVC = scheduleViewReference {
             scheduleVC.validate()
         }
     }
-
+    
     public func dismissKeyboard() {
         if scheduleViewReference == nil { return }
         scheduleViewReference?.view.endEditing(true)
     }
-
+    
     func autofill() {
-//        calculate()
+        //        calculate()
         guard let obj = scheduleObject else {
             pasture.text = ""
             liveStock.text = ""
@@ -506,10 +506,10 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             pldAUM.text = ""
             return
         }
-
+        
         // fields that are not filled by user
         fillCurrentValues()
-
+        
         let numOfAnimals = obj.numberOfAnimals
         if numOfAnimals != 0 {
             self.numberOfAniamls.text = "\(numOfAnimals)"
@@ -517,30 +517,30 @@ class ScheduleObjectTableViewCell: BaseFormCell {
             self.numberOfAniamls.text = ""
             self.days.text = ""
         }
-
+        
         if let inDate = obj.dateIn {
             self.dateIn.text = DateManager.toStringNoYear(date: inDate)
         } else {
             self.dateIn.text = ""
             self.days.text = ""
         }
-
+        
         if let outDate = obj.dateOut {
             self.dateOut.text = DateManager.toStringNoYear(date: outDate)
         } else {
             self.dateOut.text = ""
         }
-
+        
         self.graceDays.text = "\(obj.graceDays)"
-
+        
         calculateDays()
     }
-
+    
     func calculate() {
         guard let object = self.scheduleObject else {return}
         object.calculateAUMsAndPLD()
     }
-
+    
     // update calculations
     func update() {
         calculate()
@@ -551,30 +551,30 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         }
         return
     }
-
+    
     func fillCurrentValues() {
         guard let entry = self.scheduleObject else {return}
         // Live Stock Type
-
+        
         if entry.liveStockTypeId != -1 {
             let liveStockObject = Reference.shared.getLiveStockTypeObject(id: entry.liveStockTypeId)
             self.liveStock.text = liveStockObject.name
-
+            
         } else {
             self.liveStock.text = ""
         }
-
+        
         if let pasture = entry.pasture {
             self.pasture.text = pasture.name
         } else {
             self.pasture.text = ""
         }
-
+        
         self.graceDays.text = "\(entry.graceDays)"
         self.pldAUM.text = "\(entry.pldAUMs.rounded())"
         self.crownAUM.text = "\(entry.getCrownAUMs().rounded())"
     }
-
+    
     func calculateDays() {
         guard let s = scheduleObject, let din = s.dateIn, let dout = s.dateOut else {return}
         let calendar = NSCalendar.current
@@ -583,7 +583,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
         let count = DateManager.daysBetween(date1: date1, date2: date2) + 1
         self.days.text = "\(String(describing: count))"
     }
-
+    
     func disableTextFields() {
         // All fields except for number of animals whould not allow free text entry.
         // labels weren't used because at the time of creation, i had no idea what values
