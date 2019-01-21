@@ -388,12 +388,12 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func highlight() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.backgroundColor = Colors.secondary.withAlphaComponent(0.75)
             self.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                     self.backgroundColor = UIColor.white
                     self.layoutIfNeeded()
                 })
@@ -402,14 +402,14 @@ class ScheduleObjectTableViewCell: BaseFormCell {
     }
 
     func highlightOn() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.backgroundColor = Colors.secondary.withAlphaComponent(0.5)
             self.layoutIfNeeded()
         })
     }
 
     func hightlightOff() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.backgroundColor = UIColor.white
             self.layoutIfNeeded()
         })

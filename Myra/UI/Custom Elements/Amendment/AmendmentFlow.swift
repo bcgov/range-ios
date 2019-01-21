@@ -20,8 +20,6 @@ enum AmendmentFlowMode {
 class AmendmentFlow: CustomModal {
     // MARK: Constants
     let whiteScreenTag = 101
-    let animationDuration: Double = 0.3
-    
     let suggestedWidth = 400
     let suggestedHeight = 360
     

@@ -24,6 +24,9 @@ class SettingsModel: Object {
     @objc dynamic var cacheMapEndbaled: Bool = true
     @objc dynamic var devEnvironmentEnabled: Bool = true
     
+    @objc dynamic var animationDuration: Double = 0.5
+    @objc dynamic var shortAnimationDuration: Double = 0.3
+    
     func clone() -> SettingsModel {
         let new = SettingsModel()
         new.autoSyncEndbaled = self.autoSyncEndbaled
@@ -65,6 +68,28 @@ class SettingsModel: Object {
             fatalError()
         }
     }
+    
+    func setAnimationDuration(to value: Double) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                animationDuration = value
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
+    
+    func setShortAnimationDuration(to value: Double) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                shortAnimationDuration = value
+            }
+        } catch _ {
+            fatalError()
+        }
+    }
 }
 
 enum EndpointEnvironment {
@@ -73,6 +98,11 @@ enum EndpointEnvironment {
 }
 
 class SettingsManager {
+    
+    // MARK: Variables
+    let defaultShortAnimationDuration: Double = 0.3
+    let defaultAnimationDuration: Double = 0.5
+    
     static let shared = SettingsManager()
 
     private init() {
@@ -161,6 +191,7 @@ class SettingsManager {
         }
     }
     
+    // MARK: Authentication
     func signout(presenterReference: MainViewController) {
         guard let model = getModel() else {return}
         let settingsModelClone = model.clone()
@@ -170,5 +201,28 @@ class SettingsManager {
         RealmRequests.saveObject(object: settingsModelClone)
         Auth.refreshEnviormentConstants()
         presenterReference.chooseInitialView()
+    }
+    
+    // MARK: Animations
+    func setNormalAnimationSpeed() {
+        guard let model = getModel() else {return}
+        model.setShortAnimationDuration(to: 0.3)
+        model.setAnimationDuration(to: 0.5)
+    }
+    
+    func setFastAnimationSpeed() {
+        guard let model = getModel() else {return}
+        model.setShortAnimationDuration(to: 0.1)
+        model.setAnimationDuration(to: 0.3)
+    }
+    
+    func getShortAnimationDuration() -> Double {
+        guard let model = getModel() else {return defaultShortAnimationDuration}
+        return model.shortAnimationDuration
+    }
+    
+    func getAnimationDuration() -> Double {
+        guard let model = getModel() else {return defaultAnimationDuration}
+        return model.animationDuration
     }
 }

@@ -12,10 +12,8 @@ import Reachability
 class GetNameDialog: CustomModal {
 
     // MARK: Variables
-    private let animationDuration = 0.5
     private let visibleAlpha: CGFloat = 1
     private let invisibleAlpha: CGFloat = 0
-    private let fieldErrorAnimationDuration = 2.0
 
     var callBack: (()-> Void)?
 

@@ -127,7 +127,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
         refreshScheduleObject()
         guard let current = self.schedule, let plan = self.plan else {return}
         let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: plan.agreementId)
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             if !valid.0 {
                 self.styleInvalid()
             } else {

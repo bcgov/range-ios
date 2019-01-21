@@ -112,7 +112,7 @@ class AssignedRUPTableViewCell: BaseTableViewCell {
         self.infoButton.alpha = 0
         self.statusLight.alpha = 0
         self.statusText.alpha = 0
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.container.backgroundColor = UIColor.white
             self.backgroundColor = UIColor.white
             self.addShadow(to: self.container.layer, opacity: 0.5, height: 2)
@@ -130,7 +130,7 @@ class AssignedRUPTableViewCell: BaseTableViewCell {
     }
 
     func styleDefault() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.style()
             self.cellSelected = false
         })
@@ -138,7 +138,7 @@ class AssignedRUPTableViewCell: BaseTableViewCell {
 
     func setLocked() {
         style()
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.container.backgroundColor = UIColor.white
             self.backgroundColor = UIColor.white
             self.versionsHeight.constant = 0
@@ -155,7 +155,7 @@ class AssignedRUPTableViewCell: BaseTableViewCell {
     }
 
     func animateIt() {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.layoutIfNeeded()
         })
     }

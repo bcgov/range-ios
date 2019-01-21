@@ -357,7 +357,7 @@ class ScheduleViewController: BaseViewController {
 
     // MARK: Banner
     func openBanner(message: String) {
-        UIView.animate(withDuration: shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.bannerLabel.textColor = Colors.primary
             self.banner.backgroundColor = Colors.secondaryBg.withAlphaComponent(1)
             self.bannerHeight.constant = 50
@@ -365,7 +365,7 @@ class ScheduleViewController: BaseViewController {
             self.view.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: self.mediumAnimationDuration, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
                     self.bannerLabel.textColor = Colors.primaryConstrast
                     self.view.layoutIfNeeded()
                 })
@@ -374,12 +374,12 @@ class ScheduleViewController: BaseViewController {
     }
 
     func highlightBanner() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.bannerLabel.textColor = Colors.primary.withAlphaComponent(0.5)
             self.view.layoutIfNeeded()
         }) { (done) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                UIView.animate(withDuration: 0.5, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
                     self.bannerLabel.textColor = Colors.primary.withAlphaComponent(1)
                     self.view.layoutIfNeeded()
                 })

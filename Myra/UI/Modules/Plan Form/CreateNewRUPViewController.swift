@@ -894,11 +894,11 @@ extension CreateNewRUPViewController {
         self.bannerTitle.textColor = Colors.technical.mainText
         self.bannerTitle.font = Fonts.getPrimaryBold(size: 22)
         self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
             self.bannerContainerHeight.constant = 50
             self.view.layoutIfNeeded()
         }) { (done) in
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration()) {
                 self.view.layoutIfNeeded()
                 self.bannerTitle.text = self.getBannerTitle()
                 self.bannerContainer.backgroundColor = Colors.accent.yellow
@@ -909,7 +909,7 @@ extension CreateNewRUPViewController {
     }
     
     func closeBanner() {
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration()) {
             self.bannerContainerHeight.constant = 25
         }
     }

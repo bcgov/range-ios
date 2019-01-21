@@ -13,7 +13,6 @@ class SyncView: CustomModal {
 
     // MARK: Constants
     let syncIconTag = 200
-    let animationDuration = 0.5
     let visibleAlpha: CGFloat = 1
     let invisibleAlpha: CGFloat = 0
     let whiteScreenAlpha: CGFloat = 0.9

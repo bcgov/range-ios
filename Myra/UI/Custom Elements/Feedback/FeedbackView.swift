@@ -11,7 +11,6 @@ import UIKit
 class FeedbackView: CustomModal {
 
     let whiteScreenTag = 201
-    let animationDuration = 0.5
     let visibleAlpha: CGFloat = 1
     let invisibleAlpha: CGFloat = 0
     let whiteScreenAlpha: CGFloat = 0.9

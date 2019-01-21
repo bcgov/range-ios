@@ -16,7 +16,6 @@ class CustomModal: UIView, Theme {
     private var verticalPadding: CGFloat = 0
     private var horizontalPadding: CGFloat = 0
     
-    private let animationDuration = 0.5
     private let visibleAlpha: CGFloat = 1
     private let invisibleAlpha: CGFloat = 0
     private let fieldErrorAnimationDuration = 2.0
@@ -24,7 +23,6 @@ class CustomModal: UIView, Theme {
     // White screen
     private let whiteScreenTag: Int = 9532
     private let whiteScreenAlpha: CGFloat = 0.9
-    
     
     // MARK: Size
     func setFixed(width: CGFloat, height: CGFloat) {
@@ -97,7 +95,6 @@ class CustomModal: UIView, Theme {
     }
     
     // MARK: Positioning/ displaying
-    
     func hide() {
         remove()
 //        guard let window = UIApplication.shared.keyWindow else {return}
@@ -162,7 +159,7 @@ class CustomModal: UIView, Theme {
     // MARK: Displaying animations
     func openingAnimation(then: @escaping ()-> Void) {
         self.alpha = invisibleAlpha
-        UIView.animate(withDuration: animationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
             self.alpha = self.visibleAlpha
         }) { (done) in
             then()
@@ -170,7 +167,7 @@ class CustomModal: UIView, Theme {
     }
     
     func closingAnimation(then: @escaping ()-> Void) {
-        UIView.animate(withDuration: animationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
             self.alpha = self.invisibleAlpha
         }) { (done) in
             then()
@@ -193,7 +190,7 @@ class CustomModal: UIView, Theme {
             bg.bottomAnchor.constraint(equalTo: window.bottomAnchor)
             ])
         
-        UIView.animate(withDuration: animationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
             bg.alpha = self.visibleAlpha
         }) { (done) in
             return then()
@@ -216,7 +213,7 @@ class CustomModal: UIView, Theme {
     func removeWhiteScreen() {
         guard let window = UIApplication.shared.keyWindow else {return}
         if let viewWithTag = window.viewWithTag(whiteScreenTag) {
-            UIView.animate(withDuration: animationDuration, animations: {
+            UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
                 viewWithTag.alpha = self.invisibleAlpha
             }) { (done) in
                 viewWithTag.removeFromSuperview()

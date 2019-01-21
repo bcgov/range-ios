@@ -264,7 +264,7 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
     }
 
     func animateIt() {
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
             self.layoutIfNeeded()
         })
     }

@@ -15,7 +15,6 @@ class ImportCriteria: CustomModal {
     var object: ImportCriteriaObject?
 
     private let padding: CGFloat = 25
-    private let animationDuration = 0.5
     private let visibleAlpha: CGFloat = 1
     private let invisibleAlpha: CGFloat = 0
 
@@ -150,7 +149,7 @@ class ImportCriteria: CustomModal {
     }
 
     func backButton(show: Bool) {
-        let animation = UIViewPropertyAnimator.init(duration: 1, dampingRatio: 0.8) {
+        let animation = UIViewPropertyAnimator.init(duration: (SettingsManager.shared.getAnimationDuration() * 2), dampingRatio: CGFloat(SettingsManager.shared.getAnimationDuration())) {
             if show {
                 self.backButtonLeading.constant = 0 - (self.backButton.frame.width + self.padding)
                 self.backButton.alpha = 0
@@ -165,7 +164,7 @@ class ImportCriteria: CustomModal {
     }
 
     func mainButton(show: Bool) {
-        let animation = UIViewPropertyAnimator.init(duration: 1, dampingRatio: 0.8) {
+        let animation = UIViewPropertyAnimator.init(duration: (SettingsManager.shared.getAnimationDuration() * 2), dampingRatio: CGFloat(SettingsManager.shared.getAnimationDuration())) {
             if show {
                 self.mainButtonBottom.constant = 0 - (self.mainButton.frame.height + self.padding)
                 self.mainButton.alpha = 0

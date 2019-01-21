@@ -60,20 +60,20 @@ class BaseFormCell: BaseTableViewCell {
         let originalText: String = label.text ?? ""
         let originalTextColor: UIColor = label.textColor
         // fade out current text
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             label.alpha = 0
             self.layoutIfNeeded()
         }) { (done) in
             // change text
             label.text = text
             // fade in warning text
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                 label.textColor = Colors.accent.red
                 label.alpha = 1
                 self.layoutIfNeeded()
             }, completion: { (done) in
                 // revert after 3 seconds
-                UIView.animate(withDuration: 0.2, delay: 3, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), delay: 3, animations: {
                     // fade out text
                     label.alpha = 0
                     self.layoutIfNeeded()
@@ -81,7 +81,7 @@ class BaseFormCell: BaseTableViewCell {
                     // change text
                     label.text = originalText
                     // fade in text
-                    UIView.animate(withDuration: 0.2, animations: {
+                    UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                         label.textColor = originalTextColor
                         label.alpha = 1
                         self.layoutIfNeeded()

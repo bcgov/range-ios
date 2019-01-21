@@ -50,7 +50,7 @@ class SyncBanner: UIView, Theme {
 
     func beginDisplayAnimation() {
         positionPreAnimation()
-        UIView.animate(withDuration: animationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
             self.positionDispayed()
         }) { (done) in
             self.beginDismissAnimation()

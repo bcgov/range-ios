@@ -13,9 +13,6 @@ import SingleSignOn
 class BaseViewController: UIViewController, Theme {
     
     // MARK: Constants
-    let mediumAnimationDuration = 0.5
-    let shortAnimationDuration = 0.3
-    
     let visibleAlpha: CGFloat = 1
     let invisibleAlpha: CGFloat = 0
     
@@ -135,7 +132,7 @@ class BaseViewController: UIViewController, Theme {
     
     // MARK: Animations
     func animateIt() {
-        UIView.animate(withDuration: shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.view.layoutIfNeeded()
         })
     }
@@ -151,20 +148,20 @@ class BaseViewController: UIViewController, Theme {
         let originalText: String = label.text ?? ""
         let originalTextColor: UIColor = label.textColor
         // fade out current text
-        UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             label.alpha = self.invisibleAlpha
             self.view.layoutIfNeeded()
         }) { (done) in
             // change text
             label.text = text
             // fade in warning text
-            UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                 label.textColor = Colors.accent.red
                 label.alpha = self.visibleAlpha
                 self.view.layoutIfNeeded()
             }, completion: { (done) in
                 // revert after 3 seconds
-                UIView.animate(withDuration: self.shortAnimationDuration, delay: 3, animations: {
+                UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), delay: 3, animations: {
                     // fade out text
                     label.alpha = self.invisibleAlpha
                     self.view.layoutIfNeeded()
@@ -172,7 +169,7 @@ class BaseViewController: UIViewController, Theme {
                     // change text
                     label.text = originalText
                     // fade in text
-                    UIView.animate(withDuration: self.shortAnimationDuration, animations: {
+                    UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                         label.textColor = originalTextColor
                         label.alpha = self.visibleAlpha
                         self.view.layoutIfNeeded()
