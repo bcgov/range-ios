@@ -29,7 +29,7 @@ struct RealmRequests {
             }
 
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -39,7 +39,9 @@ struct RealmRequests {
             try realm.write {
                 realm.add(object, update: true)
             }
-        } catch _ {}
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
     }
 
     static func deleteObject<T: Object>(_ object: T) {
@@ -48,7 +50,9 @@ struct RealmRequests {
             try realm.write {
                 realm.delete(object)
             }
-        } catch _ {}
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
+        }
     }
 
     static func getObject<T: Object>(_ object: T.Type) -> [T]? {
@@ -56,7 +60,9 @@ struct RealmRequests {
             let realm = try Realm()
             let objs = realm.objects(object).map{ $0 }
             return Array(objs)
-        } catch _ {}
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
+        }
         return nil
     }
 }
