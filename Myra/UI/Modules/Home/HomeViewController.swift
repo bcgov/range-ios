@@ -96,6 +96,10 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         syncing = false
         loadHome()
+//        API.updateUserInfo(firstName: "", lastName: "") { (success) in
+//            print(success)
+//        }
+        promptGetUserNameIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -122,10 +126,6 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: Outlet actions
-    @IBAction func endTour(_ sender: Any) {
-        endTour()
-    }
-
     @IBAction func testCam(_ sender: UIButton) {
         let cam = Cam()
         cam.display(on: self) { (photo) in
@@ -138,31 +138,6 @@ class HomeViewController: BaseViewController {
             }
         }
     }
-
-    func buffer(from image: UIImage) -> CVPixelBuffer? {
-        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
-        var pixelBuffer : CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
-        guard (status == kCVReturnSuccess) else {
-            return nil
-        }
-
-        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
-
-        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pixelData, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
-
-        context?.translateBy(x: 0, y: image.size.height)
-        context?.scaleBy(x: 1.0, y: -1.0)
-
-        UIGraphicsPushContext(context!)
-        image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-        UIGraphicsPopContext()
-        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-
-        return pixelBuffer
-    }
     
     @IBAction func SettingsAction(_ sender: UIButton) {
         let settings: Settings = UIView.fromNib()
@@ -170,10 +145,11 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func tourAction(_ sender: UIButton) {
-        let dialog: GetNameDialog = UIView.fromNib()
-        dialog.initialize {
-            self.beginTour()
-        }
+        self.beginTour()
+    }
+    
+    @IBAction func endTour(_ sender: Any) {
+        endTour()
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
@@ -342,9 +318,6 @@ class HomeViewController: BaseViewController {
         setUpTable()
         filterByAll()
         beginChangeListener()
-
-
-
     }
 
     @objc func updateLastSyncLabel() {
@@ -565,6 +538,44 @@ class HomeViewController: BaseViewController {
             self.createButton.isUserInteractionEnabled = true
             self.tableView.isUserInteractionEnabled = true
             self.syncButton.isUserInteractionEnabled = true
+        }
+    }
+    
+    func buffer(from image: UIImage) -> CVPixelBuffer? {
+        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+        var pixelBuffer : CVPixelBuffer?
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
+        guard (status == kCVReturnSuccess) else {
+            return nil
+        }
+        
+        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
+        
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(data: pixelData, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        
+        context?.translateBy(x: 0, y: image.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        
+        UIGraphicsPushContext(context!)
+        image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        UIGraphicsPopContext()
+        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        
+        return pixelBuffer
+    }
+    
+    func promptGetUserNameIfNeeded() {
+        guard let r = Reachability(), r.connection != .none else {
+            return
+        }
+        API.getUserInfo { (userInfo) in
+            guard let info = userInfo, !info.firstName.isEmpty && !info.lastName.isEmpty else {
+                let dialog: GetNameDialog = UIView.fromNib()
+                dialog.initialize {}
+                return
+            }
         }
     }
 

@@ -101,6 +101,7 @@ class GetNameDialog: CustomModal {
 
     // MARK: Styles
     func style() {
+        styleModalBox()
         addShadow(layer: self.layer)
         viewTitle.font = Fonts.getPrimaryBold(size: 27)
         viewTitle.textColor = defaultFieldHeaderColor()
