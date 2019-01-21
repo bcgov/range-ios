@@ -106,7 +106,7 @@ class PlantCommunityViewController: BaseViewController {
             let temp = realm.objects(PlantCommunity.self).filter("localId = %@", p.localId).first!
             self.plantCommunity = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 

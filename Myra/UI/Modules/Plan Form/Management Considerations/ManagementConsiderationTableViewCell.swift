@@ -54,7 +54,7 @@ class ManagementConsiderationTableViewCell: BaseFormCell {
                     }
                     self.autoFill()
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }

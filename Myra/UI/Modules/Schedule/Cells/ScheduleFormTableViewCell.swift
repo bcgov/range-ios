@@ -103,7 +103,7 @@ class ScheduleFormTableViewCell: BaseTableViewCell {
             }
             self.schedule = aSchedule
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         handleElementAddedOrRemoved()
     }
@@ -152,7 +152,7 @@ class ScheduleFormTableViewCell: BaseTableViewCell {
             let temp = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
             self.schedule = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 

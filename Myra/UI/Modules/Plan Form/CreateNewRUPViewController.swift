@@ -292,7 +292,7 @@ class CreateNewRUPViewController: BaseViewController {
                 plan.locallyUpdatedAt = Date()
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         
         RealmRequests.updateObject(plan)
@@ -340,7 +340,7 @@ class CreateNewRUPViewController: BaseViewController {
                 plan.isNew = false
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         
         let validity = RUPManager.shared.isValid(rup: plan)
@@ -373,7 +373,7 @@ class CreateNewRUPViewController: BaseViewController {
             let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first!
             self.rup = aRup
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
     
@@ -407,10 +407,11 @@ class CreateNewRUPViewController: BaseViewController {
             do {
                 let realm = try Realm()
                 try realm.write {
-                    self.rup?.statusEnum = .LocalDraft
+                    rup.statusEnum = .LocalDraft
                 }
+                self.rup = rup
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
         
@@ -565,7 +566,7 @@ class CreateNewRUPViewController: BaseViewController {
                     new.statusIdValue = ""
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
             agreement.add(plan: new)
             RealmRequests.saveObject(object: new)

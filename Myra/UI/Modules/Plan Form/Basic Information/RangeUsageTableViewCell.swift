@@ -46,7 +46,7 @@ class RangeUsageTableViewCell: BaseFormCell {
                 plan.rangeUsageYears.append(RangeUsageYear())
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         updateTableHeight()
     }

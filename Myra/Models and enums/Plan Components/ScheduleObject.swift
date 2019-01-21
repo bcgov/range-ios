@@ -104,7 +104,7 @@ class ScheduleObject: Object, MyraObject {
                 self.isNew = to
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -128,7 +128,7 @@ class ScheduleObject: Object, MyraObject {
                     self.totalAUMs = 0.0
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
             return
         }
@@ -144,7 +144,7 @@ class ScheduleObject: Object, MyraObject {
                 self.totalAUMs = (numberOfAnimals * totalDays * auFactor) / 30.44
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -160,7 +160,7 @@ class ScheduleObject: Object, MyraObject {
                     self.pldAUMs = 0.0
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
             return
         }
@@ -173,7 +173,7 @@ class ScheduleObject: Object, MyraObject {
                 self.pldAUMs = (self.totalAUMs * (pasturePLD / 100))
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

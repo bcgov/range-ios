@@ -79,7 +79,7 @@ class Pasture: Object, MyraObject {
                 self.remoteId = id
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -90,7 +90,7 @@ class Pasture: Object, MyraObject {
                 self.name = string
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

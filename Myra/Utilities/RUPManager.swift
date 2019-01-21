@@ -27,7 +27,7 @@
         }
         return ""
     }
-
+    
     /*
      Finds plans that are not linked to an agreement and links them to the appropriate agreements
      */
@@ -39,7 +39,7 @@
         for agreement in agreements where agreement.plans.count == 0 {
             agreementsWithNoPlans.append(agreement.agreementId)
         }
-
+        
         // for each plan, if has an agreement number that's included in agreementsWithNoPlans, add it to agreement
         for plan in plans where agreementsWithNoPlans.contains(plan.agreementId) {
             if let temp = getAgreement(with: plan.agreementId) {
@@ -58,7 +58,7 @@
                         }
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -75,7 +75,7 @@
     }
     
     func isValid(rup: Plan) -> (Bool, String) {
-
+        
         // check validity of schedules
         for element in rup.schedules {
             if !isScheduleValid(schedule: element, agreementID: rup.agreementId) {
@@ -89,7 +89,7 @@
                 return(false, "One or more Minister's Issues and Actions has not been identified by minister")
             }
         }
-
+        
         // check minister approval on pastures
         for pasture in rup.pastures {
             for community in pasture.plantCommunities {
@@ -98,28 +98,28 @@
                 }
             }
         }
-
+        
         return checkRequiredFields(in: rup)
     }
-
+    
     func checkRequiredFields(in rup: Plan) -> (Bool, String) {
-
+        
         if rup.planStartDate == nil {
             return (false, "Plan start date is missing")
         }
-
+        
         if rup.planEndDate == nil {
             return (false, "Plan End date is missing")
         }
-
+        
         if rup.rangeName.isEmpty {
             return (false, "Range Name is missing")
         }
-
+        
         if rup.pastures.count < 1 {
             return (false, "You must add at least 1 Pasture")
         }
-
+        
         // Pastures
         for pasture in rup.pastures {
             if !pasture.requiredFieldsAreFilled() {
@@ -134,13 +134,13 @@
                 }
             }
         }
-
+        
         for schedule in rup.schedules {
             for entry in schedule.scheduleObjects where !entry.requiredFieldsAreFilled() {
                 return (false, "One or more Schedule entries' required fields are missing")
             }
         }
-
+        
         for issue in rup.ministerIssues {
             if !issue.requiredFieldsAreFilled() {
                 return (false, "One of more Minister's Issues' required fields are missing")
@@ -149,15 +149,15 @@
                 return (false, "One of more Minister's Issues' Action's required fields are missing")
             }
         }
-
+        
         for invasivePlants in rup.invasivePlants where !invasivePlants.requiredFieldsAreFilled() {
             return (false, "Missing required fields in Invasive Plants section")
         }
-
+        
         for req in rup.additionalRequirements where !req.requiredFieldsAreFilled() {
             return (false, "One of more Additional requirement's required fields are missing")
         }
-
+        
         return (true, "")
     }
     
@@ -187,7 +187,7 @@
     
     // will fetch the stored rup with the same id,
     // so only pass in the newly downloaded agreement
-
+    
     func getAgreement(with id: String) -> Agreement? {
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
             for storedAgreement in storedAgreements where storedAgreement.agreementId == id {
@@ -196,7 +196,7 @@
         }
         return nil
     }
-
+    
     func getAgreements(with id: String) -> [Agreement] {
         var found = [Agreement]()
         if let storedAgreements = RealmRequests.getObject(Agreement.self) {
@@ -229,7 +229,7 @@
         }
         return nil
     }
-
+    
     func getPlansWith(remoteId: Int) -> [Plan] {
         var found = [Plan]()
         guard let plans = RealmRequests.getObject(Plan.self) else {return found}
@@ -252,7 +252,7 @@
                     stored.rangeUsageYears = newAgreement.rangeUsageYears
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
         
@@ -264,15 +264,15 @@
                         stored.plans.append(plan)
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
-
+        
         if stored.isInvalidated {
             print("stored is invalidated")
         }
-
+        
         if newAgreement.isInvalidated {
             print("newAgreement is invalidated")
         }
@@ -289,9 +289,9 @@
                         stored.plans.append(newPlan)
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
-
+                
             }
         }
         
@@ -316,7 +316,7 @@
                         }
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
             RealmRequests.updateObject(plan)
@@ -401,7 +401,7 @@
             return [Plan]()
         }
     }
-
+    
     func getRUPsWithUpdatedLocalStatus() -> [Plan] {
         var found = [Plan]()
         let all = getRUPs()
@@ -419,7 +419,7 @@
         } catch _ {}
         return [Plan]()
     }
-
+    
     func getDraftRupsValidForUpload() -> [Plan] {
         do {
             let realm = try Realm()
@@ -432,7 +432,7 @@
         } catch _ {}
         return [Plan]()
     }
-
+    
     func getStaffDraftRups() ->  [Plan] {
         do {
             let realm = try Realm()
@@ -485,7 +485,7 @@
                 rup.isNew = true
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         RealmRequests.saveObject(object: rup)
         return rup
@@ -528,9 +528,8 @@
             
             RealmRequests.deleteObject(refetch)
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
-        //        RealmRequests.deleteObject(refe)
     }
     
     func deleteMonitoringArea(monitoringArea: MonitoringArea) {
@@ -539,7 +538,7 @@
             let object = realm.objects(MonitoringArea.self).filter("localId = %@", monitoringArea.localId).first!
             RealmRequests.deleteObject(object)
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -549,7 +548,7 @@
             let object = realm.objects(PastureAction.self).filter("localId = %@", pastureAction.localId).first!
             RealmRequests.deleteObject(object)
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
  }
@@ -582,7 +581,7 @@
                 RealmRequests.deleteObject(object)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         RealmRequests.deleteObject(pasture)
     }
@@ -603,7 +602,7 @@
                 scheduleObject.graceDays = pasture.graceDays
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         scheduleObject.calculateAUMsAndPLD()
     }
@@ -616,7 +615,7 @@
         }
         return nil
     }
-
+    
  }
  
  // MARK: Schedule
@@ -688,7 +687,7 @@
                 inSchedule.scheduleObjects.append(new)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -754,21 +753,6 @@
         
         return (true, "")
         
-    }
-    
-    // if livestock with the specified name is not found, returns false
-    func setLiveStockTypeFor(scheduleObject: ScheduleObject, liveStock: String) -> ScheduleObject {
-        let ls = Reference.shared.getLiveStockTypeObject(name: liveStock)
-        do {
-            let realm = try Realm()
-            let scheduleObj = realm.objects(ScheduleObject.self).filter("localId = %@", scheduleObject.localId).first!
-            try realm.write {
-                scheduleObj.liveStockTypeId = ls.id
-            }
-            return scheduleObj
-        } catch _ {
-            fatalError()
-        }
     }
     
     func getSchedulesArray(rup: Plan) -> [Schedule] {

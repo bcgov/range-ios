@@ -129,7 +129,7 @@ class MonitoringAreaViewController: BaseViewController {
             let temp = realm.objects(MonitoringArea.self).filter("localId = %@", a.localId).first!
             self.monitoringArea = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 
@@ -150,7 +150,6 @@ class MonitoringAreaViewController: BaseViewController {
             self.view.layoutIfNeeded()
             return then()
         }
-        
     }
 }
 

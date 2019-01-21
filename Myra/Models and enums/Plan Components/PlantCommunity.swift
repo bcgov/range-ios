@@ -146,7 +146,7 @@ class PlantCommunity: Object, MyraObject {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -157,7 +157,7 @@ class PlantCommunity: Object, MyraObject {
                 self.shrubUse = value
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -168,7 +168,7 @@ class PlantCommunity: Object, MyraObject {
                 self.purposeOfAction = "Clear"
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         for action in self.pastureActions {
             RealmRequests.deleteObject(action)
@@ -187,7 +187,7 @@ class PlantCommunity: Object, MyraObject {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -221,7 +221,7 @@ class PlantCommunity: Object, MyraObject {
 
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -251,7 +251,7 @@ class PlantCommunity: Object, MyraObject {
                 self.stubbleHeight.append(objectsIn: cache)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -263,7 +263,7 @@ class PlantCommunity: Object, MyraObject {
                 self.shrubUse = pc.shrubUse
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -282,7 +282,7 @@ class PlantCommunity: Object, MyraObject {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

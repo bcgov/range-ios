@@ -68,7 +68,7 @@ class IndicatorPlant: Object, MyraObject {
                     number = doubleValue
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
     }
@@ -80,7 +80,7 @@ class IndicatorPlant: Object, MyraObject {
                 self.type = string
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -91,7 +91,7 @@ class IndicatorPlant: Object, MyraObject {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 

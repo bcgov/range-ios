@@ -22,7 +22,7 @@ class RealmManager {
                 realm.deleteAll()
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 
@@ -77,7 +77,7 @@ class RealmManager {
                 RealmRequests.deleteObject(temp)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 
@@ -88,7 +88,7 @@ class RealmManager {
                 RealmRequests.deleteObject(temp)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 
@@ -107,7 +107,7 @@ class RealmManager {
                 RealmRequests.deleteObject(temp)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseDeleteFailure)
         }
     }
 

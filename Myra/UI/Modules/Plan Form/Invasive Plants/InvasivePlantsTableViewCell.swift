@@ -122,7 +122,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
                     plan.invasivePlants.append(new)
                 }
             } catch {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
             RealmRequests.saveObject(object: new)
         }

@@ -75,7 +75,7 @@ class MonitoringAreaCustomDetailsTableViewCell: BaseTableViewCell {
                         a.readinessMonth = month
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.autofill()
             }
@@ -199,7 +199,7 @@ class MonitoringAreaCustomDetailsTableViewCell: BaseTableViewCell {
             let temp = realm.objects(PlantCommunity.self).filter("localId = %@", a.localId).first!
             self.plantCommunity = temp
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
     
@@ -214,7 +214,7 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITextViewDelegate {
                 a.readinessNotes = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 }

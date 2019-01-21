@@ -110,7 +110,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
                 ma.location = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -122,7 +122,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
                 ma.latitude = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -134,7 +134,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
                 ma.longitude = text
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -174,28 +174,10 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
                     }
                     self.autoFill()
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
-
-//        lookup.parentVC = parent
-//
-//        parent.showPopUp(vc: lookup, on: sender)
-//        lookup.setup(objects: Options.shared.getMonitoringAreaPurposeLookup(), onVC: parent, onButton: purposeDropDown) { (selected, selection) in
-//            lookup.dismiss(animated: true, completion: nil)
-//            if selected, let option = selection {
-//                do {
-//                    let realm = try Realm()
-//                    try realm.write {
-//                        ma.purpose = option.display
-//                    }
-//                    self.autoFill()
-//                } catch _ {
-//                    fatalError()
-//                }
-//            }
-//        }
     }
 
     @IBAction func rangelandHealthAction(_ sender: UIButton) {
@@ -213,7 +195,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
                     }
                     self.autoFill()
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -299,7 +281,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
                 monitoringArea.longitude = long
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         self.latitudeField.text = monitoringArea.latitude

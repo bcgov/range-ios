@@ -80,7 +80,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
                 }
                 self.plan = aRup
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
             parent.updateTableHeight()
         }
@@ -144,7 +144,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
             let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
             self.schedule = aSchedule
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 }

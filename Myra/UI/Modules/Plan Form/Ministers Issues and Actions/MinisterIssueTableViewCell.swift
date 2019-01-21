@@ -59,7 +59,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
                 i.identified = !i.identified
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         autofill()
     }
@@ -287,7 +287,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
             let anIssue = realm.objects(MinisterIssue.self).filter("localId = %@", i.localId).first!
             self.issue = anIssue
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
         updateTableHeight(scrollToBottom: false)
     }

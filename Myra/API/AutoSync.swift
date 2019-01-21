@@ -53,7 +53,7 @@ class AutoSync {
                 }
             }
         } catch _ {
-            Logger.log(message: "*Error* in Autosync's change listener.")
+            Logger.fatalError(message: LogMessages.databseChangeListenerFailure)
         }
     }
 

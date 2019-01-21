@@ -138,7 +138,7 @@ class ScheduleViewController: BaseViewController {
             self.schedule = aSchedule
             self.entries = Array(aSchedule.scheduleObjects)
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         clearSort()
@@ -274,7 +274,7 @@ class ScheduleViewController: BaseViewController {
             let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
             self.schedule = aSchedule
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
         self.entries = Array(sched.scheduleObjects)
     }

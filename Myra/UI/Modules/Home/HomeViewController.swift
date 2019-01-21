@@ -392,7 +392,7 @@ class HomeViewController: BaseViewController {
                 self.tableView.reloadData()
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databseChangeListenerFailure)
         }
     }
 

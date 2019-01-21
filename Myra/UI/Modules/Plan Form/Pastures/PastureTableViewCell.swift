@@ -105,7 +105,7 @@ class PastureTableViewCell: BaseFormCell {
                         self.pasture?.plantCommunities.append(pc)
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.updateTableHeight()
             }
@@ -125,7 +125,7 @@ class PastureTableViewCell: BaseFormCell {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
@@ -146,7 +146,7 @@ class PastureTableViewCell: BaseFormCell {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
@@ -164,7 +164,7 @@ class PastureTableViewCell: BaseFormCell {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         RUPManager.shared.updateSchedulesForPasture(pasture: pasture!, in: (parentCell?.plan)!)
     }
@@ -319,7 +319,7 @@ class PastureTableViewCell: BaseFormCell {
                 self.pasture = refetch
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 
@@ -390,7 +390,7 @@ extension PastureTableViewCell: UITextViewDelegate {
                     pasture.notes = textView.text
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
 

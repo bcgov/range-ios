@@ -87,7 +87,7 @@ class AdditionalRequirementTableViewCell: BaseFormCell {
                 NewElementAddedBanner.shared.show()
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         parentCell.updateTableHeight(scrollToBottom: true)
     }

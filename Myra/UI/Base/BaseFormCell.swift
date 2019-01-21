@@ -40,7 +40,8 @@ class BaseFormCell: BaseTableViewCell {
             guard let aPlan = realm.objects(Plan.self).filter("localId = %@", current.localId).first else {return nil}
             return aPlan
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
+            return nil
         }
     }
 

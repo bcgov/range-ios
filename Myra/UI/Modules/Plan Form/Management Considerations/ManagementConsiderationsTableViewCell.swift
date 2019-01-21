@@ -30,7 +30,7 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
                 NewElementAddedBanner.shared.show()
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         updateTableHeight(scrollToBottom: true)
     }

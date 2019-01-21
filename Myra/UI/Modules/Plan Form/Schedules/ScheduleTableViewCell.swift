@@ -56,7 +56,7 @@ class ScheduleTableViewCell: BaseFormCell {
                     }
                     self.plan = aRup
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
                 self.updateTableHeight()
                 presenter.showScheduleDetails(for: schedule, in: plan, mode: self.mode)

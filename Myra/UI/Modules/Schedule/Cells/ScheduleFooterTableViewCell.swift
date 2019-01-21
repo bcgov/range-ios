@@ -88,7 +88,7 @@ extension ScheduleFooterTableViewCell: UITextViewDelegate {
                     schedule.notes = textView.text
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
         if textView.text == "" {

@@ -110,7 +110,7 @@ class PlanInformationTableViewCell: BaseFormCell {
                         plan.planEndDate = plan.planStartDate
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }

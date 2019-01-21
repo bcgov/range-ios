@@ -43,7 +43,7 @@ class SettingsModel: Object {
                 autoSyncEndbaled = enabled
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -54,7 +54,7 @@ class SettingsModel: Object {
                 cacheMapEndbaled = enabled
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -65,7 +65,7 @@ class SettingsModel: Object {
                 devEnvironmentEnabled = enabled
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -76,7 +76,7 @@ class SettingsModel: Object {
                 animationDuration = value
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -87,7 +87,7 @@ class SettingsModel: Object {
                 shortAnimationDuration = value
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
 }

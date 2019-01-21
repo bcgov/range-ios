@@ -83,7 +83,7 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
                     }
                     self.autoFill()
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -134,7 +134,7 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
                 act.noGrazeInSelected = true
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
 
         if act.noGrazeOutSelected {
@@ -145,7 +145,7 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
                         act.noGrazeOutSelected = false
                     }
                 } catch _ {
-                    fatalError()
+                    Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
             }
         }
@@ -162,52 +162,11 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
                 act.noGrazeOutSelected = true
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
         autoFill()
     }
-
-//    func handleDateIn(date: Date) {
-//        guard let act = self.action else {return}
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                act.noGrazeDateIn = date
-//            }
-//        } catch _ {
-//            fatalError()
-//        }
-//
-//        if let dateOut = act.noGrazeDateOut {
-//            if dateOut < date {
-//                do {
-//                    let realm = try Realm()
-//                    try realm.write {
-//                        act.noGrazeDateOut = date
-//                    }
-//                } catch _ {
-//                    fatalError()
-//                }
-//            }
-//        }
-//
-//        autoFill()
-//    }
-//
-//    func handleDateOut(date: Date) {
-//        guard let act = self.action else {return}
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                act.noGrazeDateOut = date
-//            }
-//        } catch _ {
-//            fatalError()
-//        }
-//
-//        autoFill()
-//    }
-
+    
     func deletePastureActions() {
         
     }
@@ -314,7 +273,7 @@ extension PlantCommunityActionTableViewCell: UITextViewDelegate {
                     act.details = text
                 }
             } catch _ {
-                fatalError()
+                Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
 

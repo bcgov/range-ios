@@ -269,7 +269,7 @@ class Plan: Object, MyraObject {
                 remoteId = id
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -280,7 +280,7 @@ class Plan: Object, MyraObject {
                 rangeName = name
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -291,7 +291,7 @@ class Plan: Object, MyraObject {
                 alternativeName = name
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -302,7 +302,7 @@ class Plan: Object, MyraObject {
                 shouldUpdateRemoteStatus = should
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -313,7 +313,7 @@ class Plan: Object, MyraObject {
                 planStartDate = date
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -324,7 +324,7 @@ class Plan: Object, MyraObject {
                 planEndDate = date
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -338,7 +338,7 @@ class Plan: Object, MyraObject {
                 statusIdValue = obj.name
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -355,7 +355,7 @@ class Plan: Object, MyraObject {
                 statusIdValue = obj.name
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -366,7 +366,7 @@ class Plan: Object, MyraObject {
                 liveStockIDs.append(LiveStockID())
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -381,7 +381,7 @@ class Plan: Object, MyraObject {
                 }
             }
         } catch {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -392,7 +392,7 @@ class Plan: Object, MyraObject {
                 ministerIssues.append(object)
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
@@ -411,7 +411,7 @@ class Plan: Object, MyraObject {
                 }
             }
         } catch _ {
-            fatalError()
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
     
