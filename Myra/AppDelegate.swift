@@ -25,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // so we can find our Documents
         print("documents = \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)")
         #endif
+        
+        print(SettingsManager.shared.getCurrentEnvironment())
+        
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.enableAutoToolbar = false
@@ -48,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        print(SettingsManager.shared.getCurrentEnvironment())
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
          AutoSync.shared.beginListener()
     }

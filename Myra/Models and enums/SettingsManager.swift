@@ -22,8 +22,13 @@ class SettingsModel: Object {
     
     @objc dynamic var autoSyncEndbaled: Bool = true
     @objc dynamic var cacheMapEndbaled: Bool = true
-    @objc dynamic var devEnvironmentEnabled: Bool = true
     
+    // Dev tools
+    @objc dynamic var devEnvironmentEnabled: Bool = true
+    @objc dynamic var quitAfterFatalError: Bool = true
+    @objc dynamic var inAppLoggerActive: Bool = false
+    
+    // UX
     @objc dynamic var animationDuration: Double = 0.5
     @objc dynamic var shortAnimationDuration: Double = 0.3
     
@@ -63,6 +68,28 @@ class SettingsModel: Object {
             let realm = try Realm()
             try realm.write {
                 devEnvironmentEnabled = enabled
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setQuitAfterFatalError(enabled: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                quitAfterFatalError = enabled
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setInAppLogger(enabled: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                inAppLoggerActive = enabled
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
@@ -189,6 +216,28 @@ class SettingsManager {
         }) {
             return
         }
+    }
+    
+    // MARK: Error Logger
+    func isInAppLoggerEnabled() -> Bool {
+        guard let model = getModel() else {return false}
+        return model.inAppLoggerActive
+    }
+    
+    func setInAppLoggler(enabled: Bool) {
+        guard let model = getModel() else {return}
+        model.setInAppLogger(enabled: enabled)
+    }
+    
+    // MARK: Error handeling
+    func shouldQuitAfterFatalError() -> Bool {
+        guard let model = getModel() else {return true}
+        return model.quitAfterFatalError
+    }
+    
+    func setQuitAfterFatalError(enabled: Bool) {
+        guard let model = getModel() else {return}
+        model.setQuitAfterFatalError(enabled: enabled)
     }
     
     // MARK: Authentication
