@@ -56,7 +56,7 @@ class Auth {
                     }
                 }
                 guard let presenter = getCurrentViewController() else {
-                    print("Could not find a VC to present on.")
+                    Logger.log(message: "Could not find a VC to present AuthServices on.")
                     return
                 }
                 presenter.present(vc, animated: true, completion: nil)
@@ -80,7 +80,7 @@ class Auth {
             }
         }
         guard let presenter = getCurrentViewController() else {
-            print("Could not find a VC to present on.")
+            Logger.log(message: "Could not find a VC to present AuthServices on.")
             return
         }
         presenter.present(vc, animated: true, completion: nil)

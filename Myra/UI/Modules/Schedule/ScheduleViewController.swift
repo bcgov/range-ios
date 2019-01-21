@@ -209,15 +209,16 @@ class ScheduleViewController: BaseViewController {
     
     func beginChangeListener() {
         guard let schedule = self.schedule else {return}
-        print("Listening to schedule changes")
+        Logger.log(message: "Listening to schedule changes")
         self.realmNotificationToken = schedule.observe { (change) in
             switch change {
             case .error(_):
-                print("Error in rup change")
+                Logger.log(message: "Error in schedule change")
             case .change(_):
+                Logger.log(message: "Schedule Changed")
                 self.validate()
             case .deleted:
-                print("RUP deleted")
+                Logger.log(message: "Schedule Deleted")
             }
         }
     }
@@ -225,7 +226,7 @@ class ScheduleViewController: BaseViewController {
     func endChangeListener() {
         if let token = self.realmNotificationToken {
             token.invalidate()
-            print("Stopped Listening to schedule changes :(")
+            Logger.log(message: "Stopped Listening to schedule changes :(")
         }
     }
 

@@ -99,9 +99,9 @@ class API {
             if timedOut {return}
             API.process(response: response, completion: { (processedResponse, error) in
                 guard let processedResponse = processedResponse, error == nil else {
-                    print("POST call rejected:")
-                    print("Endpoint: \(endpoint)")
-                    print("Error: \(error?.localizedDescription ?? "Unknown")")
+                    Logger.log(message: "POST call rejected:")
+                    Logger.log(message: "Endpoint: \(endpoint)")
+                    Logger.log(message: "Error: \(error?.localizedDescription ?? "Unknown")")
                     return completion(nil)
                 }
                 return completion(processedResponse)
@@ -126,17 +126,17 @@ class API {
             if response.result.description == "SUCCESS", let value = response.result.value {
                 let json = JSON(value)
                 if let error = json["error"].string {
-                    print("GET call rejected:")
-                    print("Endpoint: \(endpoint)")
-                    print("Error: \(error)")
+                    Logger.log(message: "GET call rejected:")
+                    Logger.log(message: "Endpoint: \(endpoint)")
+                    Logger.log(message: "Error: \(error)")
                     return completion(nil)
                 } else {
                     // Success
                     return completion(json)
                 }
             } else {
-                print("GET call failed:")
-                print("Endpoint: \(endpoint)")
+                Logger.log(message: "GET call failed:")
+                Logger.log(message: "Endpoint: \(endpoint)")
                 return completion(nil)
             }
         }
@@ -147,9 +147,8 @@ class API {
         case .success(let value):
             if let json = value as? [String: Any], let status = json["success"] as? Bool, status == false {
                 let err = APIError.somethingHappened(message: "Failed while processing server response")
-                // let err = APIError.somethingHappened(message: "\(String(describing: json["error"] as? String))")
-                print("Request Failed, error = \(err.localizedDescription)")
-                print(response.value)
+                Logger.log(message: "Request Failed, error = \(err.localizedDescription)")
+                Logger.log(message: "\(response.value ?? "")")
                 return completion(nil, err)
             }
             

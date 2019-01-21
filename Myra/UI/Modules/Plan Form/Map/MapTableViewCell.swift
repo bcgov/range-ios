@@ -193,18 +193,14 @@ extension MapTableViewCell: MKMapViewDelegate{
             }
         }
 
-
-        print(TileMaster.shared.sizeOfStoredTiles())
-
         TileMaster.shared.deleteAllStoredTiles()
 
 //        TileMaster.shared.storeTilesAround(x: 41238, y: 90659, z: 18)
 
-
         beginCaching(regions: regions) {
-            print("**** DONE ****")
+            Logger.log(message: "Finished Caching.")
             DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
-                print(TileMaster.shared.sizeOfStoredTiles())
+                Logger.log(message: "Size of chached map tiles: \(TileMaster.shared.sizeOfStoredTiles())")
             })
         }
 

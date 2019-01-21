@@ -139,7 +139,6 @@ class Plan: Object, MyraObject {
             if let result = RUPStatus(rawValue: newTry) {
                 self.statusEnum = result
             } else {
-                print(newTry)
                 self.statusEnum = .Unknown
             }
         }

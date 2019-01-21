@@ -227,7 +227,7 @@ class HomeViewController: BaseViewController {
         case completedFilter:
             filterByCompleted()
         default:
-            print("not possible.. why would you link anything else to this?")
+            return
         }
     }
 
@@ -364,7 +364,6 @@ class HomeViewController: BaseViewController {
          */
         RUPManager.shared.cleanPlans()
         let rups = RUPManager.shared.getRUPs()
-        print("Loading \(rups.count) plans")
         let agreements = RUPManager.shared.getAgreements()
         for agreement in agreements where agreement.plans.count > 0 {
             if let p = agreement.getLatestPlan() {
@@ -383,11 +382,11 @@ class HomeViewController: BaseViewController {
     func beginChangeListener() {
         // Listener used for autosync:
         // If db has changed in this view, there probably was an autosync.
-        print("Listening to db changes in HomeVC!")
+        Logger.log(message: "Listening to db changes in HomeVC!")
         do {
             let realm = try Realm()
             self.realmNotificationToken = realm.observe { notification, realm in
-                print("change observed in homeVC")
+                Logger.log(message: "change observed in homeVC")
                 self.loadRUPs()
                 self.tableView.reloadData()
             }
@@ -399,7 +398,7 @@ class HomeViewController: BaseViewController {
     func endChangeListener() {
         if let token = self.realmNotificationToken {
             token.invalidate()
-            print("Stopped Listening in homeVC:(")
+            Logger.log(message: "Stopped Listening in homeVC:(")
         }
     }
 
@@ -689,7 +688,7 @@ extension HomeViewController {
         do{
             try reachability.startNotifier()
         }catch{
-            print("could not start reachability notifier")
+            Logger.log(message: "could not start reachability notifier")
         }
     }
 

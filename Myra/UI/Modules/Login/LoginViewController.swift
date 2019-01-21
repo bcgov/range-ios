@@ -66,7 +66,7 @@ class LoginViewController: BaseViewController {
         do{
             try reachability.startNotifier()
         }catch{
-            print("could not start reachability notifier")
+            Logger.log(message: "could not start reachability notifier")
         }
     }
     

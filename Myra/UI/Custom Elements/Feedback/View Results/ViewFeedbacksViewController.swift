@@ -101,7 +101,7 @@ class ViewFeedbacksViewController: UIViewController {
                 }
 
                 var anonym:Bool = true
-                if let section = element.1["userId"].int {
+                if element.1["userId"].int != nil {
                     anonym = false
                 }
 
@@ -110,9 +110,8 @@ class ViewFeedbacksViewController: UIViewController {
                     if let mail = user["email"] as? String {
                         email = mail
                     }
-                    print(email)
                 }
-                var element = FeedbackElement(feedback: fb, section: sec, anonymous: anonym)
+                let element = FeedbackElement(feedback: fb, section: sec, anonymous: anonym)
                 if !email.isEmpty {
                     element.email = email
                 }

@@ -125,7 +125,7 @@ class ScheduleObjectTableViewCell: BaseFormCell {
                         Logger.fatalError(message: LogMessages.databaseWriteFailure)
                     }
                 } else {
-                    print("FOUND ERROR IN lookupLiveStockType()")
+                    Logger.log(message: "Error in Schedule cell's lookupLiveStockType()")
                 }
                 RealmRequests.updateObject(object)
                 self.update()

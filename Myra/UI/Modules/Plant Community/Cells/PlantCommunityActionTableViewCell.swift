@@ -63,7 +63,7 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
                     parentCell.updateTableHeight()
                 }, noButtonTapped: {})
             case .Copy:
-                print("copy not implemented")
+                Logger.log(message: "Not Yet Implemeneted")
             }
         }
     }

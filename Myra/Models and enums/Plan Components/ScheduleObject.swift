@@ -189,17 +189,17 @@ class ScheduleObject: Object, MyraObject {
     // MARK: Export
     func toDictionary() -> [String : Any] {
         guard let pasture = pasture else {
-            print("No pasture connected to this schedule entry\n Returning empty dictionary")
+            Logger.log(message: "No pasture connected to this schedule entry\n Returning empty dictionary")
             return [String:Any]()
         }
 
         guard let inDate = dateIn, let outDate = dateOut else {
-            print("Missing in or out cate for this schedule entry\n Returning empty dictionary")
+            Logger.log(message: "Missing in or out cate for this schedule entry\n Returning empty dictionary")
             return [String:Any]()
         }
 
         if liveStockTypeId == -1 {
-            print("Missing livestock ID for this schedule entry.\n Returning empty dictionary")
+            Logger.log(message: "Missing livestock ID for this schedule entry.\n Returning empty dictionary")
             return [String:Any]()
         }
 

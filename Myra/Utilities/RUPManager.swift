@@ -270,18 +270,18 @@
         }
         
         if stored.isInvalidated {
-            print("stored is invalidated")
+            Logger.log(message: "stored is invalidated")
         }
         
         if newAgreement.isInvalidated {
-            print("newAgreement is invalidated")
+            Logger.log(message: "newAgreement is invalidated")
         }
         
         if !newAgreement.plans.isEmpty {
             let newPlans = newAgreement.plans
             for newPlan in newPlans {
                 if newPlan.isInvalidated {
-                    print("newPlan is invalidated")
+                    Logger.log(message: "newPlan is invalidated")
                 }
                 do {
                     let realm = try Realm()

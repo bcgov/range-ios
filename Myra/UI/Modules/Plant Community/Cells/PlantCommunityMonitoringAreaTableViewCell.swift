@@ -55,8 +55,7 @@ class PlantCommunityMonitoringAreaTableViewCell: BaseTableViewCell {
                 }, noButtonTapped: {})
 
             case .Copy:
-                print("not yet implemented")
-                //                self.duplicate()
+                Logger.log(message: "Not Yet Implemeneted")
             }
         }
     }

@@ -50,7 +50,7 @@ class TileMaster {
     var tilesOfInterest = [MKTileOverlayPath]()
 
     private init() {
-        print("Initialized TileMaster. Size of tiles: \(sizeOfStoredTiles())")
+        Logger.log(message: "Initialized TileMaster. Size of tiles: \(sizeOfStoredTiles())")
     }
 
     func openSteetMapURL(for path: MKTileOverlayPath) -> URL? {
@@ -101,7 +101,7 @@ class TileMaster {
                 return size.doubleValue / 1000000.0
             }
         } catch {
-            print("Error: \(error)")
+            Logger.log(message: "*Error* in TileMaster -> sizeOfFileAt: \(error)")
         }
         return 0.0
     }
@@ -152,7 +152,6 @@ class TileMaster {
 
     func downloadTilePathsForCenterAt(lat: Double, lon: Double) {
         if let r = Reachability(), r.connection == .none {
-            print("You're offline. cannot download tiles")
             return
         }
         // get the initial tile.
@@ -162,9 +161,9 @@ class TileMaster {
 
         findSubtiles(under: initialPath)
 
-        print("\(tilesOfInterest.count) Tiles of interest")
+        Logger.log(message: "\(tilesOfInterest.count) Tiles of interest")
         let newTiles = findTilesToStoreIn(array: tilesOfInterest)
-        print("\(newTiles.count) are new")
+        Logger.log(message: "\(newTiles.count) are new")
 
         download(tilePaths: newTiles)
     }
@@ -197,17 +196,15 @@ class TileMaster {
 
     func download(tilePaths: [MKTileOverlayPath]) {
         if let r = Reachability(), r.connection == .none {
-            print("You're offline. cannot download tiles")
             return
         }
 
         if tilePaths.isEmpty {
-            print("Nothing to download")
+            // Nothing to Download
             return
         }
 
         if self.isDownloading {
-            print("You're already downlading")
             return
         }
 
@@ -240,7 +237,7 @@ class TileMaster {
                         count -= 1
                         if !success {
                             failedTiles.append(current)
-                            print("Failed to download a tile. total Failuers: \(failedTiles.count)")
+                            Logger.log(message: "Failed to download a tile. total Failuers: \(failedTiles.count)")
                         }
                         dispatchGroup.leave()
                     }
@@ -254,7 +251,6 @@ class TileMaster {
 
     func downloadTile(for path: MKTileOverlayPath, then: @escaping (_ success: Bool)-> Void) {
         if let r = Reachability(), r.connection == .none {
-            print("You're offline. cannot download tile")
             return then(false)
         }
         let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)

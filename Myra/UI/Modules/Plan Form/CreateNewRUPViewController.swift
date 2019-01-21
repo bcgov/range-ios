@@ -431,15 +431,16 @@ class CreateNewRUPViewController: BaseViewController {
     
     func beginChangeListener() {
         guard let r = self.rup else { return}
-        print("Listening to Changes in plan \(r.ranNumber)")
+        Logger.log(message: "Listening to Changes in plan \(r.ranNumber).")
         self.realmNotificationToken = r.observe { (change) in
             switch change {
             case .error(_):
-                print("Error in rup change")
+                Logger.log(message: "Error in Plan \(r.ranNumber) change.")
             case .change(_):
+                 Logger.log(message: "Change observed in plan \(r.ranNumber).")
                 self.planIsValid = r.isValid
             case .deleted:
-                print("RUP deleted")
+                Logger.log(message: "Plan  \(r.ranNumber) deleted.")
             }
         }
     }
@@ -447,7 +448,7 @@ class CreateNewRUPViewController: BaseViewController {
     func endChangeListener() {
         if let token = self.realmNotificationToken {
             token.invalidate()
-            print("Stopped Listening to Changes in plan :(")
+            Logger.log(message: "Stopped Listening to Changes in plan :(")
         }
     }
     
