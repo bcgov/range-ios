@@ -98,7 +98,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         syncing = false
         loadHome()
-        promptGetUserNameIfNeeded(showTourAfter: true)
+        promptGetUserNameIfNeeded(showTourAfter: showTour)
     }
 
     override func viewWillAppear(_ animated: Bool) {
