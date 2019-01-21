@@ -466,7 +466,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "ScheduleFormTableViewCell")
-        registerCell(name: "ScheduleObjectTableViewCell")
+        registerCell(name: "ScheduleElementTableViewCell")
         registerCell(name: "ScheduleFooterTableViewCell")
     }
 
@@ -479,8 +479,8 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: "ScheduleFormTableViewCell", for: indexPath) as! ScheduleFormTableViewCell
     }
 
-    func getScheduleObjectCell(indexPath: IndexPath) -> ScheduleObjectTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "ScheduleObjectTableViewCell", for: indexPath) as! ScheduleObjectTableViewCell
+    func getScheduleElementCell(indexPath: IndexPath) -> ScheduleElementTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "ScheduleElementTableViewCell", for: indexPath) as! ScheduleElementTableViewCell
     }
 
     func getScheduleFooterCell(indexPath: IndexPath) -> ScheduleFooterTableViewCell {
@@ -498,8 +498,8 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    func getScheduleEntryCell(for indexPath: IndexPath) ->  ScheduleObjectTableViewCell {
-        let cell = getScheduleObjectCell(indexPath: indexPath)
+    func getScheduleEntryCell(for indexPath: IndexPath) ->  ScheduleElementTableViewCell {
+        let cell = getScheduleElementCell(indexPath: indexPath)
         if let plan = self.rup, self.entries.count > indexPath.row {
             cell.setup(mode: mode, scheduleObject: self.entries[indexPath.row], rup: plan, scheduleViewReference: self)
         }

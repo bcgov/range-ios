@@ -259,8 +259,8 @@
 		29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */; };
 		29EB844B203E15D600D73F6B /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8449203E15D600D73F6B /* MapTableViewCell.swift */; };
 		29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB844A203E15D600D73F6B /* MapTableViewCell.xib */; };
-		29EE75D7205053030061B18D /* ScheduleObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */; };
-		29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */; };
+		29EE75D7205053030061B18D /* ScheduleElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75D5205053030061B18D /* ScheduleElementTableViewCell.swift */; };
+		29EE75D8205053030061B18D /* ScheduleElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75D6205053030061B18D /* ScheduleElementTableViewCell.xib */; };
 		29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */; };
 		29EE75DC205053C40061B18D /* ScheduleFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */; };
 		29EE75DF2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */; };
@@ -532,8 +532,8 @@
 		29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeUseageYearTableViewCell.xib; sourceTree = "<group>"; };
 		29EB8449203E15D600D73F6B /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		29EB844A203E15D600D73F6B /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
-		29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleObjectTableViewCell.swift; sourceTree = "<group>"; };
-		29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleObjectTableViewCell.xib; sourceTree = "<group>"; };
+		29EE75D5205053030061B18D /* ScheduleElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleElementTableViewCell.swift; sourceTree = "<group>"; };
+		29EE75D6205053030061B18D /* ScheduleElementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleElementTableViewCell.xib; sourceTree = "<group>"; };
 		29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFormTableViewCell.swift; sourceTree = "<group>"; };
 		29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleFormTableViewCell.xib; sourceTree = "<group>"; };
 		29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFooterTableViewCell.swift; sourceTree = "<group>"; };
@@ -1164,8 +1164,8 @@
 			children = (
 				29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */,
 				29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */,
-				29EE75D5205053030061B18D /* ScheduleObjectTableViewCell.swift */,
-				29EE75D6205053030061B18D /* ScheduleObjectTableViewCell.xib */,
+				29EE75D5205053030061B18D /* ScheduleElementTableViewCell.swift */,
+				29EE75D6205053030061B18D /* ScheduleElementTableViewCell.xib */,
 				29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */,
 				29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */,
 			);
@@ -1425,7 +1425,7 @@
 				29227B5620EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib in Resources */,
 				292197CE209CCF65004A5011 /* Options.storyboard in Resources */,
 				29A97A7D20CEF0B6002F2D9A /* spinner2_.json in Resources */,
-				29EE75D8205053030061B18D /* ScheduleObjectTableViewCell.xib in Resources */,
+				29EE75D8205053030061B18D /* ScheduleElementTableViewCell.xib in Resources */,
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
 				2920F82A2034BA0F0090E7B4 /* PlanTableViewCell.xib in Resources */,
 				29332D9021B5A5CE00950478 /* AlertView.xib in Resources */,
@@ -1693,7 +1693,7 @@
 				29EE75DB205053C40061B18D /* ScheduleFormTableViewCell.swift in Sources */,
 				29227B6C20EFF15C0042B88E /* CustomSectionHeader.swift in Sources */,
 				29DA8AA2205750E200139AD1 /* AgreementTableViewCell.swift in Sources */,
-				29EE75D7205053030061B18D /* ScheduleObjectTableViewCell.swift in Sources */,
+				29EE75D7205053030061B18D /* ScheduleElementTableViewCell.swift in Sources */,
 				29E0D92D203F5F6F00193FA0 /* Pasture.swift in Sources */,
 				29742707204484FB0033BC47 /* AgreementHolderTableViewCell.swift in Sources */,
 				290543302194DC7400865823 /* TourViewController.swift in Sources */,

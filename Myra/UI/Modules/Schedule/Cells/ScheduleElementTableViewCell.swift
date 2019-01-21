@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 import DatePicker
 
-class ScheduleObjectTableViewCell: BaseFormCell {
+class ScheduleElementTableViewCell: BaseFormCell {
     
     // Mark: Constants
     static let cellHeight = 57.0
