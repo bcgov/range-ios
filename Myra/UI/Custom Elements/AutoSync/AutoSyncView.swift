@@ -15,6 +15,7 @@ class AutoSyncView: CustomModal {
     @IBOutlet weak var iconContainer: UIView!
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var waitLabel: UILabel!
     
     func initialize() {
         AutoSync.shared.endListener()
@@ -48,5 +49,7 @@ class AutoSyncView: CustomModal {
         title.font = Fonts.getPrimaryBold(size: 22)
         title.textColor = Colors.active.blue
         divider.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1)
+        waitLabel.font = Fonts.getPrimary(size: 17)
+        waitLabel.textColor = Colors.active.blue
     }
 }

@@ -16,8 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synchronizing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fum-ZO-PbP">
-                    <rect key="frame" x="133" y="45" width="109" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-Synchronizing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fum-ZO-PbP">
+                    <rect key="frame" x="111.5" y="45" width="152" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -37,6 +37,12 @@
                         <constraint firstAttribute="width" secondItem="ClO-yH-nE7" secondAttribute="height" multiplier="1:1" id="mKd-fA-Fgw"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Wait..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ur-LI-ZHq">
+                    <rect key="frame" x="136" y="621" width="103" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -45,6 +51,8 @@
                 <constraint firstItem="ClO-yH-nE7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Gjx-SJ-CZu"/>
                 <constraint firstAttribute="trailing" secondItem="3Om-f7-A2q" secondAttribute="trailing" constant="16" id="N3C-c6-G8r"/>
                 <constraint firstItem="3Om-f7-A2q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="PEk-JL-Y0l"/>
+                <constraint firstItem="8ur-LI-ZHq" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WY6-xE-EDo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8ur-LI-ZHq" secondAttribute="bottom" constant="25" id="XGY-53-z8R"/>
                 <constraint firstItem="3Om-f7-A2q" firstAttribute="top" secondItem="fum-ZO-PbP" secondAttribute="bottom" constant="25" id="gE8-oj-Fk8"/>
                 <constraint firstItem="fum-ZO-PbP" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="25" id="iGO-YU-dNz"/>
             </constraints>
@@ -53,7 +61,9 @@
                 <outlet property="divider" destination="3Om-f7-A2q" id="N0N-vU-J3r"/>
                 <outlet property="iconContainer" destination="ClO-yH-nE7" id="VBE-CT-zNF"/>
                 <outlet property="title" destination="fum-ZO-PbP" id="hPH-au-6yA"/>
+                <outlet property="waitLabel" destination="8ur-LI-ZHq" id="ZUs-cE-klq"/>
             </connections>
+            <point key="canvasLocation" x="180" y="48.125937031484263"/>
         </view>
     </objects>
 </document>
