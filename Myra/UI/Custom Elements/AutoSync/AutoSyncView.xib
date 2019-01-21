@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AutoSyncView" customModule="Myra" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synchronizing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fum-ZO-PbP">
+                    <rect key="frame" x="133" y="45" width="109" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Om-f7-A2q" userLabel="divider">
+                    <rect key="frame" x="16" y="91" width="343" height="1"/>
+                    <color key="backgroundColor" red="0.474942268" green="0.47264786089999999" blue="0.47723667510000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="6vw-9i-9TR"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ClO-yH-nE7" userLabel="icon">
+                    <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="iL1-NR-2ZI"/>
+                        <constraint firstAttribute="width" secondItem="ClO-yH-nE7" secondAttribute="height" multiplier="1:1" id="mKd-fA-Fgw"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fum-ZO-PbP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1Fk-mP-KIc"/>
+                <constraint firstItem="ClO-yH-nE7" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ahq-ov-DTU"/>
+                <constraint firstItem="ClO-yH-nE7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Gjx-SJ-CZu"/>
+                <constraint firstAttribute="trailing" secondItem="3Om-f7-A2q" secondAttribute="trailing" constant="16" id="N3C-c6-G8r"/>
+                <constraint firstItem="3Om-f7-A2q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="PEk-JL-Y0l"/>
+                <constraint firstItem="3Om-f7-A2q" firstAttribute="top" secondItem="fum-ZO-PbP" secondAttribute="bottom" constant="25" id="gE8-oj-Fk8"/>
+                <constraint firstItem="fum-ZO-PbP" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="25" id="iGO-YU-dNz"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="divider" destination="3Om-f7-A2q" id="N0N-vU-J3r"/>
+                <outlet property="iconContainer" destination="ClO-yH-nE7" id="VBE-CT-zNF"/>
+                <outlet property="title" destination="fum-ZO-PbP" id="hPH-au-6yA"/>
+            </connections>
+        </view>
+    </objects>
+</document>

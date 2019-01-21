@@ -10,6 +10,9 @@
 		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
 		1EE8985C21EE926600A74F4F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
 		1EE8985E21F0EE6200A74F4F /* MyriadWebPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */; };
+		1EE8EFDF21F63934001F663B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8EFDE21F63934001F663B /* Logger.swift */; };
+		1EE8EFE221F64C27001F663B /* AutoSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8EFE121F64C27001F663B /* AutoSyncView.swift */; };
+		1EE8EFE421F64C34001F663B /* AutoSyncView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8EFE321F64C34001F663B /* AutoSyncView.xib */; };
 		1EE97DFC21E7CBC9008B1086 /* SettingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */; };
 		1EE97DFD21E7CBC9008B1086 /* SettingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */; };
 		1EE97E0021E7CBE2008B1086 /* SettingButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */; };
@@ -271,7 +274,6 @@
 		29FCB0342056EF47006CD247 /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0332056EF47006CD247 /* Zone.swift */; };
 		29FCB0362056EF95006CD247 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0352056EF95006CD247 /* District.swift */; };
 		29FCB038205702B3006CD247 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB037205702B3006CD247 /* DateManager.swift */; };
-		29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */; };
 		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
 		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
 /* End PBXBuildFile section */
@@ -279,6 +281,9 @@
 /* Begin PBXFileReference section */
 		1EE8985B21EE926600A74F4F /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MyriadWebPro.ttf; sourceTree = "<group>"; };
+		1EE8EFDE21F63934001F663B /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		1EE8EFE121F64C27001F663B /* AutoSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSyncView.swift; sourceTree = "<group>"; };
+		1EE8EFE321F64C34001F663B /* AutoSyncView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutoSyncView.xib; sourceTree = "<group>"; };
 		1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -542,7 +547,6 @@
 		29FCB0332056EF47006CD247 /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
 		29FCB0352056EF95006CD247 /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
 		29FCB037205702B3006CD247 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
-		29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewExtention.swift; sourceTree = "<group>"; };
 		56F388A020801757004CDFAE /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
 		56F388A220801763004CDFAE /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		9F3BB790B0FB0D8DA77195DD /* Pods-Myra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Myra/Pods-Myra.release.xcconfig"; sourceTree = "<group>"; };
@@ -587,6 +591,15 @@
 				2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */,
 			);
 			path = "View Results";
+			sourceTree = "<group>";
+		};
+		1EE8EFE021F64C08001F663B /* AutoSync */ = {
+			isa = PBXGroup;
+			children = (
+				1EE8EFE121F64C27001F663B /* AutoSyncView.swift */,
+				1EE8EFE321F64C34001F663B /* AutoSyncView.xib */,
+			);
+			path = AutoSync;
 			sourceTree = "<group>";
 		};
 		1EE97E0421E809D1008B1086 /* Settings */ = {
@@ -673,6 +686,7 @@
 				292AD86B215C470200F80738 /* Notification.swift */,
 				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
 				1EE8985B21EE926600A74F4F /* Auth.swift */,
+				1EE8EFDE21F63934001F663B /* Logger.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -833,6 +847,7 @@
 			isa = PBXGroup;
 			children = (
 				1EE97E0921E80D4B008B1086 /* CustomModal.swift */,
+				1EE8EFE021F64C08001F663B /* AutoSync */,
 				1EE97E0421E809D1008B1086 /* Settings */,
 				297D8FE021C977D000D9A8B8 /* Input Modal */,
 				297D8FDB21C9754700D9A8B8 /* Sync */,
@@ -858,7 +873,6 @@
 			isa = PBXGroup;
 			children = (
 				293C95C620335D4100BF1113 /* HomeViewController.swift */,
-				29FF2AAC2097DF22002C1FAE /* HomeViewExtention.swift */,
 				29174682207426E2005F70B4 /* Home.storyboard */,
 				297D8FE521C9794F00D9A8B8 /* Cells */,
 			);
@@ -1430,6 +1444,7 @@
 				297E9987216545D100FB6F04 /* Map.storyboard in Resources */,
 				2933183720FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.xib in Resources */,
 				2905521A2134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib in Resources */,
+				1EE8EFE421F64C34001F663B /* AutoSyncView.xib in Resources */,
 				29400584208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib in Resources */,
 				29174683207426E2005F70B4 /* Home.storyboard in Resources */,
 				29400580208FCD5700AA1BDC /* PlanInformationTableViewCell.xib in Resources */,
@@ -1659,9 +1674,11 @@
 				29EADF80206039D60087593F /* AgreementStatus.swift in Sources */,
 				292197D0209CD037004A5011 /* OptionsViewController.swift in Sources */,
 				29FCB0362056EF95006CD247 /* District.swift in Sources */,
+				1EE8EFE221F64C27001F663B /* AutoSyncView.swift in Sources */,
 				295FBF7C21641F0200DD2C53 /* LifeForm.mlmodel in Sources */,
 				296233B2219E466700E0BD2E /* FeedbackElement.swift in Sources */,
 				299491F320B628F6005FCF94 /* MinisterIssueTableViewCell.swift in Sources */,
+				1EE8EFDF21F63934001F663B /* Logger.swift in Sources */,
 				299D3EBA217E79F00000781E /* PlantCommunityElevation.swift in Sources */,
 				2905521621346AAE00785B5E /* Amendment.swift in Sources */,
 				29A52749205B305B00C871F7 /* SelectionPopUpViewController.swift in Sources */,
@@ -1688,7 +1705,6 @@
 				1EE97E0021E7CBE2008B1086 /* SettingButtonTableViewCell.swift in Sources */,
 				292B650A21C04E5900F9A8A5 /* UserInfo.swift in Sources */,
 				2938CF1421A5D20500329DDA /* UserFeedbackTableViewCell.swift in Sources */,
-				29FF2AAD2097DF22002C1FAE /* HomeViewExtention.swift in Sources */,
 				293020082139A22000E121E0 /* Router.swift in Sources */,
 				29F13BE321236C0600A25424 /* AssignedRUPVersionTableViewCell.swift in Sources */,
 				297E9989216545E700FB6F04 /* MapViewController.swift in Sources */,

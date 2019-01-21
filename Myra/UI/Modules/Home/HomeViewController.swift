@@ -42,12 +42,6 @@ class HomeViewController: BaseViewController {
 
     var syncing: Bool = false
 
-    // Tourtip vars
-//    var tours: [TourTip] = [TourTip]()
-
-//    var lastTourTip: TourTip?
-//    var lastTourTarget: UIView?
-//    var lastTourTargetAlpha: CGFloat = 1
     var showTour: Bool = false
 
     var lastSyncLabelTimer = Timer()
@@ -133,18 +127,16 @@ class HomeViewController: BaseViewController {
     }
 
     @IBAction func testCam(_ sender: UIButton) {
-//        Feedback.show(in: self)
-
-//        let cam = Cam()
-//        cam.display(on: self) { (photo) in
-//            if let photo = photo {
-//                Loading.shared.start()
-//                let pic = RangePhoto()
-//                pic.save(from: photo)
-//                let preview: TagImage = TagImage.fromNib()
-//                preview.show(with: pic, in: self, then: {})
-//            }
-//        }
+        let cam = Cam()
+        cam.display(on: self) { (photo) in
+            if let photo = photo {
+                Loading.shared.start()
+                let pic = RangePhoto()
+                pic.save(from: photo)
+                let preview: TagImage = TagImage.fromNib()
+                preview.show(with: pic, in: self, then: {})
+            }
+        }
     }
 
     func buffer(from image: UIImage) -> CVPixelBuffer? {
@@ -182,35 +174,6 @@ class HomeViewController: BaseViewController {
         dialog.initialize {
             self.beginTour()
         }
-
-//        beginTourTip()
-
-        /*
-        let firstIndexPath = IndexPath(row: 0, section: 0)
-        let tour = Tour()
-        var objects: [TourObject] = [TourObject]()
-        let createBtn = TourObject(header: "Create Button", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: createButton)
-        let lsLabel = TourObject(header: "LastSync", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: lastSyncLabel)
-        let smtnLabel = TourObject(header: "Light", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: connectivityLight)
-
-        objects.append(lsLabel)
-        objects.append(createBtn)
-        objects.append(smtnLabel)
-
-        if let visibles = self.tableView.indexPathsForVisibleRows{
-            let lastVisible = visibles[visibles.count - 2]
-            if let cellOne = self.tableView.cellForRow(at: lastVisible) {
-                let celltuorial = TourObject(header: "Down below", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: cellOne)
-                objects.append(celltuorial)
-            }
-        }
-        if let cellOne = self.tableView.cellForRow(at: firstIndexPath) {
-            let celltuorial = TourObject(header: "Range Use Plan", desc: "When you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.\nWhen you open the MyRange app you will be shown all of your assigned RUP’s on this homescreen. Tap on RUP’s to view them and their previous versions.", on: cellOne)
-            objects.append(celltuorial)
-        }
-
-        tour.initialize(with: objects, backgroundColor: Colors.active.blue, textColor: UIColor.white, containerIn: self)
- */
     }
 
     @IBAction func createRUPAction(_ sender: UIButton) {
@@ -329,6 +292,28 @@ class HomeViewController: BaseViewController {
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
     }
+    
+    // MARK: Logout
+    func showLogoutOption(on: UIButton) {
+        let vm = ViewManager()
+        let lookup = vm.lookup
+        let logoutOption = SelectionPopUpObject(display: "Logout", value: "logout")
+        var objects = [SelectionPopUpObject]()
+        objects.append(logoutOption)
+        lookup.setupSimple(objects: objects) { (selected, obj) in
+            if selected, let selection = obj {
+                lookup.dismiss(animated: true, completion: nil)
+                if selection.value == logoutOption.value, let presenter = self.getPresenter() {
+                    self.showAlert(title: "Are you sure?", description: "Logging out will delete all plans that have not been synced.", yesButtonTapped: {
+                        SettingsManager.shared.signout(presenterReference: presenter)
+                    }, noButtonTapped: {})
+                }
+            } else {
+                lookup.dismiss(animated: true, completion: nil)
+            }
+        }
+        showPopOver(on: on, vc: lookup, height: lookup.getEstimatedHeight(), width: 200, arrowColor: nil)
+    }
 
     // MARK: setup
     /*
@@ -389,8 +374,6 @@ class HomeViewController: BaseViewController {
         self.expandIndexPath = nil
         self.tableView.reloadData()
         self.tableView.isScrollEnabled = true
-        
-//        AutoSync.shared.autoSync()
     }
 
     /*

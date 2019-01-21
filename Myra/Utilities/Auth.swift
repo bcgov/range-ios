@@ -8,6 +8,7 @@
 
 import Foundation
 import SingleSignOn
+import WebKit
 
 class Auth {
     
