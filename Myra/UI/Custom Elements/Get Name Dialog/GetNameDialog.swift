@@ -80,7 +80,8 @@ class GetNameDialog: CustomModal {
     // MARK: Entry Point
     func initialize(callBack: @escaping ()-> Void) {
         self.callBack = callBack
-        setFixed(width: 390, height: 400)
+        setSmartSizingWith(percentHorizontalPadding: 30, percentVerticalPadding: 35)
+//        setFixed(width: 390, height: 400)
         style()
         present()
         autoFill()

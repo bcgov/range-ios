@@ -56,6 +56,11 @@ class TourStart: UIView, Theme {
         style()
         self.alpha = invisibleAlpha
         self.isUserInteractionEnabled = false
+        API.getUserInfo { (userInfo) in
+            if let userInfo = userInfo {
+                self.title.text = "Welcome \(userInfo.firstName)"
+            }
+        }
         position(then: {
             self.isUserInteractionEnabled = true
         })

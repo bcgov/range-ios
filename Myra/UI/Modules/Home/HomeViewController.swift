@@ -25,6 +25,8 @@ class HomeViewController: BaseViewController {
     var syncButtonActionTag = 121
 
     var blockSync = false
+    
+    var gettingUserInfo: Bool = false
 
     // MARK: Variables
     var realmNotificationToken: NotificationToken?
@@ -96,10 +98,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         syncing = false
         loadHome()
-//        API.updateUserInfo(firstName: "", lastName: "") { (success) in
-//            print(success)
-//        }
-        promptGetUserNameIfNeeded()
+        promptGetUserNameIfNeeded(showTourAfter: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -118,11 +117,6 @@ class HomeViewController: BaseViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if showTour {
-            self.view.layoutIfNeeded()
-            self.beginTour()
-            self.showTour = false
-        }
     }
 
     // MARK: Outlet actions
@@ -566,15 +560,27 @@ class HomeViewController: BaseViewController {
         return pixelBuffer
     }
     
-    func promptGetUserNameIfNeeded() {
-        guard let r = Reachability(), r.connection != .none else {
+    func promptGetUserNameIfNeeded(showTourAfter: Bool) {
+        guard let r = Reachability(), r.connection != .none, !gettingUserInfo else {
             return
         }
+        self.gettingUserInfo = true
         API.getUserInfo { (userInfo) in
             guard let info = userInfo, !info.firstName.isEmpty && !info.lastName.isEmpty else {
                 let dialog: GetNameDialog = UIView.fromNib()
-                dialog.initialize {}
+                dialog.initialize {
+                    if showTourAfter {
+                        self.view.layoutIfNeeded()
+                        self.gettingUserInfo = false
+                        self.beginTour()
+                        self.showTour = false
+                    }
+                }
                 return
+            }
+            if showTourAfter {
+                self.beginTour()
+                self.showTour = false
             }
         }
     }
