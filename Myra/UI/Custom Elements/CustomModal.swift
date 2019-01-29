@@ -23,6 +23,9 @@ class CustomModal: UIView, Theme {
     // MARK: Variables
     private var contraintsAdded: [customModalContraint: NSLayoutConstraint] = [customModalContraint: NSLayoutConstraint]()
     
+    // Space between bottom of modal and keyboard, when keyboard covers modal
+    private let keyboardPadding: CGFloat = 25
+    
     private var width: CGFloat = 390
     private var height: CGFloat = 400
     private var verticalPadding: CGFloat = 0
@@ -48,6 +51,7 @@ class CustomModal: UIView, Theme {
         }
     }
     
+    // MARK: Keyboard handler
     func addKeyboardObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -58,33 +62,18 @@ class CustomModal: UIView, Theme {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // MARK: Keyboard handler
     @objc func didReceiveKeyboardNotificationObserver(_ notification: Notification) {
-        let userInfo = notification.userInfo
-//        let keyboardBounds = (userInfo!["UIKeyboardBoundsUserInfoKey"] as! NSValue).cgRectValue
-        let keyboardFrame = (userInfo!["UIKeyboardFrameEndUserInfoKey"] as! NSValue).cgRectValue
-//        let duration = userInfo!["UIKeyboardAnimationDurationUserInfoKey"] as! Double
-//        let curve = userInfo!["UIKeyboardAnimationCurveUserInfoKey"] as! Int
-//        let frameBegin = (userInfo!["UIKeyboardFrameBeginUserInfoKey"] as! NSValue).cgRectValue
-//        let centerBegin = (userInfo!["UIKeyboardCenterBeginUserInfoKey"] as! NSValue).cgPointValue
-//        let center = (userInfo!["UIKeyboardCenterEndUserInfoKey"] as! NSValue).cgPointValue
-//        let location = userInfo!["UIKeyboardIsLocalUserInfoKey"] as! Int
-//        print("keyboardBounds: \(keyboardBounds) \nkeyboardFrame: \(keyboardFrame) \nduration: \(duration) \ncurve: \(curve) \nframeBegin:\(frameBegin) \ncenterBegin:\(centerBegin)\ncenter:\(center)\nlocation:\(location)")
+        guard let userInfo = notification.userInfo, let keyboardFrame = userInfo["UIKeyboardFrameEndUserInfoKey"] as? NSValue else {return}
         switch notification.name {
         case UIResponder.keyboardWillShowNotification:
-        // keyboardWillShowNotification
-            print("Show")
-            addKeyboardContraints(keyboardFrame: keyboardFrame)
+            addKeyboardContraints(keyboardFrame: keyboardFrame.cgRectValue)
             activateConstraints()
         case UIResponder.keyboardWillHideNotification:
-        // keyboardWillHideNotification
-            print("Hide")
             removeKeyboardConstraints()
             activateConstraints()
         default:
             break
         }
-        
     }
     
     // MARK: Size
@@ -236,7 +225,6 @@ class CustomModal: UIView, Theme {
     }
     
     func addCenterConstraints() {
-        guard let window = UIApplication.shared.keyWindow else {return}
         guard let centerXIndex = contraintsAdded.index(forKey: .CenterX), let centerYIndex = contraintsAdded.index(forKey: .CenterY), let centerXContraint = contraintsAdded.at(centerXIndex), let centerYContraint = contraintsAdded.at(centerYIndex) else {
             return
         }
@@ -253,7 +241,7 @@ class CustomModal: UIView, Theme {
     }
     
     func addKeyboardContraints(keyboardFrame: CGRect) {
-        if !isKeyboardConstraintsNeeded(keyboardFrame: keyboardFrame) {return}
+        if !isKeyboardCoveringMe(keyboardFrame: keyboardFrame) {return}
         guard let window = UIApplication.shared.keyWindow else {return}
  
         if let centerXIndex = contraintsAdded.index(forKey: .CenterX), let centerYIndex = contraintsAdded.index(forKey: .CenterY), let centerXContraint = contraintsAdded.at(centerXIndex), let centerYContraint = contraintsAdded.at(centerYIndex) {
@@ -262,7 +250,7 @@ class CustomModal: UIView, Theme {
             if let bottomIndex = contraintsAdded.index(forKey: .Bottom), let existingBottomContraint = contraintsAdded.at(bottomIndex) {
                 existingBottomContraint.value.isActive = true
             } else {
-                let bottomConstraint = self.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant: 0 - (keyboardFrame.origin.y))
+                let bottomConstraint = self.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant: 0 - (keyboardFrame.origin.y + keyboardPadding))
                 bottomConstraint.isActive = true
                 self.contraintsAdded[.Bottom] = bottomConstraint
             }
@@ -278,7 +266,7 @@ class CustomModal: UIView, Theme {
         centerYContraint.value.isActive = true
     }
     
-    func isKeyboardConstraintsNeeded(keyboardFrame: CGRect) -> Bool {
+    func isKeyboardCoveringMe(keyboardFrame: CGRect) -> Bool {
          guard let window = UIApplication.shared.keyWindow else {return false}
         let myEstimatedBottom = window.center.y + (self.height/2)
         if myEstimatedBottom > keyboardFrame.origin.y {
