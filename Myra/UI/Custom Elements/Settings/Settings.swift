@@ -73,6 +73,7 @@ class Settings: CustomModal {
     
     // MARK: AutoSync Option
     func enableAutoSync() {
+        // TODO: Move Logic to SettingsManager
         if !Auth.isAuthenticated() {
             self.hide()
             Auth.authenticate { (success) in

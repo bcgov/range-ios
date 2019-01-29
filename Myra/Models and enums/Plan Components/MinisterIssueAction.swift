@@ -26,6 +26,7 @@ class MinisterIssueAction: Object, MyraObject {
 
     @objc dynamic var actionTypeID: Int = -1
     @objc dynamic var actionType: String = ""
+    @objc dynamic var otherActionTypeName: String = ""
     @objc dynamic var desc: String = ""
     @objc dynamic var noGrazeOutSelected: Bool = false
     @objc dynamic var noGrazeInDay: Int = 1
@@ -51,6 +52,10 @@ class MinisterIssueAction: Object, MyraObject {
 
         if let actionTypeId = json["actionTypeId"].int {
             self.actionTypeID = actionTypeId
+        }
+        
+        if let otherActionTypeName = json["other"].string {
+            self.otherActionTypeName = otherActionTypeName
         }
     }
 
@@ -93,6 +98,7 @@ class MinisterIssueAction: Object, MyraObject {
         new.remoteId = self.remoteId
         new.actionType = self.actionType
         new.actionTypeID = self.actionTypeID
+        new.otherActionTypeName = self.otherActionTypeName
         new.desc = self.desc
         new.noGrazeOutSelected = self.noGrazeOutSelected
         new.noGrazeInDay = self.noGrazeInDay

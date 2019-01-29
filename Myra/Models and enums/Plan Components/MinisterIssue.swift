@@ -30,6 +30,7 @@ class MinisterIssue: Object, MyraObject {
     @objc dynamic var objective: String = ""
     @objc dynamic var desc: String = ""
     @objc dynamic var identified: Bool = false
+    
     var actions = List<MinisterIssueAction>()
     var pastures = List<Pasture>()
 
@@ -163,6 +164,9 @@ class MinisterIssue: Object, MyraObject {
         let new = MinisterIssueAction()
         new.actionType = name
         new.actionTypeID = type.id
+        if type.name.lowercased() == "other" {
+            new.otherActionTypeName = name
+        }
         do {
             let realm = try Realm()
             try realm.write {

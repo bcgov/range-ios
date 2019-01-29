@@ -16,7 +16,6 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var subtitle: UILabel!
-    @IBOutlet weak var requirementLabel: UILabel!
 
     @IBOutlet weak var boxOne: UIView!
     @IBOutlet weak var boxTwo: UIView!
@@ -163,7 +162,6 @@ class InvasivePlantsTableViewCell: BaseFormCell {
         styleHeader(label: titleLabel, divider: divider)
         titleLabel.increaseFontSize(by: -4)
         styleSubHeader(label: subtitle)
-        styleSubHeader(label: requirementLabel)
         styleTextviewInputField(field: textView)
         styleBody(label: optionOne)
         styleBody(label: optionTwo)

@@ -49,6 +49,10 @@ class PlantCommunity: Object, MyraObject {
         if let name = json["name"].string {
             self.name = name
         }
+        
+        if let sUse = json["shrubUse"].double {
+            self.shrubUse = sUse
+        }
 
         if let notes = json["notes"].string {
             self.notes = notes
@@ -306,6 +310,7 @@ class PlantCommunity: Object, MyraObject {
         new.communityURL = self.communityURL
         new.purposeOfAction = self.purposeOfAction
         new.approvedByMinister = self.approvedByMinister
+        new.shrubUse = self.shrubUse
 
         new.readinessDay = self.readinessDay
         new.readinessMonth = self.readinessMonth
@@ -366,6 +371,7 @@ class PlantCommunity: Object, MyraObject {
 
         return [
             "name": name,
+            "shrubUse": shrubUse,
             "communityTypeId": typeId,
             "elevationId": elevationId,
             "purposeOfAction": purpose,

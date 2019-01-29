@@ -150,10 +150,6 @@
             }
         }
         
-        for invasivePlants in rup.invasivePlants where !invasivePlants.requiredFieldsAreFilled() {
-            return (false, "Missing required fields in Invasive Plants section")
-        }
-        
         for req in rup.additionalRequirements where !req.requiredFieldsAreFilled() {
             return (false, "One of more Additional requirement's required fields are missing")
         }
