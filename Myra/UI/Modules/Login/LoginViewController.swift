@@ -55,7 +55,7 @@ class LoginViewController: BaseViewController {
             } else {
                 Auth.logout()
                 self.loginButton.isUserInteractionEnabled = true
-                Alert.show(title: "Unexpected error", message: "Could not perform initial Synchronization.")
+                Alert.show(title: "Unexpected error", message: "Could not perform initial Synchronization.\nPlease check your connection and Login again")
             }
         }
     }

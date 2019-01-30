@@ -12,7 +12,7 @@ import SingleSignOn
 enum SettingsSections: Int, CaseIterable {
     case Sync = 0
     case Map
-    case Environment
+    case DeveloperTools
 }
 
 enum SettingsSyncSection: Int, CaseIterable {
@@ -25,8 +25,9 @@ enum SettingsMapSection: Int, CaseIterable {
     case ClearCache
 }
 
-enum SettingsEnvironmentSection: Int, CaseIterable {
+enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case Development
+    case ClearUserInfo
 }
 
 class Settings: CustomModal {
@@ -173,9 +174,9 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             default:
                 fatalError()
             }
-        case SettingsSections.Environment.rawValue:
+        case SettingsSections.DeveloperTools.rawValue:
             switch indexPath.row {
-            case SettingsEnvironmentSection.Development.rawValue:
+            case SettingsDeveloperToolsSection.Development.rawValue:
                 let cell = getSettingToggleTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Development", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
                     if let parent = self.parent, let presenter = parent.getPresenter() {
@@ -186,6 +187,19 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                         SettingsManager.shared.setCurrentEnvironment(to: env, presenterReference: presenter)
                         self.remove()
                     }
+                }
+                return cell
+                
+            case SettingsDeveloperToolsSection.ClearUserInfo.rawValue:
+                let cell = getSettingButtonTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Clear User Info") {
+                    API.updateUserInfo(firstName: "", lastName: "", completion: { (done) in
+                        if done {
+                            Alert.show(title: "Success", message: "Cleared user information")
+                        } else {
+                            Alert.show(title: "Failed", message: "Could not clear user information")
+                        }
+                    })
                 }
                 return cell
             default:
@@ -202,8 +216,8 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return SettingsSyncSection.allCases.count
         case SettingsSections.Map.rawValue:
             return SettingsMapSection.allCases.count
-        case SettingsSections.Environment.rawValue:
-            return SettingsEnvironmentSection.allCases.count
+        case SettingsSections.DeveloperTools.rawValue:
+            return SettingsDeveloperToolsSection.allCases.count
         default:
             return 0
         }
@@ -215,8 +229,8 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return "SYNCING"
         case SettingsSections.Map.rawValue:
             return "MAPPING"
-        case SettingsSections.Environment.rawValue:
-            return "ENVIRONMENT"
+        case SettingsSections.DeveloperTools.rawValue:
+            return "Developer Tools"
         default:
             return ""
         }

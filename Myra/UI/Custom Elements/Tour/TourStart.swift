@@ -62,6 +62,7 @@ class TourStart: CustomModal {
                 self.title.text = "Welcome \(userInfo.firstName)"
             }
         }
+        body.text = "Welcome to MyRangeBC.\nHow about a quick tour?"
         position(then: {
             self.isUserInteractionEnabled = true
         })
@@ -75,5 +76,6 @@ class TourStart: CustomModal {
         title.textColor = UIColor.black
         body.font = Fonts.getPrimaryMedium(size: 17)
         styleFillButton(button: beginButton)
+        styleHollowButton(button: skipButton)
     }
 }

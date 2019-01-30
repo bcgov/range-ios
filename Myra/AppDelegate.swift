@@ -25,16 +25,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // so we can find our Documents
         print("documents = \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)")
         #endif
-        
-        print(SettingsManager.shared.getCurrentEnvironment())
-        
+        // Remove dummy plan if exists
+        DummyData.removeDummyPlanAndAgreement()
+        // My way of making sure the settingsManager singleton exists before referenced elsewhere
+        print("Current Environment is \(SettingsManager.shared.getCurrentEnvironment())")
+        // Keyboard settings
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.enableAutoToolbar = false
+        // Fabric
         Fabric.with([Crashlytics.self])
+        // Begin Autosync change listener
         AutoSync.shared.beginListener()
         
-        print("Current Environment is \(SettingsManager.shared.getCurrentEnvironment())")
+       
 
         return true
     }

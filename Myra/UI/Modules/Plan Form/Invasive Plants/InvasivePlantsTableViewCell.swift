@@ -43,7 +43,12 @@ class InvasivePlantsTableViewCell: BaseFormCell {
     @IBOutlet weak var optionFiveButton: UIButton!
 
     @IBOutlet weak var otherFieldHeight: NSLayoutConstraint!
-
+    
+    @IBOutlet weak var boxOneHeight: NSLayoutConstraint!
+    @IBOutlet weak var boxTwoHeight: NSLayoutConstraint!
+    @IBOutlet weak var boxThreeHeight: NSLayoutConstraint!
+    @IBOutlet weak var boxFourHeight: NSLayoutConstraint!
+    
     // MARK: Outlet Actions
     @IBAction func optionOneAction(_ sender: UIButton) {
         guard let plan = self.plan, let invasivePlants = plan.invasivePlants.first else {return}
@@ -156,6 +161,16 @@ class InvasivePlantsTableViewCell: BaseFormCell {
         otherFieldHeight.constant = 0
         style(box: boxFiveIcon, on: false)
     }
+    
+    func adjustBoxHeights() {
+        boxOneHeight.constant = optionOne.text?.height(withConstrainedWidth: optionOne.frame.width, font: optionOne.font) ?? boxOneHeight.constant
+        
+        boxTwoHeight.constant = optionTwo.text?.height(withConstrainedWidth: optionTwo.frame.width, font: optionTwo.font) ?? boxTwoHeight.constant
+        
+        boxThreeHeight.constant = optionThree.text?.height(withConstrainedWidth: optionThree.frame.width, font: optionThree.font) ?? boxThreeHeight.constant
+        
+        boxFourHeight.constant = optionFour.text?.height(withConstrainedWidth: optionFour.frame.width, font: optionFour.font) ?? boxFourHeight.constant
+    }
 
     // MARK: Style
     func style() {
@@ -194,6 +209,7 @@ class InvasivePlantsTableViewCell: BaseFormCell {
             optionFiveButton.isEnabled = false
             textView.isEditable = false
         }
+        adjustBoxHeights()
     }
 
     func style(box: UIImageView, on: Bool) {
