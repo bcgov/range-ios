@@ -106,6 +106,9 @@ class HomeViewController: BaseViewController {
         setupReachabilityNotification()
         self.removeDummy()
         self.getRUPs()
+        API.updateUserInfo(firstName: "", lastName: "") { (done) in
+            print(done)
+        }
 //        TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
     }
 

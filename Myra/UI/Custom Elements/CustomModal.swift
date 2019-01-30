@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 enum customModalContraint {
     case Width
     case Height
@@ -55,6 +54,7 @@ class CustomModal: UIView, Theme {
     func addKeyboardObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
     func removeKeyboardObserver() {
@@ -66,14 +66,46 @@ class CustomModal: UIView, Theme {
         guard let userInfo = notification.userInfo, let keyboardFrame = userInfo["UIKeyboardFrameEndUserInfoKey"] as? NSValue else {return}
         switch notification.name {
         case UIResponder.keyboardWillShowNotification:
-            addKeyboardContraints(keyboardFrame: keyboardFrame.cgRectValue)
-            activateConstraints()
+            UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), delay: SettingsManager.shared.getAnimationDuration(), animations: {
+                self.addKeyboardContraints(keyboardFrame: keyboardFrame.cgRectValue)
+                self.activateConstraints()
+            }) { (done) in
+                UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
+                    self.redoContraintsIfNeeded(keyboardFrame: keyboardFrame.cgRectValue)
+                }) { (done) in}
+            }
         case UIResponder.keyboardWillHideNotification:
-            removeKeyboardConstraints()
-            activateConstraints()
+            UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), delay: SettingsManager.shared.getAnimationDuration(), animations: {
+                self.removeKeyboardConstraints()
+                self.activateConstraints()
+            }) { (done) in}
+        case UIResponder.keyboardDidShowNotification:
+            return
         default:
             break
         }
+    }
+    
+    func findViewFirstResponder() -> UIView? {
+        return recursiveFindSubViewWithKeyboard(from: self)
+    }
+    
+    func recursiveFindSubViewWithKeyboard(from current: UIView) -> UIView?{
+        if current.subviews.isEmpty {
+            return nil
+            
+        }
+        
+        if current.isFirstResponder {
+            return current
+        }
+        
+        for each in current.subviews {
+            if let found = recursiveFindSubViewWithKeyboard(from: each) {
+                return found
+            }
+        }
+        return nil
     }
     
     // MARK: Size
@@ -101,16 +133,18 @@ class CustomModal: UIView, Theme {
     
     func setSmartSizingWith(percentHorizontalPadding: CGFloat, percentVerticalPadding: CGFloat) {
         guard let window = UIApplication.shared.keyWindow else {return}
-        self.horizontalPadding = self.get(percent: percentHorizontalPadding, of: window.frame.width)
-        self.verticalPadding = self.get(percent: percentVerticalPadding, of: window.frame.height)
         
         // Choose a witdh or height that stay the same regardless of orientation.
         if window.frame.width > window.frame.height {
             // Horizontal
+            self.horizontalPadding = self.get(percent: percentHorizontalPadding, of: window.frame.width)
+            self.verticalPadding = self.get(percent: percentVerticalPadding, of: window.frame.height)
             self.height = window.frame.height - (verticalPadding)
             self.width = window.frame.height - (horizontalPadding)
         } else {
             // vertical
+            self.horizontalPadding = self.get(percent: percentHorizontalPadding, of: window.frame.height)
+            self.verticalPadding = self.get(percent: percentVerticalPadding, of: window.frame.width)
             self.height = window.frame.width - (verticalPadding)
             self.width = window.frame.width - (horizontalPadding)
         }
@@ -143,6 +177,12 @@ class CustomModal: UIView, Theme {
                 closeButton.widthAnchor.constraint(equalToConstant: 25),
                 closeButton.heightAnchor.constraint(equalToConstant: 25),
                 ])
+        }
+    }
+    
+    func animate() {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration()) {
+            self.layoutIfNeeded()
         }
     }
     
@@ -201,7 +241,7 @@ class CustomModal: UIView, Theme {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(addedConstraints)
         NSLayoutConstraint.deactivate(removedConstraints)
-        self.layoutIfNeeded()
+        
     }
     
     func addInitialConstraints() {
@@ -240,6 +280,7 @@ class CustomModal: UIView, Theme {
         centerXContraint.value.isActive = false
     }
     
+    // MARK: Keyboard constraints
     func addKeyboardContraints(keyboardFrame: CGRect) {
         if !isKeyboardCoveringMe(keyboardFrame: keyboardFrame) {return}
         guard let window = UIApplication.shared.keyWindow else {return}
@@ -249,12 +290,34 @@ class CustomModal: UIView, Theme {
             centerXContraint.value.isActive = true
             if let bottomIndex = contraintsAdded.index(forKey: .Bottom), let existingBottomContraint = contraintsAdded.at(bottomIndex) {
                 existingBottomContraint.value.isActive = true
+                existingBottomContraint.value.constant = getKeyboardContraintConstant(keyboardFrame: keyboardFrame)
             } else {
-                let bottomConstraint = self.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant: 0 - (keyboardFrame.origin.y + keyboardPadding))
+                let bottomConstraint = self.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant:getKeyboardContraintConstant(keyboardFrame: keyboardFrame))
                 bottomConstraint.isActive = true
                 self.contraintsAdded[.Bottom] = bottomConstraint
             }
         }
+    }
+    
+    /*
+     - if the textfield being edited is moved out of the screen
+     - if the texcfied being edited is too far from keyboard
+     */
+    func redoContraintsIfNeeded(keyboardFrame: CGRect) {
+        guard let field = findViewFirstResponder(), let window = UIApplication.shared.keyWindow, let fieldSuperview = field.superview else {return}
+        let globalPoint = fieldSuperview.convert(field.frame.origin, to: nil)
+        // if the textfield being edited is moved out of the screen
+        if globalPoint.y < 0 {
+            guard let bottomIndex = contraintsAdded.index(forKey: .Bottom), let bottomContraint = contraintsAdded.at(bottomIndex) else {
+                return
+            }
+            bottomContraint.value.constant = (window.frame.height - keyboardFrame.origin.y) - self.frame.height
+        }
+    }
+    
+    func getKeyboardContraintConstant(keyboardFrame: CGRect) -> CGFloat {
+        guard let window = UIApplication.shared.keyWindow else {return (0 - (keyboardFrame.origin.y + keyboardPadding))}
+        return (((window.frame.height - keyboardFrame.origin.y) + keyboardPadding) * -1)
     }
     
     func removeKeyboardConstraints() {
@@ -267,9 +330,9 @@ class CustomModal: UIView, Theme {
     }
     
     func isKeyboardCoveringMe(keyboardFrame: CGRect) -> Bool {
-         guard let window = UIApplication.shared.keyWindow else {return false}
+        guard let window = UIApplication.shared.keyWindow else {return false}
         let myEstimatedBottom = window.center.y + (self.height/2)
-        if myEstimatedBottom > keyboardFrame.origin.y {
+        if myEstimatedBottom > (keyboardFrame.origin.y + keyboardPadding) {
             return true
         } else {
             return false
@@ -349,7 +412,5 @@ class CustomModal: UIView, Theme {
             viewWithTag.removeFromSuperview()
         }
         recursivelyRemoveWhiteScreens(attempt: found)
-    
     }
-    
 }
