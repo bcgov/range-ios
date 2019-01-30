@@ -28,6 +28,7 @@ enum SettingsMapSection: Int, CaseIterable {
 enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case Development
     case ClearUserInfo
+    case UpdateUserInfo
 }
 
 class Settings: CustomModal {
@@ -200,6 +201,17 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                             Alert.show(title: "Failed", message: "Could not clear user information")
                         }
                     })
+                }
+                return cell
+                
+            case SettingsDeveloperToolsSection.UpdateUserInfo.rawValue:
+                let cell = getSettingButtonTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Update User Information") {
+                    let dialog: GetNameDialog = UIView.fromNib()
+                    self.remove()
+                    dialog.initialize {
+                        
+                    }
                 }
                 return cell
             default:
