@@ -170,8 +170,11 @@ class SelectionPopUpViewController: UIViewController, Theme {
 
     func getEstimatedWidth() -> Int {
         var max: CGFloat = 0
+        if headerTxt.count > 0 {
+              max = headerTxt.width(withConstrainedHeight: headerHeightConstant, font: defaultSectionSubHeaderFont())
+        }
         for element in objects {
-            let w = element.display.width(withConstrainedHeight: 33, font: Fonts.getPrimary(size: 17))
+            let w = element.display.width(withConstrainedHeight: cellHeight, font: Fonts.getPrimary(size: 17))
             if w > max {
                 max = w
             }
@@ -201,7 +204,7 @@ class SelectionPopUpViewController: UIViewController, Theme {
         if headerTxt.count > 0 {
             self.header.text = headerTxt
             styleSubHeader(label: header)
-            headerHeight.constant = 35
+            headerHeight.constant = headerHeightConstant
         } else {
             headerHeight.constant = 0
         }

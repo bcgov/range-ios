@@ -8,22 +8,6 @@
 
 import Foundation
 
-
-enum AmendmentChangeType {
-    case Stands
-    case WronglyMadeStands
-    case WronglyMadeNoEffect
-    case Ready
-    case NotReady
-    case NotApprovedFurtherWorkRequired
-    case NotApproved
-    case Approved
-    case Completed
-    case ChangeRequested
-    case RequestAgreementHolderInput
-    case RequestAgreementHolderEsignature
-}
-
 class Amendment {
     var type: AmendmentChangeType?
     var InformedAgreementHolder: Bool = false
