@@ -13,6 +13,10 @@
 		1E03B32B220367CD00116848 /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32A220367CD00116848 /* Privacy.swift */; };
 		1E03B32D22037EC400116848 /* AmendmentEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32C22037EC400116848 /* AmendmentEnums.swift */; };
 		1E03B32F220381FF00116848 /* AmendmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32E220381FF00116848 /* AmendmentHelper.swift */; };
+		1E03B3322204BB4900116848 /* LoggerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3312204BB4900116848 /* LoggerWindow.xib */; };
+		1E03B3342204BB6200116848 /* LoggerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3332204BB6200116848 /* LoggerWindow.swift */; };
+		1E03B3382204BFDF00116848 /* LoggerWindowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */; };
+		1E03B3392204BFDF00116848 /* LoggerWindowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */; };
 		1EE8985C21EE926600A74F4F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
 		1EE8985E21F0EE6200A74F4F /* MyriadWebPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */; };
 		1EE8EFDF21F63934001F663B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8EFDE21F63934001F663B /* Logger.swift */; };
@@ -288,6 +292,10 @@
 		1E03B32A220367CD00116848 /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		1E03B32C22037EC400116848 /* AmendmentEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentEnums.swift; sourceTree = "<group>"; };
 		1E03B32E220381FF00116848 /* AmendmentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentHelper.swift; sourceTree = "<group>"; };
+		1E03B3312204BB4900116848 /* LoggerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerWindow.xib; sourceTree = "<group>"; };
+		1E03B3332204BB6200116848 /* LoggerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindow.swift; sourceTree = "<group>"; };
+		1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindowTableViewCell.swift; sourceTree = "<group>"; };
+		1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerWindowTableViewCell.xib; sourceTree = "<group>"; };
 		1EE8985B21EE926600A74F4F /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MyriadWebPro.ttf; sourceTree = "<group>"; };
 		1EE8EFDE21F63934001F663B /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -623,14 +631,6 @@
 			path = "Realm Wrappers";
 			sourceTree = "<group>";
 		};
-		1E03B31D22023CFB00116848 /* Message Logger */ = {
-			isa = PBXGroup;
-			children = (
-				1EE8EFDE21F63934001F663B /* Logger.swift */,
-			);
-			path = "Message Logger";
-			sourceTree = "<group>";
-		};
 		1E03B31E22023D3200116848 /* Authentication Wrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -646,6 +646,26 @@
 				1E03B32A220367CD00116848 /* Privacy.swift */,
 			);
 			path = Privacy;
+			sourceTree = "<group>";
+		};
+		1E03B3302204BB1F00116848 /* LoggerWIndow */ = {
+			isa = PBXGroup;
+			children = (
+				1E03B3352204BFC000116848 /* Cells */,
+				1EE8EFDE21F63934001F663B /* Logger.swift */,
+				1E03B3312204BB4900116848 /* LoggerWindow.xib */,
+				1E03B3332204BB6200116848 /* LoggerWindow.swift */,
+			);
+			path = LoggerWIndow;
+			sourceTree = "<group>";
+		};
+		1E03B3352204BFC000116848 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */,
+				1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		1EE8985921ED51DB00A74F4F /* Cells */ = {
@@ -743,7 +763,6 @@
 			isa = PBXGroup;
 			children = (
 				1E03B31E22023D3200116848 /* Authentication Wrapper */,
-				1E03B31D22023CFB00116848 /* Message Logger */,
 				1E03B31C22023CC900116848 /* Realm Wrappers */,
 				1E03B31B22023C7600116848 /* Constants */,
 				1E03B31A22023C6000116848 /* Map Related */,
@@ -912,6 +931,7 @@
 			isa = PBXGroup;
 			children = (
 				1EE97E0921E80D4B008B1086 /* CustomModal.swift */,
+				1E03B3302204BB1F00116848 /* LoggerWIndow */,
 				1E03B327220367B200116848 /* Privacy */,
 				1EE8EFE021F64C08001F663B /* AutoSync */,
 				1EE97E0421E809D1008B1086 /* Settings */,
@@ -1463,6 +1483,7 @@
 				29EE75DC205053C40061B18D /* ScheduleFormTableViewCell.xib in Resources */,
 				29EB844C203E15D600D73F6B /* MapTableViewCell.xib in Resources */,
 				29EA02992069565C0076403B /* checked_done_.json in Resources */,
+				1E03B3392204BFDF00116848 /* LoggerWindowTableViewCell.xib in Resources */,
 				293C95CF20335D4100BF1113 /* LaunchScreen.storyboard in Resources */,
 				297E99982166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib in Resources */,
 				29230FF320BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib in Resources */,
@@ -1497,6 +1518,7 @@
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
 				2920F82A2034BA0F0090E7B4 /* PlanTableViewCell.xib in Resources */,
 				29332D9021B5A5CE00950478 /* AlertView.xib in Resources */,
+				1E03B3322204BB4900116848 /* LoggerWindow.xib in Resources */,
 				293C95CC20335D4100BF1113 /* Assets.xcassets in Resources */,
 				1EE97E0821E80A21008B1086 /* Settings.xib in Resources */,
 				2938CF1521A5D20500329DDA /* UserFeedbackTableViewCell.xib in Resources */,
@@ -1726,6 +1748,7 @@
 				293C95C520335D4100BF1113 /* AppDelegate.swift in Sources */,
 				29C7C1FD21C815F4005EB5D4 /* ShrubUseTableViewCell.swift in Sources */,
 				293D417F216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift in Sources */,
+				1E03B3342204BB6200116848 /* LoggerWindow.swift in Sources */,
 				1EEC8ABC21ED16EC009C1885 /* AmendmentFlow.swift in Sources */,
 				2920F82D2034BFCA0090E7B4 /* Plan.swift in Sources */,
 				295F8F1620F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift in Sources */,
@@ -1802,6 +1825,7 @@
 				2932BB57208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift in Sources */,
 				29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
+				1E03B3382204BFDF00116848 /* LoggerWindowTableViewCell.swift in Sources */,
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
 				297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */,
 				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,

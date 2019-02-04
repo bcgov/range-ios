@@ -299,6 +299,7 @@ class HomeViewController: BaseViewController {
 
     func loadHome() {
         style()
+        self.userBoxLabel.text = SettingsManager.shared.getUserInitials()
         updateLastSyncLabel()
         if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
             lastSyncLabel.text = last.timeSince()
@@ -306,7 +307,6 @@ class HomeViewController: BaseViewController {
                 lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
             }
         } else {
-            
             authenticateIfRequred()
         }
         setUpTable()
@@ -566,7 +566,17 @@ class HomeViewController: BaseViewController {
         }
         self.gettingUserInfo = true
         API.getUserInfo { (userInfo) in
-            guard let info = userInfo, !info.firstName.isEmpty && !info.lastName.isEmpty else {
+            guard let info = userInfo, !info.email.isEmpty else {
+                // request may have failed
+                if showTourAfter {
+                    self.beginTour()
+                    self.showTour = false
+                }
+                return
+            }
+            
+            // Request was successful but names may not be set
+            guard !info.firstName.isEmpty && !info.lastName.isEmpty else {
                 let dialog: GetNameDialog = UIView.fromNib()
                 dialog.initialize {
                     if showTourAfter {
@@ -578,6 +588,8 @@ class HomeViewController: BaseViewController {
                 }
                 return
             }
+            SettingsManager.shared.setUser(info: info)
+            
             if showTourAfter {
                 self.beginTour()
                 self.showTour = false

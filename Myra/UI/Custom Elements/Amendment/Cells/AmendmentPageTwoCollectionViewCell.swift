@@ -99,6 +99,9 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
         case .Create:
             // no checkbox
             parent.gotoPage(row: 2)
+        case .ReturnToAgreementHolder:
+            // TODO: HERE!!!
+            break
         }
     }
 
@@ -161,6 +164,9 @@ class AmendmentPageTwoCollectionViewCell: BaseCollectionViewCell, Theme {
             self.titleLabel.text = "Update Plan Status"
         case .Create:
             self.titleLabel.text = "Ready to Submit?"
+        case .ReturnToAgreementHolder:
+            // TODO: HERE!!!
+            break
         }
         informedIndicator.layer.borderWidth = 1
         informedIndicator.layer.borderColor = Colors.active.blue.cgColor

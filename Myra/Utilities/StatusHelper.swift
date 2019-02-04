@@ -52,6 +52,8 @@ class StatusHelper {
             return UIColor.gray
         case .ReadyForFinalDescision:
             return UIColor.gray
+        case .RecommendForSubmission:
+            return UIColor.gray
         }
     }
 }

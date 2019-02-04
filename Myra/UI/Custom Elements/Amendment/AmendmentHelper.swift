@@ -125,29 +125,21 @@ class AmendmentHelper {
     }
     
     private func getFlowModeFor(status: AmendableStatus) -> AmendmentFlowMode? {
-        switch status {
-        case .Pending:
-            return .Pending
-        case .Stands:
-            return .Stands
-        case .Approved:
-            return .Approved
-        case .SubmittedForReview:
-            return .SubmittedForReview
-        case .SubmittedForFinalDecision:
-            return .SubmittedForFinalDecision
-        case .RecommendReady:
-            return .RecommendReady
-        }
+        // TODO: HERE!!!
+//        switch status {
+//        case .Pending:
+//            return .Pending
+//        case .Stands:
+//            return .Stands
+//        case .Approved:
+//            return .Approved
+//        case .SubmittedForReview:
+//            return .SubmittedForReview
+//        case .SubmittedForFinalDecision:
+//            return .SubmittedForFinalDecision
+//        case .RecommendReady:
+//            return .RecommendReady
+//        }
+        return nil
     }
-    
-    func getFlowModeModelFor(status: AmendableStatus) {
-        
-        self.optionZeroLabel.text = "Not Approved - Further Work Required"
-        self.optionOneLabel.text = "Not Approved"
-        self.optionTwoLabel.text = "Approved"
-        self.titleLabel.text = "Update Amendment Descision"
-        self.subtitleLabel.text = "Select the final status of this Range Use Plan"
-    }
-
 }

@@ -14,6 +14,14 @@ class SettingInfoTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
 
+    // MARK: Class func
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if superview != nil {
+            style()
+        }
+    }
+    
     // MARK: Setup
     func setup(titleText: String, infoText: String) {
         self.titleLabel.text = titleText

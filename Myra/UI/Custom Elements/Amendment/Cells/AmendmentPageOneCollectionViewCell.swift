@@ -89,8 +89,10 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .ChangeRequested
         case .Create:
             amendment.type = .RequestAgreementHolderInput
-        case .ReturnToAgreementHolde:
-            amendment.type =
+        case .ReturnToAgreementHolder:
+            // TODO: HERE!!!
+//            amendment.type =
+            break
         }
         autoFill()
     }
@@ -108,8 +110,10 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .Completed
         case .Create:
             amendment.type = .RequestAgreementHolderEsignature
-        case .ReturnToAgreementHolde:
-            amendment.type =
+        case .ReturnToAgreementHolder:
+            // TODO: HERE!!!
+//            amendment.type =
+            break
         }
         autoFill()
     }
@@ -188,7 +192,8 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             self.subtitleLabel.text = "Choose Your Submission Type"
             self.optionZeroContainer.isHidden = true
         case .ReturnToAgreementHolder:
-            
+            // TODO: HERE!!!
+            break
         }
         styleHollowButton(button: cancelButton)
         styleFillButton(button: nextButton)

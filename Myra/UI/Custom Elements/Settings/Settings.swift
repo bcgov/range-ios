@@ -38,6 +38,7 @@ enum SettingsPrivacySection: Int, CaseIterable {
 
 enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case Development = 0
+    case LogWindow
     case ClearUserInfo
 }
 
@@ -228,6 +229,17 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                     })
                 }
                 return cell
+                
+            case SettingsDeveloperToolsSection.LogWindow.rawValue:
+                let cell = getSettingToggleTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Log Window", isOn: SettingsManager.shared.isInAppLoggerEnabled()) { (isOn) in
+                    SettingsManager.shared.setInAppLoggler(enabled: isOn)
+                    if !isOn {
+                        Logger.loggerWindow = nil
+                    }
+                }
+                return cell
+                
             default:
                 fatalError()
             }

@@ -280,7 +280,8 @@ class CreateNewRUPViewController: BaseViewController {
                 case .PrepareForSubmission:
                     self.showAmendmentSubmissionFlow()
                 case .ReturnToAgreementHolder:
-                    self.
+                    // TODO: HERE!!!
+                    break
                 }
             }
         }
@@ -603,7 +604,8 @@ class CreateNewRUPViewController: BaseViewController {
             returnValue.append(.ApproveAmendment)
             
         } else if current == .SubmittedForReview {
-            returnValue.append(.) //ReturnToAgreementHolder
+            // TODO: HERE!!!
+//            returnValue.append(.) //ReturnToAgreementHolder
             
         } else if current == .RecommendReady {
             returnValue.append(.FinalReview)

@@ -51,9 +51,13 @@ class GetNameDialog: CustomModal {
         if !valid {return}
 
         submitButton.isUserInteractionEnabled = false
+        self.endEditing(true)
+        Loading.shared.start()
         API.updateUserInfo(firstName: first, lastName: last) { (done) in
+            Loading.shared.stop()
             if done {
                 Alert.show(title: Constants.Alerts.UserInfoUpdate.Success.title, message: Constants.Alerts.UserInfoUpdate.Success.message)
+                SettingsManager.shared.setUser(firstName: first, lastName: last)
                 self.remove()
             } else {
                 Alert.show(title: Constants.Alerts.UserInfoUpdate.Fail.title, message: Constants.Alerts.UserInfoUpdate.Fail.message)
@@ -62,6 +66,7 @@ class GetNameDialog: CustomModal {
             if let callback = self.callBack {
                 return callback()
             }
+            
         }
     }
 
@@ -96,6 +101,7 @@ class GetNameDialog: CustomModal {
             guard let userInfo = userInfo else {return}
             self.firstNameField.text = userInfo.firstName
             self.lastNameField.text = userInfo.lastName
+            SettingsManager.shared.setUser(info: userInfo)
         }
     }
 
