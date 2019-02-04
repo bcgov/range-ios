@@ -38,6 +38,10 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var navBarHeight: NSLayoutConstraint!
 
     // MARL: VC Functions
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Logger.removeLoggerWindowIfExists()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         chooseInitialView()
@@ -47,6 +51,7 @@ class MainViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         styleNavBar()
+        Logger.initializeIfNeeded()
     }
 
     @IBAction func navBackAction(_ sender: UIButton) {

@@ -307,6 +307,8 @@ class Reference {
             code = "O"
         } else if status == .ChangeRequested {
             code = "R"
+        } else if status == .RecommendForSubmission {
+            code = "RFS"
         } else if status == .StaffDraft {
             code = "SD"
         }

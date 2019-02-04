@@ -48,20 +48,23 @@ class CustomModal: UIView, Theme {
     private let fieldErrorAnimationDuration = 2.0
     
     // White screen
-    private let whiteScreenTag: Int = 9532
+    private let whiteScreenTag: Int = Int.random(in: 1000..<100000)
     private let whiteScreenAlpha: CGFloat = 0.9
     
     // MARK: Class funcs
     override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: newWindow)
-        
         if newWindow == nil {
-            // UIView disappear
-           removeKeyboardObserver()
+            removeKeyboardObserver()
+            disappeared()
         } else {
-           addKeyboardObserver()
+            addKeyboardObserver()
+            appeared()
         }
     }
+    
+    func appeared() {}
+    func disappeared() {}
     
     // MARK: Keyboard handler
     func addKeyboardObserver() {
@@ -237,7 +240,7 @@ class CustomModal: UIView, Theme {
                 }
             })
         })
-       
+        
     }
     
     // MARK: Contraints
@@ -301,7 +304,7 @@ class CustomModal: UIView, Theme {
     func addKeyboardContraints(keyboardFrame: CGRect) {
         if !isKeyboardCoveringMe(keyboardFrame: keyboardFrame) {return}
         guard let window = UIApplication.shared.keyWindow else {return}
- 
+        
         if let centerXIndex = contraintsAdded.index(forKey: .CenterX), let centerYIndex = contraintsAdded.index(forKey: .CenterY), let centerXContraint = contraintsAdded.at(centerXIndex), let centerYContraint = contraintsAdded.at(centerYIndex) {
             centerYContraint.value.isActive = false
             centerXContraint.value.isActive = true
@@ -341,7 +344,7 @@ class CustomModal: UIView, Theme {
         guard let centerYIndex = contraintsAdded.index(forKey: .CenterY), let bottomIndex = contraintsAdded.index(forKey: .Bottom), let centerYContraint = contraintsAdded.at(centerYIndex), let bottomContraint = contraintsAdded.at(bottomIndex) else {
             return
         }
-       
+        
         bottomContraint.value.isActive = false
         centerYContraint.value.isActive = true
     }

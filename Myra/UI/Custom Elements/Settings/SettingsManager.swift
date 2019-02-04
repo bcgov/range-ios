@@ -32,11 +32,19 @@ class SettingsModel: Object {
     @objc dynamic var animationDuration: Double = 0.5
     @objc dynamic var shortAnimationDuration: Double = 0.3
     
+    @objc dynamic var userFirstName: String = ""
+    @objc dynamic var userLastName: String = ""
+    
     func clone() -> SettingsModel {
         let new = SettingsModel()
         new.autoSyncEndbaled = self.autoSyncEndbaled
         new.cacheMapEndbaled = self.cacheMapEndbaled
         new.devEnvironmentEnabled = self.devEnvironmentEnabled
+        new.inAppLoggerActive = self.inAppLoggerActive
+        new.quitAfterFatalError = self.quitAfterFatalError
+        new.animationDuration = self.animationDuration
+        new.shortAnimationDuration = self.shortAnimationDuration
+        // dont clone user name
         return new
     }
     
@@ -46,6 +54,18 @@ class SettingsModel: Object {
             let realm = try Realm()
             try realm.write {
                 autoSyncEndbaled = enabled
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setUser(firstName:String, lastName: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                userFirstName = firstName
+                userLastName = lastName
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
@@ -253,6 +273,32 @@ class SettingsManager {
         RealmRequests.saveObject(object: settingsModelClone)
         Auth.refreshEnviormentConstants()
         presenterReference.chooseInitialView()
+    }
+    
+    
+    func setUser(firstName: String, lastName: String) {
+        guard let model = getModel() else {return}
+        model.setUser(firstName: firstName, lastName: lastName)
+        Logger.log(message: "Updated username:")
+        Logger.log(message: getUserName(full: true))
+    }
+    func setUser(info: UserInfo) {
+        guard let model = getModel() else {return}
+        setUser(firstName: model.userFirstName, lastName: model.userLastName)
+    }
+    
+    func getUserName(full: Bool = false) -> String {
+        guard let model = getModel() else {return ""}
+        var name = model.userFirstName
+        if full {
+            name = "\(name) \(model.userLastName)"
+        }
+        return name
+    }
+    
+    func getUserInitials() -> String {
+        guard let model = getModel(), let last = model.userLastName.first, let first = model.userFirstName.first else {return "RO"}
+        return ("\(first) \(last)")
     }
     
     // MARK: Animations

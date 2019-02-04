@@ -279,6 +279,9 @@ class CreateNewRUPViewController: BaseViewController {
                     self.cancelAmendment()
                 case .PrepareForSubmission:
                     self.showAmendmentSubmissionFlow()
+                case .ReturnToAgreementHolder:
+                    // TODO: HERE!!!
+                    break
                 }
             }
         }
@@ -545,6 +548,9 @@ class CreateNewRUPViewController: BaseViewController {
     }
     
     // MARK: Amendments - Plan Actions
+    
+    // Get the selected option from popover options displayed results
+    // Helper function for re-usable lookup popover
     func getPlanAction(fromString name: String) -> PlanAction? {
         switch name.lowercased() {
         case "update amendment":
@@ -561,10 +567,31 @@ class CreateNewRUPViewController: BaseViewController {
             return .CancelAmendment
         case "prepare for submission":
             return .PrepareForSubmission
+        case "Return To Agreement Holder":
+            return .ReturnToAgreementHolder
         default:
             return nil
         }
     }
+    
+    /*
+     case .UpdateAmendment:
+        self.showAmendmentFlow()
+     case .ApproveAmendment:
+        self.showAmendmentFlow()
+     case .FinalReview:
+        self.showAmendmentFlow()
+     case .UpdateStatus:
+        self.showAmendmentFlow()
+     case .CreateMandatoryAmendment:
+        self.createMandatoryAmendment()
+     case .CancelAmendment:
+        self.cancelAmendment()
+     case .PrepareForSubmission:
+        self.showAmendmentSubmissionFlow()
+     case .ReturnToAgreementHolder:
+        self.
+     */
     
     func getPlanActions(for plan: Plan) -> [PlanAction] {
         var returnValue: [PlanAction] = [PlanAction]()
@@ -572,15 +599,25 @@ class CreateNewRUPViewController: BaseViewController {
         
         if current == .Stands {
             returnValue.append(.UpdateAmendment)
-        } else if current == .SubmittedForFinalDecision || current == .SubmittedForReview {
+            
+        } else if current == .SubmittedForFinalDecision{
             returnValue.append(.ApproveAmendment)
+            
+        } else if current == .SubmittedForReview {
+            // TODO: HERE!!!
+//            returnValue.append(.) //ReturnToAgreementHolder
+            
         } else if current == .RecommendReady {
             returnValue.append(.FinalReview)
-        } else if current == .Pending || current == .Created {
+            
+        } else if current == .Pending {
+            // Note: Review is required by staff
             returnValue.append(.UpdateStatus)
             // completed / change requested
+            
         } else if current == .Approved {
             returnValue.append(.CreateMandatoryAmendment)
+            
         } else if (current == .StaffDraft || current == .LocalDraft) && plan.amendmentTypeId != -1 {
             returnValue.append(.CancelAmendment)
             returnValue.append(.PrepareForSubmission)
@@ -612,9 +649,24 @@ class CreateNewRUPViewController: BaseViewController {
             self.setup(rup: new, mode: .Edit)
             self.tableView.reloadData()
             self.autofill()
-            AutoSync.shared.beginListener()
         }
     }
+    
+    func showSubmitBackToAgreementHolderFlow() {
+        guard let plan = self.rup else {return}
+        let amendmentFlow: AmendmentFlow = UIView.fromNib()
+        let mode: AmendmentFlowMode = .ReturnToAgreementHolder
+        // display
+        amendmentFlow.initialize(mode: mode) { (amendment) in
+            if let result = amendment, let newStatus = result.getStatus() {
+                // process new status
+                plan.updateStatus(with: newStatus)
+                self.autofill()
+                self.stylePlanActions()
+            }
+        }
+    }
+    
     
     func showAmendmentSubmissionFlow() {
         guard let plan = self.rup else {return}

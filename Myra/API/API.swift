@@ -884,10 +884,12 @@ class API {
         var params = ministersIssue.toDictionary()
         let localId = ministersIssue.localId
         params["plan_id"] = planRemoteId
+        
         API.post(endpoint: endpoint, params: params) { (response) in
             guard let response = response, let remoteId = response["id"] as? Int, let refetchedIssue = RealmManager.shared.ministersIssue(withLocalId: localId) else {
                 return completion(false)
             }
+            
             refetchedIssue.setRemoteId(id: remoteId)
             // upload action
             upload(actionsIn: refetchedIssue, forPlanRemoteId: planRemoteId, completion: { (success) in

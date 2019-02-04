@@ -9,14 +9,6 @@
 import Foundation
 import UIKit
 
-enum AmendmentFlowMode {
-    case Create
-    case Initial
-    case Mandatory
-    case Minor
-    case FinalReview
-}
-
 class AmendmentFlow: CustomModal {
     // MARK: Constants
     let whiteScreenTag = 101
