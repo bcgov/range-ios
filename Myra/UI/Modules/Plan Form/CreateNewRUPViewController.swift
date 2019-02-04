@@ -205,7 +205,36 @@ class CreateNewRUPViewController: BaseViewController {
             if self.shouldShowBanner() {
                 self.openBanner()
             }
+            
+            let minPlanFieldsMessage = self.minimumPlanFieldsAreFilledMessage()
+            if !minPlanFieldsMessage.isEmpty {
+                Alert.show(title: "Heads up!", message: minPlanFieldsMessage)
+            }
         })
+    }
+    
+    func minimumPlanFieldsAreFilledMessage() -> String {
+        guard let plan = self.rup  else {
+            return ""
+        }
+        var message = ""
+        if plan.rangeName.isEmpty {
+            message = "\(message)Range Name is empty.\n"
+        }
+        if plan.planStartDate == nil {
+            message = "\(message)Plan Start date is empty.\n"
+        }
+        
+        if plan.planEndDate == nil {
+             message = "\(message)Plan End date is empty.\n"
+        }
+        if message.isEmpty {
+            return message
+        } else {
+            let messageDesc = "This plan will not be uploaded untill the minimum fields are filled:\n\n"
+            return "\(messageDesc)\(message)"
+        }
+        
     }
     
     // MARK: Outlet Actions
@@ -257,6 +286,15 @@ class CreateNewRUPViewController: BaseViewController {
     
     @IBAction func cancelAction(_ sender: UIButton) {
         dismissKeyboard()
+        Alert.show(title: "Are you sure?", message: "Your changes since the last time you saved will be lost", yes: {
+            self.cancel()
+        }) {
+            return
+        }
+    }
+    
+    func cancel() {
+        dismissKeyboard()
         guard let new: Plan = self.planCopy, let old: Plan = self.rup, let agreement = RUPManager.shared.getAgreement(with: new.agreementId) else {
             Alert.show(title: "Critical Error", message: "A critical error prevents the recovery of the old version of this plan. The current version is saved.")
             return
@@ -280,7 +318,6 @@ class CreateNewRUPViewController: BaseViewController {
         // dont store any rup
         
         self.goHome()
-        
     }
     
     @IBAction func saveToDraftAction(_ sender: UIButton) {

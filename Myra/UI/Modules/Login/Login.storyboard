@@ -28,7 +28,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-WK-Aeg">
                                         <rect key="frame" x="311" y="197" width="490" height="440"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyRanceBC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUD-RT-8ig">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyRangeBC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUD-RT-8ig">
                                                 <rect key="frame" x="8" y="243" width="474" height="41"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                                 <color key="textColor" red="0.13725490200000001" green="0.25098039220000001" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,7 +58,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hc0-3q-KgL">
-                                                <rect key="frame" x="457" y="407" width="25" height="25"/>
+                                                <rect key="frame" x="449" y="16" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="qGK-ta-fIt"/>
                                                     <constraint firstAttribute="width" secondItem="hc0-3q-KgL" secondAttribute="height" multiplier="1:1" id="tb2-7h-CRd"/>
@@ -80,14 +80,14 @@
                                             <constraint firstAttribute="width" constant="490" id="VZU-b7-9Wk"/>
                                             <constraint firstItem="q0C-cZ-72U" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="8" id="Xoy-TN-QfL"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="top" secondItem="AUD-RT-8ig" secondAttribute="bottom" constant="52" id="Yf7-xn-jNy"/>
-                                            <constraint firstAttribute="bottom" secondItem="hc0-3q-KgL" secondAttribute="bottom" constant="8" id="Ygt-9p-LGq"/>
                                             <constraint firstItem="q0C-cZ-72U" firstAttribute="top" secondItem="5cZ-WK-Aeg" secondAttribute="top" constant="45" id="gDB-Ge-bU8"/>
                                             <constraint firstAttribute="trailing" secondItem="AUD-RT-8ig" secondAttribute="trailing" constant="8" id="gEG-YX-z3k"/>
+                                            <constraint firstAttribute="trailing" secondItem="hc0-3q-KgL" secondAttribute="trailing" constant="16" id="gWn-jG-ZAV"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="105" id="idb-xw-SV5"/>
                                             <constraint firstItem="5qQ-o5-0z6" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="16" id="jTg-py-gco"/>
                                             <constraint firstAttribute="trailing" secondItem="mGV-XT-Rta" secondAttribute="trailing" constant="105" id="m5O-yQ-OeY"/>
                                             <constraint firstAttribute="trailing" secondItem="q0C-cZ-72U" secondAttribute="trailing" constant="8" id="rQO-Ay-d7i"/>
-                                            <constraint firstAttribute="trailing" secondItem="hc0-3q-KgL" secondAttribute="trailing" constant="8" id="vEc-hi-82f"/>
+                                            <constraint firstItem="hc0-3q-KgL" firstAttribute="top" secondItem="5cZ-WK-Aeg" secondAttribute="top" constant="16" id="yV9-NE-S0a"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="top" secondItem="5qQ-o5-0z6" secondAttribute="bottom" constant="8" id="zIJ-4I-u8M"/>
                                         </constraints>
                                     </view>

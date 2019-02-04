@@ -9,6 +9,18 @@
 import Foundation
 import UIKit
 
+class CustomModalConstraintModel {
+    var position: customModalContraint
+    var constraint: NSLayoutConstraint
+    var active: Bool
+    
+    init(position: customModalContraint, constraint: NSLayoutConstraint, active: Bool) {
+        self.position = position
+        self.constraint = constraint
+        self.active = active
+    }
+}
+
 enum customModalContraint {
     case Width
     case Height
@@ -19,6 +31,7 @@ enum customModalContraint {
 
 class CustomModal: UIView, Theme {
     
+    private var contraintsAddedd: [CustomModalConstraintModel] = [CustomModalConstraintModel]()
     // MARK: Variables
     private var contraintsAdded: [customModalContraint: NSLayoutConstraint] = [customModalContraint: NSLayoutConstraint]()
     
@@ -68,7 +81,7 @@ class CustomModal: UIView, Theme {
         case UIResponder.keyboardWillShowNotification:
             UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), delay: SettingsManager.shared.getAnimationDuration(), animations: {
                 self.addKeyboardContraints(keyboardFrame: keyboardFrame.cgRectValue)
-                self.activateConstraints()
+                self.activateConstraints(then: {})
             }) { (done) in
                 UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
                     self.redoContraintsIfNeeded(keyboardFrame: keyboardFrame.cgRectValue)
@@ -77,7 +90,7 @@ class CustomModal: UIView, Theme {
         case UIResponder.keyboardWillHideNotification:
             UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), delay: SettingsManager.shared.getAnimationDuration(), animations: {
                 self.removeKeyboardConstraints()
-                self.activateConstraints()
+                self.activateConstraints(then: {})
             }) { (done) in}
         case UIResponder.keyboardDidShowNotification:
             return
@@ -217,17 +230,18 @@ class CustomModal: UIView, Theme {
         self.alpha = 0
         window.addSubview(self)
         addInitialConstraints()
-        activateConstraints()
-        
-        showWhiteBG(then: {
-            self.openingAnimation {
-                return then()
-            }
+        activateConstraints(then: {
+            self.showWhiteBG(then: {
+                self.openingAnimation {
+                    return then()
+                }
+            })
         })
+       
     }
     
     // MARK: Contraints
-    func activateConstraints() {
+    func activateConstraints(then: @escaping ()-> Void) {
         var addedConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
         var removedConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
         for each in contraintsAdded {
@@ -239,9 +253,12 @@ class CustomModal: UIView, Theme {
         }
         
         self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate(addedConstraints)
-        NSLayoutConstraint.deactivate(removedConstraints)
-        
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
+            NSLayoutConstraint.activate(addedConstraints)
+            NSLayoutConstraint.deactivate(removedConstraints)
+        }) { (done) in
+            return then()
+        }
     }
     
     func addInitialConstraints() {

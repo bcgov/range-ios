@@ -108,7 +108,7 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         registerCell(name: "PastureTableViewCell")
-        registerCell(name: "EmptyPastureTableViewCell")
+        registerCell(name: "EmptyStateTableViewCell")
     }
     
     func registerCell(name: String) {
@@ -120,8 +120,8 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: "PastureTableViewCell", for: indexPath) as! PastureTableViewCell
     }
     
-    func getEmptyPastureCell(indexPath: IndexPath) -> EmptyPastureTableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "EmptyPastureTableViewCell", for: indexPath) as! EmptyPastureTableViewCell
+    func getEmptyPastureCell(indexPath: IndexPath) -> EmptyStateTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "EmptyStateTableViewCell", for: indexPath) as! EmptyStateTableViewCell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

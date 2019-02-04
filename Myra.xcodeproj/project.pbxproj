@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E6FFDE577F6727E19274D5F /* Pods_Myra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */; };
+		1E03B32022023D6600116848 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B31F22023D6600116848 /* DummyData.swift */; };
 		1EE8985C21EE926600A74F4F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
 		1EE8985E21F0EE6200A74F4F /* MyriadWebPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */; };
 		1EE8EFDF21F63934001F663B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8EFDE21F63934001F663B /* Logger.swift */; };
@@ -81,7 +82,6 @@
 		2926D96E20754E52006250D3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
 		292A1D8021432E570086E1AD /* SyncView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292A1D7F21432E570086E1AD /* SyncView.xib */; };
 		292A1D8221432E670086E1AD /* SyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A1D8121432E670086E1AD /* SyncView.swift */; };
-		292AD86C215C470200F80738 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292AD86B215C470200F80738 /* Notification.swift */; };
 		292AD86E215C4DE600F80738 /* TestML.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 292AD86D215C4DE500F80738 /* TestML.mlmodel */; };
 		292B650621C039C100F9A8A5 /* GetNameDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292B650521C039C100F9A8A5 /* GetNameDialog.xib */; };
 		292B650821C03A2300F9A8A5 /* GetNameDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B650721C03A2300F9A8A5 /* GetNameDialog.swift */; };
@@ -200,8 +200,8 @@
 		299491F420B628F6005FCF94 /* MinisterIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */; };
 		299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */; };
 		299BD278207BF488004B1D07 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BD277207BF488004B1D07 /* Constants.swift */; };
-		299D3EB3217E66F60000781E /* EmptyPastureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */; };
-		299D3EB4217E66F60000781E /* EmptyPastureTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */; };
+		299D3EB3217E66F60000781E /* EmptyStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB1217E66F60000781E /* EmptyStateTableViewCell.swift */; };
+		299D3EB4217E66F60000781E /* EmptyStateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299D3EB2217E66F60000781E /* EmptyStateTableViewCell.xib */; };
 		299D3EB6217E77900000781E /* PlantSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB5217E77900000781E /* PlantSpecies.swift */; };
 		299D3EB8217E79DF0000781E /* PlantCommunityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB7217E79DF0000781E /* PlantCommunityType.swift */; };
 		299D3EBA217E79F00000781E /* PlantCommunityElevation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB9217E79F00000781E /* PlantCommunityElevation.swift */; };
@@ -279,6 +279,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E03B31F22023D6600116848 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		1EE8985B21EE926600A74F4F /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MyriadWebPro.ttf; sourceTree = "<group>"; };
 		1EE8EFDE21F63934001F663B /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -352,7 +353,6 @@
 		2926D96D20754E52006250D3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		292A1D7F21432E570086E1AD /* SyncView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SyncView.xib; sourceTree = "<group>"; };
 		292A1D8121432E670086E1AD /* SyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncView.swift; sourceTree = "<group>"; };
-		292AD86B215C470200F80738 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		292AD86D215C4DE500F80738 /* TestML.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TestML.mlmodel; sourceTree = "<group>"; };
 		292B650521C039C100F9A8A5 /* GetNameDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetNameDialog.xib; sourceTree = "<group>"; };
 		292B650721C03A2300F9A8A5 /* GetNameDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNameDialog.swift; sourceTree = "<group>"; };
@@ -473,8 +473,8 @@
 		299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MinisterIssueTableViewCell.xib; sourceTree = "<group>"; };
 		299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinisterIssueAction.swift; sourceTree = "<group>"; };
 		299BD277207BF488004B1D07 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPastureTableViewCell.swift; sourceTree = "<group>"; };
-		299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyPastureTableViewCell.xib; sourceTree = "<group>"; };
+		299D3EB1217E66F60000781E /* EmptyStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateTableViewCell.swift; sourceTree = "<group>"; };
+		299D3EB2217E66F60000781E /* EmptyStateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateTableViewCell.xib; sourceTree = "<group>"; };
 		299D3EB5217E77900000781E /* PlantSpecies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantSpecies.swift; sourceTree = "<group>"; };
 		299D3EB7217E79DF0000781E /* PlantCommunityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityType.swift; sourceTree = "<group>"; };
 		299D3EB9217E79F00000781E /* PlantCommunityElevation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCommunityElevation.swift; sourceTree = "<group>"; };
@@ -574,6 +574,63 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1E03B3182202314700116848 /* Empty State */ = {
+			isa = PBXGroup;
+			children = (
+				299D3EB1217E66F60000781E /* EmptyStateTableViewCell.swift */,
+				299D3EB2217E66F60000781E /* EmptyStateTableViewCell.xib */,
+			);
+			path = "Empty State";
+			sourceTree = "<group>";
+		};
+		1E03B31A22023C6000116848 /* Map Related */ = {
+			isa = PBXGroup;
+			children = (
+				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
+				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
+				291C4D9A2037631400390523 /* Polygon.swift */,
+			);
+			path = "Map Related";
+			sourceTree = "<group>";
+		};
+		1E03B31B22023C7600116848 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				2935A76B21485A2500441539 /* ConstantStrings.swift */,
+				2932BB4C20851BD900579A57 /* Colors.swift */,
+				2932BB4E2085209000579A57 /* Fonts.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		1E03B31C22023CC900116848 /* Realm Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				2901C4C22141D8EC00AE72FC /* Reference.swift */,
+				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
+				29EADF8320603F9C0087593F /* RealmManager.swift */,
+				29FB97BC204DB87D005297B9 /* RealmRequest.swift */,
+				1E03B31F22023D6600116848 /* DummyData.swift */,
+			);
+			path = "Realm Wrappers";
+			sourceTree = "<group>";
+		};
+		1E03B31D22023CFB00116848 /* Message Logger */ = {
+			isa = PBXGroup;
+			children = (
+				1EE8EFDE21F63934001F663B /* Logger.swift */,
+			);
+			path = "Message Logger";
+			sourceTree = "<group>";
+		};
+		1E03B31E22023D3200116848 /* Authentication Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				1EE8985B21EE926600A74F4F /* Auth.swift */,
+			);
+			path = "Authentication Wrapper";
+			sourceTree = "<group>";
+		};
 		1EE8985921ED51DB00A74F4F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +665,7 @@
 				29D8E1A021E5279C00733A87 /* Cells */,
 				1EE97E0721E80A21008B1086 /* Settings.xib */,
 				1EE97E0521E80A16008B1086 /* Settings.swift */,
+				1EE97E0221E7CD23008B1086 /* SettingsManager.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -653,12 +711,10 @@
 		2920F82B2034BF9A0090E7B4 /* Models and enums */ = {
 			isa = PBXGroup;
 			children = (
-				1EE97E0221E7CD23008B1086 /* SettingsManager.swift */,
 				2932BB50208567D900579A57 /* MyraObject.swift */,
 				290FF88520635F1F00C7DAC0 /* SyncDate.swift */,
 				292B650921C04E5900F9A8A5 /* UserInfo.swift */,
 				2943BDA2215E90C300EFC428 /* RangePhoto.swift */,
-				2974270D2044949B0033BC47 /* LiveStockID.swift */,
 				2932BB52208669C300579A57 /* enums */,
 				2932BB5320866C5D00579A57 /* Plan Components */,
 				29EADF7C206039A90087593F /* Reference data objects */,
@@ -669,24 +725,16 @@
 		2920F8312034C7870090E7B4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				1E03B31E22023D3200116848 /* Authentication Wrapper */,
+				1E03B31D22023CFB00116848 /* Message Logger */,
+				1E03B31C22023CC900116848 /* Realm Wrappers */,
+				1E03B31B22023C7600116848 /* Constants */,
+				1E03B31A22023C6000116848 /* Map Related */,
 				29234B0B2138592400F547AC /* Lottie */,
 				295FBF7A21641EEA00DD2C53 /* ML */,
-				291C4D9A2037631400390523 /* Polygon.swift */,
-				29FB97BC204DB87D005297B9 /* RealmRequest.swift */,
-				291C4D9C20378A3900390523 /* OpenMapOverlay.swift */,
 				29DFA10B20450CB600B650CE /* Notifications.swift */,
-				294AC4FE204F3C5500F0FB04 /* RUPManager.swift */,
-				29EADF8320603F9C0087593F /* RealmManager.swift */,
-				2932BB4C20851BD900579A57 /* Colors.swift */,
-				2932BB4E2085209000579A57 /* Fonts.swift */,
 				2901C4C02141D61500AE72FC /* StatusHelper.swift */,
-				2901C4C22141D8EC00AE72FC /* Reference.swift */,
 				29FCB037205702B3006CD247 /* DateManager.swift */,
-				2935A76B21485A2500441539 /* ConstantStrings.swift */,
-				292AD86B215C470200F80738 /* Notification.swift */,
-				29DEA5AB21AC833A002AA89B /* TileMaster.swift */,
-				1EE8985B21EE926600A74F4F /* Auth.swift */,
-				1EE8EFDE21F63934001F663B /* Logger.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -895,6 +943,7 @@
 				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
 				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
 				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
+				1E03B3182202314700116848 /* Empty State */,
 				297D8FD621C9731B00D9A8B8 /* Map */,
 				297D8FCD21C9698F00D9A8B8 /* Basic Information */,
 				297D8FCE21C96BED00D9A8B8 /* LiveStock */,
@@ -947,8 +996,6 @@
 				29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */,
 				29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */,
 				29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */,
-				299D3EB1217E66F60000781E /* EmptyPastureTableViewCell.swift */,
-				299D3EB2217E66F60000781E /* EmptyPastureTableViewCell.xib */,
 			);
 			path = Pastures;
 			sourceTree = "<group>";
@@ -1258,6 +1305,7 @@
 		29EADF7C206039A90087593F /* Reference data objects */ = {
 			isa = PBXGroup;
 			children = (
+				2974270D2044949B0033BC47 /* LiveStockID.swift */,
 				29EADF7D206039BC0087593F /* AgreemntType.swift */,
 				2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */,
 				29EADF7F206039D60087593F /* AgreementStatus.swift */,
@@ -1475,7 +1523,7 @@
 				293D4188216D3109006214E1 /* AdditionalRequirementTableViewCell.xib in Resources */,
 				292B650621C039C100F9A8A5 /* GetNameDialog.xib in Resources */,
 				2943BDA72162996900EFC428 /* TagImage.xib in Resources */,
-				299D3EB4217E66F60000781E /* EmptyPastureTableViewCell.xib in Resources */,
+				299D3EB4217E66F60000781E /* EmptyStateTableViewCell.xib in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
 			);
@@ -1579,7 +1627,7 @@
 				297D8FED21CC3E9100D9A8B8 /* BaseTableViewCell.swift in Sources */,
 				292E651F2076A8F6003D4AF0 /* LivestockIdentifierType.swift in Sources */,
 				29227B7120F00EF00042B88E /* PlantCommunityActionTableViewCell.swift in Sources */,
-				299D3EB3217E66F60000781E /* EmptyPastureTableViewCell.swift in Sources */,
+				299D3EB3217E66F60000781E /* EmptyStateTableViewCell.swift in Sources */,
 				290FF88620635F1F00C7DAC0 /* SyncDate.swift in Sources */,
 				294AC503204F57E800F0FB04 /* ScheduleViewController.swift in Sources */,
 				2974270B20448F720033BC47 /* LiveStockIDTableViewCell.swift in Sources */,
@@ -1606,6 +1654,7 @@
 				2933183F20FE60390070A6A9 /* IndicatorPlant.swift in Sources */,
 				2920F8412034F3880090E7B4 /* BaseViewController.swift in Sources */,
 				29C34BC521C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift in Sources */,
+				1E03B32022023D6600116848 /* DummyData.swift in Sources */,
 				292197D9209CD152004A5011 /* OptionsTableViewCell.swift in Sources */,
 				290552192134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift in Sources */,
 				29227B7420F013F90042B88E /* PastureAction.swift in Sources */,
@@ -1622,7 +1671,6 @@
 				290AD10D218A13BC00A261B6 /* AdditionalRequirementCategory.swift in Sources */,
 				29D8E1A321E527BB00733A87 /* SettingTableViewCell.swift in Sources */,
 				291C4D9B2037631400390523 /* Polygon.swift in Sources */,
-				292AD86C215C470200F80738 /* Notification.swift in Sources */,
 				29FCB038205702B3006CD247 /* DateManager.swift in Sources */,
 				29227B5B20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */,
 				2935A76A21484A1900441539 /* TooltipViewController.swift in Sources */,

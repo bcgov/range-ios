@@ -37,28 +37,26 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdA-hu-lrW">
-                    <rect key="frame" x="152" y="28" width="71" height="21"/>
+                    <rect key="frame" x="152" y="36" width="71" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-Od-l7q">
-                    <rect key="frame" x="53.5" y="323" width="268.5" height="41"/>
-                    <string key="text">It looks like it’s your first time here. 
-How about a quick tour?</string>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-Od-l7q">
+                    <rect key="frame" x="16" y="343.5" width="343" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oW-f7-5Yt">
-                    <rect key="frame" x="32" y="600" width="311" height="30"/>
+                    <rect key="frame" x="32" y="580" width="311" height="50"/>
                     <state key="normal" title="Skip Tour"/>
                     <connections>
                         <action selector="skipAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="on6-2e-wHN"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFi-8C-Q50">
-                    <rect key="frame" x="32" y="525" width="311" height="50"/>
+                    <rect key="frame" x="32" y="505" width="311" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="fd1-0R-BNK"/>
                     </constraints>
@@ -83,12 +81,15 @@ How about a quick tour?</string>
                 <constraint firstItem="jCb-oy-IOr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Gp5-5v-0TC"/>
                 <constraint firstItem="qZ7-FT-Lgw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IRV-Xj-xvQ"/>
                 <constraint firstItem="5oW-f7-5Yt" firstAttribute="top" secondItem="aFi-8C-Q50" secondAttribute="bottom" constant="25" id="OuN-PL-kLE"/>
+                <constraint firstItem="5oW-f7-5Yt" firstAttribute="height" secondItem="aFi-8C-Q50" secondAttribute="height" id="PO0-qd-hSA"/>
+                <constraint firstAttribute="trailing" secondItem="rvH-Od-l7q" secondAttribute="trailing" constant="16" id="W2q-hq-Blt"/>
                 <constraint firstItem="jCb-oy-IOr" firstAttribute="top" secondItem="qZ7-FT-Lgw" secondAttribute="bottom" id="XBd-Vj-DOE"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="5oW-f7-5Yt" secondAttribute="bottom" constant="37" id="XUg-DR-mEz"/>
                 <constraint firstItem="rvH-Od-l7q" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="bBF-3A-FC1"/>
                 <constraint firstItem="sdA-hu-lrW" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="cSj-A2-PrP"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8DF-DP-eE9" secondAttribute="bottom" id="cXN-iz-Vzz"/>
-                <constraint firstItem="sdA-hu-lrW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="hKg-C4-MW0"/>
+                <constraint firstItem="rvH-Od-l7q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="fq2-8Y-ADy"/>
+                <constraint firstItem="sdA-hu-lrW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="hKg-C4-MW0"/>
                 <constraint firstItem="5oW-f7-5Yt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="nWk-xv-9yL"/>
                 <constraint firstItem="rvH-Od-l7q" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="nc3-l7-5bD"/>
                 <constraint firstItem="sgM-sv-UAN" firstAttribute="centerX" secondItem="qZ7-FT-Lgw" secondAttribute="centerX" id="rSz-fL-h7l"/>
