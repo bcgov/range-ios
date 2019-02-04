@@ -11,8 +11,10 @@ import SingleSignOn
 
 enum SettingsSections: Int, CaseIterable {
     case Sync = 0
+    case Account
     case Map
-    case Environment
+    case DeveloperTools
+    case Privacy
 }
 
 enum SettingsSyncSection: Int, CaseIterable {
@@ -25,8 +27,19 @@ enum SettingsMapSection: Int, CaseIterable {
     case ClearCache
 }
 
-enum SettingsEnvironmentSection: Int, CaseIterable {
-    case Development
+enum SettingsAccountSection: Int, CaseIterable {
+    case UpdateUserInfo = 0
+}
+
+enum SettingsPrivacySection: Int, CaseIterable {
+    case privacy = 0
+}
+
+
+enum SettingsDeveloperToolsSection: Int, CaseIterable {
+    case Development = 0
+    case LogWindow
+    case ClearUserInfo
 }
 
 class Settings: CustomModal {
@@ -73,6 +86,7 @@ class Settings: CustomModal {
     
     // MARK: AutoSync Option
     func enableAutoSync() {
+        // TODO: Move Logic to SettingsManager
         if !Auth.isAuthenticated() {
             self.hide()
             Auth.authenticate { (success) in
@@ -150,6 +164,21 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             default:
                 fatalError()
             }
+        case SettingsSections.Account.rawValue:
+            switch indexPath.row {
+            case SettingsAccountSection.UpdateUserInfo.rawValue:
+                let cell = getSettingButtonTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Update User Information") {
+                    let dialog: GetNameDialog = UIView.fromNib()
+                    self.remove()
+                    dialog.initialize {
+                        
+                    }
+                }
+                return cell
+            default:
+                fatalError()
+            }
         case SettingsSections.Map.rawValue:
             switch indexPath.row {
             case SettingsMapSection.StoredSize.rawValue:
@@ -172,9 +201,9 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             default:
                 fatalError()
             }
-        case SettingsSections.Environment.rawValue:
+        case SettingsSections.DeveloperTools.rawValue:
             switch indexPath.row {
-            case SettingsEnvironmentSection.Development.rawValue:
+            case SettingsDeveloperToolsSection.Development.rawValue:
                 let cell = getSettingToggleTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Development", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
                     if let parent = self.parent, let presenter = parent.getPresenter() {
@@ -185,6 +214,42 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                         SettingsManager.shared.setCurrentEnvironment(to: env, presenterReference: presenter)
                         self.remove()
                     }
+                }
+                return cell
+                
+            case SettingsDeveloperToolsSection.ClearUserInfo.rawValue:
+                let cell = getSettingButtonTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Clear User Info") {
+                    API.updateUserInfo(firstName: "", lastName: "", completion: { (done) in
+                        if done {
+                            Alert.show(title: "Success", message: "Cleared user information")
+                        } else {
+                            Alert.show(title: "Failed", message: "Could not clear user information")
+                        }
+                    })
+                }
+                return cell
+                
+            case SettingsDeveloperToolsSection.LogWindow.rawValue:
+                let cell = getSettingToggleTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Log Window", isOn: SettingsManager.shared.isInAppLoggerEnabled()) { (isOn) in
+                    SettingsManager.shared.setInAppLoggler(enabled: isOn)
+                    if !isOn {
+                        Logger.loggerWindow = nil
+                    }
+                }
+                return cell
+                
+            default:
+                fatalError()
+            }
+        case SettingsSections.Privacy.rawValue:
+            switch indexPath.row {
+            case SettingsPrivacySection.privacy.rawValue:
+                let cell = getSettingButtonTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "View Privacy information") {
+                    let privacy: Privacy = UIView.fromNib()
+                    privacy.initialize()
                 }
                 return cell
             default:
@@ -201,8 +266,12 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return SettingsSyncSection.allCases.count
         case SettingsSections.Map.rawValue:
             return SettingsMapSection.allCases.count
-        case SettingsSections.Environment.rawValue:
-            return SettingsEnvironmentSection.allCases.count
+        case SettingsSections.DeveloperTools.rawValue:
+            return SettingsDeveloperToolsSection.allCases.count
+        case SettingsSections.Privacy.rawValue:
+            return SettingsPrivacySection.allCases.count
+        case SettingsSections.Account.rawValue:
+            return SettingsAccountSection.allCases.count
         default:
             return 0
         }
@@ -214,8 +283,12 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return "SYNCING"
         case SettingsSections.Map.rawValue:
             return "MAPPING"
-        case SettingsSections.Environment.rawValue:
-            return "ENVIRONMENT"
+        case SettingsSections.DeveloperTools.rawValue:
+            return "Developer Tools"
+        case SettingsSections.Privacy.rawValue:
+            return "Privacy"
+        case SettingsSections.Account.rawValue:
+            return "Account"
         default:
             return ""
         }

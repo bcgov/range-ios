@@ -146,6 +146,11 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         guard let a = self.action else {return}
         self.desc.text = a.desc
         self.header.text = a.actionType
+        
+        if a.actionType.lowercased() == "other" {
+             self.header.text = a.otherActionTypeName
+        }
+        
         if self.mode == .View {
             setDefaultValueIfEmpty(field: desc)
         } else {

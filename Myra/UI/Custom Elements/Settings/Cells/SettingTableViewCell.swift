@@ -17,6 +17,14 @@ class SettingTableViewCell: UITableViewCell, Theme {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var toggle: UISwitch!
 
+    // MARK: Class func
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if superview != nil {
+            style()
+        }
+    }
+    
     // MARK: Actions
     @IBAction func toggleAction(_ sender: UISwitch) {
         guard let callback = toggleCallback else {return}

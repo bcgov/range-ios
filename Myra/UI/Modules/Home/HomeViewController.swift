@@ -104,9 +104,9 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupReachabilityNotification()
-        self.removeDummy()
         self.getRUPs()
 //        TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -299,6 +299,7 @@ class HomeViewController: BaseViewController {
 
     func loadHome() {
         style()
+        self.userBoxLabel.text = SettingsManager.shared.getUserInitials()
         updateLastSyncLabel()
         if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
             lastSyncLabel.text = last.timeSince()
@@ -306,7 +307,6 @@ class HomeViewController: BaseViewController {
                 lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
             }
         } else {
-            
             authenticateIfRequred()
         }
         setUpTable()
@@ -566,7 +566,17 @@ class HomeViewController: BaseViewController {
         }
         self.gettingUserInfo = true
         API.getUserInfo { (userInfo) in
-            guard let info = userInfo, !info.firstName.isEmpty && !info.lastName.isEmpty else {
+            guard let info = userInfo, !info.email.isEmpty else {
+                // request may have failed
+                if showTourAfter {
+                    self.beginTour()
+                    self.showTour = false
+                }
+                return
+            }
+            
+            // Request was successful but names may not be set
+            guard !info.firstName.isEmpty && !info.lastName.isEmpty else {
                 let dialog: GetNameDialog = UIView.fromNib()
                 dialog.initialize {
                     if showTourAfter {
@@ -578,6 +588,8 @@ class HomeViewController: BaseViewController {
                 }
                 return
             }
+            SettingsManager.shared.setUser(info: info)
+            
             if showTourAfter {
                 self.beginTour()
                 self.showTour = false
@@ -690,7 +702,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController {
 
     func getRUPs()  {
-        removeDummy()
+        DummyData.removeDummyPlanAndAgreement()
         loadRUPs()
         // sort by last name
         self.rups = rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
@@ -745,17 +757,15 @@ extension HomeViewController: MaterialShowcaseDelegate {
     func endTour() {
         updateAccordingToNetworkStatus()
         closeDummyPlanCell {
-            self.removeDummy()
+            AutoSync.shared.endListener()
+            DummyData.removeDummyPlanAndAgreement()
             self.getRUPs()
             Feedback.initializeButton()
-            AutoSync.shared.endListener()
-            AutoSync.shared.beginListener()
-
             self.endChangeListener()
             self.beginChangeListener()
             self.tourTipButton.isUserInteractionEnabled = true
+            AutoSync.shared.beginListener()
         }
-
     }
 
     func beginTour() {
@@ -798,35 +808,10 @@ extension HomeViewController: MaterialShowcaseDelegate {
     }
 
     func setDummyPlan() {
-        let agreement = Agreement()
-        agreement.agreementId = "RAN000000"
-        let plan = Plan()
-        plan.ranNumber = 000000
-        plan.rangeName = "Tour Range"
-        plan.remoteId = -99
-        plan.agreementId = agreement.agreementId
-        plan.updateStatus(with: .Created)
-        let client = Client()
-        client.name = "Roop Jawl"
-        client.clientTypeCode = "A"
-        plan.clients.append(client)
-        agreement.plans.append(plan)
-        RealmRequests.saveObject(object: plan)
-        RealmRequests.saveObject(object: agreement)
         self.rups.removeAll()
-        self.rups.append(plan)
+        self.rups.append(DummyData.createDummyPlan())
         self.expandIndexPath = nil
         self.tableView.reloadData()
-    }
-
-    func removeDummy() {
-        for element in RUPManager.shared.getPlansWith(remoteId: -99) {
-            RealmRequests.deleteObject(element)
-        }
-
-        for element in RUPManager.shared.getAgreements(with: "RAN000000") {
-            RealmRequests.deleteObject(element)
-        }
     }
 
     func getDummyPlanCell() -> PlanTableViewCell? {

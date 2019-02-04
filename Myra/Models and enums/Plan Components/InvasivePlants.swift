@@ -104,11 +104,6 @@ class InvasivePlants: Object {
         }
     }
 
-    // MARK: Validations
-    func requiredFieldsAreFilled() -> Bool {
-        return (equipmentAndVehiclesParking || beginInUninfestedArea || undercarrigesInspected || revegetate || !other.isEmpty)
-    }
-
     // MARK: Export
     func toDictionary() -> [String : Any] {
         return [

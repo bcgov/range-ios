@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmptyPastureTableViewCell: UITableViewCell, Theme {
+class EmptyStateTableViewCell: UITableViewCell, Theme {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var container: UIView!
@@ -19,6 +19,11 @@ class EmptyPastureTableViewCell: UITableViewCell, Theme {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func setup(withMessage message: String) {
+        self.label.text = message
+        style()
     }
 
     func style() {

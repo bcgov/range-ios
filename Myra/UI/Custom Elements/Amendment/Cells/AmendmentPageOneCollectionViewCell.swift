@@ -89,6 +89,10 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .ChangeRequested
         case .Create:
             amendment.type = .RequestAgreementHolderInput
+        case .ReturnToAgreementHolder:
+            // TODO: HERE!!!
+//            amendment.type =
+            break
         }
         autoFill()
     }
@@ -106,6 +110,10 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             amendment.type = .Completed
         case .Create:
             amendment.type = .RequestAgreementHolderEsignature
+        case .ReturnToAgreementHolder:
+            // TODO: HERE!!!
+//            amendment.type =
+            break
         }
         autoFill()
     }
@@ -172,7 +180,7 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             self.titleLabel.text = "Update Amendment Descision"
             self.subtitleLabel.text = "Select the final status of this Range Use Plan"
         case .Initial:
-            self.optionOneLabel.text = "Change Requested"
+            self.optionOneLabel.text = "Content change is needed"
             self.optionTwoLabel.text = "Completed"
             self.titleLabel.text = "Update Plan Status"
             self.subtitleLabel.text = "Select the new status of this Range Use Plan"
@@ -183,6 +191,9 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
             self.titleLabel.text = "Ready to Submit?"
             self.subtitleLabel.text = "Choose Your Submission Type"
             self.optionZeroContainer.isHidden = true
+        case .ReturnToAgreementHolder:
+            // TODO: HERE!!!
+            break
         }
         styleHollowButton(button: cancelButton)
         styleFillButton(button: nextButton)

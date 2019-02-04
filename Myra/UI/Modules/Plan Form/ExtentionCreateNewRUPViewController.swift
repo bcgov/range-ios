@@ -11,18 +11,6 @@ import UIKit
 import Realm
 import RealmSwift
 
-
-enum PlanAction {
-    case UpdateAmendment
-    case ApproveAmendment
-    case FinalReview
-    case UpdateStatus
-    case CreateMandatoryAmendment
-    case CancelAmendment
-    case PrepareForSubmission
-}
-
-
 // This extention has all the styling for create page.
 extension CreateNewRUPViewController {
 

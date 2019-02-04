@@ -205,7 +205,36 @@ class CreateNewRUPViewController: BaseViewController {
             if self.shouldShowBanner() {
                 self.openBanner()
             }
+            
+            let minPlanFieldsMessage = self.minimumPlanFieldsAreFilledMessage()
+            if !minPlanFieldsMessage.isEmpty {
+                Alert.show(title: "Heads up!", message: minPlanFieldsMessage)
+            }
         })
+    }
+    
+    func minimumPlanFieldsAreFilledMessage() -> String {
+        guard let plan = self.rup  else {
+            return ""
+        }
+        var message = ""
+        if plan.rangeName.isEmpty {
+            message = "\(message)Range Name is empty.\n"
+        }
+        if plan.planStartDate == nil {
+            message = "\(message)Plan Start date is empty.\n"
+        }
+        
+        if plan.planEndDate == nil {
+             message = "\(message)Plan End date is empty.\n"
+        }
+        if message.isEmpty {
+            return message
+        } else {
+            let messageDesc = "This plan will not be uploaded untill the minimum fields are filled:\n\n"
+            return "\(messageDesc)\(message)"
+        }
+        
     }
     
     // MARK: Outlet Actions
@@ -250,12 +279,24 @@ class CreateNewRUPViewController: BaseViewController {
                     self.cancelAmendment()
                 case .PrepareForSubmission:
                     self.showAmendmentSubmissionFlow()
+                case .ReturnToAgreementHolder:
+                    // TODO: HERE!!!
+                    break
                 }
             }
         }
     }
     
     @IBAction func cancelAction(_ sender: UIButton) {
+        dismissKeyboard()
+        Alert.show(title: "Are you sure?", message: "Your changes since the last time you saved will be lost", yes: {
+            self.cancel()
+        }) {
+            return
+        }
+    }
+    
+    func cancel() {
         dismissKeyboard()
         guard let new: Plan = self.planCopy, let old: Plan = self.rup, let agreement = RUPManager.shared.getAgreement(with: new.agreementId) else {
             Alert.show(title: "Critical Error", message: "A critical error prevents the recovery of the old version of this plan. The current version is saved.")
@@ -280,7 +321,6 @@ class CreateNewRUPViewController: BaseViewController {
         // dont store any rup
         
         self.goHome()
-        
     }
     
     @IBAction func saveToDraftAction(_ sender: UIButton) {
@@ -508,6 +548,9 @@ class CreateNewRUPViewController: BaseViewController {
     }
     
     // MARK: Amendments - Plan Actions
+    
+    // Get the selected option from popover options displayed results
+    // Helper function for re-usable lookup popover
     func getPlanAction(fromString name: String) -> PlanAction? {
         switch name.lowercased() {
         case "update amendment":
@@ -524,10 +567,31 @@ class CreateNewRUPViewController: BaseViewController {
             return .CancelAmendment
         case "prepare for submission":
             return .PrepareForSubmission
+        case "Return To Agreement Holder":
+            return .ReturnToAgreementHolder
         default:
             return nil
         }
     }
+    
+    /*
+     case .UpdateAmendment:
+        self.showAmendmentFlow()
+     case .ApproveAmendment:
+        self.showAmendmentFlow()
+     case .FinalReview:
+        self.showAmendmentFlow()
+     case .UpdateStatus:
+        self.showAmendmentFlow()
+     case .CreateMandatoryAmendment:
+        self.createMandatoryAmendment()
+     case .CancelAmendment:
+        self.cancelAmendment()
+     case .PrepareForSubmission:
+        self.showAmendmentSubmissionFlow()
+     case .ReturnToAgreementHolder:
+        self.
+     */
     
     func getPlanActions(for plan: Plan) -> [PlanAction] {
         var returnValue: [PlanAction] = [PlanAction]()
@@ -535,15 +599,25 @@ class CreateNewRUPViewController: BaseViewController {
         
         if current == .Stands {
             returnValue.append(.UpdateAmendment)
-        } else if current == .SubmittedForFinalDecision || current == .SubmittedForReview {
+            
+        } else if current == .SubmittedForFinalDecision{
             returnValue.append(.ApproveAmendment)
+            
+        } else if current == .SubmittedForReview {
+            // TODO: HERE!!!
+//            returnValue.append(.) //ReturnToAgreementHolder
+            
         } else if current == .RecommendReady {
             returnValue.append(.FinalReview)
-        } else if current == .Pending || current == .Created {
+            
+        } else if current == .Pending {
+            // Note: Review is required by staff
             returnValue.append(.UpdateStatus)
             // completed / change requested
+            
         } else if current == .Approved {
             returnValue.append(.CreateMandatoryAmendment)
+            
         } else if (current == .StaffDraft || current == .LocalDraft) && plan.amendmentTypeId != -1 {
             returnValue.append(.CancelAmendment)
             returnValue.append(.PrepareForSubmission)
@@ -575,9 +649,24 @@ class CreateNewRUPViewController: BaseViewController {
             self.setup(rup: new, mode: .Edit)
             self.tableView.reloadData()
             self.autofill()
-            AutoSync.shared.beginListener()
         }
     }
+    
+    func showSubmitBackToAgreementHolderFlow() {
+        guard let plan = self.rup else {return}
+        let amendmentFlow: AmendmentFlow = UIView.fromNib()
+        let mode: AmendmentFlowMode = .ReturnToAgreementHolder
+        // display
+        amendmentFlow.initialize(mode: mode) { (amendment) in
+            if let result = amendment, let newStatus = result.getStatus() {
+                // process new status
+                plan.updateStatus(with: newStatus)
+                self.autofill()
+                self.stylePlanActions()
+            }
+        }
+    }
+    
     
     func showAmendmentSubmissionFlow() {
         guard let plan = self.rup else {return}

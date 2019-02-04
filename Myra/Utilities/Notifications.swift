@@ -15,4 +15,6 @@ extension Notification.Name {
     static let updatePasturesCell = Notification.Name("updatePasturesCell")
 
     static let reload = Notification.Name("reload")
+    
+    static let screenOrientationChanged = Notification.Name("screenOrientationChanged")
 }

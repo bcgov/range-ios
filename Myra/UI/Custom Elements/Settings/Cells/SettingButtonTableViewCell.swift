@@ -16,6 +16,13 @@ class SettingButtonTableViewCell: UITableViewCell, Theme {
     // MARK: Outlets
     @IBOutlet weak var button: UIButton!
     
+    // MARK: Class func
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if superview != nil {
+           style()
+        }
+    }
     // MARK: Outlet Actons
     @IBAction func buttonAction(_ sender: UIButton) {
         if let callBack = self.callBack {

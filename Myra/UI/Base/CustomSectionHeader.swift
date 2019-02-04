@@ -10,30 +10,20 @@ import UIKit
 
 class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
 
+    var callBack: (()-> Void)?
+    var toolTipHelpText = ""
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var tooltipButton: UIButton!
     @IBOutlet weak var titleWidth: NSLayoutConstraint!
-
-    var toolTipHelpText = ""
-
     @IBOutlet weak var actionButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var actionButton: UIButton!
-    var callBack: (()-> Void)?
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
 
     func setup(title: String, iconImage: UIImage? = nil, helpDescription: String? = nil, actionButtonName: String? = nil, buttonCallback: @escaping()-> Void) {
         self.callBack = buttonCallback
         self.titleLabel.text = title
-//        styleSubHeader(label: titleLabel)
         styleHeader(label: titleLabel, divider: divider)
         titleLabel.increaseFontSize(by: -12)
         divider.backgroundColor = UIColor.gray.withAlphaComponent(0.3)
@@ -61,7 +51,6 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
             actionButton.alpha = 0
         }
     }
-
 
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? BaseViewController, let titleText = titleLabel.text else {return}

@@ -163,7 +163,7 @@ class AutoSync {
         }
         
         if !SettingsManager.shared.isAutoSyncEnabled() {
-            Logger.log(message: "No. Autysync is blocked.")
+            Logger.log(message: "No. Autosync is blocked.")
             return false
         }
         

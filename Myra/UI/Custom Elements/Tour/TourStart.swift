@@ -57,11 +57,8 @@ class TourStart: CustomModal {
         style()
         self.alpha = invisibleAlpha
         self.isUserInteractionEnabled = false
-        API.getUserInfo { (userInfo) in
-            if let userInfo = userInfo {
-                self.title.text = "Welcome \(userInfo.firstName)"
-            }
-        }
+        self.title.text = "Welcome \(SettingsManager.shared.getUserName())"
+        body.text = "Welcome to MyRangeBC.\nHow about a quick tour?"
         position(then: {
             self.isUserInteractionEnabled = true
         })
@@ -75,5 +72,6 @@ class TourStart: CustomModal {
         title.textColor = UIColor.black
         body.font = Fonts.getPrimaryMedium(size: 17)
         styleFillButton(button: beginButton)
+        styleHollowButton(button: skipButton)
     }
 }

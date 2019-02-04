@@ -9,8 +9,35 @@
 import Foundation
 import UIKit
 
+class CustomModalConstraintModel {
+    var position: customModalContraint
+    var constraint: NSLayoutConstraint
+    var active: Bool
+    
+    init(position: customModalContraint, constraint: NSLayoutConstraint, active: Bool) {
+        self.position = position
+        self.constraint = constraint
+        self.active = active
+    }
+}
+
+enum customModalContraint {
+    case Width
+    case Height
+    case CenterX
+    case CenterY
+    case Bottom
+}
+
 class CustomModal: UIView, Theme {
+    
+    private var contraintsAddedd: [CustomModalConstraintModel] = [CustomModalConstraintModel]()
     // MARK: Variables
+    private var contraintsAdded: [customModalContraint: NSLayoutConstraint] = [customModalContraint: NSLayoutConstraint]()
+    
+    // Space between bottom of modal and keyboard, when keyboard covers modal
+    private let keyboardPadding: CGFloat = 25
+    
     private var width: CGFloat = 390
     private var height: CGFloat = 400
     private var verticalPadding: CGFloat = 0
@@ -21,8 +48,81 @@ class CustomModal: UIView, Theme {
     private let fieldErrorAnimationDuration = 2.0
     
     // White screen
-    private let whiteScreenTag: Int = 9532
+    private let whiteScreenTag: Int = Int.random(in: 1000..<100000)
     private let whiteScreenAlpha: CGFloat = 0.9
+    
+    // MARK: Class funcs
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        if newWindow == nil {
+            removeKeyboardObserver()
+            disappeared()
+        } else {
+            addKeyboardObserver()
+            appeared()
+        }
+    }
+    
+    func appeared() {}
+    func disappeared() {}
+    
+    // MARK: Keyboard handler
+    func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardNotificationObserver(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+    }
+    
+    func removeKeyboardObserver() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func didReceiveKeyboardNotificationObserver(_ notification: Notification) {
+        guard let userInfo = notification.userInfo, let keyboardFrame = userInfo["UIKeyboardFrameEndUserInfoKey"] as? NSValue else {return}
+        switch notification.name {
+        case UIResponder.keyboardWillShowNotification:
+            UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), delay: SettingsManager.shared.getAnimationDuration(), animations: {
+                self.addKeyboardContraints(keyboardFrame: keyboardFrame.cgRectValue)
+                self.activateConstraints(then: {})
+            }) { (done) in
+                UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
+                    self.redoContraintsIfNeeded(keyboardFrame: keyboardFrame.cgRectValue)
+                }) { (done) in}
+            }
+        case UIResponder.keyboardWillHideNotification:
+            UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), delay: SettingsManager.shared.getAnimationDuration(), animations: {
+                self.removeKeyboardConstraints()
+                self.activateConstraints(then: {})
+            }) { (done) in}
+        case UIResponder.keyboardDidShowNotification:
+            return
+        default:
+            break
+        }
+    }
+    
+    func findViewFirstResponder() -> UIView? {
+        return recursiveFindSubViewWithKeyboard(from: self)
+    }
+    
+    func recursiveFindSubViewWithKeyboard(from current: UIView) -> UIView?{
+        if current.subviews.isEmpty {
+            return nil
+            
+        }
+        
+        if current.isFirstResponder {
+            return current
+        }
+        
+        for each in current.subviews {
+            if let found = recursiveFindSubViewWithKeyboard(from: each) {
+                return found
+            }
+        }
+        return nil
+    }
     
     // MARK: Size
     func setFixed(width: CGFloat, height: CGFloat) {
@@ -49,16 +149,18 @@ class CustomModal: UIView, Theme {
     
     func setSmartSizingWith(percentHorizontalPadding: CGFloat, percentVerticalPadding: CGFloat) {
         guard let window = UIApplication.shared.keyWindow else {return}
-        self.horizontalPadding = self.get(percent: percentHorizontalPadding, of: window.frame.width)
-        self.verticalPadding = self.get(percent: percentVerticalPadding, of: window.frame.height)
         
         // Choose a witdh or height that stay the same regardless of orientation.
         if window.frame.width > window.frame.height {
             // Horizontal
+            self.horizontalPadding = self.get(percent: percentHorizontalPadding, of: window.frame.width)
+            self.verticalPadding = self.get(percent: percentVerticalPadding, of: window.frame.height)
             self.height = window.frame.height - (verticalPadding)
             self.width = window.frame.height - (horizontalPadding)
         } else {
             // vertical
+            self.horizontalPadding = self.get(percent: percentHorizontalPadding, of: window.frame.height)
+            self.verticalPadding = self.get(percent: percentVerticalPadding, of: window.frame.width)
             self.height = window.frame.width - (verticalPadding)
             self.width = window.frame.width - (horizontalPadding)
         }
@@ -94,26 +196,19 @@ class CustomModal: UIView, Theme {
         }
     }
     
+    func animate() {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration()) {
+            self.layoutIfNeeded()
+        }
+    }
+    
     // MARK: Positioning/ displaying
     func hide() {
         remove()
-//        guard let window = UIApplication.shared.keyWindow else {return}
-//        if let viewWithTag = window.viewWithTag(whiteScreenTag) {
-//            viewWithTag.removeFromSuperview()
-//            self.alpha = self.invisibleAlpha
-//        }
     }
     
     func show() {
         present()
-//        guard let window = UIApplication.shared.keyWindow else {return}
-//        if let viewWithTag = window.viewWithTag(whiteScreenTag) {
-//            UIView.animate(withDuration: animationDuration, animations: {
-//                viewWithTag.alpha = self.visibleAlpha
-//            }) { (done) in
-//                self.alpha = self.visibleAlpha
-//            }
-//        }
     }
     
     func remove() {
@@ -137,23 +232,131 @@ class CustomModal: UIView, Theme {
         self.frame = CGRect(x: 0, y: 0, width: width, height: height)
         self.alpha = 0
         window.addSubview(self)
-        addConstraints()
-        
-        showWhiteBG(then: {
-            self.openingAnimation {
-                return then()
-            }
+        addInitialConstraints()
+        activateConstraints(then: {
+            self.showWhiteBG(then: {
+                self.openingAnimation {
+                    return then()
+                }
+            })
         })
+        
     }
     
-    func addConstraints() {
+    // MARK: Contraints
+    func activateConstraints(then: @escaping ()-> Void) {
+        var addedConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
+        var removedConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
+        for each in contraintsAdded {
+            if each.value.isActive == true {
+                addedConstraints.append(each.value)
+            } else {
+                removedConstraints.append(each.value)
+            }
+        }
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
+            NSLayoutConstraint.activate(addedConstraints)
+            NSLayoutConstraint.deactivate(removedConstraints)
+        }) { (done) in
+            return then()
+        }
+    }
+    
+    func addInitialConstraints() {
         guard let window = UIApplication.shared.keyWindow else {return}
         self.translatesAutoresizingMaskIntoConstraints = false
-        let widthContraint =  self.widthAnchor.constraint(equalToConstant: width)
-        let heightContraint = self.heightAnchor.constraint(equalToConstant: height)
+        
+        let widthContraint = self.widthAnchor.constraint(equalToConstant: width)
+        let heightConstraint = self.heightAnchor.constraint(equalToConstant: height)
         let centerXContraint = self.centerXAnchor.constraint(equalTo: window.centerXAnchor)
-        let centerYContraint = self.centerYAnchor.constraint(equalTo: window.centerYAnchor)
-        NSLayoutConstraint.activate([ widthContraint, heightContraint, centerXContraint, centerYContraint, ])
+        let centerYConstraint = self.centerYAnchor.constraint(equalTo: window.centerYAnchor)
+        
+        widthContraint.isActive = true
+        heightConstraint.isActive = true
+        centerXContraint.isActive = true
+        centerYConstraint.isActive = true
+        
+        self.contraintsAdded[.Width] = widthContraint
+        self.contraintsAdded[.Height] = heightConstraint
+        self.contraintsAdded[.CenterX] = centerXContraint
+        self.contraintsAdded[.CenterY] = centerYConstraint
+    }
+    
+    func addCenterConstraints() {
+        guard let centerXIndex = contraintsAdded.index(forKey: .CenterX), let centerYIndex = contraintsAdded.index(forKey: .CenterY), let centerXContraint = contraintsAdded.at(centerXIndex), let centerYContraint = contraintsAdded.at(centerYIndex) else {
+            return
+        }
+        centerYContraint.value.isActive = true
+        centerXContraint.value.isActive = true
+    }
+    
+    func removeCenterContraints() {
+        guard let centerXIndex = contraintsAdded.index(forKey: .CenterX), let centerYIndex = contraintsAdded.index(forKey: .CenterY), let centerXContraint = contraintsAdded.at(centerXIndex), let centerYContraint = contraintsAdded.at(centerYIndex) else {
+            return
+        }
+        centerYContraint.value.isActive = false
+        centerXContraint.value.isActive = false
+    }
+    
+    // MARK: Keyboard constraints
+    func addKeyboardContraints(keyboardFrame: CGRect) {
+        if !isKeyboardCoveringMe(keyboardFrame: keyboardFrame) {return}
+        guard let window = UIApplication.shared.keyWindow else {return}
+        
+        if let centerXIndex = contraintsAdded.index(forKey: .CenterX), let centerYIndex = contraintsAdded.index(forKey: .CenterY), let centerXContraint = contraintsAdded.at(centerXIndex), let centerYContraint = contraintsAdded.at(centerYIndex) {
+            centerYContraint.value.isActive = false
+            centerXContraint.value.isActive = true
+            if let bottomIndex = contraintsAdded.index(forKey: .Bottom), let existingBottomContraint = contraintsAdded.at(bottomIndex) {
+                existingBottomContraint.value.isActive = true
+                existingBottomContraint.value.constant = getKeyboardContraintConstant(keyboardFrame: keyboardFrame)
+            } else {
+                let bottomConstraint = self.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant:getKeyboardContraintConstant(keyboardFrame: keyboardFrame))
+                bottomConstraint.isActive = true
+                self.contraintsAdded[.Bottom] = bottomConstraint
+            }
+        }
+    }
+    
+    /*
+     - if the textfield being edited is moved out of the screen
+     - if the texcfied being edited is too far from keyboard
+     */
+    func redoContraintsIfNeeded(keyboardFrame: CGRect) {
+        guard let field = findViewFirstResponder(), let window = UIApplication.shared.keyWindow, let fieldSuperview = field.superview else {return}
+        let globalPoint = fieldSuperview.convert(field.frame.origin, to: nil)
+        // if the textfield being edited is moved out of the screen
+        if globalPoint.y < 0 {
+            guard let bottomIndex = contraintsAdded.index(forKey: .Bottom), let bottomContraint = contraintsAdded.at(bottomIndex) else {
+                return
+            }
+            bottomContraint.value.constant = (window.frame.height - keyboardFrame.origin.y) - self.frame.height
+        }
+    }
+    
+    func getKeyboardContraintConstant(keyboardFrame: CGRect) -> CGFloat {
+        guard let window = UIApplication.shared.keyWindow else {return (0 - (keyboardFrame.origin.y + keyboardPadding))}
+        return (((window.frame.height - keyboardFrame.origin.y) + keyboardPadding) * -1)
+    }
+    
+    func removeKeyboardConstraints() {
+        guard let centerYIndex = contraintsAdded.index(forKey: .CenterY), let bottomIndex = contraintsAdded.index(forKey: .Bottom), let centerYContraint = contraintsAdded.at(centerYIndex), let bottomContraint = contraintsAdded.at(bottomIndex) else {
+            return
+        }
+        
+        bottomContraint.value.isActive = false
+        centerYContraint.value.isActive = true
+    }
+    
+    func isKeyboardCoveringMe(keyboardFrame: CGRect) -> Bool {
+        guard let window = UIApplication.shared.keyWindow else {return false}
+        let myEstimatedBottom = window.center.y + (self.height/2)
+        if myEstimatedBottom > (keyboardFrame.origin.y + keyboardPadding) {
+            return true
+        } else {
+            return false
+        }
     }
     
     // MARK: Displaying animations
@@ -229,7 +432,5 @@ class CustomModal: UIView, Theme {
             viewWithTag.removeFromSuperview()
         }
         recursivelyRemoveWhiteScreens(attempt: found)
-    
     }
-    
 }
