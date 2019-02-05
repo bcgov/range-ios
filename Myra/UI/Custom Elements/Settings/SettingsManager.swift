@@ -278,7 +278,8 @@ class SettingsManager {
     func setUser(firstName: String, lastName: String) {
         guard let model = getModel() else {return}
         model.setUser(firstName: firstName, lastName: lastName)
-        Logger.log(message: "Updated username:")
+        NotificationCenter.default.post(name: .usernameUpdatedInSettings, object: nil)
+        Logger.log(message: "Updated stored username:")
         Logger.log(message: getUserName(full: true))
     }
     
@@ -297,7 +298,7 @@ class SettingsManager {
     
     func getUserInitials() -> String {
         guard let model = getModel(), let last = model.userLastName.first, let first = model.userFirstName.first else {return "RO"}
-        return ("\(first) \(last)")
+        return ("\(first)\(last)")
     }
     
     // MARK: Animations
