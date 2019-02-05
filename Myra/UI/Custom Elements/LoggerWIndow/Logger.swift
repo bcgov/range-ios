@@ -73,10 +73,7 @@ class Logger {
     
     private static func windowWithTagExists() -> Bool {
         guard let window = UIApplication.shared.keyWindow else {return false}
-        if let viewWithTag = window.viewWithTag(windowTag) {
-            return true
-        }
-        return false
+        return window.viewWithTag(windowTag) != nil
     }
     
     private static func moveWindowToFront() {
@@ -87,10 +84,20 @@ class Logger {
     }
     
     static func removeLoggerWindowIfExists() {
-        guard let window = UIApplication.shared.keyWindow else {return}
-        if let viewWithTag = window.viewWithTag(windowTag) {
-            viewWithTag.removeFromSuperview()
-            self.loggerWindow = nil
+        func removeWindowIfExists() {
+            guard let window = UIApplication.shared.keyWindow else {return}
+            if let viewWithTag = window.viewWithTag(windowTag) {
+                viewWithTag.removeFromSuperview()
+                self.loggerWindow = nil
+            }
+        }
+        
+        if !Thread.isMainThread {
+            DispatchQueue.main.sync {
+                removeWindowIfExists()
+            }
+        } else {
+            removeWindowIfExists()
         }
     }
     

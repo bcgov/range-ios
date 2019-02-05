@@ -60,15 +60,27 @@ class FormMenu: UIView, Theme {
         let prevIndexPath = IndexPath(row: selectedSection.rawValue, section: 0)
         let newIndexPath = IndexPath(row: section.rawValue, section: 0)
         self.selectedSection = section
+        self.tableView.reloadRows(at: [prevIndexPath, newIndexPath], with: .automatic)
+        self.scrollToRowIfNotVisible(at: newIndexPath)
+        /*
         self.tableView.performBatchUpdates({
             self.tableView.reloadRows(at: [prevIndexPath, newIndexPath], with: .automatic)
-            if section.rawValue > FromSection.allCases.count / 2 {
-                self.tableView.scrollToBottomRow()
-            } else {
-                self.tableView.scrollToTop()
-            }
+//            if section.rawValue > FromSection.allCases.count / 2 {
+//                self.tableView.scrollToBottomRow()
+//            } else {
+//                self.tableView.scrollToTop()
+//            }
         }) { (done) in
+            self.scrollToRowIfNotVisible(at: newIndexPath)
             Logger.log(message: "Form section: \(section)")
+        }*/
+    }
+    
+    func scrollToRowIfNotVisible(at indexPath: IndexPath) {
+        guard let visibles = self.tableView.indexPathsForVisibleRows else {return}
+        
+        if !visibles.contains(indexPath) {
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
     
@@ -152,6 +164,10 @@ extension FormMenu: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // We do not use menu buttons for 3 Basic information sub-sections:
+        // Plan Info
+        // Agreement Info
+        // Usage
         return FromSection.allCases.count
     }
     
