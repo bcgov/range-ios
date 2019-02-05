@@ -90,6 +90,10 @@ class Auth {
         authServices.logout()
     }
     
+    public static func hasCredentials() -> Bool {
+        return authServices.credentials != nil
+    }
+    
     public static func getAccessToken() -> String? {
         if let creds = authServices.credentials {
             return creds.accessToken

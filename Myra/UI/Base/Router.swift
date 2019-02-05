@@ -13,15 +13,7 @@ extension MainViewController {
 
     func chooseInitialView(initialLogin: Bool? = false) {
         previousViewControllers.removeAll()
-//        if Auth.isAuthenticated() {
-//            // Go to home page
-//            showHome(initialLogin: initialLogin)
-//        } else {
-//            // last sync doesn't exist.
-//            // Go to login page
-//            showLogin()
-//        }
-        if let _ = RealmManager.shared.getLastSyncDate() {
+        if let _ = RealmManager.shared.getLastSyncDate(), Auth.hasCredentials() {
             // Go to home page
             showHome(initialLogin: initialLogin)
         } else {

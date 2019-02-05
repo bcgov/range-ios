@@ -42,6 +42,10 @@ class TileMaster {
     var tiles = 0
 
     var isDownloading: Bool = false
+    
+    // Lets chache these instead of calculating over and over
+    var cachedNumberOfStoredTiles: Int = 0
+    var cachedSizeOfStoredTiles: Double = 0.0
 
     // If it keeps failing to download X number of tiles again, don't try again
     var lastFailedCount: Int = 0
@@ -92,12 +96,16 @@ class TileMaster {
 
     func sizeOfStoredTiles() -> Double {
         let fileURLs = storedFiles()
+        // If number of items hasn't changed retured the last computed size
+        if storedFiles().count == self.cachedNumberOfStoredTiles {return self.cachedSizeOfStoredTiles}
         var total: Double = 0
         for item in fileURLs {
             if item.path.contains("Tile") {
                 total += sizeOfFileAt(url: item)
             }
         }
+        self.cachedNumberOfStoredTiles = storedFiles().count
+        self.cachedSizeOfStoredTiles = total
         return total
     }
 
