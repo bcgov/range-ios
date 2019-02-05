@@ -8,13 +8,5 @@
 
 import Foundation
 extension Notification.Name {
-    static let updateTableHeights = Notification.Name("updateTableHeights")
-    // Pasture cells within Pastures cell
-    static let updatePastureCells = Notification.Name("updatePastureCells")
-    // Cell that contains Pastures
-    static let updatePasturesCell = Notification.Name("updatePasturesCell")
-
-    static let reload = Notification.Name("reload")
-    
     static let screenOrientationChanged = Notification.Name("screenOrientationChanged")
 }

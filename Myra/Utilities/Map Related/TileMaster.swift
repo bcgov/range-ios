@@ -52,9 +52,19 @@ class TileMaster {
     private init() {
         Logger.log(message: "Initialized TileMaster. Size of tiles: \(sizeOfStoredTiles())")
     }
+    
+    func getTileProviderURL(for path: MKTileOverlayPath) -> URL? {
+        return googleSatelliteURL(for: path)
+    }
 
     func openSteetMapURL(for path: MKTileOverlayPath) -> URL? {
         let stringURL = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
+        guard let url = URL(string: stringURL) else {return nil}
+        return url
+    }
+    
+    func googleSatelliteURL(for path: MKTileOverlayPath) -> URL? {
+        let stringURL = "http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x=\(path.x)&y=\(path.y)&z=\(path.z)"
         guard let url = URL(string: stringURL) else {return nil}
         return url
     }
@@ -254,7 +264,8 @@ class TileMaster {
             return then(false)
         }
         let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)
-        guard let url = openSteetMapURL(for: path) else {
+
+        guard let url = getTileProviderURL(for: path) else {
             return then(false)
         }
         var request = URLRequest(url: url)

@@ -147,22 +147,4 @@ extension PasturesTableViewCell: UITableViewDelegate, UITableViewDataSource {
             return count
         }
     }
-    
 }
-
-// TODO: Remove - Do not use notification center for upating cell height.
-// Notifications
-extension PasturesTableViewCell {
-    func setupNotifications() {
-        NotificationCenter.default.addObserver(forName: .updatePasturesCell, object: nil, queue: nil, using: catchAction)
-    }
-    
-    func catchAction(notification:Notification) {
-        self.updateTableHeight()
-    }
-    
-    func catchUpdateAction(notification:Notification) {
-        self.updateTableHeight()
-    }
-}
-

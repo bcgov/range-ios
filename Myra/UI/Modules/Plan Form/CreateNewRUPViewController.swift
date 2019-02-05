@@ -29,7 +29,7 @@ public enum FromSection: Int, CaseIterable {
     case InvasivePlants
     case AdditionalRequirements
     case ManagementConsiderations
-//    case Map
+    case Map
 }
 
 class CreateNewRUPViewController: BaseViewController {
@@ -718,7 +718,6 @@ class CreateNewRUPViewController: BaseViewController {
 extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil {return}
-        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updateTableHeights, object: nil)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.remembersLastFocusedIndexPath = true
@@ -850,9 +849,9 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 let cell = getManagementConsiderationsCell(indexPath: indexPath)
                 cell.setup(mode: mode, rup: rup!)
                 return cell
-//            case .Map:
-//                let cell = getMapCell(indexPath: indexPath)
-//                return cell
+            case .Map:
+                let cell = getMapCell(indexPath: indexPath)
+                return cell
             }
             
         } else {

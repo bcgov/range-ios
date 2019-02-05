@@ -85,6 +85,9 @@ class FormMenuItemTableViewCell: UITableViewCell {
         case .ManagementConsiderations:
             self.label.text = "Management Considerations"
             self.icon.image = UIImage(named: "icon_Management\(iconExtension)")
+        case .Map:
+            self.label.text = "Map"
+            self.icon.image = UIImage(named: "icon_Map\(iconExtension)")
         }
         
         if canDisplayFullText() {

@@ -74,22 +74,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
         guard let pc = self.plantCommunity else {return}
         self.nameLabel.text = pc.name
     }
-
-    // TODO: Remove Notification Center Usage for updating cells.
-    func setupNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updatePastureCells, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .reload, object: nil)
-    }
-    @objc func doThisWhenNotify() { return }
-
-    func notifPastureCells() {
-        NotificationCenter.default.post(name: .updatePastureCells, object: self, userInfo: ["reload": true])
-    }
-
-    func notifyReload() {
-        NotificationCenter.default.post(name: .reload, object: self, userInfo: ["reload": true])
-    }
-
+    
     // MARK: Styles
     func style() {
         roundCorners(layer: container.layer)

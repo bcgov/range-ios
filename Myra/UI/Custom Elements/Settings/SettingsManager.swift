@@ -275,16 +275,15 @@ class SettingsManager {
         presenterReference.chooseInitialView()
     }
     
-    
     func setUser(firstName: String, lastName: String) {
         guard let model = getModel() else {return}
         model.setUser(firstName: firstName, lastName: lastName)
         Logger.log(message: "Updated username:")
         Logger.log(message: getUserName(full: true))
     }
+    
     func setUser(info: UserInfo) {
-        guard let model = getModel() else {return}
-        setUser(firstName: model.userFirstName, lastName: model.userLastName)
+        setUser(firstName: info.firstName, lastName: info.lastName)
     }
     
     func getUserName(full: Bool = false) -> String {
