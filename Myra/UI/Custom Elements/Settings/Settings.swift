@@ -147,10 +147,29 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case SettingsSections.Sync.rawValue:
-            switch indexPath.row {
-            case SettingsSyncSection.Autosync.rawValue:
+        
+        if let cellType = SettingsSections(rawValue: Int(indexPath.section)) {
+            switch cellType {
+            case .Sync:
+                return getSyncSection(cellForRowAt: indexPath)
+            case .Account:
+                return getAccountSection(cellForRowAt: indexPath)
+            case .Map:
+                return getMapSection(cellForRowAt: indexPath)
+            case .DeveloperTools:
+                return getDevToolsSection(cellForRowAt: indexPath)
+            case .Privacy:
+                return getPrivacySection(cellForRowAt: indexPath)
+            }
+        } else {
+            fatalError()
+        }
+    }
+    
+    func getSyncSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cellType = SettingsSyncSection(rawValue: Int(indexPath.row)) {
+            switch cellType {
+            case .Autosync:
                 let cell = getSettingToggleTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "AutoSync", isOn: SettingsManager.shared.isAutoSyncEnabled()) { (isOn) in
                     if isOn {
@@ -158,52 +177,62 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                     } else {
                         SettingsManager.shared.setAutoSync(enabled: isOn)
                     }
-                    
                 }
                 return cell
-            default:
-                fatalError()
             }
-        case SettingsSections.Account.rawValue:
-            switch indexPath.row {
-            case SettingsAccountSection.UpdateUserInfo.rawValue:
+        } else {
+            fatalError()
+        }
+    }
+    
+    func getAccountSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cellType = SettingsAccountSection(rawValue: Int(indexPath.row)) {
+            switch cellType {
+            case .UpdateUserInfo:
                 let cell = getSettingButtonTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Update User Information") {
                     let dialog: GetNameDialog = UIView.fromNib()
                     self.remove()
-                    dialog.initialize {
-                        
-                    }
+                    dialog.initialize {}
                 }
                 return cell
-            default:
-                fatalError()
             }
-        case SettingsSections.Map.rawValue:
-            switch indexPath.row {
-            case SettingsMapSection.StoredSize.rawValue:
+        } else {
+            fatalError()
+        }
+    }
+    
+    func getMapSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cellType = SettingsMapSection(rawValue: Int(indexPath.row)) {
+            switch cellType {
+            case .StoredSize:
                 let cell = getSettingInfoTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Storage Used", infoText: SettingsManager.shared.getMapDataSize())
                 return cell
-            case SettingsMapSection.AutoCache.rawValue:
+            case .AutoCache:
                 let cell = getSettingToggleTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Automatically Cache Map Data", isOn: SettingsManager.shared.isMapCacheEnabled()) { (isOn) in
                     SettingsManager.shared.setCacheMap(enabled: isOn)
                 }
                 return cell
-            case SettingsMapSection.ClearCache.rawValue:
+            case .ClearCache:
                 let cell = getSettingButtonTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Clear Cached Data") {
                     SettingsManager.shared.clearMapData()
                     self.reloadMapSizeCell()
                 }
                 return cell
-            default:
-                fatalError()
             }
-        case SettingsSections.DeveloperTools.rawValue:
-            switch indexPath.row {
-            case SettingsDeveloperToolsSection.Development.rawValue:
+        } else {
+            fatalError()
+        }
+    }
+    
+    func getDevToolsSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cellType = SettingsDeveloperToolsSection(rawValue: Int(indexPath.row)) {
+            switch cellType {
+                
+            case .Development:
                 let cell = getSettingToggleTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Development", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
                     if let parent = self.parent, let presenter = parent.getPresenter() {
@@ -216,8 +245,16 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                     }
                 }
                 return cell
-                
-            case SettingsDeveloperToolsSection.ClearUserInfo.rawValue:
+            case .LogWindow:
+                let cell = getSettingToggleTableViewCell(indexPath: indexPath)
+                cell.setup(titleText: "Log Window", isOn: SettingsManager.shared.isInAppLoggerEnabled()) { (isOn) in
+                    SettingsManager.shared.setInAppLoggler(enabled: isOn)
+                    if !isOn {
+                        Logger.loggerWindow = nil
+                    }
+                }
+                return cell
+            case .ClearUserInfo:
                 let cell = getSettingButtonTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "Clear User Info") {
                     API.updateUserInfo(firstName: "", lastName: "", completion: { (done) in
@@ -229,67 +266,62 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                     })
                 }
                 return cell
-                
-            case SettingsDeveloperToolsSection.LogWindow.rawValue:
-                let cell = getSettingToggleTableViewCell(indexPath: indexPath)
-                cell.setup(titleText: "Log Window", isOn: SettingsManager.shared.isInAppLoggerEnabled()) { (isOn) in
-                    SettingsManager.shared.setInAppLoggler(enabled: isOn)
-                    if !isOn {
-                        Logger.loggerWindow = nil
-                    }
-                }
-                return cell
-                
-            default:
-                fatalError()
             }
-        case SettingsSections.Privacy.rawValue:
-            switch indexPath.row {
-            case SettingsPrivacySection.privacy.rawValue:
+        } else {
+            fatalError()
+        }
+    }
+    
+    func getPrivacySection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cellType = SettingsPrivacySection(rawValue: Int(indexPath.row)) {
+            switch cellType {
+            case .privacy:
                 let cell = getSettingButtonTableViewCell(indexPath: indexPath)
                 cell.setup(titleText: "View Privacy information") {
                     let privacy: Privacy = UIView.fromNib()
                     privacy.initialize()
                 }
                 return cell
-            default:
-                fatalError()
             }
-        default:
+        } else {
             fatalError()
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case SettingsSections.Sync.rawValue:
-            return SettingsSyncSection.allCases.count
-        case SettingsSections.Map.rawValue:
-            return SettingsMapSection.allCases.count
-        case SettingsSections.DeveloperTools.rawValue:
-            return SettingsDeveloperToolsSection.allCases.count
-        case SettingsSections.Privacy.rawValue:
-            return SettingsPrivacySection.allCases.count
-        case SettingsSections.Account.rawValue:
-            return SettingsAccountSection.allCases.count
-        default:
+        if let cellType = SettingsSections(rawValue: section) {
+            switch cellType {
+            case .Sync:
+                return SettingsSyncSection.allCases.count
+            case .Map:
+                return SettingsMapSection.allCases.count
+            case .DeveloperTools:
+                return SettingsDeveloperToolsSection.allCases.count
+            case .Privacy:
+                return SettingsPrivacySection.allCases.count
+            case .Account:
+                return SettingsAccountSection.allCases.count
+            }
+        } else {
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case SettingsSections.Sync.rawValue:
-            return "SYNCING"
-        case SettingsSections.Map.rawValue:
-            return "MAPPING"
-        case SettingsSections.DeveloperTools.rawValue:
-            return "Developer Tools"
-        case SettingsSections.Privacy.rawValue:
-            return "Privacy"
-        case SettingsSections.Account.rawValue:
-            return "Account"
-        default:
+        if let cellType = SettingsSections(rawValue: section) {
+            switch cellType {
+            case .Sync:
+                return "SYNCING"
+            case .Map:
+                return "MAPPING"
+            case .DeveloperTools:
+                return "DEVELOPER TOOLS"
+            case .Privacy:
+                return "PRIVACY"
+            case .Account:
+                return "ACCOUNT"
+            }
+        } else {
             return ""
         }
     }

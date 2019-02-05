@@ -46,6 +46,20 @@ extension UITableView {
         let row = indexPath.row
         return section < self.numberOfSections && row < self.numberOfRows(inSection: section)
     }
+    
+    func scrollToTop(){
+        for index in 0...numberOfSections - 1 {
+            if numberOfSections > 0 && numberOfRows(inSection: index) > 0 {
+                scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
+                break
+            }
+            if index == numberOfSections - 1 {
+                setContentOffset(.zero, animated: true)
+                break
+            }
+        }
+        
+    }
 }
 
 enum LoggerWindowConstraints {

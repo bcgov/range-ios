@@ -18,7 +18,7 @@ enum AcceptedPopupInput {
     case Year
 }
 
-enum FromSection: Int, CaseIterable {
+public enum FromSection: Int, CaseIterable {
     case BasicInfo = 0
     case PlanInfo
     case AgreementHolders
@@ -38,6 +38,8 @@ class CreateNewRUPViewController: BaseViewController {
     let landscapeMenuWidh: CGFloat = 265
     let portraitMenuWidth: CGFloat = 64
     let numberOfSections = 11
+    
+    var menuView: FormMenu?
     
     // MARK: Variables
   
@@ -500,7 +502,7 @@ class CreateNewRUPViewController: BaseViewController {
             updateAmendmentEnabled = false
         }
         self.setBarInfoBasedOnOrientation()
-        highlightCurrentModuleInMenu()
+        self.hightlightAppropriateMenuItem()
     }
     
     func setBarInfoBasedOnOrientation() {
@@ -874,14 +876,14 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
                 if !done {
                     print (done)
                 }
-                self.highlightCurrentModuleInMenu()
+                self.hightlightAppropriateMenuItem()
                 return then()
             })
         } else {
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
             self.tableView.layoutIfNeeded()
-            self.highlightCurrentModuleInMenu()
+            self.hightlightAppropriateMenuItem()
             return then()
         }
     }
@@ -903,51 +905,18 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     func realod(bottomOf indexPath: IndexPath, then: @escaping() -> Void) {
         reload {
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            self.highlightCurrentModuleInMenu()
+            self.hightlightAppropriateMenuItem()
             return then()
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        highlightCurrentModuleInMenu()
+        self.hightlightAppropriateMenuItem()
     }
     
-    func highlightCurrentModuleInMenu() {
-        if let indexPaths = self.tableView.indexPathsForVisibleRows, indexPaths.count > 0 {
-            // select the first indexPath
-            var indexPath = indexPaths[0]
-            
-            // If there are 3 or more visible cells, pick the middle
-            if indexPaths.count > 1 {
-                let count = indexPaths.count
-                indexPath = indexPaths[count/2]
-            }
-            
-            // if there are 2 visible cells, find the most visible
-            if indexPaths.count == 2 {
-                let visibleRect = CGRect(origin: tableView.contentOffset, size: tableView.bounds.size)
-                let visiblePoint = CGPoint(x:visibleRect.midX, y:visibleRect.midY)
-                if let i = tableView.indexPathForRow(at: visiblePoint) {
-                    indexPath = i
-                }
-            }
-            
-            // Switch it on
-            if indexPath == basicInformationIndexPath || indexPath ==  rangeUsageIndexPath {
-                menuBasicInfoOn()
-            } else if indexPath == pasturesIndexPath {
-                menuPastureOn()
-            } else if indexPath == scheduleIndexPath {
-                menuScheduleOn()
-            } else if indexPath == minsterActionsIndexPath {
-                menuMinistersIssuesOn()
-            } else if indexPath == invasivePlantsIndexPath {
-                menuInvasivePlantsOn()
-            } else if indexPath == additionalRequirementsIndexPath {
-                menuAdditionalRequirementsOn()
-            } else if indexPath == managementIndexPath {
-                menuManagementConsiderationsOn()
-            }
+    func hightlightAppropriateMenuItem() {
+        if let menuView = self.menuView {
+            menuView.highlightAppropriateMenuItem()
         }
     }
 }

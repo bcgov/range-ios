@@ -34,6 +34,10 @@
 		1EEC8AB921ECF6B1009C1885 /* InputModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC8AB821ECF6B1009C1885 /* InputModal.swift */; };
 		1EEC8ABC21ED16EC009C1885 /* AmendmentFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC8ABB21ED16EC009C1885 /* AmendmentFlow.swift */; };
 		1EEC8ABE21ED16F5009C1885 /* AmendmentFlow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC8ABD21ED16F5009C1885 /* AmendmentFlow.xib */; };
+		1EF4D1F72208B21B004FD173 /* FormMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4D1F62208B21B004FD173 /* FormMenu.xib */; };
+		1EF4D1F92208B233004FD173 /* FormMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4D1F82208B233004FD173 /* FormMenu.swift */; };
+		1EF4D1FD2208B287004FD173 /* FormMenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4D1FB2208B287004FD173 /* FormMenuItemTableViewCell.swift */; };
+		1EF4D1FE2208B287004FD173 /* FormMenuItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4D1FC2208B287004FD173 /* FormMenuItemTableViewCell.xib */; };
 		2901C4C12141D61500AE72FC /* StatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C02141D61500AE72FC /* StatusHelper.swift */; };
 		2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C22141D8EC00AE72FC /* Reference.swift */; };
 		2901C4C52141DB4000AE72FC /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C42141DB4000AE72FC /* Options.swift */; };
@@ -313,6 +317,10 @@
 		1EEC8AB821ECF6B1009C1885 /* InputModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputModal.swift; sourceTree = "<group>"; };
 		1EEC8ABB21ED16EC009C1885 /* AmendmentFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendmentFlow.swift; sourceTree = "<group>"; };
 		1EEC8ABD21ED16F5009C1885 /* AmendmentFlow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmendmentFlow.xib; sourceTree = "<group>"; };
+		1EF4D1F62208B21B004FD173 /* FormMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormMenu.xib; sourceTree = "<group>"; };
+		1EF4D1F82208B233004FD173 /* FormMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormMenu.swift; sourceTree = "<group>"; };
+		1EF4D1FB2208B287004FD173 /* FormMenuItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormMenuItemTableViewCell.swift; sourceTree = "<group>"; };
+		1EF4D1FC2208B287004FD173 /* FormMenuItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormMenuItemTableViewCell.xib; sourceTree = "<group>"; };
 		2901C4C02141D61500AE72FC /* StatusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusHelper.swift; sourceTree = "<group>"; };
 		2901C4C22141D8EC00AE72FC /* Reference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		2901C4C42141DB4000AE72FC /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
@@ -722,6 +730,25 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		1EF4D1F52208B204004FD173 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4D1FA2208B271004FD173 /* Cells */,
+				1EF4D1F62208B21B004FD173 /* FormMenu.xib */,
+				1EF4D1F82208B233004FD173 /* FormMenu.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		1EF4D1FA2208B271004FD173 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4D1FB2208B287004FD173 /* FormMenuItemTableViewCell.swift */,
+				1EF4D1FC2208B287004FD173 /* FormMenuItemTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		290543282194D23700865823 /* Tour */ = {
 			isa = PBXGroup;
 			children = (
@@ -981,6 +1008,7 @@
 				29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */,
 				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
 				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
+				1EF4D1F52208B204004FD173 /* Menu */,
 				1E03B3182202314700116848 /* Empty State */,
 				297D8FD621C9731B00D9A8B8 /* Map */,
 				297D8FCD21C9698F00D9A8B8 /* Basic Information */,
@@ -1510,6 +1538,7 @@
 				29F13BE421236C0600A25424 /* PlanVersionTableViewCell.xib in Resources */,
 				29D8E1A421E527BB00733A87 /* SettingTableViewCell.xib in Resources */,
 				294CADB1216E83DC00DB184B /* NewElementBanner.xib in Resources */,
+				1EF4D1F72208B21B004FD173 /* FormMenu.xib in Resources */,
 				29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */,
 				29227B5620EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib in Resources */,
 				292197CE209CCF65004A5011 /* Options.storyboard in Resources */,
@@ -1561,6 +1590,7 @@
 				293C95CA20335D4100BF1113 /* Main.storyboard in Resources */,
 				293D4184216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib in Resources */,
 				2905432C2194DC5200865823 /* Tour.storyboard in Resources */,
+				1EF4D1FE2208B287004FD173 /* FormMenuItemTableViewCell.xib in Resources */,
 				29A52751205B322700C871F7 /* selectionPopUpTableViewCell.xib in Resources */,
 				295F8F1720F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */,
 				293D4188216D3109006214E1 /* AdditionalRequirementTableViewCell.xib in Resources */,
@@ -1709,6 +1739,7 @@
 				2938CF1121A5C87200329DDA /* ViewFeedbacksViewController.swift in Sources */,
 				297E998B2165479F00FB6F04 /* Pin.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,
+				1EF4D1F92208B233004FD173 /* FormMenu.swift in Sources */,
 				294CADB3216E83F500DB184B /* NewElementBanner.swift in Sources */,
 				2917468920742A7A005F70B4 /* MainViewController.swift in Sources */,
 				290AD10D218A13BC00A261B6 /* AdditionalRequirementCategory.swift in Sources */,
@@ -1822,6 +1853,7 @@
 				29230FF220BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift in Sources */,
 				2932BB51208567D900579A57 /* MyraObject.swift in Sources */,
 				294F6BBA219F3C92008EC6FA /* FeedbackView.swift in Sources */,
+				1EF4D1FD2208B287004FD173 /* FormMenuItemTableViewCell.swift in Sources */,
 				2932BB57208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift in Sources */,
 				29B5F04A208F9F12003D996D /* BasicInformationTableViewCell.swift in Sources */,
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
