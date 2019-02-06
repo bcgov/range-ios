@@ -135,7 +135,7 @@ class PlanInformationTableViewCell: BaseFormCell {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 if plan.planStartDate != nil && plan.planEndDate != nil {
                     DispatchQueue.main.async {
-                        parent.reload(at: parent.rangeUsageIndexPath)
+                        parent.reload(at: .BasicInfo)
                     }
                 }
                 self.reloadingUsage = false

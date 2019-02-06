@@ -29,6 +29,12 @@ class TilePath {
     }
 }
 
+enum TileProvider {
+    case GoogleSatellite
+    case GoogleHybrid
+    case OpenStreet
+}
+
 class TileMaster {
 
     static let shared = TileMaster()
@@ -52,15 +58,30 @@ class TileMaster {
 
     var tempCount = 0
     var tilesOfInterest = [MKTileOverlayPath]()
+    
+    var tileProvider: TileProvider = .OpenStreet
 
     private init() {
         Logger.log(message: "Initialized TileMaster. Size of tiles: \(sizeOfStoredTiles())")
     }
     
     func getTileProviderURL(for path: MKTileOverlayPath) -> URL? {
-        return googleSatelliteURL(for: path)
+        switch self.tileProvider {
+        case .GoogleSatellite:
+            return googleSatelliteURL(for: path)
+        case .OpenStreet:
+            return openSteetMapURL(for: path)
+        case .GoogleHybrid:
+            return googleHybridURL(for: path)
+        }
     }
-
+    
+    func googleHybridURL(for path: MKTileOverlayPath) -> URL? {
+        let stringURL = "https://mt1.google.com/vt/lyrs=y&x=\(path.x)&y=\(path.y)&z=\(path.z)"
+        guard let url = URL(string: stringURL) else {return nil}
+        return url
+    }
+    
     func openSteetMapURL(for path: MKTileOverlayPath) -> URL? {
         let stringURL = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
         guard let url = URL(string: stringURL) else {return nil}

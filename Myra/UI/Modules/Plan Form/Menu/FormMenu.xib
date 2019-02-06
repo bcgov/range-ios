@@ -17,22 +17,42 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aNH-J9-jyw">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="573"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QEF-hb-SzD">
+                    <rect key="frame" x="12" y="609" width="351" height="42"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.31372549020000001" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="sCo-WV-OAp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="1" maxY="0.0"/>
+                    <state key="normal" title="Submit to client" image="icon_check_white"/>
+                    <connections>
+                        <action selector="submitAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="0FK-76-Nxn"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="aNH-J9-jyw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4xy-Hf-12P"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="aNH-J9-jyw" secondAttribute="trailing" id="8g9-co-psZ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="aNH-J9-jyw" secondAttribute="bottom" id="mYr-pT-iNF"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QEF-hb-SzD" secondAttribute="trailing" constant="12" id="EN5-4l-uYR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="QEF-hb-SzD" secondAttribute="bottom" constant="16" id="KmR-S1-wIP"/>
+                <constraint firstItem="QEF-hb-SzD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="Rp6-kD-Zc3"/>
+                <constraint firstItem="QEF-hb-SzD" firstAttribute="top" secondItem="aNH-J9-jyw" secondAttribute="bottom" constant="16" id="nYZ-4S-I0d"/>
                 <constraint firstItem="aNH-J9-jyw" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pvD-q6-NBP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="submitButton" destination="QEF-hb-SzD" id="TzW-cB-dLb"/>
                 <outlet property="tableView" destination="aNH-J9-jyw" id="DX7-Gc-9MY"/>
             </connections>
             <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_check_white" width="24" height="24"/>
+    </resources>
 </document>

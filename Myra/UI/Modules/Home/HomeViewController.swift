@@ -105,7 +105,6 @@ class HomeViewController: BaseViewController {
         super.viewWillAppear(animated)
         setupReachabilityNotification()
         self.getRUPs()
-//        TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

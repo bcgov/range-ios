@@ -10,4 +10,7 @@ import Foundation
 extension Notification.Name {
     static let screenOrientationChanged = Notification.Name("screenOrientationChanged")
     static let usernameUpdatedInSettings = Notification.Name("usernameUpdatedInSettings")
+    
+    static let formScrolled = Notification.Name("formScrolled")
+    static let formEndedStrolling = Notification.Name("formEndedStrolling")
 }

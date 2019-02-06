@@ -18,11 +18,16 @@ enum AcceptedPopupInput {
     case Year
 }
 
-public enum FromSection: Int, CaseIterable {
+
+public enum BasicInfoRow: Int, CaseIterable {
     case BasicInfo = 0
     case PlanInfo
     case AgreementHolders
     case Usage
+}
+
+public enum FromSection: Int, CaseIterable {
+    case BasicInfo = 0
     case Pastures
     case YearlySchedule
     case MinistersIssues
@@ -42,23 +47,6 @@ class CreateNewRUPViewController: BaseViewController {
     var menuView: FormMenu?
     
     // MARK: Variables
-  
-    /* need to hold the inxedpath of sections to be able to scroll back to them.
-     at this point, the indexpaths of the sections may not be known, and change
-     at runtime.
-     */
-    var basicInformationIndexPath: IndexPath = [0,0]
-    var agreementInformationIndexPath: IndexPath = [0,0]
-    var liveStockIDIndexPath: IndexPath = [0,0]
-    var rangeUsageIndexPath: IndexPath = [0,0]
-    var pasturesIndexPath: IndexPath = [0,0]
-    var scheduleIndexPath: IndexPath = [0,0]
-    var minsterActionsIndexPath: IndexPath = [0,0]
-    var invasivePlantsIndexPath: IndexPath = [0,0]
-    var additionalRequirementsIndexPath: IndexPath = [0,0]
-    var managementIndexPath: IndexPath = [0,0]
-    var mapIndexPath: IndexPath = [0,0]
-    
     var rup: Plan?
     
     var updateAmendmentEnabled = false
@@ -74,17 +62,17 @@ class CreateNewRUPViewController: BaseViewController {
     var planIsValid: Bool = false {
         didSet {
             if planIsValid {
-                self.styleMenuSubmitButtonOn()
+                self.setSubmitButton(valid: true)
             } else {
-                self.styleMenuSubmitButtonOFF()
+                self.setSubmitButton(valid: false)
             }
         }
     }
     
     // pop up for adding pastures and years
-    var acceptedPopupInput: AcceptedPopupInput = .String
-    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
-    var popupTakenValues: [String] = [String]()
+//    var acceptedPopupInput: AcceptedPopupInput = .String
+//    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
+//    var popupTakenValues: [String] = [String]()
     
     // MARK: Outlets
     
@@ -116,74 +104,6 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var menuContainer: UIView!
     @IBOutlet weak var menuWidth: NSLayoutConstraint!
     @IBOutlet weak var menuLeading: NSLayoutConstraint!
-    
-    @IBOutlet weak var basicInfoLowerBar: UIView!
-    @IBOutlet weak var basicInfoBox: UIView!
-    @IBOutlet weak var basicInfoLabel: UILabel!
-    @IBOutlet weak var basicInfoButton: UIButton!
-    @IBOutlet weak var basicInfoBoxImage: UIImageView!
-    @IBOutlet weak var basicInfoBoxLeft: UIView!
-    @IBOutlet weak var basicInfoIconLeading: NSLayoutConstraint!
-    
-    @IBOutlet weak var pasturesBox: UIView!
-    @IBOutlet weak var pasturesLabel: UILabel!
-    @IBOutlet weak var pasturesButton: UIButton!
-    @IBOutlet weak var pasturesBoxImage: UIImageView!
-    @IBOutlet weak var pasturesLowerBar: UIView!
-    @IBOutlet weak var pastureBoxLeft: UIView!
-    @IBOutlet weak var pasturesIconLeading: NSLayoutConstraint!
-    
-    @IBOutlet weak var scheduleBox: UIView!
-    @IBOutlet weak var scheduleLabel: UILabel!
-    @IBOutlet weak var scheduleButton: UIButton!
-    @IBOutlet weak var scheduleBoxImage: UIImageView!
-    @IBOutlet weak var scheduleLowerBar: UIView!
-    @IBOutlet weak var scheduleBoxLeft: UIView!
-    @IBOutlet weak var scheduleIconLeading: NSLayoutConstraint!
-    
-    @IBOutlet weak var ministersIssuesBox: UIView!
-    @IBOutlet weak var ministersIssuesLabel: UILabel!
-    @IBOutlet weak var ministersIssuesButton: UIButton!
-    @IBOutlet weak var ministersIssuesBoxImage: UIImageView!
-    @IBOutlet weak var ministersIssuesLowerBar: UIView!
-    @IBOutlet weak var ministersIssuesBoxLeft: UIView!
-    @IBOutlet weak var ministersIssuesIconLeading: NSLayoutConstraint!
-    
-    @IBOutlet weak var invasivePlantsBox: UIView!
-    @IBOutlet weak var invasivePlantsLabel: UILabel!
-    @IBOutlet weak var invasivePlantsButton: UIButton!
-    @IBOutlet weak var invasivePlantsBoxImage: UIImageView!
-    @IBOutlet weak var invasivePlantsLowerBar: UIView!
-    @IBOutlet weak var invasivePlantsBoxLeft: UIView!
-    @IBOutlet weak var invasivePlantsIconLeading: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var additionalRequirementsBox: UIView!
-    @IBOutlet weak var additionalRequirementsLabel: UILabel!
-    @IBOutlet weak var additionalRequirementsButton: UIButton!
-    @IBOutlet weak var additionalRequirementsImage: UIImageView!
-    @IBOutlet weak var additionalRequirementsLowerBar: UIView!
-    @IBOutlet weak var additionalRequirementsBoxLeft: UIView!
-    @IBOutlet weak var additionalRequirementsIconLeading: NSLayoutConstraint!
-    
-    @IBOutlet weak var managementBox: UIView!
-    @IBOutlet weak var managementLabel: UILabel!
-    @IBOutlet weak var managementButton: UIButton!
-    @IBOutlet weak var managementBoxImage: UIImageView!
-    @IBOutlet weak var managementLowerBar: UIView!
-    @IBOutlet weak var managementBoxLeft: UIView!
-    @IBOutlet weak var managementIconLeading: NSLayoutConstraint!
-    
-    /*
-     @IBOutlet weak var mapLabel: UILabel!
-     @IBOutlet weak var mapButton: UIButton!
-     @IBOutlet weak var mapInfoBoxImage: UIImageView!
-     */
-    
-    @IBOutlet weak var submitButtonContainer: UIView!
-    @IBOutlet weak var submitButton: UIButton!
-    
-    @IBOutlet weak var requiredFieldNeededLabel: UILabel!
     
     @IBOutlet weak var menuModeButton: UIButton!
     
@@ -228,7 +148,7 @@ class CreateNewRUPViewController: BaseViewController {
         }
         
         if plan.planEndDate == nil {
-             message = "\(message)Plan End date is empty.\n"
+            message = "\(message)Plan End date is empty.\n"
         }
         if message.isEmpty {
             return message
@@ -339,42 +259,10 @@ class CreateNewRUPViewController: BaseViewController {
         
         RealmRequests.updateObject(plan)
         
-         self.goHome()
+        self.goHome()
     }
     
-    @IBAction func basicInfoAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
-    }
-    
-    @IBAction func pasturesAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: pasturesIndexPath, at: .top, animated: true)
-    }
-    
-    @IBAction func scheduleAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: scheduleIndexPath, at: .top, animated: true)
-    }
-    
-    @IBAction func ministersIssuesAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: minsterActionsIndexPath, at: .top, animated: true)
-    }
-    
-    @IBAction func invasivePlantsAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: invasivePlantsIndexPath, at: .top, animated: true)
-    }
-    @IBAction func additionalRequirementsAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: additionalRequirementsIndexPath, at: .top, animated: true)
-    }
-    @IBAction func managementAction(_ sender: UIButton) {
-        tableView.scrollToRow(at: managementIndexPath, at: .top, animated: true)
-    }
-    
-    /*
-     @IBAction func mapAction(_ sender: UIButton) {
-     tableView.scrollToRow(at: mapIndexPath, at: .top, animated: true)
-     }*/
-    
-    
-    @IBAction func reviewAndSubmitAction(_ sender: UIButton) {
+    func submitAction() {
         guard let plan = self.rup else {return}
         do {
             let realm = try Realm()
@@ -479,7 +367,7 @@ class CreateNewRUPViewController: BaseViewController {
             case .error(_):
                 Logger.log(message: "Error in Plan \(r.ranNumber) change.")
             case .change(_):
-                 Logger.log(message: "Change observed in plan \(r.ranNumber).")
+                Logger.log(message: "Change observed in plan \(r.ranNumber).")
                 self.planIsValid = r.isValid
             case .deleted:
                 Logger.log(message: "Plan  \(r.ranNumber) deleted.")
@@ -532,20 +420,20 @@ class CreateNewRUPViewController: BaseViewController {
             self.reloading = false
         }
     }
+    
     override func whenLandscape() {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
-            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         styleLandscapeMenu()
-        //        setMenuSize()
         setBarInfoBasedOnOrientation()
     }
+    
     override func whenPortrait() {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
-            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         stylePortaitMenu()
-        //        setMenuSize()
         setBarInfoBasedOnOrientation()
     }
     
@@ -576,25 +464,6 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
     
-    /*
-     case .UpdateAmendment:
-        self.showAmendmentFlow()
-     case .ApproveAmendment:
-        self.showAmendmentFlow()
-     case .FinalReview:
-        self.showAmendmentFlow()
-     case .UpdateStatus:
-        self.showAmendmentFlow()
-     case .CreateMandatoryAmendment:
-        self.createMandatoryAmendment()
-     case .CancelAmendment:
-        self.cancelAmendment()
-     case .PrepareForSubmission:
-        self.showAmendmentSubmissionFlow()
-     case .ReturnToAgreementHolder:
-        self.
-     */
-    
     func getPlanActions(for plan: Plan) -> [PlanAction] {
         var returnValue: [PlanAction] = [PlanAction]()
         let current = plan.getStatus()
@@ -607,7 +476,7 @@ class CreateNewRUPViewController: BaseViewController {
             
         } else if current == .SubmittedForReview {
             // TODO: HERE!!!
-//            returnValue.append(.) //ReturnToAgreementHolder
+            //            returnValue.append(.) //ReturnToAgreementHolder
             
         } else if current == .RecommendReady {
             returnValue.append(.FinalReview)
@@ -668,7 +537,6 @@ class CreateNewRUPViewController: BaseViewController {
             }
         }
     }
-    
     
     func showAmendmentSubmissionFlow() {
         guard let plan = self.rup else {return}
@@ -792,74 +660,77 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         return tableView.dequeueReusableCell(withIdentifier: "MapTableViewCell", for: indexPath) as! MapTableViewCell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if rup == nil {
-            return getBasicInfoCell(indexPath: indexPath)
+    func getEmptyCell(at indexPath: IndexPath) -> UITableViewCell {
+        return getBasicInfoCell(indexPath: indexPath)
+    }
+    
+    func getBasicInfoRow(at indexPath: IndexPath) -> UITableViewCell {
+        guard let plan = rup, let rowType = BasicInfoRow(rawValue: Int(indexPath.row)) else {return getEmptyCell(at: indexPath)}
+        switch rowType {
+        case .BasicInfo:
+            let cell = getBasicInfoCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .PlanInfo:
+            let cell = getPlanInformationCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .AgreementHolders:
+            let cell = getAgreementHoldersCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .Usage:
+            let cell = getRangeUsageCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
         }
-        if let cellType = FromSection(rawValue: Int(indexPath.row)) {
-            
-            switch cellType {
-                
-            case .BasicInfo:
-                self.basicInformationIndexPath = indexPath
-                let cell = getBasicInfoCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .PlanInfo:
-                let cell = getPlanInformationCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .AgreementHolders:
-                let cell = getAgreementHoldersCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .Usage:
-                self.rangeUsageIndexPath = indexPath
-                let cell = getRangeUsageCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .Pastures:
-                self.pasturesIndexPath = indexPath
-                let cell = getPasturesCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .YearlySchedule:
-                self.scheduleIndexPath = indexPath
-                let cell = getScheduleCell(indexPath: indexPath)
-                // passing self reference because cells within this cell's tableview need to call showAlert()
-                cell.setup(mode: mode, rup: rup!, parentReference: self)
-                return cell
-            case .MinistersIssues:
-                self.minsterActionsIndexPath = indexPath
-                let cell = getMinistersIssuesCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .InvasivePlants:
-                self.invasivePlantsIndexPath = indexPath
-                let cell = getInvasivePlantsCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .AdditionalRequirements:
-                self.additionalRequirementsIndexPath = indexPath
-                let cell = getAdditionalRequirementsCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .ManagementConsiderations:
-                self.managementIndexPath = indexPath
-                let cell = getManagementConsiderationsCell(indexPath: indexPath)
-                cell.setup(mode: mode, rup: rup!)
-                return cell
-            case .Map:
-                let cell = getMapCell(indexPath: indexPath)
-                return cell
-            }
-            
-        } else {
-            return getMapCell(indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let plan = rup, let sectionType = FromSection(rawValue: Int(indexPath.section)) else {return getEmptyCell(at: indexPath)}
+        switch sectionType {
+        case .BasicInfo:
+            return getBasicInfoRow(at: indexPath)
+        case .Pastures:
+            let cell = getPasturesCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .YearlySchedule:
+            let cell = getScheduleCell(indexPath: indexPath)
+            // passing self reference because cells within this cell's tableview need to call showAlert()
+            cell.setup(mode: mode, rup: plan, parentReference: self)
+            return cell
+        case .MinistersIssues:
+            let cell = getMinistersIssuesCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .InvasivePlants:
+            let cell = getInvasivePlantsCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .AdditionalRequirements:
+            let cell = getAdditionalRequirementsCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .ManagementConsiderations:
+            let cell = getManagementConsiderationsCell(indexPath: indexPath)
+            cell.setup(mode: mode, rup: plan)
+            return cell
+        case .Map:
+            let cell = getMapCell(indexPath: indexPath)
+            return cell
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let sectionType = FromSection(rawValue: section), sectionType == .BasicInfo {
+            return BasicInfoRow.allCases.count
+        } else {
+            return 1
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return FromSection.allCases.count
     }
     
@@ -887,7 +758,8 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
-    func reload(at indexPath: IndexPath) {
+    func reload(at section: FromSection) {
+        let indexPath = getIndexPath(forSection: section)
         refreshPlanObject()
         if #available(iOS 11.0, *) {
             self.tableView.performBatchUpdates({
@@ -901,18 +773,30 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         
     }
     
-    func realod(bottomOf indexPath: IndexPath, then: @escaping() -> Void) {
+    // Note:
+    // For basicInfo section, return's Usage rown's indexpath.
+    func getIndexPath(forSection section: FromSection) -> IndexPath {
+        var row = 0
+        if section == .BasicInfo {row = BasicInfoRow.Usage.rawValue}
+        return IndexPath(row: row, section: section.rawValue)
+    }
+    
+    func realod(bottomOf section: FromSection, then: @escaping() -> Void) {
         reload {
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            self.tableView.scrollToRow(at: self.getIndexPath(forSection: section), at: .bottom, animated: true)
             self.hightlightAppropriateMenuItem()
             return then()
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.hightlightAppropriateMenuItem()
+        NotificationCenter.default.post(name: .formScrolled, object: nil)
     }
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        NotificationCenter.default.post(name: .formEndedStrolling, object: nil)
+    }
+
     func hightlightAppropriateMenuItem() {
         if let menuView = self.menuView {
             menuView.highlightAppropriateMenuItem()
@@ -972,17 +856,4 @@ extension CreateNewRUPViewController {
             self.bannerContainerHeight.constant = 25
         }
     }
-}
-
-// MARK: Details pages
-extension CreateNewRUPViewController {
-    //    func showSchedule(object: Schedule, completion: @escaping (_ done: Bool) -> Void) {
-    //        guard let plan = self.rup, let presenter = self.getPresenter() else {return}
-    //        presenter.showScheduleDetails(for: object, in: plan, mode: self.mode)
-    //    }
-    //
-    //    func showPlantCommunity(pasture: Pasture, plantCommunity: PlantCommunity, completion: @escaping (_ done: Bool) -> Void) {
-    //        guard let plan = self.rup, let presenter = self.getPresenter() else {return}
-    //        presenter.showPlanCommunityDetails(for: plantCommunity, of: pasture, in: plan, mode: self.mode)
-    //    }
 }

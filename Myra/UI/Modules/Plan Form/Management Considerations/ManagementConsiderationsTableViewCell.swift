@@ -79,7 +79,7 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         tableHeight.constant = computeHeight()
         if scrollToBottom {
-            parent.realod(bottomOf: parent.managementIndexPath, then: {
+            parent.realod(bottomOf: .ManagementConsiderations, then: {
                 self.tableView.reloadData()
                 self.tableView.layoutIfNeeded()
             })

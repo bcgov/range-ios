@@ -66,7 +66,6 @@ class GetNameDialog: CustomModal {
             if let callback = self.callBack {
                 return callback()
             }
-            
         }
     }
 
@@ -84,6 +83,9 @@ class GetNameDialog: CustomModal {
 
     // MARK: Entry Point
     func initialize(callBack: @escaping ()-> Void) {
+        // Can't change user info if we're not authenticated
+        if !Auth.isAuthenticated() {return}
+        
         self.callBack = callBack
         setSmartSizingWith(percentHorizontalPadding: 30, percentVerticalPadding: 35)
         style()

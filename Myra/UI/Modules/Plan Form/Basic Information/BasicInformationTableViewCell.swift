@@ -134,6 +134,7 @@ class BasicInformationTableViewCell: BaseFormCell {
     // MARK: Styles
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
+        sectionTitle.increaseFontSize(by: -4)
         styleSubHeader(label: agreementInfoHeader)
         styleSubHeader(label: contactInfoHeader)
         styleFields()

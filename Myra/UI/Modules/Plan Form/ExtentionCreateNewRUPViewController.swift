@@ -26,8 +26,6 @@ extension CreateNewRUPViewController {
             self.saveToDraftButton.setTitle("Close", for: .normal)
             self.ranLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
             self.cancelButton.removeFromSuperview()
-            self.submitButtonContainer.alpha = 0
-            self.requiredFieldNeededLabel.alpha = 0
         case .Edit:
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save", for: .normal)
@@ -63,7 +61,7 @@ extension CreateNewRUPViewController {
     // MARK: Side Menu
     func setMenuSize() {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
-            self.tableView.scrollToRow(at: basicInformationIndexPath, at: .top, animated: true)
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         
         if let menuView = self.menuView {
@@ -85,51 +83,19 @@ extension CreateNewRUPViewController {
         }
     }
 
-
     func initMenu() {
         let menuXib: FormMenu = UIView.fromNib()
-        menuXib.initialize(inView: menuContainer, containerWidth: menuWidth, parentTable: self.tableView)
+        menuXib.initialize(inView: menuContainer, containerWidth: menuWidth, parentTable: self.tableView, formMode: self.mode, onSubmit: {
+            self.submitAction()
+        })
         self.menuView = menuXib
     }
 
     // MARK: Submit Button
-    func styleMenuSubmitButtonOn() {
-        self.submitButton.backgroundColor = Colors.primary
-        self.submitButton.layer.cornerRadius = 5
-
-        if self.menuWidth.constant == self.portraitMenuWidth {
-            self.submitButton.setTitle("", for: .normal)
-        } else {
-            self.submitButton.setTitle("Submit to client", for: .normal)
-            if let label = self.submitButton.titleLabel {
-                label.font = Fonts.getPrimaryMedium(size: 17)
-                label.change(kernValue: -0.32)
-            }
-
+    func setSubmitButton(valid: Bool) {
+        if let menuView = self.menuView {
+            menuView.styleSubmitButton(valid: valid)
         }
-
-        self.requiredFieldNeededLabel.alpha = 0
-    }
-
-    func styleMenuSubmitButtonOFF() {
-
-        self.submitButton.backgroundColor = Colors.primary
-        self.submitButton.layer.cornerRadius = 5
-
-        if self.menuWidth.constant == self.portraitMenuWidth {
-            self.submitButton.setTitle("", for: .normal)
-        } else {
-            self.submitButton.setTitle("Submit to client", for: .normal)
-            if let label = self.submitButton.titleLabel {
-                label.font = Fonts.getPrimaryMedium(size: 17)
-                label.change(kernValue: -0.32)
-            }
-        }
-
-        self.requiredFieldNeededLabel.alpha = 1
-        self.requiredFieldNeededLabel.text = "Missing required fields"
-        self.styleFieldHeader(label: self.requiredFieldNeededLabel)
-        self.requiredFieldNeededLabel.textColor = Colors.invalid
     }
     
     // MARK: Animations

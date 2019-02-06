@@ -62,6 +62,7 @@ class PasturesTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
+        sectionTitle.increaseFontSize(by: -4)
         styleHollowButton(button: addButton)
     }
     

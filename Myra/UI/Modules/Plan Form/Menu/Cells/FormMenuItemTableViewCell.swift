@@ -58,15 +58,6 @@ class FormMenuItemTableViewCell: UITableViewCell {
         case .BasicInfo:
             self.label.text = "Basic Information"
             self.icon.image = UIImage(named: "icon_basicInformation\(iconExtension)")
-        case .PlanInfo:
-            self.label.text = "Plan Information"
-            self.icon.image = UIImage(named: "icon_basicInformation\(iconExtension)")
-        case .AgreementHolders:
-            self.label.text = "Agreement Information"
-            self.icon.image = UIImage(named: "icon_basicInformation\(iconExtension)")
-        case .Usage:
-            self.label.text = "Usage"
-            self.icon.image = UIImage(named: "icon_basicInformation\(iconExtension)")
         case .Pastures:
             self.label.text = "Pastures"
             self.icon.image = UIImage(named: "icon_Pastures\(iconExtension)")
