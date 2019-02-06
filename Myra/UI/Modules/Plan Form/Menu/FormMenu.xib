@@ -17,11 +17,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aNH-J9-jyw">
-                    <rect key="frame" x="0.0" y="20" width="375" height="573"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="527"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QEF-hb-SzD">
-                    <rect key="frame" x="12" y="609" width="351" height="42"/>
+                    <rect key="frame" x="12" y="563" width="351" height="42"/>
                     <color key="backgroundColor" red="0.1176470588" green="0.31372549020000001" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="sCo-WV-OAp"/>
@@ -33,19 +33,33 @@
                         <action selector="submitAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="0FK-76-Nxn"/>
                     </connections>
                 </button>
+                <button opaque="NO" alpha="0.20000000298023224" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5T-1R-rmC">
+                    <rect key="frame" x="172.5" y="621" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="PrK-sJ-ZWm"/>
+                        <constraint firstAttribute="width" secondItem="K5T-1R-rmC" secondAttribute="height" multiplier="1:1" id="QUM-bW-XMf"/>
+                    </constraints>
+                    <connections>
+                        <action selector="expandAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="WS7-m0-JUU"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="aNH-J9-jyw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4xy-Hf-12P"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="aNH-J9-jyw" secondAttribute="trailing" id="8g9-co-psZ"/>
+                <constraint firstItem="K5T-1R-rmC" firstAttribute="width" secondItem="K5T-1R-rmC" secondAttribute="height" multiplier="1:1" id="AjZ-cc-ulv"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QEF-hb-SzD" secondAttribute="trailing" constant="12" id="EN5-4l-uYR"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="QEF-hb-SzD" secondAttribute="bottom" constant="16" id="KmR-S1-wIP"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="K5T-1R-rmC" secondAttribute="bottom" constant="16" id="Pby-bp-Gaf"/>
                 <constraint firstItem="QEF-hb-SzD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="Rp6-kD-Zc3"/>
+                <constraint firstItem="K5T-1R-rmC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dLB-yi-xOA"/>
+                <constraint firstItem="K5T-1R-rmC" firstAttribute="top" secondItem="QEF-hb-SzD" secondAttribute="bottom" constant="16" id="kn0-Wg-iwB"/>
                 <constraint firstItem="QEF-hb-SzD" firstAttribute="top" secondItem="aNH-J9-jyw" secondAttribute="bottom" constant="16" id="nYZ-4S-I0d"/>
                 <constraint firstItem="aNH-J9-jyw" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pvD-q6-NBP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="expandToggle" destination="K5T-1R-rmC" id="UtR-RH-XLa"/>
                 <outlet property="submitButton" destination="QEF-hb-SzD" id="TzW-cB-dLb"/>
                 <outlet property="tableView" destination="aNH-J9-jyw" id="DX7-Gc-9MY"/>
             </connections>

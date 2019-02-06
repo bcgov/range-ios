@@ -161,11 +161,11 @@ class CreateNewRUPViewController: BaseViewController {
     
     // MARK: Outlet Actions
     @IBAction func menuModeAction(_ sender: UIButton) {
-        if self.menuWidth.constant ==  self.portraitMenuWidth {
-            styleLandscapeMenu()
-        } else {
-            stylePortaitMenu()
-        }
+//        if self.menuWidth.constant ==  self.portraitMenuWidth {
+//            styleLandscapeMenu()
+//        } else {
+//            stylePortaitMenu()
+//        }
         animateIt()
     }
     
@@ -425,7 +425,6 @@ class CreateNewRUPViewController: BaseViewController {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
-        styleLandscapeMenu()
         setBarInfoBasedOnOrientation()
     }
     
@@ -433,7 +432,6 @@ class CreateNewRUPViewController: BaseViewController {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
-        stylePortaitMenu()
         setBarInfoBasedOnOrientation()
     }
     

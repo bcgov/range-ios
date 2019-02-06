@@ -143,7 +143,6 @@ class Feedback: NSObject {
         button.addGestureRecognizer(gestureRecognizer)
     }
     
-    
     /// Move button to new position on drag
     ///
     /// - Parameter gestureRecognizer: UIPanGestureRecognizer
@@ -184,7 +183,6 @@ class Feedback: NSObject {
             return completion(true)
         }
     }
-    
     
     /// Present Submitted feedbacks
     ///
