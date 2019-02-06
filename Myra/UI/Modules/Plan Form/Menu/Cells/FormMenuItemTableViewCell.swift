@@ -80,7 +80,7 @@ class FormMenuItemTableViewCell: UITableViewCell {
             self.icon.image = UIImage(named: "icon_Map\(iconExtension)")
         }
         
-        if canDisplayFullText() {
+        if canDisplayFullText() && isExpanded {
             self.label.alpha = 1
         } else {
             self.label.alpha = 0

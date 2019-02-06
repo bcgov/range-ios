@@ -93,7 +93,8 @@ class Feedback: NSObject {
     /// Set buttons frame to the default frame
     private static func resetButtonPositionIfOutOfFrame() {
         guard let button = getButton(), let window = UIApplication.shared.keyWindow, let baseFrame = getBaseButtonFrame(), !button.frame.intersects(window.frame) else {return}
-        button.frame = baseFrame
+        let centerPoint = CGPoint(x: baseFrame.midX, y: baseFrame.midY)
+        animateMoveTo(point: centerPoint)
     }
     
     private static func getBaseButtonFrame() -> CGRect? {
@@ -147,8 +148,8 @@ class Feedback: NSObject {
     ///
     /// - Parameter gestureRecognizer: UIPanGestureRecognizer
     @objc private static func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
-        guard let window = UIApplication.shared.keyWindow else {return}
-        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed, let recognizedView = gestureRecognizer.view {
+        guard let window = UIApplication.shared.keyWindow, let recognizedView = gestureRecognizer.view else {return}
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             let translation = gestureRecognizer.translation(in: window)
             let centerX = recognizedView.center.x + translation.x
             let centerY = recognizedView.center.y + translation.y
@@ -157,7 +158,38 @@ class Feedback: NSObject {
         }
         
         if gestureRecognizer.state == .ended {
+            let velocity = gestureRecognizer.velocity(in: window)
+            let magnitude = sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y))
+            
+            var slideMultiplier = magnitude / 200
+            
+            if slideMultiplier > 8 {
+                slideMultiplier = 8.0
+            }
+            
+            let slideFactor = 0.05 * slideMultiplier
+           
+            var finalPoint = CGPoint(x:recognizedView.center.x + (velocity.x * slideFactor),
+                                     y:recognizedView.center.y + (velocity.y * slideFactor))
+            
+            finalPoint.x = min(max(finalPoint.x, 0), window.bounds.size.width)
+            finalPoint.y = min(max(finalPoint.y, 0), window.bounds.size.height)
+
+            animateMoveTo(point: finalPoint, duration: Double(slideFactor * 2))
         }
+    }
+    
+    /// Move Center point of button to specified point and
+    /// animate the transition
+    ///
+    /// - Parameters:
+    ///   - point: point to move to
+    ///   - duration: animation duration
+    static func animateMoveTo(point: CGPoint, duration: Double = SettingsManager.shared.getShortAnimationDuration()) {
+        guard let button = getButton() else {return}
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
+            button.center = point
+        }) { (done) in }
     }
     
     // MARK: Event Handlers

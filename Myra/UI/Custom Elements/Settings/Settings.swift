@@ -234,7 +234,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             let cell = getSettingToggleTableViewCell(indexPath: indexPath)
             cell.setup(titleText: "Developer Tools", isOn: SettingsManager.shared.isDeveloperModeEnabled()) { (isOn) in
                 if isOn {
-                    Alert.show(title: "Would you like to enable Developer Tools?", message: "As a range officer, you do not need these feautres.", yes: {
+                    Alert.show(title: "Would you like to enable Developer Tools?", message: "As a range officer, you do not need these features.", yes: {
                         SettingsManager.shared.setDeveloperMode(enabled: isOn)
                         self.tableView.reloadData()
                         self.tableView.scrollToBottomRow()
