@@ -247,7 +247,7 @@ class SettingsManager {
     
     // MARK: Enviorments
     func getCurrentEnvironment() -> EndpointEnvironment {
-        guard let model = getModel() else {return .Dev}
+        guard let model = getModel() else {return .Prod}
         if model.devEnvironmentEnabled {
             return .Dev
         } else {

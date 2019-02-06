@@ -43,9 +43,9 @@ enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case EnableToggle = 0
     case Development
     case LogWindow
+    case FormMapSection
     case ClearUserInfo
     case DownloadVictoriaTiles
-    case FormMapSection
 }
 
 class Settings: CustomModal {
@@ -236,17 +236,21 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                 if isOn {
                     Alert.show(title: "Would you like to enable Developer Tools?", message: "As a range officer, you do not need these feautres.", yes: {
                         SettingsManager.shared.setDeveloperMode(enabled: isOn)
+                        self.tableView.reloadData()
+                        self.tableView.scrollToBottomRow()
                     }, no: {
-                        return
+                        cell.toggle.isOn = false
                     })
                 } else {
                     SettingsManager.shared.setDeveloperMode(enabled: isOn)
+                    self.tableView.reloadData()
+                    self.tableView.scrollToBottomRow()
                 }
             }
             return cell
         case .Development:
             let cell = getSettingToggleTableViewCell(indexPath: indexPath)
-            cell.setup(titleText: "Development", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
+            cell.setup(titleText: "Development Enviorment", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
                 if let parent = self.parent, let presenter = parent.getPresenter() {
                     var env: EndpointEnvironment = .Dev
                     if !isOn {
@@ -280,13 +284,13 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             return cell
         case .DownloadVictoriaTiles:
             let cell = getSettingButtonTableViewCell(indexPath: indexPath)
-            cell.setup(titleText: "Download Victoria Tiles") {
+            cell.setup(titleText: "Download Victoria Map Tiles") {
                 TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
             }
             return cell
         case .FormMapSection:
             let cell = getSettingToggleTableViewCell(indexPath: indexPath)
-            cell.setup(titleText: "Show Map Section in form", isOn: SettingsManager.shared.isFormMapSectionEnabled()) { (isOn) in
+            cell.setup(titleText: "Show Map section in form", isOn: SettingsManager.shared.isFormMapSectionEnabled()) { (isOn) in
                 SettingsManager.shared.setFormMapSection(enabled: isOn)
             }
             return cell

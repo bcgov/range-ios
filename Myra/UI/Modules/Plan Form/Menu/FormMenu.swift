@@ -220,7 +220,11 @@ extension FormMenu: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return FromSection.allCases.count
+        if SettingsManager.shared.isFormMapSectionEnabled() {
+            return FromSection.allCases.count
+        } else {
+            return FromSection.allCases.count - 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -79,7 +79,7 @@ struct Constants {
         static let redirectUri = "myra-ios://client"
         static let clientId = "myrangebc"
         static let realmName = "range"
-        static let idpHint = ""
+        static let idpHint = "idir"
     }
 
     struct Alerts {
