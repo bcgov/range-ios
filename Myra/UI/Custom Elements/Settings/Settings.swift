@@ -14,6 +14,8 @@ enum SettingsSections: Int, CaseIterable {
     case Account
     case Map
     case Privacy
+    
+    // Keep this as last
     case DeveloperTools
 }
 
@@ -38,10 +40,12 @@ enum SettingsPrivacySection: Int, CaseIterable {
 
 
 enum SettingsDeveloperToolsSection: Int, CaseIterable {
-    case Development = 0
+    case EnableToggle = 0
+    case Development
     case LogWindow
     case ClearUserInfo
     case DownloadVictoriaTiles
+    case FormMapSection
 }
 
 class Settings: CustomModal {
@@ -144,10 +148,6 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: "SettingButtonTableViewCell", for: indexPath) as! SettingButtonTableViewCell
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return SettingsSections.allCases.count
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellType = SettingsSections(rawValue: Int(indexPath.section)) else {fatalError()}
         switch cellType {
@@ -230,6 +230,20 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     func getDevToolsSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellType = SettingsDeveloperToolsSection(rawValue: Int(indexPath.row)) else {fatalError()}
         switch cellType {
+        case .EnableToggle:
+            let cell = getSettingToggleTableViewCell(indexPath: indexPath)
+            cell.setup(titleText: "Developer Tools", isOn: SettingsManager.shared.isDeveloperModeEnabled()) { (isOn) in
+                if isOn {
+                    Alert.show(title: "Would you like to enable Developer Tools?", message: "As a range officer, you do not need these feautres.", yes: {
+                        SettingsManager.shared.setDeveloperMode(enabled: isOn)
+                    }, no: {
+                        return
+                    })
+                } else {
+                    SettingsManager.shared.setDeveloperMode(enabled: isOn)
+                }
+            }
+            return cell
         case .Development:
             let cell = getSettingToggleTableViewCell(indexPath: indexPath)
             cell.setup(titleText: "Development", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
@@ -270,6 +284,12 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                 TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
             }
             return cell
+        case .FormMapSection:
+            let cell = getSettingToggleTableViewCell(indexPath: indexPath)
+            cell.setup(titleText: "Show Map Section in form", isOn: SettingsManager.shared.isFormMapSectionEnabled()) { (isOn) in
+                SettingsManager.shared.setFormMapSection(enabled: isOn)
+            }
+            return cell
         }
     }
     
@@ -286,6 +306,10 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+         return SettingsSections.allCases.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let cellType = SettingsSections(rawValue: section) {
             switch cellType {
@@ -293,12 +317,16 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                 return SettingsSyncSection.allCases.count
             case .Map:
                 return SettingsMapSection.allCases.count
-            case .DeveloperTools:
-                return SettingsDeveloperToolsSection.allCases.count
             case .Privacy:
                 return SettingsPrivacySection.allCases.count
             case .Account:
                 return SettingsAccountSection.allCases.count
+            case .DeveloperTools:
+                if SettingsManager.shared.isDeveloperModeEnabled() {
+                    return SettingsDeveloperToolsSection.allCases.count
+                } else {
+                    return 1
+                }
             }
         } else {
             return 0

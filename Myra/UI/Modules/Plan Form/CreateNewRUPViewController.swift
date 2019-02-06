@@ -70,9 +70,9 @@ class CreateNewRUPViewController: BaseViewController {
     }
     
     // pop up for adding pastures and years
-//    var acceptedPopupInput: AcceptedPopupInput = .String
-//    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
-//    var popupTakenValues: [String] = [String]()
+    //    var acceptedPopupInput: AcceptedPopupInput = .String
+    //    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
+    //    var popupTakenValues: [String] = [String]()
     
     // MARK: Outlets
     
@@ -731,7 +731,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return FromSection.allCases.count
+        if SettingsManager.shared.isFormMapSectionEnabled() {
+            return FromSection.allCases.count
+        } else {
+            return FromSection.allCases.count - 1
+        }
+        
     }
     
     // RELOAD WITH COMPLETION
@@ -796,7 +801,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         NotificationCenter.default.post(name: .formEndedStrolling, object: nil)
     }
-
+    
     func hightlightAppropriateMenuItem() {
         if let menuView = self.menuView {
             menuView.highlightAppropriateMenuItem()

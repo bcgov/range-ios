@@ -24,9 +24,12 @@ class SettingsModel: Object {
     @objc dynamic var cacheMapEndbaled: Bool = true
     
     // Dev tools
-    @objc dynamic var devEnvironmentEnabled: Bool = true
+    @objc dynamic var devToolsEnabled: Bool = false
+    @objc dynamic var devEnvironmentEnabled: Bool = false
     @objc dynamic var quitAfterFatalError: Bool = true
     @objc dynamic var inAppLoggerActive: Bool = false
+    
+    @objc dynamic var formMapSectionActive: Bool = false
     
     // UX
     @objc dynamic var animationDuration: Double = 0.5
@@ -137,6 +140,28 @@ class SettingsModel: Object {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
+    
+    func setDevTools(enabled: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                devToolsEnabled = enabled
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setFormMapSection(enabled: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                formMapSectionActive = enabled
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
 }
 
 enum EndpointEnvironment {
@@ -152,7 +177,7 @@ class SettingsManager {
     private let defaultAnimationDuration: Double = 0.5
     
     static let shared = SettingsManager()
-
+    
     private init() {
         guard let currentModel = getModel() else {
             let newModel = SettingsModel()
@@ -275,6 +300,7 @@ class SettingsManager {
         presenterReference.chooseInitialView()
     }
     
+    // MARK: Users
     func setUser(firstName: String, lastName: String) {
         guard let model = getModel() else {return}
         model.setUser(firstName: firstName, lastName: lastName)
@@ -299,6 +325,28 @@ class SettingsManager {
     func getUserInitials() -> String {
         guard let model = getModel(), let last = model.userLastName.first, let first = model.userFirstName.first else {return "RO"}
         return ("\(first)\(last)")
+    }
+    
+    // MARK: Developer Mode
+    func isDeveloperModeEnabled() -> Bool {
+        guard let model = getModel() else {return false}
+        return model.devToolsEnabled
+    }
+    
+    func setDeveloperMode(enabled: Bool) {
+        guard let model = getModel() else {return}
+        model.setDevTools(enabled: enabled)
+    }
+    
+    // MARK: Form Map
+    func isFormMapSectionEnabled() -> Bool {
+        guard let model = getModel() else {return false}
+        return model.formMapSectionActive
+    }
+    
+    func setFormMapSection(enabled: Bool) {
+        guard let model = getModel() else {return}
+        model.setFormMapSection(enabled: enabled)
     }
     
     // MARK: Animations
