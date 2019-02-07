@@ -311,7 +311,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-         return SettingsSections.allCases.count
+        return SettingsSections.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

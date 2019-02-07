@@ -168,13 +168,13 @@ class Feedback: NSObject {
             }
             
             let slideFactor = 0.05 * slideMultiplier
-           
+            
             var finalPoint = CGPoint(x:recognizedView.center.x + (velocity.x * slideFactor),
                                      y:recognizedView.center.y + (velocity.y * slideFactor))
             
             finalPoint.x = min(max(finalPoint.x, 0), window.bounds.size.width)
             finalPoint.y = min(max(finalPoint.y, 0), window.bounds.size.height)
-
+            
             animateMoveTo(point: finalPoint, duration: Double(slideFactor * 2))
         }
     }
