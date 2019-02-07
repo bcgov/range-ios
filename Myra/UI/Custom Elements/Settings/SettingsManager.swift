@@ -47,6 +47,8 @@ class SettingsModel: Object {
         new.quitAfterFatalError = self.quitAfterFatalError
         new.animationDuration = self.animationDuration
         new.shortAnimationDuration = self.shortAnimationDuration
+        new.devToolsEnabled = self.devToolsEnabled
+        new.formMapSectionActive = self.formMapSectionActive
         // dont clone user name
         return new
     }
