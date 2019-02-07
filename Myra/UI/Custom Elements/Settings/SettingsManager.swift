@@ -25,7 +25,9 @@ class SettingsModel: Object {
     
     // Dev tools
     @objc dynamic var devToolsEnabled: Bool = false
+    
     @objc dynamic var devEnvironmentEnabled: Bool = false
+    
     @objc dynamic var quitAfterFatalError: Bool = true
     @objc dynamic var inAppLoggerActive: Bool = false
     
@@ -148,6 +150,11 @@ class SettingsModel: Object {
             let realm = try Realm()
             try realm.write {
                 devToolsEnabled = enabled
+                if !enabled {
+                    self.quitAfterFatalError = true
+                    self.inAppLoggerActive = false
+                    self.formMapSectionActive = false
+                }
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
