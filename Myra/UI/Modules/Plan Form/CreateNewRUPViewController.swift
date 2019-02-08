@@ -529,7 +529,7 @@ class CreateNewRUPViewController: BaseViewController {
         amendmentFlow.initialize(mode: mode) { (amendment) in
             if let result = amendment, let newStatus = result.getStatus() {
                 // process new status
-                plan.updateStatus(with: newStatus)
+                plan.updateStatus(with: newStatus, note: result.notes)
                 self.autofill()
                 self.stylePlanActions()
             }
@@ -544,7 +544,7 @@ class CreateNewRUPViewController: BaseViewController {
         amendmentFlow.initialize(mode: mode) { (amendment) in
             if let result = amendment, let newStatus = result.getStatus() {
                 // process new status
-                plan.updateStatus(with: newStatus)
+                plan.updateStatus(with: newStatus, note: result.notes)
                 self.autofill()
                 self.stylePlanActions()
             }
@@ -571,7 +571,7 @@ class CreateNewRUPViewController: BaseViewController {
         amendmentFlow.initialize(mode: mode) { (amendment) in
             if let result = amendment, let newStatus = result.getStatus() {
                 // process new status
-                plan.updateStatus(with: newStatus)
+                plan.updateStatus(with: newStatus, note: result.notes)
                 self.autofill()
                 self.stylePlanActions()
             }

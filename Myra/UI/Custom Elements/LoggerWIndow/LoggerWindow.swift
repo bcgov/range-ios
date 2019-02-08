@@ -95,6 +95,7 @@ class LoggerWindow: UIView {
         self.backgroundColor = UIColor(hex: "1f2535")
         self.tableView.backgroundColor = UIColor(hex: "262d3f")
         setupTableView()
+        beginListeners()
         position {
             self.initGestureRecognizer()
             self.refresh()
@@ -113,12 +114,22 @@ class LoggerWindow: UIView {
         }
     }
     
-    func setHeightConstraint(to newHeight: CGFloat) {
-        if let contraint = contraintsAdded[.Height] {
-            contraint.constant = newHeight
-            self.originalHeight = newHeight
+    // MARK: Listeners
+    private func beginListeners() {
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: .screenOrientationChanged, object: nil)
+    }
+    
+    /// Reset max height to window height if
+    /// orientation change made it move out of window
+    ///
+    /// - Parameter notification: UIPanGestureRecognizer
+    @objc private func orientationChanged(_ notification:Notification) {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        if let contraint = contraintsAdded[.Height], contraint.constant > window.frame.height {
+            contraint.constant = window.frame.height
         }
     }
+    
     
     // MARK: Presentation
     private func present(then: @escaping ()-> Void) {
@@ -170,6 +181,13 @@ class LoggerWindow: UIView {
         self.contraintsAdded[.Bottom] = bottomConstraint
         self.contraintsAdded[.Leading] = leadingContraint
         self.contraintsAdded[.Trailing] = trailingConstraint
+    }
+    
+    func setHeightConstraint(to newHeight: CGFloat) {
+        if let contraint = contraintsAdded[.Height] {
+            contraint.constant = newHeight
+            self.originalHeight = newHeight
+        }
     }
     
     private func activateConstraints(then: @escaping ()-> Void) {

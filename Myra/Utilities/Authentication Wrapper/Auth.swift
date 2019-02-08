@@ -26,6 +26,7 @@ class Auth {
         self.authServices = AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                                          clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
                                          idpHint: idpHint)
+        Logger.log(message: "Refreshed AuthServices' enviroment constants.")
     }
     
     public static func authenticate(completion: @escaping(_ success: Bool) -> Void) {
@@ -88,6 +89,7 @@ class Auth {
     
     public static func logout() {
         authServices.logout()
+        Logger.log(message: "Singed out")
     }
     
     public static func hasCredentials() -> Bool {

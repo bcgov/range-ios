@@ -284,6 +284,7 @@ class SettingsManager {
     func setInAppLoggler(enabled: Bool) {
         guard let model = getModel() else {return}
         model.setInAppLogger(enabled: enabled)
+        Logger.log(message: "Logger window enabled: \(enabled)")
     }
     
     // MARK: Error handeling
@@ -302,6 +303,7 @@ class SettingsManager {
         guard let model = getModel() else {return}
         let settingsModelClone = model.clone()
         Auth.logout()
+       
         RealmManager.shared.clearLastSyncDate()
         RealmManager.shared.clearAllData()
         RealmRequests.saveObject(object: settingsModelClone)
@@ -345,6 +347,12 @@ class SettingsManager {
     func setDeveloperMode(enabled: Bool) {
         guard let model = getModel() else {return}
         model.setDevTools(enabled: enabled)
+        if !enabled {
+            Logger.log(message: "Developer mode disabled.")
+            self.setInAppLoggler(enabled: enabled)
+            self.setFormMapSection(enabled: enabled)
+            self.setQuitAfterFatalError(enabled: enabled)
+        }
     }
     
     // MARK: Form Map

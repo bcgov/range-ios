@@ -270,8 +270,10 @@ class API {
         
         var params: [String:Any]  = [String:Any]()
         params["statusId"] = plan.statusId
+        params["note"] = plan.statusChangeNote
         API.put(endpoint: endpoint, params: params) { (response) in
             if let rsp = response, !rsp.result.isFailure  {
+                plan.resetStatusChangeNote()
                 return completion(true)
             } else {
                 return completion(false)
