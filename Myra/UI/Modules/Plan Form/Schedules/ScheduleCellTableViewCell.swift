@@ -32,6 +32,15 @@ class ScheduleCellTableViewCell: BaseFormCell {
         guard let schedule = self.schedule, let plan = self.plan, let presenter = getPresenter() else {return}
         presenter.showScheduleDetails(for: schedule, in: plan, mode: mode)
     }
+    
+    // MAKR: Notifications
+    func setupListeners() {
+        NotificationCenter.default.addObserver(self, selector: #selector(planChanged), name: .planChanged, object: nil)
+    }
+    
+    @objc func planChanged(_ notification:Notification) {
+        styleBasedOnValidity()
+    }
 
     // MARK: Options
     func showOptions() {
@@ -105,13 +114,14 @@ class ScheduleCellTableViewCell: BaseFormCell {
             optionsButton.isEnabled = true
         }
         style()
-        styleBasedOnValidity()
+        setupListeners()
     }
 
     // MARK: Styles
     func style() {
         roundCorners(layer: cellContainer.layer)
         addShadow(to: cellContainer.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 5)
+        styleBasedOnValidity()
     }
 
     func styleInvalid() {

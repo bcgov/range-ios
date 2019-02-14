@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import Reachability
 
 class SettingsModel: Object {
     
@@ -39,6 +40,11 @@ class SettingsModel: Object {
     
     @objc dynamic var userFirstName: String = ""
     @objc dynamic var userLastName: String = ""
+    
+    // Remote versions
+    @objc dynamic var remoteAPIVersion: Int = 0
+    @objc dynamic var remoteIOSVersion: Int = 0
+    @objc dynamic var remoteVersionIdpHint: String = ""
     
     func clone() -> SettingsModel {
         let new = SettingsModel()
@@ -171,6 +177,19 @@ class SettingsModel: Object {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
+    
+    func setRemoteVersion(from object: RemoteVersion) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteAPIVersion = object.api
+                remoteIOSVersion = object.ios
+                remoteVersionIdpHint = object.idpHint
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
 }
 
 enum EndpointEnvironment {
@@ -209,6 +228,74 @@ class SettingsManager {
     func getCurrentAppVersion() -> String {
         guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {return ""}
         return ("Version \(version) (\(build))")
+    }
+    
+    /// App ingeget version is same as local db version in appdelegate's migrateRealm()
+    /// (Version * 1000) + build
+    ///
+    /// - Returns: Integer representing application and local database version
+    static func generateAppIntegerVersion() -> Int? {
+        // We get version and build numbers of app
+        guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {
+            print("Could not find build version and number to generate integer app version in settings")
+            return nil
+        }
+        // comvert tp integer
+        let stringVersion = "\(version)"
+        let stringBuild = "\(build)"
+        guard let intVersion = Int(stringVersion), let intBuild = Int(stringBuild) else {
+            print("Could not generate integer app version in settings")
+            return nil
+        }
+        // Generate based on version and build
+        let generatedVersion = (intVersion * 1000) + intBuild
+        
+        return generatedVersion
+    }
+    
+    func refreshAuthIdpHintIfNecessary(completion: @escaping(_ appVersion: ApplicationVersionStatus)-> Void) {
+        func refreshAuthEviormentConstantsBaedOnStoredRemoteVersion() {
+            let appVersionStatus = self.getAppVersionStatus()
+            if let remoteVersion = self.getRemoteVersion(), appVersionStatus == .isLatest {
+                Auth.refreshEnviormentConstants(withIdpHint: remoteVersion.idpHint)
+            }
+             return completion(appVersionStatus)
+        }
+        
+        if let r = Reachability(), r.connection != .none {
+            API.loadRemoteVersion { (success) in
+                refreshAuthEviormentConstantsBaedOnStoredRemoteVersion()
+            }
+        } else {
+            refreshAuthEviormentConstantsBaedOnStoredRemoteVersion()
+        }
+    }
+    
+    func getAppVersionStatus() -> ApplicationVersionStatus {
+        guard let remoteVersion = getRemoteVersion(), let localVersion = SettingsManager.generateAppIntegerVersion() else {
+            return .Unfetched
+        }
+        Logger.log(message: "Application version status...")
+        Logger.log(message: "API: \(remoteVersion.api)\niOS: \(remoteVersion.ios)\nHint: \(remoteVersion.idpHint)")
+        Logger.log(message: "Local: \(localVersion)")
+        
+        if remoteVersion.ios == localVersion {
+            return .isLatest
+        } else if remoteVersion.ios > localVersion {
+            return .isOld
+        } else {
+            return .isNewerThanRemote
+        }
+    }
+    
+    func getRemoteVersion() -> RemoteVersion? {
+        guard let model = getModel(), model.remoteIOSVersion > 0 else {return nil}
+        return RemoteVersion(ios: model.remoteIOSVersion, idpHint: model.remoteVersionIdpHint, api: model.remoteAPIVersion)
+    }
+    
+    func setRemoteVersion(from object: RemoteVersion) {
+        guard let model = getModel() else {return}
+        model.setRemoteVersion(from: object)
     }
     
     // MARK: Sync
@@ -303,11 +390,11 @@ class SettingsManager {
         guard let model = getModel() else {return}
         let settingsModelClone = model.clone()
         Auth.logout()
-       
+        
         RealmManager.shared.clearLastSyncDate()
         RealmManager.shared.clearAllData()
         RealmRequests.saveObject(object: settingsModelClone)
-        Auth.refreshEnviormentConstants()
+        Auth.refreshEnviormentConstants(withIdpHint: nil)
         presenterReference.chooseInitialView()
     }
     

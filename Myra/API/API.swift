@@ -77,6 +77,10 @@ class API {
         Alamofire.request(request).responseJSON { response in
             completed = true
             if timedOut {return}
+            if let responseJSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
+                Logger.log(message: "PUT ERROR:")
+                Logger.log(message: error)
+            }
             return completion(response)
         }
     }
@@ -1076,6 +1080,61 @@ class API {
         
         dispatchGroup.notify(queue: .main) {
             return completion(true)
+        }
+    }
+    
+    static func updateRemoteVersion(ios: Int, idphint: String, completion: @escaping (_ success: Bool) -> Void) {
+        guard let r = Reachability(), r.connection != .none else {
+            Logger.log(message:"Could not update remote versions: app is offline.")
+            return completion(false)
+        }
+        guard let endpoint = URL(string: Constants.API.versionPath, relativeTo: Constants.API.baseURL) else {
+            return completion(false)
+        }
+        
+        var params: [String:Any]  = [String:Any]()
+        params["ios"] = ios
+        params["idpHint"] = idphint
+        API.put(endpoint: endpoint, params: params) { (response) in
+            if let rsp = response, !rsp.result.isFailure {
+                return completion(true)
+            } else {
+                return completion(false)
+            }
+        }
+        
+    }
+    
+    static func loadRemoteVersion(completion: @escaping (_ success: Bool) -> Void) {
+        guard let r = Reachability(), r.connection != .none else {
+            Logger.log(message:"Could not load remote versions: app is offline.")
+            return completion(false)
+        }
+        guard let endpoint = URL(string: Constants.API.versionPath, relativeTo: Constants.API.baseURL) else {
+            return completion(false)
+        }
+        Logger.log(message: "Fetching remote versions...")
+        API.get(endpoint: endpoint) { (responseJSON) in
+            guard let json = responseJSON else {
+                Logger.log(message: "Could not fetch remote versions.")
+                return completion(false)
+            }
+            
+            if let iOSVersion = json["ios"].int, let apiVersion = json["api"].int {
+                var idphintString = Auth.getIdpHint()
+                Logger.log(message: "Received:\nAPI: \(apiVersion)\niOS: \(iOSVersion)")
+                if let remoteIdphint = json["idpHint"].string {
+                    idphintString = remoteIdphint
+                    Logger.log(message: "idphint: \(remoteIdphint)")
+                }
+                
+                SettingsManager.shared.setRemoteVersion(from: RemoteVersion(ios: iOSVersion, idpHint: idphintString, api: apiVersion))
+                Logger.log(message: "Stored new remote versions in settings.")
+                return completion(true)
+            } else {
+                Logger.log(message: "Remote versions could not be read.")
+                return completion(false)
+            }
         }
     }
 }

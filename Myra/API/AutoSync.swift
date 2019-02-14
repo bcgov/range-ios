@@ -20,19 +20,58 @@ enum SyncedItem {
     case Outbox
 }
 
-class AutoSync {
+extension UIView {
+    
+//    public static func viewController<T:UIViewController>(type: T.Type? = nil) -> T? {
+//        if Thread.isMainThread {
+//            return viewController(ofType: type)
+//        } else {
+//            var found: T?
+//            DispatchQueue.main.sync {
+//                found = viewController(ofType: type)
+//            }
+//            return found
+//        }
+//    }
+    
+    public static func viewController<T:UIViewController>(ofType: T.Type? = nil) -> T? {
+        func find() -> T? {
+            guard let appDelegate:AppDelegate = UIApplication.shared.delegate as? AppDelegate else {return nil}
+            if let vc = appDelegate.window?.rootViewController as? T {
+                return vc
+            }else if let vc = appDelegate.window?.rootViewController?.presentedViewController as? T {
+                return vc
+            }else if let vc = appDelegate.window?.rootViewController?.children  {
+                return vc.lazy.compactMap{$0 as? T}.first
+            }
+            return nil
+        }
+        
+        if Thread.isMainThread {
+            return find()
+        } else {
+            var found: T?
+            DispatchQueue.main.sync {
+                found = find()
+            }
+            return found
+        }
+    }
+}
 
+class AutoSync {
+    
     internal static let shared = AutoSync()
     
     var realmNotificationToken: NotificationToken?
     var isSynchronizing: Bool = false
     var manualSyncRequiredShown = false
-
+    
     private init() {}
-
+    
     // MARK: AutoSync Listener
     func beginListener() {
-
+        
         Logger.log(message: "Listening to database changes in AutoSync.")
         do {
             let realm = try Realm()
@@ -46,24 +85,44 @@ class AutoSync {
                     Logger.log(message: "But you're offline.")
                     return
                 }
-                if !self.isSynchronizing {
-                    self.autoSync()
-                } else {
-                    Logger.log(message: "But you're already synchronizing.")
-                }
+                self.autoSynchronizeIfPossible()
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databseChangeListenerFailure)
         }
     }
-
+    
+    func autoSynchronizeIfPossible() {
+        Logger.log(message: "Checking if we can autosync...")
+        if self.isSynchronizing {
+            Logger.log(message: "You're already synchronizing.")
+            return
+        }
+        
+        if aPlanIsBeingEdited() {
+            Logger.log(message: "A Plan is being edited.")
+            return
+        }
+        
+        // Put a 1 second delay to account for presentation of screens:
+        // We want to make sure aytosync is never run when a plan is being edited
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // if still not editing..
+            if !self.aPlanIsBeingEdited() {
+                self.autoSync()
+            } else {
+                Logger.log(message: "A Plan is being edited.")
+            }
+        }
+    }
+    
     func endListener() {
         if let token = self.realmNotificationToken {
             token.invalidate()
             Logger.log(message: "Stopped listening to database changes in AutoSync.")
         }
     }
-
+    
     // MARK AutoSync Action
     func autoSync() {
         if !shouldAutoSync() {
@@ -71,7 +130,7 @@ class AutoSync {
         }
         
         Logger.log(message: "Executing Autosync...")
-
+        
         // set some variables
         self.manualSyncRequiredShown = false
         self.isSynchronizing = true
@@ -83,9 +142,9 @@ class AutoSync {
         DispatchQueue.global(qos: .background).async {
             
             var syncedItems: [SyncedItem] = [SyncedItem]()
-
+            
             let dispatchGroup = DispatchGroup()
-
+            
             // Outbox
             if self.shouldUploadOutbox() {
                 dispatchGroup.enter()
@@ -100,7 +159,7 @@ class AutoSync {
                     }
                 })
             }
-
+            
             // Statuses
             if self.shouldUpdateRemoteStatuses() {
                 dispatchGroup.enter()
@@ -115,7 +174,7 @@ class AutoSync {
                     }
                 })
             }
-
+            
             // Drafts
             if self.shouldUploadDrafts() {
                 dispatchGroup.enter()
@@ -130,16 +189,20 @@ class AutoSync {
                     }
                 })
             }
-
+            
             // End
             dispatchGroup.notify(queue: .main) {
                 Logger.log(message: "Autosync Executed.")
                 
                 // if home page is presented, reload its content
-                if let home = self.getPresentedHome() {
+                if let home = UIView.viewController(ofType: HomeViewController.self) {
                     Logger.log(message: "Reloading plans in home page after autosync")
                     home.loadRUPs()
                 }
+//                if let home = self.getPresentedHome() {
+//                    Logger.log(message: "Reloading plans in home page after autosync")
+//                    home.loadRUPs()
+//                }
                 
                 // Display a banner.
                 Banner.shared.show(message: self.generateSyncMessage(elements: syncedItems))
@@ -157,6 +220,12 @@ class AutoSync {
     // MARK Criteria
     func shouldAutoSync() -> Bool {
         Logger.log(message: "Checking if Autosync should be executed...")
+        
+        if aPlanIsBeingEdited() {
+            Logger.log(message: "No. A plan is being viewed or edited.")
+            return false
+        }
+        
         guard let r = Reachability() else {
             Logger.log(message: "No. Can't check connectivity offline.")
             return false
@@ -201,8 +270,17 @@ class AutoSync {
             return false
         }
         
-        
         return true
+    }
+    
+    func aPlanIsBeingEdited() -> Bool {
+        if  UIView.viewController(ofType: CreateNewRUPViewController.self) != nil ||
+            UIView.viewController(ofType: PlantCommunityViewController.self) != nil ||
+            UIView.viewController(ofType: ScheduleViewController.self) != nil {
+            Logger.log(message: "No. A plan is being viewed or edited.")
+            return true
+        }
+        return false
     }
     
     func shouldUploadOutbox() -> Bool {
@@ -212,7 +290,7 @@ class AutoSync {
     func shouldUpdateRemoteStatuses() -> Bool {
         return (RUPManager.shared.getRUPsWithUpdatedLocalStatus().count > 0)
     }
-
+    
     // MARK: Messages
     func generateSyncMessage(elements: [SyncedItem]) -> String {
         var body: String = ""
@@ -220,24 +298,24 @@ class AutoSync {
             let new = "\(body)\(element)"
             body = "\(new), "
         }
-
+        
         // clean it up
         body = body.replacingLastOccurrenceOfString(",", with: "")
         body = body.replacingLastOccurrenceOfString(" ", with: ".")
-
+        
         // if we only had 2 elements, replace the comma with and
         body = body.replacingLastOccurrenceOfString(",", with: " and")
-
+        
         if body.isEmpty {
             return ""
         } else {
             return "AutoSynced \(body)"
         }
     }
-
+    
     func shouldUploadDrafts() -> Bool {
         // Should not upload drafts if we're in create page: might be editing the draft
-        if isCreatePagePresented() {
+        if self.aPlanIsBeingEdited() {
             Logger.log(message: "Should not upload drafts when from page is presented.")
             return false
         } else {
@@ -252,91 +330,91 @@ class AutoSync {
     }
     
     // MARK: Other criteria
-    func isCreatePagePresented() -> Bool {
-        var isIt = false
-        if Thread.isMainThread {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let presented = home.presentedViewController {
-                if presented is CreateNewRUPViewController {
-                    isIt = true
-                } else if presented is SelectAgreementViewController, let presentedDeeper = presented.presentedViewController, presentedDeeper is CreateNewRUPViewController {
-                    isIt = true
-                }
-            }
-            return isIt
-        } else {
-            DispatchQueue.main.sync {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let presented = home.presentedViewController {
-                    if presented is CreateNewRUPViewController {
-                        isIt = true
-                    } else if presented is SelectAgreementViewController, let presentedDeeper = presented.presentedViewController, presentedDeeper is CreateNewRUPViewController {
-                        isIt = true
-                    }
-                }
-            }
-            return isIt
-        }
-    }
-
-    func isHomePagePresented() -> Bool {
-        var isIt = false
-        if Thread.isMainThread {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
-                    isIt = true
-            }
-            return isIt
-        } else {
-            DispatchQueue.main.sync {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
-                    isIt = true
-                }
-            }
-            return isIt
-        }
-    }
-
-    func getPresentedHome() -> HomeViewController? {
-        var homeVC: HomeViewController? = nil
-        if Thread.isMainThread {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
-                homeVC = h
-            }
-            return homeVC
-        } else {
-            DispatchQueue.main.sync {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
-                    homeVC = h
-                }
-            }
-            return homeVC
-        }
-    }
-    
-    private static func getCurrentViewController() -> UIViewController? {
-        guard let window = UIApplication.shared.keyWindow else {return nil}
-        if var topController = window.rootViewController {
-            while let presentedVC = topController.presentedViewController {
-                topController = presentedVC
-            }
-            return topController
-        } else {
-            return nil
-        }
-    }
+//    func isCreatePagePresented() -> Bool {
+//        var isIt = false
+//        if Thread.isMainThread {
+//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let presented = home.presentedViewController {
+//                if presented is CreateNewRUPViewController {
+//                    isIt = true
+//                } else if presented is SelectAgreementViewController, let presentedDeeper = presented.presentedViewController, presentedDeeper is CreateNewRUPViewController {
+//                    isIt = true
+//                }
+//            }
+//            return isIt
+//        } else {
+//            DispatchQueue.main.sync {
+//                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let presented = home.presentedViewController {
+//                    if presented is CreateNewRUPViewController {
+//                        isIt = true
+//                    } else if presented is SelectAgreementViewController, let presentedDeeper = presented.presentedViewController, presentedDeeper is CreateNewRUPViewController {
+//                        isIt = true
+//                    }
+//                }
+//            }
+//            return isIt
+//        }
+//    }
+//
+//    func isHomePagePresented() -> Bool {
+//        var isIt = false
+//        if Thread.isMainThread {
+//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
+//                isIt = true
+//            }
+//            return isIt
+//        } else {
+//            DispatchQueue.main.sync {
+//                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController {
+//                    isIt = true
+//                }
+//            }
+//            return isIt
+//        }
+//    }
+//
+//    func getPresentedHome() -> HomeViewController? {
+//        var homeVC: HomeViewController? = nil
+//        if Thread.isMainThread {
+//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
+//                homeVC = h
+//            }
+//            return homeVC
+//        } else {
+//            DispatchQueue.main.sync {
+//                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let window = appDelegate.window, let root = window.rootViewController, let home = root.children.first, home is HomeViewController, let h = home as? HomeViewController {
+//                    homeVC = h
+//                }
+//            }
+//            return homeVC
+//        }
+//    }
+//
+//    private static func getCurrentViewController() -> UIViewController? {
+//        guard let window = UIApplication.shared.keyWindow else {return nil}
+//        if var topController = window.rootViewController {
+//            while let presentedVC = topController.presentedViewController {
+//                topController = presentedVC
+//            }
+//            return topController
+//        } else {
+//            return nil
+//        }
+//    }
 }
 
-extension UIApplication {
-    public class func getTopMostViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-        if let nav = base as? UINavigationController {
-            return getTopMostViewController(base: nav.visibleViewController)
-        }
-        if let tab = base as? UITabBarController {
-            if let selected = tab.selectedViewController {
-                return getTopMostViewController(base: selected)
-            }
-        }
-        if let presented = base?.presentedViewController {
-            return getTopMostViewController(base: presented)
-        }
-        return base
-    }
-}
+//extension UIApplication {
+//    public class func getTopMostViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+//        if let nav = base as? UINavigationController {
+//            return getTopMostViewController(base: nav.visibleViewController)
+//        }
+//        if let tab = base as? UITabBarController {
+//            if let selected = tab.selectedViewController {
+//                return getTopMostViewController(base: selected)
+//            }
+//        }
+//        if let presented = base?.presentedViewController {
+//            return getTopMostViewController(base: presented)
+//        }
+//        return base
+//    }
+//}

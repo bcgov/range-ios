@@ -149,7 +149,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = SettingsSections(rawValue: Int(indexPath.section)) else {fatalError()}
+        guard let cellType = SettingsSections(rawValue: Int(indexPath.section)) else {return UITableViewCell()}
         switch cellType {
         case .Sync:
             return getSyncSection(cellForRowAt: indexPath)
@@ -165,7 +165,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func getSyncSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = SettingsSyncSection(rawValue: Int(indexPath.row)) else {fatalError()}
+        guard let cellType = SettingsSyncSection(rawValue: Int(indexPath.row)) else {return UITableViewCell()}
         switch cellType {
         case .Autosync:
             let cell = getSettingToggleTableViewCell(indexPath: indexPath)
@@ -181,7 +181,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func getAccountSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = SettingsAccountSection(rawValue: Int(indexPath.row)) else {fatalError()}
+        guard let cellType = SettingsAccountSection(rawValue: Int(indexPath.row)) else {return UITableViewCell()}
         switch cellType {
         case .UpdateUserInfo:
             let cell = getSettingButtonTableViewCell(indexPath: indexPath)
@@ -195,7 +195,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func getMapSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = SettingsMapSection(rawValue: Int(indexPath.row)) else {fatalError()}
+        guard let cellType = SettingsMapSection(rawValue: Int(indexPath.row)) else {return UITableViewCell()}
         switch cellType {
         case .StoredSize:
             let cell = getSettingInfoTableViewCell(indexPath: indexPath)
@@ -228,7 +228,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func getDevToolsSection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = SettingsDeveloperToolsSection(rawValue: Int(indexPath.row)) else {fatalError()}
+        guard let cellType = SettingsDeveloperToolsSection(rawValue: Int(indexPath.row)) else {return UITableViewCell()}
         switch cellType {
         case .EnableToggle:
             let cell = getSettingToggleTableViewCell(indexPath: indexPath)
@@ -298,7 +298,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func getPrivacySection(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = SettingsPrivacySection(rawValue: Int(indexPath.row)) else {fatalError()}
+        guard let cellType = SettingsPrivacySection(rawValue: Int(indexPath.row)) else {return UITableViewCell()}
         switch cellType {
         case .privacy:
             let cell = getSettingButtonTableViewCell(indexPath: indexPath)

@@ -18,15 +18,26 @@ class Auth {
                             idpHint: Constants.SSO.idpHint)
     }()
     
-    public static func refreshEnviormentConstants() {
-        var idpHint = ""
-        if SettingsManager.shared.getCurrentEnvironment() == .Prod {
-            idpHint = "idir"
+    public static func refreshEnviormentConstants(withIdpHint: String?) {
+        var idpHint = getIdpHint()
+        
+        if let injectedHint = withIdpHint {
+            idpHint = injectedHint
         }
+        
         self.authServices = AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
                                          clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
                                          idpHint: idpHint)
+        
         Logger.log(message: "Refreshed AuthServices' enviroment constants.")
+    }
+    
+    public static func getIdpHint() -> String {
+        if SettingsManager.shared.getCurrentEnvironment() == .Prod {
+            return "idir"
+        } else {
+            return ""
+        }
     }
     
     public static func authenticate(completion: @escaping(_ success: Bool) -> Void) {

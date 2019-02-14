@@ -32,11 +32,21 @@ class LoginViewController: BaseViewController {
     
     // MARK: Outlet Actions
     @IBAction func loginAction(_ sender: Any) {
-//        self.loginButton.isUserInteractionEnabled = false
-        Auth.signIn { (success) in
-            if success {
-                self.performInitialSync()
+        Loading.shared.start()
+        SettingsManager.shared.refreshAuthIdpHintIfNecessary {_ in 
+            Loading.shared.stop()
+            Auth.signIn { (success) in
+                if success {
+                    self.performInitialSync()
+                }
             }
+        }
+    }
+    
+    @IBAction func hackyButton(_ sender: Any) {
+        guard let appVersion = SettingsManager.generateAppIntegerVersion() else {return}
+        API.updateRemoteVersion(ios: (appVersion + 1), idphint: "bceid") { (success) in
+            print(success)
         }
     }
     

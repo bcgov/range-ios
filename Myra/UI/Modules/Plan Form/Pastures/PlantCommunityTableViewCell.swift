@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class PlantCommunityTableViewCell: BaseFormCell {
 
@@ -58,6 +60,15 @@ class PlantCommunityTableViewCell: BaseFormCell {
             }
         }
     }
+    
+    // MAKR: Notifications
+    func setupListeners() {
+        NotificationCenter.default.addObserver(self, selector: #selector(planChanged), name: .planChanged, object: nil)
+    }
+    
+    @objc func planChanged(_ notification:Notification) {
+        styleBasedOnValidity()
+    }
 
     // MARK: Setup
     func setup(mode: FormMode, plantCommunity: PlantCommunity, pasture: Pasture, plan: Plan, parentCellReference: PastureTableViewCell) {
@@ -68,6 +79,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
         self.parentCellReference = parentCellReference
         autofill()
         style()
+        setupListeners()
     }
 
     func autofill() {
@@ -86,6 +98,52 @@ class PlantCommunityTableViewCell: BaseFormCell {
             optionsButton.alpha = 0
         case .Edit:
             optionsButton.alpha = 1
+        }
+        styleBasedOnValidity()
+    }
+    
+    func styleBasedOnValidity() {
+        refreshPlantCommunityObject()
+        guard let pc = self.plantCommunity else {return}
+        
+        for ma in pc.monitoringAreas {
+            if !ma.requiredFieldsAreFilled() {
+                styleInvalid()
+                return
+            }
+        }
+        
+        if pc.requiredFieldsAreFilled() {
+            styleValid()
+        } else {
+            styleInvalid()
+        }
+    }
+    
+    func styleValid() {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
+            self.header.textColor = Colors.invalid
+            self.nameLabel.textColor = Colors.invalid
+            self.layoutIfNeeded()
+        })
+    }
+    
+    func styleInvalid() {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
+            self.styleSubHeader(label: self.header)
+            self.styleSubHeader(label: self.nameLabel)
+            self.layoutIfNeeded()
+        })
+    }
+    
+    func refreshPlantCommunityObject() {
+        guard let pc = self.plantCommunity else {return}
+        do {
+            let realm = try Realm()
+            let aPC = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
+            self.plantCommunity = aPC
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 }

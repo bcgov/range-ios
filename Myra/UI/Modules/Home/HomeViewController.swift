@@ -355,7 +355,7 @@ class HomeViewController: BaseViewController {
             let realm = try Realm()
             Logger.log(message: "Listening to db changes in HomeVC!")
             self.realmNotificationToken = realm.observe { notification, realm in
-                Logger.log(message: "change observed in homeVC")
+                Logger.log(message: "Change observed in Home.\nReloading Home.")
                 self.loadRUPs()
                 self.tableView.reloadData()
             }
@@ -534,6 +534,7 @@ class HomeViewController: BaseViewController {
             self.createButton.isUserInteractionEnabled = true
             self.tableView.isUserInteractionEnabled = true
             self.syncButton.isUserInteractionEnabled = true
+            
         }
     }
     

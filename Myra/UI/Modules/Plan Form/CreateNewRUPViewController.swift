@@ -369,10 +369,15 @@ class CreateNewRUPViewController: BaseViewController {
             case .change(_):
                 Logger.log(message: "Change observed in plan \(r.ranNumber).")
                 self.planIsValid = r.isValid
+                self.notifyPlanChanged()
             case .deleted:
                 Logger.log(message: "Plan  \(r.ranNumber) deleted.")
             }
         }
+    }
+    
+    func notifyPlanChanged() {
+        NotificationCenter.default.post(name: .planChanged, object: nil)
     }
     
     func endChangeListener() {

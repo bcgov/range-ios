@@ -45,27 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
     /// https://realm.io/docs/swift/latest/#migrations
     func migrateRealm() {
-        // To generate a schema version
-        // We get version and build numbers of app
-        guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {
-            Alert.show(title: "Fatal Error", message: "Could not find build version and number to generate database schema")
-            print("Could not find build version and number to generate database schema")
-            return
-        }
-        // comvert tp integer
-        let stringVersion = "\(version)"
-        let stringBuild = "\(build)"
-        guard let intVersion = Int(stringVersion), let intBuild = Int(stringBuild) else {
-            Alert.show(title: "Fatal Error", message: "Could not generate a database schema version")
-            print("Could not generate a database schema version")
-            return
-        }
-        
-        // Generate schema version based on version and build
-        let generatedSchemaVersion = (intVersion * 1000) +  intBuild
+        // To generate a schema version:
+        // - We get version and build numbers of app
+        // - comvert tp integer
+        // - Generate schema version based on version and build
+        guard let generatedSchemaVersion = SettingsManager.generateAppIntegerVersion() else {return}
         
         // Migrate
         let config = Realm.Configuration (

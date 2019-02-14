@@ -13,4 +13,6 @@ extension Notification.Name {
     
     static let formScrolled = Notification.Name("formScrolled")
     static let formEndedStrolling = Notification.Name("formEndedStrolling")
+    
+    static let planChanged = Notification.Name("planChanged")
 }
