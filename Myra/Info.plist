@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>3</string>
 	<key>CFBundleVersion</key>
-	<string>9</string>
+	<string>10</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -42,13 +42,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>For taking photos of invasice species</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To get your position</string>
+	<string>To get your position and autofill in form </string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To get your position</string>
+	<string>To get your position and autofill in form </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To get your position</string>
+	<string>To get your position and autofill in form</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MyriadWebPro.ttf</string>
