@@ -30,7 +30,6 @@ class FormMenuItemTableViewCell: UITableViewCell {
         if let clicked = self.callBack {
             return clicked()
         }
-        
     }
     
     func setup(forSection section: FromSection, isOn: Bool, isExpanded: Bool, clicked: @escaping()-> Void) {
@@ -81,7 +80,7 @@ class FormMenuItemTableViewCell: UITableViewCell {
             self.icon.image = UIImage(named: "icon_Map\(iconExtension)")
         }
         
-        if canDisplayFullText() {
+        if canDisplayFullText() && isExpanded {
             self.label.alpha = 1
         } else {
             self.label.alpha = 0
@@ -109,5 +108,10 @@ class FormMenuItemTableViewCell: UITableViewCell {
         label.font = Fonts.getPrimaryMedium(size: 15)
         self.container.backgroundColor = UIColor.clear
         self.bottomSeparator.alpha = 0.1
+        if !canDisplayFullText() {
+            self.label.alpha = 0
+        } else {
+            self.label.alpha = 1
+        }
     }
 }

@@ -70,9 +70,9 @@ class CreateNewRUPViewController: BaseViewController {
     }
     
     // pop up for adding pastures and years
-//    var acceptedPopupInput: AcceptedPopupInput = .String
-//    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
-//    var popupTakenValues: [String] = [String]()
+    //    var acceptedPopupInput: AcceptedPopupInput = .String
+    //    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
+    //    var popupTakenValues: [String] = [String]()
     
     // MARK: Outlets
     
@@ -161,11 +161,11 @@ class CreateNewRUPViewController: BaseViewController {
     
     // MARK: Outlet Actions
     @IBAction func menuModeAction(_ sender: UIButton) {
-        if self.menuWidth.constant ==  self.portraitMenuWidth {
-            styleLandscapeMenu()
-        } else {
-            stylePortaitMenu()
-        }
+//        if self.menuWidth.constant ==  self.portraitMenuWidth {
+//            styleLandscapeMenu()
+//        } else {
+//            stylePortaitMenu()
+//        }
         animateIt()
     }
     
@@ -425,7 +425,6 @@ class CreateNewRUPViewController: BaseViewController {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
-        styleLandscapeMenu()
         setBarInfoBasedOnOrientation()
     }
     
@@ -433,7 +432,6 @@ class CreateNewRUPViewController: BaseViewController {
         if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
-        stylePortaitMenu()
         setBarInfoBasedOnOrientation()
     }
     
@@ -731,7 +729,12 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return FromSection.allCases.count
+        if SettingsManager.shared.isFormMapSectionEnabled() {
+            return FromSection.allCases.count
+        } else {
+            return FromSection.allCases.count - 1
+        }
+        
     }
     
     // RELOAD WITH COMPLETION
@@ -796,7 +799,7 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         NotificationCenter.default.post(name: .formEndedStrolling, object: nil)
     }
-
+    
     func hightlightAppropriateMenuItem() {
         if let menuView = self.menuView {
             menuView.highlightAppropriateMenuItem()

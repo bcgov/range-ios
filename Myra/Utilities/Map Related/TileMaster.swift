@@ -396,7 +396,6 @@ class TileMaster {
 
     func updateStatusValue(to percent: Double) {
         DispatchQueue.main.async {
-            Feedback.removeButton()
             guard let window = UIApplication.shared.keyWindow else {return}
             if let label = window.viewWithTag(self.indicatorLabelTag) as? UILabel {
                 let remaining = 100 - percent

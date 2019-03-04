@@ -60,8 +60,8 @@ extension CreateNewRUPViewController {
 
     // MARK: Side Menu
     func setMenuSize() {
-        if let indexPath = self.tableView.indexPathsForVisibleRows, indexPath.count > 0 {
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        if let indexPath = self.tableView.indexPathsForVisibleRows, let first = indexPath.first {
+            self.tableView.scrollToRow(at: first, at: .top, animated: true)
         }
         
         if let menuView = self.menuView {
@@ -69,18 +69,6 @@ extension CreateNewRUPViewController {
         }
 
         self.animateIt()
-    }
-
-    func styleLandscapeMenu() {
-        if let menuView = self.menuView {
-            menuView.setMenu(expanded: true)
-        }
-    }
-
-    func stylePortaitMenu() {
-        if let menuView = self.menuView {
-            menuView.setMenu(expanded: false)
-        }
     }
 
     func initMenu() {

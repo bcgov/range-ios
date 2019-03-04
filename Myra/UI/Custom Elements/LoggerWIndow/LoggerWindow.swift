@@ -102,7 +102,6 @@ class LoggerWindow: UIView {
     }
     
     func refresh() {
-        Feedback.removeButton()
         self.logs = Logger.logs
         self.tableView.reloadData()
         self.tableView.performBatchUpdates({

@@ -28,6 +28,7 @@ class FormMenu: UIView, Theme {
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var expandToggle: UIButton!
     
     // MARK: Outlet Actions
     @IBAction func submitAction(_ sender: UIButton) {
@@ -36,35 +37,47 @@ class FormMenu: UIView, Theme {
         }
     }
     
+    @IBAction func expandAction(_ sender: UIButton) {
+        isExpanded = !isExpanded
+        setMenu(expanded: isExpanded)
+    }
+    
     // MARK: Entry Point
     func initialize(inView container: UIView, containerWidth: NSLayoutConstraint, parentTable: UITableView, formMode: FormMode, onSubmit: @escaping()-> Void) {
+        setIsExpandedBasedOnOrientation()
         self.formMode = formMode
         self.callBack = onSubmit
         self.containerWidth = containerWidth
         self.container = container
         self.parentTable = parentTable
-        
-        self.style(in: container)
-        
-        self.setupTableView()
         self.frame = container.frame
         container.addSubview(self)
+        self.setupTableView()
+        self.style(in: container)
         addContraints(relativeTo: container)
-        
         self.setupFromScrollNotifications()
+        self.setupOrientationChangeNotifications()
+    }
+    
+    func setIsExpandedBasedOnOrientation() {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        self.isExpanded = window.frame.width > window.frame.height
     }
     
     func setMenu(expanded: Bool) {
-        guard let containerWidth = self.containerWidth else {return}
-        
-        if expanded {
-            containerWidth.constant = landscapeMenuWidh
-        } else {
-            containerWidth.constant = portraitMenuWidth
+        guard let containerWidth = self.containerWidth, let container = self.container, let containerParent = container.superview else {return}
+        self.isExpanded = expanded
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
+            if expanded {
+                containerWidth.constant = self.landscapeMenuWidh
+            } else {
+                containerWidth.constant = self.portraitMenuWidth
+            }
+            containerParent.layoutIfNeeded()
+        }) { (done) in
+            self.tableView.reloadData()
+            self.styleSubmitButton()
         }
-        
-        self.tableView.reloadData()
-        
     }
     
     func setContainerWidth(to newWidth: CGFloat) {
@@ -131,7 +144,6 @@ class FormMenu: UIView, Theme {
         if let section = FromSection.init(rawValue: indexPath.section) {
             self.select(section: section)
         }
-        
     }
     
     // MARK: Styles
@@ -145,14 +157,15 @@ class FormMenu: UIView, Theme {
         } else {
             styleSubmitButton(valid: true)
         }
+        styleExpandIcon()
     }
     
-    func styleSubmitButton(valid: Bool) {
+    func styleSubmitButton(valid: Bool? = nil) {
         self.submitButton.backgroundColor = Colors.primary
         self.submitButton.layer.cornerRadius = 5
         
-        if self.frame.width == self.portraitMenuWidth {
-            self.submitButton.setTitle("", for: .normal)
+        if !isExpanded || self.frame.width == self.portraitMenuWidth {
+             self.submitButton.setTitle("", for: .normal)
         } else {
             self.submitButton.setTitle("Submit to client", for: .normal)
             if let label = self.submitButton.titleLabel {
@@ -162,11 +175,15 @@ class FormMenu: UIView, Theme {
         }
         
         // Currently not doing different styling based on validity
-//        if !active {
-//            self.submitButton.alpha = 0.9
-//        } else {
-//            self.submitButton.alpha = 1
-//        }
+        if let isValid = valid, !isValid {
+            self.submitButton.alpha = 0.8
+        } else {
+            self.submitButton.alpha = 1
+        }
+    }
+    
+    func styleExpandIcon() {
+        self.expandToggle.setImage(UIImage(named: "expandMenu"), for: .normal)
     }
     
     // MARK: Constraints
@@ -180,13 +197,16 @@ class FormMenu: UIView, Theme {
             self.topAnchor.constraint(equalTo: container.topAnchor),
             self.bottomAnchor.constraint(equalTo: container.bottomAnchor)
             ])
-        
     }
     
     // MARK: Noticiations
     func setupFromScrollNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(formScrolled(_:)), name: .formScrolled, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(formEndedStrolling(_:)), name: .formEndedStrolling, object: nil)
+    }
+    
+    func setupOrientationChangeNotifications() {
+         NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: .screenOrientationChanged, object: nil)
     }
     
     @objc func formScrolled(_ notification:Notification) {
@@ -197,6 +217,11 @@ class FormMenu: UIView, Theme {
     
     @objc func formEndedStrolling(_ notification:Notification) {
         self.skippingToSection = false
+    }
+    
+    @objc func orientationChanged(_ notification:Notification) {
+        setIsExpandedBasedOnOrientation()
+        setMenu(expanded: isExpanded)
     }
 }
 extension FormMenu: UITableViewDelegate, UITableViewDataSource {
@@ -220,7 +245,11 @@ extension FormMenu: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return FromSection.allCases.count
+        if SettingsManager.shared.isFormMapSectionEnabled() {
+            return FromSection.allCases.count
+        } else {
+            return FromSection.allCases.count - 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
