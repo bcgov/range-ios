@@ -68,7 +68,7 @@
                                                     <action selector="settingsAction:" destination="WLz-lO-hN5" eventType="touchUpInside" id="Z7g-E2-5nc"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ers-Uv-sgm">
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ers-Uv-sgm">
                                                 <rect key="frame" x="428" y="129" width="46" height="30"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
