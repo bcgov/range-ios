@@ -219,6 +219,7 @@ class ScheduleViewController: BaseViewController {
                 self.validate()
             case .deleted:
                 Logger.log(message: "Schedule Deleted")
+                self.endChangeListener()
             }
         }
     }

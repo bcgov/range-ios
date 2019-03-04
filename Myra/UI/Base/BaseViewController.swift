@@ -54,7 +54,7 @@ class BaseViewController: UIViewController, Theme {
         syncView.initialize { (success) in
             SettingsManager.shared.refreshAuthIdpHintIfNecessary(completion: { (ApplicationVersionStatus) in
                 if ApplicationVersionStatus == .isOld {
-                    Alert.show(title: "New Version Available", message: "A newer version of MyRangeBC is avaialable.\nPlease Syncronize data before and updating the application.")
+                    Alert.show(title: "New Version Available", message: "A newer version of MyRangeBC is avaialable.\nPlease Syncronize data before updating the application.")
                 }
                 return completion(success)
             })

@@ -9,8 +9,8 @@
 import Foundation
 
 enum RUPStatus: String {
-    case Pending
-    case Completed
+    case Pending // REMOVED
+    case Completed // REMOVED
     case ClientDraft
     case Created
     case ChangeRequested
@@ -18,6 +18,7 @@ enum RUPStatus: String {
     case WronglyMadeWithoutEffect
     case StandsWronglyMade
     case Stands
+    case StandsReview
     case NotApprovedFurtherWorkRequired
     case NotApproved
     case Approved
@@ -26,7 +27,6 @@ enum RUPStatus: String {
     case RecommendReady
     case RecommendNotReady
     case RecommendForSubmission
-    case ReadyForFinalDescision
     case LocalDraft
     case Outbox
     case Unknown

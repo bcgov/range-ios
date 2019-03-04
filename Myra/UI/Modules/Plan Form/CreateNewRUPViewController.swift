@@ -97,8 +97,11 @@ class CreateNewRUPViewController: BaseViewController {
     // Banner
     @IBOutlet weak var bannerContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var bannerContainer: UIView!
+    @IBOutlet weak var bannerActionButton: UIButton!
     @IBOutlet weak var bannerTitle: UILabel!
-    @IBOutlet weak var bannerTooltip: UIButton!
+    @IBOutlet weak var bannerSubtitle: UILabel!
+    @IBOutlet weak var bannerActionButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var bannerTopConstraint: NSLayoutConstraint!
     
     // Side Menu
     @IBOutlet weak var menuContainer: UIView!
@@ -113,6 +116,17 @@ class CreateNewRUPViewController: BaseViewController {
     // MARK: ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        prePresentation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        openingAnimations(callBack: {
+            self.whenPresented()
+        })
+    }
+    
+    func prePresentation() {
         style()
         setMenuSize()
         setUpTable()
@@ -120,19 +134,17 @@ class CreateNewRUPViewController: BaseViewController {
         prepareToAnimate()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        openingAnimations(callBack: {
-            // open banner here
-            if self.shouldShowBanner() {
-                self.openBanner()
-            }
-            
-            let minPlanFieldsMessage = self.minimumPlanFieldsAreFilledMessage()
-            if !minPlanFieldsMessage.isEmpty {
-                Alert.show(title: "Heads up!", message: minPlanFieldsMessage)
-            }
-        })
+    func whenPresented() {
+        self.openBannerIfNeeded()
+        let minPlanFieldsMessage = self.minimumPlanFieldsAreFilledMessage()
+        if !minPlanFieldsMessage.isEmpty {
+            Alert.show(title: "Heads up!", message: minPlanFieldsMessage)
+        }
+    }
+    
+    func reload() {
+        prePresentation()
+        whenPresented()
     }
     
     func minimumPlanFieldsAreFilledMessage() -> String {
@@ -169,8 +181,14 @@ class CreateNewRUPViewController: BaseViewController {
         animateIt()
     }
     
-    @IBAction func bannerTooltipAction(_ sender: UIButton) {
-        showTooltip(on: sender, title: getBannerTitle(), desc: getBannerDescription())
+    @IBAction func bannerActionButtonClicked(_ sender: UIButton) {
+        guard let plan = self.rup else {return}
+        FlowHelper.shared.beginflow(for: plan) { (flowResult) in
+            if let result = flowResult {
+                plan.updateStatus(with: result.status, note: result.notes)
+                self.reload()
+            }
+        }
     }
     
     @IBAction func planActionActions(_ sender: UIButton) {
@@ -372,6 +390,7 @@ class CreateNewRUPViewController: BaseViewController {
                 self.notifyPlanChanged()
             case .deleted:
                 Logger.log(message: "Plan  \(r.ranNumber) deleted.")
+                self.endChangeListener()
             }
         }
     }
@@ -407,10 +426,11 @@ class CreateNewRUPViewController: BaseViewController {
         }
         
         ranLabel.text = "\(p.agreementId) | "
+        let planStatus = StatusHelper.getDescription(for: p.getStatus()).displayName
         if UIDevice.current.orientation.isPortrait ||  UIDevice.current.orientation.isFlat {
-            statusAndagreementHolderLabel.text = "\(p.getStatus())"
+            statusAndagreementHolderLabel.text = "\(planStatus)"
         } else {
-            statusAndagreementHolderLabel.text = "\(p.getStatus()) | \(holder)"
+            statusAndagreementHolderLabel.text = "\(planStatus) | \(holder)"
         }
         
         styleStatus()
@@ -814,10 +834,11 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
 // MARK: Banner
 extension CreateNewRUPViewController {
-    func shouldShowBanner() -> Bool {
-        guard let plan = self.rup else {return false}
-        // TODO: Add criteria here
-        return plan.amendmentTypeId != -1
+    func openBannerIfNeeded() {
+        guard let plan = self.rup else {return}
+        setBannerClosedSize()
+        let stausDesc = StatusHelper.getDescription(for: plan.getStatus())
+        openBannerWith(title: stausDesc.bannerTitle, subititle: stausDesc.bannerDescription, actionButtonTitle: FlowHelper.shared.getActionName(for: plan) ?? "")
     }
     
     func getBannerTitle() -> String {
@@ -827,7 +848,6 @@ extension CreateNewRUPViewController {
         } else {
             return bannerMandatoryAmendmentReviewRequiredTitle
         }
-        
     }
     
     func getBannerDescription() -> String {
@@ -839,29 +859,61 @@ extension CreateNewRUPViewController {
         }
     }
     
-    func openBanner() {
-        self.bannerTitle.text = ""
-        self.bannerContainer.backgroundColor = UIColor.white
+    func openBannerWith(title: String, subititle: String, actionButtonTitle: String = "") {
+        // set text
+        self.bannerTitle.text = title
+        self.bannerSubtitle.text = subititle
+        self.bannerActionButton.setTitle(actionButtonTitle, for: .normal)
+        // style
         self.bannerTitle.textColor = Colors.technical.mainText
         self.bannerTitle.font = Fonts.getPrimaryBold(size: 22)
+        self.bannerSubtitle.textColor = Colors.technical.mainText
+        self.bannerSubtitle.font = Fonts.getPrimary(size: 17)
+        self.styleFillButton(button: bannerActionButton)
+        // prepare animated presentation
+        self.bannerContainer.alpha = 0
         self.view.layoutIfNeeded()
+        // animate height change
         UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
-            self.bannerContainerHeight.constant = 50
+            self.setBannerSizes(title: title, subititle: subititle, actionButtonTitle: actionButtonTitle)
             self.view.layoutIfNeeded()
         }) { (done) in
+            // animate presentation (alpha change)
             UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration()) {
                 self.view.layoutIfNeeded()
-                self.bannerTitle.text = self.getBannerTitle()
                 self.bannerContainer.backgroundColor = Colors.accent.yellow
-                self.styleContainer(view: self.bannerContainer)
-                self.bannerTooltip.alpha = 1
+                self.bannerContainer.alpha = 1
             }
         }
     }
     
-    func closeBanner() {
-        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration()) {
-            self.bannerContainerHeight.constant = 25
+    func setBannerSizes(title: String, subititle: String, actionButtonTitle: String = "") {
+        let verticalPaddings: CGFloat = 8 * 3
+        var buttonPadding: CGFloat = 16
+        if actionButtonTitle.isEmpty {
+            buttonPadding = 0
         }
+        if let actionButtonWidth = actionButtonTitle.width(for: bannerActionButton) {
+            bannerActionButtonWidth.constant = actionButtonWidth + buttonPadding
+        }
+        if actionButtonTitle.isEmpty {
+            bannerActionButton.alpha = 0
+        }
+        let titleHeight = title.height(for: bannerTitle)
+        let subtitleHeight = subititle.height(for: bannerSubtitle)
+        let computedBannerHeight = (titleHeight + subtitleHeight + verticalPaddings)
+        bannerTopConstraint.constant = 0
+        bannerContainerHeight.constant = computedBannerHeight + 16
+    }
+    
+    func setBannerClosedSize() {
+        self.bannerContainer.alpha = 0
+        self.bannerTopConstraint.constant = 0 - (self.bannerContainer.frame.height)
+    }
+    
+    func closeBanner() {
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
+           self.setBannerClosedSize()
+        }) { (done) in }
     }
 }

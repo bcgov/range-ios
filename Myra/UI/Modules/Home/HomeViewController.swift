@@ -119,16 +119,20 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func testCam(_ sender: UIButton) {
-        let cam = Cam()
-        cam.display(on: self) { (photo) in
-            if let photo = photo {
-                Loading.shared.start()
-                let pic = RangePhoto()
-                pic.save(from: photo)
-                let preview: TagImage = TagImage.fromNib()
-                preview.show(with: pic, in: self, then: {})
-            }
+        let modal = FlowModal()
+        modal.initialize(for: FlowHelperModel(initiatingFlowStatus: .RecommendNotReady, isInitial: true)) { (result) in
+            print(result)
         }
+//        let cam = Cam()
+//        cam.display(on: self) { (photo) in
+//            if let photo = photo {
+//                Loading.shared.start()
+//                let pic = RangePhoto()
+//                pic.save(from: photo)
+//                let preview: TagImage = TagImage.fromNib()
+//                preview.show(with: pic, in: self, then: {})
+//            }
+//        }
     }
     
     @IBAction func SettingsAction(_ sender: UIButton) {

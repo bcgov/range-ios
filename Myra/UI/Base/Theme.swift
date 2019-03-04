@@ -263,6 +263,11 @@ extension Theme {
         label.textColor = defaultSectionFooterColor()
         label.font = defaultSectionFooterFont()
     }
+    
+    func styleFooter(textView: UITextView) {
+        textView.textColor = defaultSectionFooterColor()
+        textView.font = defaultSectionFooterFont()
+    }
 
     // MARK: Input fields
     func styleInputField(field: UITextField, header: UILabel, height: NSLayoutConstraint) {

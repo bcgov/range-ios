@@ -15,4 +15,6 @@ extension Notification.Name {
     static let formEndedStrolling = Notification.Name("formEndedStrolling")
     
     static let planChanged = Notification.Name("planChanged")
+    
+    static let flowOptionSelectionChanged = Notification.Name("flowOptionSelectionChanged")
 }

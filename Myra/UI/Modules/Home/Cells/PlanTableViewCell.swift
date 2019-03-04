@@ -72,7 +72,8 @@ class PlanTableViewCell: BaseTableViewCell {
         self.idLabel.text = "\(rup.agreementId)"
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
-        self.statusText.text = rup.getStatus().rawValue.convertFromCamelCase()
+//        self.statusText.text = rup.getStatus().rawValue.convertFromCamelCase()
+        self.statusText.text = StatusHelper.getDescription(for: rup.getStatus()).displayName
     }
 
     // MARK: Styles

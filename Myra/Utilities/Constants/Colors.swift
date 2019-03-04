@@ -32,9 +32,18 @@ class Colors {
         static let backgroundOne = UIColor(hex: "#FAFAFA")
         static let backgroundTwo = UIColor(hex: "#FFFFFF")
     }
+    
+    struct Status {
+        static let Yellow = UIColor(hex: "#F5A623")
+        static let Green = UIColor(hex: "#16C92E")
+        static let DarkGray = UIColor.darkGray
+        static let LightGray = UIColor.lightGray
+        static let Red = UIColor(hex: "#FF534A")
+    }
 
     static let shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
 
+    static let bannerColor = active.yellow
     static let primary = active.blue
     static let primaryConstrast = active.lightBlue
     static let secondary = active.yellow

@@ -17,6 +17,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
     var plantCommunity: PlantCommunity?
     var parentCellReference: PastureTableViewCell?
     var pasture: Pasture?
+    var realmNotificationToken: NotificationToken?
 
     // MARK: Outlets
     @IBOutlet weak var container: UIView!
@@ -63,11 +64,35 @@ class PlantCommunityTableViewCell: BaseFormCell {
     
     // MAKR: Notifications
     func setupListeners() {
+        beginChangeListener()
         NotificationCenter.default.addObserver(self, selector: #selector(planChanged), name: .planChanged, object: nil)
     }
     
     @objc func planChanged(_ notification:Notification) {
         styleBasedOnValidity()
+    }
+    
+    func beginChangeListener() {
+        guard let pc = self.plantCommunity else { return }
+        self.realmNotificationToken = pc.observe { (change) in
+            switch change {
+            case .error(_):
+                Logger.log(message: "Error in Plant community \(pc.name) change.")
+            case .change(_):
+                Logger.log(message: "Change observed in Plant community \(pc.name).")
+                NotificationCenter.default.post(name: .planChanged, object: nil)
+            case .deleted:
+                Logger.log(message: "Plan  \(pc.name) deleted.")
+                self.endChangeListener()
+            }
+        }
+    }
+    
+    func endChangeListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            Logger.log(message: "Stopped Listening to Changes in plant community :(")
+        }
     }
 
     // MARK: Setup
@@ -106,11 +131,9 @@ class PlantCommunityTableViewCell: BaseFormCell {
         refreshPlantCommunityObject()
         guard let pc = self.plantCommunity else {return}
         
-        for ma in pc.monitoringAreas {
-            if !ma.requiredFieldsAreFilled() {
-                styleInvalid()
-                return
-            }
+        for monitoringArea in pc.monitoringAreas where !monitoringArea.requiredFieldsAreFilled() {
+            styleInvalid()
+            return
         }
         
         if pc.requiredFieldsAreFilled() {
@@ -122,16 +145,17 @@ class PlantCommunityTableViewCell: BaseFormCell {
     
     func styleValid() {
         UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
-            self.header.textColor = Colors.invalid
-            self.nameLabel.textColor = Colors.invalid
+            self.styleSubHeader(label: self.header)
+            self.styleSubHeader(label: self.nameLabel)
             self.layoutIfNeeded()
         })
     }
     
     func styleInvalid() {
         UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
-            self.styleSubHeader(label: self.header)
-            self.styleSubHeader(label: self.nameLabel)
+            self.header.textColor = Colors.invalid
+            self.nameLabel.textColor = Colors.invalid
+            self.layoutIfNeeded()
             self.layoutIfNeeded()
         })
     }

@@ -17,7 +17,9 @@ extension CreateNewRUPViewController {
     // MARK: Styles
     func style() {
         styleNavBar(title: viewTitle, navBar: headerContainer, statusBar: statusbar, primaryButton: saveToDraftButton, secondaryButton: nil, textLabel: ranLabel)
-        StyleNavBarButton(button: cancelButton)
+        if let cancelBtn = cancelButton {
+            StyleNavBarButton(button: cancelBtn)
+        }
         initMenu()
 
         switch mode {

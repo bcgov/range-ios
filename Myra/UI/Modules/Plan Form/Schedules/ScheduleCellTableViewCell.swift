@@ -16,6 +16,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
     static let cellHeight = 66.5
     var schedule: Schedule?
     var parentReference: ScheduleTableViewCell?
+    var realmNotificationToken: NotificationToken?
 
     // MARK: Outlets
     @IBOutlet weak var cellContainer: UIView!
@@ -34,12 +35,37 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
     
     // MAKR: Notifications
+    
     func setupListeners() {
+        beginChangeListener()
         NotificationCenter.default.addObserver(self, selector: #selector(planChanged), name: .planChanged, object: nil)
     }
     
     @objc func planChanged(_ notification:Notification) {
         styleBasedOnValidity()
+    }
+    
+    func beginChangeListener() {
+        guard let schedule = self.schedule else { return }
+        self.realmNotificationToken = schedule.observe { (change) in
+            switch change {
+            case .error(_):
+                Logger.log(message: "Error in schedule \(schedule.year) change.")
+            case .change(_):
+                Logger.log(message: "Change observed in schedule \(schedule.year).")
+                NotificationCenter.default.post(name: .planChanged, object: nil)
+            case .deleted:
+                Logger.log(message: "Plan \(schedule.year) deleted.")
+                self.endChangeListener()
+            }
+        }
+    }
+    
+    func endChangeListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            Logger.log(message: "Stopped Listening to Changes in Schedule :(")
+        }
     }
 
     // MARK: Options
