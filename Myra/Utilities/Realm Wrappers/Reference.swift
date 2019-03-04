@@ -282,37 +282,8 @@ class Reference {
     }
 
     func convertToPlanStatus(status: RUPStatus)  -> PlanStatus {
-        var code = ""
-        if status == .WronglyMadeWithoutEffect {
-            code = "wm"
-        } else if status == .StandsWronglyMade {
-            code = "sw"
-        } else if status == .Stands {
-            code = "s"
-        } else if status == .RecommendNotReady {
-            code = "rnr"
-        } else if status == .RecommendReady {
-            code = "rr"
-        } else if status == .NotApprovedFurtherWorkRequired {
-            code = "nf"
-        } else if status == .NotApproved {
-            code = "na"
-        } else if status == .Approved {
-            code = "a"
-        } else if status == .SubmittedForFinalDecision {
-            code = "sfd"
-        } else if status == .Pending {
-            code = "P"
-        } else if status == .Completed {
-            code = "O"
-        } else if status == .ChangeRequested {
-            code = "R"
-        } else if status == .RecommendForSubmission {
-            code = "RFS"
-        } else if status == .StaffDraft {
-            code = "SD"
-        }
-
+        let code = StatusHelper.getDescription(for: status).serverCode
+        
         let query = RealmRequests.getObject(PlanStatus.self)
         if let all = query {
             for object in all {

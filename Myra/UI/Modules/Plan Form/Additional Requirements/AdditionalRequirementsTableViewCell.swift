@@ -79,7 +79,7 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
         tableHeight.constant = computeHeight()
 
         if scrollToBottom {
-            parent.realod(bottomOf: parent.additionalRequirementsIndexPath, then: {
+            parent.realod(bottomOf: .AdditionalRequirements, then: {
                 self.tableView.reloadData()
                 self.tableView.layoutIfNeeded()
             })

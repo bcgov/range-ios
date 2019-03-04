@@ -52,7 +52,12 @@ class BaseViewController: UIViewController, Theme {
     func sync(completion: @escaping (_ synced: Bool) -> Void) {
         let syncView: SyncView = UIView.fromNib()
         syncView.initialize { (success) in
-            return completion(success)
+            SettingsManager.shared.refreshAuthIdpHintIfNecessary(completion: { (ApplicationVersionStatus) in
+                if ApplicationVersionStatus == .isOld {
+                    Alert.show(title: "New Version Available", message: "A newer version of MyRangeBC is avaialable.\nPlease Syncronize data before updating the application.")
+                }
+                return completion(success)
+            })
         }
     }
     

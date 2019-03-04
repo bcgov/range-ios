@@ -59,7 +59,8 @@ class PlanVersionTableViewCell: BaseTableViewCell {
     func autofill() {
         guard let plan = self.rup else {return}
 
-        self.status.text = plan.getStatus().rawValue
+//        self.status.text = plan.getStatus().rawValue
+        self.status.text = StatusHelper.getDescription(for: plan.getStatus()).displayName
 
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
             viewButton.setTitle("Edit", for: .normal)

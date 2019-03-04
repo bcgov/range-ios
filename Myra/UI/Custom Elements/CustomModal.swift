@@ -285,11 +285,11 @@ class CustomModal: UIView, Theme {
     }
     
     func addCenterConstraints() {
-        guard let centerXIndex = contraintsAdded.index(forKey: .CenterX), let centerYIndex = contraintsAdded.index(forKey: .CenterY), let centerXContraint = contraintsAdded.at(centerXIndex), let centerYContraint = contraintsAdded.at(centerYIndex) else {
+        guard let centerXContraint = contraintsAdded[.CenterX], let centerYContraint = contraintsAdded[.CenterY] else {
             return
         }
-        centerYContraint.value.isActive = true
-        centerXContraint.value.isActive = true
+        centerYContraint.isActive = true
+        centerXContraint.isActive = true
     }
     
     func removeCenterContraints() {

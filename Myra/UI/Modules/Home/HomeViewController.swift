@@ -105,8 +105,6 @@ class HomeViewController: BaseViewController {
         super.viewWillAppear(animated)
         setupReachabilityNotification()
         self.getRUPs()
-//        TileMaster.shared.downloadTilePathsForCenterAt(lat: 48.431695, lon: -123.369190)
-        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -121,16 +119,20 @@ class HomeViewController: BaseViewController {
 
     // MARK: Outlet actions
     @IBAction func testCam(_ sender: UIButton) {
-        let cam = Cam()
-        cam.display(on: self) { (photo) in
-            if let photo = photo {
-                Loading.shared.start()
-                let pic = RangePhoto()
-                pic.save(from: photo)
-                let preview: TagImage = TagImage.fromNib()
-                preview.show(with: pic, in: self, then: {})
-            }
+        let modal = FlowModal()
+        modal.initialize(for: FlowHelperModel(initiatingFlowStatus: .RecommendNotReady, isInitial: true)) { (result) in
+            print(result)
         }
+//        let cam = Cam()
+//        cam.display(on: self) { (photo) in
+//            if let photo = photo {
+//                Loading.shared.start()
+//                let pic = RangePhoto()
+//                pic.save(from: photo)
+//                let preview: TagImage = TagImage.fromNib()
+//                preview.show(with: pic, in: self, then: {})
+//            }
+//        }
     }
     
     @IBAction func SettingsAction(_ sender: UIButton) {
@@ -286,32 +288,36 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: setup
-    /*
-     When loading home page,
-
-     1) check if a last sync date exists.
-     if not, show login page
-     else, set last sync date label
-     2) setup table view
-     3) get rups that dont have status: Agreeemnt
-     4) reload table to load the rups from step 3
-     */
-
     func loadHome() {
+        // Style page
         style()
+        // Set user initials
         self.userBoxLabel.text = SettingsManager.shared.getUserInitials()
+        // Show time since last sync
         updateLastSyncLabel()
-        if let query = RealmRequests.getObject(SyncDate.self), let last = query.last {
-            lastSyncLabel.text = last.timeSince()
-            if !lastSyncTimerActive {
-                lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
-            }
-        } else {
-            authenticateIfRequred()
+        // Update label every 30 seconds (if timer is not already active)
+        if !lastSyncTimerActive {
+            lastSyncTimerActive = true
+            lastSyncLabelTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateLastSyncLabel), userInfo: nil, repeats: true)
         }
+        // Table setup
         setUpTable()
+        // Default filter
         filterByAll()
+        // Begin Listeners
+        beginListeners()
+    }
+    
+    func beginListeners() {
+        // Update username initials on update
+        NotificationCenter.default.addObserver(self, selector: #selector(updatedUsernameInSettings(_:)), name: .usernameUpdatedInSettings, object: nil)
+        // Listen to database changes to reload table
         beginChangeListener()
+    }
+    
+    @objc func updatedUsernameInSettings(_ notification:Notification) {
+        self.userBoxLabel.text = SettingsManager.shared.getUserInitials()
+        animateIt()
     }
 
     @objc func updateLastSyncLabel() {
@@ -330,7 +336,7 @@ class HomeViewController: BaseViewController {
          from agreements but cancelled.
          */
         RUPManager.shared.cleanPlans()
-        let rups = RUPManager.shared.getRUPs()
+//        let rups = RUPManager.shared.getRUPs()
         let agreements = RUPManager.shared.getAgreements()
         for agreement in agreements where agreement.plans.count > 0 {
             if let p = agreement.getLatestPlan() {
@@ -349,11 +355,11 @@ class HomeViewController: BaseViewController {
     func beginChangeListener() {
         // Listener used for autosync:
         // If db has changed in this view, there probably was an autosync.
-        Logger.log(message: "Listening to db changes in HomeVC!")
         do {
             let realm = try Realm()
+            Logger.log(message: "Listening to db changes in HomeVC!")
             self.realmNotificationToken = realm.observe { notification, realm in
-                Logger.log(message: "change observed in homeVC")
+                Logger.log(message: "Change observed in Home.\nReloading Home.")
                 self.loadRUPs()
                 self.tableView.reloadData()
             }
@@ -532,6 +538,7 @@ class HomeViewController: BaseViewController {
             self.createButton.isUserInteractionEnabled = true
             self.tableView.isUserInteractionEnabled = true
             self.syncButton.isUserInteractionEnabled = true
+            
         }
     }
     

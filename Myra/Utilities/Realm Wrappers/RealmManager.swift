@@ -20,6 +20,7 @@ class RealmManager {
             let realm = try! Realm()
             try realm.write {
                 realm.deleteAll()
+                Logger.log(message: "Deleted all data in database")
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseDeleteFailure)

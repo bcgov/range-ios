@@ -68,9 +68,17 @@
                                                     <action selector="settingsAction:" destination="WLz-lO-hN5" eventType="touchUpInside" id="Z7g-E2-5nc"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ers-Uv-sgm">
+                                                <rect key="frame" x="428" y="129" width="46" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="hackyButton:" destination="WLz-lO-hN5" eventType="touchUpInside" id="ZTd-tP-IXS"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="Ers-Uv-sgm" firstAttribute="top" secondItem="hc0-3q-KgL" secondAttribute="bottom" constant="88" id="DcD-bC-DXz"/>
                                             <constraint firstAttribute="height" constant="440" id="Deu-RV-CYG"/>
                                             <constraint firstItem="AUD-RT-8ig" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="8" id="K5y-Wn-fPy"/>
                                             <constraint firstItem="5qQ-o5-0z6" firstAttribute="firstBaseline" secondItem="AUD-RT-8ig" secondAttribute="baseline" constant="28" symbolType="layoutAnchor" id="KIL-XT-j9w"/>
@@ -83,6 +91,7 @@
                                             <constraint firstItem="q0C-cZ-72U" firstAttribute="top" secondItem="5cZ-WK-Aeg" secondAttribute="top" constant="45" id="gDB-Ge-bU8"/>
                                             <constraint firstAttribute="trailing" secondItem="AUD-RT-8ig" secondAttribute="trailing" constant="8" id="gEG-YX-z3k"/>
                                             <constraint firstAttribute="trailing" secondItem="hc0-3q-KgL" secondAttribute="trailing" constant="16" id="gWn-jG-ZAV"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ers-Uv-sgm" secondAttribute="trailing" constant="16" id="iaQ-yh-d5J"/>
                                             <constraint firstItem="mGV-XT-Rta" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="105" id="idb-xw-SV5"/>
                                             <constraint firstItem="5qQ-o5-0z6" firstAttribute="leading" secondItem="5cZ-WK-Aeg" secondAttribute="leading" constant="16" id="jTg-py-gco"/>
                                             <constraint firstAttribute="trailing" secondItem="mGV-XT-Rta" secondAttribute="trailing" constant="105" id="m5O-yQ-OeY"/>

@@ -48,7 +48,6 @@ class FeedbackView: CustomModal {
         Feedback.initializeButton()
     }
 
-
     func initialize() {
         Feedback.removeButton()
         style()

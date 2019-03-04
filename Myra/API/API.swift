@@ -77,6 +77,13 @@ class API {
         Alamofire.request(request).responseJSON { response in
             completed = true
             if timedOut {return}
+            if let responseJSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
+                Logger.log(message: "PUT ERROR:")
+                Logger.log(message: error)
+            }
+            if let rsp = response.response {
+                Logger.log(message: "PUT Request received status code \(rsp.statusCode).")
+            }
             return completion(response)
         }
     }
@@ -270,10 +277,15 @@ class API {
         
         var params: [String:Any]  = [String:Any]()
         params["statusId"] = plan.statusId
+        params["note"] = plan.statusChangeNote
         API.put(endpoint: endpoint, params: params) { (response) in
             if let rsp = response, !rsp.result.isFailure  {
                 return completion(true)
             } else {
+                Logger.log(message: "Failed plan status update")
+                if let rsp = response {
+                    Logger.log(message: rsp.result.debugDescription)
+                }
                 return completion(false)
             }
         }
@@ -306,6 +318,7 @@ class API {
             API.setStatus(for: myPlan) { (success) in
                 if success, let refetchPlan = RealmManager.shared.plan(withLocalId: localId) {
                     refetchPlan.setShouldUpdateRemoteStatus(should: false)
+                    refetchPlan.resetStatusChangeNote()
                 } else {
                     Banner.shared.show(message: "ERROR while updating a plan status")
                     hadFails = true
@@ -1074,6 +1087,66 @@ class API {
         
         dispatchGroup.notify(queue: .main) {
             return completion(true)
+        }
+    }
+    
+    static func updateRemoteVersion(ios: Int, idphint: String, completion: @escaping (_ success: Bool) -> Void) {
+        guard let r = Reachability(), r.connection != .none else {
+            Logger.log(message:"Could not update remote versions: app is offline.")
+            return completion(false)
+        }
+        guard let endpoint = URL(string: Constants.API.versionPath, relativeTo: Constants.API.baseURL) else {
+            return completion(false)
+        }
+        
+        var params: [String:Any]  = [String:Any]()
+        params["ios"] = ios
+        params["idpHint"] = idphint
+        API.put(endpoint: endpoint, params: params) { (response) in
+            if let rsp = response, !rsp.result.isFailure {
+                return completion(true)
+            } else {
+                return completion(false)
+            }
+        }
+    }
+    
+    static func updateRemoteVersionInAllEnviorments(params: [String:Any], completion: @escaping (_ success: Bool) -> Void) {
+        
+    }
+    
+    static func loadRemoteVersion(completion: @escaping (_ success: Bool) -> Void) {
+        guard let r = Reachability(), r.connection != .none else {
+            Logger.log(message:"Could not load remote versions: app is offline.")
+            return completion(false)
+        }
+        guard let endpoint = URL(string: Constants.API.versionPath, relativeTo: Constants.API.baseURL) else {
+            return completion(false)
+        }
+        Logger.log(message: "Fetching remote versions...")
+        API.get(endpoint: endpoint) { (responseJSON) in
+            guard let json = responseJSON else {
+                Logger.log(message: "Could not fetch remote versions.")
+                return completion(false)
+            }
+            
+            if let iOSVersion = json["ios"].int, let apiVersion = json["api"].int {
+                var idphintString = Auth.getIdpHint()
+                Logger.log(message: "Received:")
+                Logger.log(message: "API: \(apiVersion)")
+                Logger.log(message: "iOS: \(iOSVersion)")
+                if let remoteIdphint = json["idpHint"].string {
+                    idphintString = remoteIdphint
+                    Logger.log(message: "idphint: \(remoteIdphint)")
+                }
+                
+                SettingsManager.shared.setRemoteVersion(from: RemoteVersion(ios: iOSVersion, idpHint: idphintString, api: apiVersion))
+                Logger.log(message: "Stored new remote versions in settings.")
+                return completion(true)
+            } else {
+                Logger.log(message: "Remote versions could not be read.")
+                return completion(false)
+            }
         }
     }
 }

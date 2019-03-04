@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import Reachability
 
 class SettingsModel: Object {
     
@@ -24,9 +25,14 @@ class SettingsModel: Object {
     @objc dynamic var cacheMapEndbaled: Bool = true
     
     // Dev tools
-    @objc dynamic var devEnvironmentEnabled: Bool = true
+    @objc dynamic var devToolsEnabled: Bool = false
+    
+    @objc dynamic var devEnvironmentEnabled: Bool = false
+    
     @objc dynamic var quitAfterFatalError: Bool = true
     @objc dynamic var inAppLoggerActive: Bool = false
+    
+    @objc dynamic var formMapSectionActive: Bool = false
     
     // UX
     @objc dynamic var animationDuration: Double = 0.5
@@ -34,6 +40,11 @@ class SettingsModel: Object {
     
     @objc dynamic var userFirstName: String = ""
     @objc dynamic var userLastName: String = ""
+    
+    // Remote versions
+    @objc dynamic var remoteAPIVersion: Int = 0
+    @objc dynamic var remoteIOSVersion: Int = 0
+    @objc dynamic var remoteVersionIdpHint: String = ""
     
     func clone() -> SettingsModel {
         let new = SettingsModel()
@@ -44,6 +55,8 @@ class SettingsModel: Object {
         new.quitAfterFatalError = self.quitAfterFatalError
         new.animationDuration = self.animationDuration
         new.shortAnimationDuration = self.shortAnimationDuration
+        new.devToolsEnabled = self.devToolsEnabled
+        new.formMapSectionActive = self.formMapSectionActive
         // dont clone user name
         return new
     }
@@ -137,6 +150,46 @@ class SettingsModel: Object {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
+    
+    func setDevTools(enabled: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                devToolsEnabled = enabled
+                if !enabled {
+                    self.quitAfterFatalError = true
+                    self.inAppLoggerActive = false
+                    self.formMapSectionActive = false
+                }
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setFormMapSection(enabled: Bool) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                formMapSectionActive = enabled
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setRemoteVersion(from object: RemoteVersion) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                remoteAPIVersion = object.api
+                remoteIOSVersion = object.ios
+                remoteVersionIdpHint = object.idpHint
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
 }
 
 enum EndpointEnvironment {
@@ -152,7 +205,7 @@ class SettingsManager {
     private let defaultAnimationDuration: Double = 0.5
     
     static let shared = SettingsManager()
-
+    
     private init() {
         guard let currentModel = getModel() else {
             let newModel = SettingsModel()
@@ -175,6 +228,74 @@ class SettingsManager {
     func getCurrentAppVersion() -> String {
         guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {return ""}
         return ("Version \(version) (\(build))")
+    }
+    
+    /// App ingeget version is same as local db version in appdelegate's migrateRealm()
+    /// (Version * 1000) + build
+    ///
+    /// - Returns: Integer representing application and local database version
+    static func generateAppIntegerVersion() -> Int? {
+        // We get version and build numbers of app
+        guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {
+            print("Could not find build version and number to generate integer app version in settings")
+            return nil
+        }
+        // comvert tp integer
+        let stringVersion = "\(version)"
+        let stringBuild = "\(build)"
+        guard let intVersion = Int(stringVersion), let intBuild = Int(stringBuild) else {
+            print("Could not generate integer app version in settings")
+            return nil
+        }
+        // Generate based on version and build
+        let generatedVersion = (intVersion * 1000) + intBuild
+        
+        return generatedVersion
+    }
+    
+    func refreshAuthIdpHintIfNecessary(completion: @escaping(_ appVersion: ApplicationVersionStatus)-> Void) {
+        func refreshAuthEviormentConstantsBaedOnStoredRemoteVersion() {
+            let appVersionStatus = self.getAppVersionStatus()
+            if let remoteVersion = self.getRemoteVersion(), appVersionStatus == .isLatest {
+                Auth.refreshEnviormentConstants(withIdpHint: remoteVersion.idpHint)
+            }
+             return completion(appVersionStatus)
+        }
+        
+        if let r = Reachability(), r.connection != .none {
+            API.loadRemoteVersion { (success) in
+                refreshAuthEviormentConstantsBaedOnStoredRemoteVersion()
+            }
+        } else {
+            refreshAuthEviormentConstantsBaedOnStoredRemoteVersion()
+        }
+    }
+    
+    func getAppVersionStatus() -> ApplicationVersionStatus {
+        guard let remoteVersion = getRemoteVersion(), let localVersion = SettingsManager.generateAppIntegerVersion() else {
+            return .Unfetched
+        }
+        Logger.log(message: "Application version status...")
+        Logger.log(message: "API: \(remoteVersion.api)\niOS: \(remoteVersion.ios)\nHint: \(remoteVersion.idpHint)")
+        Logger.log(message: "Local: \(localVersion)")
+        
+        if remoteVersion.ios == localVersion {
+            return .isLatest
+        } else if remoteVersion.ios > localVersion {
+            return .isOld
+        } else {
+            return .isNewerThanRemote
+        }
+    }
+    
+    func getRemoteVersion() -> RemoteVersion? {
+        guard let model = getModel(), model.remoteIOSVersion > 0 else {return nil}
+        return RemoteVersion(ios: model.remoteIOSVersion, idpHint: model.remoteVersionIdpHint, api: model.remoteAPIVersion)
+    }
+    
+    func setRemoteVersion(from object: RemoteVersion) {
+        guard let model = getModel() else {return}
+        model.setRemoteVersion(from: object)
     }
     
     // MARK: Sync
@@ -222,7 +343,7 @@ class SettingsManager {
     
     // MARK: Enviorments
     func getCurrentEnvironment() -> EndpointEnvironment {
-        guard let model = getModel() else {return .Dev}
+        guard let model = getModel() else {return .Prod}
         if model.devEnvironmentEnabled {
             return .Dev
         } else {
@@ -250,6 +371,7 @@ class SettingsManager {
     func setInAppLoggler(enabled: Bool) {
         guard let model = getModel() else {return}
         model.setInAppLogger(enabled: enabled)
+        Logger.log(message: "Logger window enabled: \(enabled)")
     }
     
     // MARK: Error handeling
@@ -268,23 +390,25 @@ class SettingsManager {
         guard let model = getModel() else {return}
         let settingsModelClone = model.clone()
         Auth.logout()
+        
         RealmManager.shared.clearLastSyncDate()
         RealmManager.shared.clearAllData()
         RealmRequests.saveObject(object: settingsModelClone)
-        Auth.refreshEnviormentConstants()
+        Auth.refreshEnviormentConstants(withIdpHint: nil)
         presenterReference.chooseInitialView()
     }
     
-    
+    // MARK: Users
     func setUser(firstName: String, lastName: String) {
         guard let model = getModel() else {return}
         model.setUser(firstName: firstName, lastName: lastName)
-        Logger.log(message: "Updated username:")
+        NotificationCenter.default.post(name: .usernameUpdatedInSettings, object: nil)
+        Logger.log(message: "Updated stored username:")
         Logger.log(message: getUserName(full: true))
     }
+    
     func setUser(info: UserInfo) {
-        guard let model = getModel() else {return}
-        setUser(firstName: model.userFirstName, lastName: model.userLastName)
+        setUser(firstName: info.firstName, lastName: info.lastName)
     }
     
     func getUserName(full: Bool = false) -> String {
@@ -298,7 +422,35 @@ class SettingsManager {
     
     func getUserInitials() -> String {
         guard let model = getModel(), let last = model.userLastName.first, let first = model.userFirstName.first else {return "RO"}
-        return ("\(first) \(last)")
+        return ("\(first)\(last)")
+    }
+    
+    // MARK: Developer Mode
+    func isDeveloperModeEnabled() -> Bool {
+        guard let model = getModel() else {return false}
+        return model.devToolsEnabled
+    }
+    
+    func setDeveloperMode(enabled: Bool) {
+        guard let model = getModel() else {return}
+        model.setDevTools(enabled: enabled)
+        if !enabled {
+            Logger.log(message: "Developer mode disabled.")
+            self.setInAppLoggler(enabled: enabled)
+            self.setFormMapSection(enabled: enabled)
+            self.setQuitAfterFatalError(enabled: enabled)
+        }
+    }
+    
+    // MARK: Form Map
+    func isFormMapSectionEnabled() -> Bool {
+        guard let model = getModel() else {return false}
+        return model.formMapSectionActive
+    }
+    
+    func setFormMapSection(enabled: Bool) {
+        guard let model = getModel() else {return}
+        model.setFormMapSection(enabled: enabled)
     }
     
     // MARK: Animations

@@ -8,13 +8,13 @@
 
 import Foundation
 extension Notification.Name {
-    static let updateTableHeights = Notification.Name("updateTableHeights")
-    // Pasture cells within Pastures cell
-    static let updatePastureCells = Notification.Name("updatePastureCells")
-    // Cell that contains Pastures
-    static let updatePasturesCell = Notification.Name("updatePasturesCell")
-
-    static let reload = Notification.Name("reload")
-    
     static let screenOrientationChanged = Notification.Name("screenOrientationChanged")
+    static let usernameUpdatedInSettings = Notification.Name("usernameUpdatedInSettings")
+    
+    static let formScrolled = Notification.Name("formScrolled")
+    static let formEndedStrolling = Notification.Name("formEndedStrolling")
+    
+    static let planChanged = Notification.Name("planChanged")
+    
+    static let flowOptionSelectionChanged = Notification.Name("flowOptionSelectionChanged")
 }

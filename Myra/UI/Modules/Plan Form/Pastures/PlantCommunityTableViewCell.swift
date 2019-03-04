@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class PlantCommunityTableViewCell: BaseFormCell {
 
@@ -15,6 +17,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
     var plantCommunity: PlantCommunity?
     var parentCellReference: PastureTableViewCell?
     var pasture: Pasture?
+    var realmNotificationToken: NotificationToken?
 
     // MARK: Outlets
     @IBOutlet weak var container: UIView!
@@ -58,6 +61,39 @@ class PlantCommunityTableViewCell: BaseFormCell {
             }
         }
     }
+    
+    // MAKR: Notifications
+    func setupListeners() {
+        beginChangeListener()
+        NotificationCenter.default.addObserver(self, selector: #selector(planChanged), name: .planChanged, object: nil)
+    }
+    
+    @objc func planChanged(_ notification:Notification) {
+        styleBasedOnValidity()
+    }
+    
+    func beginChangeListener() {
+        guard let pc = self.plantCommunity else { return }
+        self.realmNotificationToken = pc.observe { (change) in
+            switch change {
+            case .error(_):
+                Logger.log(message: "Error in Plant community \(pc.name) change.")
+            case .change(_):
+                Logger.log(message: "Change observed in Plant community \(pc.name).")
+                NotificationCenter.default.post(name: .planChanged, object: nil)
+            case .deleted:
+                Logger.log(message: "Plan  \(pc.name) deleted.")
+                self.endChangeListener()
+            }
+        }
+    }
+    
+    func endChangeListener() {
+        if let token = self.realmNotificationToken {
+            token.invalidate()
+            Logger.log(message: "Stopped Listening to Changes in plant community :(")
+        }
+    }
 
     // MARK: Setup
     func setup(mode: FormMode, plantCommunity: PlantCommunity, pasture: Pasture, plan: Plan, parentCellReference: PastureTableViewCell) {
@@ -68,28 +104,14 @@ class PlantCommunityTableViewCell: BaseFormCell {
         self.parentCellReference = parentCellReference
         autofill()
         style()
+        setupListeners()
     }
 
     func autofill() {
         guard let pc = self.plantCommunity else {return}
         self.nameLabel.text = pc.name
     }
-
-    // TODO: Remove Notification Center Usage for updating cells.
-    func setupNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .updatePastureCells, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(doThisWhenNotify), name: .reload, object: nil)
-    }
-    @objc func doThisWhenNotify() { return }
-
-    func notifPastureCells() {
-        NotificationCenter.default.post(name: .updatePastureCells, object: self, userInfo: ["reload": true])
-    }
-
-    func notifyReload() {
-        NotificationCenter.default.post(name: .reload, object: self, userInfo: ["reload": true])
-    }
-
+    
     // MARK: Styles
     func style() {
         roundCorners(layer: container.layer)
@@ -101,6 +123,51 @@ class PlantCommunityTableViewCell: BaseFormCell {
             optionsButton.alpha = 0
         case .Edit:
             optionsButton.alpha = 1
+        }
+        styleBasedOnValidity()
+    }
+    
+    func styleBasedOnValidity() {
+        refreshPlantCommunityObject()
+        guard let pc = self.plantCommunity else {return}
+        
+        for monitoringArea in pc.monitoringAreas where !monitoringArea.requiredFieldsAreFilled() {
+            styleInvalid()
+            return
+        }
+        
+        if pc.requiredFieldsAreFilled() {
+            styleValid()
+        } else {
+            styleInvalid()
+        }
+    }
+    
+    func styleValid() {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
+            self.styleSubHeader(label: self.header)
+            self.styleSubHeader(label: self.nameLabel)
+            self.layoutIfNeeded()
+        })
+    }
+    
+    func styleInvalid() {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
+            self.header.textColor = Colors.invalid
+            self.nameLabel.textColor = Colors.invalid
+            self.layoutIfNeeded()
+            self.layoutIfNeeded()
+        })
+    }
+    
+    func refreshPlantCommunityObject() {
+        guard let pc = self.plantCommunity else {return}
+        do {
+            let realm = try Realm()
+            let aPC = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
+            self.plantCommunity = aPC
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
 }

@@ -25,8 +25,8 @@ class OpenMapOverlay: MKTileOverlay {
             TileMaster.shared.downloadTile(for: path) { (success) in
             }
             // If you're downloading and saving, then you could also just pass the url to renderer
-            let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
-            return URL(string: tileUrl)!
+//            let tileUrl = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
+            return TileMaster.shared.getTileProviderURL(for: path)!
         }
     }
 }

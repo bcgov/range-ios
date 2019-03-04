@@ -55,6 +55,7 @@ class Plan: Object, MyraObject {
     // Remote status
     @objc dynamic var statusId: Int = 0
     @objc dynamic var statusIdValue: String = ""
+    @objc dynamic var statusChangeNote: String = ""
     
     // Flag to check if status changed eg from an amendment.
     // set flag to true after amendment flow, and set to false after upload
@@ -327,6 +328,11 @@ class Plan: Object, MyraObject {
         }
     }
     
+    
+    /// Used by API.getStatus()
+    /// when fetching updated plan statuses from backend
+    ///
+    /// - Parameter newID: id of new status
     func updateStatusId(newID: Int) {
         let statusObject = Reference.shared.getStatus(forId: newID)
         guard let obj = statusObject else {return}
@@ -341,7 +347,16 @@ class Plan: Object, MyraObject {
         }
     }
     
-    func updateStatus(with newStatus: RUPStatus) {
+    
+    /// Change Plan's status to the new status
+    /// This action sets shouldUpdateRemoteStatus flag to true
+    /// meaning plan status (and optinally note) will be uploaded
+    /// on next sync through API.setStatus()
+    ///
+    /// - Parameters:
+    ///   - newStatus: New status
+    ///   - note: Optional Note
+    func updateStatus(with newStatus: RUPStatus, note: String = "") {
         let tempId = Reference.shared.convertToPlanStatus(status: newStatus).id
         let statusObject = Reference.shared.getStatus(forId: tempId)
         guard let obj = statusObject else {return}
@@ -351,7 +366,22 @@ class Plan: Object, MyraObject {
                 statusEnum = newStatus
                 shouldUpdateRemoteStatus = true
                 statusId = tempId
+                statusChangeNote = note
                 statusIdValue = obj.name
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    /// Reset status change note after upload:
+    /// Next status change may not have a note
+    /// and if not reset, the old note would be sent.
+    func resetStatusChangeNote() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                statusChangeNote = ""
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)

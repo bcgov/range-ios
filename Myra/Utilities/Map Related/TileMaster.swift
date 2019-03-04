@@ -29,6 +29,12 @@ class TilePath {
     }
 }
 
+enum TileProvider {
+    case GoogleSatellite
+    case GoogleHybrid
+    case OpenStreet
+}
+
 class TileMaster {
 
     static let shared = TileMaster()
@@ -42,19 +48,48 @@ class TileMaster {
     var tiles = 0
 
     var isDownloading: Bool = false
+    
+    // Lets chache these instead of calculating over and over
+    var cachedNumberOfStoredTiles: Int = 0
+    var cachedSizeOfStoredTiles: Double = 0.0
 
     // If it keeps failing to download X number of tiles again, don't try again
     var lastFailedCount: Int = 0
 
     var tempCount = 0
     var tilesOfInterest = [MKTileOverlayPath]()
+    
+    var tileProvider: TileProvider = .OpenStreet
 
     private init() {
         Logger.log(message: "Initialized TileMaster. Size of tiles: \(sizeOfStoredTiles())")
     }
-
+    
+    func getTileProviderURL(for path: MKTileOverlayPath) -> URL? {
+        switch self.tileProvider {
+        case .GoogleSatellite:
+            return googleSatelliteURL(for: path)
+        case .OpenStreet:
+            return openSteetMapURL(for: path)
+        case .GoogleHybrid:
+            return googleHybridURL(for: path)
+        }
+    }
+    
+    func googleHybridURL(for path: MKTileOverlayPath) -> URL? {
+        let stringURL = "https://mt1.google.com/vt/lyrs=y&x=\(path.x)&y=\(path.y)&z=\(path.z)"
+        guard let url = URL(string: stringURL) else {return nil}
+        return url
+    }
+    
     func openSteetMapURL(for path: MKTileOverlayPath) -> URL? {
         let stringURL = "https://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y).png"
+        guard let url = URL(string: stringURL) else {return nil}
+        return url
+    }
+    
+    func googleSatelliteURL(for path: MKTileOverlayPath) -> URL? {
+        let stringURL = "http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x=\(path.x)&y=\(path.y)&z=\(path.z)"
         guard let url = URL(string: stringURL) else {return nil}
         return url
     }
@@ -82,12 +117,16 @@ class TileMaster {
 
     func sizeOfStoredTiles() -> Double {
         let fileURLs = storedFiles()
+        // If number of items hasn't changed retured the last computed size
+        if storedFiles().count == self.cachedNumberOfStoredTiles {return self.cachedSizeOfStoredTiles}
         var total: Double = 0
         for item in fileURLs {
             if item.path.contains("Tile") {
                 total += sizeOfFileAt(url: item)
             }
         }
+        self.cachedNumberOfStoredTiles = storedFiles().count
+        self.cachedSizeOfStoredTiles = total
         return total
     }
 
@@ -254,7 +293,8 @@ class TileMaster {
             return then(false)
         }
         let queue = DispatchQueue(label: "tileQue", qos: .background, attributes: .concurrent)
-        guard let url = openSteetMapURL(for: path) else {
+
+        guard let url = getTileProviderURL(for: path) else {
             return then(false)
         }
         var request = URLRequest(url: url)
@@ -356,7 +396,6 @@ class TileMaster {
 
     func updateStatusValue(to percent: Double) {
         DispatchQueue.main.async {
-            Feedback.removeButton()
             guard let window = UIApplication.shared.keyWindow else {return}
             if let label = window.viewWithTag(self.indicatorLabelTag) as? UILabel {
                 let remaining = 100 - percent

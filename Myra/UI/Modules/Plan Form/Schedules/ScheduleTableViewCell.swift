@@ -98,6 +98,7 @@ class ScheduleTableViewCell: BaseFormCell {
     // MARK: Style
     func style() {
         styleHeader(label: sectionTitle, divider: divider)
+        sectionTitle.increaseFontSize(by: -4)
         styleHollowButton(button: addButton)
         styleContainer(layer: tableView.layer)
     }
