@@ -29,6 +29,7 @@ class FormMenu: UIView, Theme {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var expandToggle: UIButton!
+    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     
     // MARK: Outlet Actions
     @IBAction func submitAction(_ sender: UIButton) {
@@ -154,6 +155,8 @@ class FormMenu: UIView, Theme {
         self.addShadow(to: container.layer, opacity: 0.8, height: 2)
         if self.formMode == .View {
             submitButton.alpha = 0
+            submitButton.isHidden = true
+            buttonHeight.constant = 0
         } else {
             styleSubmitButton(valid: true)
         }

@@ -59,6 +59,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="buttonHeight" destination="sCo-WV-OAp" id="XOg-tD-mka"/>
                 <outlet property="expandToggle" destination="K5T-1R-rmC" id="UtR-RH-XLa"/>
                 <outlet property="submitButton" destination="QEF-hb-SzD" id="TzW-cB-dLb"/>
                 <outlet property="tableView" destination="aNH-J9-jyw" id="DX7-Gc-9MY"/>

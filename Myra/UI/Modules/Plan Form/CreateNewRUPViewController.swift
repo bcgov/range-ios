@@ -69,11 +69,6 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
     
-    // pop up for adding pastures and years
-    //    var acceptedPopupInput: AcceptedPopupInput = .String
-    //    var popupCompletion: ((_ done: Bool,_ result: String) -> Void )?
-    //    var popupTakenValues: [String] = [String]()
-    
     // MARK: Outlets
     
     // TOP
@@ -89,10 +84,6 @@ class CreateNewRUPViewController: BaseViewController {
     @IBOutlet weak var saveToDraftButton: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
-    
-    @IBOutlet weak var planActionsButton: UIButton!
-    @IBOutlet weak var planActionsDropdownButton: UIButton!
-    @IBOutlet weak var planActions: UIView!
     
     // Banner
     @IBOutlet weak var bannerContainerHeight: NSLayoutConstraint!
@@ -144,7 +135,9 @@ class CreateNewRUPViewController: BaseViewController {
     
     func reload() {
         prePresentation()
-        whenPresented()
+        openingAnimations(callBack: {
+            self.whenPresented()
+        })
     }
     
     func minimumPlanFieldsAreFilledMessage() -> String {
@@ -186,43 +179,7 @@ class CreateNewRUPViewController: BaseViewController {
         FlowHelper.shared.beginflow(for: plan) { (flowResult) in
             if let result = flowResult {
                 plan.updateStatus(with: result.status, note: result.notes)
-                self.reload()
-            }
-        }
-    }
-    
-    @IBAction func planActionActions(_ sender: UIButton) {
-        guard let plan = self.rup else {return}
-        let planActionsArray = getPlanActions(for: plan)
-        let vm = ViewManager()
-        let lookup = vm.lookup
-        var lookupOptions: [SelectionPopUpObject] = [SelectionPopUpObject]()
-        for element in planActionsArray {
-            let elementName = "\(element)"
-            lookupOptions.append(SelectionPopUpObject(display: elementName.convertFromCamelCase()))
-        }
-        
-        lookup.setup(objects: lookupOptions, onVC: self, onButton: planActionsDropdownButton) {  (done, selected) in
-            if let selectedAction = selected, let action = self.getPlanAction(fromString: selectedAction.display) {
-                switch action {
-                case .UpdateAmendment:
-                    self.showAmendmentFlow()
-                case .ApproveAmendment:
-                    self.showAmendmentFlow()
-                case .FinalReview:
-                    self.showAmendmentFlow()
-                case .UpdateStatus:
-                    self.showAmendmentFlow()
-                case .CreateMandatoryAmendment:
-                    self.createMandatoryAmendment()
-                case .CancelAmendment:
-                    self.cancelAmendment()
-                case .PrepareForSubmission:
-                    self.showAmendmentSubmissionFlow()
-                case .ReturnToAgreementHolder:
-                    // TODO: HERE!!!
-                    break
-                }
+                self.saveAndClose()
             }
         }
     }
@@ -264,6 +221,10 @@ class CreateNewRUPViewController: BaseViewController {
     }
     
     @IBAction func saveToDraftAction(_ sender: UIButton) {
+        self.saveAndClose()
+    }
+    
+    func saveAndClose() {
         guard let plan = self.rup else {return}
         do {
             let realm = try Realm()
@@ -362,14 +323,7 @@ class CreateNewRUPViewController: BaseViewController {
                 Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
         }
-        
-        // Moved - being done after openingAminations
-        //        if rup.getStatus() == .Stands {
-        //            updateAmendmentEnabled = true
-        //        } else {
-        //            updateAmendmentEnabled = false
-        //        }
-        
+
         setUpTable()
         
         if rup.getStatus() == .StaffDraft || rup.getStatus() == .LocalDraft {
@@ -426,7 +380,7 @@ class CreateNewRUPViewController: BaseViewController {
         }
         
         ranLabel.text = "\(p.agreementId) | "
-        let planStatus = StatusHelper.getDescription(for: p.getStatus()).displayName
+        let planStatus = StatusHelper.getDescription(for: p).displayName
         if UIDevice.current.orientation.isPortrait ||  UIDevice.current.orientation.isFlat {
             statusAndagreementHolderLabel.text = "\(planStatus)"
         } else {
@@ -458,149 +412,6 @@ class CreateNewRUPViewController: BaseViewController {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         setBarInfoBasedOnOrientation()
-    }
-    
-    // MARK: Amendments - Plan Actions
-    
-    // Get the selected option from popover options displayed results
-    // Helper function for re-usable lookup popover
-    func getPlanAction(fromString name: String) -> PlanAction? {
-        switch name.lowercased() {
-        case "update amendment":
-            return .UpdateAmendment
-        case "approve amendment":
-            return .ApproveAmendment
-        case "final review":
-            return .FinalReview
-        case "update status":
-            return .UpdateStatus
-        case "create mandatory amendment":
-            return .CreateMandatoryAmendment
-        case "cancel amendment":
-            return .CancelAmendment
-        case "prepare for submission":
-            return .PrepareForSubmission
-        case "Return To Agreement Holder":
-            return .ReturnToAgreementHolder
-        default:
-            return nil
-        }
-    }
-    
-    func getPlanActions(for plan: Plan) -> [PlanAction] {
-        var returnValue: [PlanAction] = [PlanAction]()
-        let current = plan.getStatus()
-        
-        if current == .Stands {
-            returnValue.append(.UpdateAmendment)
-            
-        } else if current == .SubmittedForFinalDecision{
-            returnValue.append(.ApproveAmendment)
-            
-        } else if current == .SubmittedForReview {
-            // TODO: HERE!!!
-            //            returnValue.append(.) //ReturnToAgreementHolder
-            
-        } else if current == .RecommendReady {
-            returnValue.append(.FinalReview)
-            
-        } else if current == .Pending {
-            // Note: Review is required by staff
-            returnValue.append(.UpdateStatus)
-            // completed / change requested
-            
-        } else if current == .Approved {
-            returnValue.append(.CreateMandatoryAmendment)
-            
-        } else if (current == .StaffDraft || current == .LocalDraft) && plan.amendmentTypeId != -1 {
-            returnValue.append(.CancelAmendment)
-            returnValue.append(.PrepareForSubmission)
-        }
-        return returnValue
-    }
-    
-    func createMandatoryAmendment() {
-        guard let plan = self.rup else {return}
-        AutoSync.shared.endListener()
-        if let agreement = RUPManager.shared.getAgreement(with: plan.agreementId), let inital = Reference.shared.getAmendmentType(named: "Mandatory Amendment") {
-            let new = plan.clone()
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    new.importAgreementData(from: agreement)
-                    new.amendmentTypeId = inital.id
-                    new.isNew = false
-                    new.remoteId = -1
-                    new.statusId = 0
-                    new.statusIdValue = ""
-                }
-            } catch _ {
-                Logger.fatalError(message: LogMessages.databaseWriteFailure)
-            }
-            agreement.add(plan: new)
-            RealmRequests.saveObject(object: new)
-            new.updateStatus(with: .StaffDraft)
-            self.setup(rup: new, mode: .Edit)
-            self.tableView.reloadData()
-            self.autofill()
-        }
-    }
-    
-    func showSubmitBackToAgreementHolderFlow() {
-        guard let plan = self.rup else {return}
-        let amendmentFlow: AmendmentFlow = UIView.fromNib()
-        let mode: AmendmentFlowMode = .ReturnToAgreementHolder
-        // display
-        amendmentFlow.initialize(mode: mode) { (amendment) in
-            if let result = amendment, let newStatus = result.getStatus() {
-                // process new status
-                plan.updateStatus(with: newStatus, note: result.notes)
-                self.autofill()
-                self.stylePlanActions()
-            }
-        }
-    }
-    
-    func showAmendmentSubmissionFlow() {
-        guard let plan = self.rup else {return}
-        let amendmentFlow: AmendmentFlow = UIView.fromNib()
-        let mode: AmendmentFlowMode = .Create
-        // display
-        amendmentFlow.initialize(mode: mode) { (amendment) in
-            if let result = amendment, let newStatus = result.getStatus() {
-                // process new status
-                plan.updateStatus(with: newStatus, note: result.notes)
-                self.autofill()
-                self.stylePlanActions()
-            }
-        }
-    }
-    
-    func cancelAmendment() {
-        
-    }
-    
-    func showAmendmentFlow() {
-        guard let plan = self.rup else {return}
-        let amendmentFlow: AmendmentFlow = UIView.fromNib()
-        var mode: AmendmentFlowMode = .Initial
-        if let amendmentType = Reference.shared.getAmendmentType(forId: plan.amendmentTypeId) {
-            mode = .FinalReview
-            if amendmentType.name.lowercased().contains("minor") {
-                mode = .Minor
-            } else if amendmentType.name.lowercased().contains("mandatory") && plan.getStatus() != .RecommendReady {
-                mode = .Mandatory
-            }
-        }
-        
-        amendmentFlow.initialize(mode: mode) { (amendment) in
-            if let result = amendment, let newStatus = result.getStatus() {
-                // process new status
-                plan.updateStatus(with: newStatus, note: result.notes)
-                self.autofill()
-                self.stylePlanActions()
-            }
-        }
     }
     
 }
@@ -837,7 +648,7 @@ extension CreateNewRUPViewController {
     func openBannerIfNeeded() {
         guard let plan = self.rup else {return}
         setBannerClosedSize()
-        let stausDesc = StatusHelper.getDescription(for: plan.getStatus())
+        let stausDesc = StatusHelper.getDescription(for: plan)
         openBannerWith(title: stausDesc.bannerTitle, subititle: stausDesc.bannerDescription, actionButtonTitle: FlowHelper.shared.getActionName(for: plan) ?? "")
     }
     
@@ -860,6 +671,9 @@ extension CreateNewRUPViewController {
     }
     
     func openBannerWith(title: String, subititle: String, actionButtonTitle: String = "") {
+        guard let plan = self.rup else {return}
+        var isInitial = (plan.amendmentTypeId == -1)
+        
         // set text
         self.bannerTitle.text = title
         self.bannerSubtitle.text = subititle
@@ -888,7 +702,7 @@ extension CreateNewRUPViewController {
     }
     
     func setBannerSizes(title: String, subititle: String, actionButtonTitle: String = "") {
-        let verticalPaddings: CGFloat = 8 * 3
+        let verticalPaddings: CGFloat = 32
         var buttonPadding: CGFloat = 16
         if actionButtonTitle.isEmpty {
             buttonPadding = 0
@@ -899,11 +713,11 @@ extension CreateNewRUPViewController {
         if actionButtonTitle.isEmpty {
             bannerActionButton.alpha = 0
         }
-        let titleHeight = title.height(for: bannerTitle)
-        let subtitleHeight = subititle.height(for: bannerSubtitle)
+        let titleHeight = title.height(for: bannerTitle, subtractWidth: bannerActionButtonWidth.constant)
+        let subtitleHeight = subititle.height(for: bannerSubtitle, subtractWidth: bannerActionButtonWidth.constant)
         let computedBannerHeight = (titleHeight + subtitleHeight + verticalPaddings)
         bannerTopConstraint.constant = 0
-        bannerContainerHeight.constant = computedBannerHeight + 16
+        bannerContainerHeight.constant = computedBannerHeight
     }
     
     func setBannerClosedSize() {

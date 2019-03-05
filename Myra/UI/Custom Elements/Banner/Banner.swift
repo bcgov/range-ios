@@ -11,7 +11,7 @@ import UIKit
 
 class Banner {
     static let shared = Banner()
-    let displayDuration: TimeInterval = 3
+    let displayDuration: TimeInterval = 5
     var messages: [String] = [String]()
     var showing = false
 

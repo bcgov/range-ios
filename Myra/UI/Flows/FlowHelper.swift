@@ -53,40 +53,6 @@ class FlowHelper {
         return actionNameFor(status: statusWithFlow)
     }
     
-    public func getBannerTitleFor(plan: Plan) -> String? {
-        guard let status = self.translate(planStatus: plan.getStatus()) else {return nil}
-        return status.rawValue.convertFromCamelCase()
-        switch status {
-        case .SubmittedForFinalDecision:
-            return ""
-        case .SubmittedForReview:
-            return ""
-        case .StandsReview:
-            return ""
-        case .RecommendReady:
-            return ""
-        case .RecommendNotReady:
-            return ""
-        }
-    }
-    
-    public func getBannerSubtitleFor(plan: Plan) -> String? {
-        guard let status = self.translate(planStatus: plan.getStatus()) else {return nil}
-        return status.rawValue.convertFromCamelCase()
-        switch status {
-        case .SubmittedForFinalDecision:
-            return ""
-        case .SubmittedForReview:
-            return ""
-        case .StandsReview:
-            return ""
-        case .RecommendReady:
-            return ""
-        case .RecommendNotReady:
-            return ""
-        }
-    }
-    
     private func isInitialFlow(plan: Plan) -> Bool {
         return plan.amendmentTypeId != -1
     }
@@ -141,51 +107,35 @@ class FlowHelper {
     }
     
     func statusChangeNeedsToBeCommunicated(forModel model: FlowHelperModel) -> Bool {
-        switch model.initiatingFlowStatus {
-        case .SubmittedForFinalDecision:
+        if let option = model.selectedOption, statusChangeCommunicationTextFor(option: option) != nil {
             return true
-            
-        case .SubmittedForReview:
-            return true
-            
-        case .StandsReview:
-            return true
-            
-        case .RecommendReady:
-            if let selectedOption = model.selectedOption, selectedOption == .NotApproved || selectedOption == .NotApprovedFurtherWorkRequired {
-                return true
-            } else {
-                return false
-            }
-        case .RecommendNotReady:
-            if let selectedOption = model.selectedOption, selectedOption == .NotApproved || selectedOption == .NotApprovedFurtherWorkRequired {
-                return true
-            } else {
-                return false
-            }
+        } else {
+            return false
         }
     }
     
-    func statusChangeCommunicationTextFor(forModel model: FlowHelperModel) -> String? {
-        // DO a switch statement on status. if status doesnt have checkbox, return nil
-        switch model.initiatingFlowStatus {
-        case .SubmittedForFinalDecision:
-            return "I have communicated"
-        case .SubmittedForReview:
-            return "I have communicated"
-        case .StandsReview:
-            return "I have communicated"
-        case .RecommendReady:
-            return "I have communicated"
-        case .RecommendNotReady:
-            return "I have communicated"
+    func statusChangeCommunicationTextFor(option: FlowOption) -> String? {
+        // if status doesnt have checkbox, return nil
+        switch option {
+        case .ChangeRequested:
+            return "I have have communicated with agreement holder about this update and wish to change status"
+        case .NotApproved:
+            return "I have have communicated with agreement holder about this update and wish to change status"
+        case .NotApprovedFurtherWorkRequired:
+            return "I have have communicated with agreement holder about this update and wish to change status"
+        case .WronglyMadeWithoutEffect:
+            return "I have have communicated with agreement holder about this update and wish to change status"
+        case .StandsWronglyMade:
+            return "I have have communicated with agreement holder about this update and wish to change status"
+        default:
+            return nil
         }
     }
     
     public func translate(option: FlowOption) -> RUPStatus {
         switch option {
         case .RecommendForSubmission:
-            return .RecommendForSubmission
+            return .RecommendedForSubmission
         case .ChangeRequested:
             return .ChangeRequested
         case .RecommendReady:
@@ -212,7 +162,7 @@ class FlowHelper {
         case .SubmittedForFinalDecision:
             return "Provide Feedback"
         case .SubmittedForReview:
-            return "Add Reccomendation"
+            return "Add Recommendation"
         case .StandsReview:
             return "Review Amendment"
         ///////////////////////////

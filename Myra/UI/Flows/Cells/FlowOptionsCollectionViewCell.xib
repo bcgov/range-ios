@@ -39,8 +39,8 @@
                                     <constraint firstAttribute="height" constant="1" id="bde-j9-dgw"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQu-vo-lDG">
-                                <rect key="frame" x="188" y="75" width="50" height="42"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQu-vo-lDG">
+                                <rect key="frame" x="16" y="75" width="394" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="cB3-2U-0cC"/>
                                 </constraints>
@@ -83,6 +83,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lQu-vo-lDG" secondAttribute="trailing" constant="16" id="5kU-rn-Qzi"/>
                             <constraint firstItem="CFF-fS-Udd" firstAttribute="top" secondItem="SAn-BG-ttp" secondAttribute="bottom" constant="8" id="CFS-ES-NTN"/>
                             <constraint firstItem="SAn-BG-ttp" firstAttribute="centerX" secondItem="DZw-4p-LNk" secondAttribute="centerX" id="Eog-Yf-o6Y"/>
                             <constraint firstItem="rhU-Y5-ObE" firstAttribute="top" secondItem="lQu-vo-lDG" secondAttribute="bottom" constant="16" id="HK2-oj-G5B"/>
@@ -91,6 +92,7 @@
                             <constraint firstItem="rhU-Y5-ObE" firstAttribute="leading" secondItem="DZw-4p-LNk" secondAttribute="leading" constant="16" id="LF8-Ji-sd5"/>
                             <constraint firstAttribute="trailing" secondItem="Gi3-Sc-L4e" secondAttribute="trailing" constant="20" id="LNH-j8-bWn"/>
                             <constraint firstItem="lQu-vo-lDG" firstAttribute="top" secondItem="CFF-fS-Udd" secondAttribute="bottom" constant="8" id="PQ2-yC-cQN"/>
+                            <constraint firstItem="lQu-vo-lDG" firstAttribute="leading" secondItem="DZw-4p-LNk" secondAttribute="leading" constant="16" id="Trd-rg-slC"/>
                             <constraint firstItem="Gi3-Sc-L4e" firstAttribute="leading" secondItem="DZw-4p-LNk" secondAttribute="leading" constant="20" id="UdN-H7-u0f"/>
                             <constraint firstItem="lQu-vo-lDG" firstAttribute="centerX" secondItem="DZw-4p-LNk" secondAttribute="centerX" id="fyX-f7-b4p"/>
                             <constraint firstItem="Gi3-Sc-L4e" firstAttribute="centerX" secondItem="DZw-4p-LNk" secondAttribute="centerX" id="ga2-J8-mBY"/>
@@ -114,6 +116,7 @@
                 <outlet property="cancelButton" destination="luG-9o-BYy" id="fG4-zH-5QL"/>
                 <outlet property="divider" destination="CFF-fS-Udd" id="HY6-uQ-hDD"/>
                 <outlet property="nextButton" destination="MFR-Ao-NGb" id="RSk-1C-1PW"/>
+                <outlet property="subtitleHeight" destination="cB3-2U-0cC" id="F41-od-1Zf"/>
                 <outlet property="subtitleLabel" destination="lQu-vo-lDG" id="HgE-RV-u2o"/>
                 <outlet property="tableView" destination="rhU-Y5-ObE" id="e74-eE-Clf"/>
                 <outlet property="titleLabel" destination="SAn-BG-ttp" id="Rqp-E4-buk"/>

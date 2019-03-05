@@ -73,7 +73,7 @@ class PlanTableViewCell: BaseTableViewCell {
         self.infoLabel.text = RUPManager.shared.getPrimaryAgreementHolderFor(rup: rup)
         self.rangeName.text = rup.rangeName
 //        self.statusText.text = rup.getStatus().rawValue.convertFromCamelCase()
-        self.statusText.text = StatusHelper.getDescription(for: rup.getStatus()).displayName
+        self.statusText.text = StatusHelper.getDescription(for: rup).displayName
     }
 
     // MARK: Styles
@@ -103,7 +103,7 @@ class PlanTableViewCell: BaseTableViewCell {
         styleStaticField(field: rangeName)
 
         guard let plan = self.rup else {return}
-        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
+        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan)
     }
 
     func styleSelected() {

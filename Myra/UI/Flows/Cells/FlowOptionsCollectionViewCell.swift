@@ -20,6 +20,7 @@ class FlowOptionsCollectionViewCell: FlowCell {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var subtitleHeight: NSLayoutConstraint!
     
     // MARK: Outlet Actions
     @IBAction func nextAction(_ sender: UIButton) {
@@ -52,24 +53,25 @@ class FlowOptionsCollectionViewCell: FlowCell {
         
         switch model.initiatingFlowStatus {
         case .SubmittedForFinalDecision:
-            titleLabel.text = ""
-            subtitleLabel.text = ""
+            titleLabel.text = "Add Recommendation"
+            subtitleLabel.text = "Add your recommendation to this range use plan. If changes are required select \"Request Changes\" If the plan is ready for decision prepare your recommendation package"
         case .SubmittedForReview:
-            titleLabel.text = ""
-            subtitleLabel.text = ""
+            titleLabel.text = "Provide Feedback"
+            subtitleLabel.text = "Respond to the agreement holder by selecting \"Request Changes\" or \"Recommend For Submission\"."
         case .StandsReview:
-            titleLabel.text = ""
-            subtitleLabel.text = ""
+            titleLabel.text = "Review Amendment"
+            subtitleLabel.text = "Review this range use plan minor amendment."
         case .RecommendReady:
-            titleLabel.text = ""
-            subtitleLabel.text = ""
+            titleLabel.text = "Add Decision"
+            subtitleLabel.text = "Once the DM has made their decision add the decision to the range use plan using the options below."
         case .RecommendNotReady:
-            titleLabel.text = ""
-            subtitleLabel.text = ""
+            titleLabel.text = "Add Decision"
+            subtitleLabel.text = "Once the DM has made their decision add the decision to the range use plan using the options below."
         }
         
-        titleLabel.text = "Title"
-        subtitleLabel.text = "Subtitle"
+        if let subtitleText = subtitleLabel.text {
+            subtitleHeight.constant = subtitleText.height(for: subtitleLabel)
+        }
     }
     
     // MARK: Style

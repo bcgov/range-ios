@@ -44,13 +44,14 @@ enum FlowPage: Int, CaseIterable {
 class FlowModal: CustomModal {
 
     // MARK: Constants
-    let suggestedWidth: CGFloat = 400
-    let suggestedHeight: CGFloat = 400
+    let suggestedWidth: CGFloat = 600
+    let suggestedHeight: CGFloat = 500
     
     // MARK: Variables
     var completion: ((_ result: FlowResult?) -> Void)?
     var model: FlowHelperModel?
     weak var collectionView: UICollectionView?
+    
     
     // MARK: Entry Point
     func initialize(for model: FlowHelperModel, completion: @escaping (_ result: FlowResult?) -> Void) {
@@ -73,6 +74,19 @@ class FlowModal: CustomModal {
         
         if let nextPage = FlowPage(rawValue: Int(current.rawValue + 1)) {
             pages.scrollToItem(at: IndexPath(row: nextPage.rawValue, section: 0), at: .left, animated: true)
+            
+            // If its the confirmation page, show animation then return results.
+            if nextPage == .Confirmation, let cv = self.collectionView {
+                cv.isUserInteractionEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if let cell = cv.cellForItem(at: IndexPath(row: nextPage.rawValue, section: 0)) as? FlowConfirmationCollectionViewCell {
+                        cell.showAnimation()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                            self.returnResult()
+                        })
+                    }
+                }
+            }
         } else {
             // last page. dismiss
             returnResult()
@@ -87,7 +101,7 @@ class FlowModal: CustomModal {
     }
     
     func closeClicked() {
-        Alert.show(title: "Cancel", message: "Would you like to discard your changes and exit this window?", yes: {
+        Alert.show(title: "Cancel", message: "Are you sure you want to cancel?", yes: {
             if let completion = self.completion {
                 self.remove()
                 return completion(nil)

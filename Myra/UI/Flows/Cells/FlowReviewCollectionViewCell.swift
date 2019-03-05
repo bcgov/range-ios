@@ -46,19 +46,22 @@ class FlowReviewCollectionViewCell: FlowCell {
         textView.isEditable = false
         switch model.initiatingFlowStatus {
         case .SubmittedForFinalDecision:
-            title.text = ""
+            title.text = "Confirm Recommendation"
+            textView.text = "You’re ready to submit this range use plan recommendation. Your explanatory note will be viewable by all agreement holders.\nIf you selected to make a recommendation it will only be viewable to range staff."
         case .SubmittedForReview:
-            title.text = ""
+            title.text = "Confirm Feedback"
+            textView.text = "You’re ready to submit this range use plan feedback. Your explanatory note will be viewable by all agreement holders"
         case .StandsReview:
-            title.text = ""
+            title.text = "Confirm Review"
+            textView.text = "You’re ready to submit this amendment review. Your explanatory note will be viewable by all agreement holders"
+            
         case .RecommendReady:
-            title.text = ""
+            title.text = "Confirm Decision"
+            textView.text = "You’re ready to submit this range use plan decision. Your explanatory note will be viewable by all agreement holders and range staff."
         case .RecommendNotReady:
-            title.text = ""
-        }
-        
-        title.text = "Title"
-        
+            title.text = "Confirm Decision"
+            textView.text = "You’re ready to submit this range use plan decision. Your explanatory note will be viewable by all agreement holders and range staff."
+        }        
     }
     
     // MARK: Style

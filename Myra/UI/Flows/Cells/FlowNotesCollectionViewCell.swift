@@ -21,6 +21,7 @@ class FlowNotesCollectionViewCell: FlowCell {
     @IBOutlet weak var checkBoxLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var subtitleHeight: NSLayoutConstraint!
     
     // MARK: Outlet Actions
     @IBAction func nextAction(_ sender: UIButton) {
@@ -88,13 +89,9 @@ class FlowNotesCollectionViewCell: FlowCell {
         textView.text = model.notes
         
         // Show/ hide checkbox section based on flow
-        
-        if let checkBoxText = FlowHelper.shared.statusChangeCommunicationTextFor(forModel: model) {
-            checkBoxLabel.text = checkBoxText
-        }
-        
-        if FlowHelper.shared.statusChangeNeedsToBeCommunicated(forModel: model) {
+        if let selectedOption = model.selectedOption, let checkboxText = FlowHelper.shared.statusChangeCommunicationTextFor(option: selectedOption) {
             showCheckBoxSection()
+            checkBoxLabel.text = checkboxText
         } else {
             hideCheckBoxSection()
         }
@@ -103,24 +100,25 @@ class FlowNotesCollectionViewCell: FlowCell {
         
         switch model.initiatingFlowStatus {
         case .SubmittedForFinalDecision:
-            title.text = ""
-            subtitle.text = ""
+            title.text = "Add Explanatory Note"
+            subtitle.text = "Add an explanatory note to support your change request or decision recommendation. A change request note will be viewable by all agreement holders. If you are making a recommendation, it will only be viewable by range staff and decision maker."
         case .SubmittedForReview:
-            title.text = ""
-            subtitle.text = ""
+            title.text = "Add Explanatory Note"
+            subtitle.text = "Add an explanatory note to support your decision. The explanatory note will be viewable by all agreement holders."
         case .StandsReview:
-            title.text = ""
-            subtitle.text = ""
+            title.text = "Add Explanatory Note"
+            subtitle.text = "Add an explanatory note to support your decision. The explanatory note will be viewable by all agreement holders."
         case .RecommendReady:
-            title.text = ""
-            subtitle.text = ""
+            title.text = "Add Explanatory Note"
+            subtitle.text = "Add an explanatory note from the decision maker. This explanatory note will be viewable by all agreement holders and range staff."
         case .RecommendNotReady:
-            title.text = ""
-            subtitle.text = ""
+            title.text = "Add Explanatory Note"
+            subtitle.text = "Add an explanatory note from the decision maker. This explanatory note will be viewable by all agreement holders and range staff."
         }
         
-        title.text = "Title"
-        subtitle.text = "Subtitle"
+        if let subtitleText = subtitle.text {
+            subtitleHeight.constant = subtitleText.height(for: subtitle)
+        }
         
     }
     

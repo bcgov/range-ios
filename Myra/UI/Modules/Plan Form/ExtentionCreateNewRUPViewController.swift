@@ -27,29 +27,12 @@ extension CreateNewRUPViewController {
             self.viewTitle.text = "View Plan"
             self.saveToDraftButton.setTitle("Close", for: .normal)
             self.ranLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 10).isActive = true
-            self.cancelButton.removeFromSuperview()
+            if let cancelButton = self.cancelButton {
+                 cancelButton.removeFromSuperview()
+            }
         case .Edit:
             self.viewTitle.text = "Create New RUP"
             self.saveToDraftButton.setTitle("Save", for: .normal)
-        }
-    }
-
-    func stylePlanActions() {
-        guard let rup = self.rup else {return}
-        planActions.alpha = 0
-        roundCorners(layer: planActions.layer)
-        planActionsButton.setTitleColor(Colors.inputText, for: .normal)
-        planActionsButton.titleLabel?.font = Fonts.getPrimaryMedium(size: 15)
-        //        planActionsButton.setTitleColor(.white, for: .normal)
-        planActions.backgroundColor = Colors.inputBG
-
-        updateAmendmentEnabled = (!getPlanActions(for: rup).isEmpty)
-
-        if updateAmendmentEnabled {
-            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), delay: SettingsManager.shared.getShortAnimationDuration(), animations: {
-                self.planActions.alpha = 1
-                self.view.layoutIfNeeded()
-            })
         }
     }
 
@@ -57,7 +40,7 @@ extension CreateNewRUPViewController {
         styleNavBarLabel(label: statusAndagreementHolderLabel)
         makeCircle(view: statusLight)
         guard let plan = self.rup else {return}
-        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
+        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan)
     }
 
     // MARK: Side Menu
@@ -144,7 +127,6 @@ extension CreateNewRUPViewController {
                 }, completion: { (done) in
                     // MARK: End of opening animations
                     self.view.isUserInteractionEnabled = true
-                    self.stylePlanActions()
                     return callBack()
                 })
 

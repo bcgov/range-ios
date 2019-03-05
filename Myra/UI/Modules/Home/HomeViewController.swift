@@ -277,6 +277,7 @@ class HomeViewController: BaseViewController {
                 lookup.dismiss(animated: true, completion: nil)
                 if selection.value == logoutOption.value, let presenter = self.getPresenter() {
                     self.showAlert(title: "Are you sure?", description: "Logging out will delete all plans that have not been synced.", yesButtonTapped: {
+                        self.endChangeListener()
                         SettingsManager.shared.signout(presenterReference: presenter)
                     }, noButtonTapped: {})
                 }

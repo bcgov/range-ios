@@ -113,7 +113,7 @@ class Agreement: Object, MyraObject {
                 self.plans.append(plan)
             }
         }
-         RealmRequests.saveObject(object: self)
+        RealmRequests.saveObject(object: self)
     }
 
     func getLatestPlan() -> Plan? {

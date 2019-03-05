@@ -24,8 +24,8 @@ extension String {
         return self.width(withConstrainedHeight: label.frame.height, font: label.font)
     }
     
-    func height(for label: UILabel)-> CGFloat {
-        return self.height(withConstrainedWidth: label.frame.width, font: label.font)
+    func height(for label: UILabel, subtractWidth: CGFloat = 0)-> CGFloat {
+        return self.height(withConstrainedWidth: label.frame.width - subtractWidth, font: label.font)
     }
     
     

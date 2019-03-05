@@ -11,6 +11,68 @@ import Realm
 import RealmSwift
 import Reachability
 
+class SettingsModelCache {
+    
+    var autoSyncEndbaled: Bool = true
+    var cacheMapEndbaled: Bool = true
+    
+    // Dev tools
+    var devToolsEnabled: Bool = false
+    
+    var devEnvironmentEnabled: Bool = false
+    
+    var quitAfterFatalError: Bool = true
+    var inAppLoggerActive: Bool = false
+    
+    var formMapSectionActive: Bool = false
+    
+    // UX
+    var animationDuration: Double = 0.5
+    var shortAnimationDuration: Double = 0.3
+    
+    var userFirstName: String = ""
+    var userLastName: String = ""
+    
+    // Remote versions
+    var remoteAPIVersion: Int = 0
+    var remoteIOSVersion: Int = 0
+    var remoteVersionIdpHint: String = ""
+    
+    init(autoSyncEndbaled: Bool, cacheMapEndbaled: Bool, devToolsEnabled: Bool, devEnvironmentEnabled: Bool, quitAfterFatalError: Bool, inAppLoggerActive: Bool, formMapSectionActive: Bool, animationDuration: Double, shortAnimationDuration: Double, userFirstName: String, userLastName: String, remoteAPIVersion: Int, remoteIOSVersion: Int, remoteVersionIdpHint: String) {
+        self.autoSyncEndbaled = autoSyncEndbaled
+        self.cacheMapEndbaled = cacheMapEndbaled
+        self.devToolsEnabled = devToolsEnabled
+        self.devEnvironmentEnabled = devEnvironmentEnabled
+        self.quitAfterFatalError = quitAfterFatalError
+        self.inAppLoggerActive = inAppLoggerActive
+        self.formMapSectionActive = formMapSectionActive
+        self.animationDuration = animationDuration
+        self.shortAnimationDuration = shortAnimationDuration
+        self.userFirstName = userFirstName
+        self.userLastName = userLastName
+        self.remoteAPIVersion = remoteAPIVersion
+        self.remoteIOSVersion = remoteIOSVersion
+        self.remoteVersionIdpHint = remoteVersionIdpHint
+    }
+    
+    init(from model: SettingsModel) {
+        self.autoSyncEndbaled = model.autoSyncEndbaled
+        self.cacheMapEndbaled = model.cacheMapEndbaled
+        self.devToolsEnabled = model.devToolsEnabled
+        self.devEnvironmentEnabled = model.devEnvironmentEnabled
+        self.quitAfterFatalError = model.quitAfterFatalError
+        self.inAppLoggerActive = model.inAppLoggerActive
+        self.formMapSectionActive = model.formMapSectionActive
+        self.animationDuration = model.animationDuration
+        self.shortAnimationDuration = model.shortAnimationDuration
+        self.userFirstName = model.userFirstName
+        self.userLastName = model.userLastName
+        self.remoteAPIVersion = model.remoteAPIVersion
+        self.remoteIOSVersion = model.remoteIOSVersion
+        self.remoteVersionIdpHint = model.remoteVersionIdpHint
+    }
+}
+
 class SettingsModel: Object {
     
     @objc dynamic var realmID: String = {
@@ -59,6 +121,23 @@ class SettingsModel: Object {
         new.formMapSectionActive = self.formMapSectionActive
         // dont clone user name
         return new
+    }
+    
+    func setFrom(cache: SettingsModelCache) {
+        self.autoSyncEndbaled = cache.autoSyncEndbaled
+        self.cacheMapEndbaled = cache.cacheMapEndbaled
+        self.devToolsEnabled = cache.devToolsEnabled
+        self.devEnvironmentEnabled = cache.devEnvironmentEnabled
+        self.quitAfterFatalError = cache.quitAfterFatalError
+        self.inAppLoggerActive = cache.inAppLoggerActive
+        self.formMapSectionActive = cache.formMapSectionActive
+        self.animationDuration = cache.animationDuration
+        self.shortAnimationDuration = cache.shortAnimationDuration
+        self.userFirstName = cache.userFirstName
+        self.userLastName = cache.userLastName
+        self.remoteAPIVersion = cache.remoteAPIVersion
+        self.remoteIOSVersion = cache.remoteIOSVersion
+        self.remoteVersionIdpHint = cache.remoteVersionIdpHint
     }
     
     // MARK: Setters
@@ -388,12 +467,15 @@ class SettingsManager {
     // MARK: Authentication
     func signout(presenterReference: MainViewController) {
         guard let model = getModel() else {return}
-        let settingsModelClone = model.clone()
+        AutoSync.shared.endListener()
+        let settingsModelCache = SettingsModelCache(from: model)
         Auth.logout()
         
         RealmManager.shared.clearLastSyncDate()
         RealmManager.shared.clearAllData()
-        RealmRequests.saveObject(object: settingsModelClone)
+        let newSettings = SettingsModel()
+        newSettings.setFrom(cache: settingsModelCache)
+        RealmRequests.saveObject(object: newSettings)
         Auth.refreshEnviormentConstants(withIdpHint: nil)
         presenterReference.chooseInitialView()
     }

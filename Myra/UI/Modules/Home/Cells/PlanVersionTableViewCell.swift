@@ -60,7 +60,7 @@ class PlanVersionTableViewCell: BaseTableViewCell {
         guard let plan = self.rup else {return}
 
 //        self.status.text = plan.getStatus().rawValue
-        self.status.text = StatusHelper.getDescription(for: plan.getStatus()).displayName
+        self.status.text = StatusHelper.getDescription(for: plan).displayName
 
         if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
             viewButton.setTitle("Edit", for: .normal)
@@ -97,6 +97,6 @@ class PlanVersionTableViewCell: BaseTableViewCell {
         styleStaticField(field: type)
 
         guard let plan = self.rup else {return}
-        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan.getStatus())
+        self.statusLight.backgroundColor = StatusHelper.getColor(for: plan)
     }
 }

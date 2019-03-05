@@ -173,6 +173,8 @@ class Plan: Object, MyraObject {
             self.managementConsiderations.append(ManagementConsideration(json: element.1))
         }
         
+        self.shouldUpdateRemoteStatus = false
+        
     }
     
     func importAgreementData(from agreement: Agreement) {

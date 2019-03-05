@@ -282,7 +282,7 @@ class Reference {
     }
 
     func convertToPlanStatus(status: RUPStatus)  -> PlanStatus {
-        let code = StatusHelper.getDescription(for: status).serverCode
+        let code = StatusHelper.getServerCode(for: status)
         
         let query = RealmRequests.getObject(PlanStatus.self)
         if let all = query {
