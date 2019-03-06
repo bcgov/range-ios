@@ -33,19 +33,35 @@ class LoginViewController: BaseViewController {
     // MARK: Outlet Actions
     @IBAction func loginAction(_ sender: Any) {
         Loading.shared.start()
-        SettingsManager.shared.refreshAuthIdpHintIfNecessary {_ in 
-            Loading.shared.stop()
+        func performSignIn() {
             Auth.signIn { (success) in
                 if success {
                     self.performInitialSync()
                 }
             }
         }
+        SettingsManager.shared.appIsBeingTested { (appIsBeingTested) in
+            Loading.shared.stop()
+            if appIsBeingTested {
+                let testerTypePrompt: TesterTypePrompt = UIView.fromNib()
+                testerTypePrompt.initialize(completion: { (selectedType) in
+                    switch selectedType {
+                    case .RangeStaff:
+                        Auth.refreshEnviormentConstants(withIdpHint: "idir")
+                    case .AppleReviewer:
+                        break
+                    }
+                    performSignIn()
+                })
+            } else {
+               performSignIn()
+            }
+        }
     }
     
     @IBAction func hackyButton(_ sender: Any) {
         guard let appVersion = SettingsManager.generateAppIntegerVersion() else {return}
-        API.updateRemoteVersion(ios: (appVersion + 1), idphint: "bceid") { (success) in
+        API.updateRemoteVersion(ios: (appVersion), idphint: "bceid") { (success) in
             print(success)
         }
     }

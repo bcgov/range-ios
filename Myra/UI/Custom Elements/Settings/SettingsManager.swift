@@ -316,7 +316,7 @@ class SettingsManager {
     static func generateAppIntegerVersion() -> Int? {
         // We get version and build numbers of app
         guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {
-            print("Could not find build version and number to generate integer app version in settings")
+            Logger.log(message: "Could not find build version and number to generate integer app version in settings")
             return nil
         }
         // comvert tp integer
@@ -347,6 +347,19 @@ class SettingsManager {
             }
         } else {
             refreshAuthEviormentConstantsBaedOnStoredRemoteVersion()
+        }
+    }
+    
+    func appIsBeingTested(completion: @escaping(_ appIsBeingTested: Bool)-> Void) {
+        SettingsManager.shared.refreshAuthIdpHintIfNecessary { (status) in
+            var appIsBeingTested = false
+            if status == .isLatest, let version = SettingsManager.shared.getRemoteVersion(), version.idpHint == "bceid" {
+                appIsBeingTested = true
+            } else if status == .isNewerThanRemote {
+                appIsBeingTested = true
+            }
+            return completion(appIsBeingTested)
+            
         }
     }
     

@@ -242,8 +242,8 @@ struct StatusConstants {
         static let serverCode = ""
         static let description = "Initial - Staff RUP Draft Not yet syncronized"
         static let displayName = "Draft (Needs to Sync)"
-        static let bannerTitle = "Submitted to AH for Input"
-        static let bannerDescription = "This range use plan has been submitted the agreement holder for input. You will be notified when a submission is received."
+        static let bannerTitle = "Local Draft (Unsynced)"
+        static let bannerDescription = "This range use plan draft is currently in progress and has NOT been synced to the server. Changes to this draft may be lost. Please connect to the internet and sync the application as soon as possible using the \"Sync\" button on the homescreen."
         static let color = Colors.Status.DarkGray
     }
     

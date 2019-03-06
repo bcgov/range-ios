@@ -43,6 +43,9 @@
 		1E58DF7622174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF7422174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.xib */; };
 		1E58DF792217520900EF0A1D /* FlowOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF772217520900EF0A1D /* FlowOptionTableViewCell.swift */; };
 		1E58DF7A2217520900EF0A1D /* FlowOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF782217520900EF0A1D /* FlowOptionTableViewCell.xib */; };
+		1E657002223052EC0042826E /* TesterTypePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E657001223052EC0042826E /* TesterTypePrompt.swift */; };
+		1E6570042230533F0042826E /* TesterTypePrompt.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6570032230533F0042826E /* TesterTypePrompt.xib */; };
+		1E657008223074190042826E /* typing.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E657007223074190042826E /* typing.json */; };
 		1E8448D5222865BC008ECF04 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8448D4222865BC008ECF04 /* StringExtension.swift */; };
 		1EE8985C21EE926600A74F4F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
 		1EE8985E21F0EE6200A74F4F /* MyriadWebPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */; };
@@ -353,6 +356,9 @@
 		1E58DF7422174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowConfirmationCollectionViewCell.xib; sourceTree = "<group>"; };
 		1E58DF772217520900EF0A1D /* FlowOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowOptionTableViewCell.swift; sourceTree = "<group>"; };
 		1E58DF782217520900EF0A1D /* FlowOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowOptionTableViewCell.xib; sourceTree = "<group>"; };
+		1E657001223052EC0042826E /* TesterTypePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TesterTypePrompt.swift; sourceTree = "<group>"; };
+		1E6570032230533F0042826E /* TesterTypePrompt.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TesterTypePrompt.xib; sourceTree = "<group>"; };
+		1E657007223074190042826E /* typing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = typing.json; sourceTree = "<group>"; };
 		1E8448D4222865BC008ECF04 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		1EE8985B21EE926600A74F4F /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MyriadWebPro.ttf; sourceTree = "<group>"; };
@@ -809,6 +815,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		1E657000223052AA0042826E /* TesterType */ = {
+			isa = PBXGroup;
+			children = (
+				1E657001223052EC0042826E /* TesterTypePrompt.swift */,
+				1E6570032230533F0042826E /* TesterTypePrompt.xib */,
+			);
+			path = TesterType;
+			sourceTree = "<group>";
+		};
 		1EE8985921ED51DB00A74F4F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -957,6 +972,7 @@
 		29234B0B2138592400F547AC /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				1E657007223074190042826E /* typing.json */,
 				29EA029E2069664B0076403B /* x_pop.json */,
 				29EA02982069565B0076403B /* checked_done_.json */,
 				29B5F046208E958D003D996D /* sync_icon.json */,
@@ -1094,6 +1110,7 @@
 			isa = PBXGroup;
 			children = (
 				1EE97E0921E80D4B008B1086 /* CustomModal.swift */,
+				1E657000223052AA0042826E /* TesterType */,
 				1E03B3302204BB1F00116848 /* LoggerWIndow */,
 				1E03B327220367B200116848 /* Privacy */,
 				1EE8EFE021F64C08001F663B /* AutoSync */,
@@ -1665,6 +1682,7 @@
 				29C7C1FE21C815F4005EB5D4 /* ShrubUseTableViewCell.xib in Resources */,
 				2938CF0D21A4765100329DDA /* TourStart.xib in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
+				1E6570042230533F0042826E /* TesterTypePrompt.xib in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib in Resources */,
 				297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */,
@@ -1743,6 +1761,7 @@
 				292B650621C039C100F9A8A5 /* GetNameDialog.xib in Resources */,
 				2943BDA72162996900EFC428 /* TagImage.xib in Resources */,
 				299D3EB4217E66F60000781E /* EmptyStateTableViewCell.xib in Resources */,
+				1E657008223074190042826E /* typing.json in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
 			);
@@ -2023,6 +2042,7 @@
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
 				1E58DF582215EA2800EF0A1D /* dm_Flow.swift in Sources */,
 				297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */,
+				1E657002223052EC0042826E /* TesterTypePrompt.swift in Sources */,
 				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,
 				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,

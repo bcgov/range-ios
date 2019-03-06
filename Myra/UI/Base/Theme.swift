@@ -160,6 +160,26 @@ extension Theme {
         button.layer.borderColor = borderColor
         button.setTitleColor(titleColor, for: .normal)
     }
+    
+    func styleCustomButtonHollow(container: UIView, label: UILabel) {
+        container.backgroundColor = defaultHollowButtonBackground()
+        label.textColor = defaultHollowButtonTitleColor()
+        label.font = Fonts.getPrimary(size: 17)
+        
+        container.layer.cornerRadius = 5
+        container.layer.borderWidth = 1
+        container.layer.borderColor = defaultHollowButtonBorderColor()
+    }
+    
+    func styleCustomButtonFill(container: UIView, label: UILabel) {
+        container.backgroundColor = defaultFillButtonBackground()
+        label.textColor = defaultFillButtonTitleColor()
+        label.font = Fonts.getPrimary(size: 17)
+        
+        container.layer.cornerRadius = 5
+        container.layer.borderWidth = 1
+        container.layer.borderColor = defaultFillButtonBorderColor()
+    }
 
     // MARK: Containers and dividers
     func roundCorners(layer: CALayer) {
