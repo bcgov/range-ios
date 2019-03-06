@@ -69,6 +69,9 @@ class CreateNewRUPViewController: BaseViewController {
         }
     }
     
+    var lastKnowContentOfsset: CGFloat = 0
+    var bannerShown: Bool = false
+    
     // MARK: Outlets
     
     // TOP
@@ -630,10 +633,20 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         NotificationCenter.default.post(name: .formScrolled, object: nil)
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
+             self.HideBanner()
+        }
+        else{
+            self.ShowBanner()
+        }
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         NotificationCenter.default.post(name: .formEndedStrolling, object: nil)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.lastKnowContentOfsset = scrollView.contentOffset.y
     }
     
     func hightlightAppropriateMenuItem() {
@@ -718,11 +731,33 @@ extension CreateNewRUPViewController {
         let computedBannerHeight = (titleHeight + subtitleHeight + verticalPaddings)
         bannerTopConstraint.constant = 0
         bannerContainerHeight.constant = computedBannerHeight
+        self.bannerShown = true
     }
     
     func setBannerClosedSize() {
         self.bannerContainer.alpha = 0
         self.bannerTopConstraint.constant = 0 - (self.bannerContainer.frame.height)
+        self.bannerShown = false
+    }
+    
+    func ShowBanner() {
+        if bannerShown {return}
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration()) {
+            self.bannerTopConstraint.constant = 0
+            self.bannerContainer.alpha = 1
+            self.bannerShown = true
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func HideBanner() {
+        if !bannerShown {return}
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration()) {
+            self.bannerTopConstraint.constant = 0 - (self.bannerContainer.frame.height)
+            self.bannerContainer.alpha = 0
+            self.bannerShown = false
+            self.view.layoutIfNeeded()
+        }
     }
     
     func closeBanner() {

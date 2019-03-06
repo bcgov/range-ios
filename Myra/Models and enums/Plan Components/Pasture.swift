@@ -27,7 +27,7 @@ class Pasture: Object, MyraObject {
     @objc dynamic var name: String = ""
     @objc dynamic var allowedAUMs: Int = -1
     @objc dynamic var privateLandDeduction: Double = 0.0
-    @objc dynamic var graceDays: Int = 3
+    @objc dynamic var graceDays: Int = 1
     @objc dynamic var notes: String = ""
     var plantCommunities = List<PlantCommunity>()
 

@@ -73,7 +73,7 @@ struct PlaceHolders {
         static let name: String = "Name of pasture (ex. \"crown\" if a single pasture)"
         static let allowableAUMs: String = "Approved maximum AUM allocation for this pasture if applicable"
         static let pld: String = "Percentage of use in this pasture occuring on private land"
-        static let graceDays: String = "Acceptable +/- days for livestock movement. Can be tailored by staff in schedule rows."
+        static let graceDays: String = "Grace Days/Straggler clause language should be updated and implemented as the understanding of how this would work practically has improved since this was originally implemented."
         static let notes: String = "Pasture specific information (i.e. not schedule, plant community or Minister's Issue specific). Examples may include relevant history or topographical considerations."
     }
 
