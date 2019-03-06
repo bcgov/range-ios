@@ -189,7 +189,28 @@ class Feedback: NSObject {
         guard let button = getButton() else {return}
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
             button.center = point
-        }) { (done) in }
+        }) { (done) in
+            guard let window = UIApplication.shared.keyWindow else {return}
+            var newPoint = button.center
+            if (button.center.x + (button.frame.width / 2)) > window.frame.maxX {
+                newPoint.x = window.frame.maxX - (button.frame.width / 2)
+            }
+            if (button.center.x - (button.frame.width / 2)) < 0 {
+                newPoint.x = (button.frame.width / 2)
+            }
+            
+            if (button.center.y + (button.frame.width / 2)) > window.frame.maxY {
+                newPoint.y = window.frame.maxY - (button.frame.width / 2)
+            }
+            
+            if (button.center.y - (button.frame.width / 2)) < 0 {
+                newPoint.y = (button.frame.width / 2)
+            }
+            UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
+                button.center = newPoint
+            })
+
+        }
     }
     
     // MARK: Event Handlers
