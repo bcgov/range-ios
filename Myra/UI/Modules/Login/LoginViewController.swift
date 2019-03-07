@@ -61,7 +61,7 @@ class LoginViewController: BaseViewController {
     
     @IBAction func hackyButton(_ sender: Any) {
         guard let appVersion = SettingsManager.generateAppIntegerVersion() else {return}
-        API.updateRemoteVersion(ios: (appVersion), idphint: "bceid") { (success) in
+        API.updateRemoteVersion(ios: (appVersion), idphint: "idir") { (success) in
             print(success)
         }
     }
