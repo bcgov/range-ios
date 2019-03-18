@@ -295,6 +295,7 @@ class CreateNewRUPViewController: BaseViewController {
             endChangeListener()
             self.rup = nil
             self.planCopy = nil
+            NotificationCenter.default.post(name: .planClosed, object: nil)
             presenter.goHome()
         }
     }
@@ -345,6 +346,7 @@ class CreateNewRUPViewController: BaseViewController {
                 Logger.log(message: "Change observed in plan \(r.ranNumber).")
                 self.planIsValid = r.isValid
                 self.notifyPlanChanged()
+                Logger.log(message: "Sent Notification for change in plan \(r.ranNumber).")
             case .deleted:
                 Logger.log(message: "Plan  \(r.ranNumber) deleted.")
                 self.endChangeListener()

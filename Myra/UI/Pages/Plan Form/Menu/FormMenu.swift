@@ -206,6 +206,11 @@ class FormMenu: UIView, Theme {
     func setupFromScrollNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(formScrolled(_:)), name: .formScrolled, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(formEndedStrolling(_:)), name: .formEndedStrolling, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planClosed), name: .planClosed, object: nil)
+    }
+    
+    @objc func planClosed(_ notification:Notification) {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func setupOrientationChangeNotifications() {

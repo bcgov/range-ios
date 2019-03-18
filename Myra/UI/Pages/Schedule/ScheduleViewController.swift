@@ -122,6 +122,7 @@ class ScheduleViewController: BaseViewController {
     // MARK: Add / Remove entry
     func createEntry(from: ScheduleObject?) {
         guard let sched = self.schedule else {return}
+        let wasEmpty = self.entries.isEmpty
         do {
             let realm = try Realm()
             let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
@@ -142,10 +143,15 @@ class ScheduleViewController: BaseViewController {
         }
 
         clearSort()
-        let newEntryIndexPath = IndexPath(row: findIndexOfNew() ?? entries.count - 1, section: 0)
-        self.tableView.beginUpdates()
-        self.tableView.insertRows(at: [newEntryIndexPath], with: .right)
-        self.tableView.endUpdates()
+        if wasEmpty {
+            self.tableView.reloadData()
+        } else {
+            let newEntryIndexPath = IndexPath(row: findIndexOfNew() ?? entries.count - 1, section: 0)
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [newEntryIndexPath], with: .right)
+            self.tableView.endUpdates()
+        }
+        
         NewElementAddedBanner.shared.show()
         self.validate()
     }
@@ -179,10 +185,14 @@ class ScheduleViewController: BaseViewController {
         if let index = findIndexOf(entry: object) {
             RealmRequests.deleteObject(object)
             refreshScheduleObject()
-            let indexPath = IndexPath(row: index, section: 0)
-            self.tableView.beginUpdates()
-            self.tableView.deleteRows(at: [indexPath], with: .left)
-            self.tableView.endUpdates()
+            if self.entries.isEmpty {
+                self.tableView.reloadData()
+            } else {
+                let indexPath = IndexPath(row: index, section: 0)
+                self.tableView.beginUpdates()
+                self.tableView.deleteRows(at: [indexPath], with: .left)
+                self.tableView.endUpdates()
+            }
         } else {
             RealmRequests.deleteObject(object)
             refreshScheduleObject()

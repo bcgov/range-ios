@@ -142,12 +142,12 @@ class ScheduleElementTableViewCell: BaseFormCell {
     @IBAction func numberOfAnimalsChanged(_ sender: UITextField) {
         guard let scheduleVC = self.scheduleViewReference, let object = self.scheduleObject else {return}
         guard let curr = numberOfAniamls.text else {return}
-        if (curr.isInt) {
+        if (curr.isInt), let intCurrent = Int(curr), intCurrent > 0 {
             numberOfAniamls.textColor = UIColor.black
             do {
                 let realm = try Realm()
                 try realm.write {
-                    object.numberOfAnimals = Int(curr)!
+                    object.numberOfAnimals = intCurrent
                 }
             } catch _ {
                 Logger.fatalError(message: LogMessages.databaseWriteFailure)

@@ -11,24 +11,29 @@ import Realm
 import RealmSwift
 
 class ScheduleCellTableViewCell: BaseFormCell {
-
+    
     // MARK: Variables
     static let cellHeight = 66.5
     var schedule: Schedule?
     var parentReference: ScheduleTableViewCell?
     var realmNotificationToken: NotificationToken?
-
+    
     // MARK: Outlets
     @IBOutlet weak var cellContainer: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var optionsIcon: UIView!
-
+    
     // MARK: Outlet Actions
     @IBAction func optionsAction(_ sender: Any) {
         showOptions()
     }
-
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        styleBasedOnValidity()
+    }
+    
     @IBAction func detailAction(_ sender: Any) {
         guard let schedule = self.schedule, let plan = self.plan, let presenter = getPresenter() else {return}
         presenter.showScheduleDetails(for: schedule, in: plan, mode: mode)
@@ -39,9 +44,19 @@ class ScheduleCellTableViewCell: BaseFormCell {
     func setupListeners() {
         beginChangeListener()
         NotificationCenter.default.addObserver(self, selector: #selector(planChanged), name: .planChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planClosed), name: .planClosed, object: nil)
+    }
+    
+    @objc func planClosed(_ notification:Notification) {
+       NotificationCenter.default.removeObserver(self)
     }
     
     @objc func planChanged(_ notification:Notification) {
+        if let sched = self.schedule {
+            Logger.log(message: "Plan Object change notifcation received in Schedule: \(sched.year)")
+        } else {
+            Logger.log(message: "Plan Object change notifcation received in Schedule: UNKNOWN")
+        }
         styleBasedOnValidity()
     }
     
@@ -62,12 +77,13 @@ class ScheduleCellTableViewCell: BaseFormCell {
     }
     
     func endChangeListener() {
+        NotificationCenter.default.removeObserver(self)
         if let token = self.realmNotificationToken {
             token.invalidate()
             Logger.log(message: "Stopped Listening to Changes in Schedule :(")
         }
     }
-
+    
     // MARK: Options
     func showOptions() {
         guard let grandParent = self.parentViewController as? CreateNewRUPViewController else {return}
@@ -83,17 +99,18 @@ class ScheduleCellTableViewCell: BaseFormCell {
             }
         }
     }
-
+    
     func delete() {
         if let s = schedule, let p = parentReference {
-            let grandParent = self.parentViewController as! CreateNewRUPViewController
-            grandParent.showAlert(title: "Are you sure?", description: "Deleting the \(s.year) schedule will also delete all of its entries", yesButtonTapped: {
+            Alert.show(title: "Are you sure?", message:  "Deleting the \(s.year) schedule will also delete all of its entries", yes: {
+                Logger.log(message: "Deleting \(s.year) Schedule")
+                self.endChangeListener()
                 RealmRequests.deleteObject(s)
                 p.updateTableHeight()
             }) {}
         }
     }
-
+    
     func duplicate() {
         guard let sched = schedule, let plan  = self.plan, let parent = parentReference else {return}
         let vm = ViewManager()
@@ -108,12 +125,13 @@ class ScheduleCellTableViewCell: BaseFormCell {
             RUPManager.shared.copyScheduleObjects(from: sched, to: copy)
             do {
                 let realm = try Realm()
-                let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first!
-                try realm.write {
-                    aRup.schedules.append(copy)
-                    realm.add(copy)
+                if let aRup = realm.objects(Plan.self).filter("localId = %@", plan.localId).first {
+                    try realm.write {
+                        aRup.schedules.append(copy)
+                        realm.add(copy)
+                    }
+                    self.plan = aRup
                 }
-                self.plan = aRup
             } catch _ {
                 Logger.fatalError(message: LogMessages.databaseWriteFailure)
             }
@@ -142,14 +160,14 @@ class ScheduleCellTableViewCell: BaseFormCell {
         style()
         setupListeners()
     }
-
+    
     // MARK: Styles
     func style() {
         roundCorners(layer: cellContainer.layer)
         addShadow(to: cellContainer.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 5)
         styleBasedOnValidity()
     }
-
+    
     func styleInvalid() {
         nameLabel.textColor = UIColor.red
         cellContainer.layer.borderColor = UIColor.red.cgColor
@@ -158,10 +176,11 @@ class ScheduleCellTableViewCell: BaseFormCell {
         nameLabel.textColor = UIColor.black
         cellContainer.layer.borderColor = UIColor.black.cgColor
     }
-
+    
     func styleBasedOnValidity() {
         refreshScheduleObject()
         guard let current = self.schedule, let plan = self.plan else {return}
+        Logger.log(message: "Cheching validity of schedule \(current.year)")
         let valid = RUPManager.shared.validateSchedule(schedule: current, agreementID: plan.agreementId)
         UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             if !valid.0 {
@@ -172,13 +191,14 @@ class ScheduleCellTableViewCell: BaseFormCell {
             self.layoutIfNeeded()
         })
     }
-
+    
     func refreshScheduleObject() {
         guard let sched = self.schedule else {return}
         do {
             let realm = try Realm()
-            let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first!
-            self.schedule = aSchedule
+            if let aSchedule = realm.objects(Schedule.self).filter("localId = %@", sched.localId).first {
+                self.schedule = aSchedule
+            }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseReadFailure)
         }

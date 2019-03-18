@@ -33,8 +33,8 @@ class PlanVersionTableViewCell: BaseTableViewCell {
 
     // MARK: Outlet Actions
     @IBAction func viewAction(_ sender: UIButton) {
-        guard let plan = rup, let presenter = getPresenter() else {return}
-        if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
+        guard let plan = rup, let refetchedPlan = RealmManager.shared.plan(withLocalId: plan.localId), let presenter = getPresenter() else {return}
+        if refetchedPlan.getStatus() == .LocalDraft || refetchedPlan.getStatus() == .StaffDraft {
             presenter.showForm(for: plan, mode: .Edit)
         } else {
             presenter.showForm(for: plan, mode: .View)

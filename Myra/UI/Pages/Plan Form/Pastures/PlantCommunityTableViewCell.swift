@@ -52,6 +52,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
             switch option.type {
             case .Delete:
                 grandParent.showAlert(title: "Would you like to delete this Plant Community?", description: "All monitoring areas and pasture actions will also be removed", yesButtonTapped: {
+                    self.endChangeListener()
                     RealmManager.shared.deletePlantCommunity(object: pc)
                     parent.updateTableHeight()
                 }, noButtonTapped: {})
@@ -66,9 +67,20 @@ class PlantCommunityTableViewCell: BaseFormCell {
     func setupListeners() {
         beginChangeListener()
         NotificationCenter.default.addObserver(self, selector: #selector(planChanged), name: .planChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planClosed), name: .planClosed, object: nil)
+    }
+    
+    @objc func planClosed(_ notification:Notification) {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func planChanged(_ notification:Notification) {
+        if let pc = self.plantCommunity {
+            Logger.log(message: "Plan Object change notifcation received in Plant Community: \(pc.name)")
+        } else {
+            Logger.log(message: "Plan Object change notifcation received in Plant Community: UNKNOWN")
+        }
+        
         styleBasedOnValidity()
     }
     
@@ -89,6 +101,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
     }
     
     func endChangeListener() {
+        NotificationCenter.default.removeObserver(self)
         if let token = self.realmNotificationToken {
             token.invalidate()
             Logger.log(message: "Stopped Listening to Changes in plant community :(")
@@ -164,8 +177,9 @@ class PlantCommunityTableViewCell: BaseFormCell {
         guard let pc = self.plantCommunity else {return}
         do {
             let realm = try Realm()
-            let aPC = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first!
-            self.plantCommunity = aPC
+            if let aPC = realm.objects(PlantCommunity.self).filter("localId = %@", pc.localId).first {
+                self.plantCommunity = aPC
+            }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
