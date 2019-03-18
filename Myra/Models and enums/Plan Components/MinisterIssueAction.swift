@@ -57,6 +57,18 @@ class MinisterIssueAction: Object, MyraObject {
         if let otherActionTypeName = json["other"].string {
             self.otherActionTypeName = otherActionTypeName
         }
+        
+        if let inDay = json["noGrazeStartDay"].int, let inMonth = json["noGrazeStartMonth"].int {
+            self.noGrazeInDay = inDay
+            self.noGrazeInMonth = inMonth
+            self.noGrazeInSelected = true
+        }
+        
+        if let outDay = json["noGrazeEndDay"].int, let outMonth = json["noGrazeEndMonth"].int {
+            self.noGrazeOutDay = outDay
+            self.noGrazeOutMonth = outMonth
+            self.noGrazeOutSelected = true
+        }
     }
 
     // MARK: Setters
@@ -81,7 +93,6 @@ class MinisterIssueAction: Object, MyraObject {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
-
 
     // MARK: Validations
     func requiredFieldsAreFilled() -> Bool {
@@ -110,9 +121,28 @@ class MinisterIssueAction: Object, MyraObject {
     }
 
     func toDictionary() -> [String:Any] {
+        var noInDay = 0
+        var noInMonth = 0
+        var noEndDay = 0
+        var noEndMonth = 0
+        
+        if noGrazeInSelected {
+            noInDay = noGrazeInDay
+            noInMonth = noGrazeInMonth
+        }
+        
+        if noGrazeOutSelected {
+            noEndDay = noGrazeOutDay
+            noEndMonth = noGrazeOutMonth
+        }
         return [
             "detail": self.desc,
             "actionTypeId": self.actionTypeID,
+            "other": self.otherActionTypeName,
+            "noGrazeEndDay": noEndDay ,
+            "noGrazeEndMonth": noEndMonth,
+            "noGrazeStartDay": noInDay,
+            "noGrazeStartMonth": noInMonth,
         ]
     }
 }

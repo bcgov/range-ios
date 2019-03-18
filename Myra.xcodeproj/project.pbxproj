@@ -791,8 +791,8 @@
 		1E58DF5B2215F08300EF0A1D /* Models and Enums */ = {
 			isa = PBXGroup;
 			children = (
-				1E58DF5C2215F21A00EF0A1D /* FlowOption.swift */,
 				1E58DF5E2215F22400EF0A1D /* StatusWithFlow.swift */,
+				1E58DF5C2215F21A00EF0A1D /* FlowOption.swift */,
 				1E58DF602215F24E00EF0A1D /* FlowModel.swift */,
 			);
 			path = "Models and Enums";
@@ -931,7 +931,6 @@
 				2932BB52208669C300579A57 /* enums */,
 				2932BB5320866C5D00579A57 /* Plan Components */,
 				29EADF7C206039A90087593F /* Reference data objects */,
-				1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */,
 			);
 			path = "Models and enums";
 			sourceTree = "<group>";
@@ -1003,6 +1002,7 @@
 			isa = PBXGroup;
 			children = (
 				2920F83D2034D6D60090E7B4 /* RUPStatus.swift */,
+				1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */,
 				296232042047293A00F1CEBF /* FormMode.swift */,
 				29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */,
 				29FB97C2204DCCB2005297B9 /* LiveStockIDType.swift */,
@@ -1106,10 +1106,11 @@
 			path = Feedback;
 			sourceTree = "<group>";
 		};
-		297D8FC921C9647F00D9A8B8 /* Custom Elements */ = {
+		297D8FC921C9647F00D9A8B8 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
 				1EE97E0921E80D4B008B1086 /* CustomModal.swift */,
+				1E58DF402215DF1C00EF0A1D /* Flows */,
 				1E657000223052AA0042826E /* TesterType */,
 				1E03B3302204BB1F00116848 /* LoggerWIndow */,
 				1E03B327220367B200116848 /* Privacy */,
@@ -1132,7 +1133,7 @@
 				297D8FEB21C9925C00D9A8B8 /* DatePicker - Used as year picker */,
 				297D8FDF21C9777100D9A8B8 /* Tag Image */,
 			);
-			path = "Custom Elements";
+			path = Modals;
 			sourceTree = "<group>";
 		};
 		297D8FCA21C9651000D9A8B8 /* Home */ = {
@@ -1162,7 +1163,6 @@
 				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
 				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
 				1EF4D1F52208B204004FD173 /* Menu */,
-				1E03B3182202314700116848 /* Empty State */,
 				297D8FD621C9731B00D9A8B8 /* Map */,
 				297D8FCD21C9698F00D9A8B8 /* Basic Information */,
 				297D8FCE21C96BED00D9A8B8 /* LiveStock */,
@@ -1552,17 +1552,17 @@
 		29EB8442203DEE7A00D73F6B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				1E58DF402215DF1C00EF0A1D /* Flows */,
-				297D8FC921C9647F00D9A8B8 /* Custom Elements */,
 				2920F83F2034F37A0090E7B4 /* Base */,
-				29EB8443203DEE8600D73F6B /* Modules */,
+				297D8FC921C9647F00D9A8B8 /* Modals */,
+				29EB8443203DEE8600D73F6B /* Pages */,
 			);
 			path = UI;
 			sourceTree = "<group>";
 		};
-		29EB8443203DEE8600D73F6B /* Modules */ = {
+		29EB8443203DEE8600D73F6B /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				1E03B3182202314700116848 /* Empty State */,
 				297D8FE321C9790C00D9A8B8 /* Main */,
 				297D8FE421C9791600D9A8B8 /* Login */,
 				297D8FCA21C9651000D9A8B8 /* Home */,
@@ -1572,7 +1572,7 @@
 				297D8FD521C9708B00D9A8B8 /* Schedule */,
 				2920F8202034B98D0090E7B4 /* Currently Not Used */,
 			);
-			path = Modules;
+			path = Pages;
 			sourceTree = "<group>";
 		};
 		2B403992E92ACF9C74893352 /* Pods */ = {

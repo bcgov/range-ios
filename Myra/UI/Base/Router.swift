@@ -25,6 +25,7 @@ extension MainViewController {
 
     func showLogin() {
         transitionOptions = [.showHideTransitionViews, leftTransitionAnimation]
+        
         let vm = ViewManager()
         let vc = vm.login
 

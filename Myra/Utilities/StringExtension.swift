@@ -28,5 +28,4 @@ extension String {
         return self.height(withConstrainedWidth: label.frame.width - subtractWidth, font: label.font)
     }
     
-    
 }

@@ -117,7 +117,7 @@ struct PlaceHolders {
 
 struct InfoTips {
 
-    static let usage = "Authorized usaged entered in FTA. If incorrect or incomplete, update FTA and wait for daily sync of myra with FTA"
+    static let usage = "Authorized usaged entered in FTA. If incorrect or incomplete, update FTA and wait for daily sync of MyRangeBC with FTA"
     static let basicInformation = "Agreement specifics from FTA (including usage) and plan specifics entered by staff. If there is agreement information that is incorrect, update FTA and wait until next FTA sync (daily)."
 
     static let rangeName = "Each agreement needs to have a common name (descriptive or nickname) to easily distinguish between ranges when an agreement holder has more than one. If the agreement holder has only one agreement the range name might be simply “crown.”"
@@ -126,7 +126,7 @@ struct InfoTips {
 
     static let privateLandDeduction = "Percentage of total forage grazed from this pasture attributed to private land."
 
-    static let allowableAUMs = "Approved maximum AUM allocation for this pasture. The default is “not set” to indicate that there is not a approved AUM allocation for the pastures. Overwrite this value if there is an approved AUM allocation."
+    static let allowableAUMs = "Approved maximum AUM allocation for this pasture. The default is “not set” to indicate that there is not an approved AUM allocation for the pasture. Overwrite this value if there is an approved AUM allocation."
 
     static let plantCommunityActions = "RPPR section 13(1) allows the minister to specify actions to establish or maintain a described plant community. Actions are to be determined by staff and accepted by the decision maker before sending the RUP or amendment to the agreement holder. In some situations it may be appropriate to discuss the specifics of the plant community with the agreement holder before determining the actions and seeking acceptance from the decision maker."
 
@@ -138,7 +138,7 @@ struct InfoTips {
 
     static let monitoringAreaPurpose = "Each monitoring area must be selected carefully based on the purpose it is needed.\n\nRange Readiness: date, average plant growth or text statement that identifies when range is ready to be grazed\nStubble Height: the average height of plants remaining after grazing\n\nShrub Use: average browse use level of current annual growth\n\nKey Area: a relatively small portion of a range selected because of its location, use or grazing values as a monitoring point for grazing use. It is assumed that, if properly selected, key areas will reflect the overall acceptability of current grazing management over the range.\n\nOther: text description of why a monitoring area is selected (ex. tracking an issue)"
 
-    static let yearlySchedule = "FRPA section 33 states that every RUP must include a schedule that includes livestock class, number and period of use for each pasture.\n\nEvery schedule must have at least one row in the schedule grid. The schedule description/narrative is optional but when included is legal content.\n\nOn/off schedules (off being on private land) are addressed using PLD % at the pasture level.\n\nStraggler clause is recorded using “grace days.” A default is entered for the pasture but it can be overwritten in the individual entries in the schedule as needed.\n\nStaff may either require that a schedule be provided for all plan years at the time of RUP approval OR that a new schedule be provided every year.\n\nOptions to copy an entire schedule to another year or to copy a single schedule row are available by selecting the three dots at the right."
+    static let yearlySchedule = "FRPA section 33 states that every RUP must include a schedule that includes livestock class, number and period of use for each pasture.\n\nEvery schedule must have at least one row in the schedule grid. The schedule description/narrative is optional but when included is legal content.\n\nOn/off schedules (off being on private land) are addressed using PLD % at the pasture level.\n\nStraggler clause is recorded using the schedule narrative.\n\nStaff may either require that a schedule be provided for all plan years at the time of RUP approval OR that a new schedule be provided every year.\n\nOptions to copy an entire schedule to another year or to copy a single schedule row are available by selecting the three dots at the right."
 
     static let ministersIssuesandActions = "FRPA section 33 indicates that actions to to deal with issues identified by the minister must be specified in the RUP.\n\nIssues must be identified by the delegated decision maker (either on a site-specific basis or as a set of issues and conditions when they apply in a district) and documentation included on file before an RUP can be sent to an agreement holder for their input.\n\nRefer to the Minister’s Issue Policy for details on identifying issues for RUP content."
 
