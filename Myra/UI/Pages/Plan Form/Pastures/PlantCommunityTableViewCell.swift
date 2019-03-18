@@ -144,6 +144,8 @@ class PlantCommunityTableViewCell: BaseFormCell {
         refreshPlantCommunityObject()
         guard let pc = self.plantCommunity else {return}
         
+        Logger.log(message: "Checking validity of plant community: \(pc.name)")
+        
         for monitoringArea in pc.monitoringAreas where !monitoringArea.requiredFieldsAreFilled() {
             styleInvalid()
             return
