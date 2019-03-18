@@ -500,7 +500,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
                 let message = "Tap the add row button above to add the first row to this schedule."
                 let title = "You Have Not added Any Rows To This Schedule"
                 let icon = UIImage(named: "schedule-empty")
-                cell.setup(icon: icon, title: title, message: message)
+                cell.setup(icon: icon, title: title, message: message, fixedHeight: 300)
                 return cell
             } else {
                 return getScheduleEntryCell(for: indexPath)
