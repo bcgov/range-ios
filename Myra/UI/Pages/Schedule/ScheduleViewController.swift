@@ -469,6 +469,7 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
         registerCell(name: "ScheduleFormTableViewCell")
         registerCell(name: "ScheduleElementTableViewCell")
         registerCell(name: "ScheduleFooterTableViewCell")
+        registerCell(name: "EmptyStateTableViewCell")
     }
 
     func registerCell(name: String) {
@@ -487,10 +488,23 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
     func getScheduleFooterCell(indexPath: IndexPath) -> ScheduleFooterTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "ScheduleFooterTableViewCell", for: indexPath) as! ScheduleFooterTableViewCell
     }
+    
+    func getEmptyStateCell(indexPath: IndexPath) -> EmptyStateTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "EmptyStateTableViewCell", for: indexPath) as! EmptyStateTableViewCell
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            return getScheduleEntryCell(for: indexPath)
+            if self.entries.count < 1 {
+                let cell = getEmptyStateCell(indexPath: indexPath)
+                let message = "Tap the add row button above to add the first row to this schedule."
+                let title = "You Have Not added Any Rows To This Schedule"
+                let icon = UIImage(named: "schedule-empty")
+                cell.setup(icon: icon, title: title, message: message)
+                return cell
+            } else {
+                return getScheduleEntryCell(for: indexPath)
+            }
         } else {
             let cell = getScheduleFooterCell(indexPath: indexPath)
             cell.setup(mode: mode, schedule: schedule!, agreementID: (rup?.agreementId)!)
@@ -513,7 +527,12 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return self.entries.count
+            let entriesCount = self.entries.count
+            if  entriesCount < 1 {
+                return 1
+            } else {
+                return self.entries.count
+            }
         } else {
             return 1
         }

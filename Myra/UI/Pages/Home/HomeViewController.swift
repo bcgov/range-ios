@@ -607,13 +607,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: "PlanTableViewCell", for: indexPath) as! PlanTableViewCell
     }
     
-    func getEmptyPastureCell(indexPath: IndexPath) -> EmptyStateTableViewCell {
+    func getEmptyStateCell(indexPath: IndexPath) -> EmptyStateTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "EmptyStateTableViewCell", for: indexPath) as! EmptyStateTableViewCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if rups.count < 1 {
-            let cell = getEmptyPastureCell(indexPath: indexPath)
+            let cell = getEmptyStateCell(indexPath: indexPath)
             let message = "You have not created any RUPs yet in MyRange BC. Use the Create New RUP button to select a RAN and create a new digital RUP."
             let title = "Looking a little barren around here?"
             let icon = UIImage(named: "Seedling")
