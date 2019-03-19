@@ -27,7 +27,7 @@ class Pasture: Object, MyraObject {
     @objc dynamic var name: String = ""
     @objc dynamic var allowedAUMs: Int = -1
     @objc dynamic var privateLandDeduction: Double = 0.0
-    @objc dynamic var graceDays: Int = 3
+    @objc dynamic var graceDays: Int = 1
     @objc dynamic var notes: String = ""
     var plantCommunities = List<PlantCommunity>()
 
@@ -115,16 +115,14 @@ class Pasture: Object, MyraObject {
     }
 
     func toDictionary() -> [String:Any] {
-        var allowedAUM: Int? = allowedAUMs
-        if allowedAUM == -1 {
-            allowedAUM = nil
+        var dict = [String:Any]()
+        if allowedAUMs != -1 {
+            dict["allowableAum"] =  allowedAUMs
         }
-        return [
-            "name": name,
-            "allowableAum": allowedAUM,
-            "graceDays": graceDays,
-            "pldPercent": (privateLandDeduction/100),
-            "notes": notes
-        ]
+        dict["name"] = name
+        dict["graceDays"] = graceDays
+        dict["pldPercent"] = (privateLandDeduction/100)
+        dict["notes"] = notes
+        return dict
     }
 }

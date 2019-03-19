@@ -44,7 +44,7 @@ struct StatusConstants {
         static let serverStatus = "CREATED"
         static let serverCode = "C"
         static let description = "iOS Submited to AH"
-        static let displayName = "Add Content to RUP"
+        static let displayName = "Submitted to AH"
         static let bannerTitle = "Submitted to AH for Input"
         static let bannerDescription = "This range use plan has been submitted the agreement holder for input. You will be notified when a submission is received."
         static let color = Colors.Status.LightGray
@@ -118,6 +118,10 @@ struct StatusConstants {
         static let displayName = "Provide Feedback"
         static let bannerTitle = "Provide *Initial Range Use Plan*/*Mandatory Amendment* Feedback"
         static let bannerDescription = "The agreement holder has requested your feedback for this *intial range use plan*/ *mandatory amendment *. Use the Plan Actions menu to respond to the agreement holder by selecting \"Request Changes\" or \"Recommend This Plan For Submission\"."
+        static let bannerTitleInitial = "Provide Initial Range Use Plan Feedback"
+        static let bannerDescriptionInitial = "The agreement holder has requested your feedback for this intial range use plan. Use the Plan Actions menu to respond to the agreement holder by selecting \"Request Changes\" or \"Recommend This Plan For Submission\"."
+        static let bannerTitleMandatory = "Provide Mandatory Amendment Feedback"
+        static let bannerDescriptionMandatory = "The agreement holder has requested your feedback for this mandatory amendment. Use the Plan Actions menu to respond to the agreement holder by selecting \"Request Changes\" or \"Recommend This Plan For Submission\"."
         static let color = Colors.Status.Yellow
     }
     
@@ -128,6 +132,10 @@ struct StatusConstants {
         static let displayName = "Decision Required"
         static let bannerTitle = "*Initial Range Use Plan*/*Mandatory Amendment* Decision Required"
         static let bannerDescription = "This *intial range use plan*/ *mandatory amendment * has been submitted for final decision. If change are required select \"Request Changes\" from the Plan Actions menu. If the plan is ready for decision prepare your recommendation package. Once submitted to the decision maker select \"Recommend Ready\" or \"Recommend not Ready\" in the Plan Actions menu to reflect your recommendation."
+        static let bannerTitleInitial = "Initial Range Use Plan Decision Required"
+        static let bannerDescriptionInitial = "This intial range use plan has been submitted for final decision. If change are required select \"Request Changes\" from the Plan Actions menu. If the plan is ready for decision prepare your recommendation package. Once submitted to the decision maker select \"Recommend Ready\" or \"Recommend not Ready\" in the Plan Actions menu to reflect your recommendation."
+        static let bannerTitleMandatory = "Mandatory Amendment Decision Required"
+        static let bannerDescriptionMandatory = "This mandatory amendment has been submitted for final decision. If change are required select \"Request Changes\" from the Plan Actions menu. If the plan is ready for decision prepare your recommendation package. Once submitted to the decision maker select \"Recommend Ready\" or \"Recommend not Ready\" in the Plan Actions menu to reflect your recommendation."
         static let color = Colors.Status.Yellow
     }
     
@@ -138,6 +146,10 @@ struct StatusConstants {
         static let displayName = "AH Signatures Pending"
         static let bannerTitle = "*Initial Range Use Plan*/*Mandatory Amendment* AH Signatures Pending"
         static let bannerDescription = "This *intial range use plan*/ *mandatory amendment *'s submission process has been started and is awaiting signatures from all agreement holders. You will be notified when the submission is ready for review."
+        static let bannerTitleInitial = "Initial Range Use Plan AH Signatures Pending"
+        static let bannerDescriptionInitial = "This intial range use plan's submission process has been started and is awaiting signatures from all agreement holders. You will be notified when the submission is ready for review."
+        static let bannerTitleMandatory = "Mandatory Amendment AH Signatures Pending"
+        static let bannerDescriptionMandatory = "This mandatory amendment's submission process has been started and is awaiting signatures from all agreement holders. You will be notified when the submission is ready for review."
         static let color = Colors.Status.DarkGray
     }
     
@@ -148,6 +160,10 @@ struct StatusConstants {
         static let displayName = "Recommended for Submission"
         static let bannerTitle = "Recommended for Submission"
         static let bannerDescription = "A staff person has provided feedback to the agreement holder that this *intial range use plan*/ *mandatory amendment * is ready for final signatures and decision. You will be notified when it has been signed and submitted."
+        static let bannerTitleInitial = "Recommended for Submission"
+        static let bannerDescriptionInitial = "A staff person has provided feedback to the agreement holder that this intial range use plan is ready for final signatures and decision. You will be notified when it has been signed and submitted."
+        static let bannerTitleMandatory = "Recommended for Submission"
+        static let bannerDescriptionMandatory = "A staff person has provided feedback to the agreement holder that this mandatory amendment is ready for final signatures and decision. You will be notified when it has been signed and submitted."
         static let color = Colors.Status.DarkGray
     }
     
@@ -158,6 +174,10 @@ struct StatusConstants {
         static let displayName = "Approval Recommended"
         static let bannerTitle = "*Initial Range Use Plan*/*Mandatory Amendment* - Recommended Ready"
         static let bannerDescription = "Staff have recommended to the decision maker that this *intial range use plan*/ *mandatory amendment * be approved. You will be notified when the decision has been made.\n\nIf the */* is not approved you must notify the AH before recording the decision in the Plan Actions menu."
+        static let bannerTitleInitial = "Initial Range Use Plan - Recommended Ready"
+        static let bannerDescriptionInitial = "Staff have recommended to the decision maker that this intial range use plan be approved. You will be notified when the decision has been made.\nIf the intial range use plan is not approved you must notify the AH before recording the decision by tapping \"Record Descision\"."
+        static let bannerTitleMandatory = "Mandatory Amendment - Recommended Ready"
+        static let bannerDescriptionMandatory = "Staff have recommended to the decision maker that this mandatory amendment be approved. You will be notified when the decision has been made.\nIf the mandatory amendment is not approved you must notify the AH before recording the decision by tapping \"Record Descision\"."
         static let color = Colors.Status.DarkGray
     }
     
@@ -168,6 +188,10 @@ struct StatusConstants {
         static let displayName = "Approval Not Recommended"
         static let bannerTitle = "*Initial Range Use Plan*/*Mandatory Amendment* - Recommended Not Ready"
         static let bannerDescription = "Staff have recommended to the decision maker that this *intial range use plan*/ *mandatory amendment * not be approved. You will be notified when the decision has been made.\n\nIf the */* is not approved you must notify the AH before recording the decision in the Plan Actions menu."
+        static let bannerTitleInitial = "Initial Range Use Plan - Recommended Not Ready"
+        static let bannerDescriptionInitial = "Staff have recommended to the decision maker that this intial range use plan not be approved. You will be notified when the decision has been made.\nIf the intial range use plan is not approved you must notify the AH before recording the decision in the Plan Actions menu."
+        static let bannerTitleMandatory = "Mandatory Amendment - Recommended Not Ready"
+        static let bannerDescriptionMandatory = "Staff have recommended to the decision maker that this mandatory amendment not be approved. You will be notified when the decision has been made.\nIf the mandatory amendment is not approved you must notify the AH before recording the decision in the Plan Actions menu."
         static let color = Colors.Status.DarkGray
     }
     
@@ -178,6 +202,10 @@ struct StatusConstants {
         static let displayName = "Changes Requested"
         static let bannerTitle = "Plan Not Approved - Further Work Required"
         static let bannerDescription = "The agreement holder has been notified that this *intial range use plan*/ *mandatory amendment * is not approved and further work is required. You will be notified when a submission is received."
+        static let bannerTitleInitial = "Plan Not Approved - Further Work Required"
+        static let bannerDescriptionInitial = "The agreement holder has been notified that this intial range use plan is not approved and further work is required. You will be notified when a submission is received."
+        static let bannerTitleMandatory = "Plan Not Approved - Further Work Required"
+        static let bannerDescriptionMandatory = "The agreement holder has been notified that this mandatory amendment is not approved and further work is required. You will be notified when a submission is received."
         static let color = Colors.Status.DarkGray
     }
     
@@ -188,6 +216,10 @@ struct StatusConstants {
         static let displayName = "Not Approved"
         static let bannerTitle = "Plan Not Approved"
         static let bannerDescription = "The agreement holder has been notified that this *intial range use plan*/ *mandatory amendment * is not approved. The previously approved range use plan will be the current legal version."
+        static let bannerTitleInitial = "Plan Not Approved"
+        static let bannerDescriptionInitial = "The agreement holder has been notified that this intial range use plan is not approved. The previously approved range use plan will be the current legal version."
+        static let bannerTitleMandatory = "Plan Not Approved"
+        static let bannerDescriptionMandatory = "The agreement holder has been notified that this mandatory amendment is not approved. The previously approved range use plan will be the current legal version."
         static let color = Colors.Status.Red
     }
     
@@ -198,6 +230,10 @@ struct StatusConstants {
         static let displayName = "Approved"
         static let bannerTitle = "Plan Approved"
         static let bannerDescription = "The agreement holder has been notified that this *intial range use plan*/ *mandatory amendment * is approved. This RUP is the current legal version."
+        static let bannerTitleInitial = "Plan Approved"
+        static let bannerDescriptionInitial = "The agreement holder has been notified that this intial range use plan is approved. This RUP is the current legal version."
+        static let bannerTitleMandatory = "Plan Approved"
+        static let bannerDescriptionMandatory = "The agreement holder has been notified that this mandatory amendment is approved. This RUP is the current legal version."
         static let color = Colors.Status.Green
     }
     
@@ -206,8 +242,8 @@ struct StatusConstants {
         static let serverCode = ""
         static let description = "Initial - Staff RUP Draft Not yet syncronized"
         static let displayName = "Draft (Needs to Sync)"
-        static let bannerTitle = "Submitted to AH for Input"
-        static let bannerDescription = "This range use plan has been submitted the agreement holder for input. You will be notified when a submission is received."
+        static let bannerTitle = "Local Draft (Unsynced)"
+        static let bannerDescription = "This range use plan draft is currently in progress and has NOT been synced to the server. Changes to this draft may be lost. Please connect to the internet and sync the application as soon as possible using the \"Sync\" button on the homescreen."
         static let color = Colors.Status.DarkGray
     }
     
@@ -243,7 +279,9 @@ class statusDescriptionModel {
 }
 
 class StatusHelper {
-    static func getDescription(for status: RUPStatus) -> statusDescriptionModel {
+    static func getDescription(for plan: Plan) -> statusDescriptionModel {
+        let isInitial = (plan.amendmentTypeId == -1)
+        let status = plan.getStatus()
         var serverStatus = ""
         var serverCode = ""
         var description = ""
@@ -337,64 +375,104 @@ class StatusHelper {
             serverCode = StatusConstants.NotApprovedFurtherWorkRequired.serverCode
             description = StatusConstants.NotApprovedFurtherWorkRequired.description
             displayName = StatusConstants.NotApprovedFurtherWorkRequired.displayName
-            bannerTitle = StatusConstants.NotApprovedFurtherWorkRequired.bannerTitle
-            bannerDescription = StatusConstants.NotApprovedFurtherWorkRequired.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.NotApprovedFurtherWorkRequired.bannerTitleInitial
+                bannerDescription = StatusConstants.NotApprovedFurtherWorkRequired.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.NotApprovedFurtherWorkRequired.bannerTitleMandatory
+                bannerDescription = StatusConstants.NotApprovedFurtherWorkRequired.bannerDescriptionMandatory
+            }
             color = StatusConstants.NotApprovedFurtherWorkRequired.color
         case .NotApproved:
             serverStatus = StatusConstants.NotApproved.serverStatus
             serverCode = StatusConstants.NotApproved.serverCode
             description = StatusConstants.NotApproved.description
             displayName = StatusConstants.NotApproved.displayName
-            bannerTitle = StatusConstants.NotApproved.bannerTitle
-            bannerDescription = StatusConstants.NotApproved.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.NotApproved.bannerTitleInitial
+                bannerDescription = StatusConstants.NotApproved.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.NotApproved.bannerTitleMandatory
+                bannerDescription = StatusConstants.NotApproved.bannerDescriptionMandatory
+            }
             color = StatusConstants.NotApproved.color
         case .Approved:
             serverStatus = StatusConstants.Approved.serverStatus
             serverCode = StatusConstants.Approved.serverCode
             description = StatusConstants.Approved.description
             displayName = StatusConstants.Approved.displayName
-            bannerTitle = StatusConstants.Approved.bannerTitle
-            bannerDescription = StatusConstants.Approved.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.Approved.bannerTitleInitial
+                bannerDescription = StatusConstants.Approved.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.Approved.bannerTitleMandatory
+                bannerDescription = StatusConstants.Approved.bannerDescriptionMandatory
+            }
             color = StatusConstants.Approved.color
         case .SubmittedForReview:
             serverStatus = StatusConstants.SubmittedForReview.serverStatus
             serverCode = StatusConstants.SubmittedForReview.serverCode
             description = StatusConstants.SubmittedForReview.description
             displayName = StatusConstants.SubmittedForReview.displayName
-            bannerTitle = StatusConstants.SubmittedForReview.bannerTitle
-            bannerDescription = StatusConstants.SubmittedForReview.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.SubmittedForReview.bannerTitleInitial
+                bannerDescription = StatusConstants.SubmittedForReview.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.SubmittedForReview.bannerTitleMandatory
+                bannerDescription = StatusConstants.SubmittedForReview.bannerDescriptionMandatory
+            }
             color = StatusConstants.SubmittedForReview.color
         case .SubmittedForFinalDecision:
             serverStatus = StatusConstants.SubmittedForFinalDecision.serverStatus
             serverCode = StatusConstants.SubmittedForFinalDecision.serverCode
             description = StatusConstants.SubmittedForFinalDecision.description
             displayName = StatusConstants.SubmittedForFinalDecision.displayName
-            bannerTitle = StatusConstants.SubmittedForFinalDecision.bannerTitle
-            bannerDescription = StatusConstants.SubmittedForFinalDecision.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.SubmittedForFinalDecision.bannerTitleInitial
+                bannerDescription = StatusConstants.SubmittedForFinalDecision.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.SubmittedForFinalDecision.bannerTitleMandatory
+                bannerDescription = StatusConstants.SubmittedForFinalDecision.bannerDescriptionMandatory
+            }
             color = StatusConstants.SubmittedForFinalDecision.color
         case .RecommendReady:
             serverStatus = StatusConstants.RecommendReady.serverStatus
             serverCode = StatusConstants.RecommendReady.serverCode
             description = StatusConstants.RecommendReady.description
             displayName = StatusConstants.RecommendReady.displayName
-            bannerTitle = StatusConstants.RecommendReady.bannerTitle
-            bannerDescription = StatusConstants.RecommendReady.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.RecommendReady.bannerTitleInitial
+                bannerDescription = StatusConstants.RecommendReady.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.RecommendReady.bannerTitleMandatory
+                bannerDescription = StatusConstants.RecommendReady.bannerDescriptionMandatory
+            }
             color = StatusConstants.RecommendReady.color
         case .RecommendNotReady:
             serverStatus = StatusConstants.RecommendNotReady.serverStatus
             serverCode = StatusConstants.RecommendNotReady.serverCode
             description = StatusConstants.RecommendNotReady.description
             displayName = StatusConstants.RecommendNotReady.displayName
-            bannerTitle = StatusConstants.RecommendNotReady.bannerTitle
-            bannerDescription = StatusConstants.RecommendNotReady.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.RecommendNotReady.bannerTitleInitial
+                bannerDescription = StatusConstants.RecommendNotReady.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.RecommendNotReady.bannerTitleMandatory
+                bannerDescription = StatusConstants.RecommendNotReady.bannerDescriptionMandatory
+            }
             color = StatusConstants.RecommendNotReady.color
-        case .RecommendForSubmission:
+        case .RecommendedForSubmission:
             serverStatus = StatusConstants.RecommendForSubmission.serverStatus
             serverCode = StatusConstants.RecommendForSubmission.serverCode
             description = StatusConstants.RecommendForSubmission.description
             displayName = StatusConstants.RecommendForSubmission.displayName
-            bannerTitle = StatusConstants.RecommendForSubmission.bannerTitle
-            bannerDescription = StatusConstants.RecommendForSubmission.bannerDescription
+            if isInitial {
+                bannerTitle = StatusConstants.RecommendForSubmission.bannerTitleInitial
+                bannerDescription = StatusConstants.RecommendForSubmission.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.RecommendForSubmission.bannerTitleMandatory
+                bannerDescription = StatusConstants.RecommendForSubmission.bannerDescriptionMandatory
+            }
             color = StatusConstants.RecommendForSubmission.color
         case .LocalDraft:
             serverStatus = StatusConstants.LocalDraft.serverStatus
@@ -414,11 +492,75 @@ class StatusHelper {
             color = StatusConstants.Outbox.color
         case .Unknown:
             color = UIColor.purple
+        case .AwaitingConfirmation:
+            serverStatus = StatusConstants.AwaitingConfirmation.serverStatus
+            serverCode = StatusConstants.AwaitingConfirmation.serverCode
+            description = StatusConstants.AwaitingConfirmation.description
+            displayName = StatusConstants.AwaitingConfirmation.displayName
+            if isInitial {
+                bannerTitle = StatusConstants.AwaitingConfirmation.bannerTitleInitial
+                bannerDescription = StatusConstants.AwaitingConfirmation.bannerDescriptionInitial
+            } else {
+                bannerTitle = StatusConstants.AwaitingConfirmation.bannerTitleMandatory
+                bannerDescription = StatusConstants.AwaitingConfirmation.bannerDescriptionMandatory
+            }
+            color = StatusConstants.AwaitingConfirmation.color
         }
         return statusDescriptionModel(serverStatus: serverStatus, serverCode: serverCode, description: description, displayName: displayName, bannerTitle: bannerTitle, bannerDescription: bannerDescription, color: color)
     }
     
-    static func getColor(for status: RUPStatus) -> UIColor {
-        return getDescription(for: status).color
+    static func getColor(for plan: Plan) -> UIColor {
+        return getDescription(for: plan).color
+    }
+    
+    static func getServerCode(for status: RUPStatus) -> String {
+        var serverCode = ""
+        switch status {
+        case .Pending:
+            serverCode = StatusConstants.Pending.serverCode
+        case .Completed:
+            serverCode = StatusConstants.Completed.serverCode
+        case .ClientDraft:
+            serverCode = StatusConstants.Draft.serverCode
+        case .Created:
+            serverCode = StatusConstants.Created.serverCode
+        case .ChangeRequested:
+            serverCode = StatusConstants.ChangeRequested.serverCode
+        case .StaffDraft:
+            serverCode = StatusConstants.StaffDraft.serverCode
+        case .WronglyMadeWithoutEffect:
+            serverCode = StatusConstants.WronglyMadeWithoutEffect.serverCode
+        case .StandsWronglyMade:
+            serverCode = StatusConstants.StandsWronglyMade.serverCode
+        case .Stands:
+            serverCode = StatusConstants.Stands.serverCode
+        case .StandsReview:
+            serverCode = StatusConstants.StandsReview.serverCode
+        case .NotApprovedFurtherWorkRequired:
+            serverCode = StatusConstants.NotApprovedFurtherWorkRequired.serverCode
+        case .NotApproved:
+            serverCode = StatusConstants.NotApproved.serverCode
+        case .Approved:
+            serverCode = StatusConstants.Approved.serverCode
+        case .SubmittedForReview:
+            serverCode = StatusConstants.SubmittedForReview.serverCode
+        case .SubmittedForFinalDecision:
+            serverCode = StatusConstants.SubmittedForFinalDecision.serverCode
+        case .RecommendReady:
+            serverCode = StatusConstants.RecommendReady.serverCode
+        case .RecommendNotReady:
+            serverCode = StatusConstants.RecommendNotReady.serverCode
+        case .RecommendedForSubmission:
+            serverCode = StatusConstants.RecommendForSubmission.serverCode
+        case .LocalDraft:
+            serverCode = StatusConstants.LocalDraft.serverCode
+        case .Outbox:
+            serverCode = StatusConstants.Outbox.serverCode
+        case .Unknown:
+            serverCode = ""
+        case .AwaitingConfirmation:
+            serverCode = StatusConstants.AwaitingConfirmation.serverCode
+        }
+        return serverCode
     }
 }

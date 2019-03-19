@@ -17,6 +17,8 @@
 		1E03B3342204BB6200116848 /* LoggerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3332204BB6200116848 /* LoggerWindow.swift */; };
 		1E03B3382204BFDF00116848 /* LoggerWindowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */; };
 		1E03B3392204BFDF00116848 /* LoggerWindowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */; };
+		1E4C6CEB224159A000E03B1C /* SettingsSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */; };
+		1E4C6CEC224159A000E03B1C /* SettingsSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */; };
 		1E58DF3D22149D2800EF0A1D /* RemoteVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */; };
 		1E58DF3F2214AE3F00EF0A1D /* ApplicationVersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */; };
 		1E58DF462215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */; };
@@ -43,6 +45,9 @@
 		1E58DF7622174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF7422174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.xib */; };
 		1E58DF792217520900EF0A1D /* FlowOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF772217520900EF0A1D /* FlowOptionTableViewCell.swift */; };
 		1E58DF7A2217520900EF0A1D /* FlowOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF782217520900EF0A1D /* FlowOptionTableViewCell.xib */; };
+		1E657002223052EC0042826E /* TesterTypePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E657001223052EC0042826E /* TesterTypePrompt.swift */; };
+		1E6570042230533F0042826E /* TesterTypePrompt.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6570032230533F0042826E /* TesterTypePrompt.xib */; };
+		1E657008223074190042826E /* typing.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E657007223074190042826E /* typing.json */; };
 		1E8448D5222865BC008ECF04 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8448D4222865BC008ECF04 /* StringExtension.swift */; };
 		1EE8985C21EE926600A74F4F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
 		1EE8985E21F0EE6200A74F4F /* MyriadWebPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */; };
@@ -327,6 +332,8 @@
 		1E03B3332204BB6200116848 /* LoggerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindow.swift; sourceTree = "<group>"; };
 		1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindowTableViewCell.swift; sourceTree = "<group>"; };
 		1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerWindowTableViewCell.xib; sourceTree = "<group>"; };
+		1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSegmentedTableViewCell.swift; sourceTree = "<group>"; };
+		1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSegmentedTableViewCell.xib; sourceTree = "<group>"; };
 		1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVersion.swift; sourceTree = "<group>"; };
 		1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationVersionStatus.swift; sourceTree = "<group>"; };
 		1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmittedForFinalDescision_Flow.xib; sourceTree = "<group>"; };
@@ -353,6 +360,9 @@
 		1E58DF7422174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowConfirmationCollectionViewCell.xib; sourceTree = "<group>"; };
 		1E58DF772217520900EF0A1D /* FlowOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowOptionTableViewCell.swift; sourceTree = "<group>"; };
 		1E58DF782217520900EF0A1D /* FlowOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowOptionTableViewCell.xib; sourceTree = "<group>"; };
+		1E657001223052EC0042826E /* TesterTypePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TesterTypePrompt.swift; sourceTree = "<group>"; };
+		1E6570032230533F0042826E /* TesterTypePrompt.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TesterTypePrompt.xib; sourceTree = "<group>"; };
+		1E657007223074190042826E /* typing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = typing.json; sourceTree = "<group>"; };
 		1E8448D4222865BC008ECF04 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		1EE8985B21EE926600A74F4F /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MyriadWebPro.ttf; sourceTree = "<group>"; };
@@ -785,8 +795,8 @@
 		1E58DF5B2215F08300EF0A1D /* Models and Enums */ = {
 			isa = PBXGroup;
 			children = (
-				1E58DF5C2215F21A00EF0A1D /* FlowOption.swift */,
 				1E58DF5E2215F22400EF0A1D /* StatusWithFlow.swift */,
+				1E58DF5C2215F21A00EF0A1D /* FlowOption.swift */,
 				1E58DF602215F24E00EF0A1D /* FlowModel.swift */,
 			);
 			path = "Models and Enums";
@@ -807,6 +817,15 @@
 				1E58DF782217520900EF0A1D /* FlowOptionTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		1E657000223052AA0042826E /* TesterType */ = {
+			isa = PBXGroup;
+			children = (
+				1E657001223052EC0042826E /* TesterTypePrompt.swift */,
+				1E6570032230533F0042826E /* TesterTypePrompt.xib */,
+			);
+			path = TesterType;
 			sourceTree = "<group>";
 		};
 		1EE8985921ED51DB00A74F4F /* Cells */ = {
@@ -916,7 +935,6 @@
 				2932BB52208669C300579A57 /* enums */,
 				2932BB5320866C5D00579A57 /* Plan Components */,
 				29EADF7C206039A90087593F /* Reference data objects */,
-				1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */,
 			);
 			path = "Models and enums";
 			sourceTree = "<group>";
@@ -957,6 +975,7 @@
 		29234B0B2138592400F547AC /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				1E657007223074190042826E /* typing.json */,
 				29EA029E2069664B0076403B /* x_pop.json */,
 				29EA02982069565B0076403B /* checked_done_.json */,
 				29B5F046208E958D003D996D /* sync_icon.json */,
@@ -987,6 +1006,7 @@
 			isa = PBXGroup;
 			children = (
 				2920F83D2034D6D60090E7B4 /* RUPStatus.swift */,
+				1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */,
 				296232042047293A00F1CEBF /* FormMode.swift */,
 				29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */,
 				29FB97C2204DCCB2005297B9 /* LiveStockIDType.swift */,
@@ -1090,10 +1110,12 @@
 			path = Feedback;
 			sourceTree = "<group>";
 		};
-		297D8FC921C9647F00D9A8B8 /* Custom Elements */ = {
+		297D8FC921C9647F00D9A8B8 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
 				1EE97E0921E80D4B008B1086 /* CustomModal.swift */,
+				1E58DF402215DF1C00EF0A1D /* Flows */,
+				1E657000223052AA0042826E /* TesterType */,
 				1E03B3302204BB1F00116848 /* LoggerWIndow */,
 				1E03B327220367B200116848 /* Privacy */,
 				1EE8EFE021F64C08001F663B /* AutoSync */,
@@ -1115,7 +1137,7 @@
 				297D8FEB21C9925C00D9A8B8 /* DatePicker - Used as year picker */,
 				297D8FDF21C9777100D9A8B8 /* Tag Image */,
 			);
-			path = "Custom Elements";
+			path = Modals;
 			sourceTree = "<group>";
 		};
 		297D8FCA21C9651000D9A8B8 /* Home */ = {
@@ -1145,7 +1167,6 @@
 				2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */,
 				29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */,
 				1EF4D1F52208B204004FD173 /* Menu */,
-				1E03B3182202314700116848 /* Empty State */,
 				297D8FD621C9731B00D9A8B8 /* Map */,
 				297D8FCD21C9698F00D9A8B8 /* Basic Information */,
 				297D8FCE21C96BED00D9A8B8 /* LiveStock */,
@@ -1502,6 +1523,8 @@
 				1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */,
 				1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */,
 				1EE97DFF21E7CBE2008B1086 /* SettingButtonTableViewCell.xib */,
+				1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */,
+				1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1535,17 +1558,17 @@
 		29EB8442203DEE7A00D73F6B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				1E58DF402215DF1C00EF0A1D /* Flows */,
-				297D8FC921C9647F00D9A8B8 /* Custom Elements */,
 				2920F83F2034F37A0090E7B4 /* Base */,
-				29EB8443203DEE8600D73F6B /* Modules */,
+				297D8FC921C9647F00D9A8B8 /* Modals */,
+				29EB8443203DEE8600D73F6B /* Pages */,
 			);
 			path = UI;
 			sourceTree = "<group>";
 		};
-		29EB8443203DEE8600D73F6B /* Modules */ = {
+		29EB8443203DEE8600D73F6B /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				1E03B3182202314700116848 /* Empty State */,
 				297D8FE321C9790C00D9A8B8 /* Main */,
 				297D8FE421C9791600D9A8B8 /* Login */,
 				297D8FCA21C9651000D9A8B8 /* Home */,
@@ -1555,7 +1578,7 @@
 				297D8FD521C9708B00D9A8B8 /* Schedule */,
 				2920F8202034B98D0090E7B4 /* Currently Not Used */,
 			);
-			path = Modules;
+			path = Pages;
 			sourceTree = "<group>";
 		};
 		2B403992E92ACF9C74893352 /* Pods */ = {
@@ -1665,6 +1688,7 @@
 				29C7C1FE21C815F4005EB5D4 /* ShrubUseTableViewCell.xib in Resources */,
 				2938CF0D21A4765100329DDA /* TourStart.xib in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
+				1E6570042230533F0042826E /* TesterTypePrompt.xib in Resources */,
 				2972381920ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				291F4E442125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib in Resources */,
 				297D8FEA21C9920200D9A8B8 /* DatePicker.storyboard in Resources */,
@@ -1673,6 +1697,7 @@
 				29C34BC621C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
+				1E4C6CEC224159A000E03B1C /* SettingsSegmentedTableViewCell.xib in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
 				29F13BE421236C0600A25424 /* PlanVersionTableViewCell.xib in Resources */,
@@ -1743,6 +1768,7 @@
 				292B650621C039C100F9A8A5 /* GetNameDialog.xib in Resources */,
 				2943BDA72162996900EFC428 /* TagImage.xib in Resources */,
 				299D3EB4217E66F60000781E /* EmptyStateTableViewCell.xib in Resources */,
+				1E657008223074190042826E /* typing.json in Resources */,
 				29DA8A9D205739A100139AD1 /* SelectAgreement.storyboard in Resources */,
 				29EB8448203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib in Resources */,
 			);
@@ -1887,6 +1913,7 @@
 				295F8F1320F7F625009D7717 /* MonitoringAreaViewController.swift in Sources */,
 				1EE97E0321E7CD23008B1086 /* SettingsManager.swift in Sources */,
 				2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */,
+				1E4C6CEB224159A000E03B1C /* SettingsSegmentedTableViewCell.swift in Sources */,
 				2938CF1121A5C87200329DDA /* ViewFeedbacksViewController.swift in Sources */,
 				297E998B2165479F00FB6F04 /* Pin.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,
@@ -2023,6 +2050,7 @@
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
 				1E58DF582215EA2800EF0A1D /* dm_Flow.swift in Sources */,
 				297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */,
+				1E657002223052EC0042826E /* TesterTypePrompt.swift in Sources */,
 				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,
 				2901C4C32141D8EC00AE72FC /* Reference.swift in Sources */,
 				29BF8025203C8D140067B32B /* CreateNewRUPViewController.swift in Sources */,

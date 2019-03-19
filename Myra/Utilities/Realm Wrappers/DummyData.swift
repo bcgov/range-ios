@@ -22,6 +22,7 @@ class DummyData {
         let client = Client()
         client.name = "Roop Jawl"
         client.clientTypeCode = "A"
+        plan.shouldUpdateRemoteStatus = false
         plan.clients.append(client)
         agreement.plans.append(plan)
         RealmRequests.saveObject(object: plan)

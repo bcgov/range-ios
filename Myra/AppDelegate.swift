@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func migrateRealm() {
         // To generate a schema version:
         // - We get version and build numbers of app
-        // - comvert tp integer
+        // - comvert to integer
         // - Generate schema version based on version and build
         guard let generatedSchemaVersion = SettingsManager.generateAppIntegerVersion() else {return}
         

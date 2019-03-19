@@ -77,11 +77,14 @@
     func isValid(rup: Plan) -> (Bool, String) {
         
         // check validity of schedules
+        // Lisa decided to remove validation check for schedule for now
+        /*
         for element in rup.schedules {
             if !isScheduleValid(schedule: element, agreementID: rup.agreementId) {
                 return (false, "Plan has an invalid schedule")
             }
         }
+        */
         
         // check that minister's issues have been identified by minister
         for issue in rup.ministerIssues {

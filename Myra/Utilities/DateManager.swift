@@ -8,7 +8,6 @@
 
 import Foundation
 class DateManager {
-
     static func toString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
