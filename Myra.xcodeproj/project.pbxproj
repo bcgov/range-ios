@@ -17,6 +17,8 @@
 		1E03B3342204BB6200116848 /* LoggerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3332204BB6200116848 /* LoggerWindow.swift */; };
 		1E03B3382204BFDF00116848 /* LoggerWindowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */; };
 		1E03B3392204BFDF00116848 /* LoggerWindowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */; };
+		1E4C6CEB224159A000E03B1C /* SettingsSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */; };
+		1E4C6CEC224159A000E03B1C /* SettingsSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */; };
 		1E58DF3D22149D2800EF0A1D /* RemoteVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */; };
 		1E58DF3F2214AE3F00EF0A1D /* ApplicationVersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */; };
 		1E58DF462215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */; };
@@ -330,6 +332,8 @@
 		1E03B3332204BB6200116848 /* LoggerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindow.swift; sourceTree = "<group>"; };
 		1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindowTableViewCell.swift; sourceTree = "<group>"; };
 		1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerWindowTableViewCell.xib; sourceTree = "<group>"; };
+		1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSegmentedTableViewCell.swift; sourceTree = "<group>"; };
+		1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSegmentedTableViewCell.xib; sourceTree = "<group>"; };
 		1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVersion.swift; sourceTree = "<group>"; };
 		1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationVersionStatus.swift; sourceTree = "<group>"; };
 		1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmittedForFinalDescision_Flow.xib; sourceTree = "<group>"; };
@@ -1519,6 +1523,8 @@
 				1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */,
 				1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */,
 				1EE97DFF21E7CBE2008B1086 /* SettingButtonTableViewCell.xib */,
+				1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */,
+				1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1691,6 +1697,7 @@
 				29C34BC621C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib in Resources */,
 				29742708204484FB0033BC47 /* AgreementHolderTableViewCell.xib in Resources */,
 				29EA029F2069664C0076403B /* x_pop.json in Resources */,
+				1E4C6CEC224159A000E03B1C /* SettingsSegmentedTableViewCell.xib in Resources */,
 				29E0D93B203F67AF00193FA0 /* PlantCommunityTableViewCell.xib in Resources */,
 				29EE75E02050A6DE0061B18D /* ScheduleFooterTableViewCell.xib in Resources */,
 				29F13BE421236C0600A25424 /* PlanVersionTableViewCell.xib in Resources */,
@@ -1906,6 +1913,7 @@
 				295F8F1320F7F625009D7717 /* MonitoringAreaViewController.swift in Sources */,
 				1EE97E0321E7CD23008B1086 /* SettingsManager.swift in Sources */,
 				2905520B2134659700785B5E /* AmendmentPageOneCollectionViewCell.swift in Sources */,
+				1E4C6CEB224159A000E03B1C /* SettingsSegmentedTableViewCell.swift in Sources */,
 				2938CF1121A5C87200329DDA /* ViewFeedbacksViewController.swift in Sources */,
 				297E998B2165479F00FB6F04 /* Pin.swift in Sources */,
 				29FCB0342056EF47006CD247 /* Zone.swift in Sources */,

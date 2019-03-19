@@ -33,16 +33,21 @@ class LoginViewController: BaseViewController {
     // MARK: Outlet Actions
     @IBAction func loginAction(_ sender: Any) {
         Loading.shared.start()
+        if SettingsManager.shared.shouldOverrideLogin() {
+            Banner.shared.show(message: "Overriding login page through settings.")
+        }
         func performSignIn() {
+            SettingsManager.shared.overrideLoginIfNeeded()
             Auth.signIn { (success) in
                 if success {
                     self.performInitialSync()
                 }
             }
         }
+        
         SettingsManager.shared.appIsBeingTested { (appIsBeingTested) in
             Loading.shared.stop()
-            if appIsBeingTested {
+            if appIsBeingTested, !SettingsManager.shared.shouldOverrideLogin() {
                 let testerTypePrompt: TesterTypePrompt = UIView.fromNib()
                 testerTypePrompt.initialize(completion: { (selectedType) in
                     switch selectedType {

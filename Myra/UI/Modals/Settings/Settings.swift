@@ -43,6 +43,7 @@ enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case EnableToggle = 0
     case Development
     case LogWindow
+    case LoginScreen
     case FormMapSection
     case ClearUserInfo
     case DownloadVictoriaTiles
@@ -128,6 +129,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
         registerCell(name: "SettingTableViewCell")
         registerCell(name: "SettingInfoTableViewCell")
         registerCell(name: "SettingButtonTableViewCell")
+        registerCell(name: "SettingsSegmentedTableViewCell")
         tableView.tableFooterView = UIView()
     }
     
@@ -146,6 +148,10 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
     
     func getSettingButtonTableViewCell(indexPath: IndexPath) -> SettingButtonTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "SettingButtonTableViewCell", for: indexPath) as! SettingButtonTableViewCell
+    }
+    
+    func getSegmentedTableViewCell(indexPath: IndexPath) -> SettingsSegmentedTableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "SettingsSegmentedTableViewCell", for: indexPath) as! SettingsSegmentedTableViewCell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -293,6 +299,34 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             cell.setup(titleText: "Show Map section in form", isOn: SettingsManager.shared.isFormMapSectionEnabled()) { (isOn) in
                 SettingsManager.shared.setFormMapSection(enabled: isOn)
             }
+            return cell
+        case .LoginScreen:
+            let cell = getSegmentedTableViewCell(indexPath: indexPath)
+            
+            /*
+             Segmented cell takes an array of string for options
+             and a single string that represents the selected option and it must match
+             one of the values in the array.
+             */
+            let options = ["idir", "bceid", "default"]
+            var current = SettingsManager.shared.getLoginScreenHintOverride()
+            if current.isEmpty {
+                current = "default"
+            }
+            
+            cell.setup(titleText: "Override Login", options: options, selectedOption: current) { (selected) in
+                /*
+                 We need to process the selected options because "default"
+                 is not a valid idphint. inster empty string in that case
+                 */
+                
+                if selected.lowercased() == "default" {
+                    SettingsManager.shared.setLoginScreen(to: "")
+                } else {
+                    SettingsManager.shared.setLoginScreen(to: selected)
+                }
+            }
+            
             return cell
         }
     }

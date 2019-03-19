@@ -38,22 +38,24 @@ class SettingsModelCache {
     var remoteIOSVersion: Int = 0
     var remoteVersionIdpHint: String = ""
     
-    init(autoSyncEndbaled: Bool, cacheMapEndbaled: Bool, devToolsEnabled: Bool, devEnvironmentEnabled: Bool, quitAfterFatalError: Bool, inAppLoggerActive: Bool, formMapSectionActive: Bool, animationDuration: Double, shortAnimationDuration: Double, userFirstName: String, userLastName: String, remoteAPIVersion: Int, remoteIOSVersion: Int, remoteVersionIdpHint: String) {
-        self.autoSyncEndbaled = autoSyncEndbaled
-        self.cacheMapEndbaled = cacheMapEndbaled
-        self.devToolsEnabled = devToolsEnabled
-        self.devEnvironmentEnabled = devEnvironmentEnabled
-        self.quitAfterFatalError = quitAfterFatalError
-        self.inAppLoggerActive = inAppLoggerActive
-        self.formMapSectionActive = formMapSectionActive
-        self.animationDuration = animationDuration
-        self.shortAnimationDuration = shortAnimationDuration
-        self.userFirstName = userFirstName
-        self.userLastName = userLastName
-        self.remoteAPIVersion = remoteAPIVersion
-        self.remoteIOSVersion = remoteIOSVersion
-        self.remoteVersionIdpHint = remoteVersionIdpHint
-    }
+    var loginScreen: String = ""
+    
+//    init(autoSyncEndbaled: Bool, cacheMapEndbaled: Bool, devToolsEnabled: Bool, devEnvironmentEnabled: Bool, quitAfterFatalError: Bool, inAppLoggerActive: Bool, formMapSectionActive: Bool, animationDuration: Double, shortAnimationDuration: Double, userFirstName: String, userLastName: String, remoteAPIVersion: Int, remoteIOSVersion: Int, remoteVersionIdpHint: String) {
+//        self.autoSyncEndbaled = autoSyncEndbaled
+//        self.cacheMapEndbaled = cacheMapEndbaled
+//        self.devToolsEnabled = devToolsEnabled
+//        self.devEnvironmentEnabled = devEnvironmentEnabled
+//        self.quitAfterFatalError = quitAfterFatalError
+//        self.inAppLoggerActive = inAppLoggerActive
+//        self.formMapSectionActive = formMapSectionActive
+//        self.animationDuration = animationDuration
+//        self.shortAnimationDuration = shortAnimationDuration
+//        self.userFirstName = userFirstName
+//        self.userLastName = userLastName
+//        self.remoteAPIVersion = remoteAPIVersion
+//        self.remoteIOSVersion = remoteIOSVersion
+//        self.remoteVersionIdpHint = remoteVersionIdpHint
+//    }
     
     init(from model: SettingsModel) {
         self.autoSyncEndbaled = model.autoSyncEndbaled
@@ -70,6 +72,7 @@ class SettingsModelCache {
         self.remoteAPIVersion = model.remoteAPIVersion
         self.remoteIOSVersion = model.remoteIOSVersion
         self.remoteVersionIdpHint = model.remoteVersionIdpHint
+        self.loginScreen = model.loginScreen
     }
 }
 
@@ -108,6 +111,9 @@ class SettingsModel: Object {
     @objc dynamic var remoteIOSVersion: Int = 0
     @objc dynamic var remoteVersionIdpHint: String = ""
     
+    // Force change initial login
+    @objc dynamic var loginScreen: String = ""
+    
     func clone() -> SettingsModel {
         let new = SettingsModel()
         new.autoSyncEndbaled = self.autoSyncEndbaled
@@ -119,6 +125,7 @@ class SettingsModel: Object {
         new.shortAnimationDuration = self.shortAnimationDuration
         new.devToolsEnabled = self.devToolsEnabled
         new.formMapSectionActive = self.formMapSectionActive
+        new.loginScreen = self.loginScreen
         // dont clone user name
         return new
     }
@@ -138,6 +145,7 @@ class SettingsModel: Object {
         self.remoteAPIVersion = cache.remoteAPIVersion
         self.remoteIOSVersion = cache.remoteIOSVersion
         self.remoteVersionIdpHint = cache.remoteVersionIdpHint
+        self.loginScreen = cache.loginScreen
     }
     
     // MARK: Setters
@@ -264,6 +272,17 @@ class SettingsModel: Object {
                 remoteAPIVersion = object.api
                 remoteIOSVersion = object.ios
                 remoteVersionIdpHint = object.idpHint
+            }
+        } catch _ {
+            Logger.fatalError(message: LogMessages.databaseWriteFailure)
+        }
+    }
+    
+    func setLoginScreen(to hint: String) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                loginScreen = hint
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
@@ -535,6 +554,33 @@ class SettingsManager {
             self.setFormMapSection(enabled: enabled)
             self.setQuitAfterFatalError(enabled: enabled)
         }
+    }
+    
+    // Overriding login screen from settings
+    func setLoginScreen(to idphint: String) {
+        guard let model = getModel() else {return}
+        model.setLoginScreen(to: idphint)
+    }
+    
+    func shouldOverrideLogin() -> Bool {
+        guard let model = getModel() else {return false}
+        if model.devToolsEnabled {
+            return !model.loginScreen.isEmpty
+        } else {
+            return false
+        }
+    }
+    
+    func overrideLoginIfNeeded() {
+        guard let model = getModel() else {return}
+        if shouldOverrideLogin() {
+            Auth.refreshEnviormentConstants(withIdpHint: model.loginScreen)
+        }
+    }
+    
+    func getLoginScreenHintOverride() -> String {
+        guard let model = getModel() else {return ""}
+        return model.loginScreen
     }
     
     // MARK: Form Map
