@@ -319,7 +319,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                  We need to process the selected options because "default"
                  is not a valid idphint. inster empty string in that case
                  */
-                
+                Banner.shared.show(message: "Changed Override of initial login screen to: \(selected)")
                 if selected.lowercased() == "default" {
                     SettingsManager.shared.setLoginScreen(to: "")
                 } else {

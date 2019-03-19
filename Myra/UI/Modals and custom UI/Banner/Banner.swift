@@ -39,8 +39,7 @@ class Banner {
             if let window = UIApplication.shared.keyWindow {
                 let banner: SyncBanner = UIView.fromNib()
                 window.addSubview(banner)
-                banner.show(message: message, x: window.frame.origin.x, y: window.frame.origin.y + 20,duration: self.displayDuration)
-                DispatchQueue.main.asyncAfter(deadline: .now() + self.displayDuration) {
+                banner.show(message: message, x: window.frame.origin.x, y: window.frame.origin.y + 20,duration: self.displayDuration, then: {
                     /* Avoid repeating the same messsage */
                     if self.messages.contains(message) {
                         for i in 0...self.messages.count - 1  where self.messages[i] == message {
@@ -48,12 +47,16 @@ class Banner {
                         }
                     }
                     self.recursiveShow()
-                }
+                })
             } else {
                 self.showing = false
                 return
             }
         }
 
+    }
+    
+    func bannerTextFont() -> UIFont {
+        return Fonts.getPrimaryBold(size: 14)
     }
 }
