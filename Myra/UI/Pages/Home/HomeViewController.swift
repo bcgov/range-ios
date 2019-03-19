@@ -17,6 +17,13 @@ import Extended
 import Cam
 import CoreML
 
+enum SortingCategory {
+    case rangeNumber
+    case agreementHolder
+    case rangeName
+    case status
+}
+
 class HomeViewController: BaseViewController {
 
     // MARK: Constants
@@ -48,6 +55,8 @@ class HomeViewController: BaseViewController {
 
     var lastSyncLabelTimer = Timer()
     var lastSyncTimerActive = false
+    
+    var sortCategory: SortingCategory = .agreementHolder
 
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
@@ -98,6 +107,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         syncing = false
         loadHome()
+        setupSort()
         promptGetUserNameIfNeeded(showTourAfter: showTour)
     }
 
@@ -194,7 +204,6 @@ class HomeViewController: BaseViewController {
         if syncing {return}
         filterButtonOn(button: allFilter)
         sortByRangeNumber()
-        self.tableView.reloadData()
     }
 
     func filterByDrafts() {
@@ -223,28 +232,70 @@ class HomeViewController: BaseViewController {
         self.tableView.reloadData()
     }
 
+    func setupSort() {
+        let sortByAgreementHolder = UITapGestureRecognizer(target: self, action: #selector(sortByAgreementHolderTapped))
+        agreementHolderHeader.isUserInteractionEnabled = true
+        agreementHolderHeader.addGestureRecognizer(sortByAgreementHolder)
+        
+        let sortByrangeName = UITapGestureRecognizer(target: self, action: #selector(sortByrangeNameTapped))
+        rangeNameHeader.isUserInteractionEnabled = true
+        rangeNameHeader.addGestureRecognizer(sortByrangeName)
+        
+        let sortBystatus = UITapGestureRecognizer(target: self, action: #selector(sortBystatusTapped))
+        statusHeader.isUserInteractionEnabled = true
+        statusHeader.addGestureRecognizer(sortBystatus)
+        
+        let sortByrangeNumberHolder = UITapGestureRecognizer(target: self, action: #selector(sortByrangeNumberTapped))
+        rangeNumberHeader.isUserInteractionEnabled = true
+        rangeNumberHeader.addGestureRecognizer(sortByrangeNumberHolder)
+    }
+    
+    @objc func sortByAgreementHolderTapped(_ sender: UITapGestureRecognizer) {
+       sortByAgreementHolder()
+    }
+    
+    @objc func sortByrangeNameTapped(_ sender: UITapGestureRecognizer) {
+        sortByRangeName()
+    }
+    
+    @objc func sortBystatusTapped(_ sender: UITapGestureRecognizer) {
+        sortByStatus()
+    }
+    
+    @objc func sortByrangeNumberTapped(_ sender: UITapGestureRecognizer) {
+        sortByRangeNumber()
+    }
+    
     func sortByAgreementHolder() {
         if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
+        self.sortCategory = .agreementHolder
+        self.tableView.reloadData()
     }
 
     func sortByRangeName() {
         if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.rangeName < $1.rangeName})
+        self.sortCategory = .rangeName
+        self.tableView.reloadData()
     }
 
     func sortByStatus() {
         if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.getStatus().rawValue < $1.getStatus().rawValue})
+        self.sortCategory = .status
+        self.tableView.reloadData()
     }
 
     func sortByRangeNumber() {
         if syncing {return}
         loadRUPs()
         self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
+        self.sortCategory = .rangeNumber
+        self.tableView.reloadData()
     }
     
     // MARK: Logout
@@ -715,6 +766,7 @@ extension HomeViewController {
         loadRUPs()
         // sort by last name
         self.rups = rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
+        self.sortCategory = .agreementHolder
         filterByAll()
     }
 }
@@ -846,5 +898,3 @@ extension HomeViewController: MaterialShowcaseDelegate {
         }
     }
 }
-
-
