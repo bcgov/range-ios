@@ -29,7 +29,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="opW-ZG-SIx">
-                                <rect key="frame" x="58" y="11" width="357" height="29"/>
+                                <rect key="frame" x="294" y="11" width="121" height="29"/>
                                 <segments>
                                     <segment title="First"/>
                                     <segment title="Second"/>
@@ -41,7 +41,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="opW-ZG-SIx" firstAttribute="leading" secondItem="jOh-hP-TpV" secondAttribute="trailing" constant="16" id="Idc-iU-2Z4"/>
+                            <constraint firstItem="opW-ZG-SIx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jOh-hP-TpV" secondAttribute="trailing" constant="16" id="Idc-iU-2Z4"/>
                             <constraint firstItem="jOh-hP-TpV" firstAttribute="leading" secondItem="Rzz-9d-IOT" secondAttribute="leading" id="YNe-HU-sht"/>
                             <constraint firstItem="opW-ZG-SIx" firstAttribute="centerY" secondItem="jOh-hP-TpV" secondAttribute="centerY" id="bbS-z9-ag1"/>
                             <constraint firstItem="jOh-hP-TpV" firstAttribute="centerY" secondItem="Rzz-9d-IOT" secondAttribute="centerY" id="lJ5-3d-RbK"/>
