@@ -19,6 +19,7 @@
 		1E03B3392204BFDF00116848 /* LoggerWindowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */; };
 		1E4C6CEB224159A000E03B1C /* SettingsSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */; };
 		1E4C6CEC224159A000E03B1C /* SettingsSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */; };
+		1E4C6CF02241A5D600E03B1C /* SSOConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEF2241A5D500E03B1C /* SSOConstants.swift */; };
 		1E58DF3D22149D2800EF0A1D /* RemoteVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */; };
 		1E58DF3F2214AE3F00EF0A1D /* ApplicationVersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */; };
 		1E58DF462215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */; };
@@ -334,6 +335,7 @@
 		1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerWindowTableViewCell.xib; sourceTree = "<group>"; };
 		1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSegmentedTableViewCell.swift; sourceTree = "<group>"; };
 		1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSegmentedTableViewCell.xib; sourceTree = "<group>"; };
+		1E4C6CEF2241A5D500E03B1C /* SSOConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOConstants.swift; sourceTree = "<group>"; };
 		1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVersion.swift; sourceTree = "<group>"; };
 		1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationVersionStatus.swift; sourceTree = "<group>"; };
 		1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmittedForFinalDescision_Flow.xib; sourceTree = "<group>"; };
@@ -1078,6 +1080,7 @@
 				29EB8442203DEE7A00D73F6B /* UI */,
 				293C95C420335D4100BF1113 /* AppDelegate.swift */,
 				299BD277207BF488004B1D07 /* Constants.swift */,
+				1E4C6CEF2241A5D500E03B1C /* SSOConstants.swift */,
 				293C95CB20335D4100BF1113 /* Assets.xcassets */,
 				293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */,
 				293C95D020335D4100BF1113 /* Info.plist */,
@@ -2058,6 +2061,7 @@
 				292E65232076AAF3003D4AF0 /* PlanStatus.swift in Sources */,
 				1E58DF792217520900EF0A1D /* FlowOptionTableViewCell.swift in Sources */,
 				297E99972166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift in Sources */,
+				1E4C6CF02241A5D600E03B1C /* SSOConstants.swift in Sources */,
 				29FB97BD204DB87D005297B9 /* RealmRequest.swift in Sources */,
 				292E65212076AAC6003D4AF0 /* ClientType.swift in Sources */,
 				29E0D925203F449700193FA0 /* RangeUsageYear.swift in Sources */,

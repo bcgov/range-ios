@@ -13,9 +13,9 @@ import WebKit
 class Auth {
     
     private static var authServices: AuthServices = {
-        return AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                            clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
-                            idpHint: Constants.SSO.idpHint)
+        return AuthServices(baseUrl: SSO.baseUrl, redirectUri: SSO.redirectUri,
+                            clientId: SSO.clientId, realm: SSO.realmName,
+                            idpHint: SSO.idpHint)
     }()
     
     public static func refreshEnviormentConstants(withIdpHint: String?) {
@@ -25,8 +25,8 @@ class Auth {
             idpHint = injectedHint
         }
         
-        self.authServices = AuthServices(baseUrl: Constants.SSO.baseUrl, redirectUri: Constants.SSO.redirectUri,
-                                         clientId: Constants.SSO.clientId, realm: Constants.SSO.realmName,
+        self.authServices = AuthServices(baseUrl: SSO.baseUrl, redirectUri: SSO.redirectUri,
+                                         clientId: SSO.clientId, realm: SSO.realmName,
                                          idpHint: idpHint)
         
         Logger.log(message: "Refreshed AuthServices' enviroment constants.")
