@@ -424,7 +424,7 @@
             let realm = try Realm()
             let objs = realm.objects(Plan.self).filter("status == 'LocalDraft'").map{ $0 }
             var valid = [Plan]()
-            for object in objs where object.planEndDate != nil && object.planStartDate != nil && object.rangeName != nil {
+            for object in objs where object.isValid {
                 valid.append(object)
             }
             return valid
