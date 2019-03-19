@@ -233,16 +233,19 @@ extension Theme {
     func styleFieldHeader(label: UILabel) {
         label.textColor = defaultFieldHeaderColor()
         label.font = Fonts.getPrimaryBold(size: 12)
+        label.adjustsFontSizeToFitWidth = true
     }
 
     func styleFieldHeader(button: UIButton) {
         button.setTitleColor(defaultFieldHeaderColor(), for: .normal)
         button.titleLabel?.font = Fonts.getPrimaryBold(size: 12)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
     }
 
     func styleSortHeaderOff(button: UIButton) {
         button.setTitleColor(defaultSortHeaderOffColor(), for: .normal)
         button.titleLabel?.font = Fonts.getPrimaryBold(size: 12)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.setImage(#imageLiteral(resourceName: "icon_arrow_highlightOff"), for: .normal)
         // set button image on the right
         button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: (0.0 - (button.imageView?.frame.size.width)!), bottom: 0, right: (button.imageView?.frame.size.width)!);
@@ -262,12 +265,14 @@ extension Theme {
         label.textColor = defaultSectionSubHeaderColor()
         label.font = defaultSectionSubHeaderFont()
         label.change(kernValue: -0.52)
+        label.adjustsFontSizeToFitWidth = true
     }
 
     func styleBody(label: UILabel) {
         label.textColor = defaultBodyTextColor()
         label.font = defaultBodyFont()
         label.change(kernValue: -0.52)
+        label.adjustsFontSizeToFitWidth = true
     }
 
     func styleHeader(label: UILabel, divider: UIView? = nil) {
@@ -277,11 +282,13 @@ extension Theme {
         label.textColor = defaultSectionHeaderColor()
         label.font = defaultSectionHeaderFont()
         label.change(kernValue: -0.42)
+        label.adjustsFontSizeToFitWidth = true
     }
 
     func styleFooter(label: UILabel) {
         label.textColor = defaultSectionFooterColor()
         label.font = defaultSectionFooterFont()
+        label.adjustsFontSizeToFitWidth = true
     }
     
     func styleFooter(textView: UITextView) {
@@ -360,6 +367,7 @@ extension Theme {
     func styleFilter(label: UILabel) {
         label.font = Fonts.getPrimaryMedium(size: 17)
         label.change(kernValue: -0.41)
+        label.adjustsFontSizeToFitWidth = true
     }
 
     // MARK: Table
@@ -367,6 +375,7 @@ extension Theme {
         label.font = Fonts.getPrimaryMedium(size: 17)
         label.textColor = Colors.technical.mainText
         label.change(kernValue: -0.41)
+        label.adjustsFontSizeToFitWidth = true
     }
 
     // MARK: Radio
@@ -420,11 +429,13 @@ extension Theme {
     func styleNavBarTitle(label: UILabel) {
         label.textColor = UIColor.white
         label.font = defaultNavBarTitleFont()
+        label.adjustsFontSizeToFitWidth = true
     }
 
     func StyleNavBarButton(button: UIButton) {
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = defaultNavBarButtonFont()
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
     }
 
     func styleStatusBar(view: UIView) {
@@ -434,17 +445,19 @@ extension Theme {
     func styleNavBarLabel(label: UILabel) {
         label.textColor = UIColor.white
         label.font = defaultNavBarLabelFont()
+        label.adjustsFontSizeToFitWidth = true
     }
 
     func menuSectionOff(label: UILabel) {
         label.textColor = Colors.technical.mainText
         label.font = Fonts.getPrimaryMedium(size: 15)
-
+        label.adjustsFontSizeToFitWidth = true
     }
 
     func menuSectionOn(label: UILabel) {
         label.textColor = Colors.primary
         label.font = Fonts.getPrimaryMedium(size: 15)
+        label.adjustsFontSizeToFitWidth = true
     }
 
 }
@@ -468,6 +481,7 @@ extension Theme {
     func styleToolTipTitle(label: UILabel) {
         label.font = toolTipTitleFont()
         label.textColor = UIColor.white
+        label.adjustsFontSizeToFitWidth = true
     }
 }
 

@@ -42,8 +42,8 @@ enum SettingsPrivacySection: Int, CaseIterable {
 enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case EnableToggle = 0
     case Development
-    case LogWindow
     case LoginScreen
+    case LogWindow
     case FormMapSection
     case ClearUserInfo
     case DownloadVictoriaTiles
@@ -263,7 +263,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             } else {
                 current = "production"
             }
-            cell.setup(titleText: "Enviorment", options: options, selectedOption: current) { (selected) in
+            cell.setup(titleText: "Environment", options: options, selectedOption: current) { (selected) in
                 guard let parent = self.parent, let presenter = parent.getPresenter() else {return}
                 if selected.lowercased() == "production" {
                     SettingsManager.shared.setCurrentEnvironment(to: .Prod, presenterReference: presenter)

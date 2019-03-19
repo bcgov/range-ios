@@ -719,6 +719,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func expandOrClose(at indexPath: IndexPath, fromTour: Bool = false) {
+        if self.rups.count < 1 {return}
         if !fromTour {
             reloadRupsIfInvalid()
         }
