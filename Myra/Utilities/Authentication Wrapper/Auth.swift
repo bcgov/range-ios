@@ -30,6 +30,7 @@ class Auth {
                                          idpHint: idpHint)
         
         Logger.log(message: "Refreshed AuthServices' enviroment constants.")
+        Logger.log(message: "Current login set to \(idpHint)")
     }
     
     public static func getIdpHint() -> String {

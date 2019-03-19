@@ -42,8 +42,8 @@ enum SettingsPrivacySection: Int, CaseIterable {
 enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case EnableToggle = 0
     case Development
-    case LogWindow
     case LoginScreen
+    case LogWindow
     case FormMapSection
     case ClearUserInfo
     case DownloadVictoriaTiles
@@ -255,14 +255,21 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
             }
             return cell
         case .Development:
-            let cell = getSettingToggleTableViewCell(indexPath: indexPath)
-            cell.setup(titleText: "Development Enviorment", isOn: SettingsManager.shared.getCurrentEnvironment() == .Dev) { (isOn) in
-                if let parent = self.parent, let presenter = parent.getPresenter() {
-                    var env: EndpointEnvironment = .Dev
-                    if !isOn {
-                        env = .Prod
-                    }
-                    SettingsManager.shared.setCurrentEnvironment(to: env, presenterReference: presenter)
+            let cell = getSegmentedTableViewCell(indexPath: indexPath)
+            let options: [String] = ["Production", "Development"]
+            var current = ""
+            if SettingsManager.shared.getCurrentEnvironment() == .Dev {
+                current = "development"
+            } else {
+                current = "production"
+            }
+            cell.setup(titleText: "Environment", options: options, selectedOption: current) { (selected) in
+                guard let parent = self.parent, let presenter = parent.getPresenter() else {return}
+                if selected.lowercased() == "production" {
+                    SettingsManager.shared.setCurrentEnvironment(to: .Prod, presenterReference: presenter)
+                    self.remove()
+                } else if selected.lowercased() == "development" {
+                    SettingsManager.shared.setCurrentEnvironment(to: .Dev, presenterReference: presenter)
                     self.remove()
                 }
             }
@@ -308,7 +315,7 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
              and a single string that represents the selected option and it must match
              one of the values in the array.
              */
-            let options = ["idir", "bceid", "default"]
+            let options = ["IDIR", "BCEID", "Default"]
             var current = SettingsManager.shared.getLoginScreenHintOverride()
             if current.isEmpty {
                 current = "default"
@@ -319,11 +326,11 @@ extension Settings:  UITableViewDelegate, UITableViewDataSource {
                  We need to process the selected options because "default"
                  is not a valid idphint. inster empty string in that case
                  */
-                
+                Banner.shared.show(message: "Changed Override of initial login screen to: \(selected)")
                 if selected.lowercased() == "default" {
                     SettingsManager.shared.setLoginScreen(to: "")
                 } else {
-                    SettingsManager.shared.setLoginScreen(to: selected)
+                    SettingsManager.shared.setLoginScreen(to: selected.lowercased())
                 }
             }
             

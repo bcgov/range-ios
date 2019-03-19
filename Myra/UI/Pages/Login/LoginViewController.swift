@@ -54,7 +54,7 @@ class LoginViewController: BaseViewController {
                     case .RangeStaff:
                         Auth.refreshEnviormentConstants(withIdpHint: "idir")
                     case .AppleReviewer:
-                        break
+                        Auth.refreshEnviormentConstants(withIdpHint: "bceid")
                     }
                     performSignIn()
                 })

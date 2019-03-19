@@ -40,23 +40,6 @@ class SettingsModelCache {
     
     var loginScreen: String = ""
     
-//    init(autoSyncEndbaled: Bool, cacheMapEndbaled: Bool, devToolsEnabled: Bool, devEnvironmentEnabled: Bool, quitAfterFatalError: Bool, inAppLoggerActive: Bool, formMapSectionActive: Bool, animationDuration: Double, shortAnimationDuration: Double, userFirstName: String, userLastName: String, remoteAPIVersion: Int, remoteIOSVersion: Int, remoteVersionIdpHint: String) {
-//        self.autoSyncEndbaled = autoSyncEndbaled
-//        self.cacheMapEndbaled = cacheMapEndbaled
-//        self.devToolsEnabled = devToolsEnabled
-//        self.devEnvironmentEnabled = devEnvironmentEnabled
-//        self.quitAfterFatalError = quitAfterFatalError
-//        self.inAppLoggerActive = inAppLoggerActive
-//        self.formMapSectionActive = formMapSectionActive
-//        self.animationDuration = animationDuration
-//        self.shortAnimationDuration = shortAnimationDuration
-//        self.userFirstName = userFirstName
-//        self.userLastName = userLastName
-//        self.remoteAPIVersion = remoteAPIVersion
-//        self.remoteIOSVersion = remoteIOSVersion
-//        self.remoteVersionIdpHint = remoteVersionIdpHint
-//    }
-    
     init(from model: SettingsModel) {
         self.autoSyncEndbaled = model.autoSyncEndbaled
         self.cacheMapEndbaled = model.cacheMapEndbaled
@@ -387,7 +370,7 @@ class SettingsManager {
             return .Unfetched
         }
         Logger.log(message: "Application version status...")
-        Logger.log(message: "API: \(remoteVersion.api)\niOS: \(remoteVersion.ios)\nHint: \(remoteVersion.idpHint)")
+        Logger.log(message: "\nAPI: \(remoteVersion.api)\niOS: \(remoteVersion.ios)\nHint: \(remoteVersion.idpHint)")
         Logger.log(message: "Local: \(localVersion)")
         
         if remoteVersion.ios == localVersion {

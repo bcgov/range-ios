@@ -39,13 +39,16 @@ class SettingsSegmentedTableViewCell: UITableViewCell, Theme {
         self.segmented.removeAllSegments()
         for i in 0...(options.count - 1) {
             self.segmented.insertSegment(withTitle: options[i], at: i, animated: true)
-            if options[i] == initialSelection {
+            if options[i].lowercased() == initialSelection.lowercased() {
                 self.segmented.selectedSegmentIndex = i
             }
         }
     }
     
     func style() {
+        let font = Fonts.getPrimary(size: 17)
+        segmented.setTitleTextAttributes([NSAttributedString.Key.font: font],
+                                                for: .normal)
         segmented.tintColor = Colors.switchOn
         styleSubHeader(label: titleLabel)
     }
