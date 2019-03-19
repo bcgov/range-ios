@@ -1,5 +1,6 @@
 # Secrets
-/Myra/SSOConstants.swift
+Myra/SSOConstants.swift
+SSOConstants.swift
 
 # Exclude OS X folder attributes
 .DS_Store
