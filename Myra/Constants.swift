@@ -58,31 +58,6 @@ struct Constants {
         static let managementConsideration = "plan/:planId/management-consideration"
         static let feedbackPath = "feedback/"
     }
-    
-//    struct SSO {
-//        struct Dev {
-//             static let baseUrl = URL(string: "https://sso-dev.pathfinder.gov.bc.ca")!
-//        }
-//        struct Test {
-//             static let baseUrl = URL(string: "https://sso-test.pathfinder.gov.bc.ca")!
-//        }
-//        struct Prod {
-//             static let baseUrl = URL(string: "https://sso.pathfinder.gov.bc.ca")!
-//        }
-//
-//        static var baseUrl: URL {
-//            switch SettingsManager.shared.getCurrentEnvironment() {
-//            case .Dev:
-//                return Constants.SSO.Dev.baseUrl
-//            case .Prod:
-//                return Constants.SSO.Prod.baseUrl
-//            }
-//        }
-//        static let redirectUri = "myra-ios://client"
-//        static let clientId = "myrangebc"
-//        static let realmName = "range"
-//        static let idpHint = "idir"
-//    }
 
     struct Alerts {
         struct UserInfoUpdate {
