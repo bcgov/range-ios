@@ -559,7 +559,7 @@ class Plan: Object, MyraObject {
         ]
     }
     
-    /// Creates a Mandatory amendment from current plan
+    /// Creates a Mandatory amendment from current plan.
     /// Plan object returned is already saved
     /// and will be uploaded on the next sync.
     /// - Returns: Amended Plan
@@ -601,6 +601,9 @@ class Plan: Object, MyraObject {
         
         // 5) Save Locally
         RealmRequests.saveObject(object: plan)
+        
+        // 6) return amended plan, if something else needs to be done with it.
+        // It is saved and will get uploaded because local status is .Outbox
         return plan
     }
 }
