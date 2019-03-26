@@ -229,18 +229,29 @@ class CustomModal: UIView, Theme {
     func position(then: @escaping ()-> Void) {
         guard let window = UIApplication.shared.keyWindow else {return}
         
-        self.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.alpha = 0
-        window.addSubview(self)
-        addInitialConstraints()
-        activateConstraints(then: {
-            self.showWhiteBG(then: {
-                self.openingAnimation {
-                    return then()
-                }
-            })
-        })
+        self.frame = CGRect(x: 0, y: window.frame.maxY, width: width, height: height)
         
+        window.addSubview(self)
+        
+        openingAnimation {
+            self.addInitialConstraints()
+            self.activateConstraintsWithoutAnimation()
+            return then()
+        }
+    }
+    
+    func prepareForPresentation() {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        self.frame = CGRect(x: 0, y: window.frame.maxY, width: width, height: height)
+        self.center.x = window.center.x
+        self.alpha = invisibleAlpha
+        self.layoutIfNeeded()
+    }
+    
+    func positionPostAnimation() {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        self.center.y = window.center.y
+        self.alpha = self.visibleAlpha
     }
     
     // MARK: Contraints
@@ -263,6 +274,23 @@ class CustomModal: UIView, Theme {
             return then()
         }
     }
+    
+    func activateConstraintsWithoutAnimation() {
+        var addedConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
+        var removedConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
+        for each in contraintsAdded {
+            if each.value.isActive == true {
+                addedConstraints.append(each.value)
+            } else {
+                removedConstraints.append(each.value)
+            }
+        }
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(addedConstraints)
+        NSLayoutConstraint.deactivate(removedConstraints)
+    }
+    
     
     func addInitialConstraints() {
         guard let window = UIApplication.shared.keyWindow else {return}
@@ -361,16 +389,17 @@ class CustomModal: UIView, Theme {
     
     // MARK: Displaying animations
     func openingAnimation(then: @escaping ()-> Void) {
-        self.alpha = invisibleAlpha
-        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
-            self.alpha = self.visibleAlpha
+        prepareForPresentation()
+        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: CGFloat(SettingsManager.shared.getAnimationDuration()), options: .curveEaseInOut, animations: {
+            self.positionPostAnimation()
+            self.showWhiteBG {}
         }) { (done) in
-            then()
+            return then()
         }
     }
     
     func closingAnimation(then: @escaping ()-> Void) {
-        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             self.alpha = self.invisibleAlpha
         }) { (done) in
             then()
@@ -393,7 +422,7 @@ class CustomModal: UIView, Theme {
             bg.bottomAnchor.constraint(equalTo: window.bottomAnchor)
             ])
         
-        UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {
+        UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
             bg.alpha = self.visibleAlpha
         }) { (done) in
             return then()
