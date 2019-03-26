@@ -57,8 +57,8 @@ class Plan: Object, MyraObject {
     @objc dynamic var statusIdValue: String = ""
     @objc dynamic var statusChangeNote: String = ""
     
-    // Flag to check if status changed eg from an amendment.
-    // set flag to true after amendment flow, and set to false after upload
+    // Flag to check if status changed from a flow.
+    // set flag to true after status change flow, and set to false after upload
     @objc dynamic var shouldUpdateRemoteStatus = false
     
     // isNew flag is used to check if it has just been created from an agreement
@@ -352,7 +352,7 @@ class Plan: Object, MyraObject {
     
     /// Change Plan's status to the new status
     /// This action sets shouldUpdateRemoteStatus flag to true
-    /// meaning plan status (and optinally note) will be uploaded
+    /// meaning plan status (and optionally note) will be uploaded
     /// on next sync through API.setStatus()
     ///
     /// - Parameters:
@@ -532,14 +532,16 @@ class Plan: Object, MyraObject {
         if !isValid {
             return [String:Any]()
         }
-        /*
-         Set status to staff draft if this plan is a local draft
-         Set status to Created is plan needs to be uploaded
-         */
+        
         var amendmentTypeIdTemp: Int = amendmentTypeId
         if amendmentTypeIdTemp == -1 {
             amendmentTypeIdTemp = 0
         }
+        
+        /*
+         Set status to staff draft if this plan is a local draft
+         Set status to Created is plan needs to be uploaded
+         */
         var currStatusId = 1
         if self.status == RUPStatus.LocalDraft.rawValue {
             currStatusId = Reference.shared.getStaffDraftPlanStatus().id
@@ -555,5 +557,50 @@ class Plan: Object, MyraObject {
             "amendmentTypeId": amendmentTypeIdTemp,
             "statusId": currStatusId
         ]
+    }
+    
+    /// Creates a Mandatory amendment from current plan
+    /// Plan object returned is already saved
+    /// and will be uploaded on the next sync.
+    /// - Returns: Amended Plan
+    func createMandatoryAmendment() -> Plan {
+        
+        /*
+         Change this to whatever the plans status needs to be when a
+         staff creates a mandatory amendment.
+         */
+        let initialStatusForMandatoryAmendment: RUPStatus = .Created
+        
+        // 1) Clone plan
+        // - This object contains all the sub objects like schedules
+        let plan = self.clone()
+        
+        // 2) Set local status info
+        /*
+         - Outbox means it this plan should be uploaded.
+         - uploadContent() function in API class looks for plans
+         with status .Outbox to upload.
+         */
+        plan.statusEnum = .Outbox
+        
+        // 3) Set remote status.
+        // - this is where the varable on line 1 is used.
+        let tempId = Reference.shared.convertToPlanStatus(status: initialStatusForMandatoryAmendment).id
+        plan.statusId = tempId
+        
+        // 4 set amendment type id from reference data
+        // - get amendment type references
+        let amendmentTypes = Reference.shared.getAmendmentTypes()
+        
+        // - find the one that has mandatory keyword in it
+        for amendmentType in amendmentTypes where amendmentType.name.lowercased().contains("mandatory") {
+            // - set the id
+            self.amendmentTypeId = amendmentType.id
+            break
+        }
+        
+        // 5) Save Locally
+        RealmRequests.saveObject(object: plan)
+        return plan
     }
 }

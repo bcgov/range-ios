@@ -15,6 +15,13 @@ class FlowReviewCollectionViewCell: FlowCell {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var bottomDivider: UIView!
+    
+    @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var indicatorImage: UIImageView!
+    @IBOutlet weak var indicator: UIView!
+    @IBOutlet weak var optionLabel: UILabel!
+    @IBOutlet weak var optionDescriptionLabel: UILabel!
     
     // MARK: Outlet Actions
     @IBAction func nextAction(_ sender: UIButton) {
@@ -61,17 +68,37 @@ class FlowReviewCollectionViewCell: FlowCell {
         case .RecommendNotReady:
             title.text = "Confirm Decision"
             textView.text = "You’re ready to submit this range use plan decision. Your explanatory note will be viewable by all agreement holders and range staff."
-        }        
+        }
+        
+        if let selectedOption = model.selectedOption {
+            self.optionLabel.text = FlowHelper.shared.getTitleFor(option: selectedOption)
+            self.optionDescriptionLabel.text = FlowHelper.shared.getSubtitleFor(option: selectedOption)
+        }
+        
+        notesTextView.text = model.notes
+        
+        if model.notes.isEmpty {
+            notesTextView.text = "No explanatory note provided."
+        }
     }
     
     // MARK: Style
     func style() {
         textView.isEditable = false
-        styleSubHeader(label: title)
-        styleDivider(divider: divider)
-        styleFooter(textView: textView)
+        styleFlowTitle(label: title)
+        styleGreyDivider(divider: divider)
+        styleGreyDivider(divider: bottomDivider)
+        styleFlowReview(textView: textView)
         styleHollowButton(button: cancelButton)
         styleFillButton(button: nextButton)
+    
+        styleFlowOptionName(label: optionLabel)
+        styleFlowOptionDescription(label: optionDescriptionLabel)
+        makeCircle(view: indicator)
+        indicatorImage.image = UIImage(named: "checkGreen")
+        styleTextviewInputField(field: notesTextView)
+        notesTextView.isEditable = false
+        textView.isEditable = false
     }
     
 }

@@ -31,8 +31,8 @@ class FlowConfirmationCollectionViewCell: FlowCell {
     
     // MARK: Style
     func style() {
-        styleSubHeader(label: title)
-        styleDivider(divider: divider)
+        styleFlowTitle(label: title)
+        styleGreyDivider(divider: divider)
 //        styleFillButton(button: nextButton)
     }
     

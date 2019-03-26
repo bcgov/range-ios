@@ -24,6 +24,13 @@ enum SortingCategory {
     case status
 }
 
+enum RUPFilterType {
+    case All
+    case Drafts
+    case Pending
+    case Completed
+}
+
 class HomeViewController: BaseViewController {
 
     // MARK: Constants
@@ -38,7 +45,7 @@ class HomeViewController: BaseViewController {
     // MARK: Variables
     var realmNotificationToken: NotificationToken?
     var parentReference: MainViewController?
-    var rups: [Plan] = [Plan]()
+    var plans: [Plan] = [Plan]()
     var expandIndexPath: IndexPath?
 
     var unstableConnection: Bool = false
@@ -57,6 +64,7 @@ class HomeViewController: BaseViewController {
     var lastSyncTimerActive = false
     
     var sortCategory: SortingCategory = .agreementHolder
+    var filterType: RUPFilterType = .All
 
     // MARK: Outlets
     @IBOutlet weak var containerView: UIView!
@@ -114,7 +122,7 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupReachabilityNotification()
-        self.getRUPs()
+        self.getPlans()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -202,34 +210,59 @@ class HomeViewController: BaseViewController {
     // MARK: Filter
     func filterByAll() {
         if syncing {return}
+        LoadPlans()
         filterButtonOn(button: allFilter)
+        filterType = .All
+        self.tableView.reloadData()
         sortByRangeNumber()
     }
 
     func filterByDrafts() {
         if syncing {return}
-        loadRUPs()
+        LoadPlans()
         filterButtonOn(button: draftsFilter)
-        let staffDraft = RUPManager.shared.getStaffDraftRups()
-        self.rups = RUPManager.shared.getDraftRups()
-        self.rups.append(contentsOf: staffDraft)
+        filterType = .Drafts
+        var filtered:[Plan] = [Plan]()
+        for plan in plans {
+            if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
+                filtered.append(plan)
+            }
+        }
+        self.plans = filtered
         self.tableView.reloadData()
+        sortByRangeNumber()
     }
 
     func filterByPending() {
         if syncing {return}
-        loadRUPs()
+        LoadPlans()
         filterButtonOn(button: pendingFilter)
-        self.rups = RUPManager.shared.getPendingRups()
+        filterType = .Pending
+        var filtered:[Plan] = [Plan]()
+        for plan in plans {
+            if plan.getStatus() != .LocalDraft && plan.getStatus() != .StaffDraft && plan.getStatus() != .Stands && plan.getStatus() != .Approved {
+                filtered.append(plan)
+            }
+        }
+        self.plans = filtered
         self.tableView.reloadData()
+        sortByRangeNumber()
     }
 
     func filterByCompleted() {
         if syncing {return}
-        loadRUPs()
+        LoadPlans()
         filterButtonOn(button: completedFilter)
-        self.rups = RUPManager.shared.getCompletedRups()
+        filterType = .Completed
+        var filtered:[Plan] = [Plan]()
+        for plan in plans {
+            if plan.getStatus() == .Stands || plan.getStatus() == .Approved {
+                filtered.append(plan)
+            }
+        }
+        self.plans = filtered
         self.tableView.reloadData()
+        sortByRangeNumber()
     }
 
     func setupSort() {
@@ -268,32 +301,32 @@ class HomeViewController: BaseViewController {
     
     func sortByAgreementHolder() {
         if syncing {return}
-        loadRUPs()
-        self.rups = self.rups.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
+//        loadRUPs()
+        self.plans = self.plans.sorted(by: {$0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName})
         self.sortCategory = .agreementHolder
         self.tableView.reloadData()
     }
 
     func sortByRangeName() {
         if syncing {return}
-        loadRUPs()
-        self.rups = self.rups.sorted(by: {$0.rangeName < $1.rangeName})
+//        loadRUPs()
+        self.plans = self.plans.sorted(by: {$0.rangeName < $1.rangeName})
         self.sortCategory = .rangeName
         self.tableView.reloadData()
     }
 
     func sortByStatus() {
         if syncing {return}
-        loadRUPs()
-        self.rups = self.rups.sorted(by: {$0.getStatus().rawValue < $1.getStatus().rawValue})
+//        loadRUPs()
+        self.plans = self.plans.sorted(by: {$0.getStatus().rawValue < $1.getStatus().rawValue})
         self.sortCategory = .status
         self.tableView.reloadData()
     }
 
     func sortByRangeNumber() {
         if syncing {return}
-        loadRUPs()
-        self.rups = self.rups.sorted(by: {$0.ranNumber < $1.ranNumber})
+//        loadRUPs()
+        self.plans = self.plans.sorted(by: {$0.ranNumber < $1.ranNumber})
         self.sortCategory = .rangeNumber
         self.tableView.reloadData()
     }
@@ -360,10 +393,10 @@ class HomeViewController: BaseViewController {
         }
     }
 
-    func loadRUPs() {
+    func LoadPlans() {
         if syncing {return}
         RUPManager.shared.fixUnlinkedPlans()
-        self.rups = [Plan]()
+        self.plans = [Plan]()
         self.tableView.reloadData()
         /*
          Clean up the local DB by removing plans that were created
@@ -374,7 +407,7 @@ class HomeViewController: BaseViewController {
         let agreements = RUPManager.shared.getAgreements()
         for agreement in agreements where agreement.plans.count > 0 {
             if let p = agreement.getLatestPlan() {
-                self.rups.append(p)
+                self.plans.append(p)
             }
         }
         self.expandIndexPath = nil
@@ -394,7 +427,7 @@ class HomeViewController: BaseViewController {
             Logger.log(message: "Listening to db changes in HomeVC!")
             self.realmNotificationToken = realm.observe { notification, realm in
                 Logger.log(message: "Change observed in Home.\nReloading Home.")
-                self.loadRUPs()
+                self.LoadPlans()
                 self.tableView.reloadData()
             }
         } catch _ {
@@ -559,7 +592,7 @@ class HomeViewController: BaseViewController {
     }
 
     func synchronize() {
-        self.rups = [Plan]()
+        self.plans = [Plan]()
         self.tableView.reloadData()
         self.endChangeListener()
         self.syncing = true
@@ -654,7 +687,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.register(nib, forCellReuseIdentifier: name)
     }
 
-    func getAssignedRupCell(indexPath: IndexPath) -> PlanTableViewCell {
+    func getPlanCell(indexPath: IndexPath) -> PlanTableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "PlanTableViewCell", for: indexPath) as! PlanTableViewCell
     }
     
@@ -663,16 +696,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if rups.count < 1 {
-            let cell = getEmptyStateCell(indexPath: indexPath)
-            let message = "You have not created any RUPs yet in MyRange BC. Use the Create New RUP button to select a RAN and create a new digital RUP."
-            let title = "Looking a little barren around here?"
-            let icon = UIImage(named: "Seedling")
-            cell.setup(icon: icon, title: title, message: message)
-            return cell
+        // If we need to show empty state
+        if plans.count < 1 {
+            return getEmptyStateCell(for: indexPath)
         }
-        let index = indexPath.row
-        let cell = getAssignedRupCell(indexPath: indexPath)
+        // Otherwise...
+        let cell = getPlanCell(indexPath: indexPath)
+        // Check if cell should be setup in expanded more or not
         var expandFlag: Bool? = nil
         if let selectedIndex = self.expandIndexPath {
             if selectedIndex == indexPath {
@@ -681,26 +711,44 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 expandFlag = false
             }
         }
-        if index % 2 == 0 {
-            cell.setup(rup: rups[index], color: Colors.evenCell, expand: expandFlag)
+        // Colour even/odd cells differently
+        if indexPath.row % 2 == 0 {
+            cell.setup(rup: plans[indexPath.row], color: Colors.evenCell, expand: expandFlag)
         } else {
-            cell.setup(rup: rups[index], color: Colors.oddCell, expand: expandFlag)
+            cell.setup(rup: plans[indexPath.row], color: Colors.oddCell, expand: expandFlag)
+        }
+        return cell
+    }
+    
+    func getEmptyStateCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = getEmptyStateCell(indexPath: indexPath)
+        switch self.filterType {
+        case .All:
+            cell.setup(icon: EmptyStateConstants.Home.FilterAll.icon, title:  EmptyStateConstants.Home.FilterAll.title, message:  EmptyStateConstants.Home.FilterAll.message)
+        case .Drafts:
+            cell.setup(icon: EmptyStateConstants.Home.Drafts.icon, title:  EmptyStateConstants.Home.Drafts.title, message:  EmptyStateConstants.Home.Drafts.message)
+        case .Pending:
+            cell.setup(icon: EmptyStateConstants.Home.Pending.icon, title:  EmptyStateConstants.Home.Pending.title, message:  EmptyStateConstants.Home.Pending.message)
+        case .Completed:
+            cell.setup(icon: EmptyStateConstants.Home.Completed.icon, title:  EmptyStateConstants.Home.Completed.title, message:  EmptyStateConstants.Home.Completed.message)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let rupsCount = rups.count
-        if rupsCount < 1 {
+        /*
+         If there are no plans to show, still return 1 for empty state cell
+         */
+        if plans.count < 1 {
             return 1
         } else {
-            return rups.count
+            return plans.count
         }
        
     }
 
     func rupsAreValid() -> Bool {
-        for element in self.rups {
+        for element in self.plans {
             if element.isInvalidated {
                 return false
             }
@@ -710,7 +758,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func reloadRupsIfInvalid() {
         if !rupsAreValid() {
-            loadRUPs()
+            LoadPlans()
         }
     }
 
@@ -719,7 +767,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func expandOrClose(at indexPath: IndexPath, fromTour: Bool = false) {
-        if self.rups.count < 1 {return}
+        if self.plans.count < 1 {return}
         if !fromTour {
             reloadRupsIfInvalid()
         }
@@ -762,11 +810,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: Functions to handle retrival of rups
 extension HomeViewController {
 
-    func getRUPs()  {
+    func getPlans()  {
         DummyData.removeDummyPlanAndAgreement()
-        loadRUPs()
+        LoadPlans()
         // sort by last name
-        self.rups = rups.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
+        self.plans = plans.sorted(by: { $0.primaryAgreementHolderLastName < $1.primaryAgreementHolderLastName })
         self.sortCategory = .agreementHolder
         filterByAll()
     }
@@ -821,7 +869,7 @@ extension HomeViewController: MaterialShowcaseDelegate {
         closeDummyPlanCell {
             AutoSync.shared.endListener()
             DummyData.removeDummyPlanAndAgreement()
-            self.getRUPs()
+            self.getPlans()
             Feedback.initializeButton()
             self.endChangeListener()
             self.beginChangeListener()
@@ -870,8 +918,8 @@ extension HomeViewController: MaterialShowcaseDelegate {
     }
 
     func setDummyPlan() {
-        self.rups.removeAll()
-        self.rups.append(DummyData.createDummyPlan())
+        self.plans.removeAll()
+        self.plans.append(DummyData.createDummyPlan())
         self.expandIndexPath = nil
         self.tableView.reloadData()
     }

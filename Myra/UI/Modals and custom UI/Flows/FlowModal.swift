@@ -45,7 +45,7 @@ class FlowModal: CustomModal {
 
     // MARK: Constants
     let suggestedWidth: CGFloat = 600
-    let suggestedHeight: CGFloat = 500
+    let suggestedHeight: CGFloat = 560
     
     // MARK: Variables
     var completion: ((_ result: FlowResult?) -> Void)?

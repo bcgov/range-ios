@@ -106,6 +106,56 @@ class FlowHelper {
         return options
     }
     
+    func getTitleFor(option: FlowOption) -> String {
+        switch option {
+        case .RecommendForSubmission:
+            return StatusConstants.RecommendForSubmission.Flow.optionTitle
+        case .ChangeRequested:
+            return StatusConstants.ChangeRequested.Flow.optionTitle
+        case .RecommendReady:
+            return StatusConstants.RecommendReady.Flow.optionTitle
+        case .RecommendNotReady:
+            return StatusConstants.RecommendNotReady.Flow.optionTitle
+        case .NotApproved:
+            return StatusConstants.NotApproved.Flow.optionTitle
+        case .Approved:
+            return StatusConstants.Approved.Flow.optionTitle
+        case .NotApprovedFurtherWorkRequired:
+            return StatusConstants.NotApprovedFurtherWorkRequired.Flow.optionTitle
+        case .WronglyMadeWithoutEffect:
+            return StatusConstants.WronglyMadeWithoutEffect.Flow.optionTitle
+        case .StandsWronglyMade:
+            return StatusConstants.StandsWronglyMade.Flow.optionTitle
+        case .Stands:
+            return StatusConstants.Stands.Flow.optionTitle
+        }
+    }
+    
+    func getSubtitleFor(option: FlowOption) -> String {
+        switch option {
+        case .RecommendForSubmission:
+            return StatusConstants.RecommendForSubmission.Flow.optionSubtitle
+        case .ChangeRequested:
+            return StatusConstants.ChangeRequested.Flow.optionSubtitle
+        case .RecommendReady:
+            return StatusConstants.RecommendReady.Flow.optionSubtitle
+        case .RecommendNotReady:
+            return StatusConstants.RecommendNotReady.Flow.optionSubtitle
+        case .NotApproved:
+            return StatusConstants.NotApproved.Flow.optionSubtitle
+        case .Approved:
+            return StatusConstants.Approved.Flow.optionSubtitle
+        case .NotApprovedFurtherWorkRequired:
+            return StatusConstants.NotApprovedFurtherWorkRequired.Flow.optionSubtitle
+        case .WronglyMadeWithoutEffect:
+            return StatusConstants.WronglyMadeWithoutEffect.Flow.optionSubtitle
+        case .StandsWronglyMade:
+            return StatusConstants.StandsWronglyMade.Flow.optionSubtitle
+        case .Stands:
+            return StatusConstants.Stands.Flow.optionSubtitle
+        }
+    }
+    
     func statusChangeNeedsToBeCommunicated(forModel model: FlowHelperModel) -> Bool {
         if let option = model.selectedOption, statusChangeCommunicationTextFor(option: option) != nil {
             return true
@@ -116,6 +166,8 @@ class FlowHelper {
     
     func statusChangeCommunicationTextFor(option: FlowOption) -> String? {
         // if status doesnt have checkbox, return nil
+        
+        // Turns out we want the same text for all of them anyway
         switch option {
         case .ChangeRequested:
             return "I have have communicated with agreement holder about this update and wish to change status"
@@ -131,7 +183,7 @@ class FlowHelper {
             return nil
         }
     }
-    
+   
     public func translate(option: FlowOption) -> RUPStatus {
         switch option {
         case .RecommendForSubmission:
@@ -160,37 +212,16 @@ class FlowHelper {
     private func actionNameFor(status: StatusWithFlow) -> String {
         switch status {
         case .SubmittedForFinalDecision:
-            return "Provide Feedback"
+            return StatusConstants.SubmittedForFinalDecision.Flow.title
         case .SubmittedForReview:
-            return "Add Recommendation"
+            return StatusConstants.SubmittedForReview.Flow.title
         case .StandsReview:
-            return "Review Amendment"
+            return StatusConstants.StandsReview.Flow.title
         ///////////////////////////
         case .RecommendReady:
-            return "Record Descision"
+            return StatusConstants.RecommendReady.Flow.title
         case .RecommendNotReady:
-            return "Record Descision"
-        }
-    }
-    
-    private func flowViewFor(status: StatusWithFlow) -> UIView {
-        switch status {
-        case .SubmittedForFinalDecision:
-            let view: SubmittedForFinalDescision_Flow = UIView.fromNib()
-            return view
-        case .SubmittedForReview:
-            let view: SumittedForReview_Flow = UIView.fromNib()
-            return view
-        case .StandsReview:
-            let view: Stands_Flow = UIView.fromNib()
-            return view
-        ///////////////////////////
-        case .RecommendReady:
-            let view: dm_Flow = UIView.fromNib()
-            return view
-        case .RecommendNotReady:
-            let view: dm_Flow = UIView.fromNib()
-            return view
+            return StatusConstants.RecommendNotReady.Flow.title
         }
     }
     

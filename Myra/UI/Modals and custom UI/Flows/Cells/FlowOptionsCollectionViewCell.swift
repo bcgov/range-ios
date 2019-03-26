@@ -21,6 +21,7 @@ class FlowOptionsCollectionViewCell: FlowCell {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var subtitleHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomDivider: UIView!
     
     // MARK: Outlet Actions
     @IBAction func nextAction(_ sender: UIButton) {
@@ -76,9 +77,10 @@ class FlowOptionsCollectionViewCell: FlowCell {
     
     // MARK: Style
     func style() {
-        styleSubHeader(label: titleLabel)
-        styleFooter(label: subtitleLabel)
-        styleDivider(divider: divider)
+        styleFlowTitle(label: titleLabel)
+        styleFlowSubTitle(label: subtitleLabel)
+        styleGreyDivider(divider: bottomDivider)
+        styleGreyDivider(divider: divider)
         styleHollowButton(button: cancelButton)
         styleFillButton(button: nextButton)
     }

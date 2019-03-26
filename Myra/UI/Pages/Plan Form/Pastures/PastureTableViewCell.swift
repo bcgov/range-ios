@@ -248,7 +248,7 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     // MARK: Options
-    func editName(){
+    func editName() {
         guard let pasture = self.pasture, let plan = self.plan else {return}
         let inputModal: InputModal = UIView.fromNib()
         inputModal.initialize(header: "Pasture Name", taken: Options.shared.getPastureNames(rup: plan)) { (name) in

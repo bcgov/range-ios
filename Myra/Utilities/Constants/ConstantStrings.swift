@@ -59,6 +59,10 @@ struct TourMessages {
 }
 
 struct PlaceHolders {
+    
+    struct Flows {
+        static let notes = "Summarize your decision briefly.\nEx. \"This RUP amendment meets the criteria of FURPA.\""
+    }
 
     struct Actions {
         static let herding: String = "Frequency, distance and direction livestock will be herded. Identify the high pressure area and/or lower use areas if relevant. Ex. livestock will be herded at least 1 km away from Fish Lake towards the north 3 times per week."
