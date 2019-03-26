@@ -17,20 +17,14 @@
 		1E03B3342204BB6200116848 /* LoggerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3332204BB6200116848 /* LoggerWindow.swift */; };
 		1E03B3382204BFDF00116848 /* LoggerWindowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */; };
 		1E03B3392204BFDF00116848 /* LoggerWindowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */; };
+		1E34A9B522494E1E00555011 /* StatusConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34A9B422494E1E00555011 /* StatusConstants.swift */; };
 		1E4C6CEB224159A000E03B1C /* SettingsSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */; };
 		1E4C6CEC224159A000E03B1C /* SettingsSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */; };
 		1E4C6CF02241A5D600E03B1C /* SSOConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEF2241A5D500E03B1C /* SSOConstants.swift */; };
+		1E4C6CF222493CB400E03B1C /* EmptyStateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CF122493CB400E03B1C /* EmptyStateConstants.swift */; };
 		1E58DF3D22149D2800EF0A1D /* RemoteVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */; };
 		1E58DF3F2214AE3F00EF0A1D /* ApplicationVersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */; };
-		1E58DF462215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */; };
-		1E58DF482215E08600EF0A1D /* SubmittedForFinalDescision_Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF472215E08600EF0A1D /* SubmittedForFinalDescision_Flow.swift */; };
 		1E58DF4B2215E0D400EF0A1D /* FlowHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF4A2215E0D400EF0A1D /* FlowHelper.swift */; };
-		1E58DF4E2215E1DA00EF0A1D /* SumittedForReview_Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF4D2215E1DA00EF0A1D /* SumittedForReview_Flow.swift */; };
-		1E58DF502215E1EB00EF0A1D /* SumittedForReview_Flow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF4F2215E1EB00EF0A1D /* SumittedForReview_Flow.xib */; };
-		1E58DF532215E2F100EF0A1D /* Stands_Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF522215E2F100EF0A1D /* Stands_Flow.swift */; };
-		1E58DF552215E2FE00EF0A1D /* Stands_Flow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF542215E2FE00EF0A1D /* Stands_Flow.xib */; };
-		1E58DF582215EA2800EF0A1D /* dm_Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF572215EA2800EF0A1D /* dm_Flow.swift */; };
-		1E58DF5A2215EA3900EF0A1D /* dm_Flow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF592215EA3900EF0A1D /* dm_Flow.xib */; };
 		1E58DF5D2215F21A00EF0A1D /* FlowOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF5C2215F21A00EF0A1D /* FlowOption.swift */; };
 		1E58DF5F2215F22400EF0A1D /* StatusWithFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF5E2215F22400EF0A1D /* StatusWithFlow.swift */; };
 		1E58DF612215F24E00EF0A1D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF602215F24E00EF0A1D /* FlowModel.swift */; };
@@ -333,20 +327,14 @@
 		1E03B3332204BB6200116848 /* LoggerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindow.swift; sourceTree = "<group>"; };
 		1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerWindowTableViewCell.swift; sourceTree = "<group>"; };
 		1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerWindowTableViewCell.xib; sourceTree = "<group>"; };
+		1E34A9B422494E1E00555011 /* StatusConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusConstants.swift; sourceTree = "<group>"; };
 		1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSegmentedTableViewCell.swift; sourceTree = "<group>"; };
 		1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSegmentedTableViewCell.xib; sourceTree = "<group>"; };
 		1E4C6CEF2241A5D500E03B1C /* SSOConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOConstants.swift; sourceTree = "<group>"; };
+		1E4C6CF122493CB400E03B1C /* EmptyStateConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateConstants.swift; sourceTree = "<group>"; };
 		1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVersion.swift; sourceTree = "<group>"; };
 		1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationVersionStatus.swift; sourceTree = "<group>"; };
-		1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmittedForFinalDescision_Flow.xib; sourceTree = "<group>"; };
-		1E58DF472215E08600EF0A1D /* SubmittedForFinalDescision_Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedForFinalDescision_Flow.swift; sourceTree = "<group>"; };
 		1E58DF4A2215E0D400EF0A1D /* FlowHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowHelper.swift; sourceTree = "<group>"; };
-		1E58DF4D2215E1DA00EF0A1D /* SumittedForReview_Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumittedForReview_Flow.swift; sourceTree = "<group>"; };
-		1E58DF4F2215E1EB00EF0A1D /* SumittedForReview_Flow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SumittedForReview_Flow.xib; sourceTree = "<group>"; };
-		1E58DF522215E2F100EF0A1D /* Stands_Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stands_Flow.swift; sourceTree = "<group>"; };
-		1E58DF542215E2FE00EF0A1D /* Stands_Flow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Stands_Flow.xib; sourceTree = "<group>"; };
-		1E58DF572215EA2800EF0A1D /* dm_Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dm_Flow.swift; sourceTree = "<group>"; };
-		1E58DF592215EA3900EF0A1D /* dm_Flow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = dm_Flow.xib; sourceTree = "<group>"; };
 		1E58DF5C2215F21A00EF0A1D /* FlowOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowOption.swift; sourceTree = "<group>"; };
 		1E58DF5E2215F22400EF0A1D /* StatusWithFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusWithFlow.swift; sourceTree = "<group>"; };
 		1E58DF602215F24E00EF0A1D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
@@ -689,6 +677,8 @@
 				2935A76B21485A2500441539 /* ConstantStrings.swift */,
 				2932BB4C20851BD900579A57 /* Colors.swift */,
 				2932BB4E2085209000579A57 /* Fonts.swift */,
+				1E4C6CF122493CB400E03B1C /* EmptyStateConstants.swift */,
+				1E34A9B422494E1E00555011 /* StatusConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -747,51 +737,11 @@
 			children = (
 				1E58DF6622174EB400EF0A1D /* Cells */,
 				1E58DF5B2215F08300EF0A1D /* Models and Enums */,
-				1E58DF562215E9FB00EF0A1D /* District Manager */,
-				1E58DF512215E2D900EF0A1D /* Stands */,
-				1E58DF4C2215E1B200EF0A1D /* Submitted For Review */,
-				1E58DF492215E09100EF0A1D /* Submitted For Final Descision */,
 				1E58DF622217329200EF0A1D /* FlowModal.swift */,
 				1E58DF6422174AE000EF0A1D /* FlowCell.swift */,
 				1E58DF4A2215E0D400EF0A1D /* FlowHelper.swift */,
 			);
 			path = Flows;
-			sourceTree = "<group>";
-		};
-		1E58DF492215E09100EF0A1D /* Submitted For Final Descision */ = {
-			isa = PBXGroup;
-			children = (
-				1E58DF452215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib */,
-				1E58DF472215E08600EF0A1D /* SubmittedForFinalDescision_Flow.swift */,
-			);
-			path = "Submitted For Final Descision";
-			sourceTree = "<group>";
-		};
-		1E58DF4C2215E1B200EF0A1D /* Submitted For Review */ = {
-			isa = PBXGroup;
-			children = (
-				1E58DF4D2215E1DA00EF0A1D /* SumittedForReview_Flow.swift */,
-				1E58DF4F2215E1EB00EF0A1D /* SumittedForReview_Flow.xib */,
-			);
-			path = "Submitted For Review";
-			sourceTree = "<group>";
-		};
-		1E58DF512215E2D900EF0A1D /* Stands */ = {
-			isa = PBXGroup;
-			children = (
-				1E58DF522215E2F100EF0A1D /* Stands_Flow.swift */,
-				1E58DF542215E2FE00EF0A1D /* Stands_Flow.xib */,
-			);
-			path = Stands;
-			sourceTree = "<group>";
-		};
-		1E58DF562215E9FB00EF0A1D /* District Manager */ = {
-			isa = PBXGroup;
-			children = (
-				1E58DF572215EA2800EF0A1D /* dm_Flow.swift */,
-				1E58DF592215EA3900EF0A1D /* dm_Flow.xib */,
-			);
-			path = "District Manager";
 			sourceTree = "<group>";
 		};
 		1E58DF5B2215F08300EF0A1D /* Models and Enums */ = {
@@ -1687,7 +1637,6 @@
 				297E998D2165482000FB6F04 /* Pin.xib in Resources */,
 				1EEC8ABE21ED16F5009C1885 /* AmendmentFlow.xib in Resources */,
 				294F6BBC219F3CA0008EC6FA /* FeedbackView.xib in Resources */,
-				1E58DF502215E1EB00EF0A1D /* SumittedForReview_Flow.xib in Resources */,
 				29C7C1FE21C815F4005EB5D4 /* ShrubUseTableViewCell.xib in Resources */,
 				2938CF0D21A4765100329DDA /* TourStart.xib in Resources */,
 				29F1DE4020EC406100C6ECB8 /* PlantCommunity.storyboard in Resources */,
@@ -1710,7 +1659,6 @@
 				29227B6E20F0057C0042B88E /* CustomSectionHeader.xib in Resources */,
 				29227B5620EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib in Resources */,
 				292197CE209CCF65004A5011 /* Options.storyboard in Resources */,
-				1E58DF5A2215EA3900EF0A1D /* dm_Flow.xib in Resources */,
 				29A97A7D20CEF0B6002F2D9A /* spinner2_.json in Resources */,
 				29EE75D8205053030061B18D /* ScheduleElementTableViewCell.xib in Resources */,
 				2962B0D9204E0EF600F71B9C /* ScheduleTableViewCell.xib in Resources */,
@@ -1737,7 +1685,6 @@
 				29400584208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib in Resources */,
 				29174683207426E2005F70B4 /* Home.storyboard in Resources */,
 				29400580208FCD5700AA1BDC /* PlanInformationTableViewCell.xib in Resources */,
-				1E58DF462215E07A00EF0A1D /* SubmittedForFinalDescision_Flow.xib in Resources */,
 				29227B6A20EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib in Resources */,
 				293D4180216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib in Resources */,
 				1E03B329220367C000116848 /* Privacy.xib in Resources */,
@@ -1751,7 +1698,6 @@
 				29E0D92B203F551E00193FA0 /* PasturesTableViewCell.xib in Resources */,
 				1E58DF7222174EE900EF0A1D /* FlowReviewCollectionViewCell.xib in Resources */,
 				29B5F047208E958D003D996D /* sync_icon.json in Resources */,
-				1E58DF552215E2FE00EF0A1D /* Stands_Flow.xib in Resources */,
 				29616EA821063ADA003102F8 /* EmptyTableViewCell.xib in Resources */,
 				29C34BD321C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib in Resources */,
 				2935A7682148399500441539 /* Tooltip.storyboard in Resources */,
@@ -1887,16 +1833,15 @@
 				291C4D9D20378A3900390523 /* OpenMapOverlay.swift in Sources */,
 				29E0D937203F65FD00193FA0 /* PlantCommunity.swift in Sources */,
 				2962B0EC204F2BB400F71B9C /* ScheduleObject.swift in Sources */,
-				1E58DF482215E08600EF0A1D /* SubmittedForFinalDescision_Flow.swift in Sources */,
 				2920F8292034BA0F0090E7B4 /* PlanTableViewCell.swift in Sources */,
 				299D3EB8217E79DF0000781E /* PlantCommunityType.swift in Sources */,
+				1E34A9B522494E1E00555011 /* StatusConstants.swift in Sources */,
+				1E4C6CF222493CB400E03B1C /* EmptyStateConstants.swift in Sources */,
 				292E65252076AB12003D4AF0 /* AgreementExemptionStatus.swift in Sources */,
 				293D418B216D313D006214E1 /* ManagementConsiderationTableViewCell.swift in Sources */,
-				1E58DF532215E2F100EF0A1D /* Stands_Flow.swift in Sources */,
 				2962B0D8204E0EF600F71B9C /* ScheduleTableViewCell.swift in Sources */,
 				290AD10F218A13DF00A261B6 /* ManagegementConsiderationType.swift in Sources */,
 				299491ED20B62588005FCF94 /* MinisterIssuesTableViewCell.swift in Sources */,
-				1E58DF4E2215E1DA00EF0A1D /* SumittedForReview_Flow.swift in Sources */,
 				1E58DF5F2215F22400EF0A1D /* StatusWithFlow.swift in Sources */,
 				29E0D930203F652F00193FA0 /* PastureTableViewCell.swift in Sources */,
 				1EE97E0621E80A16008B1086 /* Settings.swift in Sources */,
@@ -2051,7 +1996,6 @@
 				290E153C2048C9FE00A51884 /* BaseFormCell.swift in Sources */,
 				1E03B3382204BFDF00116848 /* LoggerWindowTableViewCell.swift in Sources */,
 				299491F620B62B3D005FCF94 /* MinisterIssueAction.swift in Sources */,
-				1E58DF582215EA2800EF0A1D /* dm_Flow.swift in Sources */,
 				297D8FE921C9920200D9A8B8 /* DatePickerViewController.swift in Sources */,
 				1E657002223052EC0042826E /* TesterTypePrompt.swift in Sources */,
 				29DEA5AC21AC833A002AA89B /* TileMaster.swift in Sources */,

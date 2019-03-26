@@ -22,6 +22,12 @@ class FlowNotesCollectionViewCell: FlowCell {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var subtitleHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomDivider: UIView!
+    
+    @IBOutlet weak var indicatorImage: UIImageView!
+    @IBOutlet weak var indicator: UIView!
+    @IBOutlet weak var optionLabel: UILabel!
+    @IBOutlet weak var optionDescriptionLabel: UILabel!
     
     // MARK: Outlet Actions
     @IBAction func nextAction(_ sender: UIButton) {
@@ -88,12 +94,21 @@ class FlowNotesCollectionViewCell: FlowCell {
         
         textView.text = model.notes
         
+        if model.notes.isEmpty {
+            addPlaceHolder()
+        }
+        
         // Show/ hide checkbox section based on flow
         if let selectedOption = model.selectedOption, let checkboxText = FlowHelper.shared.statusChangeCommunicationTextFor(option: selectedOption) {
             showCheckBoxSection()
             checkBoxLabel.text = checkboxText
         } else {
             hideCheckBoxSection()
+        }
+        if let selectedOption = model.selectedOption {
+            self.optionLabel.text = FlowHelper.shared.getTitleFor(option: selectedOption)
+            self.optionDescriptionLabel.text = FlowHelper.shared.getSubtitleFor(option: selectedOption)
+
         }
         
         refershCheckBox()
@@ -133,9 +148,14 @@ class FlowNotesCollectionViewCell: FlowCell {
     // MARK: Style
     func style() {
         styleCheckBoxInitial()
-        styleSubHeader(label: title)
-        styleFooter(label: subtitle)
-        styleDivider(divider: divider)
+        styleFlowTitle(label: title)
+        styleFlowSubTitle(label: subtitle)
+        styleGreyDivider(divider: divider)
+        styleGreyDivider(divider: bottomDivider)
+        styleFlowOptionName(label: optionLabel)
+        styleFlowOptionDescription(label: optionDescriptionLabel)
+        makeCircle(view: indicator)
+        indicatorImage.image = UIImage(named: "checkGreen")
         styleTextviewInputField(field: textView)
         styleHollowButton(button: cancelButton)
         styleFillButton(button: nextButton)
@@ -147,7 +167,7 @@ class FlowNotesCollectionViewCell: FlowCell {
         checkBox.backgroundColor = Colors.technical.backgroundTwo
         checkboxImageView.image = nil
         makeCircle(view: checkBox)
-        styleFieldHeader(label: checkBoxLabel)
+        styleFlowSubTitle(label: checkBoxLabel)
     }
     
     func refershCheckBox() {
@@ -177,8 +197,30 @@ class FlowNotesCollectionViewCell: FlowCell {
 extension FlowNotesCollectionViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == PlaceHolders.Flows.notes {
+            removePlaceHolder()
+        }
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let model = self.model, let text = textView.text else {return}
-        model.notes = text
+        if text != PlaceHolders.Flows.notes {
+            model.notes = text
+        }
+        
+        if text == "" {
+            addPlaceHolder()
+        }
+    }
+    
+    func removePlaceHolder() {
+        textView.text = ""
+        textView.textColor = defaultInputFieldTextColor().withAlphaComponent(1)
+    }
+    
+    func addPlaceHolder() {
+        textView.text = PlaceHolders.Flows.notes
+        textView.textColor = defaultInputFieldTextColor().withAlphaComponent(0.5)
     }
 }

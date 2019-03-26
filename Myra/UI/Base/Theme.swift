@@ -212,6 +212,10 @@ extension Theme {
     func styleDivider(divider: UIView) {
         divider.backgroundColor = defaultDividerColor()
     }
+    
+    func styleGreyDivider(divider: UIView) {
+        divider.backgroundColor = UIColor(hex: "#EFEFF3")
+    }
 
     func addBoarder(layer: CALayer, cornerRadius: CGFloat) {
         layer.borderWidth = 1
@@ -265,6 +269,35 @@ extension Theme {
         label.textColor = defaultSectionSubHeaderColor()
         label.font = defaultSectionSubHeaderFont()
         label.change(kernValue: -0.52)
+        label.adjustsFontSizeToFitWidth = true
+    }
+    
+    func styleFlowTitle(label: UILabel) {
+        label.font = Fonts.getPrimaryBold(size: 22)
+        label.textColor = Colors.active.blue
+        label.adjustsFontSizeToFitWidth = true
+    }
+    
+    func styleFlowSubTitle(label: UILabel) {
+        label.font = Fonts.getPrimary(size: 17)
+        label.textColor = UIColor.black
+        label.adjustsFontSizeToFitWidth = true
+    }
+    
+    func styleFlowReview(textView: UITextView) {
+        textView.font = Fonts.getPrimary(size: 17)
+        textView.textColor = UIColor.black
+    }
+    
+    func styleFlowOptionName(label: UILabel) {
+        label.textColor = defaultFieldHeaderColor()
+        label.font = Fonts.getPrimaryBold(size: 14)
+        label.adjustsFontSizeToFitWidth = true
+    }
+    
+    func styleFlowOptionDescription(label: UILabel) {
+        label.textColor = defaultFieldHeaderColor()
+        label.font = Fonts.getPrimary(size: 14)
         label.adjustsFontSizeToFitWidth = true
     }
 

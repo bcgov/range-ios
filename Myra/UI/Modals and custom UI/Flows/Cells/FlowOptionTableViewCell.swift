@@ -16,6 +16,8 @@ class FlowOptionTableViewCell: UITableViewCell, Theme {
     // MARK: Outlets
     @IBOutlet weak var indicator: UIView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var indicatorIcon: UIImageView!
     
     // MARK: Outlet Actions
     @IBAction func selectAction(_ sender: UIButton) {
@@ -41,7 +43,8 @@ class FlowOptionTableViewCell: UITableViewCell, Theme {
     func initialize(option: FlowOption, for model: FlowHelperModel) {
         self.option = option
         self.model = model
-        self.label.text = option.rawValue.convertFromCamelCase()
+        self.label.text = FlowHelper.shared.getTitleFor(option: option)
+        self.descriptionLabel.text = FlowHelper.shared.getSubtitleFor(option: option)
         setupNotifications()
         style()
     }
@@ -49,9 +52,8 @@ class FlowOptionTableViewCell: UITableViewCell, Theme {
     // MARK: Styles
     func style() {
         guard let model = self.model else {return}
-        
-        styleFieldHeader(label: label)
-        label.increaseFontSize(by: 3)
+        styleFlowOptionName(label: label)
+        styleFlowOptionDescription(label: descriptionLabel)
         makeCircle(view: indicator)
         indicator.layer.borderWidth = 1
         indicator.layer.borderColor = Colors.active.blue.cgColor
@@ -64,11 +66,14 @@ class FlowOptionTableViewCell: UITableViewCell, Theme {
     }
     
     func styleSelected() {
-        indicator.backgroundColor = Colors.active.blue
+        indicatorIcon.alpha = 1
+        indicatorIcon.image = UIImage(named: "checkGreen")
+        indicator.layer.borderColor = UIColor.clear.cgColor
     }
     
     func styleUnselected() {
-        indicator.backgroundColor = Colors.technical.backgroundTwo
+        indicatorIcon.alpha = 0
+        indicator.layer.borderColor = Colors.active.blue.cgColor
     }
     
 }

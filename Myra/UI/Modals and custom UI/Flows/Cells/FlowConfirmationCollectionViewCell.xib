@@ -97,7 +97,7 @@
                 <outlet property="nextButton" destination="j9i-NC-Ep2" id="SuF-UR-fYv"/>
                 <outlet property="title" destination="AVc-4r-WaB" id="4z6-aC-wOJ"/>
             </connections>
-            <point key="canvasLocation" x="381.60000000000002" y="255.02248875562222"/>
+            <point key="canvasLocation" x="380.80000000000001" y="254.57271364317842"/>
         </collectionViewCell>
     </objects>
 </document>

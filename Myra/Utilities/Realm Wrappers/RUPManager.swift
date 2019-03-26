@@ -32,7 +32,7 @@
      Finds plans that are not linked to an agreement and links them to the appropriate agreements
      */
     func fixUnlinkedPlans() {
-        let plans = getRUPs()
+        let plans = getPlans()
         let agreements = getAgreements()
         // get agreement numbers with no plans
         var agreementsWithNoPlans: [String] = [String]()
@@ -68,7 +68,7 @@
  // MARK: RUP / Agreement
  extension RUPManager {
     func cleanPlans() {
-        let plans = self.getRUPs()
+        let plans = self.getPlans()
         for plan in plans where plan.isNew {
             RealmRequests.deleteObject(plan)
         }
@@ -392,7 +392,7 @@
         return found
     }
     
-    func getRUPs() -> [Plan] {
+    func getPlans() -> [Plan] {
         let rups = RealmRequests.getObject(Plan.self)
         if let all = rups {
             return all
@@ -403,7 +403,7 @@
     
     func getRUPsWithUpdatedLocalStatus() -> [Plan] {
         var found = [Plan]()
-        let all = getRUPs()
+        let all = getPlans()
         for element in all where element.shouldUpdateRemoteStatus {
             found.append(element)
         }
@@ -442,19 +442,24 @@
     }
     
     func getPendingRups() -> [Plan] {
-        do {
-            let realm = try Realm()
-            let objs = realm.objects(Plan.self).filter("status == 'Pending'").map{ $0 }
-            return Array(objs)
-        } catch _ {}
-        return [Plan]()
+        let allPlans = getPlans()
+        var pending:[Plan] = [Plan]()
+        for plan in allPlans {
+            if plan.getStatus() != .LocalDraft && plan.getStatus() != .StaffDraft && plan.getStatus() != .Stands && plan.getStatus() != .Approved {
+                pending.append(plan)
+            }
+        }
+        return pending
     }
     
     func getCompletedRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(Plan.self).filter("status == 'Completed'").map{ $0 }
-            return Array(objs)
+            let stands = Array(realm.objects(Plan.self).filter("status == 'Stands'").map{ $0 })
+            let approved = Array(realm.objects(Plan.self).filter("status == 'Approved'").map{ $0 })
+            var completed: [Plan] = stands
+            completed.append(contentsOf: approved)
+            return Array(completed)
         } catch _ {}
         return [Plan]()
     }

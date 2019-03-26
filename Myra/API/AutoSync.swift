@@ -197,7 +197,7 @@ class AutoSync {
                 // if home page is presented, reload its content
                 if let home = UIView.viewController(ofType: HomeViewController.self) {
                     Logger.log(message: "Reloading plans in home page after autosync")
-                    home.loadRUPs()
+                    home.LoadPlans()
                 }
 //                if let home = self.getPresentedHome() {
 //                    Logger.log(message: "Reloading plans in home page after autosync")

@@ -713,8 +713,14 @@ extension CreateNewRUPViewController {
     }
     
     func setBannerSizes(title: String, subititle: String, actionButtonTitle: String = "") {
+        // Extra padding
+        let extraPadding: CGFloat = 16
+        // Sum of verstial spaces between elements
         let verticalPaddings: CGFloat = 32
+        
+        // add extra vertical size to button
         var buttonPadding: CGFloat = 16
+        
         if actionButtonTitle.isEmpty {
             buttonPadding = 0
         }
@@ -728,7 +734,7 @@ extension CreateNewRUPViewController {
         let subtitleHeight = subititle.height(for: bannerSubtitle, subtractWidth: bannerActionButtonWidth.constant)
         let computedBannerHeight = (titleHeight + subtitleHeight + verticalPaddings)
         bannerTopConstraint.constant = 0
-        bannerContainerHeight.constant = computedBannerHeight
+        bannerContainerHeight.constant = computedBannerHeight + extraPadding
         self.bannerShown = true
     }
     
