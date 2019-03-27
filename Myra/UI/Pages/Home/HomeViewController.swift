@@ -403,7 +403,6 @@ class HomeViewController: BaseViewController {
          from agreements but cancelled.
          */
         RUPManager.shared.cleanPlans()
-//        let rups = RUPManager.shared.getRUPs()
         let agreements = RUPManager.shared.getAgreements()
         for agreement in agreements where agreement.plans.count > 0 {
             if let p = agreement.getLatestPlan() {
