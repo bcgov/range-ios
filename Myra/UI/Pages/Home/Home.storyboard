@@ -377,15 +377,15 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Range Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ag0-YW-svG">
-                                                <rect key="frame" x="349" y="15" width="535" height="20.5"/>
+                                                <rect key="frame" x="349" y="15" width="457" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDB-jK-Xit">
-                                                <rect key="frame" x="892" y="15" width="104" height="20.5"/>
+                                                <rect key="frame" x="814" y="15" width="190" height="20.5"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="104" id="lq5-UT-haX"/>
+                                                    <constraint firstAttribute="width" constant="190" id="lq5-UT-haX"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -411,7 +411,7 @@
                                             <constraint firstItem="duD-N1-In6" firstAttribute="centerY" secondItem="KDB-jK-Xit" secondAttribute="centerY" id="OCT-Ig-XE0"/>
                                             <constraint firstItem="At2-kb-Yxp" firstAttribute="centerY" secondItem="Wr9-CG-TF1" secondAttribute="centerY" id="RA0-0p-EDc"/>
                                             <constraint firstItem="Ag0-YW-svG" firstAttribute="leading" secondItem="pGd-bl-A2N" secondAttribute="trailing" constant="8" id="Tgj-wk-IFZ"/>
-                                            <constraint firstItem="duD-N1-In6" firstAttribute="leading" secondItem="KDB-jK-Xit" secondAttribute="trailing" constant="8" id="aRv-Vy-ZB6"/>
+                                            <constraint firstItem="duD-N1-In6" firstAttribute="leading" secondItem="KDB-jK-Xit" secondAttribute="trailing" id="aRv-Vy-ZB6"/>
                                             <constraint firstItem="KDB-jK-Xit" firstAttribute="centerY" secondItem="Wr9-CG-TF1" secondAttribute="centerY" id="cMX-3Q-EoM"/>
                                             <constraint firstAttribute="trailing" secondItem="duD-N1-In6" secondAttribute="trailing" constant="8" id="fAZ-5R-Xrs"/>
                                             <constraint firstItem="pGd-bl-A2N" firstAttribute="centerY" secondItem="Wr9-CG-TF1" secondAttribute="centerY" id="um7-QF-tKh"/>

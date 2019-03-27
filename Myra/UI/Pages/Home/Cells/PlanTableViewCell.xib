@@ -58,18 +58,18 @@
                                             <action selector="viewAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Hwe-U6-RUZ"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyg-mF-ilV">
-                                        <rect key="frame" x="602" y="9.5" width="90" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Fyg-mF-ilV">
+                                        <rect key="frame" x="532" y="9.5" width="160" height="21"/>
                                         <accessibility key="accessibilityConfiguration" identifier="RUPStatusLabel"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="8w4-YR-PDD"/>
+                                            <constraint firstAttribute="width" constant="160" id="8w4-YR-PDD"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZi-Uo-Ahl">
-                                        <rect key="frame" x="572" y="13" width="14" height="14"/>
+                                        <rect key="frame" x="502" y="13" width="14" height="14"/>
                                         <color key="backgroundColor" red="0.90651893620000001" green="0.33250993490000003" blue="0.1841961741" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="2Nl-fZ-bVy"/>
@@ -77,7 +77,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgf-7v-s6H">
-                                        <rect key="frame" x="349" y="9.5" width="215" height="21"/>
+                                        <rect key="frame" x="349" y="9.5" width="145" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
