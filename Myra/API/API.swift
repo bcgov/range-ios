@@ -77,7 +77,7 @@ class API {
         Alamofire.request(request).responseJSON { response in
             completed = true
             if timedOut {return}
-            if let responseJSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
+            if let responseJSON: JSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
                 Logger.log(message: "PUT ERROR:")
                 Logger.log(message: error)
             }

@@ -229,6 +229,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     func saveAndClose() {
         guard let plan = self.rup else {return}
+        AutoSync.shared.endListener()
         do {
             let realm = try Realm()
             try realm.write {
@@ -246,6 +247,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     func submitAction() {
         guard let plan = self.rup else {return}
+        AutoSync.shared.endListener()
         do {
             let realm = try Realm()
             try realm.write {
