@@ -20,7 +20,13 @@ class TourViewController: UIViewController, Theme {
     @IBOutlet weak var descLabelHeight: NSLayoutConstraint!
     @IBOutlet weak var descLabel: UILabel!
 
-
+    @IBOutlet weak var iconHeight: NSLayoutConstraint!
+    @IBOutlet weak var titleHeight: NSLayoutConstraint!
+    @IBOutlet weak var buttonHeights: NSLayoutConstraint!
+    @IBOutlet weak var skipHight: NSLayoutConstraint!
+    
+    @IBOutlet weak var stackHeight: NSLayoutConstraint!
+    
     var backCallback: (()->Void)?
     var nextCallback: (()->Void)?
     var skipCallback: (()->Void)?
@@ -31,12 +37,14 @@ class TourViewController: UIViewController, Theme {
         super.viewDidLoad()
         style()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        style()
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        if let callBack = tapOutCallback {
-//            return callBack()
-//        }
         if let callback = actionCallback {
             return callback()
         }
@@ -59,24 +67,18 @@ class TourViewController: UIViewController, Theme {
     func skip() {
         guard let callback = self.skipCallback else {return}
         actionCallback = callback
-//        tapOutCallback = nil
-//        return callback()
         self.dismiss(animated: true)
     }
 
     func back() {
         guard let callback = self.backCallback else {return}
         actionCallback = callback
-//        tapOutCallback = nil
-//        return callback()
         self.dismiss(animated: true)
     }
 
     func next() {
         guard let callback = self.nextCallback else {return}
         actionCallback = callback
-//        tapOutCallback = nil
-//        return callback()
         self.dismiss(animated: true)
     }
 
@@ -111,10 +113,24 @@ class TourViewController: UIViewController, Theme {
         self.titleLabel.font = Fonts.getPrimaryMedium(size: 22)
         self.descLabel.font = Fonts.getPrimary(size: 17)
         if let descL = self.descLabel, let text = descL.text, let height = descLabelHeight {
-            height.constant = text.height(withConstrainedWidth: descL.frame.width, font: Fonts.getPrimary(size: 17)) + 5
+            height.constant = text.height(withConstrainedWidth: descL.frame.width, font: Fonts.getPrimary(size: 17)) + 16
         }
+        setTotalHeight()
         backButton.isHidden = false
 
+        self.view.layoutIfNeeded()
+    }
+    
+    func setTotalHeight() {
+        self.view.layoutIfNeeded()
+        guard let titleHeight = titleHeight, let messageHeight = descLabelHeight, let iconHeight = iconHeight, let buttonHeights = buttonHeights, let skipHeight = skipHight, let stackHeight = stackHeight else {return}
+        let numberOfItemsInStack = 5
+        let paddingBetweenStackItems = 16
+        let topAndBottomPadding = 36
+        
+        let totalHeight = (iconHeight.constant + titleHeight.constant + messageHeight.constant + buttonHeights.constant + skipHeight.constant)
+        let totalHeightWithPadding = totalHeight + CGFloat(numberOfItemsInStack * paddingBetweenStackItems) + CGFloat((topAndBottomPadding * 2))
+        stackHeight.constant = totalHeightWithPadding
         self.view.layoutIfNeeded()
     }
 
