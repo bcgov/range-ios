@@ -198,7 +198,7 @@ class MinisterIssue: Object, MyraObject {
         return [
             "detail": self.details,
             "objective": self.objective,
-            "identified": true,
+            "identified": identified,
             "pastures" : getPastureIds(),
             "issueTypeId": self.issueTypeID,
         ]

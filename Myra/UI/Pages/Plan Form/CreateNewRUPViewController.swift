@@ -248,26 +248,20 @@ class CreateNewRUPViewController: BaseViewController {
     func submitAction() {
         guard let plan = self.rup else {return}
         AutoSync.shared.endListener()
-        do {
-            let realm = try Realm()
-            try realm.write {
-                plan.isNew = false
-            }
-        } catch _ {
-            Logger.fatalError(message: LogMessages.databaseWriteFailure)
-        }
         
         let validity = RUPManager.shared.isValid(rup: plan)
         if !validity.0 {
             alert(with: "Plan is invalid", message: validity.1)
             return
         }
+
         closingAnimations()
         showAlert(title: "Confirm", description: "You will not be able to edit this RUP after submission", yesButtonTapped: {
             // Yes tapped
             do {
                 let realm = try Realm()
                 try realm.write {
+                    plan.isNew = false
                     plan.statusEnum = .Outbox
                 }
             } catch _ {}
