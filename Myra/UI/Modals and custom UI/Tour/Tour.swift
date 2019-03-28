@@ -161,8 +161,8 @@ class Tour {
     
     func getEstimatedHeight(for element: TourObject, inWidth width: CGFloat) -> CGFloat {
         
-        let estimatedContentHeight = element.desc.height(withConstrainedWidth: width, font: Fonts.getPrimary(size: 17)) + element.header.height(withConstrainedWidth: width, font: Fonts.getPrimaryMedium(size: 17))
-        let iconHeight: CGFloat = 36
+        let estimatedContentHeight = element.desc.height(withConstrainedWidth: width, font: Fonts.getPrimary(size: 17)) + element.header.height(withConstrainedWidth: width, font: Fonts.getPrimaryBold(size: 17))
+        let iconHeight: CGFloat = 26
         let buttonHeights: CGFloat = 42
         let skipHeight: CGFloat = 35
         let numberOfItemsInStack: CGFloat = 5

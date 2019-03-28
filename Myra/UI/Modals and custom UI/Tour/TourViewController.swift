@@ -25,8 +25,6 @@ class TourViewController: UIViewController, Theme {
     @IBOutlet weak var buttonHeights: NSLayoutConstraint!
     @IBOutlet weak var skipHight: NSLayoutConstraint!
     
-    @IBOutlet weak var stackHeight: NSLayoutConstraint!
-    
     var backCallback: (()->Void)?
     var nextCallback: (()->Void)?
     var skipCallback: (()->Void)?
@@ -110,27 +108,13 @@ class TourViewController: UIViewController, Theme {
         self.nextButton.setTitle("Next", for: .normal)
         self.descLabel.textColor = UIColor.white
         self.titleLabel.textColor = UIColor.white
-        self.titleLabel.font = Fonts.getPrimaryMedium(size: 22)
+        self.titleLabel.font = Fonts.getPrimaryBold(size: 22)
         self.descLabel.font = Fonts.getPrimary(size: 17)
         if let descL = self.descLabel, let text = descL.text, let height = descLabelHeight {
             height.constant = text.height(withConstrainedWidth: descL.frame.width, font: Fonts.getPrimary(size: 17)) + 16
         }
-        setTotalHeight()
         backButton.isHidden = false
 
-        self.view.layoutIfNeeded()
-    }
-    
-    func setTotalHeight() {
-        self.view.layoutIfNeeded()
-        guard let titleHeight = titleHeight, let messageHeight = descLabelHeight, let iconHeight = iconHeight, let buttonHeights = buttonHeights, let skipHeight = skipHight, let stackHeight = stackHeight else {return}
-        let numberOfItemsInStack = 5
-        let paddingBetweenStackItems = 16
-        let topAndBottomPadding = 36
-        
-        let totalHeight = (iconHeight.constant + titleHeight.constant + messageHeight.constant + buttonHeights.constant + skipHeight.constant)
-        let totalHeightWithPadding = totalHeight + CGFloat(numberOfItemsInStack * paddingBetweenStackItems) + CGFloat((topAndBottomPadding * 2))
-        stackHeight.constant = totalHeightWithPadding
         self.view.layoutIfNeeded()
     }
 
