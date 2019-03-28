@@ -146,10 +146,11 @@
         
         for issue in rup.ministerIssues {
             if !issue.requiredFieldsAreFilled() {
-                return (false, "One of more Minister's Issues' required fields are missing")
+                return (false, "One or more required fields for Minister's Issues are missing")
             }
             for action in issue.actions where !action.requiredFieldsAreFilled(){
-                return (false, "One of more Minister's Issues' Action's required fields are missing")
+                return (false, "One or more required fields for actions to address Ministers Issues are missing")
+               
             }
         }
         

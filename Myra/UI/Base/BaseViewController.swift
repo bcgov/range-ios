@@ -185,11 +185,9 @@ class BaseViewController: UIViewController, Theme {
     }
     
     // MARK: Statusbar
-    func setStatusBarAppearanceLight() {
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    func setStatusBarAppearanceDark() {
-        UIApplication.shared.statusBarStyle = .default
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+        
     }
     
     // MARK: Screen Rotation

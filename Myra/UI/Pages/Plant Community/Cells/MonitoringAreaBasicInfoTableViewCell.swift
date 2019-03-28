@@ -120,7 +120,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
 
     @IBAction func latitudeFieldChanged(_ sender: UITextField) {
         guard let ma = self.monitoringArea, let text = sender.text else {return}
-        if let doubleLat = Double(text) {
+        if Double(text) != nil {
             sender.textColor = defaultInputFieldTextColor()
             do {
                 let realm = try Realm()
@@ -145,7 +145,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
 
     @IBAction func LongFieldChanged(_ sender: UITextField) {
         guard let ma = self.monitoringArea, let text = sender.text else {return}
-        if let doubleLong = Double(text) {
+        if Double(text) != nil {
             sender.textColor = defaultInputFieldTextColor()
             do {
                 let realm = try Realm()

@@ -126,8 +126,6 @@ class Tour {
 
         self.cover(layer: element.view, in: controller, with: bgColor.withAlphaComponent(0.2))
 
-        // Min Height = button height + title Height + icon height + buttom button height + padding between stackview elements + manual padding
-        let minHeight: CGFloat = 190
         let width: CGFloat = controller.view.frame.width / 1.5
         let height: CGFloat = getEstimatedHeight(for: element, inWidth: width)
 

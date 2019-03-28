@@ -123,7 +123,8 @@ extension MapTableViewCell: MKMapViewDelegate{
 
 
         return
-
+        /* Test Data */
+        /*
         var tocache = [CLLocationCoordinate2D]()
         var one = CLLocationCoordinate2D()
         one.latitude = 48.424251
@@ -149,6 +150,7 @@ extension MapTableViewCell: MKMapViewDelegate{
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.autoload(coordinates: tocache)
         }
+        */
     }
 
     func autoload(coordinates: [CLLocationCoordinate2D]){

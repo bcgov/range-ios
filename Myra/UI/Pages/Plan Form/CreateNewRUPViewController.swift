@@ -261,7 +261,7 @@ class CreateNewRUPViewController: BaseViewController {
             return
         }
         closingAnimations()
-        showAlert(title: "Confirm", description: "You will not be able to edit this rup after submission", yesButtonTapped: {
+        showAlert(title: "Confirm", description: "You will not be able to edit this RUP after submission", yesButtonTapped: {
             // Yes tapped
             do {
                 let realm = try Realm()
@@ -688,9 +688,6 @@ extension CreateNewRUPViewController {
     }
     
     func openBannerWith(title: String, subititle: String, actionButtonTitle: String = "", hideFirst: Bool = true) {
-        guard let plan = self.rup else {return}
-        var isInitial = (plan.amendmentTypeId == -1)
-        
         // set text
         self.bannerTitle.text = title
         self.bannerSubtitle.text = subititle
