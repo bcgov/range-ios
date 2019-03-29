@@ -20,7 +20,11 @@ class TourViewController: UIViewController, Theme {
     @IBOutlet weak var descLabelHeight: NSLayoutConstraint!
     @IBOutlet weak var descLabel: UILabel!
 
-
+    @IBOutlet weak var iconHeight: NSLayoutConstraint!
+    @IBOutlet weak var titleHeight: NSLayoutConstraint!
+    @IBOutlet weak var buttonHeights: NSLayoutConstraint!
+    @IBOutlet weak var skipHight: NSLayoutConstraint!
+    
     var backCallback: (()->Void)?
     var nextCallback: (()->Void)?
     var skipCallback: (()->Void)?
@@ -31,12 +35,14 @@ class TourViewController: UIViewController, Theme {
         super.viewDidLoad()
         style()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        style()
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        if let callBack = tapOutCallback {
-//            return callBack()
-//        }
         if let callback = actionCallback {
             return callback()
         }
@@ -59,24 +65,18 @@ class TourViewController: UIViewController, Theme {
     func skip() {
         guard let callback = self.skipCallback else {return}
         actionCallback = callback
-//        tapOutCallback = nil
-//        return callback()
         self.dismiss(animated: true)
     }
 
     func back() {
         guard let callback = self.backCallback else {return}
         actionCallback = callback
-//        tapOutCallback = nil
-//        return callback()
         self.dismiss(animated: true)
     }
 
     func next() {
         guard let callback = self.nextCallback else {return}
         actionCallback = callback
-//        tapOutCallback = nil
-//        return callback()
         self.dismiss(animated: true)
     }
 
@@ -108,10 +108,10 @@ class TourViewController: UIViewController, Theme {
         self.nextButton.setTitle("Next", for: .normal)
         self.descLabel.textColor = UIColor.white
         self.titleLabel.textColor = UIColor.white
-        self.titleLabel.font = Fonts.getPrimaryMedium(size: 22)
+        self.titleLabel.font = Fonts.getPrimaryBold(size: 22)
         self.descLabel.font = Fonts.getPrimary(size: 17)
         if let descL = self.descLabel, let text = descL.text, let height = descLabelHeight {
-            height.constant = text.height(withConstrainedWidth: descL.frame.width, font: Fonts.getPrimary(size: 17)) + 5
+            height.constant = text.height(withConstrainedWidth: descL.frame.width, font: Fonts.getPrimary(size: 17)) + 16
         }
         backButton.isHidden = false
 

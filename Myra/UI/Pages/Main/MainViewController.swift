@@ -46,7 +46,6 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         chooseInitialView()
-        setStatusBarAppearanceLight()
     }
 
     override func viewDidAppear(_ animated: Bool) {

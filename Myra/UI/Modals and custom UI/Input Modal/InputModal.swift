@@ -119,8 +119,11 @@ class InputModal: CustomModal {
         style()
         present()
         autoFill()
-        IQKeyboardManager.shared.keyboardDistanceFromTextField = getDistanceFromField()
-        self.input.becomeFirstResponder()
+        DispatchQueue.main.asyncAfter(deadline: .now() + (SettingsManager.shared.getAnimationDuration() + 0.1)) {
+            self.layoutIfNeeded()
+            IQKeyboardManager.shared.keyboardDistanceFromTextField = self.getDistanceFromField()
+            self.input.becomeFirstResponder()
+        }
     }
     
     // MARK: Setup

@@ -229,6 +229,7 @@ class CreateNewRUPViewController: BaseViewController {
     
     func saveAndClose() {
         guard let plan = self.rup else {return}
+        AutoSync.shared.endListener()
         do {
             let realm = try Realm()
             try realm.write {
@@ -246,26 +247,21 @@ class CreateNewRUPViewController: BaseViewController {
     
     func submitAction() {
         guard let plan = self.rup else {return}
-        do {
-            let realm = try Realm()
-            try realm.write {
-                plan.isNew = false
-            }
-        } catch _ {
-            Logger.fatalError(message: LogMessages.databaseWriteFailure)
-        }
+        AutoSync.shared.endListener()
         
         let validity = RUPManager.shared.isValid(rup: plan)
         if !validity.0 {
             alert(with: "Plan is invalid", message: validity.1)
             return
         }
+
         closingAnimations()
-        showAlert(title: "Confirm", description: "You will not be able to edit this rup after submission", yesButtonTapped: {
+        showAlert(title: "Confirm", description: "You will not be able to edit this RUP after submission", yesButtonTapped: {
             // Yes tapped
             do {
                 let realm = try Realm()
                 try realm.write {
+                    plan.isNew = false
                     plan.statusEnum = .Outbox
                 }
             } catch _ {}
@@ -410,6 +406,7 @@ class CreateNewRUPViewController: BaseViewController {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         setBarInfoBasedOnOrientation()
+        openBannerIfNeeded(closeFirst: false)
     }
     
     override func whenPortrait() {
@@ -417,6 +414,7 @@ class CreateNewRUPViewController: BaseViewController {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         setBarInfoBasedOnOrientation()
+        openBannerIfNeeded(closeFirst: false)
     }
     
 }
@@ -656,11 +654,15 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
 
 // MARK: Banner
 extension CreateNewRUPViewController {
-    func openBannerIfNeeded() {
+    func openBannerIfNeeded(closeFirst: Bool = true) {
         guard let plan = self.rup else {return}
-        setBannerClosedSize()
+        
+        if closeFirst {
+            setBannerClosedSize()
+        }
+        
         let stausDesc = StatusHelper.getDescription(for: plan)
-        openBannerWith(title: stausDesc.bannerTitle, subititle: stausDesc.bannerDescription, actionButtonTitle: FlowHelper.shared.getActionName(for: plan) ?? "")
+        openBannerWith(title: stausDesc.bannerTitle, subititle: stausDesc.bannerDescription, actionButtonTitle: FlowHelper.shared.getActionName(for: plan) ?? "", hideFirst: closeFirst)
     }
     
     func getBannerTitle() -> String {
@@ -681,10 +683,7 @@ extension CreateNewRUPViewController {
         }
     }
     
-    func openBannerWith(title: String, subititle: String, actionButtonTitle: String = "") {
-        guard let plan = self.rup else {return}
-        var isInitial = (plan.amendmentTypeId == -1)
-        
+    func openBannerWith(title: String, subititle: String, actionButtonTitle: String = "", hideFirst: Bool = true) {
         // set text
         self.bannerTitle.text = title
         self.bannerSubtitle.text = subititle
@@ -696,7 +695,9 @@ extension CreateNewRUPViewController {
         self.bannerSubtitle.font = Fonts.getPrimary(size: 17)
         self.styleFillButton(button: bannerActionButton)
         // prepare animated presentation
-        self.bannerContainer.alpha = 0
+        if hideFirst {
+            self.bannerContainer.alpha = 0
+        }
         self.view.layoutIfNeeded()
         // animate height change
         UIView.animate(withDuration: SettingsManager.shared.getAnimationDuration(), animations: {

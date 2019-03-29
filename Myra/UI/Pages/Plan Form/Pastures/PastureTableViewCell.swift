@@ -64,7 +64,7 @@ class PastureTableViewCell: BaseFormCell {
     }
 
     @IBAction func tooltipAction(_ sender: UIButton) {
-        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
+//        guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         //        parent.showTooltip(on: sender, title: "Plant Community", desc: tooltipPlantCommunitiesDescription)
     }
 

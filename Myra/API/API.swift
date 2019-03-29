@@ -77,7 +77,7 @@ class API {
         Alamofire.request(request).responseJSON { response in
             completed = true
             if timedOut {return}
-            if let responseJSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
+            if let responseJSON: JSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
                 Logger.log(message: "PUT ERROR:")
                 Logger.log(message: error)
             }
@@ -176,7 +176,7 @@ class API {
         
         API.get(endpoint: endpoint) { (jsonResponse) in
             guard let infoJSON = jsonResponse else { return completion(nil) }
-            if let isNull = infoJSON.null {
+            if infoJSON.null != nil {
                 return completion(nil)
             } else {
                 return completion(UserInfo(from: infoJSON))
@@ -492,7 +492,7 @@ class API {
         guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
-        var params = managementConsideration.toDictionary()
+        let params = managementConsideration.toDictionary()
         let localId = managementConsideration.localId
         API.post(endpoint: endpoint, params: params) { (response) in
             guard let response = response, let remoteId = response["id"] as? Int, let refetchedIObjects = RealmManager.shared.managementConsideration(withLocalId: localId) else {
@@ -536,7 +536,7 @@ class API {
         guard let endpoint = URL(string: path, relativeTo: Constants.API.baseURL) else {
             return
         }
-        var params = additionalRequirement.toDictionary()
+        let params = additionalRequirement.toDictionary()
         let localId = additionalRequirement.localId
         API.post(endpoint: endpoint, params: params) { (response) in
             guard let response = response, let remoteId = response["id"] as? Int, let refetchedIObjects = RealmManager.shared.additionalRequirement(withLocalId: localId) else {

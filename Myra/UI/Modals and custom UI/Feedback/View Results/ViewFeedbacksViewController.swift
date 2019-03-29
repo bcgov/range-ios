@@ -66,7 +66,7 @@ class ViewFeedbacksViewController: UIViewController {
                 exists = true
             }
             if !exists, element.email != "amir+1@freshworks.io" {
-                var contributor = Contributor()
+                let contributor = Contributor()
                 contributor.email = element.email
                 contributor.count = 1
                 contributors.append(contributor)

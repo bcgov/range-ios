@@ -126,10 +126,8 @@ class Tour {
 
         self.cover(layer: element.view, in: controller, with: bgColor.withAlphaComponent(0.2))
 
-        // Min Height = button height + title Height + icon height + buttom button height + padding between stackview elements + manual padding
-        let minHeight: CGFloat = 190
-        let width: CGFloat = controller.view.frame.width / 2.0
-        let height: CGFloat = element.desc.height(withConstrainedWidth: width, font: Fonts.getPrimary(size: 17)) + element.header.height(withConstrainedWidth: width, font: Fonts.getPrimaryMedium(size: 17)) + minHeight
+        let width: CGFloat = controller.view.frame.width / 1.5
+        let height: CGFloat = getEstimatedHeight(for: element, inWidth: width)
 
         self.popoverVC.modalPresentationStyle = .popover
         self.popoverVC.preferredContentSize = CGSize(width: width, height: height)
@@ -157,6 +155,21 @@ class Tour {
         controller.present(self.popoverVC, animated: true, completion: {
             self.popoverVC.setup(header: element.header, desc: element.desc, backgroundColor: bgColor, textColor: textColor, hasPrev: !self.old.isEmpty, hasNext: hasNext, onBack: onBack, onNext: onNext, onSkip: onSkip)
         })
+    }
+    
+    func getEstimatedHeight(for element: TourObject, inWidth width: CGFloat) -> CGFloat {
+        
+        let estimatedContentHeight = element.desc.height(withConstrainedWidth: width, font: Fonts.getPrimary(size: 17)) + element.header.height(withConstrainedWidth: width, font: Fonts.getPrimaryBold(size: 17))
+        let iconHeight: CGFloat = 26
+        let buttonHeights: CGFloat = 42
+        let skipHeight: CGFloat = 35
+        let numberOfItemsInStack: CGFloat = 5
+        let paddingBetweenStackItems: CGFloat = 16
+        let topAndBottomPadding: CGFloat = 36
+        
+        let totalHeightWithoutPadding = estimatedContentHeight + iconHeight + buttonHeights + skipHeight
+        return totalHeightWithoutPadding + (numberOfItemsInStack * paddingBetweenStackItems) + (topAndBottomPadding * 2)
+        
     }
 
     func removeCover() {

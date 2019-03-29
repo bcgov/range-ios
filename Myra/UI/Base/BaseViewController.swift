@@ -185,11 +185,8 @@ class BaseViewController: UIViewController, Theme {
     }
     
     // MARK: Statusbar
-    func setStatusBarAppearanceLight() {
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    func setStatusBarAppearanceDark() {
-        UIApplication.shared.statusBarStyle = .default
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     // MARK: Screen Rotation
@@ -210,6 +207,7 @@ class BaseViewController: UIViewController, Theme {
         orientationChanged()
         NotificationCenter.default.post(name: .screenOrientationChanged, object: nil)
     }
+    
     // MARK: Alerts
     func alert(with title: String, message: String) {
         Alert.show(title: title, message: message)

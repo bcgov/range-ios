@@ -181,7 +181,7 @@ extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let ma = self.monitoringArea else {return getBasicInfoCell(indexPath: indexPath)}
+//        guard let ma = self.monitoringArea else {return getBasicInfoCell(indexPath: indexPath)}
         switch indexPath.section {
         case 0:
             let cell = getBasicInfoCell(indexPath: indexPath)

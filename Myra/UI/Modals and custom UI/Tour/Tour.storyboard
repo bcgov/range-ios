@@ -18,19 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9W7-7M-1Va">
-                                <rect key="frame" x="8" y="28" width="359" height="631"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9W7-7M-1Va">
+                                <rect key="frame" x="8" y="26" width="359" height="615"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1B-dN-0do">
-                                        <rect key="frame" x="167.5" y="0.0" width="24" height="24"/>
+                                    <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Question_White" translatesAutoresizingMaskIntoConstraints="NO" id="F9C-f4-LQT">
+                                        <rect key="frame" x="161.5" y="0.0" width="36" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="Nrd-KE-fuJ"/>
-                                            <constraint firstAttribute="width" constant="24" id="cR7-97-iVP"/>
+                                            <constraint firstAttribute="width" secondItem="F9C-f4-LQT" secondAttribute="height" multiplier="1:1" id="0wV-jK-heB"/>
+                                            <constraint firstAttribute="height" constant="36" id="QHz-qP-9aj"/>
                                         </constraints>
-                                        <state key="normal" image="icon_Question_White"/>
-                                    </button>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Mx-Wz-Dsr">
-                                        <rect key="frame" x="0.0" y="144" width="359" height="30"/>
+                                        <rect key="frame" x="0.0" y="149" width="359" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="YMn-uG-9Ch"/>
                                         </constraints>
@@ -38,8 +37,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C83-8T-d8J">
-                                        <rect key="frame" x="0.0" y="294" width="359" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="C83-8T-d8J">
+                                        <rect key="frame" x="0.0" y="292" width="359" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="20.5" id="4ru-bl-cdL"/>
                                         </constraints>
@@ -48,7 +47,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Z3H-LQ-eJ8">
-                                        <rect key="frame" x="4.5" y="434" width="350" height="42"/>
+                                        <rect key="frame" x="4.5" y="425" width="350" height="42"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0V-ev-WaB">
                                                 <rect key="frame" x="0.0" y="0.0" width="170" height="42"/>
@@ -76,7 +75,7 @@
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pFY-63-RaZ">
-                                        <rect key="frame" x="147" y="596" width="65" height="35"/>
+                                        <rect key="frame" x="147" y="580" width="65" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="clu-5w-tRT"/>
                                         </constraints>
@@ -98,19 +97,23 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1528854966" green="0.17927843330000001" blue="0.49806630610000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="9W7-7M-1Va" firstAttribute="top" secondItem="BCz-lo-m4a" secondAttribute="top" constant="8" id="H99-iF-zFU"/>
+                            <constraint firstItem="9W7-7M-1Va" firstAttribute="top" secondItem="AX4-QJ-J2y" secondAttribute="top" constant="26" id="H99-iF-zFU"/>
                             <constraint firstItem="BCz-lo-m4a" firstAttribute="trailing" secondItem="9W7-7M-1Va" secondAttribute="trailing" constant="8" id="aH6-hP-Q0w"/>
-                            <constraint firstItem="BCz-lo-m4a" firstAttribute="bottom" secondItem="9W7-7M-1Va" secondAttribute="bottom" constant="8" id="hAZ-mP-qeJ"/>
+                            <constraint firstAttribute="bottom" secondItem="9W7-7M-1Va" secondAttribute="bottom" constant="26" id="hAZ-mP-qeJ"/>
                             <constraint firstItem="9W7-7M-1Va" firstAttribute="leading" secondItem="BCz-lo-m4a" secondAttribute="leading" constant="8" id="pWj-0R-RY0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BCz-lo-m4a"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="V0V-ev-WaB" id="54c-KN-zls"/>
+                        <outlet property="buttonHeights" destination="2qI-9K-ImY" id="jGE-3u-Tcz"/>
                         <outlet property="descLabel" destination="C83-8T-d8J" id="jYi-FJ-3J4"/>
                         <outlet property="descLabelHeight" destination="4ru-bl-cdL" id="AUm-gt-uFM"/>
+                        <outlet property="iconHeight" destination="QHz-qP-9aj" id="hTp-Ft-RKf"/>
                         <outlet property="nextButton" destination="uxS-kB-vjs" id="p86-XO-BNx"/>
                         <outlet property="skipButton" destination="pFY-63-RaZ" id="Nh9-ge-lse"/>
+                        <outlet property="skipHight" destination="clu-5w-tRT" id="QP5-55-C6L"/>
+                        <outlet property="titleHeight" destination="YMn-uG-9Ch" id="BJP-Tc-Kev"/>
                         <outlet property="titleLabel" destination="2Mx-Wz-Dsr" id="hvK-M3-Q6X"/>
                     </connections>
                 </viewController>
