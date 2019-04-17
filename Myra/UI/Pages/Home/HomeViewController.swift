@@ -12,9 +12,7 @@ import SingleSignOn
 import Lottie
 import RealmSwift
 import Realm
-import MaterialShowcase
 import Extended
-import Cam
 import CoreML
 
 enum SortingCategory {
@@ -861,7 +859,7 @@ extension HomeViewController {
 }
 
 // MARK: TourTip
-extension HomeViewController: MaterialShowcaseDelegate {
+extension HomeViewController  {
 
     func endTour() {
         updateAccordingToNetworkStatus()

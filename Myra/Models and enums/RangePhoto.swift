@@ -9,7 +9,6 @@
 import Foundation
 import Realm
 import RealmSwift
-import Cam
 import Extended
 import CoreLocation
 
@@ -71,7 +70,7 @@ class RangePhoto: Object, MyraObject {
         }
     }
 
-    func save(from photo: Photo) {
+  /*  func save(from photo: Photo) {
         guard let image = photo.image else {return}
 //        self.metadata = photo.metadata
 
@@ -89,7 +88,7 @@ class RangePhoto: Object, MyraObject {
         }
 
         RealmRequests.saveObject(object: self)
-    }
+    }*/
 
     func getThumbnailPath() -> URL {
         let fileName = "\(localId)*Thumbnail.jpeg"

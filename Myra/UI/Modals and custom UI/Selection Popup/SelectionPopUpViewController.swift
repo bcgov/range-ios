@@ -273,7 +273,7 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
             // if is already selected
             if selectedIndexes.contains(indexPath.row) {
                 // deselect
-                guard let index = selectedIndexes.index(of: indexPath.row) else {return}
+                guard let index = selectedIndexes.firstIndex(of: indexPath.row) else {return}
                 selectedIndexes.remove(at: index)
             } else {
 
