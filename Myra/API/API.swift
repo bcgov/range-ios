@@ -62,6 +62,9 @@ class API {
         let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
         request.httpBody = data
         
+        // API INPUT DATA LOGGING
+        let dataAsString = String(data: data, encoding: String.Encoding.utf8) as! String
+        Logger.log(message: "API PUT REQUEST:  " + endpoint.absoluteString + "  " +  dataAsString);
         
         // Manual 20 second timeout for each call
         var completed = false
@@ -78,12 +81,29 @@ class API {
             completed = true
             if timedOut {return}
             if let responseJSON: JSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
+            
+                //API RESPONSE LOGGING:
+                let responseData = try! JSONSerialization.data(withJSONObject: responseJSON, options: JSONSerialization.WritingOptions.prettyPrinted);
+                
+                let responseDataAsString = String(data: responseData, encoding: String.Encoding.utf8) as! String
+                Logger.log(message: "API PUT RESPONSE:  " + responseDataAsString);
+                
+                
+                
+                
+                
                 Logger.log(message: "PUT ERROR:")
                 Logger.log(message: error)
             }
+            
             if let rsp = response.response {
                 Logger.log(message: "PUT Request received status code \(rsp.statusCode).")
+        
             }
+            
+          
+            
+            
             return completion(response)
         }
     }
