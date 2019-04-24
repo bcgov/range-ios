@@ -63,8 +63,8 @@ class API {
         request.httpBody = data
         
         // API INPUT DATA LOGGING
-        let dataAsString = String(data: data, encoding: String.Encoding.utf8) as! String
-        Logger.log(message: "API PUT REQUEST:  " + endpoint.absoluteString + "  " +  dataAsString);
+        Logger.log(message: "API PUT REQUEST: " + endpoint.absoluteString + " " + AnyDictToJSONString(inputdata: params));
+        
         
         // Manual 20 second timeout for each call
         var completed = false
@@ -77,20 +77,14 @@ class API {
             }
         }
         
-        Alamofire.request(request).responseJSON { response in
+        let req = Alamofire.request(request).responseJSON { response in
             completed = true
             if timedOut {return}
+            
             if let responseJSON: JSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
             
                 //API RESPONSE LOGGING:
-                let responseData = try! JSONSerialization.data(withJSONObject: responseJSON, options: JSONSerialization.WritingOptions.prettyPrinted);
-                
-                let responseDataAsString = String(data: responseData, encoding: String.Encoding.utf8) as! String
-                Logger.log(message: "API PUT RESPONSE:  " + responseDataAsString);
-                
-                
-                
-                
+                Logger.log(message: "API PUT RESPONSE:  " + endpoint.absoluteString + "  " + JSONtoString(inputJSON: responseJSON));
                 
                 Logger.log(message: "PUT ERROR:")
                 Logger.log(message: error)
@@ -101,12 +95,15 @@ class API {
         
             }
             
-          
-            
-            
             return completion(response)
         }
+        // prints a curl request mirroring this alamo one
+        debugPrint(req);
+
     }
+    
+
+    
     
     static func post(endpoint: URL, params: [String:Any], completion: @escaping (_ response: [String:Any]?) -> Void) {
         // Manual 20 second timeout for each call
@@ -120,8 +117,12 @@ class API {
             }
         }
         
+        
+        // API INPUT DATA LOGGING
+        Logger.log(message: "API POST REQUEST:  " + endpoint.absoluteString + "  " +  AnyDictToJSONString(inputdata: params));
+        
         // Request
-        Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers()).responseJSON { response in
+        let req = Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers()).responseJSON { response in
             completed = true
             if timedOut {return}
             API.process(response: response, completion: { (processedResponse, error) in
@@ -133,7 +134,14 @@ class API {
                 }
                 return completion(processedResponse)
             })
+            
+            if let responseJSON: JSON = JSON(response.result.value) as? JSON {
+                Logger.log(message: "API POST RESPONSE:  " + endpoint.absoluteString + "  " +  JSONtoString(inputJSON: responseJSON)) ;
+            }
         }
+        // prints a curl request mirroring this alamo one
+        debugPrint(req);
+
     }
     
     static func get(endpoint: URL, completion: @escaping (_ response: JSON?) -> Void) {
@@ -147,9 +155,20 @@ class API {
                 return completion(nil)
             }
         }
-        Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
+        
+        
+        // API INPUT DATA LOGGING
+        Logger.log(message: "API GET REQUEST:  " + endpoint.absoluteString );
+        
+        let req = Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
             completed = true
             if timedOut {return}
+            
+            // API RESPONSE LOGGING
+            if let responseJSON: JSON = JSON(response.result.value) as? JSON {
+                Logger.log(message: "API POST RESPONSE:  " + endpoint.absoluteString + "  " +  JSONtoString(inputJSON: responseJSON));
+            }
+            
             if response.result.description == "SUCCESS", let value = response.result.value {
                 let json = JSON(value)
                 if let error = json["error"].string {
@@ -167,6 +186,9 @@ class API {
                 return completion(nil)
             }
         }
+        
+        // prints a curl request mirroring this alamo one
+        debugPrint(req);
     }
     
     private static func process(response: Alamofire.DataResponse<Any>, completion: APIRequestCompleted) {
@@ -1167,6 +1189,40 @@ class API {
                 Logger.log(message: "Remote versions could not be read.")
                 return completion(false)
             }
+        }
+    }
+    
+    
+    
+    
+    static func JSONtoString(inputJSON: JSON) -> String
+    {
+        guard let data = try? JSONSerialization.data(withJSONObject: inputJSON, options: JSONSerialization.WritingOptions.prettyPrinted) else {
+            return " *  unable to serialize JSON * ";
+        }
+        
+        if let result = String(data: data, encoding: String.Encoding.utf8) {
+            return result;
+        }
+        else
+        {
+            return " * JSON data deserialized as nil * ";
+        }
+    }
+    
+    
+    static func AnyDictToJSONString(inputdata: [String:Any]) -> String
+    {
+        guard let data = try? JSONSerialization.data(withJSONObject: inputdata, options: JSONSerialization.WritingOptions.prettyPrinted) else {
+            return " *  unable to serialize [string:any] * ";
+        }
+        
+        if let result = String(data: data, encoding: String.Encoding.utf8) {
+            return result;
+        }
+        else
+        {
+            return " * [string:any] data deserialized as nil * ";
         }
     }
 }
