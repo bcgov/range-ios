@@ -81,10 +81,13 @@ class API {
             completed = true
             if timedOut {return}
             
+             //API RESPONSE LOGGING:
+            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                Logger.log(message: "API PUT RESPONSE:  " + endpoint.absoluteString + "  " + utf8Text);
+            }
+            
             if let responseJSON: JSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
             
-                //API RESPONSE LOGGING:
-                Logger.log(message: "API PUT RESPONSE:  " + endpoint.absoluteString + "  " + JSONtoString(inputJSON: responseJSON));
                 
                 Logger.log(message: "PUT ERROR:")
                 Logger.log(message: error)
@@ -135,8 +138,9 @@ class API {
                 return completion(processedResponse)
             })
             
-            if let responseJSON: JSON = JSON(response.result.value) as? JSON {
-                Logger.log(message: "API POST RESPONSE:  " + endpoint.absoluteString + "  " +  JSONtoString(inputJSON: responseJSON)) ;
+            
+            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                Logger.log(message: "API POST RESPONSE:  " + endpoint.absoluteString + "  " + utf8Text);
             }
         }
         // prints a curl request mirroring this alamo one
@@ -164,12 +168,18 @@ class API {
             completed = true
             if timedOut {return}
             
-            // API RESPONSE LOGGING
-            if let responseJSON: JSON = JSON(response.result.value) as? JSON {
-                Logger.log(message: "API POST RESPONSE:  " + endpoint.absoluteString + "  " +  JSONtoString(inputJSON: responseJSON));
-            }
+
+
             
             if response.result.description == "SUCCESS", let value = response.result.value {
+                
+                // API RESPONSE LOGGING
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    Logger.log(message: "API GET RESPONSE:  " + endpoint.absoluteString + "  " + utf8Text);
+                }
+                
+                
+                
                 let json = JSON(value)
                 if let error = json["error"].string {
                     Logger.log(message: "GET call rejected:")
@@ -185,6 +195,8 @@ class API {
                 Logger.log(message: "Endpoint: \(endpoint)")
                 return completion(nil)
             }
+            
+
         }
         
         // prints a curl request mirroring this alamo one
