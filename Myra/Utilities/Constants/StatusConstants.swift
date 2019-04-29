@@ -217,7 +217,7 @@ struct StatusConstants {
         static let bannerTitleInitial = "Initial Range Use Plan - Recommended Ready"
         static let bannerDescriptionInitial = "Staff have recommended to the decision maker that this initial range use plan be approved. You will be notified when the decision has been made.\nIf the initial range use plan is not approved you must notify the AH before recording the decision by tapping \"Record Descision\"."
         static let bannerTitleMandatory = "Mandatory Amendment - Recommended Ready"
-        static let bannerDescriptionMandatory = "Staff have recommended to the decision maker that this mandatory amendment be approved. You will be notified when the decision has been made.\nIf the mandatory amendment is not approved you must notify the AH before recording the decision by tapping \"Record Descision\"."
+        static let bannerDescriptionMandatory = "Record the decision by tapping the \"Record Decision\" decision on the right hand side.  If the initial range us plan is not approved you must notify the Agreement Holder before recording the decision."
         static let color = Colors.Status.DarkGray
         
         struct Flow {
