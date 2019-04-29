@@ -64,7 +64,7 @@ class Zone: Object {
 
         self.contactName = "\(firstName) \(lastName)"
 
-        if let contactPhoneNumber = zoneUser["phone"].string {
+        if let contactPhoneNumber = zoneUser["phoneNumber"].string {
             self.contactPhoneNumber = contactPhoneNumber
         }
 

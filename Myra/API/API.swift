@@ -161,6 +161,12 @@ class API {
         }
         
         
+        let configuration = URLSessionConfiguration.default
+        //configuration.httpAdditionalHeaders = ourHeaders
+        // disable default credential store
+        configuration.urlCredentialStorage = nil
+        let manager = Alamofire.SessionManager(configuration: configuration)
+        
         // API INPUT DATA LOGGING
         Logger.log(message: "API GET REQUEST:  " + endpoint.absoluteString );
         
