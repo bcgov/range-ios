@@ -402,7 +402,7 @@ class HomeViewController: BaseViewController {
          */
         RUPManager.shared.cleanPlans()
         let agreements = RUPManager.shared.getAgreements()
-        for agreement in agreements where agreement.plans.count > 0 {
+        for agreement in agreements where !agreement.isInvalidated && agreement.plans.count > 0 {
             if let p = agreement.getLatestPlan() {
                 self.plans.append(p)
             }

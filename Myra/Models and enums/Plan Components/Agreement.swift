@@ -122,7 +122,7 @@ class Agreement: Object, MyraObject {
         }
         var latest: Plan?
         var tempid = -2
-        for plan in plans {
+       for plan in plans where !plan.isInvalidated {
             if plan.getStatus() == .LocalDraft {
                 return plan
             }

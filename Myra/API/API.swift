@@ -52,56 +52,71 @@ class API {
     
     // MARK: Put Post and Get requests
     static func put(endpoint: URL, params: [String:Any], completion: @escaping (_ response: DataResponse<Any>? ) -> Void) {
-        var request = URLRequest(url: endpoint)
-        request.httpMethod = HTTPMethod.put.rawValue
-        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        if let token = Auth.getAccessToken() {
-             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
-        
-        let data = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
-        request.httpBody = data
-        
-        // API INPUT DATA LOGGING
-        Logger.log(message: "API PUT REQUEST: " + endpoint.absoluteString + " " + AnyDictToJSONString(inputdata: params));
-        
-        
-        // Manual 20 second timeout for each call
-        var completed = false
-        var timedOut = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-            if !completed {
-                timedOut = true
-                Banner.shared.show(message: "Request Time Out")
-                return completion(nil)
-            }
-        }
-        
-        let req = Alamofire.request(request).responseJSON { response in
-            completed = true
-            if timedOut {return}
+       var request = URLRequest(url: endpoint)
+        do {
             
-             //API RESPONSE LOGGING:
-            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                Logger.log(message: "API PUT RESPONSE:  " + endpoint.absoluteString + "  " + utf8Text);
+            request.httpMethod = HTTPMethod.put.rawValue
+            request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+            if let token =  Auth.getAccessToken() {
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             }
             
-            if let responseJSON: JSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
+            let data = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+            request.httpBody = data
             
+            // API INPUT DATA LOGGING
+            try Logger.log(message: "API PUT REQUEST: " + endpoint.absoluteString + " " + AnyDictToJSONString(inputdata: params));
+            
+            
+            // Manual 20 second timeout for each call
+            var completed = false
+            var timedOut = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                if !completed {
+                    timedOut = true
+                    Banner.shared.show(message: "Request Time Out")
+                    return completion(nil)
+                }
+            }
+            let configuration = URLSessionConfiguration.default
+            //configuration.httpAdditionalHeaders = ourHeaders
+            // disable default credential store
+            configuration.urlCredentialStorage = nil
+        
+            
+            
+            let req = Alamofire.request(request).responseJSON  { response in
+                completed = true
+                if timedOut {return}
                 
-                Logger.log(message: "PUT ERROR:")
-                Logger.log(message: error)
-            }
-            
-            if let rsp = response.response {
-                Logger.log(message: "PUT Request received status code \(rsp.statusCode).")
-        
-            }
-            
-            return completion(response)
+                //API RESPONSE LOGGING:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    Logger.log(message: "API PUT RESPONSE:  " + endpoint.absoluteString + "  " + utf8Text);
+                }
+                
+                if let responseJSON: JSON = JSON(response.result.value) as? JSON, let error = responseJSON["error"].string {
+                    
+                    
+                    Logger.log(message: "PUT ERROR:")
+                    Logger.log(message: error)
+                }
+                
+                if let rsp = response.response {
+                    Logger.log(message: "PUT Request received status code \(rsp.statusCode).")
+                    
+                }
+                 return completion(response)
+                
         }
-        // prints a curl request mirroring this alamo one
-        debugPrint(req);
+            // prints a curl request mirroring this alamo one
+         debugPrint(req);
+        }
+        catch
+        {
+            Logger.log(message: "Unexpected error while performing PUT: \(error).")
+        }
+        
+     
 
     }
     
@@ -109,6 +124,10 @@ class API {
     
     
     static func post(endpoint: URL, params: [String:Any], completion: @escaping (_ response: [String:Any]?) -> Void) {
+        do
+        {
+            
+
         // Manual 20 second timeout for each call
         var completed = false
         var timedOut = false
@@ -120,9 +139,14 @@ class API {
             }
         }
         
+        let configuration = URLSessionConfiguration.default
+        //configuration.httpAdditionalHeaders = ourHeaders
+        // disable default credential store
+        configuration.urlCredentialStorage = nil
+        
         
         // API INPUT DATA LOGGING
-        Logger.log(message: "API POST REQUEST:  " + endpoint.absoluteString + "  " +  AnyDictToJSONString(inputdata: params));
+        try Logger.log(message: "API POST REQUEST:  " + endpoint.absoluteString + "  " +  AnyDictToJSONString(inputdata: params));
         
         // Request
         let req = Alamofire.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers()).responseJSON { response in
@@ -145,10 +169,18 @@ class API {
         }
         // prints a curl request mirroring this alamo one
         debugPrint(req);
+        }
+        catch
+        {
+            Logger.log(message: "Unexpected error while performing POST: \(error).")
+        }
 
     }
     
     static func get(endpoint: URL, completion: @escaping (_ response: JSON?) -> Void) {
+        do
+        {
+
         // Manual 20 second timeout for each call
         var completed = false
         var timedOut = false
@@ -165,17 +197,15 @@ class API {
         //configuration.httpAdditionalHeaders = ourHeaders
         // disable default credential store
         configuration.urlCredentialStorage = nil
-        let manager = Alamofire.SessionManager(configuration: configuration)
+
         
         // API INPUT DATA LOGGING
         Logger.log(message: "API GET REQUEST:  " + endpoint.absoluteString );
         
-        let req = Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
+        let req = try  Alamofire.request(endpoint, method: .get, headers: headers()).responseData { (response) in
             completed = true
             if timedOut {return}
-            
-
-
+    
             
             if response.result.description == "SUCCESS", let value = response.result.value {
                 
@@ -186,7 +216,7 @@ class API {
                 
                 
                 
-                let json = JSON(value)
+                let json =   JSON(value)
                 if let error = json["error"].string {
                     Logger.log(message: "GET call rejected:")
                     Logger.log(message: "Endpoint: \(endpoint)")
@@ -207,6 +237,11 @@ class API {
         
         // prints a curl request mirroring this alamo one
         debugPrint(req);
+        }
+        catch
+        {
+            Logger.log(message: "Unexpected error while performing GET: \(error).")
+        }
     }
     
     private static func process(response: Alamofire.DataResponse<Any>, completion: APIRequestCompleted) {
@@ -1229,18 +1264,21 @@ class API {
     }
     
     
-    static func AnyDictToJSONString(inputdata: [String:Any]) -> String
+    static func AnyDictToJSONString(inputdata: [String:Any]) throws -> String
     {
-        guard let data = try? JSONSerialization.data(withJSONObject: inputdata, options: JSONSerialization.WritingOptions.prettyPrinted) else {
-            return " *  unable to serialize [string:any] * ";
-        }
+
+            guard let data = try? JSONSerialization.data(withJSONObject: inputdata, options: JSONSerialization.WritingOptions.prettyPrinted) else {
+                return " *  unable to serialize [string:any] * ";
+            }
+            
+            if let result = String(data: data, encoding: String.Encoding.utf8) {
+                return result;
+            }
+            else
+            {
+                return " * [string:any] data deserialized as nil * ";
+            }
+
         
-        if let result = String(data: data, encoding: String.Encoding.utf8) {
-            return result;
-        }
-        else
-        {
-            return " * [string:any] data deserialized as nil * ";
-        }
     }
 }

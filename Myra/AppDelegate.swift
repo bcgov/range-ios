@@ -20,29 +20,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var realmNotificationToken: NotificationToken?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        migrateRealm()
-        
-        #if (arch(i386) || arch(x86_64)) && os(iOS) && DEBUG
-        // so we can find our Documents
-        print("documents = \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)")
-        #endif
-        // Remove dummy plan if exists
-        DummyData.removeDummyPlanAndAgreement()
-        // My way of making sure the settingsManager singleton exists before referenced elsewhere
-        print("Current Environment is \(SettingsManager.shared.getCurrentEnvironment())")
-        // Keyboard settings
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
-        // Fabric
-        Fabric.with([Crashlytics.self])
-        // Begin Autosync change listener
-        AutoSync.shared.beginListener()
-        
-        
-        
-        return true
+        do
+        {
+            migrateRealm()
+            
+            #if (arch(i386) || arch(x86_64)) && os(iOS) && DEBUG
+            // so we can find our Documents
+            print("documents = \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)")
+            #endif
+            // Remove dummy plan if exists
+            DummyData.removeDummyPlanAndAgreement()
+            // My way of making sure the settingsManager singleton exists before referenced elsewhere
+            print("Current Environment is \(SettingsManager.shared.getCurrentEnvironment())")
+            // Keyboard settings
+            IQKeyboardManager.shared.enable = true
+            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+            IQKeyboardManager.shared.enableAutoToolbar = false
+            // Fabric
+            Fabric.with([Crashlytics.self])
+            // Begin Autosync change listener
+            AutoSync.shared.beginListener()
+            
+            
+            API.headers() //TEMP
+            return true
+        }
+        catch
+        {
+             Logger.log(message: "Unexpected error in App Delegate func application: \(error).")
+        }
+       
     }
     
     /// https://realm.io/docs/swift/latest/#migrations
