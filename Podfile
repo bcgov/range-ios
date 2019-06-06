@@ -1,6 +1,21 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 
+# This is used to allow the CI build to work. The pod(s) are
+# signed with the credentials / profile provided and xcodebuild
+# is not happy with this. If you Pods are check in to SCM, and not
+# updated by the CI build process then you may not need this.
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = "-"
+            config.build_settings['EXPANDED_CODE_SIGN_IDENTITY_NAME'] = "-"
+            config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+            config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
+        end
+    end
+end
+
 target 'Myra' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
