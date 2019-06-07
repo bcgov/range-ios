@@ -82,3 +82,5 @@ steps:
     appType: 'iOS'
     ipaPath: '**/*.ipa'
     releaseTrack: 'TestFlight'
+  env:
+    FASTLANE_ITC_TEAM_ID: 908186
