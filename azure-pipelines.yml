@@ -75,7 +75,7 @@ steps:
     archivePath: '$(Build.ArtifactStagingDirectory)/pack'
     args: '-xcconfig release.xcconfig'
 - task: AppStoreRelease@1
-  timeoutInMinutes: 10
+  timeoutInMinutes: 25
   inputs:
     serviceEndpoint: 'BCDevX'
     appIdentifier: 'ca.bc.gov.myrangebc'
