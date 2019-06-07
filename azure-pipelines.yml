@@ -76,7 +76,7 @@ steps:
     args: '-xcconfig release.xcconfig'
 - task: AppStoreRelease@1
   inputs:
-    serviceEndpoint: 'AppleiTunesStore@jason'
+    serviceEndpoint: 'BCDevX'
     appIdentifier: 'ca.bc.gov.myrangebc'
     appType: 'iOS'
     ipaPath: '**/*.ipa'
