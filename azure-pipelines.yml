@@ -86,6 +86,7 @@ steps:
     appType: 'iOS'
     ipaPath: '**/*.ipa'
     releaseTrack: 'TestFlight'
-    shouldSkipWaitingForProcessing: true
+    shouldSkipWaitingForProcessing: true # don't wait
+    shouldSkipSubmission: true # don't auto send to testers
   env:
     FASTLANE_ITC_TEAM_ID: $(ITCTeamID)
