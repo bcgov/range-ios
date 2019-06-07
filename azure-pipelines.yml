@@ -34,6 +34,10 @@ variables:
   SchemaName: 'Myra'
   ExportOptionsFileName: 'options.plist'
   ExportMethod: 'app-store'
+  # Variables below are used for ITC uploads
+  BundleID: 'ca.bc.gov.myrangebc'
+  AppStoreServiceConnectionName: 'BCDevX'
+  ITCTeamID: 908186
 
 steps:
 - task: InstallAppleCertificate@2
@@ -77,10 +81,11 @@ steps:
 - task: AppStoreRelease@1
   timeoutInMinutes: 25
   inputs:
-    serviceEndpoint: 'BCDevX'
-    appIdentifier: 'ca.bc.gov.myrangebc'
+    serviceEndpoint: $(AppStoreServiceConnectionName)
+    appIdentifier: $(BundleID)
     appType: 'iOS'
     ipaPath: '**/*.ipa'
     releaseTrack: 'TestFlight'
+    shouldSkipWaitingForProcessing: true
   env:
-    FASTLANE_ITC_TEAM_ID: 908186
+    FASTLANE_ITC_TEAM_ID: $(ITCTeamID)
