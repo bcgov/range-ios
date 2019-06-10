@@ -344,7 +344,7 @@ class CreateNewRUPViewController: BaseViewController {
                 self.notifyPlanChanged()
                 Logger.log(message: "Sent Notification for change in plan \(r.ranNumber).")
             case .deleted:
-                Logger.log(message: "Plan  \(r.ranNumber) deleted.")
+                //Logger.log(message: "Plan  \(r.ranNumber) deleted.")
                 self.endChangeListener()
             }
         }

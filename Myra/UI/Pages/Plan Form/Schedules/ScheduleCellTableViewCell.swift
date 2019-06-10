@@ -70,7 +70,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
                 Logger.log(message: "Change observed in schedule \(schedule.year).")
                 NotificationCenter.default.post(name: .planChanged, object: nil)
             case .deleted:
-                Logger.log(message: "Plan \(schedule.year) deleted.")
+                //Logger.log(message: "Plan \(schedule.year) deleted.")
                 self.endChangeListener()
             }
         }
