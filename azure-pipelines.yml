@@ -80,6 +80,7 @@ steps:
     args: '-xcconfig release.xcconfig'
 - task: AppStoreRelease@1
   timeoutInMinutes: 25
+  condition: ne(variables['Build.Reason'], 'PullRequest')
   inputs:
     serviceEndpoint: $(AppStoreServiceConnectionName)
     appIdentifier: $(BundleID)
