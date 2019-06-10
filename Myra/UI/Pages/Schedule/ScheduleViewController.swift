@@ -228,7 +228,7 @@ class ScheduleViewController: BaseViewController {
                 Logger.log(message: "Schedule Changed")
                 self.validate()
             case .deleted:
-                Logger.log(message: "Schedule Deleted")
+                //Logger.log(message: "Schedule Deleted")
                 self.endChangeListener()
             }
         }

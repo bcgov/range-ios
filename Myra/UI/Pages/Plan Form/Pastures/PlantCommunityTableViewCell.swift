@@ -94,7 +94,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
                 Logger.log(message: "Change observed in Plant community \(pc.name).")
                 NotificationCenter.default.post(name: .planChanged, object: nil)
             case .deleted:
-                Logger.log(message: "Plan  \(pc.name) deleted.")
+                //Logger.log(message: "Plan  \(pc.name) deleted.")
                 self.endChangeListener()
             }
         }
