@@ -213,7 +213,7 @@ class BaseViewController: UIViewController, Theme {
         Alert.show(title: title, message: message)
     }
     
-    func showAlert(title: String, description: String, yesButtonTapped:@escaping () -> (), noButtonTapped:@escaping () -> ()) {
+    func showAlert(title: String, description: String, yesButtonTapped:@escaping () -> Void, noButtonTapped:@escaping () -> Void) {
         Alert.show(title: title, message: description, yes: {
             yesButtonTapped()
         }) {

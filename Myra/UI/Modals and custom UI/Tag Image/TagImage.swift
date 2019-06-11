@@ -41,7 +41,6 @@ class TagImage: UIView, Theme {
 
     @IBOutlet weak var headingBg: UIView!
     @IBOutlet weak var headingLabel: UILabel!
-    
 
     func setup(with photo: RangePhoto) {
         self.photo = photo
@@ -89,7 +88,6 @@ class TagImage: UIView, Theme {
         }
         base.showPopUp(vc: lookup, on: sender)
     }
-
 
     func autoFill() {
         guard let photo = self.photo else {return}
@@ -157,7 +155,7 @@ class TagImage: UIView, Theme {
             self.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            self.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
         
         // White screen
@@ -170,16 +168,16 @@ class TagImage: UIView, Theme {
         if isWidthLarger {
             NSLayoutConstraint.activate([
                 bg.widthAnchor.constraint(equalTo: view.widthAnchor),
-                bg.heightAnchor.constraint(equalTo:  view.widthAnchor),
+                bg.heightAnchor.constraint(equalTo: view.widthAnchor),
                 bg.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                bg.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                bg.centerYAnchor.constraint(equalTo: view.centerYAnchor)
                 ])
         } else {
             NSLayoutConstraint.activate([
                 bg.widthAnchor.constraint(equalTo: view.heightAnchor),
-                bg.heightAnchor.constraint(equalTo:  view.heightAnchor),
+                bg.heightAnchor.constraint(equalTo: view.heightAnchor),
                 bg.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                bg.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                bg.centerYAnchor.constraint(equalTo: view.centerYAnchor)
                 ])
         }
 
@@ -217,7 +215,7 @@ class TagImage: UIView, Theme {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         view.center.y = view.center.y
         view.center.x = view.center.x
-        view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha: whiteScreenAlpha)
+        view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: whiteScreenAlpha)
         view.alpha = visibleAlpha
         view.tag = whiteScreenTag
         return view

@@ -70,7 +70,6 @@ class PlantCommunityViewController: BaseViewController {
     //        }, noButtonTapped: {})
     //    }
 
-
     // MARK: Setup
     func setup(mode: FormMode, plan: Plan ,pasture: Pasture, plantCommunity: PlantCommunity) {
         self.pasture = pasture
@@ -218,7 +217,7 @@ class PlantCommunityViewController: BaseViewController {
 }
 
 // MARK: Tableview
-extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSource {
+extension PlantCommunityViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self
@@ -350,5 +349,4 @@ extension PlantCommunityViewController:  UITableViewDelegate, UITableViewDataSou
             return 1
         }
     }
-
 }

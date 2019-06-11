@@ -12,5 +12,4 @@ import Lottie
 
 // MARK: Logout
 extension HomeViewController {
-
 }

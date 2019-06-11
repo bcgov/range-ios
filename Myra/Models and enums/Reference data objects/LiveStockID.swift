@@ -25,5 +25,4 @@ class LiveStockID: Object {
             type = newValue.rawValue
         }
     }
-
 }

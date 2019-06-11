@@ -331,12 +331,12 @@ extension Theme {
 
     // MARK: Input fields
     func styleInputField(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
-        styleInputField(field:field, editable: true, height: height)
+        styleInputField(field: field, editable: true, height: height)
         styleFieldHeader(label: header)
     }
 
     func styleInputFieldReadOnly(field: UITextField, header: UILabel, height: NSLayoutConstraint) {
-        styleInputField(field:field, editable: false, height: height)
+        styleInputField(field: field, editable: false, height: height)
         styleFieldHeader(label: header)
     }
 
@@ -492,7 +492,6 @@ extension Theme {
         label.font = Fonts.getPrimaryMedium(size: 15)
         label.adjustsFontSizeToFitWidth = true
     }
-
 }
 
 extension Theme {

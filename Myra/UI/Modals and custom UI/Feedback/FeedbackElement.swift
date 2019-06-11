@@ -28,7 +28,7 @@ class FeedbackElement {
         }
     }
 
-    func toDictionary() -> [String: Any]{
+    func toDictionary() -> [String: Any] {
         return [
             "anonymous": anonymous,
             "section": section,

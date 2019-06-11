@@ -35,7 +35,6 @@ class RangeUsageTableViewCell: BaseFormCell {
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: "Usage", desc: InfoTips.usage)
-
     }
 
     @IBAction func addAction(_ sender: Any) {
@@ -58,7 +57,7 @@ class RangeUsageTableViewCell: BaseFormCell {
         setUpTable()
         self.usageYears = [RangeUsageYear]()
         if let plansStart = rup.planStartDate, let planEnd = rup.planEndDate {
-            for usage in rup.rangeUsageYears where usage.year >= plansStart.year() && usage.year <= planEnd.year()  {
+            for usage in rup.rangeUsageYears where usage.year >= plansStart.year() && usage.year <= planEnd.year() {
                 usageYears.append(usage)
             }
             warningLabel.text = ""
@@ -94,7 +93,7 @@ class RangeUsageTableViewCell: BaseFormCell {
     func updateTableHeight() {
         let parent = self.parentViewController as! CreateNewRUPViewController
         heightConstraint.constant = computeCellHeight()
-        parent.reload{
+        parent.reload {
             self.tableView.reloadData()
         }
     }
@@ -132,5 +131,4 @@ extension RangeUsageTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return usageYears.count
     }
-
 }

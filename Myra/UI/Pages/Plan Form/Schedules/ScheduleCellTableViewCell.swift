@@ -47,11 +47,11 @@ class ScheduleCellTableViewCell: BaseFormCell {
         NotificationCenter.default.addObserver(self, selector: #selector(planClosed), name: .planClosed, object: nil)
     }
     
-    @objc func planClosed(_ notification:Notification) {
+    @objc func planClosed(_ notification: Notification) {
        NotificationCenter.default.removeObserver(self)
     }
     
-    @objc func planChanged(_ notification:Notification) {
+    @objc func planChanged(_ notification: Notification) {
         if let sched = self.schedule {
             Logger.log(message: "Plan Object change notifcation received in Schedule: \(sched.year)")
         } else {
@@ -64,9 +64,9 @@ class ScheduleCellTableViewCell: BaseFormCell {
         guard let schedule = self.schedule else { return }
         self.realmNotificationToken = schedule.observe { (change) in
             switch change {
-            case .error(_):
+            case .error:
                 Logger.log(message: "Error in schedule \(schedule.year) change.")
-            case .change(_):
+            case .change:
                 Logger.log(message: "Change observed in schedule \(schedule.year).")
                 NotificationCenter.default.post(name: .planChanged, object: nil)
             case .deleted:
@@ -102,7 +102,7 @@ class ScheduleCellTableViewCell: BaseFormCell {
     
     func delete() {
         if let s = schedule, let p = parentReference {
-            Alert.show(title: "Are you sure?", message:  "Deleting the \(s.year) schedule will also delete all of its entries", yes: {
+            Alert.show(title: "Are you sure?", message: "Deleting the \(s.year) schedule will also delete all of its entries", yes: {
                 Logger.log(message: "Deleting \(s.year) Schedule")
                 self.endChangeListener()
                 RealmRequests.deleteObject(s)

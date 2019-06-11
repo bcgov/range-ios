@@ -84,7 +84,6 @@ class FlowOptionsCollectionViewCell: FlowCell {
         styleHollowButton(button: cancelButton)
         styleFillButton(button: nextButton)
     }
-
 }
 
 extension FlowOptionsCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
@@ -113,5 +112,4 @@ extension FlowOptionsCollectionViewCell: UITableViewDelegate, UITableViewDataSou
         cell.initialize(option: options[indexPath.row], for: model)
         return cell
     }
-    
 }

@@ -91,7 +91,7 @@ class ScheduleViewController: BaseViewController {
 
     // MARK: Outlet Actions
     @IBAction func scrollToTop(_ sender: UIButton) {
-        let indexPath = IndexPath(row:0, section: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     @IBAction func scrollToButtom(_ sender: UIButton) {
@@ -222,9 +222,9 @@ class ScheduleViewController: BaseViewController {
         Logger.log(message: "Listening to schedule changes")
         self.realmNotificationToken = schedule.observe { (change) in
             switch change {
-            case .error(_):
+            case .error:
                 Logger.log(message: "Error in schedule change")
-            case .change(_):
+            case .change:
                 Logger.log(message: "Schedule Changed")
                 self.validate()
             case .deleted:
@@ -472,7 +472,7 @@ class ScheduleViewController: BaseViewController {
 }
 
 // MARK: Tableview
-extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource {
+extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self

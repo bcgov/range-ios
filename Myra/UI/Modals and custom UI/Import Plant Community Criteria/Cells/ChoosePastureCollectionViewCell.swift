@@ -125,10 +125,9 @@ class ChoosePastureCollectionViewCell: UICollectionViewCell {
             self.tableView.reloadData()
         }
     }
-
 }
 
-extension ChoosePastureCollectionViewCell:  UITableViewDelegate, UITableViewDataSource {
+extension ChoosePastureCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self

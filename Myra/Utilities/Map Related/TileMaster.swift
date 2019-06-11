@@ -302,7 +302,7 @@ class TileMaster {
         request.timeoutInterval = 3
         Alamofire.request(request).responseData(queue: queue) { (response) in
             switch response.result {
-            case .success(_):
+            case .success:
                 if let data = response.data {
                     do {
                         try data.write(to: self.localPath(for: self.fileName(for: path)))
@@ -313,7 +313,7 @@ class TileMaster {
                 } else {
                     return then(false)
                 }
-            case .failure(_):
+            case .failure:
                 return then(false)
             }
         }

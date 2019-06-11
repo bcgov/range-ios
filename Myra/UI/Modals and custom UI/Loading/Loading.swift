@@ -22,13 +22,13 @@ class Loading {
     private let whiteScreenTag: Int = 95
     private let whiteScreenAlpha: CGFloat = 0.8
 
-    private func background(work: @escaping () -> ()) {
+    private func background(work: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             work()
         }
     }
 
-    private func main(work: @escaping () -> ()) {
+    private func main(work: @escaping () -> Void) {
         DispatchQueue.main.async {
             work()
         }
@@ -58,7 +58,7 @@ class Loading {
                 animationView.widthAnchor.constraint(equalToConstant: self.width),
                 animationView.heightAnchor.constraint(equalToConstant: self.height),
                 animationView.centerXAnchor.constraint(equalTo: window.centerXAnchor),
-                animationView.centerYAnchor.constraint(equalTo: window.centerYAnchor),
+                animationView.centerYAnchor.constraint(equalTo: window.centerYAnchor)
                 ])
 
             animationView.play()
@@ -67,7 +67,7 @@ class Loading {
 
     // remove loading indicator and its background
     func stop() {
-        if let window = UIApplication.shared.keyWindow, let icon = window.viewWithTag(self.tag) as? LOTAnimationView  {
+        if let window = UIApplication.shared.keyWindow, let icon = window.viewWithTag(self.tag) as? LOTAnimationView {
             icon.removeFromSuperview()
             removeWhiteScreen()
         }
@@ -90,7 +90,7 @@ class Loading {
                 view.widthAnchor.constraint(equalToConstant: window.frame.width),
                 view.heightAnchor.constraint(equalToConstant: window.frame.height),
                 view.centerXAnchor.constraint(equalTo: window.centerXAnchor),
-                view.centerYAnchor.constraint(equalTo: window.centerYAnchor),
+                view.centerYAnchor.constraint(equalTo: window.centerYAnchor)
                 ])
         }
     }
@@ -100,5 +100,4 @@ class Loading {
             view.removeFromSuperview()
         }
     }
-
 }

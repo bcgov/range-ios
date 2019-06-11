@@ -58,7 +58,6 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
     }
 
     func autoFill() {
-
     }
 
     func style() {
@@ -99,11 +98,9 @@ class AdditionalRequirementsTableViewCell: BaseFormCell {
         }
         return h
     }
-
 }
 
-
-extension AdditionalRequirementsTableViewCell:  UITableViewDelegate, UITableViewDataSource {
+extension AdditionalRequirementsTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self

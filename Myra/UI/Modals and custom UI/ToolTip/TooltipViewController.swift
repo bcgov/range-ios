@@ -41,5 +41,4 @@ class TooltipViewController: UIViewController, Theme {
         styleToolTipDescription(textView: descriptionTextView)
         self.view.backgroundColor = Colors.active.blue
     }
-
 }

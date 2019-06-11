@@ -12,23 +12,23 @@ import RealmSwift
 
 class LiveStockIDTableViewCell: BaseFormCell {
 
-    // Mark: Constants
+    // MARK: Constants
     let cellHeight = 45
     
-    // Mark: Variables
+    // MARK: Variables
 
-    // Mark: Outlets
+    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
-    // Mark: Outlet Actions
+    // MARK: Outlet Actions
     @IBAction func addLiveStockAction(_ sender: Any) {
         guard let plan = self.plan else {return}
         plan.addLiveStock()
         updateTableHeight()
     }
 
-    // Mark: Functions
+    // MARK: Functions
     override func setup(mode: FormMode, rup: Plan) {
         self.mode = mode
         self.plan = rup
@@ -49,7 +49,6 @@ class LiveStockIDTableViewCell: BaseFormCell {
             self.tableView.layoutIfNeeded()
         }
     }
-
 }
 extension LiveStockIDTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
@@ -78,5 +77,4 @@ extension LiveStockIDTableViewCell: UITableViewDelegate, UITableViewDataSource {
         guard let plan = self.plan else {return 0}
         return plan.liveStockIDs.count
     }
-
 }

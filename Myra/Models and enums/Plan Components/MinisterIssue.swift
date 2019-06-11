@@ -194,13 +194,13 @@ class MinisterIssue: Object, MyraObject {
     }
 
     // MARK: Export
-    func toDictionary() -> [String:Any] {
+    func toDictionary() -> [String: Any] {
         return [
             "detail": self.details,
             "objective": self.objective,
             "identified": identified,
-            "pastures" : getPastureIds(),
-            "issueTypeId": self.issueTypeID,
+            "pastures": getPastureIds(),
+            "issueTypeId": self.issueTypeID
         ]
     }
 

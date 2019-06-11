@@ -12,7 +12,7 @@ import RealmSwift
 
 class AdditionalRequirementTableViewCell: BaseFormCell {
 
-    static let cellHeight:CGFloat = 271
+    static let cellHeight: CGFloat = 271
 
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var categoryHeader: UILabel!
@@ -115,7 +115,6 @@ class AdditionalRequirementTableViewCell: BaseFormCell {
                 addPlaceHolder()
             }
         }
-
     }
 
     func style() {
@@ -149,7 +148,6 @@ class AdditionalRequirementTableViewCell: BaseFormCell {
             }
         }
     }
-    
 }
 // MARK: Notes
 extension AdditionalRequirementTableViewCell: UITextViewDelegate {
@@ -158,7 +156,6 @@ extension AdditionalRequirementTableViewCell: UITextViewDelegate {
         if textView.text == PlaceHolders.AdditionalRequirements.description {
             removePlaceHolder()
         }
-
     }
 
     func textViewDidChange(_ textView: UITextView) {}

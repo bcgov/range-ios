@@ -31,5 +31,4 @@ class PlanVersionsHeaderTableViewCell: BaseTableViewCell {
         styleFieldHeader(label: submitted)
         styleFieldHeader(label: effectiveDate)
     }
-    
 }

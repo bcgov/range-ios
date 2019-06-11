@@ -34,10 +34,10 @@ class Privacy: CustomModal {
         self.textView.text = text
     }
     
-    // Mark: Style
+    // MARK: Style
     func style() {
         styleModalBox()
-        divider.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1)
+        divider.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.95, alpha: 1)
         title.font = Fonts.getPrimaryBold(size: 22)
         title.textColor = Colors.active.blue
         textView.font = Fonts.getPrimary(size: 17)

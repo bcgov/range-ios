@@ -49,5 +49,4 @@ class AgreementTableViewCell: BaseTableViewCell {
         self.rangeNumber.textColor = Colors.oddCell
         self.agreementHolder.textColor = Colors.oddCell
     }
-    
 }

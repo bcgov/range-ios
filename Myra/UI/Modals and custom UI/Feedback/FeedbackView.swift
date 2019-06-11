@@ -67,5 +67,4 @@ class FeedbackView: CustomModal {
         styleHollowButton(button: cancelButton)
         styleFieldHeader(label: anonHeader)
     }
-
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 class AmendmentPageFinalCollectionViewCell: UICollectionViewCell, Theme {
-
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var continueButton: UIButton!
@@ -20,12 +19,10 @@ class AmendmentPageFinalCollectionViewCell: UICollectionViewCell, Theme {
     }
     
     @IBAction func continueAction(_ sender: UIButton) {
-
     }
 
     func style() {
         styleFillButton(button: continueButton)
         styleSubHeader(label: titleLabel)
     }
-
 }

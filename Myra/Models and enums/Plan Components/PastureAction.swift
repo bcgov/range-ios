@@ -55,7 +55,6 @@ class PastureAction: Object, MyraObject {
             self.noGrazeOutSelected = true
         }
 
-
         if let details = json["details"].string {
             self.details = details
         }
@@ -83,7 +82,7 @@ class PastureAction: Object, MyraObject {
     }
 
     // MARK: Export
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         var actionTypeId = 0
         if let actionTypeObj = Reference.shared.getPlantCommunityActionType(named: action) {
             actionTypeId = actionTypeObj.id

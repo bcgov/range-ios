@@ -40,7 +40,7 @@ class AutoSyncView: CustomModal {
         animationView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             animationView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
-            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
+            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor)
             ])
         animationView.play()
     }
@@ -48,7 +48,7 @@ class AutoSyncView: CustomModal {
     func style() {
         title.font = Fonts.getPrimaryBold(size: 22)
         title.textColor = Colors.active.blue
-        divider.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1)
+        divider.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.95, alpha: 1)
         waitLabel.font = Fonts.getPrimary(size: 17)
         waitLabel.textColor = Colors.active.blue
     }

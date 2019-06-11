@@ -44,13 +44,13 @@ class NewElementBanner: UIView, Theme {
     }
 
     func positionDispayed() {
-        guard let originY = self.originY, let originX = self.originX else{return}
+        guard let originY = self.originY, let originX = self.originX else {return}
         self.frame = CGRect(x: (originX - (width/2)), y: (originY - height), width: width, height: height)
         layoutIfNeeded()
     }
 
     func positionPreAnimation() {
-        guard let originY = self.originY, let originX = self.originX else{return}
+        guard let originY = self.originY, let originX = self.originX else {return}
         self.frame = CGRect(x: (originX - (width/2)), y: (originY + height), width: width, height: height)
         layoutIfNeeded()
     }

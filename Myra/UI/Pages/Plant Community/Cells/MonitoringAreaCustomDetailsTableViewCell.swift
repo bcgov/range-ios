@@ -59,7 +59,6 @@ class MonitoringAreaCustomDetailsTableViewCell: BaseTableViewCell {
     @IBAction func otherToolTipAction(_ sender: UIButton) {
         guard let parent = parentReference else {return}
         parent.showTooltip(on: sender, title: "Other", desc: InfoTips.rangeReadinessOther)
-
     }
 
     @IBAction func singleFieldAction(_ sender: UIButton) {
@@ -202,7 +201,6 @@ class MonitoringAreaCustomDetailsTableViewCell: BaseTableViewCell {
             Logger.fatalError(message: LogMessages.databaseReadFailure)
         }
     }
-    
 }
 
 extension MonitoringAreaCustomDetailsTableViewCell: UITextViewDelegate {
@@ -218,7 +216,6 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITextViewDelegate {
         }
     }
 }
-
 
 extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
@@ -268,7 +265,6 @@ extension MonitoringAreaCustomDetailsTableViewCell: UITableViewDelegate, UITable
             case .StubbleHeight:
                 return a.stubbleHeight.count
             }
-
         } else {
             return 0
         }

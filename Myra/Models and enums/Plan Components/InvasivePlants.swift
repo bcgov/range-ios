@@ -105,7 +105,7 @@ class InvasivePlants: Object {
     }
 
     // MARK: Export
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         return [
             "equipmentAndVehiclesParking": equipmentAndVehiclesParking,
             "beginInUninfestedArea": beginInUninfestedArea,
@@ -125,5 +125,4 @@ class InvasivePlants: Object {
         invasivePlants.revegetate = self.revegetate
         return invasivePlants
     }
-    
 }

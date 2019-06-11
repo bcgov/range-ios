@@ -39,7 +39,6 @@ enum AnimalTypes {
     case Unknown
 }
 
-
 extension TagImage {
     func getContent(of image: UIImage) -> String {
         if let buffer = self.buffer(from: image) {
@@ -145,7 +144,7 @@ extension TagImage {
 
     func buffer(from image: UIImage) -> CVPixelBuffer? {
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
-        var pixelBuffer : CVPixelBuffer?
+        var pixelBuffer: CVPixelBuffer?
         let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil

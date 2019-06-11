@@ -25,13 +25,13 @@ class DatePickerViewController: UIViewController, Theme {
     var max: Date?
 
     var selectedDate: Date? {
-        didSet{
+        didSet {
             selectButton.alpha = 1
             selectButton.isEnabled = true
         }
     }
     var selectedListItem: String? {
-        didSet{
+        didSet {
             selectButton.alpha = 1
             selectButton.isEnabled = true
         }
@@ -177,9 +177,7 @@ class DatePickerViewController: UIViewController, Theme {
     func style() {
         styleFillButton(button: selectButton)
     }
-
 }
-
 
 // MARK: ListPicker
 extension DatePickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {

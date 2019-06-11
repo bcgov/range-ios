@@ -43,7 +43,7 @@ class RangeUsageYear: Object, MyraObject {
             self.id = uid
         }
 
-        if let tAU = json["totalAnnualUse"].int{
+        if let tAU = json["totalAnnualUse"].int {
             self.totalAnnual = tAU
         }
 
@@ -61,8 +61,7 @@ class RangeUsageYear: Object, MyraObject {
     }
 
     // we don't upload this object
-    func toDictionary() -> [String : Any] {
-        return [String:Any]()
+    func toDictionary() -> [String: Any] {
+        return [String: Any]()
     }
-
 }

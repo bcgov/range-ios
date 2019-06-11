@@ -28,7 +28,6 @@ class AmendmentFlowModeModel {
     
     var enableInformedOption: Bool
     
-    
     init(title: String, subtitle: String, optionZero: String, optionTwo: String, optionThree: String, enableInformedOption: Bool) {
         self.title = title
         self.subtitle = subtitle

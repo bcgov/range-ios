@@ -55,7 +55,7 @@ class FlowConfirmationCollectionViewCell: FlowCell {
             animationView.widthAnchor.constraint(equalToConstant: iconHolder.frame.width + 88 ),
             animationView.heightAnchor.constraint(equalToConstant: iconHolder.frame.height + 88),
             animationView.centerXAnchor.constraint(equalTo: iconHolder.centerXAnchor),
-            animationView.centerYAnchor.constraint(equalTo: iconHolder.centerYAnchor),
+            animationView.centerYAnchor.constraint(equalTo: iconHolder.centerYAnchor)
             ])
         animationView.play()
     }

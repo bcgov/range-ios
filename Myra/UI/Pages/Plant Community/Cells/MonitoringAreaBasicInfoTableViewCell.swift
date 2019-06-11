@@ -61,7 +61,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
     var status: CLAuthorizationStatus?
     
     var currentLocation: CLLocation? {
-        didSet{
+        didSet {
             autofillLatLong()
         }
     }
@@ -173,7 +173,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
         let vm = ViewManager()
         let lookup = vm.lookup
 
-        let purposesArray = ma.purpose.split{$0 == ","}.map(String.init)
+        let purposesArray = ma.purpose.split {$0 == ","}.map(String.init)
         var selectedObjects = [SelectionPopUpObject]()
         var otherText = ""
         for element in purposesArray {
@@ -281,7 +281,7 @@ class MonitoringAreaBasicInfoTableViewCell: BaseTableViewCell {
         // We don't store with the spaces because we need to break the names
         // in order to find and send the ids to backend. white spaces would make it tricky
         var newString = ""
-        let purposesArray = ma.purpose.split{$0 == ","}.map(String.init)
+        let purposesArray = ma.purpose.split {$0 == ","}.map(String.init)
         for element in purposesArray {
             if newString.isEmpty {
                 newString = element
@@ -415,7 +415,6 @@ extension MonitoringAreaBasicInfoTableViewCell: CLLocationManagerDelegate {
         }
     }
 }
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {

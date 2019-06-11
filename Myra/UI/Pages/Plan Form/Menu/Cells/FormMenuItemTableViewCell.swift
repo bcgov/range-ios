@@ -21,7 +21,6 @@ class FormMenuItemTableViewCell: UITableViewCell {
     @IBOutlet weak var iconLeading: NSLayoutConstraint!
     @IBOutlet weak var labelLeading: NSLayoutConstraint!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

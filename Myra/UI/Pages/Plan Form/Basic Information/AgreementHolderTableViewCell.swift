@@ -40,5 +40,4 @@ class AgreementHolderTableViewCell: BaseFormCell {
         styleInputField(field: agreementType, editable: false, height: fieldHeight)
         styleInputField(field: agreementHolder,editable: false, height: fieldHeight)
     }
-    
 }

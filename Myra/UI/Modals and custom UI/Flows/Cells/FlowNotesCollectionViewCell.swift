@@ -84,7 +84,7 @@ class FlowNotesCollectionViewCell: FlowCell {
         NotificationCenter.default.addObserver(self, selector: #selector(flowOptionChanged), name: .flowOptionSelectionChanged, object: nil)
     }
     
-    @objc func flowOptionChanged(_ notification:Notification) {
+    @objc func flowOptionChanged(_ notification: Notification) {
         style()
         autofill()
     }
@@ -108,7 +108,6 @@ class FlowNotesCollectionViewCell: FlowCell {
         if let selectedOption = model.selectedOption {
             self.optionLabel.text = FlowHelper.shared.getTitleFor(option: selectedOption)
             self.optionDescriptionLabel.text = FlowHelper.shared.getSubtitleFor(option: selectedOption)
-
         }
         
         refershCheckBox()
@@ -134,7 +133,6 @@ class FlowNotesCollectionViewCell: FlowCell {
         if let subtitleText = subtitle.text {
             subtitleHeight.constant = subtitleText.height(for: subtitle)
         }
-        
     }
     
     func showCheckBoxSection() {
@@ -190,7 +188,6 @@ class FlowNotesCollectionViewCell: FlowCell {
         checkboxImageView.alpha = 0
         checkboxImageView.image = nil
     }
-
 }
 
 // MARK: Notes

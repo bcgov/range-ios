@@ -79,7 +79,7 @@ class SyncView: CustomModal {
         styleHollowButton(button: button)
         addSyncIcon()
         addShadow(layer: self.layer)
-        divider.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1)
+        divider.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.95, alpha: 1)
         title.font = Fonts.getPrimaryBold(size: 22)
         title.textColor = Colors.active.blue
         syncMessage.font = Fonts.getPrimaryMedium(size: 17)
@@ -151,7 +151,7 @@ class SyncView: CustomModal {
             animatedSync.widthAnchor.constraint(equalToConstant: syncIconContainer.frame.width),
             animatedSync.heightAnchor.constraint(equalToConstant: syncIconContainer.frame.height),
             animatedSync.centerXAnchor.constraint(equalTo: syncIconContainer.centerXAnchor),
-            animatedSync.centerYAnchor.constraint(equalTo: syncIconContainer.centerYAnchor),
+            animatedSync.centerYAnchor.constraint(equalTo: syncIconContainer.centerYAnchor)
         ])
         animatedSync.alpha = invisibleAlpha
     }
@@ -180,7 +180,7 @@ class SyncView: CustomModal {
             animationView.widthAnchor.constraint(equalToConstant: iconContainer.frame.width),
             animationView.heightAnchor.constraint(equalToConstant: iconContainer.frame.height),
             animationView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
-            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
+            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor)
             ])
         animationView.play()
     }
@@ -202,7 +202,7 @@ class SyncView: CustomModal {
             animationView.widthAnchor.constraint(equalToConstant: iconContainer.frame.width + successIconSizeIncrease),
             animationView.heightAnchor.constraint(equalToConstant: iconContainer.frame.height + successIconSizeIncrease),
             animationView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
-            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
+            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor)
             ])
         animationView.play()
     }
@@ -224,7 +224,7 @@ class SyncView: CustomModal {
             animationView.widthAnchor.constraint(equalToConstant: iconContainer.frame.width),
             animationView.heightAnchor.constraint(equalToConstant: iconContainer.frame.height),
             animationView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
-            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
+            animationView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor)
             ])
         animationView.play()
     }

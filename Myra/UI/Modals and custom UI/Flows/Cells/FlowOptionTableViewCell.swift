@@ -35,7 +35,7 @@ class FlowOptionTableViewCell: UITableViewCell, Theme {
         NotificationCenter.default.addObserver(self, selector: #selector(flowOptionChanged), name: .flowOptionSelectionChanged, object: nil)
     }
     
-    @objc func flowOptionChanged(_ notification:Notification) {
+    @objc func flowOptionChanged(_ notification: Notification) {
         style()
     }
     
@@ -75,5 +75,4 @@ class FlowOptionTableViewCell: UITableViewCell, Theme {
         indicatorIcon.alpha = 0
         indicator.layer.borderColor = Colors.active.blue.cgColor
     }
-    
 }

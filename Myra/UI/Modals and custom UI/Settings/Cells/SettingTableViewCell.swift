@@ -45,5 +45,4 @@ class SettingTableViewCell: UITableViewCell, Theme {
         toggle.onTintColor = Colors.switchOn
         styleSubHeader(label: titleLabel)
     }
-    
 }

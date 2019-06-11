@@ -102,7 +102,6 @@ class SelectionPopUpViewController: UIViewController, Theme {
         if let enabledOther = otherEnabled, !enabledOther {
             self.otherEnabled = enabledOther
         }
-
     }
 
     func display(on layer: CALayer, in view: UIView) {
@@ -309,5 +308,4 @@ extension SelectionPopUpViewController: UITableViewDelegate, UITableViewDataSour
             return completion(name)
         }
     }
-
 }

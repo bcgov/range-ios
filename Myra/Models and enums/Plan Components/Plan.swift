@@ -174,7 +174,6 @@ class Plan: Object, MyraObject {
         }
         
         self.shouldUpdateRemoteStatus = false
-        
     }
     
     func importAgreementData(from agreement: Agreement) {
@@ -330,7 +329,6 @@ class Plan: Object, MyraObject {
         }
     }
     
-    
     /// Used by API.getStatus()
     /// when fetching updated plan statuses from backend
     ///
@@ -348,7 +346,6 @@ class Plan: Object, MyraObject {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
     }
-    
     
     /// Change Plan's status to the new status
     /// This action sets shouldUpdateRemoteStatus flag to true
@@ -455,8 +452,7 @@ class Plan: Object, MyraObject {
     var isValid: Bool {
         if planEndDate == nil ||
             planEndDate == nil ||
-            rangeName == ""
-        {
+            rangeName == "" {
             return false
         } else {
             return true
@@ -526,11 +522,10 @@ class Plan: Object, MyraObject {
         return plan
     }
     
-    
-    func toDictionary() -> [String:Any] {
+    func toDictionary() -> [String: Any] {
         // if invalid, return empty dictionary
         if !isValid {
-            return [String:Any]()
+            return [String: Any]()
         }
         
         var amendmentTypeIdTemp: Int = amendmentTypeId

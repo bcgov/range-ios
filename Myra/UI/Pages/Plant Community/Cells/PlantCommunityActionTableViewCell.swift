@@ -13,7 +13,7 @@ import DatePicker
 
 class PlantCommunityActionTableViewCell: BaseTableViewCell {
 
-    // Mark: Constants
+    // MARK: Constants
     static let cellHeight = 255.0
 
     // MARK: Variables
@@ -168,7 +168,6 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
     }
     
     func deletePastureActions() {
-        
     }
 
     // MARK: Setup
@@ -207,7 +206,6 @@ class PlantCommunityActionTableViewCell: BaseTableViewCell {
         } else {
             self.noGrazeOut.text = ""
         }
-
     }
 
     func hideNoGrazeSection() {
@@ -280,7 +278,6 @@ extension PlantCommunityActionTableViewCell: UITextViewDelegate {
         if textView.text == "" {
             setPlaceHolder()
         }
-
     }
 
     /* Exact same functions found in MinistersIssueActionTableViewCell */

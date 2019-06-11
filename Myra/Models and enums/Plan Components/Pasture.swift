@@ -114,8 +114,8 @@ class Pasture: Object, MyraObject {
         return pasture
     }
 
-    func toDictionary() -> [String:Any] {
-        var dict = [String:Any]()
+    func toDictionary() -> [String: Any] {
+        var dict = [String: Any]()
         if allowedAUMs != -1 {
             dict["allowableAum"] =  allowedAUMs
         }

@@ -73,7 +73,6 @@ class ScheduleObject: Object, MyraObject {
         if let dateOut = json["dateOut"].string {
             self.dateOut = DateManager.fromUTC(string: dateOut)
         }
-
     }
 
     // MARK: Getters
@@ -187,20 +186,20 @@ class ScheduleObject: Object, MyraObject {
     }
 
     // MARK: Export
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         guard let pasture = pasture else {
             Logger.log(message: "No pasture connected to this schedule entry\n Returning empty dictionary")
-            return [String:Any]()
+            return [String: Any]()
         }
 
         guard let inDate = dateIn, let outDate = dateOut else {
             Logger.log(message: "Missing in or out cate for this schedule entry\n Returning empty dictionary")
-            return [String:Any]()
+            return [String: Any]()
         }
 
         if liveStockTypeId == -1 {
             Logger.log(message: "Missing livestock ID for this schedule entry.\n Returning empty dictionary")
-            return [String:Any]()
+            return [String: Any]()
         }
 
         let schedule: [String: Any] = [

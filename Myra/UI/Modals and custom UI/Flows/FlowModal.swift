@@ -52,7 +52,6 @@ class FlowModal: CustomModal {
     var model: FlowHelperModel?
     weak var collectionView: UICollectionView?
     
-    
     // MARK: Entry Point
     func initialize(for model: FlowHelperModel, completion: @escaping (_ result: FlowResult?) -> Void) {
         self.model = model
@@ -91,7 +90,6 @@ class FlowModal: CustomModal {
             // last page. dismiss
             returnResult()
         }
-        
     }
     
     func previousClicked(fromPage current: FlowPage) {
@@ -118,7 +116,6 @@ class FlowModal: CustomModal {
         completion(result)
         self.remove()
     }
-
 }
 
 // MARK: Collection View
@@ -162,7 +159,7 @@ extension FlowModal: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     func initCollectionView() {
-        guard let collectionView = self.collectionView else{return}
+        guard let collectionView = self.collectionView else {return}
         collectionView.delegate = self
         collectionView.dataSource = self
         registerCell(name: "FlowOptionsCollectionViewCell")
@@ -194,7 +191,7 @@ extension FlowModal: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     func registerCell(name: String) {
-        guard let collectionView = self.collectionView else{return}
+        guard let collectionView = self.collectionView else {return}
         collectionView.register(UINib(nibName: name, bundle: nil), forCellWithReuseIdentifier: name)
     }
     
@@ -247,7 +244,7 @@ extension FlowModal: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     func gotoPage(row: Int) {
-        guard let collectionView = self.collectionView else{return}
+        guard let collectionView = self.collectionView else {return}
         let indexPath: IndexPath = IndexPath(row: row, section: 0)
         collectionView.reloadItems(at: [indexPath])
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)

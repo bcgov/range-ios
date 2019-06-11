@@ -60,7 +60,7 @@ class Logger {
     }
     
     private static func show(message: String) {
-        if let window = self.loggerWindow, windowWithTagExists(){
+        if let window = self.loggerWindow, windowWithTagExists() {
             window.refresh()
             moveWindowToFront()
         } else {

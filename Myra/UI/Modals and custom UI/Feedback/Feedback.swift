@@ -72,7 +72,7 @@ class Feedback: NSObject {
     /// orientation change made it move out of window
     ///
     /// - Parameter notification: UIPanGestureRecognizer
-    @objc private static func orientationChanged(_ notification:Notification) {
+    @objc private static func orientationChanged(_ notification: Notification) {
         resetButtonPositionIfOutOfFrame()
     }
     
@@ -169,8 +169,8 @@ class Feedback: NSObject {
             
             let slideFactor = 0.05 * slideMultiplier
             
-            var finalPoint = CGPoint(x:recognizedView.center.x + (velocity.x * slideFactor),
-                                     y:recognizedView.center.y + (velocity.y * slideFactor))
+            var finalPoint = CGPoint(x: recognizedView.center.x + (velocity.x * slideFactor),
+                                     y: recognizedView.center.y + (velocity.y * slideFactor))
             
             finalPoint.x = min(max(finalPoint.x, 0), window.bounds.size.width)
             finalPoint.y = min(max(finalPoint.y, 0), window.bounds.size.height)
@@ -209,7 +209,6 @@ class Feedback: NSObject {
             UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
                 button.center = newPoint
             })
-
         }
     }
     

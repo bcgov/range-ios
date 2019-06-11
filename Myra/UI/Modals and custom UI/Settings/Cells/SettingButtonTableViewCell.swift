@@ -43,5 +43,4 @@ class SettingButtonTableViewCell: UITableViewCell, Theme {
             styleSubHeader(label: buttonLabel)
         }
     }
-    
 }

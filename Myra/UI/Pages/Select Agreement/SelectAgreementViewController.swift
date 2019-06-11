@@ -95,7 +95,7 @@ class SelectAgreementViewController: BaseViewController {
         let all = RUPManager.shared.getAgreementsWithNoRUPs()
         var result: [Agreement] = [Agreement]()
         for agreement in all {
-            if agreement.agreementId.lowercased().contains(query.lowercased()) || agreement.primaryAgreementHolder().lowercased().contains(query.lowercased()){
+            if agreement.agreementId.lowercased().contains(query.lowercased()) || agreement.primaryAgreementHolder().lowercased().contains(query.lowercased()) {
                 result.append(agreement)
             }
         }
@@ -103,7 +103,6 @@ class SelectAgreementViewController: BaseViewController {
         self.agreements = result
         self.tableView.reloadData()
     }
-
 
     // MARK: Setup
     func setup(callBack: @escaping ((_ close: Bool) -> Void )) {

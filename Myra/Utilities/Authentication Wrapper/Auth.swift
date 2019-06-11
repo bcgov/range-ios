@@ -73,7 +73,6 @@ class Auth {
                     return
                 }
                 presenter.present(vc, animated: true, completion: nil)
-
             } else {
                return completion(true)
             }

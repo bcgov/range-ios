@@ -85,5 +85,4 @@ class AmendmentPageThreeCollectionViewCell: BaseCollectionViewCell, Theme {
         styleFooter(label: subtitleLabel)
         styleDivider(divider: divide)
     }
-
 }

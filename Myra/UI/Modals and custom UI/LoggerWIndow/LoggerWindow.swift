@@ -47,7 +47,7 @@ extension UITableView {
         return section < self.numberOfSections && row < self.numberOfRows(inSection: section)
     }
     
-    func scrollToTop(){
+    func scrollToTop() {
         for index in 0...numberOfSections - 1 {
             if numberOfSections > 0 && numberOfRows(inSection: index) > 0 {
                 scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
@@ -58,7 +58,6 @@ extension UITableView {
                 break
             }
         }
-        
     }
 }
 
@@ -123,13 +122,12 @@ class LoggerWindow: UIView {
     /// orientation change made it move out of window
     ///
     /// - Parameter notification: UIPanGestureRecognizer
-    @objc private func orientationChanged(_ notification:Notification) {
+    @objc private func orientationChanged(_ notification: Notification) {
         guard let window = UIApplication.shared.keyWindow else {return}
         if let contraint = contraintsAdded[.Height], contraint.constant > window.frame.height {
             contraint.constant = window.frame.height
         }
     }
-    
     
     // MARK: Presentation
     private func present(then: @escaping ()-> Void) {
@@ -287,5 +285,4 @@ extension LoggerWindow: UITableViewDelegate, UITableViewDataSource {
         cell.setup(withMessage: "\(indexPath.row)\t\t\(logs[indexPath.row])")
         return cell
     }
-    
 }

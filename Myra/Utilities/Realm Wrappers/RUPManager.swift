@@ -148,9 +148,8 @@
             if !issue.requiredFieldsAreFilled() {
                 return (false, "One or more required fields for Minister's Issues are missing")
             }
-            for action in issue.actions where !action.requiredFieldsAreFilled(){
+            for action in issue.actions where !action.requiredFieldsAreFilled() {
                 return (false, "One or more required fields for actions to address Ministers Issues are missing")
-               
             }
         }
         
@@ -257,7 +256,7 @@
         }
         
         if !newAgreement.plans.isEmpty {
-            for plan in newAgreement.plans  {
+            for plan in newAgreement.plans {
                 do {
                     let realm = try Realm()
                     try realm.write {
@@ -291,7 +290,6 @@
                 } catch _ {
                     Logger.fatalError(message: LogMessages.databaseWriteFailure)
                 }
-                
             }
         }
         
@@ -414,7 +412,7 @@
     func getDraftRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(Plan.self).filter("status == 'LocalDraft'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'LocalDraft'").map { $0 }
             return Array(objs)
         } catch _ {}
         return [Plan]()
@@ -423,7 +421,7 @@
     func getDraftRupsValidForUpload() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(Plan.self).filter("status == 'LocalDraft'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'LocalDraft'").map { $0 }
             var valid = [Plan]()
             for object in objs where object.isValid {
                 valid.append(object)
@@ -436,7 +434,7 @@
     func getStaffDraftRups() ->  [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(Plan.self).filter("status == 'StaffDraft'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'StaffDraft'").map { $0 }
             return Array(objs)
         } catch _ {}
         return [Plan]()
@@ -444,7 +442,7 @@
     
     func getPendingRups() -> [Plan] {
         let allPlans = getPlans()
-        var pending:[Plan] = [Plan]()
+        var pending: [Plan] = [Plan]()
         for plan in allPlans {
             if plan.getStatus() != .LocalDraft && plan.getStatus() != .StaffDraft && plan.getStatus() != .Stands && plan.getStatus() != .Approved {
                 pending.append(plan)
@@ -456,8 +454,8 @@
     func getCompletedRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let stands = Array(realm.objects(Plan.self).filter("status == 'Stands'").map{ $0 })
-            let approved = Array(realm.objects(Plan.self).filter("status == 'Approved'").map{ $0 })
+            let stands = Array(realm.objects(Plan.self).filter("status == 'Stands'").map { $0 })
+            let approved = Array(realm.objects(Plan.self).filter("status == 'Approved'").map { $0 })
             var completed: [Plan] = stands
             completed.append(contentsOf: approved)
             return Array(completed)
@@ -468,7 +466,7 @@
     func getOutboxRups() -> [Plan] {
         do {
             let realm = try Realm()
-            let objs = realm.objects(Plan.self).filter("status == 'Outbox'").map{ $0 }
+            let objs = realm.objects(Plan.self).filter("status == 'Outbox'").map { $0 }
             return Array(objs)
         } catch _ {}
         return [Plan]()
@@ -513,7 +511,6 @@
         }
         return ""
     }
-    
  }
  
  // MARK: Plant communities
@@ -620,7 +617,6 @@
         }
         return nil
     }
-    
  }
  
  // MARK: Schedule
@@ -757,7 +753,6 @@
         }
         
         return (true, "")
-        
     }
     
     func getSchedulesArray(rup: Plan) -> [Schedule] {
@@ -833,7 +828,6 @@
             }
         }
     }
-    
  }
  
  // MARK: Minister's Issues and actions

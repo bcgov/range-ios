@@ -143,7 +143,7 @@ class SettingsModel: Object {
         }
     }
     
-    func setUser(firstName:String, lastName: String) {
+    func setUser(firstName: String, lastName: String) {
         do {
             let realm = try Realm()
             try realm.write {
@@ -361,7 +361,6 @@ class SettingsManager {
                 appIsBeingTested = true
             }
             return completion(appIsBeingTested)
-            
         }
     }
     

@@ -72,16 +72,13 @@ class SyncBanner: UIView, Theme {
         self.addGestureRecognizer(swipeDown)
         
         self.isUserInteractionEnabled = true
-
     }
     
-    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) {
   
         if gesture.direction == UISwipeGestureRecognizer.Direction.left {
             performDismissAnimation(quick: true)
         }
-        
-       
     }
 
     func beginDisplayAnimation() {
@@ -94,13 +91,13 @@ class SyncBanner: UIView, Theme {
     }
 
     func positionDispayed() {
-        guard let originY = self.originY, let originX = self.originX else{return}
+        guard let originY = self.originY, let originX = self.originX else {return}
         self.frame = CGRect(x: originX, y: originY, width: width, height: height)
         layoutIfNeeded()
     }
 
     func positionPreAnimation() {
-        guard let originY = self.originY, let originX = self.originX else{return}
+        guard let originY = self.originY, let originX = self.originX else {return}
         self.frame = CGRect(x: (originX - width), y: originY, width: width, height: height)
         layoutIfNeeded()
     }

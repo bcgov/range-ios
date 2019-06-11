@@ -145,7 +145,7 @@ class Agreement: Object, MyraObject {
         }
     }
 
-    func toDictionary() -> [String : Any] {
-        return [String:Any]()
+    func toDictionary() -> [String: Any] {
+        return [String: Any]()
     }
 }

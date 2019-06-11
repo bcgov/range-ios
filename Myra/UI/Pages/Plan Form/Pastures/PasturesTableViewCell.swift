@@ -17,14 +17,14 @@ import RealmSwift
  */
 class PasturesTableViewCell: BaseFormCell {
     
-    // Mark: Outlets
+    // MARK: Outlets
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var sectionTitle: UILabel!
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     
-    // Mark: Outlet actions
+    // MARK: Outlet actions
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: "Pastures", desc: InfoTips.pastures)
@@ -42,7 +42,7 @@ class PasturesTableViewCell: BaseFormCell {
         }
     }
     
-    // Mark: Setup
+    // MARK: Setup
     override func setup(mode: FormMode, rup: Plan) {
         self.plan = rup
         self.mode = mode
@@ -98,7 +98,6 @@ class PasturesTableViewCell: BaseFormCell {
         let plantCommunityHeight: CGFloat = CGFloat(PlantCommunityTableViewCell.cellHeight)
         return (staticHeight + plantCommunityHeight * CGFloat(pasture.plantCommunities.count))
     }
-    
 }
 
 // TableView

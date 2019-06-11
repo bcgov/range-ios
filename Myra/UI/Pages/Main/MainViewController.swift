@@ -28,7 +28,7 @@ class MainViewController: BaseViewController {
 
     var initialTransitionOptions: UIView.AnimationOptions = [.curveEaseIn]
 
-    // MARK Outlets
+    // MARK: Outlets
     @IBOutlet weak var body: UIView!
     @IBOutlet weak var innerNavBar: UIView!
     @IBOutlet weak var navBar: UIView!
@@ -141,22 +141,17 @@ extension MainViewController {
             self.body.addSubview(viewController.view)
             viewController.didMove(toParent: self)
             
-            
-            
             UIView.transition(from: current.view, to: viewController.view, duration: flipDuration, options: transitionOptions) { (done) in
                 self.remove(asChildViewController: current)
             }
-
         } else {
 //            present(viewController, animated: true, completion: nil)
-            
             
             self.addChild(viewController)
             viewController.view.frame = self.body.bounds
             viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             self.body.addSubview(viewController.view)
             viewController.didMove(toParent: self)
-            
         }
 
         self.currentViewController = viewController
@@ -168,7 +163,6 @@ extension MainViewController {
         } else {
             self.showNav()
         }
-
     }
 
     func removeCurrentVC() {
