@@ -66,7 +66,6 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
         parent.remove()
     }
 
-
     // only available in final review
     @IBAction func optionZeroAction(_ sender: UIButton) {
         guard let amendment = self.amendment else {return}
@@ -130,7 +129,7 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
     func autoFill() {
         guard let amendment = self.amendment else {return}
         if let type = amendment.type {
-            switch type{
+            switch type {
             case .Stands:
                 selectOptionZero()
             case .WronglyMadeStands:
@@ -238,5 +237,4 @@ class AmendmentPageOneCollectionViewCell: BaseCollectionViewCell, Theme {
         resetSelections()
         optionTwoIndicator.backgroundColor = Colors.active.blue
     }
-
 }

@@ -49,7 +49,6 @@ class EmptyStateTableViewCell: UITableViewCell, Theme {
         } else {
             containerHeight.constant = guestimatedHeight
         }
-        
     }
 
     func style() {

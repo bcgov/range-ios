@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Options {
     static let shared = Options()
     private init() {}

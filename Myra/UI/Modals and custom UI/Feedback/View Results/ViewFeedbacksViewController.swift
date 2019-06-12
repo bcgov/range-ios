@@ -15,7 +15,6 @@ class Contributor {
 
 class ViewFeedbacksViewController: UIViewController {
 
-
     @IBOutlet weak var topContributorEmail: UILabel!
     @IBOutlet weak var numberOfAnonymFeedbacks: UILabel!
     @IBOutlet weak var numberOfFeedbacks: UILabel!
@@ -37,7 +36,6 @@ class ViewFeedbacksViewController: UIViewController {
         self.dismiss(animated: true, completion: {})
     }
 
-
     func load() {
         getFeedbacks { (feedbacks) in
             self.feedbacks = feedbacks
@@ -46,7 +44,6 @@ class ViewFeedbacksViewController: UIViewController {
     }
 
     func style() {
-        
     }
 
     func autofill() {
@@ -74,7 +71,7 @@ class ViewFeedbacksViewController: UIViewController {
         }
         var topEmail = "Nobody :("
         var topCount = 0
-        for person in contributors where person.count > topCount  {
+        for person in contributors where person.count > topCount {
             topCount = person.count
             topEmail = person.email
         }
@@ -100,13 +97,13 @@ class ViewFeedbacksViewController: UIViewController {
                     sec = section
                 }
 
-                var anonym:Bool = true
+                var anonym: Bool = true
                 if element.1["userId"].int != nil {
                     anonym = false
                 }
 
                 var email = ""
-                if !anonym, let user = element.1["user"].dictionaryObject{
+                if !anonym, let user = element.1["user"].dictionaryObject {
                     if let mail = user["email"] as? String {
                         email = mail
                     }
@@ -122,7 +119,7 @@ class ViewFeedbacksViewController: UIViewController {
     }
 }
 
-extension ViewFeedbacksViewController:  UITableViewDelegate, UITableViewDataSource {
+extension ViewFeedbacksViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self

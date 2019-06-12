@@ -55,7 +55,6 @@ class AgreementHoldersTableViewCell: BaseFormCell {
             self.tableView.layoutIfNeeded()
         }
     }
-    
 }
 
 extension AgreementHoldersTableViewCell: UITableViewDelegate, UITableViewDataSource {
@@ -86,6 +85,5 @@ extension AgreementHoldersTableViewCell: UITableViewDelegate, UITableViewDataSou
         guard let plan = self.plan else {return 0}
         return plan.clients.count
     }
-
 }
 

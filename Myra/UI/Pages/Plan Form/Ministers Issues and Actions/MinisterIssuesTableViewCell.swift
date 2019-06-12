@@ -25,7 +25,6 @@ class MinisterIssuesTableViewCell: BaseFormCell {
 
     // MARK: Outlet Actions
 
-
     @IBAction func tooltipAction(_ sender: UIButton) {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: "Minister’s Issues and Actions", desc: InfoTips.ministersIssuesandActions)
@@ -50,7 +49,6 @@ class MinisterIssuesTableViewCell: BaseFormCell {
             }
         }
     }
-
 
     // MARK: Setup
     override func setup(mode: FormMode, rup: Plan) {
@@ -117,7 +115,6 @@ class MinisterIssuesTableViewCell: BaseFormCell {
             styleHollowButton(button: addButton)
         }
     }
-    
 }
 // MARK: TableView
 extension MinisterIssuesTableViewCell: UITableViewDelegate, UITableViewDataSource {
@@ -150,5 +147,4 @@ extension MinisterIssuesTableViewCell: UITableViewDelegate, UITableViewDataSourc
         guard let plan = self.plan else {return 0}
         return plan.ministerIssues.count
     }
-
 }

@@ -39,7 +39,6 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
         guard let parent = self.parentViewController as? CreateNewRUPViewController else {return}
         parent.showTooltip(on: sender, title: "Management Considerations", desc: InfoTips.managementConsiderations)
     }
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -59,7 +58,6 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
     }
 
     func autoFill() {
-
     }
 
     func style() {
@@ -89,7 +87,6 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
                 self.tableView.layoutIfNeeded()
             }
         }
-
     }
 
     func computeHeight() -> CGFloat {
@@ -100,10 +97,9 @@ class ManagementConsiderationsTableViewCell: BaseFormCell {
         }
         return h
     }
-    
 }
 
-extension ManagementConsiderationsTableViewCell:  UITableViewDelegate, UITableViewDataSource {
+extension ManagementConsiderationsTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self

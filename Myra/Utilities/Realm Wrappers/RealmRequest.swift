@@ -27,7 +27,6 @@ struct RealmRequests {
             try realm.write {
                 realm.add(object)
             }
-
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
@@ -58,7 +57,7 @@ struct RealmRequests {
     static func getObject<T: Object>(_ object: T.Type) -> [T]? {
         do {
             let realm = try Realm()
-            let objs = realm.objects(object).map{ $0 }
+            let objs = realm.objects(object).map { $0 }
             return Array(objs)
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseReadFailure)

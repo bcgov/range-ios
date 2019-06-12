@@ -26,7 +26,6 @@ class AdditionalRequirement: Object {
     @objc dynamic var detail: String = ""
     @objc dynamic var url: String = ""
 
-
     convenience init(json: JSON) {
         self.init()
         if let id = json["id"].int {
@@ -81,13 +80,13 @@ class AdditionalRequirement: Object {
     }
 
     // MARK: Export
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         var typeId = 0
         if let considerationType = Reference.shared.getAdditionalRequirementCategory(named: category) {
             typeId = considerationType.id
         }
         return [
-            "categoryId":typeId,
+            "categoryId": typeId,
             "url": self.url,
             "detail": self.detail
         ]

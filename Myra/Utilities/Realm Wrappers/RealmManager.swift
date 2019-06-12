@@ -195,7 +195,6 @@ class RealmManager {
         return pastureAction
     }
 
-
     func ministersIssue(withLocalId localId: String) -> MinisterIssue? {
         guard let issues = try? Realm().objects(MinisterIssue.self).filter("localId = %@", localId), let issue = issues.first else {
             return nil

@@ -34,15 +34,15 @@ extension UIView {
 //        }
 //    }
     
-    public static func viewController<T:UIViewController>(ofType: T.Type? = nil) -> T? {
+    public static func viewController<T: UIViewController>(ofType: T.Type? = nil) -> T? {
         func find() -> T? {
-            guard let appDelegate:AppDelegate = UIApplication.shared.delegate as? AppDelegate else {return nil}
+            guard let appDelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {return nil}
             if let vc = appDelegate.window?.rootViewController as? T {
                 return vc
             }else if let vc = appDelegate.window?.rootViewController?.presentedViewController as? T {
                 return vc
-            }else if let vc = appDelegate.window?.rootViewController?.children  {
-                return vc.lazy.compactMap{$0 as? T}.first
+            }else if let vc = appDelegate.window?.rootViewController?.children {
+                return vc.lazy.compactMap {$0 as? T}.first
             }
             return nil
         }
@@ -123,7 +123,7 @@ class AutoSync {
         }
     }
     
-    // MARK AutoSync Action
+    // MARK: AutoSync Action
     func autoSync() {
         if !shouldAutoSync() {
             return
@@ -217,7 +217,7 @@ class AutoSync {
         }
     }
     
-    // MARK Criteria
+    // MARK: Criteria
     func shouldAutoSync() -> Bool {
         Logger.log(message: "Checking if Autosync should be executed...")
         

@@ -99,7 +99,7 @@ class BasicInformationTableViewCell: BaseFormCell {
     }
 
     func autofill() {
-        guard let plan = self.plan else{return}
+        guard let plan = self.plan else {return}
         rangeNumberValue.text = plan.agreementId
         rangeNameValue.text = plan.rangeName
         altBusinessNameValue.text = plan.alternativeName

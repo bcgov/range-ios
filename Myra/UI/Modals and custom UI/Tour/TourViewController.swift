@@ -52,11 +52,9 @@ class TourViewController: UIViewController, Theme {
         back()
     }
 
-
     @IBAction func nextAction(_ sender: UIButton) {
         next()
     }
-
 
     @IBAction func skipAction(_ sender: UIButton) {
         skip()
@@ -98,7 +96,6 @@ class TourViewController: UIViewController, Theme {
 
         self.descLabel.textColor = textColor
         self.titleLabel.textColor = textColor
-
     }
 
     func style() {
@@ -125,5 +122,4 @@ class TourViewController: UIViewController, Theme {
         button.layer.borderColor = borderColor
         button.setTitleColor(titleColor, for: .normal)
     }
-
 }

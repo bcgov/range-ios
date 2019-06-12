@@ -11,7 +11,6 @@ import UIKit
 import MapKit
 import Reachability
 
-
 // custom map overlays
 class OpenMapOverlay: MKTileOverlay {
 

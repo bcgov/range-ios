@@ -21,10 +21,10 @@ enum ScheduleSort {
 
 class ScheduleFormTableViewCell: BaseTableViewCell {
 
-    // Mark: Constants
+    // MARK: Constants
     static let cellHeight = 55.0
 
-    // Mark: Variables
+    // MARK: Variables
     var mode: FormMode = .View
     var schedule: Schedule?
     var objects: [ScheduleObject] = [ScheduleObject]()
@@ -36,7 +36,7 @@ class ScheduleFormTableViewCell: BaseTableViewCell {
         }
     }
 
-    // Mark: Outlets
+    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var height: NSLayoutConstraint!
 
@@ -65,7 +65,7 @@ class ScheduleFormTableViewCell: BaseTableViewCell {
         }
     }
 
-    // Mark: Outlet Actions
+    // MARK: Outlet Actions
     @IBAction func addAction(_ sender: Any) {
         createEntry(from: nil)
     }
@@ -85,7 +85,7 @@ class ScheduleFormTableViewCell: BaseTableViewCell {
         self.currentSort = .Number
     }
 
-    // Mark: Functions
+    // MARK: Functions
     func createEntry(from: ScheduleObject?) {
         guard let sched = self.schedule else {return}
         do {

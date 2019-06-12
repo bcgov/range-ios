@@ -88,7 +88,6 @@ class PlanVersionTableViewCell: BaseTableViewCell {
         } else {
             self.type.text = "Initial Plan"
         }
-
     }
 
     // MARK: Styles

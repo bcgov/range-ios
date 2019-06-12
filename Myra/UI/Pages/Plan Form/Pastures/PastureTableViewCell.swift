@@ -46,7 +46,6 @@ class PastureTableViewCell: BaseFormCell {
     // Remove this button
     @IBOutlet weak var pastureNameEdit: UIButton!
 
-
     // MARK: Cell functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -183,7 +182,7 @@ class PastureTableViewCell: BaseFormCell {
         optionsVC.setup(options: options, onVC: grandParent, onButton: sender) { (option) in
             switch option.type {
             case .Delete:
-                Alert.show(title: "Are you sure?", message:  "Deleting pasture \(past.name) will also remove all schedule elements associated with it", yes: {
+                Alert.show(title: "Are you sure?", message: "Deleting pasture \(past.name) will also remove all schedule elements associated with it", yes: {
                     RUPManager.shared.deletePasture(pasture: past)
                     parent.updateTableHeight()
                 }, no: {})
@@ -340,7 +339,7 @@ class PastureTableViewCell: BaseFormCell {
 }
 
 // MARK: TableView
-extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
+extension PastureTableViewCell: UITableViewDelegate, UITableViewDataSource {
 
     func setupTable() {
         tableView.isScrollEnabled = false
@@ -361,14 +360,13 @@ extension PastureTableViewCell : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getPlantCommunityCell(indexPath: indexPath)
         guard let pasture = self.pasture, let plan = self.plan else {return cell}
-        cell.setup(mode: self.mode, plantCommunity:pasture.plantCommunities[indexPath.row], pasture: pasture, plan: plan, parentCellReference: self)
+        cell.setup(mode: self.mode, plantCommunity: pasture.plantCommunities[indexPath.row], pasture: pasture, plan: plan, parentCellReference: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (self.pasture?.plantCommunities.count)!
     }
-
 }
 
 // MARK: Notes

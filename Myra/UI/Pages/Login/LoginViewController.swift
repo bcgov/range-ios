@@ -74,7 +74,6 @@ class LoginViewController: BaseViewController {
     @IBAction func settingsAction(_ sender: Any) {
         let settings: Settings = UIView.fromNib()
         settings.initialize(fromVC: self) {
-            
         }
     }
     
@@ -94,9 +93,9 @@ class LoginViewController: BaseViewController {
     // MARK: Reachability
     func setupReachabilityNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: .reachabilityChanged, object: reachability)
-        do{
+        do {
             try reachability.startNotifier()
-        }catch{
+        }catch {
             Logger.log(message: "could not start reachability notifier")
         }
     }
@@ -112,8 +111,7 @@ class LoginViewController: BaseViewController {
         loginMessage.font = Fonts.getPrimaryMedium(size: 17)
         loginMessage.textColor = Colors.active.blue
         
-        
-        if UIDevice.current.orientation.isLandscape{
+        if UIDevice.current.orientation.isLandscape {
             self.whenLandscape()
         } else {
             self.whenPortrait()
@@ -122,14 +120,14 @@ class LoginViewController: BaseViewController {
     
     func styleButton(button: UIButton) {
         button.layer.cornerRadius = 5
-        button.backgroundColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:1)
+        button.backgroundColor = UIColor(red: 0.14, green: 0.25, blue: 0.46, alpha: 1)
     }
     
     func styleContainer(layer: UIView) {
         layer.layer.cornerRadius = 5
         layer.backgroundColor = UIColor.white
         layer.layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.layer.shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.3).cgColor
+        layer.layer.shadowColor = UIColor(red: 0.14, green: 0.25, blue: 0.46, alpha: 0.3).cgColor
         layer.layer.shadowOpacity = 1
         layer.layer.shadowRadius = 20
     }
@@ -155,5 +153,4 @@ class LoginViewController: BaseViewController {
             loginButton.isEnabled = true
         }
     }
-    
 }

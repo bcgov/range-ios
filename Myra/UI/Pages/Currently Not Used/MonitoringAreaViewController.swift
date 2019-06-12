@@ -77,7 +77,6 @@ class MonitoringAreaViewController: BaseViewController {
         setSubtitle()
     }
 
-
     func setTitle() {
         if self.pageTitle == nil {return}
         guard let ma = self.monitoringArea else {return}
@@ -154,7 +153,7 @@ class MonitoringAreaViewController: BaseViewController {
 }
 
 // MARK: Tableview
-extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSource {
+extension MonitoringAreaViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self
@@ -232,5 +231,4 @@ extension MonitoringAreaViewController:  UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-
 }

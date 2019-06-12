@@ -41,7 +41,7 @@ class Colors {
         static let Red = UIColor(hex: "#FF534A")
     }
 
-    static let shadowColor = UIColor(red:0.14, green:0.25, blue:0.46, alpha:0.2).cgColor
+    static let shadowColor = UIColor(red: 0.14, green: 0.25, blue: 0.46, alpha: 0.2).cgColor
 
     static let bannerColor = active.yellow
     static let primary = active.blue
@@ -58,6 +58,5 @@ class Colors {
     static let evenCell = technical.backgroundTwo
     static let invalid = accent.red
     static let switchOn = accent.green
-    static let lockedCell = UIColor(red:0, green:0, blue:0, alpha:0.4)
-
+    static let lockedCell = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
 }

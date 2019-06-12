@@ -39,8 +39,8 @@ class RangePhoto: Object, MyraObject {
         return "localId"
     }
 
-    func toDictionary() -> [String : Any] {
-        return [String : Any]()
+    func toDictionary() -> [String: Any] {
+        return [String: Any]()
     }
 
     func getImage(thumbnail: Bool? = false) -> UIImage? {

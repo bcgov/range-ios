@@ -220,7 +220,7 @@ class HomeViewController: BaseViewController {
         LoadPlans()
         filterButtonOn(button: draftsFilter)
         filterType = .Drafts
-        var filtered:[Plan] = [Plan]()
+        var filtered: [Plan] = [Plan]()
         for plan in plans {
             if plan.getStatus() == .LocalDraft || plan.getStatus() == .StaffDraft {
                 filtered.append(plan)
@@ -236,7 +236,7 @@ class HomeViewController: BaseViewController {
         LoadPlans()
         filterButtonOn(button: pendingFilter)
         filterType = .Pending
-        var filtered:[Plan] = [Plan]()
+        var filtered: [Plan] = [Plan]()
         for plan in plans {
             if plan.getStatus() != .LocalDraft && plan.getStatus() != .StaffDraft && plan.getStatus() != .Stands && plan.getStatus() != .Approved {
                 filtered.append(plan)
@@ -252,7 +252,7 @@ class HomeViewController: BaseViewController {
         LoadPlans()
         filterButtonOn(button: completedFilter)
         filterType = .Completed
-        var filtered:[Plan] = [Plan]()
+        var filtered: [Plan] = [Plan]()
         for plan in plans {
             if plan.getStatus() == .Stands || plan.getStatus() == .Approved {
                 filtered.append(plan)
@@ -380,7 +380,7 @@ class HomeViewController: BaseViewController {
         beginChangeListener()
     }
     
-    @objc func updatedUsernameInSettings(_ notification:Notification) {
+    @objc func updatedUsernameInSettings(_ notification: Notification) {
         self.userBoxLabel.text = SettingsManager.shared.getUserInitials()
         animateIt()
     }
@@ -602,13 +602,12 @@ class HomeViewController: BaseViewController {
             self.createButton.isUserInteractionEnabled = true
             self.tableView.isUserInteractionEnabled = true
             self.syncButton.isUserInteractionEnabled = true
-            
         }
     }
     
     func buffer(from image: UIImage) -> CVPixelBuffer? {
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
-        var pixelBuffer : CVPixelBuffer?
+        var pixelBuffer: CVPixelBuffer?
         let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
@@ -667,7 +666,6 @@ class HomeViewController: BaseViewController {
             }
         }
     }
-
 }
 
 // MARK: TableView functions
@@ -721,13 +719,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = getEmptyStateCell(indexPath: indexPath)
         switch self.filterType {
         case .All:
-            cell.setup(icon: EmptyStateConstants.Home.FilterAll.icon, title:  EmptyStateConstants.Home.FilterAll.title, message:  EmptyStateConstants.Home.FilterAll.message)
+            cell.setup(icon: EmptyStateConstants.Home.FilterAll.icon, title: EmptyStateConstants.Home.FilterAll.title, message: EmptyStateConstants.Home.FilterAll.message)
         case .Drafts:
-            cell.setup(icon: EmptyStateConstants.Home.Drafts.icon, title:  EmptyStateConstants.Home.Drafts.title, message:  EmptyStateConstants.Home.Drafts.message)
+            cell.setup(icon: EmptyStateConstants.Home.Drafts.icon, title: EmptyStateConstants.Home.Drafts.title, message: EmptyStateConstants.Home.Drafts.message)
         case .Pending:
-            cell.setup(icon: EmptyStateConstants.Home.Pending.icon, title:  EmptyStateConstants.Home.Pending.title, message:  EmptyStateConstants.Home.Pending.message)
+            cell.setup(icon: EmptyStateConstants.Home.Pending.icon, title: EmptyStateConstants.Home.Pending.title, message: EmptyStateConstants.Home.Pending.message)
         case .Completed:
-            cell.setup(icon: EmptyStateConstants.Home.Completed.icon, title:  EmptyStateConstants.Home.Completed.title, message:  EmptyStateConstants.Home.Completed.message)
+            cell.setup(icon: EmptyStateConstants.Home.Completed.icon, title: EmptyStateConstants.Home.Completed.title, message: EmptyStateConstants.Home.Completed.message)
         }
         return cell
     }
@@ -741,7 +739,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return plans.count
         }
-       
     }
 
     func rupsAreValid() -> Bool {
@@ -807,7 +804,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: Functions to handle retrival of rups
 extension HomeViewController {
 
-    func getPlans()  {
+    func getPlans() {
         DummyData.removeDummyPlanAndAgreement()
         LoadPlans()
         // sort by last name
@@ -821,9 +818,9 @@ extension HomeViewController {
 extension HomeViewController {
     func setupReachabilityNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: .reachabilityChanged, object: reachability)
-        do{
+        do {
             try reachability.startNotifier()
-        }catch{
+        }catch {
             Logger.log(message: "could not start reachability notifier")
         }
     }
@@ -859,7 +856,7 @@ extension HomeViewController {
 }
 
 // MARK: TourTip
-extension HomeViewController  {
+extension HomeViewController {
 
     func endTour() {
         updateAccordingToNetworkStatus()
@@ -908,7 +905,6 @@ extension HomeViewController  {
 
                 tour.initialize(with: objects, backgroundColor: Colors.active.blue, textColor: UIColor.white, containerIn: self, then: {
                     self.endTour()
-
                 })
             }
         }
@@ -926,7 +922,6 @@ extension HomeViewController  {
         guard let cell = self.tableView.cellForRow(at: indexpath), let assignedRupCell = cell as? PlanTableViewCell else {return nil}
         return assignedRupCell
     }
-
 
     func expandDummyPlanCell(then: @escaping () -> Void) {
         let indexpath = IndexPath(row: 0, section: 0)

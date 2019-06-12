@@ -17,7 +17,7 @@ class MapTableViewCell: UITableViewCell {
     var locationManager: CLLocationManager = CLLocationManager()
 
     var currentLocation: CLLocation? {
-        didSet{
+        didSet {
             currentLat = "\(String(describing: currentLocation?.coordinate.latitude))"
             currentLng = "\(String(describing: currentLocation?.coordinate.longitude))"
         }
@@ -101,11 +101,10 @@ class MapTableViewCell: UITableViewCell {
     @IBAction func findMeAction(_ sender: Any) {
         focusOnCurrent()
     }
-    
 }
 
 // Map
-extension MapTableViewCell: MKMapViewDelegate{
+extension MapTableViewCell: MKMapViewDelegate {
     func loadMap() {
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -120,7 +119,6 @@ extension MapTableViewCell: MKMapViewDelegate{
         DispatchQueue.main.async {
             self.locationManager.startUpdatingLocation()
         }
-
 
         return
         /* Test Data */
@@ -153,7 +151,7 @@ extension MapTableViewCell: MKMapViewDelegate{
         */
     }
 
-    func autoload(coordinates: [CLLocationCoordinate2D]){
+    func autoload(coordinates: [CLLocationCoordinate2D]) {
         var regions: [MKCoordinateRegion] = [MKCoordinateRegion]()
         for element in coordinates {
             var x = 2000000
@@ -191,7 +189,6 @@ extension MapTableViewCell: MKMapViewDelegate{
                         }
                     }
                 }
-
             }
         }
 
@@ -205,7 +202,6 @@ extension MapTableViewCell: MKMapViewDelegate{
                 Logger.log(message: "Size of chached map tiles: \(TileMaster.shared.sizeOfStoredTiles())")
             })
         }
-
     }
 
     func beginCaching(regions: [MKCoordinateRegion], completion: @escaping ()->Void) {
@@ -224,7 +220,6 @@ extension MapTableViewCell: MKMapViewDelegate{
             let lineView = MKPolylineRenderer(overlay: overlay)
             lineView.strokeColor = UIColor.green
             return lineView
-
         } else if overlay is MKPolygon {
             if let poly = overlay as? Polygon {
                 let polygonView = MKPolygonRenderer(overlay: overlay)
@@ -290,7 +285,6 @@ extension MapTableViewCell: MKMapViewDelegate{
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
-
     func getDummys() -> [CLLocationCoordinate2D] {
         let lat1 = 48.423538
         let long1 = -123.362789
@@ -336,7 +330,6 @@ extension MapTableViewCell: MKMapViewDelegate{
 
         let lat7 = 48.422597
         let long7 = -123.367224
-
 
         var coordinates: [CLLocationCoordinate2D] = []
 
@@ -389,7 +382,6 @@ extension MapTableViewCell {
         tileRenderer = MKTileOverlayRenderer(tileOverlay: overlay)
     }
 }
-
 
 // Location
 extension MapTableViewCell: CLLocationManagerDelegate {

@@ -48,7 +48,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
     @IBOutlet weak var identifiedByMinisterSwitch: UISwitch!
 
     @IBOutlet weak var noteLabel: UILabel!
-    
 
     // MARK: Outlet actions
     @IBAction func idengifiedByMinisterSwitchAction(_ sender: UISwitch) {
@@ -99,7 +98,7 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
         
         lookup.setupLive(header: "Select Pastures", onVC: grandParent, onButton: sender, selected: selected, objects: pastureNames) { (selections) in
-            if let selected = selections  {
+            if let selected = selections {
                 i.removePastures()
                 for selection in selected {
                     if let pasture = RUPManager.shared.getPastureNamed(name: selection.value, rup: plan) {
@@ -152,11 +151,11 @@ class MinisterIssueTableViewCell: BaseFormCell {
         }
     }
 
-    @objc func changeIssueTypeAction(sender:UITapGestureRecognizer) {
+    @objc func changeIssueTypeAction(sender: UITapGestureRecognizer) {
         editType()
     }
 
-    func editType(){
+    func editType() {
         let grandParent = self.parentViewController as! CreateNewRUPViewController
         let vm = ViewManager()
         let lookup = vm.lookup
@@ -204,7 +203,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
             setDefaultValueIfEmpty(field: pastureValue)
             setDefaultValueIfEmpty(field: detailsValue)
             setDefaultValueIfEmpty(field: objectiveValue)
-
         }
 
         if detailsValue.text == "" {
@@ -293,7 +291,6 @@ class MinisterIssueTableViewCell: BaseFormCell {
     }
     
     func duplicate() {
-
     }
 }
 

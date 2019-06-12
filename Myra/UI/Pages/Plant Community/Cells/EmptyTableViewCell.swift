@@ -28,5 +28,4 @@ class EmptyTableViewCell: BaseTableViewCell {
         self.height.constant = height
         styleSubHeader(label: label)
     }
-    
 }

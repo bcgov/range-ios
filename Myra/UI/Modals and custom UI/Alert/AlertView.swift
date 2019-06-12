@@ -127,7 +127,5 @@ class AlertView: CustomModal {
             self.leftButton.isHidden = true
             self.rightButton.setTitle("Okay", for: .normal)
         }
-
     }
-
 }

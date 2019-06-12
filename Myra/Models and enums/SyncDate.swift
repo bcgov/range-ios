@@ -65,7 +65,7 @@ class SyncDate: Object {
                 }
             } else {
                 // show hours
-                if hours == 1  {
+                if hours == 1 {
                     if minutes == 1 {
                         reponse = "\(hours) hour and \(minutes) minute ago"
                     } else {

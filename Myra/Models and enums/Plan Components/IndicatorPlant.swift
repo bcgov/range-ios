@@ -96,7 +96,7 @@ class IndicatorPlant: Object, MyraObject {
     }
 
     // MARK: Export
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         var speciesId = 0
         var otherSpecies = ""
         if let species = Reference.shared.getIndicatorPlant(named: type) {
@@ -110,7 +110,7 @@ class IndicatorPlant: Object, MyraObject {
             "plantSpeciesId": speciesId,
             "name": otherSpecies,
             "criteria": criteria.lowercased(),
-            "value": number,
+            "value": number
         ]
     }
 
@@ -122,5 +122,4 @@ class IndicatorPlant: Object, MyraObject {
         new.type = self.type
         return new
     }
-
 }

@@ -103,7 +103,6 @@ class PlantCommunityMonitoringAreasTableViewCell: BaseTableViewCell {
         guard let p = self.plantCommunity else {return 0.0}
 //        return CGFloat(p.monitoringAreas.count) * CGFloat(PlantCommunityMonitoringAreaTableViewCell.cellHeight)
         return CGFloat(p.monitoringAreas.count) * CGFloat(MonitoringAreaBasicInfoTableViewCell.cellHeight)
-
     }
 
     // MARK: Styles
@@ -116,7 +115,6 @@ class PlantCommunityMonitoringAreasTableViewCell: BaseTableViewCell {
             addButton.alpha = 1
         }
     }
-    
 }
 
 extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITableViewDataSource {
@@ -146,7 +144,7 @@ extension PlantCommunityMonitoringAreasTableViewCell: UITableViewDelegate, UITab
 //        let cell = getMonitoringAreaCell(indexPath: indexPath)
         let cell = getMonitoringAreaBasicInfoTableViewCell(indexPath: indexPath)
         if let pc = self.plantCommunity, let parent = parentReference {
-            cell.setup(mode: self.mode, monitoringArea:  pc.monitoringAreas[indexPath.row], parentReference: parent, parentCellReference: self)
+            cell.setup(mode: self.mode, monitoringArea: pc.monitoringAreas[indexPath.row], parentReference: parent, parentCellReference: self)
         }
         return cell
     }

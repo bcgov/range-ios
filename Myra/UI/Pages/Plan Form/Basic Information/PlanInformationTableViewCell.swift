@@ -76,7 +76,6 @@ class PlanInformationTableViewCell: BaseFormCell {
                     }
                 }
             }
-            
         } else {
             picker.setup(beginWith: plan.planEndDate, min: min, max: max) { (selected, date) in
                 if let date = date {

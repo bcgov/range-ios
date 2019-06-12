@@ -10,7 +10,7 @@ import UIKit
 
 class MonitoringAreaCustomDetailTableViewCellTableViewCell: BaseTableViewCell {
 
-    // Mark: Constants
+    // MARK: Constants
     static let cellHeight = 70
     let freeTextOption = "Custom"
 
@@ -102,7 +102,6 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: BaseTableViewCell {
                     RealmRequests.deleteObject(plant)
                     parentCell.updateHeight()
                 }, noButtonTapped: {
-                    
                 })
             case .Copy:
                 Logger.log(message: "Not Yet Implemeneted")
@@ -167,8 +166,8 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: BaseTableViewCell {
             optionsButton.alpha = 0
             leftFieldDropDown.isUserInteractionEnabled = false
             leftFieldDropDown.alpha = 0
-            styleInputField(field:leftField, editable: false, height: fieldHeight)
-            styleInputField(field:rightField, editable: false, height: fieldHeight)
+            styleInputField(field: leftField, editable: false, height: fieldHeight)
+            styleInputField(field: rightField, editable: false, height: fieldHeight)
         case .Edit:
             styleInput(input: rightField, height: fieldHeight)
             styleInput(input: leftField, height: fieldHeight)
@@ -181,5 +180,4 @@ class MonitoringAreaCustomDetailTableViewCellTableViewCell: BaseTableViewCell {
             rightFieldHeader.text = "Height After Grazing (cm)"
         }
     }
-    
 }

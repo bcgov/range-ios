@@ -23,7 +23,7 @@ public class Pin: MKAnnotationView, Theme {
         style()
     }
 
-    func set(photo: RangePhoto, width: CGFloat? = nil, height:CGFloat? = nil) {
+    func set(photo: RangePhoto, width: CGFloat? = nil, height: CGFloat? = nil) {
         self.frame.size.width = width ?? self.width
         self.frame.size.height = height ?? self.height
         self.photo = photo
@@ -33,7 +33,7 @@ public class Pin: MKAnnotationView, Theme {
         self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat(photo.trueHeading * .pi/180))
     }
 
-    public func setSize( width: CGFloat, height: CGFloat){
+    public func setSize( width: CGFloat, height: CGFloat) {
         self.frame.size.width = width
         self.frame.size.height = height
     }

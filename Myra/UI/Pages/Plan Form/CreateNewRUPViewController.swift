@@ -18,7 +18,6 @@ enum AcceptedPopupInput {
     case Year
 }
 
-
 public enum BasicInfoRow: Int, CaseIterable {
     case BasicInfo = 0
     case PlanInfo
@@ -164,7 +163,6 @@ class CreateNewRUPViewController: BaseViewController {
             let messageDesc = "This plan will not be uploaded until these minimum fields are filled:\n\n"
             return "\(messageDesc)\(message)"
         }
-        
     }
     
     // MARK: Outlet Actions
@@ -336,9 +334,9 @@ class CreateNewRUPViewController: BaseViewController {
         Logger.log(message: "Listening to Changes in plan \(r.ranNumber).")
         self.realmNotificationToken = r.observe { (change) in
             switch change {
-            case .error(_):
+            case .error:
                 Logger.log(message: "Error in Plan \(r.ranNumber) change.")
-            case .change(_):
+            case .change:
                 Logger.log(message: "Change observed in plan \(r.ranNumber).")
                 self.planIsValid = r.isValid
                 self.notifyPlanChanged()
@@ -392,7 +390,7 @@ class CreateNewRUPViewController: BaseViewController {
         animateIt()
     }
     
-    func catchAction(notification:Notification) {
+    func catchAction(notification: Notification) {
         if !reloading {
             self.tableView.reloadData()
             self.reloading = true
@@ -416,7 +414,6 @@ class CreateNewRUPViewController: BaseViewController {
         setBarInfoBasedOnOrientation()
         openBannerIfNeeded(closeFirst: false)
     }
-    
 }
 
 // MARK: Tableview
@@ -569,7 +566,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             return FromSection.allCases.count - 1
         }
-        
     }
     
     // RELOAD WITH COMPLETION
@@ -608,7 +604,6 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
             self.tableView.layoutIfNeeded()
         }
-        
     }
     
     // Note:
@@ -629,10 +624,10 @@ extension CreateNewRUPViewController: UITableViewDelegate, UITableViewDataSource
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         NotificationCenter.default.post(name: .formScrolled, object: nil)
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
              self.HideBanner()
         }
-        else{
+        else {
             self.ShowBanner()
         }
     }

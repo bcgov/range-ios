@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class TourObject {
     var header: String
     var desc: String
@@ -169,7 +168,6 @@ class Tour {
         
         let totalHeightWithoutPadding = estimatedContentHeight + iconHeight + buttonHeights + skipHeight
         return totalHeightWithoutPadding + (numberOfItemsInStack * paddingBetweenStackItems) + (topAndBottomPadding * 2)
-        
     }
 
     func removeCover() {

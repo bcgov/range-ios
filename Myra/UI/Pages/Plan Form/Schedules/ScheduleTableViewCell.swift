@@ -118,7 +118,6 @@ class ScheduleTableViewCell: BaseFormCell {
             self.tableView.layoutIfNeeded()
         }
     }
-    
 }
 
 // MARK: Tableview
@@ -151,5 +150,4 @@ extension ScheduleTableViewCell: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-
 }

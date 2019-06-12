@@ -17,16 +17,13 @@ struct Constants {
     struct API {
         struct Dev {
             static let baseURL = URL(string: "https://api-range-myra-dev.pathfinder.gov.bc.ca/api/v1/")!
-
         }
         struct Test {
             static let baseURL = URL(string: "https://api-range-myra-test.pathfinder.gov.bc.ca/api/v1/")!
-
         }
 
         struct Prod {
             static let baseURL = URL(string: "https://api-range-myra-prod.pathfinder.gov.bc.ca/api/v1/")!
-
         }
         
         static let maxConcurentEndpointRequests = 3

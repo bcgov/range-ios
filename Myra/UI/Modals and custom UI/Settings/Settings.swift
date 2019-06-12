@@ -38,7 +38,6 @@ enum SettingsPrivacySection: Int, CaseIterable {
     case privacy = 0
 }
 
-
 enum SettingsDeveloperToolsSection: Int, CaseIterable {
     case EnableToggle = 0
     case Development
@@ -118,10 +117,9 @@ class Settings: CustomModal {
         let sizeInfoIndexPath: IndexPath = IndexPath(row: SettingsMapSection.StoredSize.rawValue, section: SettingsSections.Map.rawValue)
         self.tableView.reloadRows(at: [sizeInfoIndexPath], with: .automatic)
     }
-    
 }
 
-extension Settings:  UITableViewDelegate, UITableViewDataSource {
+extension Settings: UITableViewDelegate, UITableViewDataSource {
     func setUpTable() {
         if self.tableView == nil { return }
         tableView.delegate = self

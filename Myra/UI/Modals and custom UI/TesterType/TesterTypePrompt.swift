@@ -73,7 +73,7 @@ class TesterTypePrompt: CustomModal {
         appleReviewerIcon.image = UIImage(named: "applereviewericon")
     }
     
-    // Mark: Style
+    // MARK: Style
     func style() {
         styleModalBox()
         //divider.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.95, alpha:1)
@@ -110,7 +110,7 @@ class TesterTypePrompt: CustomModal {
             animationView.widthAnchor.constraint(equalToConstant: animationContainer.frame.width),
             animationView.heightAnchor.constraint(equalToConstant: animationContainer.frame.height),
             animationView.centerXAnchor.constraint(equalTo: animationContainer.centerXAnchor),
-            animationView.centerYAnchor.constraint(equalTo: animationContainer.centerYAnchor),
+            animationView.centerYAnchor.constraint(equalTo: animationContainer.centerYAnchor)
             ])
         animationView.play()
     }

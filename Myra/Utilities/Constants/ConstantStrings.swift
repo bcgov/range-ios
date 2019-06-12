@@ -46,7 +46,7 @@ struct TourMessages {
 
     struct Schedule {
 
-        struct createEntry{
+        struct createEntry {
             static let title = "Create A New Range Use Plan"
             static let body = "Create your first schedule row by tapping this button. Pastures you entered previously will already be populated so you can quickly build out your schedule. Rows you enter will automatically count against your total allowable AUMs."
         }
@@ -206,7 +206,6 @@ let tourPlanCellLatestStatusDesc: String = "This is the status of the latest pla
 
 let tourPlanCellVersionsTooltipTitle: String = "Plan Versions"
 let tourPlanCellVersionsTooltipDesc: String = "these are different versions of the plan"
-
 
 let tourPlanCellVersionStatusTooltipTitle: String = "Tooltip"
 let tourPlanCellVersionStatusTooltipDesc: String = "Click here to view information about the plan status"

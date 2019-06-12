@@ -42,5 +42,4 @@ class selectionPopUpTableViewCell: UITableViewCell {
     func deSelect() {
         checkIcon.alpha = 0
     }
-    
 }

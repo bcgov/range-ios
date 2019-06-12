@@ -100,7 +100,7 @@ class MonitoringArea: Object, MyraObject {
     }
 
     // MARK: Export
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         let la = Double(latitude) ?? 0.0
         let lo = Double(longitude) ?? 0.0
         var ids: [Int] = [Int]()
@@ -111,7 +111,7 @@ class MonitoringArea: Object, MyraObject {
         }
 
         var otherPurpose: String = ""
-        let purposesArray = purpose.split{$0 == ","}.map(String.init)
+        let purposesArray = purpose.split {$0 == ","}.map(String.init)
         for element in purposesArray {
             if let pType = Reference.shared.getMonitoringAreaPurposeType(named: element) {
                 ids.append(pType.id)
@@ -143,5 +143,4 @@ class MonitoringArea: Object, MyraObject {
         new.name = self.name
         return new
     }
-
 }

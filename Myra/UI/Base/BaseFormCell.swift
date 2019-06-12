@@ -24,7 +24,6 @@ class BaseFormCell: BaseTableViewCell {
     }
 
     @objc func orientationChanged(_ notification: NSNotification) {
-
     }
 
     // MARK: Cell Setup
@@ -91,7 +90,6 @@ class BaseFormCell: BaseTableViewCell {
             })
         }
     }
-
 }
 
 extension BaseFormCell: UITextFieldDelegate {

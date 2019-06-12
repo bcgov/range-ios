@@ -112,7 +112,7 @@ extension CreateNewRUPViewController {
         }) { (done) in
             UIView.animate(withDuration: SettingsManager.shared.getShortAnimationDuration(), animations: {
 
-                if UIDevice.current.orientation.isLandscape{
+                if UIDevice.current.orientation.isLandscape {
                     self.menuWidth.constant = self.landscapeMenuWidh
                 } else if UIDevice.current.orientation.isPortrait {
                     self.menuWidth.constant = self.portraitMenuWidth
@@ -129,7 +129,6 @@ extension CreateNewRUPViewController {
                     self.view.isUserInteractionEnabled = true
                     return callBack()
                 })
-
             })
         }
     }

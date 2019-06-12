@@ -46,7 +46,6 @@ class InputModal: CustomModal {
         }
     }
     
-    
     // MARK: Validations
     func invalidInput(message: String) {
         titleLabel.text = message
@@ -108,7 +107,7 @@ class InputModal: CustomModal {
         }
     }
     
-    //  MARK: Entry Point
+    // MARK: Entry Point
     func initialize(header: String, taken: [String]? = [String](), completion: @escaping (_ value: String) -> Void) {
         if let taken = taken {
             self.taken = taken

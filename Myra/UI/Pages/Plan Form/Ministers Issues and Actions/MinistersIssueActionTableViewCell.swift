@@ -179,7 +179,6 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
         animateIt()
     }
 
-
     // MARK: Style
     func style() {
         guard let _ = self.container else {return}
@@ -210,7 +209,6 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
 
     // MARK: Utilities
     func duplicate() {
-
     }
 
 //    func getLocalTypeFromRemoteType() -> actionType? {
@@ -225,7 +223,6 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
 //        }
 //    }
 
-
 }
 
 // MARK: TextView delegates
@@ -236,7 +233,6 @@ class MinistersIssueActionTableViewCell: BaseFormCell {
 //    case TIming
 //    case LivestockVatiable
 //}
-
 
 extension MinistersIssueActionTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {}

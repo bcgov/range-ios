@@ -126,7 +126,6 @@ class PlanTableViewCell: BaseTableViewCell {
         }) { (done) in
             self.infoButton.alpha = 1
             self.infoButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
-
         }
     }
 

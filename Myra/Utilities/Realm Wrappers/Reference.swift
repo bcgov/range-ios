@@ -121,7 +121,6 @@ class Reference {
         } else {
             return [MinisterIssueType]()
         }
-
     }
 
     func getIssueActionType() -> [MinisterIssueActionType] {
@@ -141,7 +140,6 @@ class Reference {
             return [AmendmentType]()
         }
     }
-
 
     func getPlantSpecies() -> [PlantSpecies] {
         let query = RealmRequests.getObject(PlantSpecies.self)
@@ -223,7 +221,7 @@ class Reference {
         var returnArray = [SelectionPopUpObject]()
         let objects = getAgreementTypes()
         for object in objects {
-            returnArray.append(SelectionPopUpObject(display: object.desc, value:  object.desc))
+            returnArray.append(SelectionPopUpObject(display: object.desc, value: object.desc))
         }
         return returnArray
     }
@@ -232,7 +230,7 @@ class Reference {
         var returnArray = [SelectionPopUpObject]()
         let objects = getLiveStockType()
         for object in objects {
-            returnArray.append(SelectionPopUpObject(display: object.name, value:  object.name))
+            returnArray.append(SelectionPopUpObject(display: object.name, value: object.name))
         }
         return returnArray
     }
@@ -261,7 +259,7 @@ class Reference {
         let query = RealmRequests.getObject(PlanStatus.self)
         if let all = query {
             for object in all {
-                if object.code.lowercased() == "sd"  {
+                if object.code.lowercased() == "sd" {
                     return object
                 }
             }
@@ -273,7 +271,7 @@ class Reference {
         let query = RealmRequests.getObject(PlanStatus.self)
         if let all = query {
             for object in all {
-                if object.code.lowercased() == "c"  {
+                if object.code.lowercased() == "c" {
                     return object
                 }
             }
@@ -287,7 +285,7 @@ class Reference {
         let query = RealmRequests.getObject(PlanStatus.self)
         if let all = query {
             for object in all {
-                if object.code.lowercased() == code.lowercased()  {
+                if object.code.lowercased() == code.lowercased() {
                     return object
                 }
             }
@@ -312,7 +310,6 @@ class Reference {
         } catch _ {}
         return nil
     }
-
 
     func getAgreementExemptionStatusFor(id: Int) -> AgreementExemptionStatus {
         let query = RealmRequests.getObject(AgreementExemptionStatus.self)
@@ -392,7 +389,6 @@ class Reference {
         }
         return nil
     }
-
 
     // MARK: Handling reference JSON
     func handleReference(json: JSON) -> [Object] {
@@ -855,5 +851,4 @@ class Reference {
 
         return nil
     }
-
 }

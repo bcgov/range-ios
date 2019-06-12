@@ -62,7 +62,7 @@ class Schedule: Object, MyraObject {
 
     // MARK: Getters
     // Note: If schedule object is invalid, it won't be added
-    func getEntriesDictionary() -> [[String: Any]]{
+    func getEntriesDictionary() -> [[String: Any]] {
         var r = [[String: Any]]()
         for obj in scheduleObjects where !obj.toDictionary().isEmpty {
             r.append(obj.toDictionary())
@@ -91,7 +91,7 @@ class Schedule: Object, MyraObject {
     }
 
     // MARK: Export
-    func toDictionary()  -> [String:Any] {
+    func toDictionary()  -> [String: Any] {
         let schedule: [String: Any] = [
             "year": year,
             "grazingScheduleEntries": getEntriesDictionary(),

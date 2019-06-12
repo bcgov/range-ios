@@ -120,7 +120,7 @@ class MinisterIssueAction: Object, MyraObject {
         return new
     }
 
-    func toDictionary() -> [String:Any] {
+    func toDictionary() -> [String: Any] {
         var noInDay = 0
         var noInMonth = 0
         var noEndDay = 0
@@ -142,7 +142,7 @@ class MinisterIssueAction: Object, MyraObject {
             "noGrazeEndDay": noEndDay ,
             "noGrazeEndMonth": noEndMonth,
             "noGrazeStartDay": noInDay,
-            "noGrazeStartMonth": noInMonth,
+            "noGrazeStartMonth": noInMonth
         ]
     }
 }

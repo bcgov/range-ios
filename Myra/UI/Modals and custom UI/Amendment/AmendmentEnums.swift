@@ -54,5 +54,4 @@ enum AmendmentChangeType {
 }
 
 struct AmendmentConstants {
-    
 }

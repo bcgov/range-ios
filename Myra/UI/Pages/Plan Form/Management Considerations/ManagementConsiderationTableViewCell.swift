@@ -12,7 +12,7 @@ import RealmSwift
 
 class ManagementConsiderationTableViewCell: BaseFormCell {
 
-    static let cellHeight:CGFloat = 271
+    static let cellHeight: CGFloat = 271
 
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var considerationHeader: UILabel!

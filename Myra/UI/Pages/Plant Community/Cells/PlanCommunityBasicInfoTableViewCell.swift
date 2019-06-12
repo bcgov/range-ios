@@ -140,7 +140,6 @@ class PlanCommunityBasicInfoTableViewCell: BaseTableViewCell {
         }
     }
 
-
     @IBAction func communityURLChanged(_ sender: UITextField) {
         guard let pc = self.plantCommunity, let text = sender.text else {return}
         do {

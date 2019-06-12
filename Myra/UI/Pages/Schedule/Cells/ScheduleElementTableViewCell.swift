@@ -13,7 +13,7 @@ import DatePicker
 
 class ScheduleElementTableViewCell: BaseFormCell {
     
-    // Mark: Constants
+    // MARK: Constants
     static let cellHeight = 57.0
     // MARK: Variables
     var scheduleObject: ScheduleObject?
@@ -203,7 +203,6 @@ class ScheduleElementTableViewCell: BaseFormCell {
         }
         
         picker.displayPopOver(on: sender as! UIButton, in: scheduleVC, completion: {})
-        
     }
     
     @IBAction func dateOutAction(_ sender: Any) {
@@ -270,7 +269,6 @@ class ScheduleElementTableViewCell: BaseFormCell {
     }
     /////////////////////
     
-    
     // MARK: Functions
     func deleteEntry() {
         self.highlightOn()
@@ -296,7 +294,6 @@ class ScheduleElementTableViewCell: BaseFormCell {
             try realm.write {
                 so.dateIn = date
             }
-            
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
         }
@@ -559,7 +556,6 @@ class ScheduleElementTableViewCell: BaseFormCell {
         if entry.liveStockTypeId != -1 {
             let liveStockObject = Reference.shared.getLiveStockTypeObject(id: entry.liveStockTypeId)
             self.liveStock.text = liveStockObject.name
-            
         } else {
             self.liveStock.text = ""
         }

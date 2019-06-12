@@ -101,7 +101,6 @@ class PlantCommunityPastureActionsTableViewCell: BaseTableViewCell {
             addButton.alpha = 1
         }
     }
-
 }
 
 extension PlantCommunityPastureActionsTableViewCell: UITableViewDelegate, UITableViewDataSource {

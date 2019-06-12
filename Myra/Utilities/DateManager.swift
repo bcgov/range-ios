@@ -58,5 +58,4 @@ class DateManager {
         let fiveYearsLater = Calendar.current.date(byAdding: .year, value: 5, to: date)!
         return Calendar.current.date(byAdding: .day, value: -1, to: fiveYearsLater)!
     }
-
 }

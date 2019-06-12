@@ -45,5 +45,4 @@ class UserFeedbackTableViewCell: UITableViewCell, Theme {
         self.userFeedback.text = element.feedback
         self.feedbackHeight.constant = element.feedback.height(withConstrainedWidth: stack.frame.width, font: Fonts.getPrimary(size: 17))
     }
-    
 }

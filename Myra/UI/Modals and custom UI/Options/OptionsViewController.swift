@@ -92,5 +92,4 @@ extension OptionsViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-
 }

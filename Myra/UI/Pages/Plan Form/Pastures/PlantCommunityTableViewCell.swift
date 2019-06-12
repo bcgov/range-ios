@@ -70,11 +70,11 @@ class PlantCommunityTableViewCell: BaseFormCell {
         NotificationCenter.default.addObserver(self, selector: #selector(planClosed), name: .planClosed, object: nil)
     }
     
-    @objc func planClosed(_ notification:Notification) {
+    @objc func planClosed(_ notification: Notification) {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc func planChanged(_ notification:Notification) {
+    @objc func planChanged(_ notification: Notification) {
         if let pc = self.plantCommunity {
             Logger.log(message: "Plan Object change notifcation received in Plant Community: \(pc.name)")
         } else {
@@ -88,9 +88,9 @@ class PlantCommunityTableViewCell: BaseFormCell {
         guard let pc = self.plantCommunity else { return }
         self.realmNotificationToken = pc.observe { (change) in
             switch change {
-            case .error(_):
+            case .error:
                 Logger.log(message: "Error in Plant community \(pc.name) change.")
-            case .change(_):
+            case .change:
                 Logger.log(message: "Change observed in Plant community \(pc.name).")
                 NotificationCenter.default.post(name: .planChanged, object: nil)
             case .deleted:
@@ -128,7 +128,7 @@ class PlantCommunityTableViewCell: BaseFormCell {
     // MARK: Styles
     func style() {
         roundCorners(layer: container.layer)
-        addShadow(to: container.layer, opacity:defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 5)
+        addShadow(to: container.layer, opacity: defaultContainerShadowOpacity(), height: defaultContainershadowHeight(), radius: 5)
         styleSubHeader(label: header)
         styleSubHeader(label: nameLabel)
         switch mode {

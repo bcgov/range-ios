@@ -100,5 +100,4 @@ class FlowReviewCollectionViewCell: FlowCell {
         notesTextView.isEditable = false
         textView.isEditable = false
     }
-    
 }

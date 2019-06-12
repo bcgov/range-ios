@@ -30,7 +30,6 @@ class ImportCriteriaOptionTableViewCell: UITableViewCell {
         sendBack()
     }
 
-
     func set(name: String, parent: ChoosePastureCollectionViewCell, selected: Bool) {
         self.option = name
         self.parent = parent
@@ -56,5 +55,4 @@ class ImportCriteriaOptionTableViewCell: UITableViewCell {
     func style() {
         self.label.font = Fonts.getPrimary(size: 17)
     }
-    
 }

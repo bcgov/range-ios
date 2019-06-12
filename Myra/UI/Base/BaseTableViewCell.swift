@@ -14,5 +14,4 @@ class BaseTableViewCell: UITableViewCell, Theme {
         guard let parent = self.parentViewController, let base = parent as? BaseViewController else { return nil}
         return base.getPresenter()
     }
-
 }

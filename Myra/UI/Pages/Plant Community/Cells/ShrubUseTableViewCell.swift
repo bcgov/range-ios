@@ -68,5 +68,4 @@ class ShrubUseTableViewCell: BaseTableViewCell {
         sectionDescription.font = Fonts.getPrimary(size: 17)
         styleContainer(view: container)
     }
-
 }

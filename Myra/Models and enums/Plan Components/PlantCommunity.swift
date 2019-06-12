@@ -66,7 +66,7 @@ class PlantCommunity: Object, MyraObject {
             self.communityURL = url
         }
 
-        if let approved = json["approved"].bool{
+        if let approved = json["approved"].bool {
             self.approvedByMinister = approved
         }
 
@@ -222,7 +222,6 @@ class PlantCommunity: Object, MyraObject {
 
                 // Save new elements.
                 self.rangeReadiness.append(objectsIn: cache)
-
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
@@ -337,7 +336,7 @@ class PlantCommunity: Object, MyraObject {
         return new
     }
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         var typeId = 0
         var elevationId = 0
 

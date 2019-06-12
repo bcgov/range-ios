@@ -76,7 +76,6 @@ class ImportCriteria: CustomModal {
                     self.removeFromSuperview()
                 }
             }) {}
-
         }
     }
 
@@ -84,7 +83,7 @@ class ImportCriteria: CustomModal {
         remove()
     }
     
-    //  MARK: Entry Point
+    // MARK: Entry Point
     func initialize(for plan: Plan, then: @escaping(_ plantCommunity: PlantCommunity,_ sections: [PlantCommunityCriteriaFromSection]) -> Void) {
         self.callBack = then
         self.plan = plan
@@ -177,9 +176,7 @@ class ImportCriteria: CustomModal {
         }
         animation.startAnimation()
     }
-
 }
-
 
 extension ImportCriteria: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func initCollectionView() {
@@ -217,7 +214,6 @@ extension ImportCriteria: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

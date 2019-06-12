@@ -106,10 +106,9 @@ class CustomModal: UIView, Theme {
         return recursiveFindSubViewWithKeyboard(from: self)
     }
     
-    func recursiveFindSubViewWithKeyboard(from current: UIView) -> UIView?{
+    func recursiveFindSubViewWithKeyboard(from current: UIView) -> UIView? {
         if current.subviews.isEmpty {
             return nil
-            
         }
         
         if current.isFirstResponder {
@@ -164,7 +163,6 @@ class CustomModal: UIView, Theme {
             self.height = window.frame.width - (verticalPadding)
             self.width = window.frame.width - (horizontalPadding)
         }
-        
     }
     
     func get(percent: CGFloat, of: CGFloat)-> CGFloat {
@@ -191,7 +189,7 @@ class CustomModal: UIView, Theme {
             closeButton.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 closeButton.widthAnchor.constraint(equalToConstant: 25),
-                closeButton.heightAnchor.constraint(equalToConstant: 25),
+                closeButton.heightAnchor.constraint(equalToConstant: 25)
                 ])
         }
     }
@@ -291,7 +289,6 @@ class CustomModal: UIView, Theme {
         NSLayoutConstraint.deactivate(removedConstraints)
     }
     
-    
     func addInitialConstraints() {
         guard let window = UIApplication.shared.keyWindow else {return}
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -340,7 +337,7 @@ class CustomModal: UIView, Theme {
                 existingBottomContraint.value.isActive = true
                 existingBottomContraint.value.constant = getKeyboardContraintConstant(keyboardFrame: keyboardFrame)
             } else {
-                let bottomConstraint = self.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant:getKeyboardContraintConstant(keyboardFrame: keyboardFrame))
+                let bottomConstraint = self.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant: getKeyboardContraintConstant(keyboardFrame: keyboardFrame))
                 bottomConstraint.isActive = true
                 self.contraintsAdded[.Bottom] = bottomConstraint
             }
@@ -414,8 +411,8 @@ class CustomModal: UIView, Theme {
         window.insertSubview(bg, belowSubview: self)
         bg.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            bg.centerXAnchor.constraint(equalTo:  window.centerXAnchor),
-            bg.centerYAnchor.constraint(equalTo:  window.centerYAnchor),
+            bg.centerXAnchor.constraint(equalTo: window.centerXAnchor),
+            bg.centerYAnchor.constraint(equalTo: window.centerYAnchor),
             bg.leadingAnchor.constraint(equalTo: window.leadingAnchor),
             bg.trailingAnchor.constraint(equalTo: window.trailingAnchor),
             bg.topAnchor.constraint(equalTo: window.topAnchor),
@@ -427,7 +424,6 @@ class CustomModal: UIView, Theme {
         }) { (done) in
             return then()
         }
-        
     }
     
     func whiteScreen() -> UIView? {

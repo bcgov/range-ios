@@ -136,7 +136,7 @@ class FormMenu: UIView, Theme {
         // if there are 2 visible cells, find the most visible
         if indexPaths.count == 2 {
             let visibleRect = CGRect(origin: parentTable.contentOffset, size: parentTable.bounds.size)
-            let visiblePoint = CGPoint(x:visibleRect.midX, y:visibleRect.midY)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
             if let i = parentTable.indexPathForRow(at: visiblePoint) {
                 indexPath = i
             }
@@ -209,7 +209,7 @@ class FormMenu: UIView, Theme {
         NotificationCenter.default.addObserver(self, selector: #selector(planClosed), name: .planClosed, object: nil)
     }
     
-    @objc func planClosed(_ notification:Notification) {
+    @objc func planClosed(_ notification: Notification) {
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -217,17 +217,17 @@ class FormMenu: UIView, Theme {
          NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: .screenOrientationChanged, object: nil)
     }
     
-    @objc func formScrolled(_ notification:Notification) {
+    @objc func formScrolled(_ notification: Notification) {
         if !self.skippingToSection {
             self.highlightAppropriateMenuItem()
         }
     }
     
-    @objc func formEndedStrolling(_ notification:Notification) {
+    @objc func formEndedStrolling(_ notification: Notification) {
         self.skippingToSection = false
     }
     
-    @objc func orientationChanged(_ notification:Notification) {
+    @objc func orientationChanged(_ notification: Notification) {
         setIsExpandedBasedOnOrientation()
         setMenu(expanded: isExpanded)
     }
@@ -271,5 +271,4 @@ extension FormMenu: UITableViewDelegate, UITableViewDataSource {
             fatalError()
         }
     }
-    
 }

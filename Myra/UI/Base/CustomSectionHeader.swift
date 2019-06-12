@@ -37,7 +37,6 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
         if let help = helpDescription {
             tooltipButton.isHidden = false
             self.toolTipHelpText = help
-
         } else {
             tooltipButton.isHidden = true
         }
@@ -61,5 +60,4 @@ class CustomSectionHeader: UITableViewHeaderFooterView, Theme {
         guard let callback = self.callBack else {return}
         return callback()
     }
-
 }

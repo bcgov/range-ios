@@ -147,11 +147,10 @@ extension MapViewController: CLLocationManagerDelegate {
         }
         alertController.addAction(openAction)
         present(alertController, animated: true, completion: nil)
-
     }
 }
 
-extension MapViewController: MKMapViewDelegate{
+extension MapViewController: MKMapViewDelegate {
     func loadMap() {
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -208,7 +207,6 @@ extension MapViewController: MKMapViewDelegate{
 }
 
 //extension MapViewController
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {

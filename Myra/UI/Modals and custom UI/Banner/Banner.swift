@@ -53,7 +53,6 @@ class Banner {
                 return
             }
         }
-
     }
     
     func bannerTextFont() -> UIFont {

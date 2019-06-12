@@ -77,13 +77,13 @@ class ManagementConsideration: Object {
     }
 
     // MARK: Export
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         var typeId = 0
         if let considerationType = Reference.shared.getManagementConsideration(named: consideration) {
             typeId = considerationType.id
         }
         return [
-            "considerationTypeId":typeId,
+            "considerationTypeId": typeId,
             "url": self.url,
             "detail": self.detail
         ]
@@ -97,5 +97,4 @@ class ManagementConsideration: Object {
         new.detail = self.detail
         return new
     }
-
 }

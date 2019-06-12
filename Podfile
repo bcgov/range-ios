@@ -33,4 +33,5 @@ target 'Myra' do
   pod 'ShowTime', '2.4.0'
   pod 'Extended'
   pod 'Designer'
+  pod 'SwiftLint'
 end

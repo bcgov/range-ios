@@ -48,5 +48,4 @@ class District: Object {
         self.code = code
         self.desc = desc
     }
-
 }

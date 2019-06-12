@@ -10,7 +10,7 @@ import UIKit
 
 class PlantCommunityMonitoringAreaTableViewCell: BaseTableViewCell {
 
-    // Mark: Constants
+    // MARK: Constants
     static let cellHeight = 72.0
 
     // MARK: Outlets
@@ -78,5 +78,4 @@ class PlantCommunityMonitoringAreaTableViewCell: BaseTableViewCell {
     func style() {
         styleContainer(view: container)
     }
-    
 }
