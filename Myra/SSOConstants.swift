@@ -22,7 +22,7 @@ struct SSO {
     static var baseUrl: URL {
         switch SettingsManager.shared.getCurrentEnvironment() {
         case .Dev:
-            return SSO.Dev.baseUrl
+            return SSO.Test.baseUrl
         case .Prod:
             return SSO.Prod.baseUrl
         }
