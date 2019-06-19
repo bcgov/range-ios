@@ -45,23 +45,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// https://realm.io/docs/swift/latest/#migrations
     func migrateRealm() {
-        // To generate a schema version:
-        // - We get version and build numbers of app
-        // - comvert to integer
-        // - Generate schema version based on version and build
-        guard let generatedSchemaVersion = SettingsManager.generateAppIntegerVersion() else {return}
+        guard let generatedSchemaVersion = SettingsManager.generateAppIntegerVersion() else {
+            return
+        }
         
-        // Migrate
-        let config = Realm.Configuration (
-            schemaVersion: UInt64(generatedSchemaVersion),
-            migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < generatedSchemaVersion) {
-                }
+        let config = Realm.Configuration(schemaVersion: UInt64(generatedSchemaVersion),
+                                         migrationBlock: { migration, oldSchemaVersion in
+                                            // check oldSchemaVersion here, if we're newer call
+                                            // a method(s) specifically designed to migrate to
+                                            // the desired schema. ie `self.migrateSchemaV0toV1(migration)`
+                                            if (oldSchemaVersion < 4) {
+                                                // Nothing to do. Realm will automatically remove and add fields
+                                            }
+        },
+                                         shouldCompactOnLaunch: { totalBytes, usedBytes in
+                                            // totalBytes refers to the size of the file on disk in bytes (data + free space)
+                                            // usedBytes refers to the number of bytes used by data in the file
+                                            
+                                            // Compact if the file is over 100MB in size and less than 50% 'used'
+                                            let oneHundredMB = 100 * 1024 * 1024
+                                            return (totalBytes > oneHundredMB) && (Double(usedBytes) / Double(totalBytes)) < 0.5
         })
         
-        // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = config
-        print("Realm schema version: \(generatedSchemaVersion)")
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
