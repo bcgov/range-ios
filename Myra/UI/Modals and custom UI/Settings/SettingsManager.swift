@@ -317,21 +317,19 @@ class SettingsManager {
     /// - Returns: Integer representing application and local database version
     static func generateAppIntegerVersion() -> Int? {
         // We get version and build numbers of app
-        guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"], let build = infoDict["CFBundleVersion"] else {
+        guard let infoDict = Bundle.main.infoDictionary, let version = infoDict["CFBundleShortVersionString"] as? String, let build = infoDict["CFBundleVersion"] as? String  else {
             Logger.log(message: "Could not find build version and number to generate integer app version in settings")
             return nil
         }
+
         // comvert tp integer
-        let stringVersion = "\(version)".removeWhitespaces()
-        let stringBuild = "\(build)".removeWhitespaces()
-        guard let intVersion = Int(stringVersion), let intBuild = Int(stringBuild) else {
+        let versionAsString = "\(version)".removeWhitespaces().replacingOccurrences(of: ".", with: "", options: NSString.CompareOptions.literal, range:nil)
+        guard let intVersion = Int(versionAsString), let intBuild = Int(build.removeWhitespaces())  else {
             Logger.log(message: "Could not generate integer app version in settings")
             return nil
         }
-        // Generate based on version and build
-        let generatedVersion = (intVersion * 1000) + intBuild
         
-        return generatedVersion
+        return intVersion * 10 + intBuild
     }
     
     func refreshAuthIdpHintIfNecessary(completion: @escaping(_ appVersion: ApplicationVersionStatus)-> Void) {
@@ -360,6 +358,7 @@ class SettingsManager {
             } else if status == .isNewerThanRemote {
                 appIsBeingTested = true
             }
+            
             return completion(appIsBeingTested)
         }
     }

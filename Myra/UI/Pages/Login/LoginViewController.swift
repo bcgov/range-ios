@@ -64,12 +64,12 @@ class LoginViewController: BaseViewController {
         }
     }
     
-    @IBAction func hackyButton(_ sender: Any) {
-        guard let appVersion = SettingsManager.generateAppIntegerVersion() else {return}
-        API.updateRemoteVersion(ios: (appVersion), idphint: "idir") { (success) in
-            print(success)
-        }
-    }
+//    @IBAction func hackyButton(_ sender: Any) {
+//        guard let appVersion = SettingsManager.generateAppIntegerVersion() else {return}
+//        API.updateRemoteVersion(ios: (appVersion), idphint: "idir") { (success) in
+//            print(success)
+//        }
+//    }
     
     @IBAction func settingsAction(_ sender: Any) {
         let settings: Settings = UIView.fromNib()
