@@ -1130,30 +1130,6 @@ class API {
         }
     }
     
-//    static func updateRemoteVersion(ios: Int, idphint: String, completion: @escaping (_ success: Bool) -> Void) {
-//        guard let r = Reachability(), r.connection != .none else {
-//            Logger.log(message: "Could not update remote versions: app is offline.")
-//            return completion(false)
-//        }
-//        guard let endpoint = URL(string: Constants.API.versionPath, relativeTo: Constants.API.baseURL) else {
-//            return completion(false)
-//        }
-//
-//        var params: [String: Any]  = [String: Any]()
-//        params["ios"] = ios
-//        params["idpHint"] = idphint
-//        API.put(endpoint: endpoint, params: params) { (response) in
-//            if let rsp = response, !rsp.result.isFailure {
-//                return completion(true)
-//            } else {
-//                return completion(false)
-//            }
-//        }
-//    }
-    
-//    static func updateRemoteVersionInAllEnviorments(params: [String: Any], completion: @escaping (_ success: Bool) -> Void) {
-//    }
-    
     static func loadRemoteVersion(completion: @escaping (_ success: Bool) -> Void) {
         guard let r = Reachability(), r.connection != .none else {
             Logger.log(message: "Could not load remote versions: app is offline.")
