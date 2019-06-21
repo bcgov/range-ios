@@ -34,7 +34,7 @@ struct Constants {
         static var baseURL: URL {
             switch SettingsManager.shared.getCurrentEnvironment() {
             case .Dev:
-                return Constants.API.Dev.baseURL
+                return Constants.API.Test.baseURL
             case .Prod:
                 return Constants.API.Prod.baseURL
             }
