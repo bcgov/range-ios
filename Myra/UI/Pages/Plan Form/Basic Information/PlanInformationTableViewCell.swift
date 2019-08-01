@@ -39,12 +39,26 @@ class PlanInformationTableViewCell: BaseFormCell {
     
     @IBOutlet weak var endDateButton: UIButton!
     @IBOutlet weak var startDateButton: UIButton!
+    
+     func getFiftyYearsFromNow() -> Date {
+        var dateComponents = DateComponents()
+        dateComponents.year = Date().year() + 50
+        let userCalendar = Calendar.current // user calendar
+        let fiftyYearsFromNow = userCalendar.date(from: dateComponents)
+        
+        return fiftyYearsFromNow!
+    }
 
     // MARK: Outlet actions
     @IBAction func planStartAction(_ sender: Any) {
         guard let plan = self.plan, let parent = self.parentViewController as? CreateNewRUPViewController, let min = plan.agreementStartDate, let max = plan.agreementEndDate else {return}
+        //havent't removed above input dates because might add a warning modal that uses them
         let picker = DatePicker()
-        picker.setup(beginWith: plan.planStartDate, min: min, max: max) { (selected, date) in
+        
+
+        let wayLater = getFiftyYearsFromNow()
+        
+        picker.setup(beginWith: plan.planStartDate, min: Date(), max: wayLater) { (selected, date) in
             if let d = date {
                 DispatchQueue.main.async {
                     self.handlePlanStartDate(date: d)
@@ -61,7 +75,7 @@ class PlanInformationTableViewCell: BaseFormCell {
         let parent = self.parentViewController as! CreateNewRUPViewController
         let picker = DatePicker()
         guard let plan = self.plan, let min = plan.agreementStartDate, let max = plan.agreementEndDate else {return}
-
+        // leaving this guard because we mmay add a warning modal
         if let planStartDate = plan.planStartDate {
             guard let endOfFiveYearsLater = DatePickerHelper.shared.dateFrom(day: 31, month: 12, year: planStartDate.year() + 4) else {return}
              var maxEnd = endOfFiveYearsLater
@@ -69,7 +83,9 @@ class PlanInformationTableViewCell: BaseFormCell {
                 maxEnd = max
             }
 
-            picker.setup(beginWith: plan.planEndDate, min: planStartDate, max: maxEnd) { (selected, date) in
+            let wayLater = getFiftyYearsFromNow()
+            
+            picker.setup(beginWith: plan.planEndDate, min: Date(), max: wayLater) { (selected, date) in
                 if let date = date {
                     DispatchQueue.main.async {
                         self.handlePlanEndDate(date: date)
