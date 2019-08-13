@@ -140,7 +140,7 @@ class ScheduleObject: Object, MyraObject {
         do {
             let realm = try Realm()
             try realm.write {
-                self.totalAUMs = (numberOfAnimals * totalDays * auFactor) / 30.44
+                self.totalAUMs = (numberOfAnimals * totalDays * auFactor) / 30.5
             }
         } catch _ {
             Logger.fatalError(message: LogMessages.databaseWriteFailure)
