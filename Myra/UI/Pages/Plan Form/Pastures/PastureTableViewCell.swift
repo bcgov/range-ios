@@ -275,7 +275,7 @@ class PastureTableViewCell: BaseFormCell {
         switch mode {
         case .View:
             styleInputFieldReadOnly(field: aumsField, header: aumHeader, height: fieldHeight)
-            styleInputFieldReadOnly(field: deductionFIeld, header: pldHeader, height: fieldHeight)
+            styleInputField(field: deductionFIeld, header: pldHeader, height: fieldHeight)
             styleInputFieldReadOnly(field: graceDaysField, header: graceDaysHeader, height: fieldHeight)
             styleTextviewInputFieldReadOnly(field: pastureNotesTextField, header: pastureNotesHeader)
             addPlantCommunityButton.alpha = 0
