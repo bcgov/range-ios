@@ -8,6 +8,7 @@
 
 import XCTest
 import Fakery
+import SwiftyJSON
 
 
 
@@ -15,11 +16,38 @@ class MyraTests: XCTestCase {
    
     static var faker = Faker()
     
+    static func helper_readJSONFromFile(fileName: String) -> JSON?
+    {
+        guard let pathString = Bundle(for: type(of: self) as! AnyClass).path(forResource: fileName, ofType: "json") else {
+            fatalError(fileName + "  not found")
+        }
+        
+        guard let jsonString = try? NSString(contentsOfFile: pathString, encoding: String.Encoding.utf8.rawValue) as String else {
+            fatalError("Unable to convert " + fileName + " to String")
+        }
+        
+        guard let jsonData = jsonString.data(using: .utf8) else {
+            fatalError("cant serialize json")
+        }
+        
+        guard let jsonObj = try? JSON(data: jsonData) else {fatalError("cant serialize json")  }
+        
+        
+        
+        return jsonObj
+        
+    }
+    
     override func setUp() {
         MyraTests.faker = Faker(locale: "en-CA")
     }
     
     func test_Can_Create_Valid_Mock_Agreement() {
+        guard let jsonObj = MyraTests.helper_readJSONFromFile(fileName: "Static Test Data\\AgreementData.json") else {
+            fatalError("unable to load json")
+        }
+        
+        var agreement = Agreement(json: jsonObj)
         XCTAssert(false)
     }
     
