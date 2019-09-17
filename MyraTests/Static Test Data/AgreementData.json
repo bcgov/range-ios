@@ -1,0 +1,382 @@
+{
+    "forestFileId": "RAN012345",
+    "agreementStartDate": "2017-01-01T08:00:00.000Z",
+    "agreementEndDate": "2041-12-31T08:00:00.000Z",
+    "zoneId": 65,
+    "agreementExemptionStatusId": 1,
+    "agreementTypeId": 1,
+    "zone": {
+        "id": 65,
+        "code": "DOS4",
+        "description": "Please update contact and description",
+        "districtId": 15,
+        "userId": 44,
+        "district": {
+            "id": 15,
+            "code": "DOS",
+            "description": ""
+        },
+        "user": {
+            "id": 44,
+            "username": "idir\\tester",
+            "clientId": null,
+            "givenName": "testy",
+            "familyName": "McTesterson",
+            "email": "testy.McTesterson@gov.bc.ca",
+            "phoneNumber": "250-123-3456",
+            "active": true,
+            "piaSeen": false,
+            "lastLoginAt": null
+        }
+    },
+    "agreementType": {
+        "id": 1,
+        "code": "E01",
+        "description": "Grazing Licence",
+        "active": true
+    },
+    "agreementExemptionStatus": {
+        "id": 1,
+        "code": "N",
+        "description": "Not Exempt",
+        "active": true
+    },
+    "clients": [
+        {
+            "id": "00162356",
+            "locationCode": "02",
+            "name": "RANCH, Ranchero Rancherson",
+            "clientTypeCode": "A",
+            "startDate": null,
+            "endDate": null
+        },
+        {
+            "id": "00045960",
+            "locationCode": "00",
+            "name": "THE NATURE TRUST OF BRITISH COLUMBIA",
+            "clientTypeCode": "B",
+            "startDate": null,
+            "endDate": null
+        }
+    ],
+    "usage": [
+        {
+            "id": 6351,
+            "year": 2007,
+            "authorizedAum": 600,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 600,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 6990,
+            "year": 2008,
+            "authorizedAum": 3581,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 7668,
+            "year": 2009,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 600,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 8946,
+            "year": 2010,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 1555,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 10778,
+            "year": 2011,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2055,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 12171,
+            "year": 2012,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2482,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 14384,
+            "year": 2013,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 15822,
+            "year": 2014,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 19491,
+            "year": 2015,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 20035,
+            "year": 2016,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26914,
+            "year": 2017,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26915,
+            "year": 2018,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26916,
+            "year": 2019,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26917,
+            "year": 2020,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26918,
+            "year": 2021,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26919,
+            "year": 2022,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26920,
+            "year": 2023,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26921,
+            "year": 2024,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26922,
+            "year": 2025,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26923,
+            "year": 2026,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26924,
+            "year": 2027,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26925,
+            "year": 2028,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26926,
+            "year": 2029,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26927,
+            "year": 2030,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26928,
+            "year": 2031,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26929,
+            "year": 2032,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26930,
+            "year": 2033,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26931,
+            "year": 2034,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26932,
+            "year": 2035,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26933,
+            "year": 2036,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26934,
+            "year": 2037,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26935,
+            "year": 2038,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26936,
+            "year": 2039,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26937,
+            "year": 2040,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        },
+        {
+            "id": 26938,
+            "year": 2041,
+            "authorizedAum": 2981,
+            "temporaryIncrease": 0,
+            "totalNonUse": 0,
+            "totalAnnualUse": 2981,
+            "agreementId": "RAN012345"
+        }
+    ],
+    "livestockIdentifiers": [],
+    "plans": [],
+    "id": "RAN012345"
+}
