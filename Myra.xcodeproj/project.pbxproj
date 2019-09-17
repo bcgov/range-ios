@@ -610,6 +610,12 @@
 		B6B2C71D23318F8A0064F2A3 /* AmendmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32E220381FF00116848 /* AmendmentHelper.swift */; };
 		B6B2C71E23318F8C0064F2A3 /* AmendmentEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32C22037EC400116848 /* AmendmentEnums.swift */; };
 		B6B2C721233192010064F2A3 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83B2034CF850090E7B4 /* ViewManager.swift */; };
+		B6B2C72923319C2D0064F2A3 /* TagImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2943BDA62162996900EFC428 /* TagImage.xib */; };
+		B6B2C72A23319C2D0064F2A3 /* Pin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297E998C2165482000FB6F04 /* Pin.xib */; };
+		B6B2C72B23319C2D0064F2A3 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E998A2165479F00FB6F04 /* Pin.swift */; };
+		B6B2C72C2331A6B20064F2A3 /* MonitoringAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F8F1220F7F625009D7717 /* MonitoringAreaViewController.swift */; };
+		B6B2C72D2331A6B90064F2A3 /* MonitoringArea.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295F8F1020F7F60E009D7717 /* MonitoringArea.storyboard */; };
+		B6B2C72E2331A7A40064F2A3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E9988216545E700FB6F04 /* MapViewController.swift */; };
 		B6B99AC0233033F400B25C2D /* MyraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B99ABF233033F400B25C2D /* MyraTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -2142,7 +2148,9 @@
 				B6B2C6AE23318E670064F2A3 /* Main.storyboard in Resources */,
 				B6B2C65923318DE00064F2A3 /* PlanCommunityBasicInfoTableViewCell.xib in Resources */,
 				B6B2C69423318E210064F2A3 /* MinistersIssueActionTableViewCell.xib in Resources */,
+				B6B2C72A23319C2D0064F2A3 /* Pin.xib in Resources */,
 				B6B2C6EE23318EE70064F2A3 /* Settings.xib in Resources */,
+				B6B2C72D2331A6B90064F2A3 /* MonitoringArea.storyboard in Resources */,
 				B6B2C6A623318E520064F2A3 /* PlanTableViewCell.xib in Resources */,
 				B6B2C68023318E090064F2A3 /* RangeUseageYearTableViewCell.xib in Resources */,
 				B6B2C6F823318EEC0064F2A3 /* SettingsSegmentedTableViewCell.xib in Resources */,
@@ -2158,6 +2166,7 @@
 				B6B2C6A823318E520064F2A3 /* PlanVersionTableViewCell.xib in Resources */,
 				B6B2C70C23318F1C0064F2A3 /* FlowReviewCollectionViewCell.xib in Resources */,
 				B6B2C65523318DD30064F2A3 /* ScheduleFooterTableViewCell.xib in Resources */,
+				B6B2C72923319C2D0064F2A3 /* TagImage.xib in Resources */,
 				B6B2C64823318DB60064F2A3 /* LaunchScreen.storyboard in Resources */,
 				B6B2C67623318E090064F2A3 /* BasicInformationTableViewCell.xib in Resources */,
 				B6B2C6CF23318EA50064F2A3 /* OptionsTableViewCell.xib in Resources */,
@@ -2617,6 +2626,7 @@
 				B6B2C68123318E0E0064F2A3 /* LiveStockIDTableViewCell.swift in Sources */,
 				B6B2C6D123318EA90064F2A3 /* SyncBanner.swift in Sources */,
 				B6B2C71E23318F8C0064F2A3 /* AmendmentEnums.swift in Sources */,
+				B6B2C72C2331A6B20064F2A3 /* MonitoringAreaViewController.swift in Sources */,
 				B6B2C6D023318EA90064F2A3 /* Banner.swift in Sources */,
 				B6B2C70623318F160064F2A3 /* FlowModel.swift in Sources */,
 				B6B2C63C23318C6E0064F2A3 /* AdditionalRequirementCategory.swift in Sources */,
@@ -2674,6 +2684,7 @@
 				B6B2C62423318C630064F2A3 /* RUPStatus.swift in Sources */,
 				B6B2C6C623318E9E0064F2A3 /* SelectionPopUpViewController.swift in Sources */,
 				B6B2C64523318D5C0064F2A3 /* AlertView.swift in Sources */,
+				B6B2C72B23319C2D0064F2A3 /* Pin.swift in Sources */,
 				B6B2C68F23318E210064F2A3 /* MinisterIssuesTableViewCell.swift in Sources */,
 				B6B2C60823318C470064F2A3 /* Reference.swift in Sources */,
 				B6B2C6B823318E7C0064F2A3 /* NewElementAddedBanner.swift in Sources */,
@@ -2683,6 +2694,7 @@
 				B6B2C6B923318E7C0064F2A3 /* NewElementBanner.swift in Sources */,
 				B6B2C62623318C630064F2A3 /* FormMode.swift in Sources */,
 				B6B2C63523318C6E0064F2A3 /* AmendmentType.swift in Sources */,
+				B6B2C72E2331A7A40064F2A3 /* MapViewController.swift in Sources */,
 				B6B2C6C823318E9E0064F2A3 /* selectionPopUpTableViewCell.swift in Sources */,
 				B6B2C6AF23318E6D0064F2A3 /* EmptyStateTableViewCell.swift in Sources */,
 				B6B2C6EA23318EDA0064F2A3 /* SyncView.swift in Sources */,
