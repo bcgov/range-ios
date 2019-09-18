@@ -18,11 +18,24 @@ class MyraTests: XCTestCase {
    
     static var faker = Faker()
     
-    static func helper_readJSONFromFile(fileName: String) -> JSON?
+    static func searchBundlesForPath(fileName: String, fileExtension: String) -> String
     {
-        guard let pathString = Bundle(for: type(of: self) as! AnyClass).path(forResource: fileName, ofType: "json") else {
-            fatalError(fileName + "  not found")
+        var pathString:String = ""
+        for aBundle in Bundle.allBundles
+        {
+            pathString = aBundle.path(forResource: fileName, ofType: fileExtension) ?? ""
+            
+            if pathString != "" && pathString != nil {
+                return pathString
+            }
         }
+        return ""
+    }
+    
+    static func helper_readJSONFromFile(fileName: String, fileExtension: String) -> JSON?
+    {
+        
+        let pathString = MyraTests.searchBundlesForPath(fileName: fileName, fileExtension: fileExtension)
         
         guard let jsonString = try? NSString(contentsOfFile: pathString, encoding: String.Encoding.utf8.rawValue) as String else {
             fatalError("Unable to convert " + fileName + " to String")
@@ -45,7 +58,7 @@ class MyraTests: XCTestCase {
     }
     
     func test_Can_Create_Valid_Mock_Agreement() {
-        guard let jsonObj = MyraTests.helper_readJSONFromFile(fileName: "Static Test Data\\AgreementData.json") else {
+        guard let jsonObj = MyraTests.helper_readJSONFromFile(fileName: "AgreementData", fileExtension: "json") else {
             fatalError("unable to load json")
         }
         
