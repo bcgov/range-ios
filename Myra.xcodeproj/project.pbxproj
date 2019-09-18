@@ -316,307 +316,110 @@
 		322ABBD466D09BEB51855DE6 /* Pods_MyraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FAFFA5DE78055EA1A1D45C9 /* Pods_MyraTests.framework */; };
 		56F388A120801757004CDFAE /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
 		56F388A320801763004CDFAE /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
-		B6B2C5EF233150970064F2A3 /* Agreement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EA02A220697E6F0076403B /* Agreement.swift */; };
 		B6B2C5F1233160B10064F2A3 /* AgreementData.json in Resources */ = {isa = PBXBuildFile; fileRef = B6B2C5F0233160B10064F2A3 /* AgreementData.json */; };
-		B6B2C5F223318C270064F2A3 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F82C2034BFCA0090E7B4 /* Plan.swift */; };
-		B6B2C5F323318C270064F2A3 /* RangeUsageYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D924203F449700193FA0 /* RangeUsageYear.swift */; };
-		B6B2C5F423318C270064F2A3 /* Pasture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D92C203F5F6F00193FA0 /* Pasture.swift */; };
-		B6B2C5F523318C270064F2A3 /* MinisterIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EF20B62763005FCF94 /* MinisterIssue.swift */; };
-		B6B2C5F623318C270064F2A3 /* MinisterIssueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491F520B62B3D005FCF94 /* MinisterIssueAction.swift */; };
-		B6B2C5F723318C270064F2A3 /* PlantCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D936203F65FD00193FA0 /* PlantCommunity.swift */; };
-		B6B2C5F823318C270064F2A3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926D96D20754E52006250D3 /* Client.swift */; };
-		B6B2C5F923318C270064F2A3 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0E9204F167C00F71B9C /* Schedule.swift */; };
-		B6B2C5FA23318C270064F2A3 /* ScheduleObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0EB204F2BB400F71B9C /* ScheduleObject.swift */; };
-		B6B2C5FB23318C270064F2A3 /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0332056EF47006CD247 /* Zone.swift */; };
-		B6B2C5FC23318C270064F2A3 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB0352056EF95006CD247 /* District.swift */; };
-		B6B2C5FD23318C270064F2A3 /* MonitoringArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B5720EE95A50042B88E /* MonitoringArea.swift */; };
-		B6B2C5FE23318C270064F2A3 /* PastureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B7320F013F90042B88E /* PastureAction.swift */; };
-		B6B2C5FF23318C270064F2A3 /* IndicatorPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933183E20FE60390070A6A9 /* IndicatorPlant.swift */; };
-		B6B2C60023318C270064F2A3 /* InvasivePlants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D417B216D12E7006214E1 /* InvasivePlants.swift */; };
-		B6B2C60123318C270064F2A3 /* ManagementConsideration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D418D216D3172006214E1 /* ManagementConsideration.swift */; };
-		B6B2C60223318C270064F2A3 /* AdditionalRequirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D418F216D3184006214E1 /* AdditionalRequirement.swift */; };
-		B6B2C60323318C3A0064F2A3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29334F99214C2F2100EE97F9 /* API.swift */; };
-		B6B2C60423318C3A0064F2A3 /* AutoSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E22149B786007E8576 /* AutoSync.swift */; };
-		B6B2C60523318C3A0064F2A3 /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A020801757004CDFAE /* AsyncBlockOperation.swift */; };
-		B6B2C60623318C3A0064F2A3 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F388A220801763004CDFAE /* ConcurrentOperation.swift */; };
-		B6B2C60723318C400064F2A3 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8985B21EE926600A74F4F /* Auth.swift */; };
-		B6B2C60823318C470064F2A3 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C22141D8EC00AE72FC /* Reference.swift */; };
-		B6B2C60923318C470064F2A3 /* RUPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC4FE204F3C5500F0FB04 /* RUPManager.swift */; };
-		B6B2C60A23318C470064F2A3 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EADF8320603F9C0087593F /* RealmManager.swift */; };
-		B6B2C60B23318C470064F2A3 /* RealmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97BC204DB87D005297B9 /* RealmRequest.swift */; };
-		B6B2C60C23318C470064F2A3 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B31F22023D6600116848 /* DummyData.swift */; };
-		B6B2C60D23318C4C0064F2A3 /* ConstantStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76B21485A2500441539 /* ConstantStrings.swift */; };
-		B6B2C60E23318C4C0064F2A3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB4C20851BD900579A57 /* Colors.swift */; };
-		B6B2C60F23318C4C0064F2A3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB4E2085209000579A57 /* Fonts.swift */; };
-		B6B2C61023318C4C0064F2A3 /* EmptyStateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CF122493CB400E03B1C /* EmptyStateConstants.swift */; };
-		B6B2C61123318C4C0064F2A3 /* StatusConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34A9B422494E1E00555011 /* StatusConstants.swift */; };
-		B6B2C61223318C500064F2A3 /* OpenMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9C20378A3900390523 /* OpenMapOverlay.swift */; };
-		B6B2C61323318C500064F2A3 /* TileMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DEA5AB21AC833A002AA89B /* TileMaster.swift */; };
-		B6B2C61423318C500064F2A3 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4D9A2037631400390523 /* Polygon.swift */; };
 		B6B2C61523318C560064F2A3 /* typing.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E657007223074190042826E /* typing.json */; };
 		B6B2C61623318C560064F2A3 /* x_pop.json in Resources */ = {isa = PBXBuildFile; fileRef = 29EA029E2069664B0076403B /* x_pop.json */; };
 		B6B2C61723318C560064F2A3 /* checked_done_.json in Resources */ = {isa = PBXBuildFile; fileRef = 29EA02982069565B0076403B /* checked_done_.json */; };
 		B6B2C61823318C560064F2A3 /* sync_icon.json in Resources */ = {isa = PBXBuildFile; fileRef = 29B5F046208E958D003D996D /* sync_icon.json */; };
 		B6B2C61923318C560064F2A3 /* spinner2_.json in Resources */ = {isa = PBXBuildFile; fileRef = 29A97A7C20CEF0B5002F2D9A /* spinner2_.json */; };
 		B6B2C61A23318C560064F2A3 /* spinner_.json in Resources */ = {isa = PBXBuildFile; fileRef = 29EA02A020696A710076403B /* spinner_.json */; };
-		B6B2C61B23318C5A0064F2A3 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFA10B20450CB600B650CE /* Notifications.swift */; };
-		B6B2C61C23318C5A0064F2A3 /* StatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C02141D61500AE72FC /* StatusHelper.swift */; };
-		B6B2C61D23318C5A0064F2A3 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCB037205702B3006CD247 /* DateManager.swift */; };
-		B6B2C61E23318C5A0064F2A3 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8448D4222865BC008ECF04 /* StringExtension.swift */; };
-		B6B2C61F23318C5E0064F2A3 /* RemoteVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3C22149D2800EF0A1D /* RemoteVersion.swift */; };
-		B6B2C62023318C5E0064F2A3 /* MyraObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB50208567D900579A57 /* MyraObject.swift */; };
-		B6B2C62123318C5E0064F2A3 /* SyncDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290FF88520635F1F00C7DAC0 /* SyncDate.swift */; };
-		B6B2C62223318C5E0064F2A3 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B650921C04E5900F9A8A5 /* UserInfo.swift */; };
-		B6B2C62323318C5E0064F2A3 /* RangePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2943BDA2215E90C300EFC428 /* RangePhoto.swift */; };
-		B6B2C62423318C630064F2A3 /* RUPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83D2034D6D60090E7B4 /* RUPStatus.swift */; };
-		B6B2C62523318C630064F2A3 /* ApplicationVersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF3E2214AE3F00EF0A1D /* ApplicationVersionStatus.swift */; };
-		B6B2C62623318C630064F2A3 /* FormMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296232042047293A00F1CEBF /* FormMode.swift */; };
-		B6B2C62723318C630064F2A3 /* AgeementHolderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97C0204DCB5B005297B9 /* AgeementHolderType.swift */; };
-		B6B2C62823318C630064F2A3 /* LiveStockIDType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FB97C2204DCCB2005297B9 /* LiveStockIDType.swift */; };
-		B6B2C62923318C630064F2A3 /* OptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292197DD209CD295004A5011 /* OptionType.swift */; };
-		B6B2C62A23318C630064F2A3 /* IndicatorPlantSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933184020FE63590070A6A9 /* IndicatorPlantSection.swift */; };
-		B6B2C62B23318C6E0064F2A3 /* LiveStockID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270D2044949B0033BC47 /* LiveStockID.swift */; };
-		B6B2C62C23318C6E0064F2A3 /* AgreemntType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EADF7D206039BC0087593F /* AgreemntType.swift */; };
-		B6B2C62D23318C6E0064F2A3 /* LiveStockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0ED204F2FBB00F71B9C /* LiveStockType.swift */; };
-		B6B2C62E23318C6E0064F2A3 /* AgreementStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EADF7F206039D60087593F /* AgreementStatus.swift */; };
-		B6B2C62F23318C6E0064F2A3 /* LivestockIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E651E2076A8F6003D4AF0 /* LivestockIdentifierType.swift */; };
-		B6B2C63023318C6E0064F2A3 /* ClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65202076AAC6003D4AF0 /* ClientType.swift */; };
-		B6B2C63123318C6E0064F2A3 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65222076AAF3003D4AF0 /* PlanStatus.swift */; };
-		B6B2C63223318C6E0064F2A3 /* AgreementExemptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E65242076AB12003D4AF0 /* AgreementExemptionStatus.swift */; };
-		B6B2C63323318C6E0064F2A3 /* MinisterIssueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958AC1B20C60381005C7900 /* MinisterIssueType.swift */; };
-		B6B2C63423318C6E0064F2A3 /* MinisterIssueActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958AC1D20C603B7005C7900 /* MinisterIssueActionType.swift */; };
-		B6B2C63523318C6E0064F2A3 /* AmendmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EAA4F0213719A9003B6CE5 /* AmendmentType.swift */; };
-		B6B2C63623318C6E0064F2A3 /* PlantSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB5217E77900000781E /* PlantSpecies.swift */; };
-		B6B2C63723318C6E0064F2A3 /* PlantCommunityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB7217E79DF0000781E /* PlantCommunityType.swift */; };
-		B6B2C63823318C6E0064F2A3 /* PlantCommunityElevation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB9217E79F00000781E /* PlantCommunityElevation.swift */; };
-		B6B2C63923318C6E0064F2A3 /* PlantCommunityActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EBB217E79FD0000781E /* PlantCommunityActionType.swift */; };
-		B6B2C63A23318C6E0064F2A3 /* MonitoringAreaHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EBD217E7A0A0000781E /* MonitoringAreaHealth.swift */; };
-		B6B2C63B23318C6E0064F2A3 /* MonitoringAreaPurposeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EBF217E7A170000781E /* MonitoringAreaPurposeType.swift */; };
-		B6B2C63C23318C6E0064F2A3 /* AdditionalRequirementCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290AD10C218A13BB00A261B6 /* AdditionalRequirementCategory.swift */; };
-		B6B2C63D23318C6E0064F2A3 /* ManagegementConsiderationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290AD10E218A13DF00A261B6 /* ManagegementConsiderationType.swift */; };
-		B6B2C63E23318C7E0064F2A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C420335D4100BF1113 /* AppDelegate.swift */; };
-		B6B2C63F23318C830064F2A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BD277207BF488004B1D07 /* Constants.swift */; };
-		B6B2C64023318C830064F2A3 /* SSOConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEF2241A5D500E03B1C /* SSOConstants.swift */; };
 		B6B2C64123318CE30064F2A3 /* MyriadWebPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8985D21F0EE6100A74F4F /* MyriadWebPro.ttf */; };
-		B6B2C64223318D370064F2A3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8EFDE21F63934001F663B /* Logger.swift */; };
 		B6B2C64323318D370064F2A3 /* LoggerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3312204BB4900116848 /* LoggerWindow.xib */; };
-		B6B2C64423318D370064F2A3 /* LoggerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3332204BB6200116848 /* LoggerWindow.swift */; };
-		B6B2C64523318D5C0064F2A3 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29332D8D21B5A5BF00950478 /* AlertView.swift */; };
 		B6B2C64623318D5C0064F2A3 /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29332D8F21B5A5CE00950478 /* AlertView.xib */; };
-		B6B2C64723318D5C0064F2A3 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29332DB021B6FBC100950478 /* Alert.swift */; };
 		B6B2C64823318DB60064F2A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95CD20335D4100BF1113 /* LaunchScreen.storyboard */; };
 		B6B2C64923318DBA0064F2A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 293C95CB20335D4100BF1113 /* Assets.xcassets */; };
-		B6B2C64E23318DCF0064F2A3 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AC502204F57E800F0FB04 /* ScheduleViewController.swift */; };
 		B6B2C64F23318DCF0064F2A3 /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294AC500204F57CC00F0FB04 /* Schedule.storyboard */; };
-		B6B2C65023318DD30064F2A3 /* ScheduleFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75D9205053C40061B18D /* ScheduleFormTableViewCell.swift */; };
 		B6B2C65123318DD30064F2A3 /* ScheduleFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DA205053C40061B18D /* ScheduleFormTableViewCell.xib */; };
-		B6B2C65223318DD30064F2A3 /* ScheduleElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75D5205053030061B18D /* ScheduleElementTableViewCell.swift */; };
 		B6B2C65323318DD30064F2A3 /* ScheduleElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75D6205053030061B18D /* ScheduleElementTableViewCell.xib */; };
-		B6B2C65423318DD30064F2A3 /* ScheduleFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE75DD2050A6DE0061B18D /* ScheduleFooterTableViewCell.swift */; };
 		B6B2C65523318DD30064F2A3 /* ScheduleFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EE75DE2050A6DE0061B18D /* ScheduleFooterTableViewCell.xib */; };
-		B6B2C65623318DDA0064F2A3 /* PlantCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2972381420ED3465006EBCBB /* PlantCommunityViewController.swift */; };
 		B6B2C65723318DDA0064F2A3 /* PlantCommunity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29F1DE3F20EC406100C6ECB8 /* PlantCommunity.storyboard */; };
-		B6B2C65823318DE00064F2A3 /* PlanCommunityBasicInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2972381620ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.swift */; };
 		B6B2C65923318DE00064F2A3 /* PlanCommunityBasicInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2972381720ED78FD006EBCBB /* PlanCommunityBasicInfoTableViewCell.xib */; };
-		B6B2C65A23318DE00064F2A3 /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B5320EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.swift */; };
 		B6B2C65B23318DE00064F2A3 /* PlantCommunityMonitoringAreasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B5420EE7F360042B88E /* PlantCommunityMonitoringAreasTableViewCell.xib */; };
-		B6B2C65C23318DE00064F2A3 /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B5920EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.swift */; };
 		B6B2C65D23318DE00064F2A3 /* PlantCommunityMonitoringAreaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B5A20EE97970042B88E /* PlantCommunityMonitoringAreaTableViewCell.xib */; };
-		B6B2C65E23318DE00064F2A3 /* PlantCommunityPastureActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6720EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.swift */; };
 		B6B2C65F23318DE00064F2A3 /* PlantCommunityPastureActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B6820EFEA5A0042B88E /* PlantCommunityPastureActionsTableViewCell.xib */; };
-		B6B2C66023318DE00064F2A3 /* PlantCommunityActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6F20F00EF00042B88E /* PlantCommunityActionTableViewCell.swift */; };
 		B6B2C66123318DE00064F2A3 /* PlantCommunityActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B7020F00EF00042B88E /* PlantCommunityActionTableViewCell.xib */; };
-		B6B2C66223318DE00064F2A3 /* MonitoringAreaBasicInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F8F1420F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.swift */; };
 		B6B2C66323318DE00064F2A3 /* MonitoringAreaBasicInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 295F8F1520F7F893009D7717 /* MonitoringAreaBasicInfoTableViewCell.xib */; };
-		B6B2C66423318DE00064F2A3 /* MonitoringAreaCustomDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933183420FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.swift */; };
 		B6B2C66523318DE00064F2A3 /* MonitoringAreaCustomDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2933183520FE56B70070A6A9 /* MonitoringAreaCustomDetailsTableViewCell.xib */; };
-		B6B2C66623318DE00064F2A3 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933183820FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift */; };
 		B6B2C66723318DE00064F2A3 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2933183920FE56CB0070A6A9 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.xib */; };
-		B6B2C66823318DE00064F2A3 /* ShrubUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C7C1FB21C815F4005EB5D4 /* ShrubUseTableViewCell.swift */; };
 		B6B2C66923318DE00064F2A3 /* ShrubUseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C7C1FC21C815F4005EB5D4 /* ShrubUseTableViewCell.xib */; };
-		B6B2C66A23318DE00064F2A3 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29616EA521063ADA003102F8 /* EmptyTableViewCell.swift */; };
 		B6B2C66B23318DE00064F2A3 /* EmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29616EA621063ADA003102F8 /* EmptyTableViewCell.xib */; };
-		B6B2C66C23318DEA0064F2A3 /* CreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF8024203C8D140067B32B /* CreateNewRUPViewController.swift */; };
-		B6B2C66D23318DEA0064F2A3 /* ExtentionCreateNewRUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932BB56208A95F300579A57 /* ExtentionCreateNewRUPViewController.swift */; };
 		B6B2C66E23318DEA0064F2A3 /* CreateNewRup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29BF8020203C8CE90067B32B /* CreateNewRup.storyboard */; };
 		B6B2C66F23318DF70064F2A3 /* FormMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4D1F62208B21B004FD173 /* FormMenu.xib */; };
-		B6B2C67023318DF70064F2A3 /* FormMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4D1F82208B233004FD173 /* FormMenu.swift */; };
-		B6B2C67123318DFB0064F2A3 /* FormMenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4D1FB2208B287004FD173 /* FormMenuItemTableViewCell.swift */; };
 		B6B2C67223318DFB0064F2A3 /* FormMenuItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4D1FC2208B287004FD173 /* FormMenuItemTableViewCell.xib */; };
-		B6B2C67323318E030064F2A3 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8449203E15D600D73F6B /* MapTableViewCell.swift */; };
 		B6B2C67423318E030064F2A3 /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB844A203E15D600D73F6B /* MapTableViewCell.xib */; };
-		B6B2C67523318E090064F2A3 /* BasicInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B5F048208F9F12003D996D /* BasicInformationTableViewCell.swift */; };
 		B6B2C67623318E090064F2A3 /* BasicInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29B5F049208F9F12003D996D /* BasicInformationTableViewCell.xib */; };
-		B6B2C67723318E090064F2A3 /* PlanInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2940057D208FCD5700AA1BDC /* PlanInformationTableViewCell.swift */; };
 		B6B2C67823318E090064F2A3 /* PlanInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2940057E208FCD5700AA1BDC /* PlanInformationTableViewCell.xib */; };
-		B6B2C67923318E090064F2A3 /* AgreementHoldersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29400581208FEBD500AA1BDC /* AgreementHoldersTableViewCell.swift */; };
 		B6B2C67A23318E090064F2A3 /* AgreementHoldersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29400582208FEBD500AA1BDC /* AgreementHoldersTableViewCell.xib */; };
-		B6B2C67B23318E090064F2A3 /* AgreementHolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29742705204484FB0033BC47 /* AgreementHolderTableViewCell.swift */; };
 		B6B2C67C23318E090064F2A3 /* AgreementHolderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29742706204484FB0033BC47 /* AgreementHolderTableViewCell.xib */; };
-		B6B2C67D23318E090064F2A3 /* RangeUsageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BF802B203CF3F20067B32B /* RangeUsageTableViewCell.swift */; };
 		B6B2C67E23318E090064F2A3 /* RangeUsageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29BF802C203CF3F20067B32B /* RangeUsageTableViewCell.xib */; };
-		B6B2C67F23318E090064F2A3 /* RangeUseageYearTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB8445203DEFAA00D73F6B /* RangeUseageYearTableViewCell.swift */; };
 		B6B2C68023318E090064F2A3 /* RangeUseageYearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29EB8446203DEFAA00D73F6B /* RangeUseageYearTableViewCell.xib */; };
-		B6B2C68123318E0E0064F2A3 /* LiveStockIDTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974270920448F720033BC47 /* LiveStockIDTableViewCell.swift */; };
 		B6B2C68223318E0E0064F2A3 /* LiveStockIDTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2974270A20448F720033BC47 /* LiveStockIDTableViewCell.xib */; };
-		B6B2C68323318E0E0064F2A3 /* LiveStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297427102044969A0033BC47 /* LiveStockTableViewCell.swift */; };
 		B6B2C68423318E0E0064F2A3 /* LiveStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297427112044969A0033BC47 /* LiveStockTableViewCell.xib */; };
-		B6B2C68523318E140064F2A3 /* PasturesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D928203F551E00193FA0 /* PasturesTableViewCell.swift */; };
 		B6B2C68623318E140064F2A3 /* PasturesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D929203F551E00193FA0 /* PasturesTableViewCell.xib */; };
-		B6B2C68723318E140064F2A3 /* PastureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D92E203F652F00193FA0 /* PastureTableViewCell.swift */; };
 		B6B2C68823318E140064F2A3 /* PastureTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D92F203F652F00193FA0 /* PastureTableViewCell.xib */; };
-		B6B2C68923318E140064F2A3 /* PlantCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0D938203F67AF00193FA0 /* PlantCommunityTableViewCell.swift */; };
 		B6B2C68A23318E140064F2A3 /* PlantCommunityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E0D939203F67AF00193FA0 /* PlantCommunityTableViewCell.xib */; };
-		B6B2C68B23318E1A0064F2A3 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0D6204E0EF600F71B9C /* ScheduleTableViewCell.swift */; };
 		B6B2C68C23318E1A0064F2A3 /* ScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2962B0D7204E0EF600F71B9C /* ScheduleTableViewCell.xib */; };
-		B6B2C68D23318E1A0064F2A3 /* ScheduleCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962B0E5204F076800F71B9C /* ScheduleCellTableViewCell.swift */; };
 		B6B2C68E23318E1A0064F2A3 /* ScheduleCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2962B0E6204F076800F71B9C /* ScheduleCellTableViewCell.xib */; };
-		B6B2C68F23318E210064F2A3 /* MinisterIssuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491EB20B62588005FCF94 /* MinisterIssuesTableViewCell.swift */; };
 		B6B2C69023318E210064F2A3 /* MinisterIssuesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491EC20B62588005FCF94 /* MinisterIssuesTableViewCell.xib */; };
-		B6B2C69123318E210064F2A3 /* MinisterIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299491F120B628F6005FCF94 /* MinisterIssueTableViewCell.swift */; };
 		B6B2C69223318E210064F2A3 /* MinisterIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299491F220B628F6005FCF94 /* MinisterIssueTableViewCell.xib */; };
-		B6B2C69323318E210064F2A3 /* MinistersIssueActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29230FF020BDFAE400D761C8 /* MinistersIssueActionTableViewCell.swift */; };
 		B6B2C69423318E210064F2A3 /* MinistersIssueActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29230FF120BDFAE400D761C8 /* MinistersIssueActionTableViewCell.xib */; };
-		B6B2C69523318E280064F2A3 /* InvasivePlantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E99952166D09C00FB6F04 /* InvasivePlantsTableViewCell.swift */; };
 		B6B2C69623318E280064F2A3 /* InvasivePlantsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297E99962166D09C00FB6F04 /* InvasivePlantsTableViewCell.xib */; };
-		B6B2C69723318E2D0064F2A3 /* AdditionalRequirementsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D417D216D2CED006214E1 /* AdditionalRequirementsTableViewCell.swift */; };
 		B6B2C69823318E2D0064F2A3 /* AdditionalRequirementsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D417E216D2CED006214E1 /* AdditionalRequirementsTableViewCell.xib */; };
-		B6B2C69923318E2D0064F2A3 /* AdditionalRequirementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D4185216D3109006214E1 /* AdditionalRequirementTableViewCell.swift */; };
 		B6B2C69A23318E2D0064F2A3 /* AdditionalRequirementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D4186216D3109006214E1 /* AdditionalRequirementTableViewCell.xib */; };
-		B6B2C69B23318E340064F2A3 /* ManagementConsiderationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D4181216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.swift */; };
 		B6B2C69C23318E340064F2A3 /* ManagementConsiderationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D4182216D2DAB006214E1 /* ManagementConsiderationsTableViewCell.xib */; };
-		B6B2C69D23318E340064F2A3 /* ManagementConsiderationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D4189216D313D006214E1 /* ManagementConsiderationTableViewCell.swift */; };
 		B6B2C69E23318E340064F2A3 /* ManagementConsiderationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 293D418A216D313D006214E1 /* ManagementConsiderationTableViewCell.xib */; };
-		B6B2C69F23318E430064F2A3 /* AgreementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8AA0205750E200139AD1 /* AgreementTableViewCell.swift */; };
 		B6B2C6A023318E430064F2A3 /* AgreementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29DA8AA1205750E200139AD1 /* AgreementTableViewCell.xib */; };
-		B6B2C6A123318E470064F2A3 /* SelectAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA8A9E20574FB300139AD1 /* SelectAgreementViewController.swift */; };
 		B6B2C6A223318E470064F2A3 /* SelectAgreement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29DA8A9C205739A100139AD1 /* SelectAgreement.storyboard */; };
-		B6B2C6A323318E4D0064F2A3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C95C620335D4100BF1113 /* HomeViewController.swift */; };
 		B6B2C6A423318E4D0064F2A3 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29174682207426E2005F70B4 /* Home.storyboard */; };
-		B6B2C6A523318E520064F2A3 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8272034BA0F0090E7B4 /* PlanTableViewCell.swift */; };
 		B6B2C6A623318E520064F2A3 /* PlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2920F8282034BA0F0090E7B4 /* PlanTableViewCell.xib */; };
-		B6B2C6A723318E520064F2A3 /* PlanVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F13BE121236C0600A25424 /* PlanVersionTableViewCell.swift */; };
 		B6B2C6A823318E520064F2A3 /* PlanVersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29F13BE221236C0600A25424 /* PlanVersionTableViewCell.xib */; };
-		B6B2C6A923318E520064F2A3 /* PlanVersionsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F4E412125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.swift */; };
 		B6B2C6AA23318E520064F2A3 /* PlanVersionsHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291F4E422125EAF700BD6D22 /* PlanVersionsHeaderTableViewCell.xib */; };
-		B6B2C6AB23318E560064F2A3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291746862074279B005F70B4 /* LoginViewController.swift */; };
 		B6B2C6AC23318E560064F2A3 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2917468420742765005F70B4 /* Login.storyboard */; };
-		B6B2C6AD23318E640064F2A3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917468820742A7A005F70B4 /* MainViewController.swift */; };
 		B6B2C6AE23318E670064F2A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 293C95C820335D4100BF1113 /* Main.storyboard */; };
-		B6B2C6AF23318E6D0064F2A3 /* EmptyStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D3EB1217E66F60000781E /* EmptyStateTableViewCell.swift */; };
 		B6B2C6B023318E6D0064F2A3 /* EmptyStateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299D3EB2217E66F60000781E /* EmptyStateTableViewCell.xib */; };
 		B6B2C6B623318E770064F2A3 /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297D8FE821C9920200D9A8B8 /* DatePicker.storyboard */; };
-		B6B2C6B723318E770064F2A3 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297D8FE721C9920200D9A8B8 /* DatePickerViewController.swift */; };
-		B6B2C6B823318E7C0064F2A3 /* NewElementAddedBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CADB4216E868A00DB184B /* NewElementAddedBanner.swift */; };
-		B6B2C6B923318E7C0064F2A3 /* NewElementBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CADB2216E83F500DB184B /* NewElementBanner.swift */; };
 		B6B2C6BA23318E7C0064F2A3 /* NewElementBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294CADB0216E83DC00DB184B /* NewElementBanner.xib */; };
-		B6B2C6BB23318E810064F2A3 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935A76921484A1900441539 /* TooltipViewController.swift */; };
 		B6B2C6BC23318E810064F2A3 /* Tooltip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2935A7672148399500441539 /* Tooltip.storyboard */; };
-		B6B2C6BD23318E860064F2A3 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296233AF219E464500E0BD2E /* Feedback.swift */; };
-		B6B2C6BE23318E860064F2A3 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294F6BB9219F3C92008EC6FA /* FeedbackView.swift */; };
 		B6B2C6BF23318E860064F2A3 /* FeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294F6BBB219F3CA0008EC6FA /* FeedbackView.xib */; };
-		B6B2C6C023318E860064F2A3 /* FeedbackElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296233B1219E466700E0BD2E /* FeedbackElement.swift */; };
-		B6B2C6C123318E8B0064F2A3 /* ViewFeedbacksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938CF1021A5C87200329DDA /* ViewFeedbacksViewController.swift */; };
 		B6B2C6C223318E8B0064F2A3 /* ViewFeedbacks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2938CF0E21A5C85700329DDA /* ViewFeedbacks.storyboard */; };
-		B6B2C6C323318E900064F2A3 /* UserFeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938CF1221A5D20500329DDA /* UserFeedbackTableViewCell.swift */; };
 		B6B2C6C423318E900064F2A3 /* UserFeedbackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2938CF1321A5D20500329DDA /* UserFeedbackTableViewCell.xib */; };
-		B6B2C6C523318E9E0064F2A3 /* SelectionPopUpObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274A205B30CE00C871F7 /* SelectionPopUpObject.swift */; };
-		B6B2C6C623318E9E0064F2A3 /* SelectionPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A52748205B305B00C871F7 /* SelectionPopUpViewController.swift */; };
 		B6B2C6C723318E9E0064F2A3 /* SelectionPopup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A52744205B301400C871F7 /* SelectionPopup.storyboard */; };
-		B6B2C6C823318E9E0064F2A3 /* selectionPopUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5274E205B322700C871F7 /* selectionPopUpTableViewCell.swift */; };
 		B6B2C6C923318E9E0064F2A3 /* selectionPopUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A5274F205B322700C871F7 /* selectionPopUpTableViewCell.xib */; };
-		B6B2C6CA23318EA50064F2A3 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292197DB209CD19D004A5011 /* Option.swift */; };
-		B6B2C6CB23318EA50064F2A3 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C4C42141DB4000AE72FC /* Options.swift */; };
-		B6B2C6CC23318EA50064F2A3 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292197CF209CD037004A5011 /* OptionsViewController.swift */; };
 		B6B2C6CD23318EA50064F2A3 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 292197CD209CCF65004A5011 /* Options.storyboard */; };
-		B6B2C6CE23318EA50064F2A3 /* OptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292197D7209CD152004A5011 /* OptionsTableViewCell.swift */; };
 		B6B2C6CF23318EA50064F2A3 /* OptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292197D8209CD152004A5011 /* OptionsTableViewCell.xib */; };
-		B6B2C6D023318EA90064F2A3 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294764E42149BBC7007E8576 /* Banner.swift */; };
-		B6B2C6D123318EA90064F2A3 /* SyncBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29301FDE21385CB500E121E0 /* SyncBanner.swift */; };
 		B6B2C6D223318EA90064F2A3 /* SyncBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29301FDC21385BDD00E121E0 /* SyncBanner.xib */; };
-		B6B2C6D323318EAE0064F2A3 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B650C21C065C500F9A8A5 /* Loading.swift */; };
-		B6B2C6D423318EB30064F2A3 /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290543292194D26600865823 /* Tour.swift */; };
-		B6B2C6D523318EB30064F2A3 /* TourStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938CF0A21A473EC00329DDA /* TourStart.swift */; };
 		B6B2C6D623318EB30064F2A3 /* TourStart.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2938CF0C21A4765100329DDA /* TourStart.xib */; };
-		B6B2C6D723318EB30064F2A3 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905432F2194DC7400865823 /* TourViewController.swift */; };
 		B6B2C6D823318EB30064F2A3 /* Tour.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2905432B2194DC5200865823 /* Tour.storyboard */; };
-		B6B2C6D923318EBD0064F2A3 /* Amendment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905521521346AAE00785B5E /* Amendment.swift */; };
-		B6B2C6DA23318EC30064F2A3 /* AmendmentPageOneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290552092134659700785B5E /* AmendmentPageOneCollectionViewCell.swift */; };
 		B6B2C6DB23318EC30064F2A3 /* AmendmentPageOneCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2905520A2134659700785B5E /* AmendmentPageOneCollectionViewCell.xib */; };
-		B6B2C6DC23318EC30064F2A3 /* AmendmentPageTwoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905520D213465A600785B5E /* AmendmentPageTwoCollectionViewCell.swift */; };
 		B6B2C6DD23318EC30064F2A3 /* AmendmentPageTwoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2905520E213465A600785B5E /* AmendmentPageTwoCollectionViewCell.xib */; };
-		B6B2C6DE23318EC30064F2A3 /* AmendmentPageThreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055211213465B500785B5E /* AmendmentPageThreeCollectionViewCell.swift */; };
 		B6B2C6DF23318EC30064F2A3 /* AmendmentPageThreeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29055212213465B500785B5E /* AmendmentPageThreeCollectionViewCell.xib */; };
-		B6B2C6E023318EC30064F2A3 /* AmendmentPageFinalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290552172134A04700785B5E /* AmendmentPageFinalCollectionViewCell.swift */; };
 		B6B2C6E123318EC30064F2A3 /* AmendmentPageFinalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 290552182134A04700785B5E /* AmendmentPageFinalCollectionViewCell.xib */; };
-		B6B2C6E223318ECC0064F2A3 /* ChoosePastureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C34BC321C2DDBE009B4031 /* ChoosePastureCollectionViewCell.swift */; };
 		B6B2C6E323318ECC0064F2A3 /* ChoosePastureCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C34BC421C2DDBE009B4031 /* ChoosePastureCollectionViewCell.xib */; };
-		B6B2C6E423318ECC0064F2A3 /* ImportCriteriaOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C34BD021C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.swift */; };
 		B6B2C6E523318ECC0064F2A3 /* ImportCriteriaOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C34BD121C2E7E8009B4031 /* ImportCriteriaOptionTableViewCell.xib */; };
 		B6B2C6E623318ED00064F2A3 /* ImportCriteria.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C34BBF21C2DCA1009B4031 /* ImportCriteria.xib */; };
-		B6B2C6E723318ED00064F2A3 /* ImportCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C34BC121C2DD52009B4031 /* ImportCriteria.swift */; };
 		B6B2C6E823318ED50064F2A3 /* GetNameDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292B650521C039C100F9A8A5 /* GetNameDialog.xib */; };
-		B6B2C6E923318ED50064F2A3 /* GetNameDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B650721C03A2300F9A8A5 /* GetNameDialog.swift */; };
-		B6B2C6EA23318EDA0064F2A3 /* SyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A1D8121432E670086E1AD /* SyncView.swift */; };
 		B6B2C6EB23318EDA0064F2A3 /* SyncView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292A1D7F21432E570086E1AD /* SyncView.xib */; };
 		B6B2C6EC23318EDF0064F2A3 /* InputModal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC8AB621ECF6A4009C1885 /* InputModal.xib */; };
-		B6B2C6ED23318EDF0064F2A3 /* InputModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC8AB821ECF6B1009C1885 /* InputModal.swift */; };
 		B6B2C6EE23318EE70064F2A3 /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97E0721E80A21008B1086 /* Settings.xib */; };
-		B6B2C6EF23318EE70064F2A3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0521E80A16008B1086 /* Settings.swift */; };
-		B6B2C6F023318EE70064F2A3 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0221E7CD23008B1086 /* SettingsManager.swift */; };
-		B6B2C6F123318EEC0064F2A3 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D8E1A121E527BB00733A87 /* SettingTableViewCell.swift */; };
 		B6B2C6F223318EEC0064F2A3 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29D8E1A221E527BB00733A87 /* SettingTableViewCell.xib */; };
-		B6B2C6F323318EEC0064F2A3 /* SettingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFA21E7CBC9008B1086 /* SettingInfoTableViewCell.swift */; };
 		B6B2C6F423318EEC0064F2A3 /* SettingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97DFB21E7CBC9008B1086 /* SettingInfoTableViewCell.xib */; };
-		B6B2C6F523318EEC0064F2A3 /* SettingButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97DFE21E7CBE2008B1086 /* SettingButtonTableViewCell.swift */; };
 		B6B2C6F623318EEC0064F2A3 /* SettingButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE97DFF21E7CBE2008B1086 /* SettingButtonTableViewCell.xib */; };
-		B6B2C6F723318EEC0064F2A3 /* SettingsSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C6CE9224159A000E03B1C /* SettingsSegmentedTableViewCell.swift */; };
 		B6B2C6F823318EEC0064F2A3 /* SettingsSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E4C6CEA224159A000E03B1C /* SettingsSegmentedTableViewCell.xib */; };
-		B6B2C6F923318EF20064F2A3 /* AutoSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE8EFE121F64C27001F663B /* AutoSyncView.swift */; };
 		B6B2C6FA23318EF20064F2A3 /* AutoSyncView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE8EFE321F64C34001F663B /* AutoSyncView.xib */; };
 		B6B2C6FB23318EF70064F2A3 /* Privacy.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B328220367C000116848 /* Privacy.xib */; };
-		B6B2C6FC23318EF70064F2A3 /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32A220367CD00116848 /* Privacy.swift */; };
-		B6B2C6FD23318EFF0064F2A3 /* LoggerWindowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B3362204BFDF00116848 /* LoggerWindowTableViewCell.swift */; };
 		B6B2C6FE23318EFF0064F2A3 /* LoggerWindowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E03B3372204BFDF00116848 /* LoggerWindowTableViewCell.xib */; };
-		B6B2C6FF23318F0C0064F2A3 /* TesterTypePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E657001223052EC0042826E /* TesterTypePrompt.swift */; };
 		B6B2C70023318F0C0064F2A3 /* TesterTypePrompt.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6570032230533F0042826E /* TesterTypePrompt.xib */; };
-		B6B2C70123318F110064F2A3 /* FlowModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF622217329200EF0A1D /* FlowModal.swift */; };
-		B6B2C70223318F120064F2A3 /* FlowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF6422174AE000EF0A1D /* FlowCell.swift */; };
-		B6B2C70323318F120064F2A3 /* FlowHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF4A2215E0D400EF0A1D /* FlowHelper.swift */; };
-		B6B2C70423318F160064F2A3 /* StatusWithFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF5E2215F22400EF0A1D /* StatusWithFlow.swift */; };
-		B6B2C70523318F160064F2A3 /* FlowOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF5C2215F21A00EF0A1D /* FlowOption.swift */; };
-		B6B2C70623318F160064F2A3 /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF602215F24E00EF0A1D /* FlowModel.swift */; };
-		B6B2C70723318F1C0064F2A3 /* FlowOptionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF6722174ECC00EF0A1D /* FlowOptionsCollectionViewCell.swift */; };
 		B6B2C70823318F1C0064F2A3 /* FlowOptionsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF6822174ECC00EF0A1D /* FlowOptionsCollectionViewCell.xib */; };
-		B6B2C70923318F1C0064F2A3 /* FlowNotesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF6B22174EDA00EF0A1D /* FlowNotesCollectionViewCell.swift */; };
 		B6B2C70A23318F1C0064F2A3 /* FlowNotesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF6C22174EDA00EF0A1D /* FlowNotesCollectionViewCell.xib */; };
-		B6B2C70B23318F1C0064F2A3 /* FlowReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF6F22174EE900EF0A1D /* FlowReviewCollectionViewCell.swift */; };
 		B6B2C70C23318F1C0064F2A3 /* FlowReviewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF7022174EE900EF0A1D /* FlowReviewCollectionViewCell.xib */; };
-		B6B2C70D23318F1C0064F2A3 /* FlowConfirmationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF7322174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.swift */; };
 		B6B2C70E23318F1C0064F2A3 /* FlowConfirmationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF7422174EFA00EF0A1D /* FlowConfirmationCollectionViewCell.xib */; };
-		B6B2C70F23318F1C0064F2A3 /* FlowOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58DF772217520900EF0A1D /* FlowOptionTableViewCell.swift */; };
 		B6B2C71023318F1C0064F2A3 /* FlowOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E58DF782217520900EF0A1D /* FlowOptionTableViewCell.xib */; };
-		B6B2C71123318F220064F2A3 /* CustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE97E0921E80D4B008B1086 /* CustomModal.swift */; };
-		B6B2C71323318F280064F2A3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F8402034F3880090E7B4 /* BaseViewController.swift */; };
-		B6B2C71423318F280064F2A3 /* BaseFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290E153B2048C9FE00A51884 /* BaseFormCell.swift */; };
-		B6B2C71523318F280064F2A3 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EAA4EC2135CD62003B6CE5 /* BaseCollectionViewCell.swift */; };
-		B6B2C71623318F280064F2A3 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297D8FEC21CC3E9000D9A8B8 /* BaseTableViewCell.swift */; };
-		B6B2C71723318F280064F2A3 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294005852092726D00AA1BDC /* Theme.swift */; };
-		B6B2C71823318F280064F2A3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293020072139A22000E121E0 /* Router.swift */; };
-		B6B2C71923318F280064F2A3 /* CustomSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227B6B20EFF15C0042B88E /* CustomSectionHeader.swift */; };
 		B6B2C71A23318F280064F2A3 /* CustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29227B6D20F0057C0042B88E /* CustomSectionHeader.xib */; };
-		B6B2C71B23318F7A0064F2A3 /* AmendmentFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC8ABB21ED16EC009C1885 /* AmendmentFlow.swift */; };
 		B6B2C71C23318F850064F2A3 /* AmendmentFlow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC8ABD21ED16F5009C1885 /* AmendmentFlow.xib */; };
-		B6B2C71D23318F8A0064F2A3 /* AmendmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32E220381FF00116848 /* AmendmentHelper.swift */; };
-		B6B2C71E23318F8C0064F2A3 /* AmendmentEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03B32C22037EC400116848 /* AmendmentEnums.swift */; };
-		B6B2C721233192010064F2A3 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920F83B2034CF850090E7B4 /* ViewManager.swift */; };
 		B6B2C72923319C2D0064F2A3 /* TagImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2943BDA62162996900EFC428 /* TagImage.xib */; };
 		B6B2C72A23319C2D0064F2A3 /* Pin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297E998C2165482000FB6F04 /* Pin.xib */; };
-		B6B2C72B23319C2D0064F2A3 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E998A2165479F00FB6F04 /* Pin.swift */; };
-		B6B2C72C2331A6B20064F2A3 /* MonitoringAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F8F1220F7F625009D7717 /* MonitoringAreaViewController.swift */; };
 		B6B2C72D2331A6B90064F2A3 /* MonitoringArea.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295F8F1020F7F60E009D7717 /* MonitoringArea.storyboard */; };
-		B6B2C72E2331A7A40064F2A3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297E9988216545E700FB6F04 /* MapViewController.swift */; };
-		B6B99AC0233033F400B25C2D /* MyraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B99ABF233033F400B25C2D /* MyraTests.swift */; };
+		B6B2C7302331B2180064F2A3 /* MyraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B99ABF233033F400B25C2D /* MyraTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2573,204 +2376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6B2C5F523318C270064F2A3 /* MinisterIssue.swift in Sources */,
-				B6B2C6D323318EAE0064F2A3 /* Loading.swift in Sources */,
-				B6B2C66223318DE00064F2A3 /* MonitoringAreaBasicInfoTableViewCell.swift in Sources */,
-				B6B2C62C23318C6E0064F2A3 /* AgreemntType.swift in Sources */,
-				B6B2C5EF233150970064F2A3 /* Agreement.swift in Sources */,
-				B6B2C60423318C3A0064F2A3 /* AutoSync.swift in Sources */,
-				B6B2C66A23318DE00064F2A3 /* EmptyTableViewCell.swift in Sources */,
-				B6B2C6DC23318EC30064F2A3 /* AmendmentPageTwoCollectionViewCell.swift in Sources */,
-				B6B2C62E23318C6E0064F2A3 /* AgreementStatus.swift in Sources */,
-				B6B2C63923318C6E0064F2A3 /* PlantCommunityActionType.swift in Sources */,
-				B6B2C67723318E090064F2A3 /* PlanInformationTableViewCell.swift in Sources */,
-				B6B2C6DA23318EC30064F2A3 /* AmendmentPageOneCollectionViewCell.swift in Sources */,
-				B6B2C62023318C5E0064F2A3 /* MyraObject.swift in Sources */,
-				B6B2C67123318DFB0064F2A3 /* FormMenuItemTableViewCell.swift in Sources */,
-				B6B2C62323318C5E0064F2A3 /* RangePhoto.swift in Sources */,
-				B6B99AC0233033F400B25C2D /* MyraTests.swift in Sources */,
-				B6B2C6EF23318EE70064F2A3 /* Settings.swift in Sources */,
-				B6B2C69B23318E340064F2A3 /* ManagementConsiderationsTableViewCell.swift in Sources */,
-				B6B2C60223318C270064F2A3 /* AdditionalRequirement.swift in Sources */,
-				B6B2C6FD23318EFF0064F2A3 /* LoggerWindowTableViewCell.swift in Sources */,
-				B6B2C68B23318E1A0064F2A3 /* ScheduleTableViewCell.swift in Sources */,
-				B6B2C65023318DD30064F2A3 /* ScheduleFormTableViewCell.swift in Sources */,
-				B6B2C66623318DE00064F2A3 /* MonitoringAreaCustomDetailTableViewCellTableViewCell.swift in Sources */,
-				B6B2C70723318F1C0064F2A3 /* FlowOptionsCollectionViewCell.swift in Sources */,
-				B6B2C6CE23318EA50064F2A3 /* OptionsTableViewCell.swift in Sources */,
-				B6B2C63423318C6E0064F2A3 /* MinisterIssueActionType.swift in Sources */,
-				B6B2C6BE23318E860064F2A3 /* FeedbackView.swift in Sources */,
-				B6B2C63D23318C6E0064F2A3 /* ManagegementConsiderationType.swift in Sources */,
-				B6B2C64423318D370064F2A3 /* LoggerWindow.swift in Sources */,
-				B6B2C62823318C630064F2A3 /* LiveStockIDType.swift in Sources */,
-				B6B2C62523318C630064F2A3 /* ApplicationVersionStatus.swift in Sources */,
-				B6B2C70123318F110064F2A3 /* FlowModal.swift in Sources */,
-				B6B2C69F23318E430064F2A3 /* AgreementTableViewCell.swift in Sources */,
-				B6B2C71923318F280064F2A3 /* CustomSectionHeader.swift in Sources */,
-				B6B2C60E23318C4C0064F2A3 /* Colors.swift in Sources */,
-				B6B2C5F723318C270064F2A3 /* PlantCommunity.swift in Sources */,
-				B6B2C66423318DE00064F2A3 /* MonitoringAreaCustomDetailsTableViewCell.swift in Sources */,
-				B6B2C5FA23318C270064F2A3 /* ScheduleObject.swift in Sources */,
-				B6B2C61C23318C5A0064F2A3 /* StatusHelper.swift in Sources */,
-				B6B2C67923318E090064F2A3 /* AgreementHoldersTableViewCell.swift in Sources */,
-				B6B2C65A23318DE00064F2A3 /* PlantCommunityMonitoringAreasTableViewCell.swift in Sources */,
-				B6B2C5FB23318C270064F2A3 /* Zone.swift in Sources */,
-				B6B2C64223318D370064F2A3 /* Logger.swift in Sources */,
-				B6B2C63823318C6E0064F2A3 /* PlantCommunityElevation.swift in Sources */,
-				B6B2C60523318C3A0064F2A3 /* AsyncBlockOperation.swift in Sources */,
-				B6B2C65C23318DE00064F2A3 /* PlantCommunityMonitoringAreaTableViewCell.swift in Sources */,
-				B6B2C61423318C500064F2A3 /* Polygon.swift in Sources */,
-				B6B2C60923318C470064F2A3 /* RUPManager.swift in Sources */,
-				B6B2C5FC23318C270064F2A3 /* District.swift in Sources */,
-				B6B2C61023318C4C0064F2A3 /* EmptyStateConstants.swift in Sources */,
-				B6B2C68123318E0E0064F2A3 /* LiveStockIDTableViewCell.swift in Sources */,
-				B6B2C6D123318EA90064F2A3 /* SyncBanner.swift in Sources */,
-				B6B2C71E23318F8C0064F2A3 /* AmendmentEnums.swift in Sources */,
-				B6B2C72C2331A6B20064F2A3 /* MonitoringAreaViewController.swift in Sources */,
-				B6B2C6D023318EA90064F2A3 /* Banner.swift in Sources */,
-				B6B2C70623318F160064F2A3 /* FlowModel.swift in Sources */,
-				B6B2C63C23318C6E0064F2A3 /* AdditionalRequirementCategory.swift in Sources */,
-				B6B2C5F323318C270064F2A3 /* RangeUsageYear.swift in Sources */,
-				B6B2C6F923318EF20064F2A3 /* AutoSyncView.swift in Sources */,
-				B6B2C6E423318ECC0064F2A3 /* ImportCriteriaOptionTableViewCell.swift in Sources */,
-				B6B2C64E23318DCF0064F2A3 /* ScheduleViewController.swift in Sources */,
-				B6B2C5F223318C270064F2A3 /* Plan.swift in Sources */,
-				B6B2C5F423318C270064F2A3 /* Pasture.swift in Sources */,
-				B6B2C60A23318C470064F2A3 /* RealmManager.swift in Sources */,
-				B6B2C61323318C500064F2A3 /* TileMaster.swift in Sources */,
-				B6B2C6A923318E520064F2A3 /* PlanVersionsHeaderTableViewCell.swift in Sources */,
-				B6B2C65423318DD30064F2A3 /* ScheduleFooterTableViewCell.swift in Sources */,
-				B6B2C68723318E140064F2A3 /* PastureTableViewCell.swift in Sources */,
-				B6B2C71123318F220064F2A3 /* CustomModal.swift in Sources */,
-				B6B2C69923318E2D0064F2A3 /* AdditionalRequirementTableViewCell.swift in Sources */,
-				B6B2C60F23318C4C0064F2A3 /* Fonts.swift in Sources */,
-				B6B2C71323318F280064F2A3 /* BaseViewController.swift in Sources */,
-				B6B2C6B723318E770064F2A3 /* DatePickerViewController.swift in Sources */,
-				B6B2C721233192010064F2A3 /* ViewManager.swift in Sources */,
-				B6B2C6F023318EE70064F2A3 /* SettingsManager.swift in Sources */,
-				B6B2C69D23318E340064F2A3 /* ManagementConsiderationTableViewCell.swift in Sources */,
-				B6B2C71D23318F8A0064F2A3 /* AmendmentHelper.swift in Sources */,
-				B6B2C61D23318C5A0064F2A3 /* DateManager.swift in Sources */,
-				B6B2C67523318E090064F2A3 /* BasicInformationTableViewCell.swift in Sources */,
-				B6B2C6C323318E900064F2A3 /* UserFeedbackTableViewCell.swift in Sources */,
-				B6B2C67B23318E090064F2A3 /* AgreementHolderTableViewCell.swift in Sources */,
-				B6B2C63623318C6E0064F2A3 /* PlantSpecies.swift in Sources */,
-				B6B2C63E23318C7E0064F2A3 /* AppDelegate.swift in Sources */,
-				B6B2C63F23318C830064F2A3 /* Constants.swift in Sources */,
-				B6B2C62923318C630064F2A3 /* OptionType.swift in Sources */,
-				B6B2C6D523318EB30064F2A3 /* TourStart.swift in Sources */,
-				B6B2C62D23318C6E0064F2A3 /* LiveStockType.swift in Sources */,
-				B6B2C61B23318C5A0064F2A3 /* Notifications.swift in Sources */,
-				B6B2C6E223318ECC0064F2A3 /* ChoosePastureCollectionViewCell.swift in Sources */,
-				B6B2C6F523318EEC0064F2A3 /* SettingButtonTableViewCell.swift in Sources */,
-				B6B2C60B23318C470064F2A3 /* RealmRequest.swift in Sources */,
-				B6B2C6C523318E9E0064F2A3 /* SelectionPopUpObject.swift in Sources */,
-				B6B2C6D723318EB30064F2A3 /* TourViewController.swift in Sources */,
-				B6B2C6C023318E860064F2A3 /* FeedbackElement.swift in Sources */,
-				B6B2C6A723318E520064F2A3 /* PlanVersionTableViewCell.swift in Sources */,
-				B6B2C71523318F280064F2A3 /* BaseCollectionViewCell.swift in Sources */,
-				B6B2C6D423318EB30064F2A3 /* Tour.swift in Sources */,
-				B6B2C6D923318EBD0064F2A3 /* Amendment.swift in Sources */,
-				B6B2C66823318DE00064F2A3 /* ShrubUseTableViewCell.swift in Sources */,
-				B6B2C67D23318E090064F2A3 /* RangeUsageTableViewCell.swift in Sources */,
-				B6B2C66D23318DEA0064F2A3 /* ExtentionCreateNewRUPViewController.swift in Sources */,
-				B6B2C67023318DF70064F2A3 /* FormMenu.swift in Sources */,
-				B6B2C62B23318C6E0064F2A3 /* LiveStockID.swift in Sources */,
-				B6B2C65823318DE00064F2A3 /* PlanCommunityBasicInfoTableViewCell.swift in Sources */,
-				B6B2C5FE23318C270064F2A3 /* PastureAction.swift in Sources */,
-				B6B2C6FC23318EF70064F2A3 /* Privacy.swift in Sources */,
-				B6B2C5FF23318C270064F2A3 /* IndicatorPlant.swift in Sources */,
-				B6B2C62F23318C6E0064F2A3 /* LivestockIdentifierType.swift in Sources */,
-				B6B2C62423318C630064F2A3 /* RUPStatus.swift in Sources */,
-				B6B2C6C623318E9E0064F2A3 /* SelectionPopUpViewController.swift in Sources */,
-				B6B2C64523318D5C0064F2A3 /* AlertView.swift in Sources */,
-				B6B2C72B23319C2D0064F2A3 /* Pin.swift in Sources */,
-				B6B2C68F23318E210064F2A3 /* MinisterIssuesTableViewCell.swift in Sources */,
-				B6B2C60823318C470064F2A3 /* Reference.swift in Sources */,
-				B6B2C6B823318E7C0064F2A3 /* NewElementAddedBanner.swift in Sources */,
-				B6B2C6AD23318E640064F2A3 /* MainViewController.swift in Sources */,
-				B6B2C63223318C6E0064F2A3 /* AgreementExemptionStatus.swift in Sources */,
-				B6B2C6BB23318E810064F2A3 /* TooltipViewController.swift in Sources */,
-				B6B2C6B923318E7C0064F2A3 /* NewElementBanner.swift in Sources */,
-				B6B2C62623318C630064F2A3 /* FormMode.swift in Sources */,
-				B6B2C63523318C6E0064F2A3 /* AmendmentType.swift in Sources */,
-				B6B2C72E2331A7A40064F2A3 /* MapViewController.swift in Sources */,
-				B6B2C6C823318E9E0064F2A3 /* selectionPopUpTableViewCell.swift in Sources */,
-				B6B2C6AF23318E6D0064F2A3 /* EmptyStateTableViewCell.swift in Sources */,
-				B6B2C6EA23318EDA0064F2A3 /* SyncView.swift in Sources */,
-				B6B2C69723318E2D0064F2A3 /* AdditionalRequirementsTableViewCell.swift in Sources */,
-				B6B2C66023318DE00064F2A3 /* PlantCommunityActionTableViewCell.swift in Sources */,
-				B6B2C71423318F280064F2A3 /* BaseFormCell.swift in Sources */,
-				B6B2C61223318C500064F2A3 /* OpenMapOverlay.swift in Sources */,
-				B6B2C69323318E210064F2A3 /* MinistersIssueActionTableViewCell.swift in Sources */,
-				B6B2C60023318C270064F2A3 /* InvasivePlants.swift in Sources */,
-				B6B2C6A123318E470064F2A3 /* SelectAgreementViewController.swift in Sources */,
-				B6B2C63323318C6E0064F2A3 /* MinisterIssueType.swift in Sources */,
-				B6B2C68323318E0E0064F2A3 /* LiveStockTableViewCell.swift in Sources */,
-				B6B2C65623318DDA0064F2A3 /* PlantCommunityViewController.swift in Sources */,
-				B6B2C60D23318C4C0064F2A3 /* ConstantStrings.swift in Sources */,
-				B6B2C63123318C6E0064F2A3 /* PlanStatus.swift in Sources */,
-				B6B2C71823318F280064F2A3 /* Router.swift in Sources */,
-				B6B2C6CC23318EA50064F2A3 /* OptionsViewController.swift in Sources */,
-				B6B2C66C23318DEA0064F2A3 /* CreateNewRUPViewController.swift in Sources */,
-				B6B2C65E23318DE00064F2A3 /* PlantCommunityPastureActionsTableViewCell.swift in Sources */,
-				B6B2C70523318F160064F2A3 /* FlowOption.swift in Sources */,
-				B6B2C6FF23318F0C0064F2A3 /* TesterTypePrompt.swift in Sources */,
-				B6B2C70423318F160064F2A3 /* StatusWithFlow.swift in Sources */,
-				B6B2C60323318C3A0064F2A3 /* API.swift in Sources */,
-				B6B2C6ED23318EDF0064F2A3 /* InputModal.swift in Sources */,
-				B6B2C63723318C6E0064F2A3 /* PlantCommunityType.swift in Sources */,
-				B6B2C64723318D5C0064F2A3 /* Alert.swift in Sources */,
-				B6B2C61123318C4C0064F2A3 /* StatusConstants.swift in Sources */,
-				B6B2C71723318F280064F2A3 /* Theme.swift in Sources */,
-				B6B2C6E923318ED50064F2A3 /* GetNameDialog.swift in Sources */,
-				B6B2C63B23318C6E0064F2A3 /* MonitoringAreaPurposeType.swift in Sources */,
-				B6B2C60623318C3A0064F2A3 /* ConcurrentOperation.swift in Sources */,
-				B6B2C6A323318E4D0064F2A3 /* HomeViewController.swift in Sources */,
-				B6B2C70923318F1C0064F2A3 /* FlowNotesCollectionViewCell.swift in Sources */,
-				B6B2C60123318C270064F2A3 /* ManagementConsideration.swift in Sources */,
-				B6B2C6F323318EEC0064F2A3 /* SettingInfoTableViewCell.swift in Sources */,
-				B6B2C61F23318C5E0064F2A3 /* RemoteVersion.swift in Sources */,
-				B6B2C5F623318C270064F2A3 /* MinisterIssueAction.swift in Sources */,
-				B6B2C71623318F280064F2A3 /* BaseTableViewCell.swift in Sources */,
-				B6B2C69123318E210064F2A3 /* MinisterIssueTableViewCell.swift in Sources */,
-				B6B2C62723318C630064F2A3 /* AgeementHolderType.swift in Sources */,
-				B6B2C6A523318E520064F2A3 /* PlanTableViewCell.swift in Sources */,
-				B6B2C6E723318ED00064F2A3 /* ImportCriteria.swift in Sources */,
-				B6B2C5F923318C270064F2A3 /* Schedule.swift in Sources */,
-				B6B2C70323318F120064F2A3 /* FlowHelper.swift in Sources */,
-				B6B2C6F723318EEC0064F2A3 /* SettingsSegmentedTableViewCell.swift in Sources */,
-				B6B2C63A23318C6E0064F2A3 /* MonitoringAreaHealth.swift in Sources */,
-				B6B2C6C123318E8B0064F2A3 /* ViewFeedbacksViewController.swift in Sources */,
-				B6B2C6F123318EEC0064F2A3 /* SettingTableViewCell.swift in Sources */,
-				B6B2C70D23318F1C0064F2A3 /* FlowConfirmationCollectionViewCell.swift in Sources */,
-				B6B2C68D23318E1A0064F2A3 /* ScheduleCellTableViewCell.swift in Sources */,
-				B6B2C67F23318E090064F2A3 /* RangeUseageYearTableViewCell.swift in Sources */,
-				B6B2C64023318C830064F2A3 /* SSOConstants.swift in Sources */,
-				B6B2C5FD23318C270064F2A3 /* MonitoringArea.swift in Sources */,
-				B6B2C65223318DD30064F2A3 /* ScheduleElementTableViewCell.swift in Sources */,
-				B6B2C61E23318C5A0064F2A3 /* StringExtension.swift in Sources */,
-				B6B2C70F23318F1C0064F2A3 /* FlowOptionTableViewCell.swift in Sources */,
-				B6B2C63023318C6E0064F2A3 /* ClientType.swift in Sources */,
-				B6B2C62123318C5E0064F2A3 /* SyncDate.swift in Sources */,
-				B6B2C5F823318C270064F2A3 /* Client.swift in Sources */,
-				B6B2C6AB23318E560064F2A3 /* LoginViewController.swift in Sources */,
-				B6B2C68923318E140064F2A3 /* PlantCommunityTableViewCell.swift in Sources */,
-				B6B2C68523318E140064F2A3 /* PasturesTableViewCell.swift in Sources */,
-				B6B2C70223318F120064F2A3 /* FlowCell.swift in Sources */,
-				B6B2C6BD23318E860064F2A3 /* Feedback.swift in Sources */,
-				B6B2C62A23318C630064F2A3 /* IndicatorPlantSection.swift in Sources */,
-				B6B2C70B23318F1C0064F2A3 /* FlowReviewCollectionViewCell.swift in Sources */,
-				B6B2C67323318E030064F2A3 /* MapTableViewCell.swift in Sources */,
-				B6B2C6CA23318EA50064F2A3 /* Option.swift in Sources */,
-				B6B2C6DE23318EC30064F2A3 /* AmendmentPageThreeCollectionViewCell.swift in Sources */,
-				B6B2C60723318C400064F2A3 /* Auth.swift in Sources */,
-				B6B2C6CB23318EA50064F2A3 /* Options.swift in Sources */,
-				B6B2C71B23318F7A0064F2A3 /* AmendmentFlow.swift in Sources */,
-				B6B2C62223318C5E0064F2A3 /* UserInfo.swift in Sources */,
-				B6B2C6E023318EC30064F2A3 /* AmendmentPageFinalCollectionViewCell.swift in Sources */,
-				B6B2C69523318E280064F2A3 /* InvasivePlantsTableViewCell.swift in Sources */,
-				B6B2C60C23318C470064F2A3 /* DummyData.swift in Sources */,
+				B6B2C7302331B2180064F2A3 /* MyraTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

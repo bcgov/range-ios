@@ -9,6 +9,8 @@
 import XCTest
 import Fakery
 import SwiftyJSON
+@testable import Myra
+
 
 
 
