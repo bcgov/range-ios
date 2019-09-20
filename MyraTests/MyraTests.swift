@@ -10,6 +10,8 @@ import XCTest
 import Fakery
 import SwiftyJSON
 @testable import Myra
+import Realm
+import RealmSwift
 
 
 
@@ -23,9 +25,9 @@ class MyraTests: XCTestCase {
         var pathString:String = ""
         for aBundle in Bundle.allBundles
         {
-            pathString = aBundle.path(forResource: fileName, ofType: fileExtension) ?? ""
+            pathString = aBundle.path(forResource: fileName, ofType: fileExtension) ?? pathString
             
-            if pathString != "" && pathString != nil {
+            if pathString != "" {
                 return pathString
             }
         }
@@ -53,8 +55,14 @@ class MyraTests: XCTestCase {
         
     }
     
+
+    
     override func setUp() {
         MyraTests.faker = Faker(locale: "en-CA")
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
+        }
     }
     
     func test_Can_Create_Valid_Mock_Agreement() {
@@ -62,16 +70,67 @@ class MyraTests: XCTestCase {
             fatalError("unable to load json")
         }
         
-        var agreement = Agreement(json: jsonObj)
-        XCTAssert(false)
+        let agreement = Agreement(json: jsonObj)
+        
+        XCTAssert(agreement.agreementStartDate != nil)
     }
     
     func test_Can_Create_RUP_From_Mock_Agreement() {
-        XCTAssert(false)
+        
+        // set up test agreement
+        guard let jsonObj = MyraTests.helper_readJSONFromFile(fileName: "AgreementData", fileExtension: "json") else {
+            fatalError("unable to load json")
+        }
+        let agreement = Agreement(json: jsonObj)
+        
+        // create base RUP as done in select agreement view controller:
+        let plan = RUPManager.shared.genRUP(forAgreement: agreement)
+        
+        
+        XCTAssert(plan.agreementEndDate == agreement.agreementEndDate)
+        print("banana")
     }
     
+    // this only tests that there is no validation logic at this level, still need a functional test at top level
     func test_Can_Set_RUP_Start_Date_Past_Agreement_End_Date() {
-        XCTAssert(false)
+        // set up test agreement
+        guard let jsonObj = MyraTests.helper_readJSONFromFile(fileName: "AgreementData", fileExtension: "json") else {
+            fatalError("unable to load json")
+        }
+        
+        let agreement = Agreement(json: jsonObj)
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        
+        
+        // realm says no:
+        //agreement.agreementStartDate = dateFormatter.date(from: "25/01/2011")
+        //agreement.agreementEndDate = dateFormatter.date(from: "25/01/2020")
+        
+        
+        // create base RUP as done in select agreement view controller:
+        let plan = RUPManager.shared.genRUP(forAgreement: agreement)
+        
+        
+        var rupController  = CreateNewRUPViewController()
+        
+        //realm says no:
+        //plan.planStartDate = dateFormatter.date(from: "25/01/2021")
+        //plan.planEndDate = dateFormatter.date(from: "25/01/2030")
+        
+        rupController.rup = plan
+        
+        let indexPath = IndexPath(item: 0, section: 0)
+        var planInfoCell = rupController.getPlanInformationCell(indexPath: indexPath)
+        
+        planInfoCell.handlePlanStartDate(date: dateFormatter.date(from: "25/01/2021")!)
+        planInfoCell.handlePlanEndDate(date: dateFormatter.date(from: "25/01/2030")!)
+        
+        // need to force unwrap optionals to use binary operator
+        XCTAssert((rupController.rup)!.planStartDate! > agreement.agreementEndDate!)
+        XCTAssert((rupController.rup)!.planEndDate! > agreement.agreementEndDate!)
     }
     
     func test_Can_Set_RUP_End_Date_Past_Agreement_End_Date() {
