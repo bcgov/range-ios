@@ -19,6 +19,7 @@ import RealmSwift
 class MyraTests: XCTestCase {
    
     static var faker = Faker()
+          var app: XCUIApplication!
     
     static func searchBundlesForPath(fileName: String, fileExtension: String) -> String
     {
@@ -63,6 +64,9 @@ class MyraTests: XCTestCase {
         try! realm.write {
             realm.deleteAll()
         }
+        self.app = XCUIApplication()
+        self.app.launch()
+        
     }
     
     func test_Can_Create_Valid_Mock_Agreement() {
@@ -92,7 +96,7 @@ class MyraTests: XCTestCase {
     }
     
     // this only tests that there is no validation logic at this level, still need a functional test at top level
-    func test_Can_Set_RUP_Start_Date_Past_Agreement_End_Date() {
+/*    func test_Can_Set_RUP_Start_Date_Past_Agreement_End_Date() {
         // set up test agreement
         guard let jsonObj = MyraTests.helper_readJSONFromFile(fileName: "AgreementData", fileExtension: "json") else {
             fatalError("unable to load json")
@@ -113,25 +117,35 @@ class MyraTests: XCTestCase {
         // create base RUP as done in select agreement view controller:
         let plan = RUPManager.shared.genRUP(forAgreement: agreement)
         
+        let storyBoard: UIStoryboard = UIStoryboard(name: "CreateNewRup", bundle: nil)
+        storyBoard.instantiateViewController(withIdentifier: "CreateNewRup")
         
-        var rupController  = CreateNewRUPViewController()
         
+        var UIViewController = storyBoard.instantiateViewController(withIdentifier: "CreateNewRup")
         //realm says no:
         //plan.planStartDate = dateFormatter.date(from: "25/01/2021")
         //plan.planEndDate = dateFormatter.date(from: "25/01/2030")
         
-        rupController.rup = plan
+       // rupController.rup = plan//
         
-        let indexPath = IndexPath(item: 0, section: 0)
-        var planInfoCell = rupController.getPlanInformationCell(indexPath: indexPath)
         
-        planInfoCell.handlePlanStartDate(date: dateFormatter.date(from: "25/01/2021")!)
+       // let indexPath = IndexPath(item: 1, section: 0)
+        /*let planInfoCell = rupController.getPlanInformationCell(indexPath: indexPath)
+        
+       // let planInfoCell = rupController.tableView.cellForRow(at: indexPath)
+        
+        
+       planInfoCell.handlePlanStartDate(date: dateFormatter.date(from: "25/01/2021")!)
         planInfoCell.handlePlanEndDate(date: dateFormatter.date(from: "25/01/2030")!)
         
         // need to force unwrap optionals to use binary operator
         XCTAssert((rupController.rup)!.planStartDate! > agreement.agreementEndDate!)
         XCTAssert((rupController.rup)!.planEndDate! > agreement.agreementEndDate!)
-    }
+        */
+        XCTAssert(false)
+        // amir says need go get this cell from the story board
+        
+    } */
     
     func test_Can_Set_RUP_End_Date_Past_Agreement_End_Date() {
         XCTAssert(false)
@@ -147,6 +161,19 @@ class MyraTests: XCTestCase {
         XCTAssert(false)
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // UI tests
+    func test_Can_launch_app() {
+        XCTAssert(false)
+    }
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
