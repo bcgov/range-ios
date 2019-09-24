@@ -119,15 +119,16 @@ class MyraTests: XCTestCase {
         let storyBoard: UIStoryboard = UIStoryboard(name: "CreateNewRup", bundle: nil)
         var rupController = storyBoard.instantiateViewController(withIdentifier: "CreateNewRup") as! CreateNewRUPViewController
         
-        rupController.rup = plan
+        rupController.setup(rup: plan, mode: .Edit)
+        //rupController.rup = plan
         rupController.loadView()
         rupController.setUpTable()
-        
 
         
         // get tableview cell with plan info and set dates
         let indexPath = IndexPath(item: 1, section: 0)
         let planInfoCell = rupController.getPlanInformationCell(indexPath: indexPath)
+        planInfoCell.setup(mode: .Edit, rup: rupController.rup!)
         
         planInfoCell.handlePlanStartDate(date: dateFormatter.date(from: "25/01/2021")!)
         planInfoCell.handlePlanEndDate(date: dateFormatter.date(from: "25/01/2030")!)
@@ -135,8 +136,8 @@ class MyraTests: XCTestCase {
         
         
         // need to force unwrap optionals to use binary operator
-        XCTAssert((rupController.rup)!.planStartDate! > agreement.agreementEndDate!)
-        XCTAssert((rupController.rup)!.planEndDate! > agreement.agreementEndDate!)
+        XCTAssert(rupController.rup!.planStartDate! > agreement.agreementEndDate!)
+        XCTAssert(rupController.rup!.planEndDate! > agreement.agreementEndDate!)
     }
     
     func test_Can_Set_RUP_End_Date_Past_Agreement_End_Date() {
