@@ -123,21 +123,25 @@ class MyraTests: XCTestCase {
         //rupController.rup = plan
         rupController.loadView()
         rupController.setUpTable()
+        rupController.viewDidLoad()
 
         
         // get tableview cell with plan info and set dates
         let indexPath = IndexPath(item: 1, section: 0)
-        let planInfoCell = rupController.getPlanInformationCell(indexPath: indexPath)
-        planInfoCell.setup(mode: .Edit, rup: rupController.rup!)
+        //let planInfoCell = rupController.getPlanInformationCell(indexPath: indexPath)
+        let planInfoCell = rupController.tableView.cellForRow(at: indexPath) as! PlanInformationTableViewCell?
+        planInfoCell?.setup(mode: .Edit, rup: rupController.rup!)
         
-        planInfoCell.handlePlanStartDate(date: dateFormatter.date(from: "25/01/2021")!)
-        planInfoCell.handlePlanEndDate(date: dateFormatter.date(from: "25/01/2030")!)
+        planInfoCell!.handlePlanEndDate(date: dateFormatter.date(from: "25/01/2050")!)
+        planInfoCell!.handlePlanStartDate(date: dateFormatter.date(from: "25/01/2051")!)
         
         
         
+        XCTAssert( planInfoCell!.plan!.planStartDate! > agreement.agreementEndDate!)
+      //  XCTAssert(planInfoCell!.plan!.planEndDate! > agreement.agreementEndDate!)
         // need to force unwrap optionals to use binary operator
-        XCTAssert(rupController.rup!.planStartDate! > agreement.agreementEndDate!)
-        XCTAssert(rupController.rup!.planEndDate! > agreement.agreementEndDate!)
+      //  XCTAssert(rupController.rup!.planStartDate! > agreement.agreementEndDate!)
+       // XCTAssert(rupController.rup!.planEndDate! > agreement.agreementEndDate!)
     }
     
     func test_Can_Set_RUP_End_Date_Past_Agreement_End_Date() {
