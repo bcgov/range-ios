@@ -97,21 +97,18 @@ class MyraTests: XCTestCase {
     
 
     func test_Can_Set_RUP_Start_Date_Past_Agreement_End_Date() {
-        
-        // set up test agreement
-        guard let jsonObj = MyraTests.helper_readJSONFromFile(fileName: "AgreementData", fileExtension: "json") else {
-            fatalError("unable to load json")
-        }
-        
-        let agreement = Agreement(json: jsonObj)
-        
-        
-        
         //get date formatter ready to set plan dates
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
-        
+        // set up test agreement
+        guard var jsonObj = MyraTests.helper_readJSONFromFile(fileName: "AgreementData", fileExtension: "json") else {
+            fatalError("unable to load json")
+        }
+        //overwrite the dates to work for this test:
+        jsonObj["agreementStartDate"] = "2040-12-31T08:00:00.000Z"
+        jsonObj["agreementEndDate"] = "2041-12-31T08:00:00.000Z"
+        let agreement = Agreement(json: jsonObj)
         
         // create base RUP as done in select agreement view controller:
         let plan = RUPManager.shared.genRUP(forAgreement: agreement)
@@ -120,28 +117,19 @@ class MyraTests: XCTestCase {
         var rupController = storyBoard.instantiateViewController(withIdentifier: "CreateNewRup") as! CreateNewRUPViewController
         
         rupController.setup(rup: plan, mode: .Edit)
-        //rupController.rup = plan
         rupController.loadView()
         rupController.setUpTable()
         rupController.viewDidLoad()
-
         
         // get tableview cell with plan info and set dates
         let indexPath = IndexPath(item: 1, section: 0)
-        //let planInfoCell = rupController.getPlanInformationCell(indexPath: indexPath)
         let planInfoCell = rupController.tableView.cellForRow(at: indexPath) as! PlanInformationTableViewCell?
         planInfoCell?.setup(mode: .Edit, rup: rupController.rup!)
         
         planInfoCell!.handlePlanEndDate(date: dateFormatter.date(from: "25/01/2050")!)
         planInfoCell!.handlePlanStartDate(date: dateFormatter.date(from: "25/01/2051")!)
         
-        
-        
         XCTAssert( planInfoCell!.plan!.planStartDate! > agreement.agreementEndDate!)
-      //  XCTAssert(planInfoCell!.plan!.planEndDate! > agreement.agreementEndDate!)
-        // need to force unwrap optionals to use binary operator
-      //  XCTAssert(rupController.rup!.planStartDate! > agreement.agreementEndDate!)
-       // XCTAssert(rupController.rup!.planEndDate! > agreement.agreementEndDate!)
     }
     
     func test_Can_Set_RUP_End_Date_Past_Agreement_End_Date() {
