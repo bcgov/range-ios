@@ -117,7 +117,7 @@ class PlanInformationTableViewCell: BaseFormCell {
         if let endDate = plan.planEndDate {
             let endYear = endDate.year()
             let startYear = date.year()
-            if endDate < date || (endYear - startYear) > 5 {
+            if endDate < date || (endYear - startYear) > 50 {
                 self.planEndValue.text = DateManager.toString(date: (plan.planStartDate)!)
                 do {
                     let realm = try Realm()
