@@ -420,6 +420,8 @@
 		B6B2C72A23319C2D0064F2A3 /* Pin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297E998C2165482000FB6F04 /* Pin.xib */; };
 		B6B2C72D2331A6B90064F2A3 /* MonitoringArea.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295F8F1020F7F60E009D7717 /* MonitoringArea.storyboard */; };
 		B6B2C7302331B2180064F2A3 /* MyraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B99ABF233033F400B25C2D /* MyraTests.swift */; };
+		B6F22F952347DC6B00033A77 /* PlanAndAgreementDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F22F942347DC6B00033A77 /* PlanAndAgreementDateTests.swift */; };
+		B6F22F982347DD5700033A77 /* FileToJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F22F972347DD5700033A77 /* FileToJson.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -751,6 +753,8 @@
 		B6B99ABD233033F400B25C2D /* MyraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6B99ABF233033F400B25C2D /* MyraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyraTests.swift; sourceTree = "<group>"; };
 		B6B99AC1233033F400B25C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6F22F942347DC6B00033A77 /* PlanAndAgreementDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAndAgreementDateTests.swift; sourceTree = "<group>"; };
+		B6F22F972347DD5700033A77 /* FileToJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToJson.swift; sourceTree = "<group>"; };
 		FE73A0A2B3B632210BFCE875 /* Pods_Myra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Myra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1692,6 +1696,8 @@
 		B6B99ABE233033F400B25C2D /* MyraTests */ = {
 			isa = PBXGroup;
 			children = (
+				B6F22F962347DD2500033A77 /* Helpers */,
+				B6F22F922347DC2B00033A77 /* RUP Tests */,
 				B6B99AC72330446600B25C2D /* Static Test Data */,
 				B6B99ABF233033F400B25C2D /* MyraTests.swift */,
 				B6B99AC1233033F400B25C2D /* Info.plist */,
@@ -1705,6 +1711,30 @@
 				B6B2C5F0233160B10064F2A3 /* AgreementData.json */,
 			);
 			path = "Static Test Data";
+			sourceTree = "<group>";
+		};
+		B6F22F922347DC2B00033A77 /* RUP Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B6F22F932347DC3B00033A77 /* Agreement and Plan date tests */,
+			);
+			path = "RUP Tests";
+			sourceTree = "<group>";
+		};
+		B6F22F932347DC3B00033A77 /* Agreement and Plan date tests */ = {
+			isa = PBXGroup;
+			children = (
+				B6F22F942347DC6B00033A77 /* PlanAndAgreementDateTests.swift */,
+			);
+			path = "Agreement and Plan date tests";
+			sourceTree = "<group>";
+		};
+		B6F22F962347DD2500033A77 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B6F22F972347DD5700033A77 /* FileToJson.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2376,7 +2406,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6F22F982347DD5700033A77 /* FileToJson.swift in Sources */,
 				B6B2C7302331B2180064F2A3 /* MyraTests.swift in Sources */,
+				B6F22F952347DC6B00033A77 /* PlanAndAgreementDateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2466,6 +2498,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2517,6 +2550,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
