@@ -1,3 +1,5 @@
+[![img](https://img.shields.io/badge/Lifecycle-Retired-d45500)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+NOTE:  This project has now been deprecated by /bcgov/range-web
 <p align="center">
 	<img src="https://github.com/bcgov/range-ios/blob/master/readmeFiles/Icon.png">
 </p>
