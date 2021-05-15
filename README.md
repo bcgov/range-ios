@@ -1,3 +1,5 @@
+[![Lifecycle:Retired](https://img.shields.io/badge/Lifecycle-Retired-d45500)](<Redirect-URL>)
+
 <p align="center">
 	<img src="https://github.com/bcgov/range-ios/blob/master/readmeFiles/Icon.png">
 </p>
